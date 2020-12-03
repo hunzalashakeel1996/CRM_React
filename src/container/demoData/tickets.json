@@ -1,0 +1,34 @@
+[
+{
+    "ticketNumber": "1234",
+    "createdAt": "11-04-2020",
+    "createdBy": "Paul",
+    "status": "Waiting",
+    "from": "CSR",
+    "to": "SHIPPING",
+    "assigned": "Mason",
+    "reason": "Rush Fee",
+    "orderNumber": "AM-04112020-1234",
+    "customerName": "John",
+    "phone": "19723485648",
+    "zipCode": "1239",
+    "comments": [],
+    "reminders": []
+},
+{
+    "ticketNumber": "5678",
+    "createdAt": "28-10-2020",
+    "createdBy": "Paul",
+    "status": "Closed",
+    "from": "CSR",
+    "to": "SHIPPING",
+    "assigned": "Jason",
+    "reason": "Rush Fee",
+    "orderNumber": "AM-04112020-4312",
+    "customerName": "Mary",
+    "phone": "19055736458",
+    "zipCode": "1239",
+    "comments": [],
+    "reminders": []
+}
+]
