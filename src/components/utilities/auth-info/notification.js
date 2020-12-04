@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Badge } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AtbdTopDropdwon } from './auth-info-style';
 import { Popover } from '../../popup/popup';
 import Heading from '../../heading/heading';
+import { getUserRemindersAPI } from '../../../redux/apis/DataAction';
+import { addAllReminders } from '../../../redux/ticket/actionCreator';
 
 const NotificationBox = () => {
-  const { rtl } = useSelector(state => {
+  const dispatch = useDispatch();
+  const { rtl, user } = useSelector(state => {
     return {
       rtl: state.ChangeLayoutMode.rtlData,
+      user: state.auth.login
     };
   });
+
+  useEffect(() => {
+    dispatch(getUserRemindersAPI({ LoginName: user.LoginName })).then(data => {
+      dispatch(addAllReminders(data))
+    })
+  }, []);
 
   const renderThumb = ({ style, ...props }) => {
     const thumbStyle = {
@@ -38,6 +48,8 @@ const NotificationBox = () => {
     return <div className="hello" style={thumbStyle} />;
   };
 
+ 
+
   const renderView = ({ style, ...props }) => {
     const customStyle = {
       marginRight: rtl && 'auto',
@@ -54,20 +66,13 @@ const NotificationBox = () => {
     style: PropTypes.shape(PropTypes.object),
   };
 
-  const content = (
-    <AtbdTopDropdwon className="atbd-top-dropdwon">
-      <Heading as="h5" className="atbd-top-dropdwon__title">
-        <span className="title-text">Notifications</span>
-        <Badge className="badge-success" count={3} />
-      </Heading>
-      <Scrollbars
-        autoHeight
-        autoHide
-        renderThumbVertical={renderThumb}
-        renderView={renderView}
-        renderTrackVertical={renderTrackVertical}
-      >
-        <ul className="atbd-top-dropdwon__nav notification-list">
+  let remainders = useSelector(state => state.tickets.reminders);
+  const notificationlist = (
+
+    remainders.map((reminder, i) => {
+      const { RefrenceId, Message } = reminder;
+      return (
+        <ul className=" notification-list">
           <li>
             <Link to="#">
               <div className="atbd-top-dropdwon__content notifications">
@@ -77,9 +82,9 @@ const NotificationBox = () => {
                 <div className="notification-content d-flex">
                   <div className="notification-text">
                     <Heading as="h5">
-                      <span>James</span> sent you a message
+                      <span>{RefrenceId}</span> {Message}
                     </Heading>
-                    <p>5 hours ago</p>
+                   
                   </div>
                   <div className="notification-status">
                     <Badge dot />
@@ -88,91 +93,25 @@ const NotificationBox = () => {
               </div>
             </Link>
           </li>
-          <li>
-            <Link to="#">
-              <div className="atbd-top-dropdwon__content notifications">
-                <div className="notification-icon bg-secondary">
-                  <FeatherIcon icon="share" />
-                </div>
-                <div className="notification-content d-flex">
-                  <div className="notification-text">
-                    <Heading as="h5">
-                      <span>James</span> sent you a message
-                    </Heading>
-                    <p>5 hours ago</p>
-                  </div>
-
-                  <div className="notification-status">
-                    <Badge dot />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link to="#">
-              <div className="atbd-top-dropdwon__content notifications">
-                <div className="notification-icon bg-secondary">
-                  <FeatherIcon icon="share" />
-                </div>
-                <div className="notification-content d-flex">
-                  <div className="notification-text">
-                    <Heading as="h5">
-                      <span>James</span> sent you a message
-                    </Heading>
-                    <p>5 hours ago</p>
-                  </div>
-
-                  <div className="notification-status">
-                    <Badge dot />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link to="#">
-              <div className="atbd-top-dropdwon__content notifications">
-                <div className="notification-icon bg-secondary">
-                  <FeatherIcon icon="share" />
-                </div>
-                <div className="notification-content d-flex">
-                  <div className="notification-text">
-                    <Heading as="h5">
-                      <span>James</span> sent you a message
-                    </Heading>
-                    <p>5 hours ago</p>
-                  </div>
-
-                  <div className="notification-status">
-                    <Badge dot />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link to="#">
-              <div className="atbd-top-dropdwon__content notifications">
-                <div className="notification-icon bg-secondary">
-                  <FeatherIcon icon="share" />
-                </div>
-                <div className="notification-content d-flex">
-                  <div className="notification-text">
-                    <Heading as="h5">
-                      <span>James</span> sent you a message
-                    </Heading>
-                    <p>5 hours ago</p>
-                  </div>
-
-                  <div className="notification-status">
-                    <Badge dot />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </li>
+         
+         
         </ul>
+        );
+      } ) );
+  const content = (
+    <AtbdTopDropdwon className="atbd-top-dropdwon">
+      <Heading as="h5" className="atbd-top-dropdwon__title">
+        <span className="title-text">Notifications</span>
+        <Badge className="badge-success" count={remainders.length} />
+      </Heading>
+      <Scrollbars
+        autoHeight
+        autoHide
+        renderThumbVertical={renderThumb}
+        renderView={renderView}
+        renderTrackVertical={renderTrackVertical}
+      >
+       {notificationlist}
       </Scrollbars>
       <Link className="btn-seeAll" to="#">
         See all incoming activity

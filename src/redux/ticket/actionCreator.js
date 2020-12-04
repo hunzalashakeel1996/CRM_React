@@ -7,9 +7,13 @@ const {
   addCommentAction,
   addReminderAction,
   addAllCommentsAction,
-  addDepartAction
+  addDepartAction,
+  addAllRemindersAction,
+  editReminderStatusAction,
+  addSingleReminderAction
 } = actions;
 
+// ================================= Tickets ===================================================
 const addTicket = (values) => {
   return async dispatch => {
     try {
@@ -34,18 +38,7 @@ const addAllTickets = (values) => {
   };
 };
 
-const addComment = (values) => {
-  return async dispatch => {
-    try {
-      dispatch(addCommentAction(values));
-    
-      // dispatch(singleProjectSuccess(data));
-    } catch (err) {
-      console.log(err)
-    }
-  };
-};
-
+// ======================================= Reminders =======================================================
 const addReminder = (values) => {
   return async dispatch => {
     try {
@@ -58,6 +51,50 @@ const addReminder = (values) => {
   };
 };
 
+const addAllReminders = (values) => {
+  console.log(values);
+  return async dispatch => {
+    try {
+      dispatch(addAllRemindersAction(values));
+    
+      // dispatch(singleProjectSuccess(data));
+    } catch (err) {
+      console.log(err)
+    }
+  };
+};
+
+const editReminderStatus = (values) => {
+  return async dispatch => {
+    try {
+      dispatch(editReminderStatusAction(values));
+    } catch (err) {
+      console.log(err)
+    }
+  };
+};
+
+const addSingleReminder = (values) => {
+  return async dispatch => {
+    try {
+      dispatch(addSingleReminderAction(values));
+    } catch (err) {
+      console.log(err)
+    }
+  };
+};
+// ========================================== Comments ========================================================
+const addComment = (values) => {
+  return async dispatch => {
+    try {
+      dispatch(addCommentAction(values));
+    
+      // dispatch(singleProjectSuccess(data));
+    } catch (err) {
+      console.log(err)
+    }
+  };
+};
 
 const addAllComments = (values) => {
   return async dispatch => {
@@ -83,6 +120,4 @@ const addDepart = (values) => {
   };
 };
 
-
-
-export { addTicket, addComment, addAllTickets, addAllComments, addReminder, addDepart};
+export { addTicket, addComment, addAllTickets, addAllComments, addReminder, addDepart, addAllReminders, editReminderStatus, addSingleReminder};
