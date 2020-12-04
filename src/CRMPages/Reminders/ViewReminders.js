@@ -13,52 +13,52 @@ import { ProjectHeader } from './style';
 const RemindersList = lazy(() => import('./overview/RemindersList'));
 import HeaderSearch from './../../components/header-search/header-search';
 import ReasonAutoComplete from './../../components/ReasonAutoComplete/ReasonAutoComplete';
+import { addAllReminders, addSingleReminder } from '../../redux/ticket/actionCreator';
 
 const ViewReminders = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { path } = props.match;
 
+  // get items from redux
+  const { socket, user, reminders } = useSelector(state => {
+    return {
+      socket: state.socket.socket,
+      user: state.auth.login,
+      reminders: state.tickets.reminders
+    };
+  });
+
   const [state, setState] = useState({
     visible: false,
     categoryActive: 'all',
-    filterReminders: [],
-    reminders: [],
-    loader: true,
-    StatusSort:'Open',
+    filterReminders: reminders,
+    loader: false,
+    StatusSort: 'Open',
   });
-  const { visible, loader, filterReminders, reminders, StatusSort } = state;
-
-  // get items from redux
-  let socket = useSelector(state => state.socket.socket);
-  let user = useSelector(state => state.auth.login);
-
-  let mount = false
+  const { visible, loader, filterReminders, StatusSort } = state;
 
   useEffect(() => {
-    setState({ ...state, loader: true })
-    dispatch(getUserRemindersAPI({ LoginName: user.LoginName })).then(data => {
-      //   dispatch(addAllTickets(data))
-      setState({ ...state, filterReminders: data, reminders: data, loader: false, StatusSort:'Open'});
-    })
-  }, []);
+    setState({ ...state, filterReminders: reminders })
+  }, [reminders])
 
-    // sockets
-    socket ? socket.onmessage = (data) => {
-        let message = JSON.parse(data.data)
-   
-        if (message.reason === 'newReminder' && message.data.Assigned.toLowerCase() === user.LoginName.toLowerCase()) {
-            console.log('socekt', message.data)
-            audioPlay()
-            let temp = [...reminders]
-            temp.unshift(message.data)
-            setState({ ...state, filterReminders: temp, reminders: temp });
-        }
-    } : null
+  // sockets
+  socket ? socket.onmessage = (data) => {
+    let message = JSON.parse(data.data)
+
+    if (message.reason === 'newReminder' && message.data.Assigned.toLowerCase() === user.LoginName.toLowerCase()) {
+      console.log('socekt', message.data)
+      audioPlay()
+      dispatch(addSingleReminder(message.data))
+      // let temp = [...reminders]
+      // temp.unshift(message.data)
+      // setState({ ...state, filterReminders: temp, reminders: temp });
+    }
+  } : null
 
   const handleSearch = (searchText, objectName) => {
     let temp = reminders.filter(item => item[objectName].toUpperCase().includes(searchText.toUpperCase()))
-    setState({...state, filterReminders: temp, });
+    setState({ ...state, filterReminders: temp, });
   };
 
   const onSorting = selectedItems => {
@@ -75,11 +75,11 @@ const ViewReminders = (props) => {
 
   const showModal = () => {
     // socket.send(JSON.stringify({ type: 'roomMessage', roomId: 123, message: 'hello' }))
-    setState({...state, visible: true });
+    setState({ ...state, visible: true });
   };
 
   const onCancel = () => {
-    setState({...state, visible: false });
+    setState({ ...state, visible: false });
   };
 
   return (
@@ -99,10 +99,10 @@ const ViewReminders = (props) => {
       <Main>
         <Row gutter={25}>
           <Col xs={24}>
-            <Row style={{marginBottom: 10}} gutter={10}>
+            <Row style={{ marginBottom: 10 }} gutter={10}>
               <Col md={8} xs={24}>
                 <div className="project-sort-search">
-                  <AutoComplete onSearch={(e) => {handleSearch(e, 'RefrenceId')}} placeholder="Reference Id" patterns />
+                  <AutoComplete onSearch={(e) => { handleSearch(e, 'RefrenceId') }} placeholder="Reference Id" patterns />
                 </div>
               </Col>
               {/* <Col md={8} xs={24}>
@@ -123,8 +123,8 @@ const ViewReminders = (props) => {
               </Col>
 
               <Col md={24} xs={24} style={{ marginTop: 10 }} >
-                <Button variant="danger" onClick={(val) => {setState({ ...state, StatusSort: 'Open' });}} style={{ borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
-                <Button variant="primary" onClick={(val) => {setState({ ...state, StatusSort: 'Closed' });}} style={{ borderColor: StatusSort == "Closed" ? '#5F63F2' : null }}>Closed</Button>
+                <Button variant="danger" onClick={(val) => { setState({ ...state, StatusSort: 'Open' }); }} style={{ borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
+                <Button variant="primary" onClick={(val) => { setState({ ...state, StatusSort: 'Closed' }); }} style={{ borderColor: StatusSort == "Closed" ? '#5F63F2' : null }}>Closed</Button>
               </Col>
             </Row>
 
@@ -137,9 +137,9 @@ const ViewReminders = (props) => {
                     </div>
                   }
                 >
-                  <Route path={path} render={(props) => <RemindersList {...props} loader={loader} filterReminders={filterReminders} StatusSort={StatusSort} onReminderStatusChange={(reminders) => {setState({...state, filterReminders: reminders})}} /> }  exact />
-                  <Route path={`${path}/grid`}  render={(props) => <RemindersList {...props} loader={loader} filterReminders={filterReminders} StatusSort={StatusSort} onReminderStatusChange={(reminders) => {setState({...state, filterReminders: reminders})}}/> }/>
-                  <Route path={`${path}/list`}  render={(props) => <RemindersList {...props} loader={loader} filterReminders={filterReminders}  StatusSort={StatusSort} onReminderStatusChange={(reminders) => {setState({...state, filterReminders: reminders})}}/> }/>
+                  <Route path={path} render={(props) => <RemindersList {...props} loader={loader} filterReminders={filterReminders} StatusSort={StatusSort} />} exact />
+                  <Route path={`${path}/grid`} render={(props) => <RemindersList {...props} loader={loader} filterReminders={filterReminders} StatusSort={StatusSort} />} />
+                  <Route path={`${path}/list`} render={(props) => <RemindersList {...props} loader={loader} filterReminders={filterReminders} StatusSort={StatusSort} />} />
                 </Suspense>
               </Switch>
             </div>

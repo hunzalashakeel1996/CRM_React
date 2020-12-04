@@ -1,10 +1,7 @@
 const actions = {
+  // ==================================================== Tickets =============================================
   ADD_TICKET: 'ADD_TICKET',
   ADD_ALL_TICKETS: 'ADD_ALL_TICKETS',
-  ADD_COMMENT: 'ADD_COMMENT',
-  ADD_REMINDER: 'ADD_REMINDER',
-  ADD_ALL_COMMENTS: 'ADD_ALL_COMMENTS',
-  ADD_DEPART: 'ADD_DEPART',
 
   addTicketAction: data => {
     console.log('1 action', data)
@@ -21,16 +18,13 @@ const actions = {
     };
   },
 
+  // ======================================================= Comments ============================================
+  ADD_COMMENT: 'ADD_COMMENT',
+  ADD_ALL_COMMENTS: 'ADD_ALL_COMMENTS',
+
   addCommentAction: data => {
     return {
       type: actions.ADD_COMMENT,
-      data,
-    };
-  },
-
-  addReminderAction: data => {
-    return {
-      type: actions.ADD_REMINDER,
       data,
     };
   },
@@ -42,9 +36,44 @@ const actions = {
     };
   },
 
+  // ========================================================== Reminders =========================================
+  ADD_REMINDER: 'ADD_REMINDER',
+  ADD_DEPART: 'ADD_DEPART',
+  ADD_ALL_REMINDERS: 'ADD_ALL_REMINDERS',
+  EDIT_REMINDER_STATUS: 'EDIT_REMINDER_STATUS',
+  ADD_SINGLE_REMINDER: 'ADD_SINGLE_REMINDER',
+
+  addReminderAction: data => {
+    return {
+      type: actions.ADD_REMINDER,
+      data,
+    };
+  },
+
   addDepartAction: data => {
     return {
       type: actions.ADD_DEPART,
+      data,
+    };
+  },
+
+  addAllRemindersAction: data => {
+    return {
+      type: actions.ADD_ALL_REMINDERS,
+      data,
+    };
+  },
+
+  editReminderStatusAction: data => {
+    return {
+      type: actions.EDIT_REMINDER_STATUS,
+      data,
+    };
+  },
+
+  addSingleReminderAction: data => {
+    return {
+      type: actions.ADD_SINGLE_REMINDER,
       data,
     };
   },
