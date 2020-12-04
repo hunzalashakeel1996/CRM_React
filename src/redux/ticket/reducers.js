@@ -1,7 +1,4 @@
 import actions from './actions';
-import ticketsData from '../../demoData/tickets.json';
-import commentsData from '../../demoData/comments.json';
-import remindersData from '../../demoData/reminders.json';
 
 const {
   ADD_TICKET,
@@ -9,7 +6,10 @@ const {
   ADD_ALL_COMMENTS,
   ADD_REMINDER,
   ADD_ALL_TICKETS,
-  ADD_DEPART
+  ADD_DEPART,
+  ADD_ALL_REMINDERS,
+  EDIT_REMINDER_STATUS,
+  ADD_SINGLE_REMINDER
 } = actions;
 
 const ticketState = {
@@ -17,7 +17,6 @@ const ticketState = {
   comments: [],
   reminders: [],
   depart: [],
-  // tickets: localStorage.getItem('tickets') ? JSON.parse(localStorage.getItem('tickets')) : ticketsData,
   loading: false,
   error: null,
 };
@@ -69,6 +68,26 @@ const ticketReducer = (state = ticketState, action) => {
         depart: data,
         loading: false,
       };
+    case ADD_ALL_REMINDERS:
+      return {
+        ...state,
+        reminders: data
+      }
+    case EDIT_REMINDER_STATUS:
+      temp = [...state.reminders]
+      let index = temp.findIndex(val => { return val.ReminderID === data.selectedReminderDetail.ReminderID })
+      temp[index] = { ...temp[index], Status: data.Status }
+      return {
+        ...state,
+        reminders: temp
+      }
+    case ADD_SINGLE_REMINDER:
+      temp = [...reminders]
+      temp.unshift(data)
+      return {
+        ...state,
+        reminders: temp
+      }
     default:
       return state;
   }

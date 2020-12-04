@@ -45,7 +45,6 @@ const ViewTickets = (props) => {
     // dispatch(connectSocket(user.LoginID))
 
     // get tickets 
-    console.log('user0', user)
     dispatch(getTicketsAPI({ LoginName: user.LoginName })).then(data => {
       console.log('12310', data)
       dispatch(addAllTickets(data))
