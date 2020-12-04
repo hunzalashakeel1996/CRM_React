@@ -7,7 +7,7 @@ export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
 // export const url = "http://192.168.5.107:3000";
-export const url = "https://crmserver-production.herokuapp.com";
+export const url = "https://crmserver-development.herokuapp.com";
 export const uploadUrl = "https://images.vanwala.pk";
 
 
