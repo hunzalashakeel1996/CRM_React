@@ -31,8 +31,8 @@ const NotificationBox = () => {
 
   useEffect(() => {
     dispatch(getUserRemindersAPI({ LoginName: user.LoginName })).then(data => {
-      let openReminder = data.filter(val => val.Status === 'Open')
-      dispatch(addAllReminders(openReminder))
+      // let openReminder = data.filter(val => val.Status === 'Open')
+      dispatch(addAllReminders(data))
     })
   }, []);
 
@@ -111,33 +111,34 @@ const NotificationBox = () => {
       })
       :
       remainders.map((reminder, i) => {
-        const { RefrenceId, Message, ReminderID} = reminder;
-        return (
-          <ul className=" notification-list">
-            <li>
-              <a href={`/admin/ticket/viewReminders/${ReminderID}`} target='_blank'>
-                <div className="atbd-top-dropdwon__content notifications">
-                  <div className="notification-icon bg-primary">
-                    <FeatherIcon icon="hard-drive" />
-                  </div>
-                  <div className="notification-content d-flex">
-                    <div className="notification-text">
-                      <Heading as="h5">
-                        <span>{RefrenceId!=null?RefrenceId:'Self Assign'}:</span> {Message}
-                      </Heading>
-
+        const { RefrenceId, Message, ReminderID, Status } = reminder;
+        if (Status === 'Open')
+          return (
+            <ul className=" notification-list">
+              <li>
+                <a href={`/admin/ticket/viewReminders/${ReminderID}`} target='_blank'>
+                  <div className="atbd-top-dropdwon__content notifications">
+                    <div className="notification-icon bg-primary">
+                      <FeatherIcon icon="hard-drive" />
                     </div>
-                    <div className="notification-status">
-                      <Badge dot />
+                    <div className="notification-content d-flex">
+                      <div className="notification-text">
+                        <Heading as="h5">
+                          <span>{RefrenceId != null ? RefrenceId : 'Self Assign'}:</span> {Message}
+                        </Heading>
+
+                      </div>
+                      <div className="notification-status">
+                        <Badge dot />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
-            </li>
+                </a>
+              </li>
 
 
-          </ul>
-        );
+            </ul>
+          );
       })
   );
   const content = (
