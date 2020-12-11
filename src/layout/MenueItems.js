@@ -40,6 +40,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Reminders
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="ViewAzabReport">
+          <NavLink onClick={toggleCollapsed} to={`${path}/azab/ViewAzabReport`}>
+          AzabReport
+          </NavLink>
+        </Menu.Item>
       </SubMenu>
 
       <SubMenu key="ticket" icon={!topMenu && <FeatherIcon icon="target" />} title="Ticket">

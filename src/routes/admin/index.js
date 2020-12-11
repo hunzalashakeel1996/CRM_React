@@ -3,6 +3,7 @@ import { Spin } from 'antd';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Dashboard from './dashboard';
 import Tickets from './tickets';
+import Azab from './azab'
 import withAdminLayout from '../../layout/withAdminLayout';
 
 const Admin = () => {
@@ -20,6 +21,7 @@ const Admin = () => {
       >
         <Route path={path} component={Tickets} />
         <Route path={`${path}/ticket`} component={Tickets} />
+        <Route path={`${path}/azab`} component={Azab} />
       </Suspense>
     </Switch>
   );

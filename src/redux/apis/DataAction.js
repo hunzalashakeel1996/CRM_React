@@ -3,11 +3,11 @@ import sound from '../../static/sounds/notificationBeep.wav'
 import {  useSelector } from 'react-redux';
 
 
-export const webURL = `http://localhost:3001`
+//export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
-// export const url = "http://192.168.5.107:3000";
-export const url = "https://crmserver-development.herokuapp.com";
+ export const url = "http://192.168.0.196:3000";
+//export const url = "https://crmserver-development.herokuapp.com";
 
 export const uploadUrl = "https://images.vanwala.pk";
 
@@ -209,5 +209,8 @@ export const uploadAttachment = (data) => {
     return (apiFetch(`api/ticket/imageUpload`, 'POST',header, data))
 };
 
+export const getAzabAPI = (data) => {
+    return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({data}));
+};
 
 
