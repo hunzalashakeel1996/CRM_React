@@ -204,6 +204,10 @@ export const TicketStatusChangeAPI = (data) => {
     return apiFetch('api/ticket/TicketStatusChange', "POST", headerWithWebToken, JSON.stringify({data}));
 };
 
+export const getAzabAPI = (data) => {
+    return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({data}));
+};
+
 // image upload
 export const uploadAttachment = (data) => {
     return (apiFetch(`api/ticket/imageUpload`, 'POST',header, data))
