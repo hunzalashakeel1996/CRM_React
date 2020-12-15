@@ -10,7 +10,7 @@ const ProjectRoutes = () => {
   const { path } = useRouteMatch();
   return (
     <Switch>
-    //  <Route exact path={`${path}`} component={ViewAzabReport} />
+      <Route exact path={`${path}`} component={ViewAzabReport} />
       <Route exact path={`${path}/viewazabreport`} component={ViewAzabReport} />
    
       {/* <Route path={`${path}/createTicket`} component={CreateTicket} /> */}
