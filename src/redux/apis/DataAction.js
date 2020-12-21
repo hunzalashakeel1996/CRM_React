@@ -7,7 +7,7 @@ import {  useSelector } from 'react-redux';
 export const webURL = "http://mergemtvw.herokuapp.com";
 
 // export const url = "http://192.168.4.100:3000";
-export const url = "https://crmserver-development.herokuapp.com";
+export const url = "https://pu-crm-backend-develop.herokuapp.com";
 
 export const uploadUrl = "https://images.vanwala.pk";
 
