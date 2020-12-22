@@ -3,11 +3,12 @@ import sound from '../../static/sounds/notificationBeep.wav'
 import {  useSelector } from 'react-redux';
 
 
-export const webURL = `http://localhost:3001`
-// export const webURL = "http://mergemtvw.herokuapp.com";
+// export const webURL = `http://localhost:3001`
+export const webURL = "http://mergemtvw.herokuapp.com";
 
 export const url = "http://192.168.0.101:3000";
 // export const url = "https://crm-backend-server.herokuapp.com";
+
 export const uploadUrl = "https://images.vanwala.pk";
 
 
@@ -201,6 +202,10 @@ export const logoutAPI = (data) => {
 
 export const TicketStatusChangeAPI = (data) => {
     return apiFetch('api/ticket/TicketStatusChange', "POST", headerWithWebToken, JSON.stringify({data}));
+};
+
+export const getAzabAPI = (data) => {
+    return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({data}));
 };
 
 // image upload

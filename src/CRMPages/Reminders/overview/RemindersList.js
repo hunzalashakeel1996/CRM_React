@@ -9,6 +9,7 @@ import { ProjectList, ProjectListTitle } from '../style';
 import {formatDate} from '../../../components/time/formatDate'
 import { Modal } from '../../../components/modals/antd-modals';
 import {reminderStatusChangeAPI} from '../../../redux/apis/DataAction'
+import { editReminderStatus } from '../../../redux/ticket/actionCreator';
 
 const { Option } = Select;
 
@@ -29,13 +30,13 @@ const RemindersList = (props) => {
   useEffect(() => {
     // if reminders find in props i,e open on same page
     if (props.filterReminders) {
-      console.log('1', props.filterReminders)
       setState({
         ...state,
         reminders: props.filterReminders.filter(val => val.Status === props.StatusSort),
       });
     }
     // when page open through notification press
+    console.log('asda',props.match.params)
     if (props.match.params.ReminderID && props.filterReminders.length > 0) {
       setTimeout(() => {
         setState({
@@ -47,8 +48,6 @@ const RemindersList = (props) => {
   }, [props.filterReminders]);
 
   useEffect(() => {
-    console.log('2', props.filterReminders)
-
     setState({
       ...state,
       reminders: props.filterReminders.filter(val => val.Status === props.StatusSort),
@@ -86,7 +85,8 @@ const RemindersList = (props) => {
 
         let data = {ReminderID: selectedReminderDetail.ReminderID, Status: event.target.value}
         dispatch(reminderStatusChangeAPI(data))
-        props.onReminderStatusChange(temp)
+        dispatch(editReminderStatus({selectedReminderDetail, Status: event.target.value}))
+        // props.onReminderStatusChange(temp)
     }
 
   const dataSource = [];
@@ -107,7 +107,7 @@ const RemindersList = (props) => {
             {/* <p>{comments.length>0? comments[comments.length-1].shortDesc: 'No comments at this ticket yet'}</p> */}
           </ProjectListTitle>
           ),
-          RefrenceId: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{RefrenceId !== 'null' ? RefrenceId : '-'}</span></Link>,
+          RefrenceId: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{RefrenceId !== null ? RefrenceId : '-'}</span></Link>,
           CreateBy: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{CreateBy}</span></Link>,
           ReminderType: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{ReminderType}</span></Link>,
           Assigned: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{Assigned} {TicketGroup && `(${TicketGroup})`}</span></Link>,
