@@ -129,21 +129,15 @@ const AzabReportList = (props) => {
   return (
     <>
       <Row gutter={25}>
-        <Col xs={12}>
+        <Col span={12}>
           <Input placeholder="Search" onChange={handleChange} style={{ width: '100%', marginLeft: 20, marginRight: 20, marginTop: 10 }} />
-
           {/* <Checkbox onChange={onChangePurchaseOrder}>Purchase Order</Checkbox> */}
-
         </Col>
-        <Col xs={12} style={{alignSelf: 'flex-end'}}>
-        <Checkbox onChange={onChangeinventory} >Inventory</Checkbox>
-
+        <Col span={12} style={{alignSelf: 'flex-end'}}>
+          <Checkbox onChange={onChangeinventory} >Inventory</Checkbox>
         </Col>
-
-
       </Row>
-      <Row gutter={25} style={{ marginTop: 10 }}>
-
+      <Row gutter={25} style={{ marginTop: 10, marginLeft: 10}}>
         <Col xs={24}>
           <Cards headless>
             <ProjectList>

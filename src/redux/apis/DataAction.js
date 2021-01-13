@@ -6,7 +6,7 @@ import {  useSelector } from 'react-redux';
 //export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
- export const url = "http://192.168.0.196:3000";
+ export const url = "http://192.168.0.198:3000";
 //export const url = "https://crmserver-development.herokuapp.com";
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -94,7 +94,7 @@ const multipartHeader = {
 // })
 
 export const apiFetch = (apiUrl, apiMethod, apiHeader, apiBody, isImage = false) => {
-    console.log('header', apiHeader)
+  
     return dispatch => {
         return new Promise((resolve, reject) => {
             dispatch(uiStartLoading());
@@ -213,4 +213,23 @@ export const getAzabAPI = (data) => {
     return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({data}));
 };
 
+export const getVendorapi = (data) => {
+    return apiFetch('api/Inventory/frontstatus', "POST", headerWithWebToken, JSON.stringify({data}));
+};
+export const getAllVendorapi = (data) => {
+    return apiFetch('api/Inventory/getallvendor', "POST", headerWithWebToken, JSON.stringify({data}));
+};
 
+export const getAllbrandapi = (data) => {
+    return apiFetch('api/Inventory/getallbrand', "POST", headerWithWebToken, JSON.stringify({data}));
+};
+
+export const getAllcollectionapi = (data) => {
+    return apiFetch('api/Inventory/getallcollection', "POST", headerWithWebToken, JSON.stringify({data}));
+};
+export const getAllcategorynameapi = (data) => {
+    return apiFetch('api/Inventory/getAllcategoryname', "POST", headerWithWebToken, JSON.stringify({data}));
+};
+export const getAllpustatusapi = (data) => {
+    return apiFetch('api/Inventory/getAllpustatus', "POST", headerWithWebToken, JSON.stringify({data}));
+};

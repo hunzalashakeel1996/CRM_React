@@ -75,7 +75,43 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
           </NavLink>
         </Menu.Item> */}
       </SubMenu>
+      <SubMenu key="Inventory" icon={!topMenu && <FeatherIcon icon="Inventory" />} title="Inventory">
+        {/* <Menu.Item key="viewTickets">
+          <NavLink onClick={toggleCollapsed} to={`${path}/ticket/viewTickets`}>
+            Tickets
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="viewReminders">
+          <NavLink onClick={toggleCollapsed} to={`${path}/ticket/viewReminders`}>
+            Reminders
+          </NavLink>
+        </Menu.Item> */}
+          <Menu.Item key="ViewVendorinventory">
+          <NavLink onClick={toggleCollapsed} to={`${path}/Inventory/Vendorinventory/ViewVendorinventory`}>
+          Vendor Inventory
+          </NavLink>          
+        </Menu.Item>
 
+        <Menu.Item key="ViewPUUpdateInventory">
+          <NavLink onClick={toggleCollapsed} to={`${path}/Inventory/PUUpdateInventory/ViewPUUpdateInventory`}>
+          PU Update Inventory
+          </NavLink>
+          
+        </Menu.Item>
+        <Menu.Item key="Vieweditinventory">
+          <NavLink onClick={toggleCollapsed} to={`${path}/Inventory/EditInventory/Vieweditinventory`}>
+          EditInventory
+          </NavLink>
+          
+        </Menu.Item>
+       
+        
+        {/* <Menu.Item key="createTicket">
+          <NavLink onClick={toggleCollapsed} to={`${path}/ticket/createTicket`}>
+            Create Ticket
+          </NavLink>
+        </Menu.Item> */}
+      </SubMenu>
     </Menu>
   );
 };
