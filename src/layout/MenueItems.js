@@ -76,6 +76,21 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item> */}
       </SubMenu>
 
+      <SubMenu key="shipping" icon={!topMenu && <FeatherIcon icon="target" />} title="Shipping">
+        
+        <Menu.Item key="addBags">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping`}>
+            Add Bags
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="uspsThermalLabels">
+          <NavLink onClick={toggleCollapsed} to={`/`}>
+            USPS Thermal Labels
+          </NavLink>
+        </Menu.Item>
+       
+      </SubMenu>
+
     </Menu>
   );
 };

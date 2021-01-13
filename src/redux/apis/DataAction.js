@@ -6,7 +6,8 @@ import {  useSelector } from 'react-redux';
 // export const webURL = `http://localhost:3001`
 export const webURL = "http://mergemtvw.herokuapp.com";
 
-export const url = "http://192.168.0.101:3000";
+ export const url = "http://192.168.0.199:3000";
+// export const url = "http://192.168.0.197:3000";
 // export const url = "https://crm-backend-server.herokuapp.com";
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -159,6 +160,11 @@ export const addTicketAPI = (data) => {
 export const getTicketsAPI = (data) => {
     return apiFetch('api/ticket/getTickets', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
+
+export const getBagsAPI = (data) => {
+    return apiFetch('api/shipping/getBags', "POST", headerWithWebToken, JSON.stringify({ data }));
+};
+
 
 export const addCommentAPI = (data) => {
     return apiFetch('api/ticket/addComment', "POST", headerWithWebToken, JSON.stringify({data}));
