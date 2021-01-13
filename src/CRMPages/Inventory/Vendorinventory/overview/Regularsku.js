@@ -1,4 +1,4 @@
-import { Col, Row, Select, Spin, Radio, Checkbox, Divider, List, Card } from 'antd';
+import { Col, Row, Select, Spin, Radio, Checkbox, Divider, List, Card ,Popover} from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +31,6 @@ const Regularsku = (props) => {
   const CheckboxGroup = Checkbox.Group;
 
 const{Regularvendor}=props
-
 
 
   const [checkedList, setCheckedList] = React.useState(defaultCheckedList);
@@ -99,15 +98,22 @@ const{Regularvendor}=props
        
          
         {Regularvendor.map((val, i) => (
+                <Popover content={( <div>
+                    <p>Updated By:{val.UserName}</p>
+                    <p>Updated At:{val.ActionDate}</p>
+                  </div>)} title="Last Update Report" trigger="hover">
               <Col span={4} style={style}>
-              
+           
+     
+  
                 <Checkbox checked={isVendorCheckedList.includes(val)}   onChange={(e) => {onListCheckChange(val,i, e.target.checked)}} >
-                 {val}
+                 {val.vendorname}
                
-                 <img src={require(`../../../../assets/VendorLogo/${val}.jpg`)} width="20" height="20" style={{marginLeft:10}}/> 
+                 <img src={require(`../../../../assets/VendorLogo/${val.vendorname}.jpg`)} width="20" height="20" style={{marginLeft:10}}/> 
                 </Checkbox>
+             
               </Col>
-            
+              </Popover>
         ))
         }
       </Row >

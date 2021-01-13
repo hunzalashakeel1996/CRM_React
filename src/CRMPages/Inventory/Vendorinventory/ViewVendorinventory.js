@@ -22,8 +22,8 @@ const ViewVendorinventory = () => {
   
     useEffect (()=>{
         dispatch(getVendorapi()).then(data=>{
+            console.log('aaaaa', data)
             setstateRegularvendor(data)
-            console.log(data)
         })
     },[])
 
