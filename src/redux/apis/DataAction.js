@@ -6,11 +6,12 @@ import {  useSelector } from 'react-redux';
 // export const webURL = `http://localhost:3001`
 export const webURL = "http://mergemtvw.herokuapp.com";
 
-// export const url = "http://192.168.4.100:3000";
-export const url = "https://pu-crm-backend-develop.herokuapp.com";
+// export const url = "http://74.208.31.179:3000";
+export const url = "http://192.168.4.104:3000";
+// export const url = "https://pu-crm-backend-develop.herokuapp.com";
+// export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 export const uploadUrl = "https://images.vanwala.pk";
-
 
 const { uiStartLoading, uiStopLoading  } = actions;
 
@@ -121,7 +122,7 @@ export const apiFetch = (apiUrl, apiMethod, apiHeader, apiBody, isImage = false)
 
 const saveErrorLog = (error, apiURL) => {
     console.warn('ERRR', error)
-    alert('sorrt')
+    // alert('sorrt')
     // fetch(`${url}/api/common/logError`, {
     //     method: 'POST',
     //     headers: {
