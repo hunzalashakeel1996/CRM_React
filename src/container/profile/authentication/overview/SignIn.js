@@ -21,7 +21,7 @@ const SignIn = () => {
   });
   const handleSubmit = (value) => {
     Notification.requestPermission().then(permission => {
-      if (permission == 'granted') {
+      // if (permission == 'granted') {
         navigator.serviceWorker.getRegistration().then(async (reg) => {
           let title = 'Reminder from CRM';
           let body = 'Provide details to Paul on skype';
@@ -40,12 +40,12 @@ const SignIn = () => {
                 })
             })
         });
-      }
-      else {
-        alert('Please grant access for notification through (i) icon')
-        Notification.requestPermission().then(result => {
-        })
-      }
+      // }
+      // else {
+      //   alert('Please grant access for notification through (i) icon')
+      //   Notification.requestPermission().then(result => {
+      //   })
+      // }
     });
     
   };
