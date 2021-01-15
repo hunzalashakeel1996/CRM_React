@@ -10,6 +10,7 @@ import Orders from './Orders'
 import Sales from './Sales'
 import Shipping from './Shipping'
 import PUStyles from './PUStyles'
+import Chatbot from './Chatbot'
 
 const Admin = () => {
   const { path } = useRouteMatch();
@@ -32,6 +33,7 @@ const Admin = () => {
         <Route path={`${path}/sales`} component={Sales} />
         <Route path={`${path}/shipping`} component={Shipping} />
         <Route path={`${path}/puStyles`} component={PUStyles} />
+        <Route path={`${path}/chatbot`} component={Chatbot} />
       </Suspense>
     </Switch>
   );

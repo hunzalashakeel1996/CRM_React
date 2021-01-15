@@ -174,7 +174,15 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Styles Not in PU
           </NavLink>
         </Menu.Item>
+      </SubMenu>
 
+      {/* ==================================== CHATBOT ========================================================== */}
+      <SubMenu key="Chatbot" icon={!topMenu && <FeatherIcon icon="message-square" />} title="Chatbot">
+        <Menu.Item key="Styles Not in PU">
+          <NavLink onClick={toggleCollapsed} to={`${path}/chatbot/chat`}>
+            Chatbot
+          </NavLink>
+        </Menu.Item>
       </SubMenu>
     </Menu>
   );
