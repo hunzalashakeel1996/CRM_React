@@ -7,7 +7,9 @@ import { Button, notification, Space } from 'antd';
 // export const webURL = `http://localhost:3001`
 export const webURL = "http://mergemtvw.herokuapp.com";
 
-export const url = "http://74.208.31.179:3000";
+// export const url = "http://192.168.4.109:3000";
+export const url = "http://18.222.232.23:3000";
+
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
