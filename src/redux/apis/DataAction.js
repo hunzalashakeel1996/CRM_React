@@ -8,7 +8,10 @@ import { Button, notification, Space } from 'antd';
 export const webURL = "http://mergemtvw.herokuapp.com";
 
 // export const url = "http://192.168.4.109:3000";
+<<<<<<< HEAD
 // export const url = "https://18.222.232.23:3000";
+=======
+>>>>>>> 483043809aaa67c71da0cef40466e6ed5eef96af
 export const url = "https://crm.rizno.com";
 
 // export const url = "http://192.168.4.104:3000";
