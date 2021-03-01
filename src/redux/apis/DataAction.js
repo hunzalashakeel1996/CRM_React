@@ -1,15 +1,28 @@
 import actions from '../authentication/actions';
 import sound from '../../static/sounds/notificationBeep.wav'
 import {  useSelector } from 'react-redux';
+import { Button, notification, Space } from 'antd';
 
 
-export const webURL = `http://localhost:3001`
-// export const webURL = "http://mergemtvw.herokuapp.com";
+// export const webURL = `http://localhost:3001`
+export const webURL = "http://mergemtvw.herokuapp.com";
 
+<<<<<<< HEAD
 // export const url = "http://192.168.5.107:3000";
 export const url = "https://pu-crm-backend.herokuapp.com";
 export const uploadUrl = "https://images.vanwala.pk";
+=======
+export const socketUrl = "ws://3.131.5.41:3000"
+// export const socketUrl = "wss://crm.rizno.com"
+// export const url = "http://192.168.4.103:3000";
+export const url = "https://crm.rizno.com";
 
+// export const url = "http://192.168.4.104:3000";
+// export const url = "https://pu-crm-backend-develop.herokuapp.com";
+// export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
+>>>>>>> development
+
+export const uploadUrl = "https://images.vanwala.pk";
 
 const { uiStartLoading, uiStopLoading  } = actions;
 
@@ -103,6 +116,7 @@ export const apiFetch = (apiUrl, apiMethod, apiHeader, apiBody, isImage = false)
             body: apiBody
         })
             .then(res => {
+                console.log('122222', res)
                 return res.json()
             })
             .then(resJson => {
@@ -120,7 +134,12 @@ export const apiFetch = (apiUrl, apiMethod, apiHeader, apiBody, isImage = false)
 
 const saveErrorLog = (error, apiURL) => {
     console.warn('ERRR', error)
-    alert('sorrt')
+    notification['error']({
+        message: 'Sorry',
+        description:
+          'Error from server side',
+      });
+    // alert('sorrt')
     // fetch(`${url}/api/common/logError`, {
     //     method: 'POST',
     //     headers: {
@@ -201,6 +220,10 @@ export const logoutAPI = (data) => {
 
 export const TicketStatusChangeAPI = (data) => {
     return apiFetch('api/ticket/TicketStatusChange', "POST", headerWithWebToken, JSON.stringify({data}));
+};
+
+export const getAzabAPI = (data) => {
+    return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({data}));
 };
 
 // image upload

@@ -7,7 +7,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import { AutoComplete } from '../../components/autoComplete/autoComplete';
 import { Button } from '../../components/buttons/buttons';
 import { PageHeader } from '../../components/page-headers/page-headers';
-import { addCommentAPI, addTicketAPI, getTicketsAPI, webURL, audioPlay, uploadUrl, TicketStatusChangeAPI} from '../../redux/apis/DataAction';
+import { addCommentAPI, addTicketAPI, getTicketsAPI, webURL, audioPlay, uploadUrl, TicketStatusChangeAPI } from '../../redux/apis/DataAction';
 import { filterProjectByStatus, sortingProjectByCategory } from '../../redux/project/actionCreator';
 import { connectSocket } from '../../redux/socket/socketAction';
 import { addAllTickets, addTicket, addDepart } from '../../redux/ticket/actionCreator';
@@ -18,7 +18,9 @@ import { useHistory } from "react-router-dom";
 
 const Grid = lazy(() => import('./overview/Grid'));
 const TicketsList = lazy(() => import('./overview/TicketsList'));
+import { Tabs } from 'antd';
 
+const { TabPane } = Tabs;
 const ViewTickets = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ const ViewTickets = (props) => {
     categoryActive: 'all',
     filterTickets: [],
     loader: true,
-    StatusSort:'Open'
+    StatusSort: 'Open'
   });
   const { visible, loader, filterTickets, StatusSort } = state;
 
@@ -52,11 +54,11 @@ const ViewTickets = (props) => {
     })
 
     // if (depart.length === 0)
-      // get departments for users 
-      // dispatch(getDepartsAPI({})).then(departs => {
-      //   dispatch(addDepart(departs))
-      //   // setState({ ...state, departs, loader: false  });
-      // })
+    // get departments for users 
+    // dispatch(getDepartsAPI({})).then(departs => {
+    //   dispatch(addDepart(departs))
+    //   // setState({ ...state, departs, loader: false  });
+    // })
   }, []);
 
   // sockets
@@ -72,7 +74,7 @@ const ViewTickets = (props) => {
 
   const handleSearch = (searchText, objectName) => {
     let temp = tickets.filter(item => item[objectName].toUpperCase().includes(searchText.toUpperCase()))
-    setState({...state, filterTickets: temp, });
+    setState({ ...state, filterTickets: temp, });
   };
 
   const onSorting = selectedItems => {
@@ -89,11 +91,11 @@ const ViewTickets = (props) => {
 
   const showModal = () => {
     // socket.send(JSON.stringify({ type: 'roomMessage', roomId: 123, message: 'hello' }))
-    setState({...state, visible: true });
+    setState({ ...state, visible: true });
   };
 
   const onCancel = () => {
-    setState({...state, visible: false });
+    setState({ ...state, visible: false });
   };
 
   const onAddTicket = (form) => {
@@ -120,7 +122,7 @@ const ViewTickets = (props) => {
     } else {
       console.log('insde not image')
       // image not attached in ticket
-      form = { ...form}
+      form = { ...form }
       onAddTicketProcess(form)
     }
 
@@ -140,13 +142,12 @@ const ViewTickets = (props) => {
   }
 
   const onStatusChange = (val) => {
-    setState({ ...state, loader: true ,StatusSort:val })
-    let data = { StatusSort:val , LoginName: `${user.LoginName}` }
-   // console.log(data)
-    dispatch(TicketStatusChangeAPI(data)).then(res=>{
-       console.log('abc',res)
-      setState({ ...state, filterTickets: res, loader: false, StatusSort: val  });
-   
+    setState({ ...state, loader: true, StatusSort: val })
+    let data = { StatusSort: val, LoginName: `${user.LoginName}` }
+    // console.log(data)
+    dispatch(TicketStatusChangeAPI(data)).then(res => {
+      console.log('abc', res)
+      setState({ ...state, filterTickets: res, loader: false, StatusSort: val });
     })
   }
 
@@ -156,7 +157,7 @@ const ViewTickets = (props) => {
         <PageHeader
           ghost
           title="Tickets"
-          subTitle={<>{tickets.length} Running Tickets</>}
+          // subTitle={<>{tickets.length} Running Tickets</>}
           buttons={[
             <Button onClick={showModal} key="1" type="primary" size="default">
               <FeatherIcon icon="plus" size={16} /> Create Ticket
@@ -167,16 +168,16 @@ const ViewTickets = (props) => {
       <Main>
         <Row gutter={25}>
           <Col xs={24}>
-            <Row style={{marginBottom: 10}} gutter={10}>
+            <Row style={{ marginBottom: 10 }} gutter={10}>
               <Col md={8} xs={24}>
                 <div className="project-sort-search">
-                  <AutoComplete onSearch={(e) => {handleSearch(e, 'TicketNo')}} placeholder="Ticket Number" patterns />
+                  <AutoComplete onSearch={(e) => { handleSearch(e, 'TicketNo') }} placeholder="Ticket Number" patterns />
                 </div>
               </Col>
 
               <Col md={8} xs={24}>
                 <div className="project-sort-search">
-                  <AutoComplete onSearch={(e) => {handleSearch(e, 'OrderNo')}} placeholder="Order Number" patterns />
+                  <AutoComplete onSearch={(e) => { handleSearch(e, 'OrderNo') }} placeholder="Order Number" patterns />
                 </div>
               </Col>
 
@@ -201,15 +202,15 @@ const ViewTickets = (props) => {
                     </div>
                   }
                 >
-                  <Route path={path} render={(props) => <TicketsList {...props} loader={loader} filterTickets={filterTickets} StatusSort={StatusSort}/> }  exact />
-                  <Route path={`${path}/grid`}  render={(props) => <TicketsList {...props} loader={loader} filterTicket={filterTickets} StatusSort={StatusSort}/> }/>
-                  <Route path={`${path}/list`}  render={(props) => <TicketsList {...props} loader={loader} filterTicket={filterTickets} StatusSort={StatusSort}/> }/>
+                  <Route path={path} render={(props) => <TicketsList {...props} loader={loader} filterTickets={filterTickets} StatusSort={StatusSort} />} exact />
+                  <Route path={`${path}/grid`} render={(props) => <TicketsList {...props} loader={loader} filterTicket={filterTickets} StatusSort={StatusSort} />} />
+                  <Route path={`${path}/list`} render={(props) => <TicketsList {...props} loader={loader} filterTicket={filterTickets} StatusSort={StatusSort} />} />
                 </Suspense>
               </Switch>
             </div>
           </Col>
         </Row>
-        <CreateTicket onAdd={(form) => { onAddTicket(form) }} onCancel={onCancel} visible={visible} loader={loader}/>
+        <CreateTicket onAdd={(form) => { onAddTicket(form) }} onCancel={onCancel} visible={visible} loader={loader} />
       </Main>
     </>
   );

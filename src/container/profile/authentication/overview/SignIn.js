@@ -21,7 +21,7 @@ const SignIn = () => {
   });
   const handleSubmit = (value) => {
     Notification.requestPermission().then(permission => {
-      if (permission == 'granted') {
+      // if (permission == 'granted') {
         navigator.serviceWorker.getRegistration().then(async (reg) => {
           let title = 'Reminder from CRM';
           let body = 'Provide details to Paul on skype';
@@ -40,12 +40,12 @@ const SignIn = () => {
                 })
             })
         });
-      }
-      else {
-        alert('Please grant access for notification through (i) icon')
-        Notification.requestPermission().then(result => {
-        })
-      }
+      // }
+      // else {
+      //   alert('Please grant access for notification through (i) icon')
+      //   Notification.requestPermission().then(result => {
+      //   })
+      // }
     });
     
   };
@@ -65,12 +65,12 @@ const SignIn = () => {
           <Form.Item
             name="username"
             rules={[{ message: 'Please input your username!', required: true }]}
-            initialValue="nick"
+            initialValue="Username"
             label="Username"
           >
             <Input />
           </Form.Item>
-          <Form.Item name="password" initialValue="n123" label="Password">
+          <Form.Item name="password" initialValue="Password" label="Password">
             <Input.Password placeholder="Password" />
           </Form.Item>
           <Form.Item>

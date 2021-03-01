@@ -36,6 +36,7 @@ const RemindersList = (props) => {
       });
     }
     // when page open through notification press
+    console.log('asda',props.match.params)
     if (props.match.params.ReminderID && props.filterReminders.length > 0) {
       setTimeout(() => {
         setState({
@@ -106,7 +107,7 @@ const RemindersList = (props) => {
             {/* <p>{comments.length>0? comments[comments.length-1].shortDesc: 'No comments at this ticket yet'}</p> */}
           </ProjectListTitle>
           ),
-          RefrenceId: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{RefrenceId !== 'null' ? RefrenceId : '-'}</span></Link>,
+          RefrenceId: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{RefrenceId !== null ? RefrenceId : '-'}</span></Link>,
           CreateBy: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{CreateBy}</span></Link>,
           ReminderType: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{ReminderType}</span></Link>,
           Assigned: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{Assigned} {TicketGroup && `(${TicketGroup})`}</span></Link>,
