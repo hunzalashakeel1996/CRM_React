@@ -7,11 +7,6 @@ import { Button, notification, Space } from 'antd';
 // export const webURL = `http://localhost:3001`
 export const webURL = "http://mergemtvw.herokuapp.com";
 
-<<<<<<< HEAD
-// export const url = "http://192.168.5.107:3000";
-export const url = "https://pu-crm-backend.herokuapp.com";
-export const uploadUrl = "https://images.vanwala.pk";
-=======
 export const socketUrl = "ws://3.131.5.41:3000"
 // export const socketUrl = "wss://crm.rizno.com"
 // export const url = "http://192.168.4.103:3000";
@@ -20,7 +15,6 @@ export const url = "https://crm.rizno.com";
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
->>>>>>> development
 
 export const uploadUrl = "https://images.vanwala.pk";
 
