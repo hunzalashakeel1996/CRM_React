@@ -65,12 +65,13 @@ const SignIn = () => {
           <Form.Item
             name="username"
             rules={[{ message: 'Please input your username!', required: true }]}
-            initialValue="Username"
+            // initialValue="Username"
             label="Username"
           >
             <Input />
+            {/* //test  */}
           </Form.Item>
-          <Form.Item name="password" initialValue="Password" label="Password">
+          <Form.Item name="password"  label="Password">
             <Input.Password placeholder="Password" />
           </Form.Item>
           <Form.Item>
