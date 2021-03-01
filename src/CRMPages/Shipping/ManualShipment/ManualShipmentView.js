@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const ManualShipmentView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Ebay " centered>
+            <Tabs defaultActiveKey="Ebay " style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Ebay " key="Ebay ">
                     Ebay   component goes here
                 </TabPane>

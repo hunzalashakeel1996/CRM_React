@@ -5,10 +5,11 @@ const { TabPane } = Tabs;
 
 const OrderReportsView = (props) => {
     return (
-        <>
-            <Tabs defaultActiveKey="PNL" centered>
+        <div >
+            <Tabs defaultActiveKey="PNL" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="PNL" key="PNL">
-                    PNL  component goes here
+                   
+                    PNL  component goes here<br />
                 </TabPane>
                 <TabPane tab="Sales Report" key="Sales Report">
                     Sales Report component goes here
@@ -29,7 +30,7 @@ const OrderReportsView = (props) => {
                     Back Order Items component goes here
                 </TabPane>
             </Tabs>
-        </>
+        </div>
     );
 };
 

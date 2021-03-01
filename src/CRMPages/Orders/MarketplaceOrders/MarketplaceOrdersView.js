@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const MarketplaceOrdersView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Walmart Orders" centered>
+            <Tabs defaultActiveKey="Walmart Orders" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Walmart Orders" key="Walmart Orders">
                     Walmart Orders  component goes here
                 </TabPane>

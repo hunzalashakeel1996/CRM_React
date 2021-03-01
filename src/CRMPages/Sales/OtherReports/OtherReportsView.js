@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const OtherReportsView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Summary Report" centered>
+            <Tabs defaultActiveKey="Summary Report" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Summary Report" key="Summary Report">
                     Summary Report  component goes here
                 </TabPane>

@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-import { url, audioPlay } from './../apis/DataAction';
+import { url, audioPlay, socketUrl} from './../apis/DataAction';
 // const WebSocket = require('ws');
 import {addTicket, addComment, addReminder } from '../ticket/actionCreator'
 
@@ -11,7 +11,8 @@ export const connectSocket = (userId, dispatchFunc) => {
 
     if (getState().socket.socket == null) {
       // ws = new WebSocket("wss://pu-crm-backend-develop.herokuapp.com")
-      ws = new WebSocket("wss://crm.rizno.com")
+      // ws = new WebSocket("wss://crm.rizno.com")
+      ws = new WebSocket(socketUrl)
       console.log('websocket obejct', ws)
     }
 

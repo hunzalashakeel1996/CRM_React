@@ -21,7 +21,7 @@ import { ChatSidebar, Content, UL } from './style';
 
 const SingleChat = lazy(() => import('./overview/singleChat'));
 const SingleGroup = lazy(() => import('./overview/SingleGroupChat'));
-import { Widget, addResponseMessage } from 'react-chat-widget';
+import { Widget, addResponseMessage, toggleMsgLoader  } from 'react-chat-widget';
  
 import 'react-chat-widget/lib/styles.css';
 
@@ -34,13 +34,23 @@ const ChatApp = ({ match }) => {
       let message = JSON.parse(data.data)
       console.log('123', message.data)
       if (message.reason === 'chatbotReply') {
-
-        message.data.length>0 ?  addResponseMessage(message.data[0].orderstatus) : addResponseMessage("Sorry, can't find your order")
+        console.log('1111',Array.isArray(message.data))
+        if(message.data.length > 0){
+          Array.isArray(message.data) ? 
+          addResponseMessage(message.data[0].orderStatus)
+          :
+          addResponseMessage(message.data)
+          toggleMsgLoader();
+        }
+        else{
+          toggleMsgLoader();
+          addResponseMessage("Sorry, can't find your order")
+        }
       }
     } : null
 
   const handleNewUserMessage = (newMessage) => {
-    console.log('inside', socket)
+    toggleMsgLoader();
     socket && socket.send(JSON.stringify({ type: 'chatbot', reason: 'userMessage', data: {newMessage}}))
   }
 

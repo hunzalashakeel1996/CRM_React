@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const AmazonShipmentView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Amazon Orders" centered>
+            <Tabs defaultActiveKey="Amazon Orders" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Amazon Orders" key="Amazon Orders">
                     Amazon Orders  component goes here
                 </TabPane>

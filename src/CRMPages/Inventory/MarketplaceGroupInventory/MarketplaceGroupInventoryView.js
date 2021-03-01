@@ -8,7 +8,7 @@ const MarketplaceGroupInventoryView = (props) => {
 
     return (
         <>
-            <Tabs defaultActiveKey="Amazon PU" centered>
+            <Tabs defaultActiveKey="Amazon PU" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Amazon PU" key="Amazon PU">
                     Amazon PU component goes here
                 </TabPane>

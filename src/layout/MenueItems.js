@@ -41,11 +41,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Reminders
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="ViewAzabReport">
+        {/* <Menu.Item key="ViewAzabReport">
           <NavLink onClick={toggleCollapsed} to={`${path}/azab/ViewAzabReport`}>
             AzabReport
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
       </SubMenu>
 
       {/* ==================================== TICKETS ========================================================== */}
@@ -77,7 +77,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       </SubMenu>
 
       {/* ==================================== INVENTORY ========================================================== */}
-      <SubMenu key="Inventory" icon={!topMenu && <FeatherIcon icon="package" />} title="Inventory">
+      {/* <SubMenu key="Inventory" icon={!topMenu && <FeatherIcon icon="package" />} title="Inventory">
         <Menu.Item key="Vendor Inventory">
           <NavLink onClick={toggleCollapsed} to={`${path}/inventory/vendorInventory`}>
             Vendor Inventory
@@ -98,10 +98,10 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Marketplace Group Inventory
           </NavLink>
         </Menu.Item>
-      </SubMenu>
+      </SubMenu> */}
 
       {/* ==================================== ORDERS ========================================================== */}
-      <SubMenu key="Orders" icon={!topMenu && <FeatherIcon icon="shopping-bag" />} title="Orders">
+      {/* <SubMenu key="Orders" icon={!topMenu && <FeatherIcon icon="shopping-bag" />} title="Orders">
         <Menu.Item key="Order Reports">
           <NavLink onClick={toggleCollapsed} to={`${path}/orders/orderReports`}>
             Order Reports
@@ -112,10 +112,10 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Marketplace Orders
           </NavLink>
         </Menu.Item>
-      </SubMenu>
+      </SubMenu> */}
 
       {/* ==================================== SALES ========================================================== */}
-      <SubMenu key="Sales" icon={!topMenu && <FeatherIcon icon="dollar-sign" />} title="Sales">
+      {/* <SubMenu key="Sales" icon={!topMenu && <FeatherIcon icon="dollar-sign" />} title="Sales">
         <Menu.Item key="Reports">
           <NavLink onClick={toggleCollapsed} to={`${path}/sales/reports`}>
             Reports
@@ -131,10 +131,10 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Other Reports
           </NavLink>
         </Menu.Item>
-      </SubMenu>
+      </SubMenu> */}
 
       {/* ==================================== SHIPPING ========================================================== */}
-      <SubMenu key="Shipping" icon={!topMenu && <FeatherIcon icon="truck" />} title="Shipping">
+      {/* <SubMenu key="Shipping" icon={!topMenu && <FeatherIcon icon="truck" />} title="Shipping">
         <Menu.Item key="PolyBags and Thermal Labels">
           <NavLink onClick={toggleCollapsed} to={`${path}/shipping/PolybagsAndThermalLabels`}>
             PolyBags and Thermal Labels
@@ -165,25 +165,25 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Shipping Weight
           </NavLink>
         </Menu.Item>
-      </SubMenu>
+      </SubMenu> */}
 
       {/* ==================================== PU STYLES ========================================================== */}
-      <SubMenu key="PUStyles" icon={!topMenu && <FeatherIcon icon="droplet" />} title="PUStyles">
+      {/* <SubMenu key="PUStyles" icon={!topMenu && <FeatherIcon icon="droplet" />} title="PUStyles">
         <Menu.Item key="Styles Not in PU">
           <NavLink onClick={toggleCollapsed} to={`${path}/puStyles/stylesNotInPU`}>
             Styles Not in PU
           </NavLink>
         </Menu.Item>
-      </SubMenu>
+      </SubMenu> */}
 
       {/* ==================================== CHATBOT ========================================================== */}
-      <SubMenu key="Chatbot" icon={!topMenu && <FeatherIcon icon="message-square" />} title="Chatbot">
+      {/* <SubMenu key="Chatbot" icon={!topMenu && <FeatherIcon icon="message-square" />} title="Chatbot">
         <Menu.Item key="Styles Not in PU">
           <NavLink onClick={toggleCollapsed} to={`${path}/chatbot/chat`}>
             Chatbot
           </NavLink>
         </Menu.Item>
-      </SubMenu>
+      </SubMenu> */}
     </Menu>
   );
 };

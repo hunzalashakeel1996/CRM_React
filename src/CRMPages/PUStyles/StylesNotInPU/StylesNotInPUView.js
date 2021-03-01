@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const StylesNotInPUView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Variations" centered>
+            <Tabs defaultActiveKey="Variations" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Variations" key="Variations">
                     Variations component goes here
                 </TabPane>

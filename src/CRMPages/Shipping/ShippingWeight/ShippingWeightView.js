@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const ShippingWeightView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Duplicate Tracking" centered>
+            <Tabs defaultActiveKey="Duplicate Tracking" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Duplicate Tracking" key="Duplicate Tracking">
                     Duplicate Tracking  component goes here
                 </TabPane>
