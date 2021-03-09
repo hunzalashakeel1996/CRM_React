@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const ShippingReportsView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Delivered Tracking Status" style={{marginLeft: 20, marginTop: 20}}>
+            <Tabs type="card"defaultActiveKey="Delivered Tracking Status" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Delivered Tracking Status" key="Delivered Tracking Status">
                     Delivered Tracking Status  component goes here
                 </TabPane>

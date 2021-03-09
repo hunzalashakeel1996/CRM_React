@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const EndiciaShipmentView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Endica PU" style={{marginLeft: 20, marginTop: 20}}>
+            <Tabs type="card"defaultActiveKey="Endica PU" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Endica PU" key="Endica PU">
                     Endica PU  component goes here
                 </TabPane>

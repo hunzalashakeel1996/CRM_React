@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const OrderReportsView = (props) => {
     return (
         <div >
-            <Tabs defaultActiveKey="PNL" style={{marginLeft: 20, marginTop: 20}}>
+            <Tabs type="card"defaultActiveKey="PNL" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="PNL" key="PNL">
                    
                     PNL  component goes here<br />

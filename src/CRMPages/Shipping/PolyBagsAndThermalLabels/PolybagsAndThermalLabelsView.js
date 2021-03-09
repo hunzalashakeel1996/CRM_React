@@ -6,8 +6,8 @@ const { TabPane } = Tabs;
 const PolybagsAndThermalLabelsView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="PolyBags" style={{marginLeft: 20, marginTop: 20}}>
-                <TabPane tab="PolyBags" key="PolyBags">
+            <Tabs type="card"defaultActiveKey="PolyBags"  style={{marginLeft: 20, marginTop: 20}}>
+                <TabPane tab="PolyBags" key="PolyBags" >
                     PolyBags  component goes here
                 </TabPane>
                 <TabPane tab="Thermal Labels" key="Thermal Labels">
