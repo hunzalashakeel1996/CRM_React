@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs,Col, Table, Upload, Row, DatePicker } from 'antd';
+import { Input, Tabs, Col, Table, Upload, Row, DatePicker } from 'antd';
 import { Button, BtnGroup } from '../../components/buttons/buttons';
 import { Drawer } from '../../components/drawer/drawer';
 import { Cards } from '../../components/cards/frame/cards-frame';
@@ -22,8 +22,8 @@ const RMAView = (props) => {
     date: null,
     dateString: null,
     values: {},
-});
-const onChange = (date, dateString) => {
+  });
+  const onChange = (date, dateString) => {
     setstate({ ...state, date, dateString });
   };
   const dataSource = [
@@ -65,31 +65,23 @@ const onChange = (date, dateString) => {
   ];
   return (
     <>
-<Row style={{ marginLeft: 20, marginRight: 20 }}>
-                <Cards title="Delivery Tracking Status Report" caption="The simplest use of Drawer" >
-                    <Row gutter={25}>
-                        <Col lg={24} xs={24}  >
-                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+      <Row style={{}}>
+        <Cards title="Delivery Tracking Status Report" caption="The simplest use of Drawer" >
+          <Row gutter={25}>
+            <Col lg={24} xs={24}  >
+              {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
+              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
 
-                            <RangePicker onChange={onChange} />
-                            <Button size="default" type="success" htmlType="download" style={{ marginLeft: 20 }}>
-                                    Download
+                <RangePicker onChange={onChange} />
+                <Button size="default" type="success" htmlType="download" style={{ marginLeft: 20 }}>
+                  Download
                         </Button>
 
-                            </div>
-                        </Col>
-                        
-                        
-                        
-                    </Row>
-                </Cards>
-            </Row>
-      
-
-
-
-
+              </div>
+            </Col>
+          </Row>
+        </Cards>
+      </Row>
     </>
   );
 };

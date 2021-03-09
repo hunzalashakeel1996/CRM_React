@@ -8,7 +8,7 @@ const UpdateInventoryView = (props) => {
 
     return (
         <>
-            <Tabs defaultActiveKey="Amazon Inventory" centered>
+            <Tabs type="card"defaultActiveKey="Amazon Inventory" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Amazon Inventory" key="Amazon Inventory">
                     Amazon Inventory component goes here
                 </TabPane>

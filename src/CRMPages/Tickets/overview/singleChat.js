@@ -185,7 +185,7 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
       <Cards
         title={
           <>
-            <Tabs defaultActiveKey="1" onChange={onTabChange}>
+            <Tabs type="card"defaultActiveKey="1" onChange={onTabChange}>
               <TabPane tab="Tickets" key="tickets">
               </TabPane>
               <TabPane tab="Reminders" key="reminders">

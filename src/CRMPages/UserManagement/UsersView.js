@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 const UsersView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Add New Users" centered>
+            <Tabs type="card" defaultActiveKey="Add New Users"  >
                 <TabPane tab="Add New Users" key="Add New Users">
                     Add New Users
                     

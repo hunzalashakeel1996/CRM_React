@@ -35,7 +35,6 @@ const AddTicket = (props) => {
     const onAddTicket = (form) => {
         setState({ ...state, loader: true })
         form = { ...form, LoginName: `${user.LoginName}`, FromTicketGroup: `${user.GroupName}` }
-        console.log('aaaa', form)
         if (form.picturePath !== undefined) {
             // save image in server
             const data = new FormData()
@@ -63,16 +62,16 @@ const AddTicket = (props) => {
 
     const onAddTicketProcess = (form) => {
         dispatch(addTicketAPI(form)).then(data => {
-          console.log('data', data)
-          form = { ...form, TicketNo: data.TicketNo, CreateDate: data.CreateDate, CreateBy: user.LoginName, Status: 'Open' }
-          dispatch(addTicket(form))       // add ticket in redux list
-          socket && socket.send(JSON.stringify({ type: 'broadcastMessage', reason: 'newTicket', data: form }))
-          let temp = [...filterTickets]
-          temp.unshift(form)
-          setState({ ...state, visible: false, filterTickets: [...temp], loader: false });
-          history.push(`/admin/ticket/ticketDetails/${form.TicketNo}`, { ticket: { form } });
+            console.log('data', data)
+            form = { ...form, TicketNo: data.TicketNo, CreateDate: data.CreateDate, CreateBy: user.LoginName, Status: 'Open' }
+            dispatch(addTicket(form))       // add ticket in redux list
+            socket && socket.send(JSON.stringify({ type: 'broadcastMessage', reason: 'newTicket', data: form }))
+            let temp = [...filterTickets]
+            temp.unshift(form)
+            setState({ ...state, visible: false, filterTickets: [...temp], loader: false });
+            history.push(`/admin/ticket/ticketDetails/${form.TicketNo}`, { ticket: { form } });
         })
-      }
+    }
 
 
     const onCancel = () => {

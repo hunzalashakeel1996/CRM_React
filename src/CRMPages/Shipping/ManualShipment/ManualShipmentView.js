@@ -7,10 +7,9 @@ const { TabPane } = Tabs;
 const ManualShipmentView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Ebay " centered>
-                
+            <Tabs type="card" defaultActiveKey="Ebay " style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
                 <TabPane tab="Amazon" key="Amazon">
-                <AmazonManualShipment />
+                    <AmazonManualShipment />
                 </TabPane>
             </Tabs>
         </>

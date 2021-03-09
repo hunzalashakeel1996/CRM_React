@@ -54,7 +54,7 @@ const ManualShipmentView = (props) => {
   ];
   return (
     <>
-      <Row style={{ marginLeft: 20, marginRight: 20 }}>
+      <Row style={{}}>
         <Cards title="PO Numbers" caption="The simplest use of Drawer" >
           <Row gutter={25}>
             <Col lg={6} xs={24}  >
@@ -66,16 +66,16 @@ const ManualShipmentView = (props) => {
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                 <Button type="success" htmlType="Submit">
                   Submit
-                        </Button>
-                <Button type="primary" htmlType="Manual Tick" style={{ marginLeft: 10 }}>
+                </Button>
+                <Button type="primary" htmlType="Manual Tick" style={{ marginTop: 10 }}>
                   Manual Tick
-                        </Button>
+                </Button>
               </div>
             </Col>
           </Row>
         </Cards>
       </Row>
-      <Row style={{ marginLeft: 20, marginRight: 20 }}>
+      <Row style={{  }}>
         <Cards title="PO Numbers" caption="The simplest use of Drawer" >
           <Row gutter={25}>
             <Col lg={24} xs={24}  >

@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 const AmazonShipmentView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Amazon Orders" centered>
+            <Tabs type="card"defaultActiveKey="Amazon Orders" style={{marginLeft: 20, marginRight: 20, marginTop: 20}}>
                 <TabPane tab="Amazon Orders" key="Amazon Orders">
                     <AmazonShipment />
                 </TabPane>

@@ -18,7 +18,9 @@ import { useHistory } from "react-router-dom";
 
 const Grid = lazy(() => import('./overview/Grid'));
 const TicketsList = lazy(() => import('./overview/TicketsList'));
+import { Tabs } from 'antd';
 
+const { TabPane } = Tabs;
 const ViewTickets = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();

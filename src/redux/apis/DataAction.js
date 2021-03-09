@@ -1,14 +1,22 @@
 import actions from '../authentication/actions';
 import sound from '../../static/sounds/notificationBeep.wav'
 import { useSelector } from 'react-redux';
+import { Button, notification, Space } from 'antd';
 
 
 //export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
-export const url = "http://192.168.0.198:3005";
+export const socketUrl = "ws://3.131.5.41:3000"
+// export const socketUrl = "wss://crm.rizno.com"
+// export const url = "http://192.168.4.103:3000";
+export const url = "https://crm.rizno.com";
+
+// export const url = "http://192.168.4.104:3000";
+// export const url = "https://pu-crm-backend-develop.herokuapp.com";
+// export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 //export const urlDotNet ="http://localhost:47463/api"
-export const urlDotNet ="http://74.208.31.179:8520/crm.inv_2.1/api"
+export const urlDotNet = "http://74.208.31.179:8520/crm.inv_2.1/api"
 
 // export const url = "https://crmserver-development.herokuapp.com";
 
@@ -79,7 +87,7 @@ export const apiTrackingSummaryFetch = (data) => {
             )
                 .then(res => {
                     return res.text()
-                    
+
                 })
                 .then(resJson => {
                     if (resJson) {
@@ -87,13 +95,13 @@ export const apiTrackingSummaryFetch = (data) => {
                     }
                     // dispatch(uiStopLoading())
                 })
-                .catch(err => {  return saveErrorLog(err, `http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML=<TrackRequest USERID="622PULSE3418"><TrackID ID=${JSON.stringify(data.trackingNO)} ></TrackID></TrackRequest>`) })
+                .catch(err => { return saveErrorLog(err, `http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML=<TrackRequest USERID="622PULSE3418"><TrackID ID=${JSON.stringify(data.trackingNO)} ></TrackID></TrackRequest>`) })
         });
     }
 };
 
 export const apiFetchDotNet = (apiUrl, apiMethod, apiHeader, apiBody) => {
-    let headerParameters = apiMethod === 'GET' ? { method: apiMethod} : {method: apiMethod,headers: apiHeader,body: apiBody}
+    let headerParameters = apiMethod === 'GET' ? { method: apiMethod } : { method: apiMethod, headers: apiHeader, body: apiBody }
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(`${urlDotNet}/${apiUrl}`, headerParameters)
@@ -138,6 +146,31 @@ export const apiFetch = (apiUrl, apiMethod, apiHeader, apiBody, isImage = false)
 
 const saveErrorLog = (error, apiURL) => {
     console.warn('ERRR', error)
+    notification['error']({
+        message: 'Sorry',
+        description:
+            'Error from server side',
+    });
+    // alert('sorrt')
+    // fetch(`${url}/api/common/logError`, {
+    //     method: 'POST',
+    //     headers: {
+    //         Accept: 'application/json',
+    //         "Content-Type": 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //         error,
+    //         apiURL
+    //     })
+    // })
+    //     .then(res => { return res.json() })
+    //     .then((resJson) => {
+    //         let data = {
+    //             msg: `New error inserted in database`,
+    //             number: "923342664254",
+    //         }
+    //     })
+    //     .catch(err => alert('Sorry', `Server Error please try again later ${err}`))
 }
 
 // ============================= API start ======================================
@@ -150,14 +183,14 @@ export const getBrand = (data) => {
     return apiFetchDotNet('update/getvendor', "GET");
 };
 export const getPolyBags = (data) => {
-    return apiFetchDotNet('/Report/Addbags', "POST", headerDotNet, JSON.stringify({  }));
+    return apiFetchDotNet('/Report/Addbags', "POST", headerDotNet, JSON.stringify({}));
 };
 // ============================= Shipping API end ======================================
 
 
 
 export const loginAPI = (data) => {
-    return apiFetch('api/login/', "POST", header, JSON.stringify({data}));
+    return apiFetch('api/login/', "POST", header, JSON.stringify({ data }));
 };
 
 export const addTicketAPI = (data) => {
@@ -174,55 +207,55 @@ export const getBagsAPI = (data) => {
 
 
 export const addCommentAPI = (data) => {
-    return apiFetch('api/ticket/addComment', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/addComment', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const addReminderAPI = (data) => {
-    return apiFetch('api/ticket/addReminder', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/addReminder', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const getCommentsAPI = (data) => {
-    return apiFetch('api/ticket/getComments', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/getComments', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const onStatusChangeAPI = (data) => {
-    return apiFetch('api/ticket/onStatusChange', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/onStatusChange', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const getUserRemindersAPI = (data) => {
-    return apiFetch('api/ticket/getUserReminders', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/getUserReminders', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const getDepartsAPI = (data) => {
-    return apiFetch('api/ticket/getDeparts', "POST", header, JSON.stringify({data}));
+    return apiFetch('api/ticket/getDeparts', "POST", header, JSON.stringify({ data }));
 };
 
 export const getTicketDetailAPI = (data) => {
-    return apiFetch('api/ticket/getTicketDetail', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/getTicketDetail', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const reminderStatusChangeAPI = (data) => {
-    return apiFetch('api/ticket/reminderStatusChange', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/reminderStatusChange', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const getCustomerDetailAPI = (data) => {
-    return apiFetch('api/ticket/getCustomerDetail', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/getCustomerDetail', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const logoutAPI = (data) => {
-    return apiFetch('api/login/logout', "POST", header, JSON.stringify({data}));
+    return apiFetch('api/login/logout', "POST", header, JSON.stringify({ data }));
 };
 
 export const TicketStatusChangeAPI = (data) => {
-    return apiFetch('api/ticket/TicketStatusChange', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/ticket/TicketStatusChange', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const getAzabAPI = (data) => {
-    return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const CreateUser = (data) => {
-    return apiFetch('api/user/create', "POST", headerWithWebToken, JSON.stringify({data}));
+    return apiFetch('api/user/create', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
 export const downloadallmpreport = (data) => {
@@ -232,7 +265,7 @@ export const downloadallmpreport = (data) => {
 
 // image upload
 export const uploadAttachment = (data) => {
-    return (apiFetch(`api/ticket/imageUpload`, 'POST',header, data))
+    return (apiFetch(`api/ticket/imageUpload`, 'POST', header, data))
 };
 
 

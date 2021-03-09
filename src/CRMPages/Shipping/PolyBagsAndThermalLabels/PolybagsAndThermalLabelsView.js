@@ -8,8 +8,8 @@ const { TabPane } = Tabs;
 const PolyBagsAndThermalLabelsView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Poly Bag" centered>
-                <TabPane tab="Poly Bag" key="Poly Bag">
+            <Tabs type="card" defaultActiveKey="Poly Bag" style={{marginLeft: 20, marginRight: 20, marginTop: 20}} >
+                <TabPane tab="Poly Bag" key="Poly Bag" >
                     <PolyBags />
                 </TabPane>
                 <TabPane tab="Thermal Bags" key="Thermal Bags">

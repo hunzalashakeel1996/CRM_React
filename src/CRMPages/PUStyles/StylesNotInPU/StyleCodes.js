@@ -58,7 +58,7 @@ const StylesNotInPUView = (props) => {
 
   return (
     <>
-      <Row style={{ marginLeft: 20, marginRight: 20 }}>
+      <Row style={{  }}>
         <Cards title="Style Codes Not in PU " caption="The simplest use of Drawer" >
 
           <Row gutter={25}>

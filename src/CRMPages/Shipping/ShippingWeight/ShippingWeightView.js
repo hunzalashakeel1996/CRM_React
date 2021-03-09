@@ -10,7 +10,7 @@ const { TabPane } = Tabs;
 const ShippingWeightView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Duplicate Tracking" centered>
+            <Tabs type="card"defaultActiveKey="Duplicate Tracking" style={{marginLeft: 20, marginRight: 20, marginTop: 20}}>
                 <TabPane tab="Duplicate Tracking" key="Duplicate Tracking">
                     <DuplicateTracking />
                 </TabPane>
