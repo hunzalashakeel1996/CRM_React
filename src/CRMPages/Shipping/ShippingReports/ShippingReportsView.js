@@ -1,5 +1,9 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
+import DeliveryTrackingStatus from './DeliveryTrackingStatus';
+import InTransitTracking from './InTransitTracking';
+import WebLabelOrders from './WebLabelOrders';
+import AllMpShipment from './AllMPShipment';
 
 const { TabPane } = Tabs;
 
@@ -8,16 +12,16 @@ const ShippingReportsView = (props) => {
         <>
             <Tabs defaultActiveKey="Delivered Tracking Status" centered>
                 <TabPane tab="Delivered Tracking Status" key="Delivered Tracking Status">
-                    Delivered Tracking Status  component goes here
+                    <DeliveryTrackingStatus />
                 </TabPane>
                 <TabPane tab="InTransit Tracking" key="InTransit Tracking">
-                    InTransit Tracking component goes here
+                    <InTransitTracking />
                 </TabPane>
                 <TabPane tab="Web Label Orders" key="Web Label Orders">
-                    Web Label Orders component goes here
+                    <WebLabelOrders />
                 </TabPane>
-                <TabPane tab="Marketplace Data Reports" key="Marketplace Data Reports">
-                    Marketplace Data Reports component goes here
+                <TabPane tab="All MP Shipment" key="Marketplace Data Reports">
+                    <AllMpShipment />
                 </TabPane>
             </Tabs>
         </>

@@ -83,21 +83,7 @@ const ViewAzabReport = (props) => {
 
     return (
       <>
-        <Row gutter={24}>
-          <Col xs={6}>
-            <Select value={state.value} size={size} defaultValue="All" onChange={handleChange} style={{ width: 200, marginLeft: 20, marginRight: 20 }}>
-              {month.map((val, i) => (
-                <Option key={i+1}>{val}</Option>
-              ))}
-              {/* {children} */}
-            </Select>
-          </Col>
-
-          <Col xs={18}>
-            <Button type="primary" onClick={(value) => getmonth(state.value)}> Azab Report   </Button>
-            {/* OrderCount:{state.filterAzabReport.length} */}
-          </Col>
-        </Row>
+        
       </>
     );
   };

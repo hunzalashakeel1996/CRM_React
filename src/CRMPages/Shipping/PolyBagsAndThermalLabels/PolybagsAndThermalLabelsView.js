@@ -1,21 +1,23 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
+import PolyBags from './PolyBags'
+import ThermalBags from './ThermalBags'
 
 const { TabPane } = Tabs;
 
-const PolybagsAndThermalLabelsView = (props) => {
+const PolyBagsAndThermalLabelsView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="PolyBags" centered>
-                <TabPane tab="PolyBags" key="PolyBags">
-                    PolyBags  component goes here
+            <Tabs defaultActiveKey="Poly Bag" centered>
+                <TabPane tab="Poly Bag" key="Poly Bag">
+                    <PolyBags />
                 </TabPane>
-                <TabPane tab="Thermal Labels" key="Thermal Labels">
-                    Thermal Labels component goes here
+                <TabPane tab="Thermal Bags" key="Thermal Bags">
+                   <ThermalBags />
                 </TabPane>
             </Tabs>
         </>
     );
 };
 
-export default PolybagsAndThermalLabelsView;
+export default PolyBagsAndThermalLabelsView;
