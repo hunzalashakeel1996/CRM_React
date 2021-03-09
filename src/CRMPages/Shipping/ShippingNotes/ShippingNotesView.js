@@ -7,7 +7,7 @@ const { TabPane } = Tabs;
 const ShippingNotesView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Notes" centered>
+            <Tabs type="card" defaultActiveKey="Notes"  style={{marginTop: 20, marginLeft: 20, marginRight: 20}}>
                 <TabPane tab="Update Orders Notes" key="Update Orders Notes">
                     <UpdateOrderNotes />
                 </TabPane>

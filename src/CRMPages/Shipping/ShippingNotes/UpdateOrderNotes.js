@@ -54,7 +54,7 @@ const ShippingWeightView = (props) => {
   ];
   return (
     <>
-      <Row style={{ marginLeft: 20, marginRight: 20 }}>
+      <Row style={{  }}>
         <Cards title="Update Order Notes" caption="The simplest use of Drawer" >
           <Row gutter={25}>
             <Col lg={6} xs={24}  >

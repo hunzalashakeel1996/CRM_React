@@ -54,7 +54,7 @@ const RMAView = (props) => {
   ];
   return (
     <>
-       <Row style={{ marginLeft: 20, marginRight: 20 }}>
+      <Row style={{}}>
         <Cards title="RMA Notes Insert" caption="The simplest use of Drawer" >
           <Row gutter={25}>
             <Col lg={6} xs={24}  >
@@ -67,17 +67,11 @@ const RMAView = (props) => {
                 <Button type="success" htmlType="Submit">
                   Update
                         </Button>
-
               </div>
             </Col>
           </Row>
         </Cards>
       </Row>
-      
-
-
-
-
     </>
   );
 };

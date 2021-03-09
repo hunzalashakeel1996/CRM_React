@@ -54,7 +54,7 @@ const EndiciaShipmentView = (props) => {
           ];
     return (
         <>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Endica Refund Label" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={6} xs={24}  >
@@ -79,7 +79,7 @@ const EndiciaShipmentView = (props) => {
                 </Cards>
             </Row>
             {/* Check Labels Here Div  */}
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Check Refund Labels Here" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={6} xs={24}  >

@@ -74,7 +74,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
           ];
     return (
         <>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{}}>
                 <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}  >
@@ -105,7 +105,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
                 </Cards>
             </Row>
             {/* Summary Div  */}
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{ }}>
                 <Cards title="Summary" caption="The simplest use of Drawer" >
                      <Row style={{ marginTop: 20 }}>
 

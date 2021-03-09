@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 const EndiciaShipmentView = (props) => {
     return (
         <>
-            <Tabs type="card"defaultActiveKey="Endica PU" style={{marginLeft: 20, marginTop: 20}}>
+            <Tabs type="card"defaultActiveKey="Endica PU" style={{marginLeft: 20, marginRight: 20, marginTop: 20}}>
                 <TabPane tab="Endica PU" key="Endica PU">
                     <EndiciaPU />
                 </TabPane>

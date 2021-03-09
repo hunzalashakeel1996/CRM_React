@@ -82,7 +82,7 @@ const ShippingReportsView = (props) => {
     ];
     return (
         <>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Web Label Orders" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={24} xs={24}  >
