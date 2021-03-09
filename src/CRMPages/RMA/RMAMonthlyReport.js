@@ -75,8 +75,7 @@ const RMAView = (props) => {
                 <RangePicker onChange={onChange} />
                 <Button size="default" type="success" htmlType="download" style={{ marginLeft: 20 }}>
                   Download
-                        </Button>
-
+                </Button>
               </div>
             </Col>
           </Row>
