@@ -128,7 +128,7 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Order Search" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={6} xs={24}  >
@@ -240,7 +240,7 @@ const OrderReportsView = (props) => {
             {/* INSTOCK SOLD REPORT */}
 
            
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
 
                 <Col xs={24}>
                     <Table className="table-responsive" pagination={false} dataSource={dataSource} columns={columns} />

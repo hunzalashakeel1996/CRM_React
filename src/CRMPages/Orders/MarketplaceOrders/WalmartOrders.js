@@ -108,7 +108,7 @@ const MarketplaceOrdersView = (props) => {
     ];
     return (
         <>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Get Walmart Orders (API) - USA" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}  >
@@ -142,7 +142,7 @@ const MarketplaceOrdersView = (props) => {
                 </Cards>
             </Row>
             {/* USA WALMART SHEET METHOD */}
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Get Walmart Orders (Sheet Method) - USA" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}>
@@ -180,7 +180,7 @@ const MarketplaceOrdersView = (props) => {
                 </Cards>
             </Row>
             {/* CANADA WALMART SHEET METHOD */}
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Get Walmart Orders (Sheet Method) - Canada" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}>
@@ -214,7 +214,7 @@ const MarketplaceOrdersView = (props) => {
             </Row>
             {/* WALMART EMAILS */}
             {/* Check Labels Here Div  */}
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Download Customer Emails" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={6} xs={24}  >

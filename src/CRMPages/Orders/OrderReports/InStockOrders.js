@@ -68,7 +68,7 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Instock Order Reports" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}  >
@@ -105,7 +105,7 @@ const OrderReportsView = (props) => {
             {/* INSTOCK SOLD REPORT */}
 
             {/* INSTOCK SOLD REPORT */}
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Instock Sold Report" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}  >
@@ -125,7 +125,7 @@ const OrderReportsView = (props) => {
                     </Row>
                 </Cards>
             </Row>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
 
                 <Col xs={24}>
                     <Table className="table-responsive" pagination={false} dataSource={dataSource} columns={columns} />
