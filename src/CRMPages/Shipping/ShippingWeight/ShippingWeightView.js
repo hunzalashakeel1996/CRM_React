@@ -1,5 +1,9 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
+import PONumberWeight from './PONumberWeight';
+import DuplicateTracking from './DuplicateTracking';
+import WeightForAmazonLabels from './WeightForAmazonLabels';
+
 
 const { TabPane } = Tabs;
 
@@ -8,13 +12,13 @@ const ShippingWeightView = (props) => {
         <>
             <Tabs type="card"defaultActiveKey="Duplicate Tracking" style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Duplicate Tracking" key="Duplicate Tracking">
-                    Duplicate Tracking  component goes here
+                    <DuplicateTracking />
                 </TabPane>
                 <TabPane tab="Weight for Amazon Label" key="Weight for Amazon Label">
-                    Weight for Amazon Label component goes here
+                    <WeightForAmazonLabels />
                 </TabPane>
                 <TabPane tab="PONumber Weight report" key="PONumber Weight report">
-                    PONumber Weight report component goes here
+                    <PONumberWeight />
                 </TabPane>
                 <TabPane tab="Ship All" key="Ship All">
                     Ship All component goes here

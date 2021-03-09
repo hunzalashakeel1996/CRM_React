@@ -8,9 +8,11 @@ import Azab from './azab'
 import Inventory from './Inventory'
 import Orders from './Orders'
 import Sales from './Sales'
-import Shipping from './Shipping'
+import Shipping from './shipping'
+import RMA from './Rma'
 import PUStyles from './PUStyles'
 import Chatbot from './Chatbot'
+import UserManagement from './UserManagement'
 
 const Admin = () => {
   const { path } = useRouteMatch();
@@ -32,8 +34,10 @@ const Admin = () => {
         <Route path={`${path}/orders`} component={Orders} />
         <Route path={`${path}/sales`} component={Sales} />
         <Route path={`${path}/shipping`} component={Shipping} />
+        <Route path={`${path}/rma`} component={RMA} />
         <Route path={`${path}/puStyles`} component={PUStyles} />
         <Route path={`${path}/chatbot`} component={Chatbot} />
+        <Route path={`${path}/userManagement`} component={UserManagement} />
       </Suspense>
     </Switch>
   );

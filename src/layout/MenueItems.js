@@ -114,6 +114,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
+
       {/* ==================================== SALES ========================================================== */}
       <SubMenu key="Sales" icon={!topMenu && <FeatherIcon icon="dollar-sign" />} title="Sales">
         <Menu.Item key="Reports">
@@ -165,6 +166,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Shipping Weight
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="Shipping Notes">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping/shippingNotes`}>
+            Shipping Notes
+          </NavLink>
+        </Menu.Item>
       </SubMenu>
 
       {/* ==================================== PU STYLES ========================================================== */}
@@ -184,6 +190,39 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
           </NavLink>
         </Menu.Item>
       </SubMenu>
+
+       {/* ==================================== RMA ========================================================== */}
+       <SubMenu key="RMA" icon={!topMenu && <FeatherIcon icon="droplet" />} title="RMA">
+        <Menu.Item key="RMA Notes">
+          <NavLink onClick={toggleCollapsed} to={`${path}/rma/rmaupdates`}>
+            RMA Updates
+          </NavLink>
+        </Menu.Item>
+
+
+      </SubMenu>
+
+{/* ==================================== USER MANAGEMENT ========================================================== */}
+<SubMenu key="User Management" icon={!topMenu && <FeatherIcon icon="droplet" />} title="User Management">
+        <Menu.Item key="Add New Users">
+          <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/addNewUsers`}>
+          Add New Users
+          </NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="Manage Users">
+          <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/manageUser`}>
+          Manage Users
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="Manage Users">
+          <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/UserRights`}>
+          User Rights
+          </NavLink>
+        </Menu.Item>s
+
+      </SubMenu>
+
     </Menu>
   );
 };

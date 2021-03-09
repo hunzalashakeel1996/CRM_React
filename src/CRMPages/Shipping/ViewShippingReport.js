@@ -1,18 +1,18 @@
-import { Col,Option, Row, Select, Spin, Radio } from 'antd';
+import { Col, Row, Select, Spin, Radio } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
-import { ProjectHeader, ProjectSorting } from './style';
-import { Main } from '../styled';
+//import { ProjectHeader, ProjectSorting } from './style';
+//import { Main } from '../styled';
 import { PageHeader } from '../../components/page-headers/page-headers';
 import { AutoComplete } from '../../components/autoComplete/autoComplete';
 import { Button } from '../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { addCommentAPI, addTicketAPI, getTicketsAPI, webURL, audioPlay, uploadUrl, getAzabAPI } from '../../redux/apis/DataAction';
-const AzabReportList = lazy(() => import('./overview/AzabReportList'));
+//const AzabReportList = lazy(() => import('./overview/AzabReportList'));
 
-const ViewAzabReport = (props) => {
+const ViewShippingReport = (props) => {
   const dispatch = useDispatch();
   const { path } = props.match;
 
@@ -83,7 +83,21 @@ const ViewAzabReport = (props) => {
 
     return (
       <>
-        
+        <Row gutter={24}>
+          <Col xs={6}>
+            <Select value={state.value} size={size} defaultValue="All" onChange={handleChange} style={{ width: 200, marginLeft: 20, marginRight: 20 }}>
+              {month.map((val, i) => (
+                <Option key={i+1}>{val}</Option>
+              ))}
+              {/* {children} */}
+            </Select>
+          </Col>
+
+          <Col xs={18}>
+            <Button type="primary" onClick={(value) => getmonth(state.value)}> Azab Report   </Button>
+            {/* OrderCount:{state.filterAzabReport.length} */}
+          </Col>
+        </Row>
       </>
     );
   };
