@@ -1,0 +1,27 @@
+import React, { lazy, Suspense, useEffect, useState } from 'react';
+import { Tabs } from 'antd';
+
+const { TabPane } = Tabs;
+
+const OtherReportsView = (props) => {
+    return (
+        <>
+            <Tabs defaultActiveKey="Summary Report" centered>
+                <TabPane tab="Summary Report" key="Summary Report">
+                    Summary Report  component goes here
+                </TabPane>
+                <TabPane tab="Purchase Report" key="Purchase Report">
+                    Purchase Report component goes here
+                </TabPane>
+                <TabPane tab="Comparison Report" key="Comparison Report">
+                    Comparison Report component goes here
+                </TabPane>
+                <TabPane tab="Top Selling" key="Top Selling">
+                    Top Selling component goes here
+                </TabPane>
+            </Tabs>
+        </>
+    );
+};
+
+export default OtherReportsView;
