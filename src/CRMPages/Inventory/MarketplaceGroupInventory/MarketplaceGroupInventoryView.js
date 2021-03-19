@@ -6,8 +6,8 @@ import AmazonPU from './overview/AmazonPU';
 import Walmart from './overview/Walmart';
 
 
-import { ExportData } from '../../../components/downloadtxt/exportTxt'
-
+//import { ExportData } from '../../../components/downloadtxt/exportTxt'
+import {downloadFile}  from '../../../components/utilities/utilities'
 
 import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi,getInventoryWalmartapi } from '../../../redux/apis/DataAction';
 
@@ -240,18 +240,18 @@ const MarketplaceGroupInventoryView = (props) => {
 
      
     }
-     const downloadFile =(data)=>
-     {
-     var d = new Date();
-        var n = d.getTime();
-        var a = document.createElement('a');
-       a.href = `http://localhost:47463/admin/${data}`;
-        a.target = '_blank';
-        a.download = `http://localhost:47463/admin/${data}`;
-        document.body.appendChild(a);
-        a.click();
+    //  const downloadFile =(data)=>
+    //  {
+    //  var d = new Date();
+    //     var n = d.getTime();
+    //     var a = document.createElement('a');
+    //    a.href = `http://localhost:47463/admin/${data}`;
+    //     a.target = '_blank';
+    //     a.download = `http://localhost:47463/admin/${data}`;
+    //     document.body.appendChild(a);
+    //     a.click();
 
-     }
+    //  }
     return (
         <>
             <Tabs defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} centered>

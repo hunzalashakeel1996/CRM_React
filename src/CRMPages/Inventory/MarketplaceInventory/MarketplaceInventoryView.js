@@ -11,7 +11,7 @@ import Walmart from './overview/Walmart';
 import Sears from './overview/Sears';
 import Ebay from './overview/Ebay';
 
-import downloadFile  from '../../../components/utilities/utilities/downloadFile'
+import {downloadFile}  from '../../../components/utilities/utilities'
 
 import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmartapi } from '../../../redux/apis/DataAction';
 
