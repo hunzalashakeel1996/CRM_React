@@ -13,6 +13,18 @@ const chartLinearGradient = (canvas, height, color) => {
   return gradient;
 };
 
+const downloadFile = (data) => {
+  var newDate = new Date();
+  var getTime = newDate.getTime();
+  var tempElement = document.createElement('a');
+  tempElement.href = `http://localhost:47463/admin/${data}`;
+  tempElement.target = '_blank';
+  tempElement.download = `http://localhost:47463/admin/${data}`;
+
+  document.body.appendChild(tempElement);
+  tempElement.click();
+}
+
 // Custom Tooltip
 const customTooltips = function(tooltip) {
   // Tooltip Element
@@ -96,4 +108,4 @@ const customTooltips = function(tooltip) {
   tooltipEl.style.padding = `${tooltip.yPadding}px ${tooltip.xPadding}px`;
 };
 
-export { textRefactor, chartLinearGradient, customTooltips };
+export { textRefactor, chartLinearGradient, customTooltips,downloadFile };

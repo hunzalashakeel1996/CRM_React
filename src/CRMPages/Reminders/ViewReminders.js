@@ -88,7 +88,7 @@ const ViewReminders = (props) => {
         <PageHeader
           ghost
           title="Reminders"
-          subTitle={<>{reminders.length} Running Reminders</>}
+          // subTitle={<>{reminders.length} Running Reminders</>}
           buttons={[
             // <Button onClick={showModal} key="1" type="primary" size="default">
             //   <FeatherIcon icon="plus" size={16} /> Create Ticket

@@ -19,8 +19,10 @@ import PropTypes from 'prop-types';
 
 const defaultCheckedList = ['Cherokee'];
 const plainOptions=[];
-
+let updateVendorList=[]
 const Regularsku = (props) => {
+
+  const [updateVendorListState,setStateupdateVendorList]=useState([])
 
   const dispatch = useDispatch();
   const [state,setstate]=useState ({
@@ -30,7 +32,7 @@ const Regularsku = (props) => {
   const { plainOptions} = state;
   const CheckboxGroup = Checkbox.Group;
 
-const{Regularvendor}=props
+const{Regularvendor,loader,updateVendor}=props
 
 
   const [checkedList, setCheckedList] = React.useState(defaultCheckedList);
@@ -39,42 +41,82 @@ const{Regularvendor}=props
   const [isVendorCheckedList, setIsVendorCheckedList] = React.useState([]);
 
   const onChange = list => {
+    console.log('onChange',list)
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < Regularvendor.length);
     setCheckAll(list.length === Regularvendor.length);
   };
 
   const onCheckAllChange = e => {
+    if(e.target.checked){
+      updateVendorList = [...Regularvendor]
+    }else{
+      updateVendorList = []
+
+    }
     setIsVendorCheckedList(e.target.checked ? [...Regularvendor] : [])
     setCheckAll(e.target.checked ? true : false)
   };
-
+  let username = [];
   const onListCheckChange = (val, i, isChecked) => {
+   username=JSON.parse(localStorage.getItem('user'))
+ 
+    if(isChecked){
+      updateVendorList.push(
+        {vendorname:val.vendorname,
+        VendorInventory_Update_Stp:val.VendorInventory_Update_Stp,
+        FileName:val.FileName,
+        Fileformat:val.Fileformat,
+        TableName:val.TableName,
+        user: username.LoginName,
+        vendorconfirm:""
+      }
+      )
+    }else{
+      let index = updateVendorList.indexOf(val)
+      updateVendorList.splice(index, 1)
+
+    }
+
+
+ 
+   
     let temp = [...isVendorCheckedList]
     if(isChecked){
       temp.push(val)
     }else{
       let index = temp.indexOf(val)
       temp.splice(index, 1)
+
     }
+    
     setCheckAll(Regularvendor.length===temp.length ? true : false)
     setIsVendorCheckedList(temp)
   }
   const style = { background: '#fff', padding:10,marginLeft: 10,marginTop:10};
   const stylecheckbosrow = { padding:10,paddingLeft: 30, paddingRight: 10};
 
+  const formatedate = (value) => {
+   
+    let a = 'avsdFasdas'
+    let formatedDate = value.split("T")
+    let Date =formatedDate[0];
+    let Time =formatedDate[1].split(".");
+     Time=Time[0]
+     let format=Date+' '+Time
+    return format
+    }
 
 
   return (
     <>
 
 
-      
-
       <Row style={{marginLeft:44}}>
        
         <Col span={4} >
-        <Button type="primary">Update</Button>
+        {console.log(updateVendorList)}
+        <Button type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
         </Col>
         <Col span={4} offset={5} >
         <h2>Regular SKU</h2>
@@ -89,18 +131,14 @@ const{Regularvendor}=props
         
       <Row style={stylecheckbosrow} >
 
-        {/* <CheckboxGroup style={{padding: 10}} options={plainOptions} value={checkedList} onChange={onChange} /> */}
-        {/* {plainOptions.map((val, i) => (
-               <CheckboxGroup options={plainOptions[i]} value={val} onChange={onChange} />
-            
-              ))} */}
+       
          
        
          
         {Regularvendor.map((val, i) => (
                 <Popover content={( <div>
-                    <p>Updated By:{val.UserName}</p>
-                    <p>Updated At:{val.ActionDate}</p>
+                    <p>Updated By: <span style={{color: "red"}}>{val.UserName}</span>  </p>
+                    <p>Updated At: <span style={{color: "red"}}>{formatedate(val.ActionDate)}</span></p>
                   </div>)} title="Last Update Report" trigger="hover">
               <Col span={4} style={style}>
            
@@ -117,8 +155,7 @@ const{Regularvendor}=props
         ))
         }
       </Row >
-
-
+ 
 
     </>
   );
