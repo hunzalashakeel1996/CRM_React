@@ -13,38 +13,7 @@ const chartLinearGradient = (canvas, height, color) => {
   return gradient;
 };
 
-const DownlaodWithReact = (objArray) => {
-  var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-  var str = '';
-  for (var index in array[0]) {
-      line += index + ',';
-  }
-  str += line + '\r\n';
-  line = '';
-  for (var i = 0; i < array.length; i++) {
-      var line = '';
-      /*for (var index in array[i]) {
-          line += array[i][index] + ',';
-      }*/
-      //Here is an example where you would wrap the values in double quotes
-      for (var index in array[i]) {
-          line += '"' + (array[i][index] + "").replace(/"/g, '\"') + '",';
-      }
-      line.slice(0, line.Length - 1);
-      str += line + '\r\n';
-  }
-  // window.open("data:text/csv;charset=utf-8," + escape(str))
-  var uri = 'data:text/csv;charset=utf-8,' + escape(str);
-
-  var downloadLink = document.createElement("a");
-  downloadLink.href = uri;
-  downloadLink.download = "ConfermationNO.csv";
-
-  document.body.appendChild(downloadLink);
-  downloadLink.click();
-  document.body.removeChild(downloadLink);
-}
-
+//Download files
 const downloadFile = (data) => {
   var d = new Date();
   var n = d.getTime();
@@ -54,8 +23,22 @@ const downloadFile = (data) => {
   a.download = `http://localhost:47463/admin/${data}`;
   document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
 
 }
+
+//Get Total
+const getTotals = (data, key) => {
+  // console.log('data' , data)
+let total = 0;
+data.forEach(item => {
+total += parseInt(item[key]);
+//   console.log('item key' ,  parseInt(item[key]))
+//   console.log('loop' , total)
+});
+console.log('final' , total)
+return total;
+};
 
 // Custom Tooltip
 const customTooltips = function (tooltip) {

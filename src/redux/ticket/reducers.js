@@ -9,7 +9,8 @@ const {
   ADD_DEPART,
   ADD_ALL_REMINDERS,
   EDIT_REMINDER_STATUS,
-  ADD_SINGLE_REMINDER
+  ADD_SINGLE_REMINDER,
+  ADD_VENDOR_NAME
 } = actions;
 
 const ticketState = {
@@ -17,6 +18,7 @@ const ticketState = {
   comments: [],
   reminders: [],
   depart: [],
+  vendornames: [],
   loading: false,
   error: null,
 };
@@ -53,6 +55,12 @@ const ticketReducer = (state = ticketState, action) => {
       return {
         ...state,
         reminders: temp,
+        loading: false,
+      };
+    case ADD_VENDOR_NAME:
+      return {
+        ...state,
+        vendornames: data,
         loading: false,
       };
     case ADD_ALL_COMMENTS:
