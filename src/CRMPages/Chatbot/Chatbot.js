@@ -40,17 +40,23 @@ const ChatApp = ({ match }) => {
           addResponseMessage(message.data[0].orderStatus)
           :
           addResponseMessage(message.data)
-          toggleMsgLoader();
+          setTimeout(() => {
+            toggleMsgLoader();
+          }, 1000); 
         }
         else{
-          toggleMsgLoader();
+          setTimeout(() => {
+            toggleMsgLoader();
+          }, 1000); 
           addResponseMessage("Sorry, can't find your order")
         }
       }
     } : null
 
   const handleNewUserMessage = (newMessage) => {
-    toggleMsgLoader();
+    setTimeout(() => {
+      toggleMsgLoader();
+    }, 1000); 
     socket && socket.send(JSON.stringify({ type: 'chatbot', reason: 'userMessage', data: {newMessage}}))
   }
 

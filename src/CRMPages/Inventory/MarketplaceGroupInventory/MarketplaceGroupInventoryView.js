@@ -4,11 +4,11 @@ import { Tabs } from 'antd';
 const { TabPane } = Tabs;
 
 const MarketplaceGroupInventoryView = (props) => {
-
+    const [activeTab, setActiveTab] = useState('');
 
     return (
         <>
-            <Tabs type="card"defaultActiveKey="Amazon PU" style={{marginLeft: 20, marginTop: 20}}>
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Amazon PU" key="Amazon PU">
                     Amazon PU component goes here
                 </TabPane>

@@ -1,6 +1,10 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
+<<<<<<< HEAD
+import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Spin } from 'antd';
+=======
 import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+>>>>>>> origin/arshyan
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
@@ -18,6 +22,7 @@ const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
+const antIcon = <img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />;
 
 const OrderReportsView = (props) => {
     const dispatch = useDispatch();
