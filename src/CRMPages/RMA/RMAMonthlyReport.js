@@ -1,10 +1,13 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Col, Table, Upload, Row, DatePicker } from 'antd';
+import { Input, Tabs, Col, Table, Upload, Row, DatePicker,Spin,notification } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../components/buttons/buttons';
 import { Drawer } from '../../components/drawer/drawer';
 import { Cards } from '../../components/cards/frame/cards-frame';
 import { Main, DatePickerWrapper } from '../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import {getRMAMonthlyreporting} from '../../redux/apis/DataAction';
+import {downloadFile} from '../../components/utilities/utilities'
 
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -15,6 +18,10 @@ const { TabPane } = Tabs;
 const { TextArea } = Input;
 
 const RMAView = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setstate({ ...state, loader: true })   
+  }, []);
   const [state, setstate] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
@@ -22,10 +29,29 @@ const RMAView = (props) => {
     date: null,
     dateString: null,
     values: {},
+    isLoader: false,
   });
   const onChange = (date, dateString) => {
     setstate({ ...state, date, dateString });
+    console.log(date);
+    console.log(dateString);
   };
+
+
+  const getRmaMonthlyReport = () =>
+  {
+    setstate({ ...state, isLoader: true })
+     dispatch(getRMAMonthlyreporting({ orderdatefrom:state.dateString[0],orderdateto:state.dateString[1],})).then(data => {
+      setstate({ ...state, isLoader: false })
+     console.log('My Data: ', data)
+      downloadFile(data);
+      notification.success({
+        message: 'Successfull Dowload',
+        description: `Successfully Download RMA Monthly Report`,
+        onClose: close,
+    });
+      })
+  }
   const dataSource = [
     {
       key: '1',
@@ -65,6 +91,8 @@ const RMAView = (props) => {
   ];
   return (
     <>
+ <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+
       <Row style={{}}>
         <Cards title="Delivery Tracking Status Report" caption="The simplest use of Drawer" >
           <Row gutter={25}>
@@ -73,15 +101,15 @@ const RMAView = (props) => {
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
 
                 <RangePicker onChange={onChange} />
-                <Button size="default" type="success" htmlType="download" style={{ marginLeft: 20 }}>
+                <Button onClick={getRmaMonthlyReport} size="default" type="success" htmlType="download" style={{ marginLeft: 20 }}>
                   Download
-                        </Button>
-
+                </Button>
               </div>
             </Col>
           </Row>
         </Cards>
       </Row>
+      </Spin>
     </>
   );
 };

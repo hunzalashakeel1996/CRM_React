@@ -9,7 +9,7 @@ const { TabPane } = Tabs;
 const MarketplaceOrdersView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Walmart Orders" centered>
+            <Tabs type="card"defaultActiveKey="Walmart Orders" style={{marginLeft: 20, marginTop: 20, marginRight: 20}}>
                 <TabPane tab="Walmart Orders" key="Walmart Orders">
                     <WalmartOrders />
                 </TabPane>

@@ -108,7 +108,7 @@ const MarketplaceOrdersView = (props) => {
     ];
     return (
         <>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{ }}>
                 <Cards title="Get Sears Orders (API)" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         

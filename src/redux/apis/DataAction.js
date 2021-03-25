@@ -15,8 +15,8 @@ export const url = "https://crm.rizno.com";
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
-//export const urlDotNet ="http://localhost:47463/api"
-export const urlDotNet = "http://74.208.31.179:8520/crm.inv_2.1/api"
+export const urlDotNet = "http://localhost:47463/api"
+//export const urlDotNet = "http://74.208.31.179:8520/crm.inv_2.1/api"
 
 // export const url = "https://crmserver-development.herokuapp.com";
 
@@ -103,17 +103,23 @@ export const apiTrackingSummaryFetch = (data) => {
 export const apiFetchDotNet = (apiUrl, apiMethod, apiHeader, apiBody) => {
     let headerParameters = apiMethod === 'GET' ? { method: apiMethod } : { method: apiMethod, headers: apiHeader, body: apiBody }
     return dispatch => {
+        console.log("1");
         return new Promise((resolve, reject) => {
             fetch(`${urlDotNet}/${apiUrl}`, headerParameters)
                 .then(res => {
+                    console.log("2");
                     return res.json()
                 })
                 .then(resJson => {
+                    console.log("3");
                     if (resJson) {
                         resolve(resJson);
                     }
                 })
-                .catch(err => { return saveErrorLog(err, apiUrl) })
+                .catch(err => {
+                    console.log("4");
+                    return saveErrorLog(err, apiUrl)
+                })
         });
     }
 };
@@ -151,6 +157,7 @@ const saveErrorLog = (error, apiURL) => {
         description:
             'Error from server side',
     });
+
     // alert('sorrt')
     // fetch(`${url}/api/common/logError`, {
     //     method: 'POST',
@@ -185,7 +192,111 @@ export const getBrand = (data) => {
 export const getPolyBags = (data) => {
     return apiFetchDotNet('/Report/Addbags', "POST", headerDotNet, JSON.stringify({}));
 };
+
+//DELIVERY TRACKING STATUS
+export const getDeliveyTrackingStatus = (data) => {
+    return apiFetchDotNet('/Edit/delivered_tracking_status_report', "POST", headerDotNet, JSON.stringify(data));
+};
+
+//WEB LABELS ORDERS
+export const getWebLabelOrders = (data) => {
+    return apiFetchDotNet('/Report/web_create_label_order', "POST", headerDotNet, JSON.stringify(data));
+};
+//ALL MP SHIPMENTS
+export const getAllMPShipments = () => {
+    return apiFetchDotNet('/Report/All_MP_Shipment', "POST", headerDotNet, JSON.stringify());
+};
+
 // ============================= Shipping API end ======================================
+
+// ============================= StylesNotInPU API start ======================================
+
+export const getStylesNotInPu = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Report/download_pu_style_report', "POST", headerDotNet, JSON.stringify(data));
+};
+
+export const getExcludedStylesNotInPu = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Report/download_pu_style_report_excluded', "POST", headerDotNet, JSON.stringify(data));
+};
+
+export const getStyleVariationsNotInPu = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Report/variation_wise', "POST", headerDotNet, JSON.stringify(data));
+};
+
+export const getExcludedStyleVariationsNotInPu = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Report/variation_wise_Excluded', "POST", headerDotNet, JSON.stringify(data));
+};
+//============================= StylesNotInPU API end ======================================
+
+
+//============================= RMA API Start ======================================
+
+export const getRMAMonthlyreporting = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Report/rma_monthly_report', "POST", headerDotNet, JSON.stringify(data));
+};
+
+
+//============================= RMA API End ======================================
+
+
+//============================= ORDER API Start ======================================
+
+//PNL Report
+export const getPNLReport = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Edit/sale_reportUT', "POST", headerDotNet, JSON.stringify(data));
+};
+
+//Sales Report
+export const getSalesReport = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Edit/sale_report', "POST", headerDotNet, JSON.stringify(data));
+};
+
+//PONet Amount
+export const getPONetAmount = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Edit/ponet_amount', "POST", headerDotNet, JSON.stringify(data));
+};
+
+//InstockOrders
+export const getInstockReport = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Edit/instock_report', "POST", headerDotNet, JSON.stringify(data));
+};
+
+//Instock Sold Report
+export const  getInstockSoldReport = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Edit/Instock_sold', "POST", headerDotNet, JSON.stringify(data));
+};
+
+//Order Confirmation Number
+export const  getOrderConfirmationNumber = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/AmazonShipping/confirmationpo', "POST", headerDotNet, JSON.stringify(data));
+};
+
+//Order Search
+export const  getOrderSearch = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/orders/List', "POST", headerDotNet, JSON.stringify(data));
+};
+
+
+//Back Order Items
+export const  getBackOrderItems = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/orders/Back_order_items_log', "POST", headerDotNet, JSON.stringify(data));
+};
+
+
+//============================= ORDER API End ======================================
 
 
 

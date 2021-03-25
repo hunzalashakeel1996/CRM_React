@@ -127,7 +127,7 @@ const UsersView = (props) => {
                   <Row>
                     <Col xs={8}>
                       <Checkbox onChange={onChange}>Marketplace Group Inventory</Checkbox>
-                    </Col>
+                    </Col> 
                   </Row>
                 </Panel>
 

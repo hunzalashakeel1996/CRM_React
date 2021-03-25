@@ -108,7 +108,7 @@ const MarketplaceOrdersView = (props) => {
     ];
     return (
         <>
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Get Ebay Orders (API)" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}  >
@@ -142,7 +142,7 @@ const MarketplaceOrdersView = (props) => {
                 </Cards>
             </Row>
             {/* USA WALMART SHEET METHOD */}
-            <Row style={{ marginLeft: 20, marginRight: 20 }}>
+            <Row style={{  }}>
                 <Cards title="Get Ebay Orders (Sheet Method)" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}>

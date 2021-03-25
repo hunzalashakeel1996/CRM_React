@@ -191,8 +191,8 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
-       {/* ==================================== RMA ========================================================== */}
-       <SubMenu key="RMA" icon={!topMenu && <FeatherIcon icon="droplet" />} title="RMA">
+      {/* ==================================== RMA ========================================================== */}
+      <SubMenu key="RMA" icon={!topMenu && <FeatherIcon icon="rotate-cw" />} title="RMA">
         <Menu.Item key="RMA Notes">
           <NavLink onClick={toggleCollapsed} to={`${path}/rma/rmaupdates`}>
             RMA Updates
@@ -202,22 +202,22 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
 
       </SubMenu>
 
-{/* ==================================== USER MANAGEMENT ========================================================== */}
-<SubMenu key="User Management" icon={!topMenu && <FeatherIcon icon="droplet" />} title="User Management">
+      {/* ==================================== USER MANAGEMENT ========================================================== */}
+      <SubMenu key="User Management" icon={!topMenu && <FeatherIcon icon="users" />} title="User Management">
         <Menu.Item key="Add New Users">
           <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/addNewUsers`}>
-          Add New Users
+            Add New Users
           </NavLink>
         </Menu.Item>
 
         <Menu.Item key="Manage Users">
           <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/manageUser`}>
-          Manage Users
+            Manage Users
           </NavLink>
         </Menu.Item>
         <Menu.Item key="Manage Users">
           <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/UserRights`}>
-          User Rights
+            User Rights
           </NavLink>
         </Menu.Item>s
 
