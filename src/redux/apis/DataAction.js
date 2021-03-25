@@ -1,26 +1,18 @@
 import actions from '../authentication/actions';
 import sound from '../../static/sounds/notificationBeep.wav'
-import {  useSelector } from 'react-redux';
-import { Button, notification, Space } from 'antd';
+import { useSelector } from 'react-redux';
 
 
-// export const webURL = `http://localhost:3001`
-export const webURL = "http://mergemtvw.herokuapp.com";
+//export const webURL = `http://localhost:3001`
+// export const webURL = "http://mergemtvw.herokuapp.com";
 
-// export const url = "http://192.168.4.109:3000";
-<<<<<<< HEAD
-// export const url = "https://18.222.232.23:3000";
-=======
->>>>>>> 483043809aaa67c71da0cef40466e6ed5eef96af
-export const url = "https://crm.rizno.com";
-
-// export const url = "http://192.168.4.104:3000";
-// export const url = "https://pu-crm-backend-develop.herokuapp.com";
-// export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
+export const url = "http://192.168.0.115:3000";
+export const urlDotNet ="http://localhost:47463/api"
+// export const url = "https://crmserver-development.herokuapp.com";
 
 export const uploadUrl = "https://images.vanwala.pk";
 
-const { uiStartLoading, uiStopLoading  } = actions;
+const { uiStartLoading, uiStopLoading } = actions;
 
 
 let headerWithWebToken = {
@@ -39,13 +31,6 @@ export const setHeader = () => {
     }
 }
 
-// const getJwt = () => {
-//     localStorage.getItem('jwt')
-//         .then(jwt => {
-//             return jwt
-//         })
-// }
-
 export const setHeaderWithWebToken = () => {
     console.log('inside 123')
     localStorage.getItem('user')
@@ -62,102 +47,171 @@ export const setHeaderWithWebToken = () => {
 export const audioPlay = () => {
     let audio = new Audio(sound).play()
     audio.then(() => {
-      console.log('suiccess')
+        console.log('suiccess')
     }).catch(err => {
-      console.log('err', err)
+        console.log('err', err)
     })
 }
 
 export const header = {
     Accept: "application/json",
     "Content-Type": "application/json",
-    // "jsonwebtoken": user.jwtKey
-    // 'Cache-Control': 'no-cache',
-    // "Access-Control-Allow-Origin": "*",
-    // "Access-Control-Allow-Methods": "*",
 }
-
-// let setHeaderWithWebToken = () => {
-//     localStorage.getItem('jwt').then((val) => {
-//         headerWithWebToken = {
-//             Accept: "application/json",
-//             "Content-Type": "application/json",
-//             'Cache-Control': 'no-cache',
-//             "jsonwebtoken": val
-//         }
-//     })
-// }
 
 const multipartHeader = {
     Accept: 'application/json',
     // "Content-Type": "multipart/form-data",
 }
+const headerDotNet = {
+    "Content-Type": "application/json"
+}
 
-// const multipartHeaderWithJWT = localStorage.getItem('jwt').then(val => {
-//     return {
-//         Accept: 'application/json',
-//         "Content-Type": "multipart/form-data",
-//         "jsonwebtoken": val
-//     }
-// })
+export const apiTrackingSummaryFetch = (data) => {
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+            // dispatch(uiStartLoading());
+            fetch(`http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML=<TrackRequest USERID="622PULSE3418"><TrackID ID=${JSON.stringify(data.trackingNO)}></TrackID></TrackRequest>`
+                , {
+                    method: 'GET'
+                }
+            )
+                .then(res => {
+                    return res.text()
+                })
+                .then(resJson => {
+                    if (resJson) {
+                        resolve(resJson.split('<TrackSummary>')[1].split('</TrackSummary>')[0]);
+                    }
+                    // dispatch(uiStopLoading())
+                })
+                .catch(err => {  return saveErrorLog(err, `http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML=<TrackRequest USERID="622PULSE3418"><TrackID ID=${JSON.stringify(data.trackingNO)} ></TrackID></TrackRequest>`) })
+        });
+    }
+};
+
+export const apiFetchDotNet = (apiUrl, apiMethod, apiHeader, apiBody) => {
+    console.log(apiHeader)
+    let headerParameters = apiMethod === 'GET' ? { method: apiMethod} :
+     {method: apiMethod,headers: apiHeader,body: apiBody}
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+           fetch(`${urlDotNet}/${apiUrl}`, headerParameters)
+                .then(res => {
+                    // console.log('1', res)
+                    return res.json()
+                })
+                .then(resJson => {
+                    // console.log('2', resJson)
+                    if (resJson) {
+                        resolve(resJson);
+                    }
+                })
+                .catch(err => { return saveErrorLog(err, apiUrl) })
+        });
+    }
+};
 
 export const apiFetch = (apiUrl, apiMethod, apiHeader, apiBody, isImage = false) => {
-    console.log('header', apiHeader)
+
     return dispatch => {
         return new Promise((resolve, reject) => {
             dispatch(uiStartLoading());
-            fetch(`${isImage ? uploadUrl: url}/${apiUrl}`, {
+            fetch(`${isImage ? uploadUrl : url}/${apiUrl}`, {
                 method: apiMethod,
-            headers: apiHeader,
-            body: apiBody
-        })
-            .then(res => {
-                console.log('122222', res)
-                return res.json()
+                headers: apiHeader,
+                body: apiBody
             })
-            .then(resJson => {
-                if (resJson) {
-                    // dispatchAction && dispatch(dispatchAction(resJson))
-                    resolve(resJson);
-                }
-                dispatch(uiStopLoading())
-            })
-            .catch(err => { return saveErrorLog(err, apiUrl) })
-    });
+                .then(res => {
+                    return res.json()
+                })
+                .then(resJson => {
+                    if (resJson) {
+                        // dispatchAction && dispatch(dispatchAction(resJson))
+                        resolve(resJson);
+                    }
+                    dispatch(uiStopLoading())
+                })
+                .catch(err => { return saveErrorLog(err, apiUrl) })
+        });
     }
 };
 
 
 const saveErrorLog = (error, apiURL) => {
     console.warn('ERRR', error)
-    notification['error']({
-        message: 'Sorry',
-        description:
-          'Error from server side',
-      });
-    // alert('sorrt')
-    // fetch(`${url}/api/common/logError`, {
-    //     method: 'POST',
-    //     headers: {
-    //         Accept: 'application/json',
-    //         "Content-Type": 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         error,
-    //         apiURL
-    //     })
-    // })
-    //     .then(res => { return res.json() })
-    //     .then((resJson) => {
-    //         let data = {
-    //             msg: `New error inserted in database`,
-    //             number: "923342664254",
-    //         }
-    //     })
-    //     .catch(err => alert('Sorry', `Server Error please try again later ${err}`))
 }
 
 
+
+// ============================= REPORT API start ======================================
+
+export const getBalanceSheetRecord = () => {
+    console.log('abcd')
+    return apiFetchDotNet('Report/balance_sheet_view', "POST", headerDotNet, JSON.stringify({  }));
+};
+export const getBalanceSheetRecordOnClick = (data) => {
+    return apiFetchDotNet('Report/balance_sheet', "POST", headerDotNet, JSON.stringify({ ...data  }));
+};
+
+export const getBalanceSheetRecord2 = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/balance_sheet_view', "POST", headerDotNet, JSON.stringify({ data }));
+};
+
+export const getFeedBackRecordOnClick = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/feed_report', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+export const getReturnRecordOnClick = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/Check_Return_report', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+export const getVendorTrackingRecordOnClick = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/Vendor_Tracking_with_Shiping_Price', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+
+
+export const getCheckReleaseOrdersRecordOnClick = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/Check_Released_Order', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+
+export const getOrderTrackingRecordOnClick = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/ordertrackingstatus', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+
+export const getPOitemReceivedRecordOnClick = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/PurchasedOrders', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+
+export const orderDownloadReport = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/order_download_report', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+
+export const saleSummaryReport = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/summary_report', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+
+export const comparisonReport = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/Comparison_report', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+
+export const topSellingStyleCodes = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/Top_Selling_Report', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+
+export const purchaseReport = (data) => {
+    // console.log('abcd')
+    return apiFetchDotNet('Report/purchase_report', "POST", headerDotNet, JSON.stringify({ ...data }));
+};
+// ============================= REPORT API end ======================================
 
 
 // ============================= API start ======================================
@@ -222,10 +276,22 @@ export const getAzabAPI = (data) => {
     return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({data}));
 };
 
+export const getVendorName = (data) => {
+    return apiFetch('api/general/getVendorname', "POST", headerWithWebToken, JSON.stringify());
+};
+
+
+export const insertPractice = () => {
+    return apiFetch('api/azab/insertRecord', "POST", headerWithWebToken, JSON.stringify());
+};
+
 // image upload
 export const uploadAttachment = (data) => {
     return (apiFetch(`api/ticket/imageUpload`, 'POST',header, data))
 };
+
+
+
 
 
 
