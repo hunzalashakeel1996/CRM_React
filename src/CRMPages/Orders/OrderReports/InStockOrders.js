@@ -68,6 +68,7 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
+        
             <Row style={{  }}>
                 <Cards title="Instock Order Reports" caption="The simplest use of Drawer" >
                     <Row gutter={25}>

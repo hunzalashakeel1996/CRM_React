@@ -4,9 +4,11 @@ import { Tabs } from 'antd';
 const { TabPane } = Tabs;
 
 const OtherReportsView = (props) => {
+    const [activeTab, setActiveTab] = useState('');
+
     return (
         <>
-            <Tabs type="card"defaultActiveKey="Summary Report" style={{marginLeft: 20, marginTop: 20}}>
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{marginLeft: 20, marginTop: 20}}>
                 <TabPane tab="Summary Report" key="Summary Report">
                     Summary Report  component goes here
                 </TabPane>

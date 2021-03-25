@@ -128,8 +128,9 @@ const OrderReportsView = (props) => {
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                 <Select
                                     showSearch
-                                    style={{ width: 300 }}
+                                    style={{ width: 300, height: '300px !important' }}
                                     size="large"
+                                    dropdownClassName={test1}
                                     placeholder="Select a Breakup"
                                     optionFilterProp="children"
                                     onChange={onChange}
@@ -154,9 +155,6 @@ const OrderReportsView = (props) => {
 
                             </div>
                         </Col>
-
-
-
                     </Row>
 
 
@@ -170,5 +168,5 @@ const OrderReportsView = (props) => {
         </>
     );
 };
-
+const test1 = {padding: 20,}
 export default OrderReportsView;

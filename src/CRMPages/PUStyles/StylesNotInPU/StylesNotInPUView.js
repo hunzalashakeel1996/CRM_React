@@ -6,9 +6,11 @@ import Variations from './Variations';
 const { TabPane } = Tabs;
 
 const StylesNotInPUView = (props) => {
+    const [activeTab, setActiveTab] = useState('');
+
     return (
         <>
-            <Tabs type="card" defaultActiveKey="Style Code"  >
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }}  style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
             <TabPane tab="Style Code" key="Style Code">
                     <StyleCodes />
                 </TabPane>

@@ -7,9 +7,12 @@ import SearsOrders from './SearsOrders'
 const { TabPane } = Tabs;
 
 const MarketplaceOrdersView = (props) => {
+    const [activeTab, setActiveTab] = useState('');
+
+
     return (
         <>
-            <Tabs type="card"defaultActiveKey="Walmart Orders" style={{marginLeft: 20, marginTop: 20, marginRight: 20}}>
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }}  style={{marginLeft: 20, marginTop: 20, marginRight: 20}}>
                 <TabPane tab="Walmart Orders" key="Walmart Orders">
                     <WalmartOrders />
                 </TabPane>

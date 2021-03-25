@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Spin } from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
@@ -15,10 +15,11 @@ const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
+const antIcon = <img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />;
 
 const OrderReportsView = (props) => {
 
-
+    const [isLoader, setIsLoader] = useState(true);
     const [state, setstate] = useState({
         selectionType: 'checkbox',
         selectedRowKeys: null,
@@ -92,43 +93,34 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
-            <Row style={{  }}>
-                <Cards title="Profit & Loss Report (PNL)" caption="The simplest use of Drawer" >
-                    <Row gutter={25}>
-                        <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={onChange} />
-                            </div>
-                        </Col>
-                        <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={onChange} />
-                            </div>
-                        </Col>
-                        <Col lg={8} xs={24}  >
-                        <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Button size="default" type="success" htmlType="Submit">
-                                Download
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader}>
+                <Row style={{}}>
+                    <Cards title="Profit & Loss Report (PNL)" caption="The simplest use of Drawer" >
+                        <Row gutter={25}>
+                            <Col lg={8} xs={24}  >
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                    <DatePicker onChange={onChange} />
+                                </div>
+                            </Col>
+                            <Col lg={8} xs={24}  >
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                    <DatePicker onChange={onChange} />
+                                </div>
+                            </Col>
+                            <Col lg={8} xs={24}  >
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div>
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                    <Button size="default" type="success" htmlType="Submit">
+                                        Download
                         </Button>
-
-                            </div>
-                        </Col>
-
-
-
-                    </Row>
-
-
-                </Cards>
-            </Row>
-            
-
-
-
-
+                                </div>
+                            </Col>
+                        </Row>
+                    </Cards>
+                </Row>
+            </Spin>
         </>
     );
 };
