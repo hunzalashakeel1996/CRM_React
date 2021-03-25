@@ -1,10 +1,15 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, Select } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, Select, Spin,notification } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Modal, alertModal } from '../../../components/modals/antd-modals';
+import {getStylesNotInPu} from '../../../redux/apis/DataAction';
+import {getExcludedStylesNotInPu} from '../../../redux/apis/DataAction';
+import { downloadFile,DownlaodWithReact } from '../../../components/utilities/utilities'
 
+ 
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { TabPane } = Tabs;
@@ -12,8 +17,25 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 
+
+const StylesNotInPUView = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setstate({ ...state, loader: true })   
+  }, []);
+  const [state, setstate] = useState({
+    selectionType: 'checkbox',
+    selectedRowKeys: null,
+    selectedRows: null,
+    values: {},
+    vendorname: "",
+    isLoader: false,
+    });
+
+    
 function onChange(value) {
   console.log(`selected ${value}`);
+  setstate({ ...state, vendorname: value })
 }
 
 function onBlur() {
@@ -28,15 +50,39 @@ function onSearch(val) {
   console.log('search:', val);
 }
 
-const StylesNotInPUView = (props) => {
-  const [state, setState] = useState({
-    selectionType: 'checkbox',
-    selectedRowKeys: null,
-    selectedRows: null,
-    values: {},
-
-
+ const getStyleCodes = () =>
+{
+  setstate({ ...state, isLoader: true })
+   dispatch(getStylesNotInPu({ vendorname:state.vendorname})).then(data => {
+    setstate({ ...state, isLoader: false })
+   console.log('My Data: ', data)
+    downloadFile(data);
+    notification.success({
+      message: 'Successfull Dowload',
+      description: `Successfully Download StyleCodes of ${state.vendorname}`,
+      onClose: close,
   });
+    })
+}
+const getExcludedStyleCodes = () =>
+{
+  setstate({ ...state, isLoader: true })
+   dispatch(getExcludedStylesNotInPu({ vendorname:state.vendorname})).then(data => {
+    setstate({ ...state, isLoader: false })
+
+    console.log('My Data: ', data)
+    downloadFile(data);
+    notification.success({
+      message: 'Successfull Dowload',
+      description: `Successfully Download Excluded StyleCodes of ${state.vendorname}`,
+      onClose: close,
+  });
+    })
+}
+
+
+
+  
   const info = () => {
     alertModal.info({
       title: 'This report is based on the following logics on Backend',
@@ -58,6 +104,7 @@ const StylesNotInPUView = (props) => {
 
   return (
     <>
+    <Spin indicator={<img src="/img/icons/loader.gif" style={{width: 100, height: 100}}/>} spinning={state.isLoader} >
       <Row style={{  }}>
         <Cards title="Style Codes Not in PU " caption="The simplest use of Drawer" >
 
@@ -95,7 +142,7 @@ const StylesNotInPUView = (props) => {
             <Col lg={6} xs={24}>
               <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div>
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Button size="default" type="success" htmlType="Download">
+                <Button onClick={getStyleCodes} size="default" type="success" htmlType="Download">
                   Download
                         </Button>
                 {/* </Cards> */}
@@ -104,7 +151,7 @@ const StylesNotInPUView = (props) => {
             <Col lg={6} xs={24}>
               <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download (Excluded Styles)</h3></div>
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Button size="default" type="danger" htmlType="Downlaod (Excluded Styles)">
+                <Button onClick={getExcludedStyleCodes}  size="default" type="danger" htmlType="Downlaod (Excluded Styles)">
                   Download (Excluded Styles)
                         </Button>
                 {/* </Cards> */}
@@ -123,7 +170,7 @@ const StylesNotInPUView = (props) => {
           </Row>
         </Cards>
       </Row>
-
+      </Spin>
 
 
 

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, Spin, notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
@@ -13,114 +13,136 @@ const { TextArea } = Input;
 const PolyBagsAndThermalLabelsView = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    setState({ ...state, loader: true })
-    // dispatch(connectSocket(user.LoginID))
-
-    // get tickets 
-    dispatch(getPolyBags({})).then(data => {
-      console.log('12310', data)
-
-    })
-
-    // if (depart.length === 0)
-    // get departments for users 
-    // dispatch(getDepartsAPI({})).then(departs => {
-    //   dispatch(addDepart(departs))
-    //   // setState({ ...state, departs, loader: false  });
-    // })
+    setstate({ ...state, loader: true })
   }, []);
-  const [state, setState] = useState({
-    selectionType: 'checkbox',
-    selectedRowKeys: null,
-    selectedRows: null,
-    values: {},
-  });
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
-  const columns = [
-    {
-      title: 'Date',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Shipped Items',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Remaining Small',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Remaining Large',
-      dataIndex: 'address',
-      key: 'address',
-    },
 
-  ];
-  return (
-    <>
-      <Row style={{}}>
-        <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
-          <Row gutter={25}>
-            <Col lg={8} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Small</h3></div>
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Input />
+  dispatch(getPolyBags("")).then(data => {
+    setstate({ ...state, isLoader: false })
+    console.log('My Data: ', data)
+    // downloadFile(data);
+    // notification.success({
+    //   message: 'Successfull Dowload',
+    //   description: `Successfully Download PONetAmount With ${state.POType} Breakup From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
+    //   onClose: close,
+    // });
+  })
+  
+    const [state, setstate] = useState({
+      selectionType: 'checkbox',
+      selectedRowKeys: null,
+      selectedRows: null,
+      date: null,
+      dateString: null,
+      checkData: [],
+      checked: null,
+      POType: null,
+      values: {},
+      isLoader: false,
+    });
 
-              </div>
-            </Col>
-            <Col lg={8} xs={24}>
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Large</h3></div>
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Input />
 
-              </div>
-            </Col>
-            <Col lg={8} xs={24}>
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Update</h3></div>
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Button size="default" type="success" htmlType="Update">
-                  Update
+    const getPolyBagsReporting = () => {
+
+      setstate({ ...state, isLoader: true })
+      // dispatch(getPolyBags("")).then(data => {
+      //   setstate({ ...state, isLoader: false })
+      //   console.log('My Data: ', data)
+      //   // downloadFile(data);
+      //   // notification.success({
+      //   //   message: 'Successfull Dowload',
+      //   //   description: `Successfully Download PONetAmount With ${state.POType} Breakup From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
+      //   //   onClose: close,
+      //   // });
+      // })
+
+    };
+    const dataSource = [
+      {
+        key: '1',
+        name: 'Mike',
+        age: 32,
+        address: '10 Downing Street',
+      },
+      {
+        key: '2',
+        name: 'John',
+        age: 42,
+        address: '10 Downing Street',
+      },
+    ];
+    const columns = [
+      {
+        title: 'Date',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: 'Shipped Items',
+        dataIndex: 'age',
+        key: 'age',
+      },
+      {
+        title: 'Remaining Small',
+        dataIndex: 'address',
+        key: 'address',
+      },
+      {
+        title: 'Remaining Large',
+        dataIndex: 'address',
+        key: 'address',
+      },
+
+    ];
+    return (
+      <>
+        <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+          <Row style={{}}>
+            <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
+              <Row gutter={25}>
+                <Col lg={8} xs={24}  >
+                  <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Small</h3></div>
+                  <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                    <Input />
+
+                  </div>
+                </Col>
+                <Col lg={8} xs={24}>
+                  <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Large</h3></div>
+                  <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                    <Input />
+
+                  </div>
+                </Col>
+                <Col lg={8} xs={24}>
+                  <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Update</h3></div>
+                  <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                    <Button size="default" type="success" htmlType="Update">
+                      Update
                         </Button>
-                {/* </Cards> */}
-              </div>
-            </Col>
+                    {/* </Cards> */}
+                  </div>
+                </Col>
 
+              </Row>
+            </Cards>
           </Row>
-        </Cards>
-      </Row>
-      {/* Summary Div  */}
-      <Row style={{}}>
-        <Cards title="Summary" caption="The simplest use of Drawer" >
-          <Row style={{ marginTop: 20 }}>
+          {/* Summary Div  */}
+          <Row style={{}}>
+            <Cards title="Summary" caption="The simplest use of Drawer" >
+              <Row style={{ marginTop: 20 }}>
 
-            <Col xs={24}>
-              <Table className="table-responsive" pagination={false} dataSource={dataSource} columns={columns} />
-            </Col>
+                <Col xs={24}>
+                  <Table className="table-responsive" pagination={false} dataSource={dataSource} columns={columns} />
+                </Col>
 
+              </Row>
+            </Cards>
           </Row>
-        </Cards>
-      </Row>
 
+        </Spin>
 
+      </>
+    );
+  };
 
-    </>
-  );
-};
-
-export default PolyBagsAndThermalLabelsView;
+  export default PolyBagsAndThermalLabelsView;

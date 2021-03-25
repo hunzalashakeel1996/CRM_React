@@ -1,11 +1,15 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col,DatePicker } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Spin, notification } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
+import { getDeliveyTrackingStatus } from '../../../redux/apis/DataAction';
+import { downloadFile } from '../../../components/utilities/utilities'
+
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -16,94 +20,78 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 
 const ShippingReportsView = (props) => {
-    
-      
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        setstate({ ...state, loader: true })
+    }, []);
     const [state, setstate] = useState({
         selectionType: 'checkbox',
         selectedRowKeys: null,
         selectedRows: null,
         date: null,
         dateString: null,
+        isLoader: false,
         values: {},
     });
-    const onChange = (date, dateString) => {
-        setstate({ ...state, date, dateString });
-      };
-    const dataSource = [
-        {
-            key: '1',
-            name: 'Mike',
-            age: 32,
-            address: '10 Downing Street',
-        },
-        {
-            key: '2',
-            name: 'John',
-            age: 42,
-            address: '10 Downing Street',
-        },
-    ];
-    const columns = [
-        {
-            title: 'Order NO',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Full Name',
-            dataIndex: 'age',
-            key: 'age',
-        },
-        {
-            title: 'STREET ADDRESS 1',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'STREET ADDRESS 2',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'City',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'State',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'Country',
-            dataIndex: 'address',
-            key: 'address',
-        },
-    ];
+    const onChange = (value, key) => {
+        // console.log('aaa', date, dateString)
+        setstate({ ...state, [key]: value });
+
+    };
+    const getDeliveyTrackingStatusReporting = () => {
+
+        setstate({ ...state, isLoader: true })
+        dispatch(getDeliveyTrackingStatus({ datefrom: state.startDate.format('MM/DD/YYYY'), dateto: state.endDate.format('MM/DD/YYYY') })).then(data => {
+            setstate({ ...state, isLoader: false })
+            console.log('My Data: ', data)
+            downloadFile(data);
+            notification.success({
+                message: 'Successfull Dowload',
+                description: `Successfully Download Delivery Tracking Status From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
+                onClose: close,
+            });
+        })
+
+    };
+
+   
     return (
         <>
-            <Row style={{  }}>
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+            <Row style={{}}>
                 <Cards title="Delivery Tracking Status Report" caption="The simplest use of Drawer" >
-                    <Row gutter={25}>
-                        <Col lg={24} xs={24}  >
-                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-
-                            <RangePicker onChange={onChange} />
-                            <Button size="default" type="success" htmlType="download" style={{ marginLeft: 20 }}>
-                                    Download
+                <Row gutter={25}>
+                            <Col lg={6} xs={24}  >
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                    <DatePicker onChange={(date) => { onChange(date, 'startDate') }} />
+                                </div>
+                            </Col>
+                            <Col lg={6} xs={24}  >
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                    <DatePicker onChange={(date) => { onChange(date, 'endDate') }} />
+                                </div>
+                            </Col>
+                            
+                            <Col lg={6} xs={24}  >
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div>
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                    <Button onClick={getDeliveyTrackingStatusReporting} size="default" type="success" htmlType="Submit">
+                                        Download
                         </Button>
 
-                            </div>
-                        </Col>
-                        
-                        
-                        
-                    </Row>
+                                </div>
+                            </Col>
+
+
+
+                        </Row>
                 </Cards>
             </Row>
-            
 
+        </Spin>
 
 
         </>
