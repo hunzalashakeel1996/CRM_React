@@ -160,6 +160,12 @@ export const getInventoryapi = (data) => {
   
     return apiFetchDotNet('newInventory/fetchInventoryapi', "POST", headerDotNet,JSON.stringify({ data }));
 };
+
+export const getSubInventoryapi = (data) => {
+  
+    return apiFetchDotNet('newInventory/fetchSubInventoryapi', "POST", headerDotNet,JSON.stringify({ data }));
+};
+
 export const getAllVendorapi = (data) => {
     return apiFetchDotNet('newInventory/getvendor', "GET");
 };
@@ -178,8 +184,27 @@ export const getAllpustatusapi = (data) => {
 export const getInventoryWalmartapi = (data) => {
     return apiFetchDotNet('newInventory/WallMartqty', "POST", headerDotNet,JSON.stringify({ data }));
 };
+export const getWallMartasinqtyapi = (data) => {
+    return apiFetchDotNet('newInventory/WallMartasinqty', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getwalmart_asin_all_otherapi = (data) => {
+  
+    return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getEbayqtyapi = (data) => {
+    return apiFetchDotNet('newInventory/ebaygeneratefile', "POST", headerDotNet,JSON.stringify({ data }));
+};
+//not exists
+export const getEbay_all_otherapi = (data) => {
+  
+    return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getSearsqtyapi = (data) => {
+    return apiFetchDotNet('newInventory/searsInventory', "POST", headerDotNet,JSON.stringify({ data }));
+};
+//n
 export const getUpdateInventoryapi = (data) => {
-    console.log('dataaction',data)
+    
     return apiFetchDotNet('Edit/Editinventory', "POST", headerDotNet,JSON.stringify( data ));
 };
 // ============================= Inventory API end ======================================

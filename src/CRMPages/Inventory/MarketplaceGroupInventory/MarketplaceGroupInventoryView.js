@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Tabs, Button, Table, Modal, Spin, Alert, Switch } from 'antd';
+import { Tabs, Button, Table, Modal, Spin, Alert, Switch,notification  } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import AmazonPU from './overview/AmazonPU';
 
@@ -9,7 +9,7 @@ import Walmart from './overview/Walmart';
 //import { ExportData } from '../../../components/downloadtxt/exportTxt'
 import {downloadFile}  from '../../../components/utilities/utilities'
 
-import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi,getInventoryWalmartapi } from '../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getSubInventoryapi,getWallMartasinqtyapi,getwalmart_asin_all_otherapi } from '../../../redux/apis/DataAction';
 
 
 const { TabPane } = Tabs;
@@ -22,7 +22,9 @@ const statusFilter = "";
 const stylecodeFilter = "";
 const addOrOtherinventory = "";
 
-const Type = ['Group', 'Neither','single','ScrubSet'];
+const itemType = ['Group', 'Neither','single','ScrubSet'];
+const Type = ['All', 'Inhouse'];
+
 let requestObjInventroy = {
     vendorFilter: "",
     brandFilter: "",
@@ -34,7 +36,8 @@ let requestObjInventroy = {
     stylecodeFilter: "",
     isAmazonProcedure: false,
     dataFrom: "",
-    addOrOtherinventory: ""
+    addOrOtherinventory: "",
+    typeData: ""
 
 };
 const MarketplaceGroupInventoryView = (props) => {
@@ -80,36 +83,34 @@ const MarketplaceGroupInventoryView = (props) => {
    
 
     const genrateFeed = (query, column, isAmazon, val) => {
-        console.log(column)
-        setstateLoader(true)
+        console.log(requestObjInventroy)
+        setState({ ...state,loaderState: true })
       
-        //vendorFilter Array to string
-
+        //vendorFilter Array to string        
         requestObjInventroy.vendorFilter = requestObjInventroy.vendorFilter.toString();
         //brandFilter Array to string
-
         requestObjInventroy.brandFilter = requestObjInventroy.brandFilter.toString();
         //collectionFilter Array to string 
-
         requestObjInventroy.collectionFilter = requestObjInventroy.collectionFilter.toString();
         //categoryFilter Array to string 
-
         requestObjInventroy.categoryFilter = requestObjInventroy.categoryFilter.toString();
-        //column Array to sring 
+        //   //column Array to statusFilter 
+        //   requestObjInventroy.statusFilter = statusFilter
+        //column Array to column 
         requestObjInventroy.column = column.toString();
-
+           //column Array to addOrOtherinventory 
         requestObjInventroy.addOrOtherinventory = val
-        //   requestObjInventroy.column = column
+         
+          //column Array to dataFrom 
         requestObjInventroy.dataFrom = query
-        requestObjInventroy.isAmazonProcedure = isAmazon
-        console.log('requestObjInventroy', requestObjInventroy)
-        if (isAmazon == true) {
-            dispatch(getInventoryapi(requestObjInventroy)).then(data => {
 
-                setstateLoader(false)
-                console.log(data)
-                setstateSummaryData(data[0])
-                setstatedownloadData(data[1])
+        requestObjInventroy.isAmazonProcedure = isAmazon
+
+        
+        if (isAmazon == true) {
+            dispatch(getSubInventoryapi(requestObjInventroy)).then(data => {
+                    console.log(data)
+                setState({ ...state, summaryDataState: data[0], downloadDataState: data[1], loaderState: false })
 
                 if (data[3] === 'Amazon') {
                     if (data[2] === 'ADD AMAZON INVENTORY') {
@@ -130,17 +131,24 @@ const MarketplaceGroupInventoryView = (props) => {
                         // window.URL.revokeObjectURL(url);
                    
                         downloadFile(data[1])
+                        notification.success({
+                            message: 'Successfull Dowload',
+                            description: `Successfully ${data[2]} Report`,
+                            onClose: close,
+                        });
+                        downloadFile(data[1])
                         setVisible(false)
                     }
                 }
             })
         }
         else if (isAmazon == false) {
-            // if (data[3] === 'Walmart') {
-                // setstatewalmartDownloadData(data[1])
-                dispatch(getInventoryWalmartapi(requestObjInventroy)).then(data => {
+            console.log('Walmart',requestObjInventroy)
+            if (requestObjInventroy.addOrOtherinventory === 'ADD AMAZON INVENTORY') {
+               
+                dispatch(getWallMartasinqtyapi(requestObjInventroy)).then(data => {
 
-                    setstateLoader(false)
+                    setState({ ...state, loaderState: false })
                     console.log(data[0])
                
                     
@@ -155,7 +163,20 @@ const MarketplaceGroupInventoryView = (props) => {
                      }
                 })
 
-            // }
+             }
+             else {
+                dispatch(getwalmart_asin_all_otherapi(requestObjInventroy)).then(data => {
+
+                    setState({ ...state, loaderState: false })
+                    console.log(data)
+               
+                    
+                    downloadFile(data)
+                })
+
+             }
+
+             
         }
 
 
@@ -233,12 +254,18 @@ const MarketplaceGroupInventoryView = (props) => {
     };
 
     const Download = (data) => {
-        downloadFile(data)
-      
-        setVisible(false)
-       
+     //   downloadFile(data[1])
+        notification.success({
+            message: 'Successfull Dowload',
+            description: `Successfully Add Amazon Inventory Template`,
+            onClose: close,
+        });
+        downloadFile(downloadDataState)
 
-     
+        setVisible(false)
+
+
+
     }
     //  const downloadFile =(data)=>
     //  {
@@ -254,9 +281,11 @@ const MarketplaceGroupInventoryView = (props) => {
     //  }
     return (
         <>
+         
+          <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
             <Tabs defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} centered>
                 <TabPane tab="Amazon PU" key="Amazon PU">
-                <AmazonPU genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+                <AmazonPU genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
                 </TabPane>
                 <TabPane tab="Amazon Rizno" key="Amazon Rizno">
                     Amazon Rizno component goes here
@@ -265,7 +294,7 @@ const MarketplaceGroupInventoryView = (props) => {
                     Amazon UAE component goes here
                 </TabPane>
                 <TabPane tab="Walmart" key="Walmart">
-                <Walmart genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+                <Walmart genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
                 </TabPane>
                 <TabPane tab="Walmart Canada" key="Walmart Canada">
                     Walmart Canada component goes here
@@ -277,6 +306,26 @@ const MarketplaceGroupInventoryView = (props) => {
                     Ebay component goes here
                 </TabPane>
             </Tabs>
+            </Spin >
+            
+            <Modal
+                title="Report Summary Add Inventory Template"
+                centered
+                visible={visible}
+                onOk={() => Download(downloadDataState)}
+
+                onCancel={() => setVisible(false)}
+                width={1000} >
+
+
+                <div className="table-responsive">
+                    <Table pagination={true} dataSource={dataSource} columns={columns} />
+                </div>
+
+
+
+            </Modal>
+
         </>
     );
 };

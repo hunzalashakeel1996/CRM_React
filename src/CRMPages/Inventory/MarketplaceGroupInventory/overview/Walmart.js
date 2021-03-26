@@ -12,35 +12,28 @@ import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 
 
-import Column from '../../../../components/Marketplace/Column'
+import Column from '../../../../components/Marketplace/ColumnGroup'
 import FilterReport from '../../../../components/Marketplace/FilterReportGroup'
 import Promotions from '../../../../components/Marketplace/Promotions'
 import Priceupdate from '../../../../components/Marketplace/Priceupdate'
 
 const Walmart = (props) => {
-    const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
+    const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState, itemType } = props
 
-    const WalmartColumn =['WALLMARTSTATUS', 'WALLMARTPRICE' ]
+    const WalmartColumn = ['WALLMARTSTATUS', 'WALLMARTPRICE']
 
     const isAmazonProcedure = false
     const WalmartPU = "WalmartUSA"
-    
+
     return (
         <>
-           
-
-          
-            <div style={{ marginTop: 10 }}>
-                <Row  >
+          <div style={{ marginTop: 10 }}>
+                <Row>
 
                     <Col span={24} >
-                       
-                                <FilterReport genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-                        
-                    
-
-                    </Col>
-                    <Col span={24} style={{ marginTop:20 }}>
+                        <FilterReport genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
+                      </Col>
+                    <Col span={24} style={{ marginTop: 20 }}>
                         <Column genrateFeed={(col, val) => { genrateFeed(WalmartPU, col, isAmazonProcedure, val) }} additionalColumns={WalmartColumn} />
                     </Col>
 

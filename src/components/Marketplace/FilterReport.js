@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 const filterReport = (props) => {
 
-    const { vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
+    const { vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState, title } = props
     // console.log('filterReport',vendornameState)
     return (
         <>
@@ -22,7 +22,7 @@ const filterReport = (props) => {
 
 
 
-                <Col xxl={60} lg={24} xs={24} style={{ marginLeft: 10 }}>
+                {/* <Col xxl={60} lg={24} xs={24} style={{ marginLeft: 10 }}>
 
                     <div style={{ flex: 1, textAlign: 'center' }}>
                         <Cards headless >
@@ -31,11 +31,11 @@ const filterReport = (props) => {
                     </div>
 
 
-                </Col>
+                </Col> */}
 
 
             </Row>
-            <Cards headless style={{  marginLeft: 10 }}>
+            <Cards title={title} style={{  marginLeft: 10 }}>
 
             <Row >
                 <Col span={6} >

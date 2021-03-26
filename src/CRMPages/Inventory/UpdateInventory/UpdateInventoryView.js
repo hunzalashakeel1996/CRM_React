@@ -1,13 +1,21 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Tabs } from 'antd';
+import { Tabs,Spin } from 'antd';
 import AmazonUpdateInventory from './overview/AmazonUpdateInventory';
 const { TabPane } = Tabs;
 
 const UpdateInventoryView = (props) => {
 
     const [activeTab, setActiveTab] = useState('');
+
+    // const [state, setState] = useState({
+      
+    //     loaderState: true
+    // });
+
+  
     return (
         <>
+     
             <Tabs defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} centered>
                 <TabPane tab="Amazon Inventory" key="Amazon Inventory">
                 <AmazonUpdateInventory />
@@ -22,6 +30,7 @@ const UpdateInventoryView = (props) => {
                     Skus Status component goes here
                 </TabPane>
             </Tabs>
+      
         </>
     );
 };

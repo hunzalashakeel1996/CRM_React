@@ -12,16 +12,16 @@ import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi } from '../../../../redux/apis/DataAction';
 
-import Column from '../../../../components/Marketplace/Column'
-import FilterReport from '../../../../components/Marketplace/FilterReportGroup'
+import ColumnGroup from '../../../../components/Marketplace/ColumnGroup'
+import FilterReportGroup from '../../../../components/Marketplace/FilterReportGroup'
 import Promotions from '../../../../components/Marketplace/Promotions'
 import Priceupdate from '../../../../components/Marketplace/Priceupdate'
 
 const AmazonPU = (props) => {
 
-    const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
+    const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState,itemType } = props
   //  console.log('vendornameState',vendornameState)
-    const amazonPUcolumn = ['PU_PRICE', 'deliveryinfo', 'PUSTATUS', 'ISPU', 'ASINS', 'IsAutomated_PU']
+    const amazonPUcolumn = ['su.PRICE', 'su.deliveryinfo', 'STATUS', 'ISPU', 'su.ASIN', 'SU.IsAutomated_PU']
 
     const amazonPU = "PU"
     const isAmazonProcedure = true
@@ -35,8 +35,8 @@ const AmazonPU = (props) => {
 
                     <Col span={24} >
                       
-                                <FilterReport genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState}
-                                    puStatusState={puStatusState} Type={Type} />
+                                <FilterReportGroup genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState}
+                                    puStatusState={puStatusState} Type={Type}  itemType={itemType}  />
                         
                       
                         
@@ -44,7 +44,7 @@ const AmazonPU = (props) => {
                     </Col>
                     <Col span={24} style={{ marginTop:20 }}>
 
-                        <Column genrateFeed={(col, val) => { genrateFeed(amazonPU, col, isAmazonProcedure, val) }} additionalColumns={amazonPUcolumn} />
+                        <ColumnGroup genrateFeed={(col, val) => { genrateFeed(amazonPU, col, isAmazonProcedure, val) }} additionalColumns={amazonPUcolumn} />
                     </Col>
 
                 </Row>

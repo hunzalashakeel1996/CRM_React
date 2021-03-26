@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 
-import { Tabs, Button, Table, Modal, Spin, Alert, Switch } from 'antd';
+import { Tabs, Button, Table, Modal, Spin, Alert, Switch,notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import AmazonPU from './overview/AmazonPU';
 import AmazonRizno from './overview/AmazonRizno';
@@ -13,7 +13,7 @@ import Ebay from './overview/Ebay';
 
 import {downloadFile}  from '../../../components/utilities/utilities'
 
-import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmartapi } from '../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmartapi,getEbayqtyapi ,getSearsqtyapi} from '../../../redux/apis/DataAction';
 
 
 const { TabPane } = Tabs;
@@ -89,7 +89,7 @@ const MarketplaceInventoryView = (props) => {
     let counter = 0;
 
 
-    const genrateFeed = (query, column, isAmazon, val) => {
+    const genrateFeed = (query, column, isSeller, val) => {
         console.log(column)
         setState({ ...state, loaderState: true })
 
@@ -111,9 +111,9 @@ const MarketplaceInventoryView = (props) => {
         requestObjInventroy.addOrOtherinventory = val
         //   requestObjInventroy.column = column
         requestObjInventroy.dataFrom = query
-        requestObjInventroy.isAmazonProcedure = isAmazon
+        requestObjInventroy.isAmazonProcedure = isSeller
         console.log('requestObjInventroy', requestObjInventroy)
-        if (isAmazon == true) {
+        if (isSeller == "Amazon") {
             dispatch(getInventoryapi(requestObjInventroy)).then(data => {
 
 
@@ -123,6 +123,7 @@ const MarketplaceInventoryView = (props) => {
                 console.log(state)
 
                 if (data[3] === 'Amazon') {
+
                     if (data[2] === 'ADD AMAZON INVENTORY') {
                         setVisible(true)
                     }
@@ -141,14 +142,20 @@ const MarketplaceInventoryView = (props) => {
                         // window.URL.revokeObjectURL(url);
 
                         downloadFile(data[1])
+                        notification.success({
+                            message: 'Successfull Dowload',
+                            description: `Successfully ${data[2]} Report`,
+                            onClose: close,
+                        });
                         setVisible(false)
                     }
                 }
             })
         }
-        else if (isAmazon == false) {
-            // if (data[3] === 'Walmart') {
-            // setstatewalmartDownloadData(data[1])
+        else if (isSeller == "Walmart") {
+
+            if (requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY') {
+        
             dispatch(getInventoryWalmartapi(requestObjInventroy)).then(data => {
 
 
@@ -167,9 +174,58 @@ const MarketplaceInventoryView = (props) => {
                 }
             })
 
+            }
+            
+            if (requestObjInventroy.addOrOtherinventory != 'ADD WALMART INVENTORY') {
+        
+                dispatch(getInventoryWalmartapi(requestObjInventroy)).then(data => {
+    
+    
+                    setState({ ...state, loaderState: false })
+                    console.log(data[0])
+    
+    
+                    var link = data
+    
+                    var datalink = link;
+                    console.log(datalink.length);
+                    for (var z = 0; z < datalink.length;) {
+                        downloadFile(datalink[z])
+    
+                        z++
+                    }
+                })
+    
+                }
+        }
+        else if (isSeller == "Ebay") {
+            // if (data[3] === 'Walmart') {
+        
+            dispatch(getEbayqtyapi(requestObjInventroy)).then(data => {
+
+
+                setState({ ...state, loaderState: false })
+                console.log(data)
+                downloadFile(data[1])
+
+            })
+
             // }
         }
+        else if (isSeller == "Sears") {
+            // if (data[3] === 'Walmart') {
+        
+            dispatch(getSearsqtyapi(requestObjInventroy)).then(data => {
 
+
+                setState({ ...state, loaderState: false })
+                console.log(data)
+                downloadFile(data)
+
+            })
+
+            // }
+        }
 
 
     };
@@ -245,30 +301,20 @@ const MarketplaceInventoryView = (props) => {
     };
 
     const Download = (data) => {
-        downloadFile(data)
+        downloadFile(data[1])
+        notification.success({
+            message: 'Successfull Dowload',
+            description: `Successfully Add Amazon Inventory Template`,
+            onClose: close,
+        });
+        downloadFile(downloadDataState)
 
         setVisible(false)
 
 
 
     }
-    const downloadFile = (data) => {
-
-        downloadFile(data)
-        // var d = new Date();
-        // var n = d.getTime();
-        // var a = document.createElement('a');
-        // a.href = `http://localhost:47463/admin/${data}`;
-        // console.log('123', a.href)
-        // a.target = '_blank';
-        // console.log('123', a.target)
-        // a.download = `http://localhost:47463/admin/${data}`;
-
-        // console.log(a.download)
-        // document.body.appendChild(a);
-        // a.click();
-
-    }
+ 
     return (
         <>
 

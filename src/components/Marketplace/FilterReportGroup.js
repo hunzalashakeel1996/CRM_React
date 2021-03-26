@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 const filterReport = (props) => {
 
-    const { vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
+    const { vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState,itemType } = props
     // console.log('filterReport',vendornameState)
     return (
         <>
@@ -191,8 +191,8 @@ const filterReport = (props) => {
                     </Row>
                     <Row >
                         <Col>
-                            <Select onChange={(val) => { props.genrateFilter('typeFilter', val, false) }} style={{ width: 300 }}>
-                                {Type.map((val, i) => (
+                            <Select onChange={(val) => { props.genrateFilter('typeData', val, false) }} style={{ width: 300 }}>
+                                {itemType.map((val, i) => (
                                     <Option value={val} key={val}>{val}</Option>
                                 ))}
 

@@ -21,6 +21,9 @@ const Ebay = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
 
     const EbayColumn =['EBAYSTATUS']
+    const columnDropdown = ['ADD EBAY INVENTORY', 'UPDATE EBAY INVENTORY', 'ALL','OTHER']
+    const Ebay = "Ebay"
+    const isSeller = "Ebay"
     return (
         <>
            
@@ -28,10 +31,11 @@ const Ebay = (props) => {
                 <Row>
                 <Col span={24} >
                       
-                   <FilterReport genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+                   <FilterReport title={'Ebay'} genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
                 </Col>
                     <Col span={24} style={{ marginTop:20 }}>
-                        <Column genrateFeed={ (val) =>genrateFeed(val)} additionalColumns={EbayColumn} />
+                        <Column genrateFeed={ (col,val) =>genrateFeed(Ebay,col,isSeller,val)} additionalColumns={EbayColumn}  columnDropdown={columnDropdown} />
+                    
                     </Col>
 
                 </Row>

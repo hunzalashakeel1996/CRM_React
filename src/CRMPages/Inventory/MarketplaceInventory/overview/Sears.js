@@ -20,7 +20,10 @@ import Priceupdate from '../../../../components/Marketplace/Priceupdate'
 const Sears = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
 
-    const SearsColumn =['SearsStatus']
+    const searsColumn =['SearsStatus']
+    const Sears = "Sears"
+    const columnDropdown = ['ADD SEARS INVENTORY', 'ALL', 'OTHER']
+    const isSeller = "Sears"
     return (
         <>
           
@@ -29,12 +32,13 @@ const Sears = (props) => {
 
                     <Col span={24} >
                       
-                                <FilterReport genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+                                <FilterReport title={'Sears'} genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
                          
 
                     </Col>
                     <Col span={24}>
-                        <Column genrateFeed={ (val) =>genrateFeed(val)} additionalColumns={SearsColumn} />
+                        <Column genrateFeed={ (col,val) =>genrateFeed(Sears,col,isSeller,val)} additionalColumns={searsColumn} columnDropdown={columnDropdown}/>
+                  
                     </Col>
 
                 </Row>

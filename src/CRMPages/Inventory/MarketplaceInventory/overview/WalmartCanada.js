@@ -21,7 +21,8 @@ const WalmartCanada = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
 
     const WalmartCanadaColumn =['walmart_ca_status', 'walmart_ca_price','walmart_ca_delivetyinfo' ]
-    const isAmazonProcedure = false
+    const columnDropdown = ['ADD WALMART INVENTORY', 'ALL', 'OTHER']
+    const isSeller = "walmart"
     const WalmartCA = "WalmartCanada"
     return (
         <>
@@ -31,11 +32,11 @@ const WalmartCanada = (props) => {
 
                     <Col span={24} >
                    
-                                <FilterReport genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+                                <FilterReport title={'Walmart Canada'} genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
                          
                     </Col>
                     <Col span={24} style={{ marginTop:20 }}>
-                        <Column genrateFeed={(col, val) => { genrateFeed(WalmartCA, col, isAmazonProcedure, val) }}  additionalColumns={WalmartCanadaColumn} />
+                        <Column genrateFeed={(col, val) => { genrateFeed(WalmartCA, col, isSeller, val) }}  additionalColumns={WalmartCanadaColumn} columnDropdown={columnDropdown}/>
                     </Col>
 
                 </Row>

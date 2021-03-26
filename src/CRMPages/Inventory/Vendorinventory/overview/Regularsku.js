@@ -9,6 +9,8 @@ import { PageHeader } from '../../../../components/page-headers/page-headers';
 import { AutoComplete } from '../../../../components/autoComplete/autoComplete';
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
+import { Cards } from '../../../../components/cards/frame/cards-frame';
+
 import { addCommentAPI, addTicketAPI, getTicketsAPI, webURL, audioPlay, uploadUrl, getVendorapi } from '../../../../redux/apis/DataAction';
 import PropTypes from 'prop-types';
 //import logo from '../../../../assets/VendorLogo/Cherokee.jpg';
@@ -110,7 +112,7 @@ const{Regularvendor,loader,updateVendor}=props
 
   return (
     <>
-
+      <Cards headless >
 
       <Row style={{marginLeft:44}}>
        
@@ -128,7 +130,7 @@ const{Regularvendor,loader,updateVendor}=props
       </Col>
        
       </Row>
-        
+
       <Row style={stylecheckbosrow} >
 
        
@@ -140,14 +142,15 @@ const{Regularvendor,loader,updateVendor}=props
                     <p>Updated By: <span style={{color: "red"}}>{val.UserName}</span>  </p>
                     <p>Updated At: <span style={{color: "red"}}>{formatedate(val.ActionDate)}</span></p>
                   </div>)} title="Last Update Report" trigger="hover">
-              <Col span={4} style={style}>
+              <Col span={4} style={{ border:'1px solid',  borderWidth:1, borderColor:'#4545cc' ,marginLeft: 10, marginTop: 10, padding: 5,backgroundColor: '#fff', color: '#9299B8'  }}>
            
      
   
                 <Checkbox checked={isVendorCheckedList.includes(val)}   onChange={(e) => {onListCheckChange(val,i, e.target.checked)}} >
                  {val.vendorname}
-               
-                 <img src={require(`../../../../assets/VendorLogo/${val.vendorname}.jpg`)} width="20" height="20" style={{marginLeft:10}}/> 
+            
+                 <img src={`/img/VendorLogo/${val.vendorname}.jpg`} width="40" height="40" style={{marginLeft:10}}/> 
+              
                 </Checkbox>
              
               </Col>
@@ -155,7 +158,7 @@ const{Regularvendor,loader,updateVendor}=props
         ))
         }
       </Row >
- 
+      </Cards >
 
     </>
   );

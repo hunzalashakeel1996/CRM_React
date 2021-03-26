@@ -21,8 +21,9 @@ const AmazonUAE = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
 
     const amazonUaeColumn =['amazon_UE_price', 'amazon_UE_status','amazon_UE_deliveryinfo' ]
+    const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']
     const amazonUae = "Uae"
-    const isAmazonProcedure = true
+    const isSeller = "Amazon"
     return (
         <>
            
@@ -34,13 +35,13 @@ const AmazonUAE = (props) => {
 
                     <Col span={24} >
                        
-                                <FilterReport genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+                                <FilterReport title={'Amazon UAE'} genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
                            
                        
 
                     </Col>
                     <Col span={24} style={{ marginTop:20 }}>
-                        <Column genrateFeed={ (col,val) =>genrateFeed(amazonUae, col, isAmazonProcedure, val)} additionalColumns={amazonUaeColumn} />
+                        <Column genrateFeed={ (col,val) =>genrateFeed(amazonUae, col, isSeller, val)} additionalColumns={amazonUaeColumn} columnDropdown={columnDropdown}/>
                     </Col>
 
                 </Row>

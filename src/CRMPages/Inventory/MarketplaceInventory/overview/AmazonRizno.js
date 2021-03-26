@@ -23,9 +23,9 @@ const AmazonRizno = (props) => {
 
     const{genrateFeed,genrateFilter,vendornameState,brandnameState,collectionState,categorynameState,Type,puStatusState} = props
     const amazonRiznoColumn =['STYLESTATUS','Rizno_deliveryinfo', 'RIZNOASINS','AMAZONPRICE','ISAMAZON','IsAutomated_Rizno' ]
-    
+    const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']
     const amazonRizno="Rizno"
-    const isAmazonProcedure=true
+    const isSeller="Amazon"
     return (
         <>
         
@@ -36,14 +36,14 @@ const AmazonRizno = (props) => {
 
             <Col span={24} >
           
-            <FilterReport genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+            <FilterReport title={'Amazon Rizno'} genrateFilter={ genrateFilter} vendornameState={vendornameState}brandnameState={brandnameState} categorynameState={categorynameState}collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
            
 
             </Col>
             <Col span={24} style={{ marginTop:20 }}>
     
    
-            <Column genrateFeed={ (col, val) =>{genrateFeed(amazonRizno,col,isAmazonProcedure, val)}} additionalColumns={amazonRiznoColumn}/>
+            <Column genrateFeed={ (col, val) =>{genrateFeed(amazonRizno,col,isSeller, val)}} additionalColumns={amazonRiznoColumn} columnDropdown={columnDropdown}/>
             </Col>
           
             </Row>
