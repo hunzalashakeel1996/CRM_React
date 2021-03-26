@@ -7,15 +7,19 @@ import FeatherIcon from 'feather-icons-react';
 const { TabPane } = Tabs;
 
 const PolyBagsAndThermalLabelsView = (props) => {
+    const [activeTab, setActiveTab] = useState('');
+
     return (
         <>
-            <Tabs type="card" defaultActiveKey="Poly Bag" style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }} >
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }} >
                 <TabPane 
-                tab={<span> <FeatherIcon icon="users" style={{ width: 20, height: 20, marginRight:5 }} />Poly Bag</span>} 
+                tab={<span> <FeatherIcon icon="briefcase" style={{ width: 15, height: 15, marginRight:5 }} />Poly Bag</span>} 
                 key="Poly Bag" >
                     <PolyBags />
                 </TabPane>
-                <TabPane tab="Thermal Bags" key="Thermal Bags">
+                <TabPane
+                tab={<span> <FeatherIcon icon="shopping-bag" style={{ width: 15, height: 15, marginRight:5 }} />Thermal Bags</span>} 
+                key="Thermal Bags">
                     <ThermalBags />
                 </TabPane>
             </Tabs>

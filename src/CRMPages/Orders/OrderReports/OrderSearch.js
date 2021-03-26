@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select, Spin, notification } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
@@ -7,6 +8,8 @@ import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
+import { getOrderSearch } from '../../../redux/apis/DataAction';
+import { downloadFile,DownlaodWithReact } from '../../../components/utilities/utilities'
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -15,24 +18,13 @@ const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
-function onChange(value) {
-    console.log(`selected ${value}`);
-}
 
-function onBlur() {
-    console.log('blur');
-}
-
-function onFocus() {
-    console.log('focus');
-}
-
-function onSearch(val) {
-    console.log('search:', val);
-}
 
 const OrderReportsView = (props) => {
-
+    const dispatch = useDispatch();
+    useEffect(() => {
+        setstate({ ...state, loader: true })
+    }, []);
 
     const [state, setstate] = useState({
         selectionType: 'checkbox',
@@ -42,17 +34,51 @@ const OrderReportsView = (props) => {
         dateString: null,
         checkData: [],
         checked: null,
+        VendorName: null,
         values: {},
+        isLoader: false,
     });
-    const multipleChange = childData => {
-        setState({ ...state, checkData: childData });
-    };
-
-
-    const onChange = (date, dateString) => {
-        setstate({ ...state, date, dateString });
+    const onChange = (value, key) => {
+        // console.log('aaa', date, dateString)
+        setstate({ ...state, [key]: value });
 
     };
+
+    const getOrderSearchReporting = () => {
+
+        setstate({ ...state, isLoader: true })
+        dispatch(getOrderSearch({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), vendorname: state.VendorName })).then(data => {
+            setstate({ ...state, isLoader: false })
+            console.log('My Data: ', data)
+            downloadFile(data);
+            notification.success({
+                message: 'Successfull Dowload',
+                description: `Successfully Download OrderReport of ${state.VendorName}  From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
+                onClose: close,
+            });
+           // let tempDataSource = [];
+            // data[1] .map(value => {
+            //     const { orderno, itemno,stylecode,stylename,vendorstylecode,colorcode,sizename,itemqty,backorderdate,ponumber,order_status,vendorname} = value;
+            //     return tempDataSource.push({
+            //         orderno: orderno,
+            //         itemno: itemno,
+            //         stylecode: stylecode,
+            //         stylename: stylename,
+            //         vendorstylecode: vendorstylecode,
+            //         colorcode: colorcode,
+            //         sizename: sizename,
+            //         itemqty: itemqty,
+            //         backorderdate: backorderdate,
+            //         ponumber: ponumber,
+            //         order_status: order_status,
+            //         vendorname: vendorname,
+            //     });
+            // });
+            // setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+        })
+
+    };
+
 
     const dataSource = [
         {
@@ -128,6 +154,7 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
             <Row style={{  }}>
                 <Cards title="Order Search" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
@@ -140,10 +167,9 @@ const OrderReportsView = (props) => {
                                     size="large"
                                     placeholder="Select a Vendor"
                                     optionFilterProp="children"
-                                    onChange={onChange}
-                                    onFocus={onFocus}
-                                    onBlur={onBlur}
-                                    onSearch={onSearch}
+                                    mode="multiple"
+                                    allowClear
+                                    onChange={(VendorName) => { onChange(VendorName, 'VendorName') }} 
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                     }
@@ -209,19 +235,19 @@ const OrderReportsView = (props) => {
                         <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={onChange} />
+                            <DatePicker onChange={(date) => { onChange(date, 'startDate') }} />
                             </div>
                         </Col>
                         <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={onChange} />
+                            <DatePicker onChange={(date) => { onChange(date, 'endDate') }} />
                             </div>
                         </Col>
                         <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Button size="default" type="success" htmlType="Submit">
+                                <Button onClick={getOrderSearchReporting} size="default" type="success" htmlType="Submit">
                                     Download
                         </Button>
 
@@ -240,15 +266,15 @@ const OrderReportsView = (props) => {
             {/* INSTOCK SOLD REPORT */}
 
            
-            <Row style={{  }}>
+            {/* <Row style={{  }}>
 
                 <Col xs={24}>
                     <Table className="table-responsive" pagination={false} dataSource={dataSource} columns={columns} />
                 </Col>
 
-            </Row>
+            </Row> */}
 
-
+            </Spin>
 
 
         </>
@@ -256,3 +282,4 @@ const OrderReportsView = (props) => {
 };
 
 export default OrderReportsView;
+

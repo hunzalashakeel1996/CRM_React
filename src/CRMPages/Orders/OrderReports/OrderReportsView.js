@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Tabs } from 'antd';
+import { Tabs, Modal, Spin } from 'antd';
 import PNL from './PNL';
 import SalesReport from './SalesReport'
 import PONetAmount from './PONetAmount'
@@ -11,11 +11,13 @@ import BackOrderItems from './BackOrderItems'
 const { TabPane } = Tabs;
 
 const OrderReportsView = (props) => {
+    const [activeTab, setActiveTab] = useState('');
+
     return (
         <div >
-            <Tabs type="card"defaultActiveKey="PNL" style={{marginLeft: 20, marginTop: 20, marginRight: 20}}>
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
                 <TabPane tab="PNL" key="PNL">
-                    <PNL />
+                    <PNL onLoaderStateChange={(state) => { setIsLoader(state) }} />
                 </TabPane>
                 <TabPane tab="Sales Report" key="Sales Report">
                     <SalesReport />

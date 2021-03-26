@@ -41,7 +41,7 @@ let requestObjInventroy = {
 
 };
 const MarketplaceGroupInventoryView = (props) => {
-
+    const [activeTab, setActiveTab] = useState('');
 
 
     const dispatch = useDispatch();

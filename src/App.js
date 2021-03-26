@@ -14,8 +14,9 @@ import store from './redux/store';
 import Admin from './routes/admin';
 import Auth from './routes/auth';
 import { connectSocket } from './redux/socket/socketAction';
-import { setHeaderWithWebToken, getDepartsAPI, getAllVendorapi } from './redux/apis/DataAction';
-import { addDepart, addVendors} from './redux/ticket/actionCreator';
+import { setHeaderWithWebToken, getDepartsAPI,getVendorName } from './redux/apis/DataAction';
+// import { getVendorName } from './redux/apis/DataAction';
+import { addDepart,addVendorName } from './redux/ticket/actionCreator';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { theme } = config;
@@ -54,7 +55,13 @@ const ProviderConfig = () => {
     dispatch(getDepartsAPI({})).then(departs => {
       dispatch(addDepart(departs))
       // setState({ ...state, departs, loader: false  });
+    }),
+    dispatch(getVendorName({})).then(departs => {
+      // console.log(departs)
+      dispatch(addVendorName(departs))
+      // setState({ ...state, departs, loader: false  });
     })
+<<<<<<< HEAD
 
     // get vendor names
     dispatch(getAllVendorapi({})).then(vendors => {
@@ -62,6 +69,11 @@ const ProviderConfig = () => {
       // setState({ ...state, departs, loader: false  });
     })
 
+=======
+    // get vendor api
+
+    
+>>>>>>> origin/development
     // setHeaderWithWebToken()
   }, []);
 
