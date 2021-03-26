@@ -264,8 +264,8 @@ const ThemeLayout = WrappedComponent => {
                 </ThemeProvider>
               ) : null}
               <Layout className="atbd-main-layout">
-                <Content>
-                  <WrappedComponent {...this.props} />
+                <Content >
+                  <div style={{minHeight: '80vh'}}><WrappedComponent  {...this.props}/></div>
                   <Footer className="admin-footer" style={footerStyle}>
                     <Row>
                       <Col md={12} xs={24}>

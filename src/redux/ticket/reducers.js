@@ -9,7 +9,8 @@ const {
   ADD_DEPART,
   ADD_ALL_REMINDERS,
   EDIT_REMINDER_STATUS,
-  ADD_SINGLE_REMINDER
+  ADD_SINGLE_REMINDER,
+  ADD_VENDORS
 } = actions;
 
 const ticketState = {
@@ -17,12 +18,14 @@ const ticketState = {
   comments: [],
   reminders: [],
   depart: [],
+  vendors: [],
   loading: false,
   error: null,
 };
 
 const ticketReducer = (state = ticketState, action) => {
   const { type, data, err } = action;
+  
   let temp = ''
   switch (type) {
     case ADD_TICKET:
@@ -88,6 +91,11 @@ const ticketReducer = (state = ticketState, action) => {
         ...state,
         reminders: temp
       }
+      case ADD_VENDORS:
+        return {
+          ...state,
+          vendors: data
+        }
     default:
       return state;
   }

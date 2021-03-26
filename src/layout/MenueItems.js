@@ -41,11 +41,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Reminders
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="ViewAzabReport">
+        {/* <Menu.Item key="ViewAzabReport">
           <NavLink onClick={toggleCollapsed} to={`${path}/azab/ViewAzabReport`}>
             AzabReport
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
       </SubMenu>
 
       {/* ==================================== TICKETS ========================================================== */}
@@ -114,58 +114,64 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
           </Menu.Item>
         </SubMenu>
 
-        {/* ==================================== SALES ========================================================== */}
-        <SubMenu key="Sales" icon={!topMenu && <FeatherIcon icon="dollar-sign" />} title="Sales">
-          <Menu.Item key="Reports">
-            <NavLink onClick={toggleCollapsed} to={`${path}/sales/reports`}>
-              Reports
-          </NavLink>
-          </Menu.Item>
-          <Menu.Item key="Balance Sheet">
-            <NavLink onClick={toggleCollapsed} to={`${path}/sales/balanceSheet`}>
-              Balance Sheet
-          </NavLink>
-          </Menu.Item>
-          <Menu.Item key="Other Reports">
-            <NavLink onClick={toggleCollapsed} to={`${path}/sales/otherReports`}>
-              Other Reports
-          </NavLink>
-          </Menu.Item>
-        </SubMenu>
 
-        {/* ==================================== SHIPPING ========================================================== */}
-        <SubMenu key="Shipping" icon={!topMenu && <FeatherIcon icon="truck" />} title="Shipping">
-          <Menu.Item key="PolyBags and Thermal Labels">
-            <NavLink onClick={toggleCollapsed} to={`${path}/shipping/PolybagsAndThermalLabels`}>
-              PolyBags and Thermal Labels
+      {/* ==================================== SALES ========================================================== */}
+      <SubMenu key="Sales" icon={!topMenu && <FeatherIcon icon="dollar-sign" />} title="Sales">
+        <Menu.Item key="Reports">
+          <NavLink onClick={toggleCollapsed} to={`${path}/sales/reports`}>
+            Reports
           </NavLink>
-          </Menu.Item>
-          <Menu.Item key="Amazon Shipment">
-            <NavLink onClick={toggleCollapsed} to={`${path}/shipping/amazonShipment`}>
-              Amazon Shipment
+        </Menu.Item>
+        <Menu.Item key="Balance Sheet">
+          <NavLink onClick={toggleCollapsed} to={`${path}/sales/balanceSheet`}>
+            Balance Sheet
           </NavLink>
-          </Menu.Item>
-          <Menu.Item key="Endicia Shipment">
-            <NavLink onClick={toggleCollapsed} to={`${path}/shipping/endiciaShipment`}>
-              Endicia Shipment
+        </Menu.Item>
+        <Menu.Item key="Other Reports">
+          <NavLink onClick={toggleCollapsed} to={`${path}/sales/otherReports`}>
+            Other Reports
           </NavLink>
-          </Menu.Item>
-          <Menu.Item key="Manual Shipment">
-            <NavLink onClick={toggleCollapsed} to={`${path}/shipping/manualShipment`}>
-              Manual Shipment
+        </Menu.Item>
+      </SubMenu>
+
+      {/* ==================================== SHIPPING ========================================================== */}
+      <SubMenu key="Shipping" icon={!topMenu && <FeatherIcon icon="truck" />} title="Shipping">
+        <Menu.Item key="PolyBags and Thermal Labels">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping/PolybagsAndThermalLabels`}>
+            PolyBags and Thermal Labels
           </NavLink>
-          </Menu.Item>
-          <Menu.Item key="Shipping Reports">
-            <NavLink onClick={toggleCollapsed} to={`${path}/shipping/shippingReports`}>
-              Shipping Reports
+        </Menu.Item>
+        <Menu.Item key="Amazon Shipment">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping/amazonShipment`}>
+            Amazon Shipment
           </NavLink>
-          </Menu.Item>
-          <Menu.Item key="Shipping Weight">
-            <NavLink onClick={toggleCollapsed} to={`${path}/shipping/shippingWeight`}>
-              Shipping Weight
+        </Menu.Item>
+        <Menu.Item key="Endicia Shipment">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping/endiciaShipment`}>
+            Endicia Shipment
           </NavLink>
-          </Menu.Item>
-        </SubMenu>
+        </Menu.Item>
+        <Menu.Item key="Manual Shipment">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping/manualShipment`}>
+            Manual Shipment
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="Shipping Reports">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping/shippingReports`}>
+            Shipping Reports
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="Shipping Weight">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping/shippingWeight`}>
+            Shipping Weight
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="Shipping Notes">
+          <NavLink onClick={toggleCollapsed} to={`${path}/shipping/shippingNotes`}>
+            Shipping Notes
+          </NavLink>
+        </Menu.Item>
+      </SubMenu>
 
         {/* ==================================== PU STYLES ========================================================== */}
         <SubMenu key="PUStyles" icon={!topMenu && <FeatherIcon icon="droplet" />} title="PUStyles">
@@ -173,9 +179,50 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             <NavLink onClick={toggleCollapsed} to={`${path}/puStyles/stylesNotInPU`}>
               Styles Not in PU
           </NavLink>
-          </Menu.Item>
+        </Menu.Item>
+      </SubMenu>
 
-        </SubMenu>
+      {/* ==================================== CHATBOT ========================================================== */}
+      <SubMenu key="Chatbot" icon={!topMenu && <FeatherIcon icon="message-square" />} title="Chatbot">
+        <Menu.Item key="Styles Not in PU">
+          <NavLink onClick={toggleCollapsed} to={`${path}/chatbot/chat`}>
+            Chatbot
+          </NavLink>
+        </Menu.Item>
+      </SubMenu>
+
+      {/* ==================================== RMA ========================================================== */}
+      <SubMenu key="RMA" icon={!topMenu && <FeatherIcon icon="rotate-cw" />} title="RMA">
+        <Menu.Item key="RMA Notes">
+          <NavLink onClick={toggleCollapsed} to={`${path}/rma/rmaupdates`}>
+            RMA Updates
+          </NavLink>
+        </Menu.Item>
+
+
+      </SubMenu>
+
+      {/* ==================================== USER MANAGEMENT ========================================================== */}
+      <SubMenu key="User Management" icon={!topMenu && <FeatherIcon icon="users" />} title="User Management">
+        <Menu.Item key="Add New Users">
+          <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/addNewUsers`}>
+            Add New Users
+          </NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="Manage Users">
+          <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/manageUser`}>
+            Manage Users
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="Manage Users">
+          <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/UserRights`}>
+            User Rights
+          </NavLink>
+        </Menu.Item>s
+
+      </SubMenu>
+
     </Menu>
       );
     };

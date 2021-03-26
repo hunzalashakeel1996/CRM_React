@@ -47,7 +47,8 @@ let requestObjInventroy = {
 };
 const MarketplaceInventoryView = (props) => {
 
-
+    //  get vendors from redux 
+    let vendornameState = useSelector(state => state.tickets.vendors );
 
     const dispatch = useDispatch();
 
@@ -58,7 +59,6 @@ const MarketplaceInventoryView = (props) => {
     const [state, setState] = useState({
         downloadDataState: [],
         summaryDataState: [],
-        vendornameState: [],
         brandnameState: [],
         collectionState: [],
         categorynameState: [],
@@ -66,16 +66,16 @@ const MarketplaceInventoryView = (props) => {
         loaderState: true
     });
 
-    const { downloadDataState, summaryDataState, vendornameState, brandnameState, collectionState, categorynameState, puStatusState, loaderState } = state;
+    const { downloadDataState, summaryDataState, brandnameState, collectionState, categorynameState, puStatusState, loaderState } = state;
 
     useEffect(() => {
 
 
-        Promise.all([dispatch(getAllVendorapi()), dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
-
+        Promise.all([ dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
+            console.log('aaaa', vendornameState)
             setState({
-                ...state, vendornameState: data[0][0].vendorname.split(","), brandnameState: data[1][0].brandname.split(","),
-                collectionState: data[2][0].collectionname.split(","), categorynameState: data[3][0].categoryname.split(","), puStatusState: data[4][0].pustatus.split(","), loaderState: false
+                ...state, brandnameState: data[0][0].brandname.split(","),
+                collectionState: data[1][0].collectionname.split(","), categorynameState: data[2][0].categoryname.split(","), puStatusState: data[3][0].pustatus.split(","), loaderState: false
             })
 
 

@@ -1,17 +1,19 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
+import AmazonShipment from './AmazonShipment';
+import NonAmazonShipment from './NonAmazonShipment';
 
 const { TabPane } = Tabs;
 
 const AmazonShipmentView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Amazon Orders" centered>
+            <Tabs type="card"defaultActiveKey="Amazon Orders" style={{marginLeft: 20, marginRight: 20, marginTop: 20}}>
                 <TabPane tab="Amazon Orders" key="Amazon Orders">
-                    Amazon Orders  component goes here
+                    <AmazonShipment />
                 </TabPane>
                 <TabPane tab="Non Amazon Orders" key="Non Amazon Orders">
-                    Non Amazon Orders component goes here
+                    <NonAmazonShipment />
                 </TabPane>
             </Tabs>
         </>

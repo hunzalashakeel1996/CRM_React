@@ -1,17 +1,15 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
-
+import EbayManualShipment from './EbayManualShipment';
+import AmazonManualShipment from './AmazonManualShipment';
 const { TabPane } = Tabs;
 
 const ManualShipmentView = (props) => {
     return (
         <>
-            <Tabs defaultActiveKey="Ebay " centered>
-                <TabPane tab="Ebay " key="Ebay ">
-                    Ebay   component goes here
-                </TabPane>
-                <TabPane tab="Amaazon" key="Amaazon">
-                    Amaazon component goes here
+            <Tabs type="card" defaultActiveKey="Ebay " style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
+                <TabPane tab="Amazon" key="Amazon">
+                    <AmazonManualShipment />
                 </TabPane>
             </Tabs>
         </>

@@ -10,7 +10,8 @@ const {
   addDepartAction,
   addAllRemindersAction,
   editReminderStatusAction,
-  addSingleReminderAction
+  addSingleReminderAction,
+  addVendorsAction
 } = actions;
 
 // ================================= Tickets ===================================================
@@ -120,4 +121,19 @@ const addDepart = (values) => {
   };
 };
 
-export { addTicket, addComment, addAllTickets, addAllComments, addReminder, addDepart, addAllReminders, editReminderStatus, addSingleReminder};
+
+// ========================================== add vendor ========================================================
+const addVendors = (values) => {
+  return async dispatch => {
+    try {
+      dispatch(addVendorsAction(values));
+    
+      // dispatch(singleProjectSuccess(data));
+    } catch (err) {
+      console.log(err)
+    }
+  };
+};
+
+
+export { addTicket, addComment, addAllTickets, addAllComments, addReminder, addDepart, addAllReminders, editReminderStatus, addSingleReminder, addVendors};

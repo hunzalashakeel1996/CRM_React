@@ -77,6 +77,18 @@ const actions = {
       data,
     };
   },
+
+  // ========================================================== Vendors =========================================
+  ADD_VENDORS: 'ADD_VENDORS',
+  
+  addVendorsAction: data => {
+    return {
+      type: actions.ADD_VENDORS,
+      data,
+    };
+  },
 };
+
+
 
 export default actions;
