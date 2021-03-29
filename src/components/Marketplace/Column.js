@@ -24,7 +24,7 @@ const defaultCheckedList = ['Cherokee'];
 const Column = (props) => {
  
     const {additionalColumns,columnDropdown}=props
-    const plainOptions = ['MERCHANTSKU', 'STYLECODE', 'STYLENAME', 'CATEGORYNAME', 'BRANDNAME', 'VENDORNAME', 'collectionname', 'COLORCODE', 'COLORNAME', 'SIZENAME', 'EAN', 'UPC', 'COST', 'STYLEDESCRIPTION', 'FABRIC_NAME', 'VENDORQTY', 'INHOUSEQTY', 'INHOUSEQTYOLD', 'WEIGHT', 'ISMAP', 'MAPPRICE', 'MSRP', 'WAREHOUSE_CUSTOMER_COST', 'Actual_Weight', 'Actual_Shipping', 'Suggested_Shipping', 'VendorStatus', 'CreatedDate', 'UpdatedDate', 'Sale_Cost', 'BULLET1', 'BULLET2', 'BULLET3', 'BULLET4', 'Zone0', 'Zone1', 'Zone2', 'Zone3', 'Zone4', 'Zone5', 'Zone6', 'Zone7', 'Zone8', 'Zone9', 'min_weight', 'max_weight', 'SALE_COST_DATE', 'marketplace_mapprice', 'vendorstylecode', 'image_url', 'marketplace_weight', 'sale_map', 'old_mapprice', 'old_cost', 'sale_status',...additionalColumns];
+    const plainOptions = ['MERCHANTSKU', 'STYLECODE', 'STYLENAME', 'CATEGORYNAME', 'BRANDNAME', 'VENDORNAME', 'collectionname', 'COLORCODE', 'COLORNAME', 'SIZENAME', 'EAN', 'UPC', 'COST', 'STYLEDESCRIPTION', 'FABRIC_NAME', 'VENDORQTY', 'INHOUSEQTY', 'INHOUSEQTYOLD', 'WEIGHT', 'ISMAP', 'MAPPRICE', 'MSRP', 'WAREHOUSE_CUSTOMER_COST', 'Actual_Weight', 'Actual_Shipping', 'Suggested_Shipping', 'VendorStatus', 'CreatedDate', 'UpdatedDate', 'Sale_Cost', 'BULLET1', 'BULLET2', 'BULLET3', 'BULLET4', 'Zone0', 'Zone1', 'Zone2', 'Zone3', 'Zone4', 'Zone5', 'Zone6', 'Zone7', 'Zone8', 'Zone9', 'min_weight', 'max_weight', 'SALE_COST_DATE', 'marketplace_mapprice', 'vendorstylecode', 'image_url', 'marketplace_weight', 'sale_map', 'old_mapprice', 'old_cost', 'sale_status'];
     const [column, setViewColumn] = useState(true);
     const [Allcolumn, setAllcolumn] = useState({
         column: [],
@@ -53,7 +53,7 @@ const Column = (props) => {
 
         if (value == "ALL") {
             selectedcol = [...plainOptions];
-          //  selectedcol += [...props.additionalColumn];
+            selectedcol += [...additionalColumns];
           console.log([...plainOptions])
          //  console.log(additionalColumns)
          //  selectedcol = additionalColumns;
@@ -109,7 +109,7 @@ const Column = (props) => {
                 {column &&
                     <Row >
                         {plainOptions.map((val, i) => (
-                            <Col span={4} style={{  marginLeft: 10, marginTop: 10, padding: 5,backgroundColor: '#fff', color: '#9299B8', backgroundColor: '#f4f5f7'  }} >
+                            <Col span={5} style={{  marginLeft: 10, marginTop: 10, padding: 10,backgroundColor: '#fff', color: '#9299B8'  }} >
                                 <Checkbox checked={Allcolumn.column.indexOf(val) > -1} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }} >
                                     {val}
                                 </Checkbox>
@@ -119,7 +119,7 @@ const Column = (props) => {
                         ))}
                         {additionalColumns.map((val, i) => (
 
-                            <Col span={4} style={{ marginLeft: 10, marginTop: 10, padding: 10,backgroundColor: '#fff', color: '#9299B8', backgroundColor: '#f4f5f7'  }} >
+                            <Col span={5} style={{ marginLeft: 10, marginTop: 10, padding: 10,backgroundColor: '#fff', color: '#9299B8' }} >
 
                                 <Checkbox checked={Allcolumn.column.indexOf(val) > -1} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }} >
                                     {val}

@@ -78,19 +78,9 @@ const actions = {
       data,
     };
   },
-<<<<<<< HEAD
-
-  // ========================================================== Vendors =========================================
-  ADD_VENDORS: 'ADD_VENDORS',
-  
-  addVendorsAction: data => {
-    return {
-      type: actions.ADD_VENDORS,
-=======
   addVendorNameAction: data => {
     return {
       type: actions.ADD_VENDOR_NAME,
->>>>>>> origin/development
       data,
     };
   },

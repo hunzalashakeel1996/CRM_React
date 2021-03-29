@@ -42,35 +42,37 @@ let requestObjInventroy = {
 };
 const MarketplaceGroupInventoryView = (props) => {
     const [activeTab, setActiveTab] = useState('');
-
+    let vendornameState = useSelector(state => state.tickets.vendornames );
 
     const dispatch = useDispatch();
   
-    const [activeTab, setActiveTab] = useState('');
+
   
     const [visible, setVisible] = useState(false);
 
-    const [state,setState] = useState({
-        downloadDataState:[],
-        summaryDataState:[],
-        vendornameState:[],
-        brandnameState:[],
-        collectionState:[],
-        categorynameState:[],
-        puStatusState:[],
-        loaderState:true
+   
+    const [state, setState] = useState({
+        downloadDataState: [],
+        summaryDataState: [],
+        brandnameState: [],
+        collectionState: [],
+        categorynameState: [],
+        puStatusState: [],
+        loaderState: true
     });
 
-    const { downloadDataState, summaryDataState, vendornameState,brandnameState, collectionState, categorynameState,puStatusState ,loaderState} = state;
+    const { downloadDataState, summaryDataState, brandnameState, collectionState, categorynameState, puStatusState, loaderState } = state;
 
     useEffect(() => {
-        
 
-        Promise.all([dispatch(getAllVendorapi()), dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
 
-            setState({...state,vendornameState:data[0][0].vendorname.split(","),brandnameState:data[1][0].brandname.split(","),
-            collectionState:data[2][0].collectionname.split(","),categorynameState:data[3][0].categoryname.split(","),puStatusState:data[4][0].pustatus.split(","),loaderState:false})
-     
+        Promise.all([ dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
+      
+            setState({
+                ...state, brandnameState: data[0][0].brandname.split(","),
+                collectionState: data[1][0].collectionname.split(","), categorynameState: data[2][0].categoryname.split(","), puStatusState: data[3][0].pustatus.split(","), loaderState: false
+            })
+
 
 
         });

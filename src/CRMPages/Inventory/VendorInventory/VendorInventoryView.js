@@ -17,7 +17,6 @@ import { webURL, audioPlay, uploadUrl, getvendor, getUpdateVendorInventoryapi } 
 const { TabPane } = Tabs;
 
 const VendorInventoryView = (props) => {
-<<<<<<< HEAD
     const dispatch = useDispatch();
 
     const [state, setstate] = useState({
@@ -106,10 +105,6 @@ const VendorInventoryView = (props) => {
 
         })
     }
-=======
-    const [activeTab, setActiveTab] = useState('');
-   
->>>>>>> origin/development
     return (
         <>
             <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{marginLeft: 20, marginTop: 20}}>

@@ -10,11 +10,7 @@ const {
   ADD_ALL_REMINDERS,
   EDIT_REMINDER_STATUS,
   ADD_SINGLE_REMINDER,
-<<<<<<< HEAD
-  ADD_VENDORS
-=======
   ADD_VENDOR_NAME
->>>>>>> origin/development
 } = actions;
 
 const ticketState = {
@@ -22,11 +18,7 @@ const ticketState = {
   comments: [],
   reminders: [],
   depart: [],
-<<<<<<< HEAD
-  vendors: [],
-=======
   vendornames: [],
->>>>>>> origin/development
   loading: false,
   error: null,
 };
@@ -69,7 +61,7 @@ const ticketReducer = (state = ticketState, action) => {
     case ADD_VENDOR_NAME:
       return {
         ...state,
-        vendornames: data,
+        vendornames: data.vendorname.split(','),
         loading: false,
       };
     case ADD_ALL_COMMENTS:
@@ -105,11 +97,6 @@ const ticketReducer = (state = ticketState, action) => {
         ...state,
         reminders: temp
       }
-      case ADD_VENDORS:
-        return {
-          ...state,
-          vendors: data
-        }
     default:
       return state;
   }

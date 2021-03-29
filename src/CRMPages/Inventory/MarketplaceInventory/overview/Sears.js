@@ -36,7 +36,7 @@ const Sears = (props) => {
                          
 
                     </Col>
-                    <Col span={24}>
+                    <Col span={24} style={{ marginTop:20 }}>
                         <Column genrateFeed={ (col,val) =>genrateFeed(Sears,col,isSeller,val)} additionalColumns={searsColumn} columnDropdown={columnDropdown}/>
                   
                     </Col>

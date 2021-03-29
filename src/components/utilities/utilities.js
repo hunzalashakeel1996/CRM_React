@@ -13,20 +13,6 @@ const chartLinearGradient = (canvas, height, color) => {
   return gradient;
 };
 
-<<<<<<< HEAD
-const downloadFile = (data) => {
-  var newDate = new Date();
-  var getTime = newDate.getTime();
-  var tempElement = document.createElement('a');
-  tempElement.href = `http://localhost:47463/admin/${data}`;
-  tempElement.target = '_blank';
-  tempElement.download = `http://localhost:47463/admin/${data}`;
-
-  document.body.appendChild(tempElement);
-  tempElement.click();
-}
-
-=======
 //Download files
 const downloadFile = (data) => {
   var d = new Date();
@@ -41,6 +27,38 @@ const downloadFile = (data) => {
 
 }
 
+const DownlaodWithReact = (objArray) => {
+  var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+  var str = '';
+  for (var index in array[0]) {
+  line += index + ',';
+  }
+  str += line + '\r\n';
+  line = '';
+  for (var i = 0; i < array.length; i++) {
+  var line = '';
+  /*for (var index in array[i]) {
+  line += array[i][index] + ',';
+  }*/
+  //Here is an example where you would wrap the values in double quotes
+  for (var index in array[i]) {
+  line += '"' + (array[i][index] + "").replace(/"/g, '\"') + '",';
+  }
+  line.slice(0, line.Length - 1);
+  str += line + '\r\n';
+  }
+  // window.open("data:text/csv;charset=utf-8," + escape(str))
+  var uri = 'data:text/csv;charset=utf-8,' + escape(str);
+  
+  var downloadLink = document.createElement("a");
+  downloadLink.href = uri;
+  downloadLink.download = "ConfermationNO.csv";
+  
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+  }
+
 //Get Total
 const getTotals = (data, key) => {
   // console.log('data' , data)
@@ -50,11 +68,10 @@ total += parseInt(item[key]);
 //   console.log('item key' ,  parseInt(item[key]))
 //   console.log('loop' , total)
 });
-console.log('final' , total)
+console.log('final' , total) 
 return total;
 };
 
->>>>>>> origin/development
 // Custom Tooltip
 const customTooltips = function (tooltip) {
   // Tooltip Element
@@ -140,8 +157,4 @@ const customTooltips = function (tooltip) {
   tooltipEl.style.padding = `${tooltip.yPadding}px ${tooltip.xPadding}px`;
 };
 
-<<<<<<< HEAD
-export { textRefactor, chartLinearGradient, customTooltips,downloadFile };
-=======
-export { textRefactor, chartLinearGradient, customTooltips, downloadFile,DownlaodWithReact};
->>>>>>> origin/development
+export { textRefactor, chartLinearGradient, customTooltips, downloadFile,DownlaodWithReact, getTotals};

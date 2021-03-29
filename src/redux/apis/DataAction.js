@@ -9,19 +9,14 @@ import { Button, notification, Space } from 'antd';
 
 export const socketUrl = "ws://3.131.5.41:3000"
 // export const socketUrl = "wss://crm.rizno.com"
-// export const url = "http://192.168.4.103:3000";
-export const url = "https://crm.rizno.com";
+export const url = "http://192.168.0.198:3005";
+//export const url = "https://crm.rizno.com";
 
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
-<<<<<<< HEAD
 //export const urlDotNet ="http://localhost:47463/api"
 export const urlDotNet = "http://localhost:47463/api"
-=======
-export const urlDotNet = "http://localhost:47463/api"
-//export const urlDotNet = "http://74.208.31.179:8520/crm.inv_2.1/api"
->>>>>>> origin/development
 
 // export const url = "https://crmserver-development.herokuapp.com";
 
@@ -107,21 +102,21 @@ export const apiTrackingSummaryFetch = (data) => {
 export const apiFetchDotNet = (apiUrl, apiMethod, apiHeader, apiBody) => {
     let headerParameters = apiMethod === 'GET' ? { method: apiMethod } : { method: apiMethod, headers: apiHeader, body: apiBody }
     return dispatch => {
-        console.log("1");
+   
         return new Promise((resolve, reject) => {
             fetch(`${urlDotNet}/${apiUrl}`, headerParameters)
                 .then(res => {
-                    console.log("2");
+             
                     return res.json()
                 })
                 .then(resJson => {
-                    console.log("3");
+              
                     if (resJson) {
                         resolve(resJson);
                     }
                 })
                 .catch(err => {
-                    console.log("4");
+                 
                     return saveErrorLog(err, apiUrl)
                 })
         });
@@ -419,16 +414,25 @@ export const getwalmart_asin_all_otherapi = (data) => {
   
     return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNet,JSON.stringify({ data }));
 };
+export const getWallMartCAqtyapi = (data) => {
+    return apiFetchDotNet('newInventory/WallMartqty_canada', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getwalmartCA_all_otherapi = (data) => {
+    return apiFetchDotNet('newInventory/wallmart_canada_generate', "POST", headerDotNet,JSON.stringify({ data }));
+};
 export const getEbayqtyapi = (data) => {
     return apiFetchDotNet('newInventory/ebaygeneratefile', "POST", headerDotNet,JSON.stringify({ data }));
 };
 //not exists
 export const getEbay_all_otherapi = (data) => {
   
-    return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNet,JSON.stringify({ data }));
+   // return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNet,JSON.stringify({ data }));
 };
 export const getSearsqtyapi = (data) => {
     return apiFetchDotNet('newInventory/searsInventory', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getSears_all_otherapi = (data) => {
+    return apiFetchDotNet('newInventory/sears_generate_file', "POST", headerDotNet,JSON.stringify({ data }));
 };
 //n
 export const getUpdateInventoryapi = (data) => {

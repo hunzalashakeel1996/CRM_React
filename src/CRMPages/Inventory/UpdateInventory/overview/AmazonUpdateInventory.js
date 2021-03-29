@@ -58,7 +58,7 @@ const columns = [
     }
     ,
     {
-        title: 'vendorQty',
+        title: 'VendorQty',
         dataIndex: 'vendorQty',
         key: 'vendorQty',
     },
@@ -73,75 +73,75 @@ const columns = [
         key: 'ASINS',
     },
     {
-        title: 'riznoASINS',
+        title: 'RIZNOASINS',
         dataIndex: 'riznoASINS',
         key: 'riznoASINS',
     },
     {
-        title: 'isMap',
+        title: 'IsMap',
         dataIndex: 'isMap',
         key: 'isMap',
     },
     {
-        title: 'inHouseQty',
+        title: 'InHouseQty',
         dataIndex: 'inHouseQty',
         key: 'inHouseQty',
     }
     ,
     {
-        title: 'mainCost',
+        title: 'MainCost',
         dataIndex: 'mainCost',
         key: 'mainCost',
     },
     {
-        title: 'saleCost',
+        title: 'SaleCost',
         dataIndex: 'saleCost',
         key: 'saleCost',
     }
     ,
     {
-        title: 'zone0',
+        title: 'Zone0',
         dataIndex: 'zone0',
         key: 'zone0',
     },
     {
-        title: 'zone1',
+        title: 'Zone1',
         dataIndex: 'zone1',
         key: 'zone1',
     },
     {
-        title: 'vendorStylecode',
+        title: 'VendorStylecode',
         dataIndex: 'vendorStylecode',
         key: 'vendorStylecode',
     },
     {
-        title: 'isAutomatedPU',
+        title: 'IsAutomatedPU',
         dataIndex: 'isAutomatedPU',
         key: 'isAutomatedPU',
     },
     {
-        title: 'vendorStatus',
+        title: 'VendorStatus',
         dataIndex: 'vendorStatus',
         key: 'vendorStatus',
     },
     {
-        title: 'weight',
+        title: 'Weight',
         dataIndex: 'minWeight',
         key: 'minWeight',
     },
     {
-        title: 'marketplaceWeight',
+        title: 'MarketplaceWeight',
         dataIndex: 'marketplaceWeight',
         key: 'marketplaceWeight',
     },
     {
-        title: 'uploadType',
+        title: 'UploadType',
         dataIndex: 'uploadType',
         key: 'uploadType',
     }
     ,
     {
-        title: 'modify',
+        title: 'Modify',
         dataIndex: 'modify',
         key: 'modify',
     }
@@ -198,16 +198,26 @@ const AmazonUpdateInventory = () => {
         })
 
     }
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-  getCheckboxProps: (record) => ({
-    disabled: record.name === 'Disabled User',
-    // Column configuration not to be checked
-    name: record.name,
-  }),
-};
+    const [activeTab, setActiveTab] = useState('');
+
+    const [selectedRow, selectedRowsset] = useState([])
+
+    const rowSelection = {
+        onChange: (selectedRowKeys, selectedRows) => {
+
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            const  {ASINS}=selectedRows[0]
+            console.log('object',ASINS)
+            selectedRowsset(selectedRows.length)
+       
+        },
+
+        getCheckboxProps: (record) => ({
+            disabled: record.name === 'Disabled User',
+            // Column configuration not to be checked
+            name: record.name,
+        }),
+    };
     const merchantskustable = (merchantskusResult) => {
 
         console.log('merchantskusResult', merchantskusResult);
@@ -222,17 +232,17 @@ const rowSelection = {
                     merchantSku: <span style={{ color: 'black' }} className="date-started">{merchantsku}</span>,
                     colorName: <span style={{ color: 'black' }} className="date-started">{colorname}</span>,
                     Cost: <span style={{ color: 'black' }} className="date-started">{Cost}</span>,
-                    PUPrice: <Input style={{ color: 'black' }} type="text" value={PU_price} />,
-                    PUStatus: <Input style={{ color: 'black' }} type="text" value={pustatus} />,
+                    PUPrice: <Input style={{ color: 'black', width: 100 }} type="text" value={PU_price} />,
+                    PUStatus: <Input style={{ color: 'black', width: 100 }} type="text" value={pustatus} />,
                     MAPPrice: <Input style={{ color: 'black' }} type="text" value={MAPprice} />,
-                    AmazonPrice: <Input style={{ color: 'black' }} type="text" value={amazonprice} />,
-                    styleStatus: <Input style={{ color: 'black' }} type="text" value={stylestatus} />,
-                    vendorQty: <Input style={{ color: 'black' }} type="text" value={vendorqty} />,
-                    UPC: <Input style={{ color: 'black' }} type="text" value={UPC} />,
-                    ASINS: <Input style={{ color: 'black' }} type="text" value={ASINS} />,
-                    riznoASINS: <Input style={{ color: 'black' }} type="text" value={RIZNOASINS} />,
-                    isMap: <Input style={{ color: 'black' }} type="text" value={ismap} />,
-                    inHouseQty: <Input style={{ color: 'black' }} type="text" value={inhouseqty} />,
+                    AmazonPrice: <Input style={{ color: 'black', width: 100 }} type="text" value={amazonprice} />,
+                    styleStatus: <Input style={{ color: 'black', width: 100 }} type="text" value={stylestatus} />,
+                    vendorQty: <Input style={{ color: 'black', width: 100 }} type="text" value={vendorqty} />,
+                    UPC: <Input style={{ color: 'black', width: 150 }} type="text" value={UPC} />,
+                    ASINS: <Input style={{ color: 'black', width: 150 }} type="text" value={ASINS} />,
+                    riznoASINS: <Input style={{ color: 'black', width: 150 }} type="text" value={RIZNOASINS} />,
+                    isMap: <Input style={{ color: 'black', width: 100 }} type="text" value={ismap} />,
+                    inHouseQty: <Input style={{ color: 'black', width: 100 }} type="text" value={inhouseqty} />,
                     mainCost: <span style={{ color: 'black' }} className="date-started">{maincost}</span>,
                     saleCost: <span style={{ color: 'black' }} className="date-started">{sale_cost}</span>,
                     zone0: <span style={{ color: 'black' }} className="date-started">{zone0}</span>,
@@ -241,27 +251,27 @@ const rowSelection = {
                     isAutomatedPU: <span style={{ color: 'black' }} className="date-started">{ISautomated_PU}</span>,
                     vendorStatus: <span style={{ color: 'black' }} className="date-started">{vendorstatus}</span>,
                     minWeight: <span style={{ color: 'black' }} className="date-started">{min_weight}</span>,
-                    marketplaceWeight: <Input style={{ color: 'black' }} type="text" value={marketplace_weight} />,
-                    uploadType: <Input style={{ color: 'black' }} type="text" value={uploadtype} />,
+                    marketplaceWeight: <Input style={{ color: 'black', width: 100 }} type="text" value={marketplace_weight} />,
+                    uploadType: <Input style={{ color: 'black', width: 150 }} type="text" value={uploadtype} />,
                     modify: <Button size="default" type="primary"  >Update</Button>,
 
 
-                   
+
 
                 });
-           
+
             });
         setState({ ...state, dataSource: tempDataSource });
 
     }
     const [selectionType, setSelectionType] = useState('checkbox');
 
-    
-        onChange: (selectedRowKeys, selectedRows) => {
-          console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        }
-       
-      
+
+    onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    }
+
+
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
@@ -299,7 +309,9 @@ const rowSelection = {
 
                     <div>
                         <Cards title="View Merchantsku">
-                            <div className="table-responsive">
+
+                            <Button size="default" type={selectedRow > 1 ? "success" : "hidden"} style={{marginBottom:20}} >Update All</Button>
+                             <div className="table-responsive">
                                 <Table pagination={true} dataSource={dataSource} columns={columns} rowSelection={{ type: selectionType, ...rowSelection, }} />
                             </div>
                             {/* <div>
