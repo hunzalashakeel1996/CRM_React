@@ -1,4 +1,4 @@
-import { Table, Input, Popconfirm, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider, Modal } from 'antd';
+import { Table, Input,  Popconfirm, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider,Modal } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,12 +11,12 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl, getFetchUpdateInventoryapi, getUpdateSubinventoryapi, getUpdateInventoryDownloadapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getFetchUpdateUAEInventoryapi, getUpdateUAEInventoryapi,getUpdateUAEInventoryDownloadapi } from '../../../../redux/apis/DataAction';
 
 const { TextArea } = Input;
 const EditableContext = React.createContext(null);
 
-const AmazonUpdateInventory = () => {
+const AmazonUAEUpdateInvenory = () => {
     const dispatch = useDispatch()
 
     const [visible, setVisible] = useState(false);
@@ -40,7 +40,7 @@ const AmazonUpdateInventory = () => {
 
         setstatelive({ ...statelive, loaderState: true });
 
-        dispatch(getFetchUpdateInventoryapi({ ms: merchantskus })).then(data => {
+        dispatch(getFetchUpdateUAEInventoryapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             console.log(data)
             //  merchantskustable(data)
@@ -51,8 +51,8 @@ const AmazonUpdateInventory = () => {
 
         setstatelive({ ...statelive, loaderState: true });
 
-        dispatch(getUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
-            setstatelive({ ...statelive, loaderState: false });
+        dispatch(getUpdateUAEInventoryDownloadapi({ ms: merchantskus })).then(data => {
+            setstatelive({ ...statelive,  loaderState: false });
             console.log(data)
             downloadFile(data)
         })
@@ -186,15 +186,15 @@ const AmazonUpdateInventory = () => {
             key: 'Cost',
         },
         {
-            title: 'PUPrice',
-            dataIndex: 'PU_price',
-            key: 'PU_price',
+            title: 'AmazonUAEPrice',
+            dataIndex: 'Amazon_ue_Price',
+            key: 'Amazon_ue_Price',
             editable: true,
         },
         {
-            title: 'PUStatus',
-            dataIndex: 'pustatus',
-            key: 'pustatus',
+            title: 'AmazonUAEStatus',
+            dataIndex: 'Amazon_ue_Status',
+            key: 'Amazon_ue_Status',
             editable: true,
         },
         {
@@ -203,19 +203,8 @@ const AmazonUpdateInventory = () => {
             key: 'MAPprice',
             editable: true,
         },
-        {
-            title: 'AmazonPrice',
-            dataIndex: 'amazonprice',
-            key: 'amazonprice',
-            editable: true,
-        },
-        {
-            title: 'StyleStatus',
-            dataIndex: 'stylestatus',
-            key: 'stylestatus',
-            editable: true,
-        }
-        ,
+      
+        
         {
             title: 'VendorQty',
             dataIndex: 'vendorqty',
@@ -234,12 +223,7 @@ const AmazonUpdateInventory = () => {
             key: 'ASINS',
             editable: true,
         },
-        {
-            title: 'RIZNOASINS',
-            dataIndex: 'RIZNOASINS',
-            key: 'RIZNOASINS',
-            editable: true,
-        },
+       
         {
             title: 'IsMap',
             dataIndex: 'ismap',
@@ -263,27 +247,13 @@ const AmazonUpdateInventory = () => {
             dataIndex: 'sale_cost',
             key: 'sale_cost',
         }
-        ,
-        {
-            title: 'Zone0',
-            dataIndex: 'zone0',
-            key: 'zone0',
-        },
-        {
-            title: 'Zone1',
-            dataIndex: 'zone1',
-            key: 'zone1',
-        },
+       ,
         {
             title: 'VendorStylecode',
             dataIndex: 'vendorstylecode',
             key: 'vendorstylecode',
         },
-        {
-            title: 'IsAutomatedPU',
-            dataIndex: 'ISautomated_PU',
-            key: 'ISautomated_PU',
-        },
+        
         {
             title: 'VendorStatus',
             dataIndex: 'vendorstatus',
@@ -318,18 +288,18 @@ const AmazonUpdateInventory = () => {
         // }
 
     ];
-    const ModalOpen = () => {
+    const  ModalOpen=()=>{
 
         setVisible(true)
-    }
-
+    }   
+   
     const handleupdate = () => {
         let username = [];
-        username = JSON.parse(localStorage.getItem('user'))
+        username=JSON.parse(localStorage.getItem('user'))
         const newData = [...statelive.dataSource];
-        console.log('handleupdate', newData)
+        console.log('handleupdate',newData)
 
-        dispatch(getUpdateCInventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
+        dispatch(getUpdateUAEInventoryapi({ newData, ms: merchantskus ,user: username.LoginName})).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             console.log(data)
             setVisible(false)
@@ -338,7 +308,7 @@ const AmazonUpdateInventory = () => {
 
     const handleSave = (row) => {
         console.log(row)
-
+     
         const newData = [...statelive.dataSource];
 
         const index = newData.findIndex((item) => row.merchantsku === item.merchantsku);
@@ -346,13 +316,13 @@ const AmazonUpdateInventory = () => {
         const item = newData[index];
 
         newData.splice(index, 1, { ...item, ...row });
-        console.log('handleSave', newData)
+        console.log('handleSave',newData)
         setstatelive({ ...statelive, dataSource: newData });
 
 
     };
 
-
+  
 
     const components = {
         body: {
@@ -404,8 +374,8 @@ const AmazonUpdateInventory = () => {
                                 <Button size="default" type="success" onClick={MerchantskuyDownload}  >Download</Button>
                             </Col>
                             <Col span={2} style={{ marginLeft: 20 }}>
-
-                                <Button size="default" type="success" onClick={ModalOpen} >Update</Button>
+                               
+                                <Button size="default" type="success"  onClick={ModalOpen} >Update</Button>
                             </Col>
 
                         </Row>
@@ -422,15 +392,15 @@ const AmazonUpdateInventory = () => {
                 </div>
             </Spin >
             <Modal
-
+               
                 centered
                 visible={visible}
                 onOk={handleupdate}
 
                 onCancel={() => setVisible(false)}                >
-                <div>
-                    <Cards headless>
-                        <h1>Sure to Update?</h1>
+                       <div>
+                       <Cards headless>
+                    <h1>Sure to Update?</h1>
                     </Cards>
                 </div>
 
@@ -442,4 +412,4 @@ const AmazonUpdateInventory = () => {
 // ReactDOM.render(<EditableTable />, mountNode);
 
 
-export default AmazonUpdateInventory;
+export default AmazonUAEUpdateInvenory;

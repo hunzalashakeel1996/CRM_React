@@ -1,6 +1,9 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs,Spin } from 'antd';
 import AmazonUpdateInventory from './overview/AmazonUpdateInventory';
+import AmazonCanadaUpdateInvenory from './overview/AmazonCanadaUpdateInvenory';
+import AmazonUAEUpdateInventory from './overview/AmazonUAEUpdateInventory';
+import AmazonUpdateSubinventory from './overview/AmazonUpdateSubinventory';
 const { TabPane } = Tabs;
 
 const UpdateInventoryView = (props) => {
@@ -21,7 +24,13 @@ const UpdateInventoryView = (props) => {
                 <AmazonUpdateInventory />
                 </TabPane>
                 <TabPane tab="Amazon Canada Inventory" key="Amazon Canada Inventory">
-                    Amazon Canada Inventory component goes here
+                <AmazonCanadaUpdateInvenory />
+                </TabPane>
+                <TabPane tab="Amazon UAE Inventory" key="Amazon UAE Inventory">
+                <AmazonUAEUpdateInventory />
+                </TabPane>
+                <TabPane tab="Amazon Subinventory" key="Amazon Subinventory">
+                <AmazonUpdateSubinventory />
                 </TabPane>
                 <TabPane tab="Amazon Group Skus" key="Amazon Group Skus">
                     Amazon Group Skus component goes here

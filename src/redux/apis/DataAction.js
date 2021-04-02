@@ -435,9 +435,56 @@ export const getSears_all_otherapi = (data) => {
     return apiFetchDotNet('newInventory/sears_generate_file', "POST", headerDotNet,JSON.stringify({ data }));
 };
 //n
+export const getFetchUpdateInventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Editinventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateInventoryDownloadapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Editreportresult', "POST", headerDotNet,JSON.stringify( data ));
+};
 export const getUpdateInventoryapi = (data) => {
     
-    return apiFetchDotNet('Edit/Editinventory', "POST", headerDotNet,JSON.stringify( data ));
+    return apiFetchDotNet('newInventory/updateinventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getFetchUpdateCanadaInventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Edit_ca_inventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateCanadaInventoryapi  = (data) => {
+    
+    return apiFetchDotNet('newInventory/edit_canada_bulk_product', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateCanadaInventoryDownloadapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/download_ca_edit_report', "POST", headerDotNet,JSON.stringify( data ));
+};
+//
+export const getFetchUpdateUAEInventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Edit_UAE_inventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateUAEInventoryapi  = (data) => {
+    
+    return apiFetchDotNet('newInventory/edit_uae_bulk_product', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateUAEInventoryDownloadapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/download_uae_edit_report', "POST", headerDotNet,JSON.stringify( data ));
+};
+//
+
+export const getFetchUpdateSubinventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/editSubinventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateSubinventoryapi  = (data) => {
+    
+    return apiFetchDotNet('newInventory/updatesubinventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateSubinventoryDownloadapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Subinventoryreportresult', "POST", headerDotNet,JSON.stringify( data ));
 };
 // ============================= Inventory API end ======================================
 

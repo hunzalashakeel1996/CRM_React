@@ -1,4 +1,4 @@
-import { Table, Input, Popconfirm, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider, Modal } from 'antd';
+import { Table, Input,  Popconfirm, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider,Modal } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,12 +11,12 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl, getFetchUpdateInventoryapi, getUpdateSubinventoryapi, getUpdateInventoryDownloadapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getFetchUpdateSubinventoryapi, getUpdateSubinventoryapi,getUpdateSubinventoryDownloadapi } from '../../../../redux/apis/DataAction';
 
 const { TextArea } = Input;
 const EditableContext = React.createContext(null);
 
-const AmazonUpdateInventory = () => {
+const AmazonUpdatesubinventory = () => {
     const dispatch = useDispatch()
 
     const [visible, setVisible] = useState(false);
@@ -40,7 +40,7 @@ const AmazonUpdateInventory = () => {
 
         setstatelive({ ...statelive, loaderState: true });
 
-        dispatch(getFetchUpdateInventoryapi({ ms: merchantskus })).then(data => {
+        dispatch(getFetchUpdateSubinventoryapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             console.log(data)
             //  merchantskustable(data)
@@ -51,8 +51,8 @@ const AmazonUpdateInventory = () => {
 
         setstatelive({ ...statelive, loaderState: true });
 
-        dispatch(getUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
-            setstatelive({ ...statelive, loaderState: false });
+        dispatch(getUpdateSubinventoryDownloadapi({ ms: merchantskus })).then(data => {
+            setstatelive({ ...statelive,  loaderState: false });
             console.log(data)
             downloadFile(data)
         })
@@ -171,141 +171,81 @@ const AmazonUpdateInventory = () => {
 
     const columns = [
         {
+            title: 'SKU',
+            dataIndex: 'sku',
+            key: 'sku',
+        },
+        {
             title: 'MerchantSku',
             dataIndex: 'merchantsku',
             key: 'merchantsku',
         },
         {
-            title: 'ColorName',
-            dataIndex: 'colorname',
-            key: 'colorname',
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
         },
         {
             title: 'Cost',
-            dataIndex: 'Cost',
-            key: 'Cost',
+            dataIndex: 'cost',
+            key: 'cost',
         },
         {
-            title: 'PUPrice',
-            dataIndex: 'PU_price',
-            key: 'PU_price',
-            editable: true,
-        },
-        {
-            title: 'PUStatus',
-            dataIndex: 'pustatus',
-            key: 'pustatus',
-            editable: true,
-        },
-        {
-            title: 'MAPPrice',
-            dataIndex: 'MAPprice',
-            key: 'MAPprice',
-            editable: true,
-        },
-        {
-            title: 'AmazonPrice',
-            dataIndex: 'amazonprice',
-            key: 'amazonprice',
-            editable: true,
-        },
-        {
-            title: 'StyleStatus',
-            dataIndex: 'stylestatus',
-            key: 'stylestatus',
-            editable: true,
-        }
-        ,
-        {
-            title: 'VendorQty',
-            dataIndex: 'vendorqty',
-            key: 'vendorqty',
+            title: 'Asin',
+            dataIndex: 'asin',
+            key: 'asin',
             editable: true,
         },
         {
             title: 'UPC',
-            dataIndex: 'UPC',
-            key: 'UPC',
+            dataIndex: 'upc',
+            key: 'upc',
             editable: true,
         },
         {
-            title: 'ASINS',
-            dataIndex: 'ASINS',
-            key: 'ASINS',
+            title: 'Stock',
+            dataIndex: 'stock',
+            key: 'stock',
+            
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
             editable: true,
         },
         {
-            title: 'RIZNOASINS',
-            dataIndex: 'RIZNOASINS',
-            key: 'RIZNOASINS',
-            editable: true,
+            title: 'Vendorname',
+            dataIndex: 'vendorname',
+            key: 'vendorname',
+           
         },
         {
-            title: 'IsMap',
-            dataIndex: 'ismap',
-            key: 'ismap',
-            editable: true,
-        },
-        {
-            title: 'InHouseQty',
-            dataIndex: 'inhouseqty',
-            key: 'inhouseqty',
-            editable: true,
+            title: 'MapPrice',
+            dataIndex: 'mapprice',
+            key: 'mapprice',
+          
         }
         ,
-        {
-            title: 'MainCost',
-            dataIndex: 'maincost',
-            key: 'maincost',
-        },
-        {
-            title: 'SaleCost',
-            dataIndex: 'sale_cost',
-            key: 'sale_cost',
-        }
-        ,
-        {
-            title: 'Zone0',
-            dataIndex: 'zone0',
-            key: 'zone0',
-        },
-        {
-            title: 'Zone1',
-            dataIndex: 'zone1',
-            key: 'zone1',
-        },
-        {
-            title: 'VendorStylecode',
-            dataIndex: 'vendorstylecode',
-            key: 'vendorstylecode',
-        },
-        {
-            title: 'IsAutomatedPU',
-            dataIndex: 'ISautomated_PU',
-            key: 'ISautomated_PU',
-        },
-        {
-            title: 'VendorStatus',
-            dataIndex: 'vendorstatus',
-            key: 'vendorstatus',
-        },
         {
             title: 'Weight',
-            dataIndex: 'min_weight',
-            key: 'min_weight',
+            dataIndex: 'weight',
+            key: 'weight',
+            editable: true,
         },
+        
         {
-            title: 'MarketplaceWeight',
-            dataIndex: 'marketplace_weight',
-            key: 'marketplace_weight',
+            title: 'Shipping',
+            dataIndex: 'shipping',
+            key: 'shipping',
             editable: true,
         },
         {
-            title: 'UploadType',
-            dataIndex: 'uploadtype',
-            key: 'uploadtype',
-            editable: true,
-        },
+            title: 'Maincost',
+            dataIndex: 'maincost',
+            key: 'maincost',
+           
+        }
         // {
         //     title: 'operation',
         //     dataIndex: 'operation',
@@ -318,18 +258,18 @@ const AmazonUpdateInventory = () => {
         // }
 
     ];
-    const ModalOpen = () => {
+    const  ModalOpen=()=>{
 
         setVisible(true)
-    }
-
+    }   
+   
     const handleupdate = () => {
         let username = [];
-        username = JSON.parse(localStorage.getItem('user'))
+        username=JSON.parse(localStorage.getItem('user'))
         const newData = [...statelive.dataSource];
-        console.log('handleupdate', newData)
+        console.log('handleupdate',newData)
 
-        dispatch(getUpdateCInventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
+        dispatch(getUpdateSubinventoryapi({ newData, ms: merchantskus ,user: username.LoginName})).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             console.log(data)
             setVisible(false)
@@ -338,7 +278,7 @@ const AmazonUpdateInventory = () => {
 
     const handleSave = (row) => {
         console.log(row)
-
+     
         const newData = [...statelive.dataSource];
 
         const index = newData.findIndex((item) => row.merchantsku === item.merchantsku);
@@ -346,13 +286,13 @@ const AmazonUpdateInventory = () => {
         const item = newData[index];
 
         newData.splice(index, 1, { ...item, ...row });
-        console.log('handleSave', newData)
+        console.log('handleSave',newData)
         setstatelive({ ...statelive, dataSource: newData });
 
 
     };
 
-
+  
 
     const components = {
         body: {
@@ -404,8 +344,8 @@ const AmazonUpdateInventory = () => {
                                 <Button size="default" type="success" onClick={MerchantskuyDownload}  >Download</Button>
                             </Col>
                             <Col span={2} style={{ marginLeft: 20 }}>
-
-                                <Button size="default" type="success" onClick={ModalOpen} >Update</Button>
+                               
+                                <Button size="default" type="success"  onClick={ModalOpen} >Update</Button>
                             </Col>
 
                         </Row>
@@ -422,15 +362,15 @@ const AmazonUpdateInventory = () => {
                 </div>
             </Spin >
             <Modal
-
+               
                 centered
                 visible={visible}
                 onOk={handleupdate}
 
                 onCancel={() => setVisible(false)}                >
-                <div>
-                    <Cards headless>
-                        <h1>Sure to Update?</h1>
+                       <div>
+                       <Cards headless>
+                    <h1>Sure to Update?</h1>
                     </Cards>
                 </div>
 
@@ -442,4 +382,4 @@ const AmazonUpdateInventory = () => {
 // ReactDOM.render(<EditableTable />, mountNode);
 
 
-export default AmazonUpdateInventory;
+export default AmazonUpdatesubinventory;

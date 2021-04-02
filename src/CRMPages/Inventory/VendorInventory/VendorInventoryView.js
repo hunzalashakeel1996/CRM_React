@@ -18,7 +18,7 @@ const { TabPane } = Tabs;
 
 const VendorInventoryView = (props) => {
     const dispatch = useDispatch();
-
+    const [activeTab, setActiveTab] = useState('');
     const [state, setstate] = useState({
         Regularvendorstate: [],
         loader: true,
