@@ -60,9 +60,11 @@ const ticketReducer = (state = ticketState, action) => {
     case ADD_VENDOR_NAME:
       return {
         ...state,
-        vendornames: data,
+        vendornames: data.vendorname.split(','),
+        // console.log()
         loading: false,
       };
+      //  console.log(vendornames)
     case ADD_ALL_COMMENTS:
       return {
         ...state,

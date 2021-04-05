@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux';
 import { Button, notification, Space } from 'antd';
 
 
-//export const webURL = `http://localhost:3001`
+export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
 export const socketUrl = "ws://3.131.5.41:3000"
 // export const socketUrl = "wss://crm.rizno.com"
-// export const url = "http://192.168.4.103:3000";
-export const url = "https://crm.rizno.com";
+export const url = "http://192.168.0.115:3000";
+// export const url = "https://crm.rizno.com";
 
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
@@ -471,6 +471,23 @@ export const insertPractice = () => {
 export const uploadAttachment = (data) => {
     return (apiFetch(`api/ticket/imageUpload`, 'POST', header, data))
 };
+
+
+//============================= User Section ======================================
+
+export const addNewUser = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Users/insertUser', "POST", headerDotNet, JSON.stringify(data));
+};
+
+export const getAllUserRecord = () => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Users/getAllUserRecord', "GET", headerDotNet, JSON.stringify());
+};
+
+
+
+//============================= User Section ======================================
 
 
 

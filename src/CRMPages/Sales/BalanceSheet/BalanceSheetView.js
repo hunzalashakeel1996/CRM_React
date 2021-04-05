@@ -106,12 +106,6 @@ const ReportView = (props) => {
                 });
               });
 
-            //   tempDataSource.unshift({
-            //     vendorname : "total",
-            //     past_due : getTotals(tempDataSource,"past_due"),
-            //     date : "date"
-            // })
-
     setState({ ...state, dataSource: [...tempDataSource],downLoadLink : tempLinkDownload,  loader: false });
         }) 
     }, []);
@@ -208,14 +202,14 @@ const ReportView = (props) => {
                         onFinishFailed={onSubmitFailed}
                     >
                         <Row>
-                            {vendorNames.vendorname && <Col span={5} >
+                            {vendorNames && <Col span={5} >
                                 <Form.Item name="vendorName" >
                                     <ReasonAutoComplete
                                         //   style={{ marginRight: 5 }}
                                         placeholder='Search Vendorname'
                                         onInputChange={(vendorName) => { onValueChange('VendorName', vendorName) }}
                                         selectedReason={controls.VendorName} style={{ width: '100%' }}
-                                        dataSource={vendorNames.vendorname.split(',')}
+                                        dataSource={vendorNames}
                                         onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
                                 </Form.Item>
                             </Col>}

@@ -222,7 +222,7 @@ return (
                                 <Col span={8}>
 
                                     <Form.Item name="vendorName" rules={[{ required: true }]}>
-                                        {vendorNames.vendorname && <Select
+                                        {vendorNames && <Select
                                             mode="multiple"
                                             size={'medium'}
                                             // listHeight={500}
@@ -232,7 +232,7 @@ return (
                                             style={{ width: '100%' }}
                                             onChange={changeVendorName}
                                         >
-                                            {vendorNames.vendorname.split(',').map((vendorName,i) => (
+                                            {vendorNames.map((vendorName,i) => (
                                                 <Option key={i} value={vendorName}>{vendorName}</Option>
                                             ))}
 
