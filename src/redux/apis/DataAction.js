@@ -15,8 +15,8 @@ export const url = "http://192.168.0.115:3000";
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
+//export const urlDotNet ="http://localhost:47463/api"
 export const urlDotNet = "http://localhost:47463/api"
-//export const urlDotNet = "http://74.208.31.179:8520/crm.inv_2.1/api"
 
 // export const url = "https://crmserver-development.herokuapp.com";
 
@@ -102,21 +102,21 @@ export const apiTrackingSummaryFetch = (data) => {
 export const apiFetchDotNet = (apiUrl, apiMethod, apiHeader, apiBody) => {
     let headerParameters = apiMethod === 'GET' ? { method: apiMethod } : { method: apiMethod, headers: apiHeader, body: apiBody }
     return dispatch => {
-        console.log("1");
+   
         return new Promise((resolve, reject) => {
             fetch(`${urlDotNet}/${apiUrl}`, headerParameters)
                 .then(res => {
-                    console.log("2");
+             
                     return res.json()
                 })
                 .then(resJson => {
-                    console.log("3");
+              
                     if (resJson) {
                         resolve(resJson);
                     }
                 })
                 .catch(err => {
-                    console.log("4");
+                 
                     return saveErrorLog(err, apiUrl)
                 })
         });
@@ -385,6 +385,127 @@ export const purchaseReport = (data) => {
 
 
 
+// ============================= Inventory API start ======================================
+export const getvendor = (data) => {
+    return apiFetchDotNet('newInventory/getVendor_active', "GET");
+};
+
+export const getUpdateVendorInventoryapi = (data) => {
+
+    return apiFetchDotNet('newInventory/updateVendorInventory', "POST", headerDotNet, JSON.stringify({ data }));
+};
+
+export const getInventoryapi = (data) => {
+  
+    return apiFetchDotNet('newInventory/fetchInventoryapi', "POST", headerDotNet,JSON.stringify({ data }));
+};
+
+export const getSubInventoryapi = (data) => {
+  
+    return apiFetchDotNet('newInventory/fetchSubInventoryapi', "POST", headerDotNet,JSON.stringify({ data }));
+};
+
+export const getAllVendorapi = (data) => {
+    return apiFetchDotNet('newInventory/getvendor', "GET");
+};
+export const getAllbrandapi = (data) => {
+    return apiFetchDotNet('newInventory/getBrand', "GET");
+};
+export const getAllcollectionapi = (data) => {
+    return apiFetchDotNet('newInventory/getCollection', "GET");
+};
+export const getAllcategorynameapi = (data) => {
+    return apiFetchDotNet('newInventory/getcategoryname', "GET");
+};
+export const getAllpustatusapi = (data) => {
+    return apiFetchDotNet('newInventory/getpustatus', "GET");
+};
+export const getInventoryWalmartapi = (data) => {
+    return apiFetchDotNet('newInventory/WallMartqty', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getWallMartasinqtyapi = (data) => {
+    return apiFetchDotNet('newInventory/WallMartasinqty', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getwalmart_asin_all_otherapi = (data) => {
+  
+    return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getWallMartCAqtyapi = (data) => {
+    return apiFetchDotNet('newInventory/WallMartqty_canada', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getwalmartCA_all_otherapi = (data) => {
+    return apiFetchDotNet('newInventory/wallmart_canada_generate', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getEbayqtyapi = (data) => {
+    return apiFetchDotNet('newInventory/ebaygeneratefile', "POST", headerDotNet,JSON.stringify({ data }));
+};
+//not exists
+export const getEbay_all_otherapi = (data) => {
+  
+   // return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getSearsqtyapi = (data) => {
+    return apiFetchDotNet('newInventory/searsInventory', "POST", headerDotNet,JSON.stringify({ data }));
+};
+export const getSears_all_otherapi = (data) => {
+    return apiFetchDotNet('newInventory/sears_generate_file', "POST", headerDotNet,JSON.stringify({ data }));
+};
+//n
+export const getFetchUpdateInventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Editinventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateInventoryDownloadapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Editreportresult', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateInventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/updateinventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getFetchUpdateCanadaInventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Edit_ca_inventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateCanadaInventoryapi  = (data) => {
+    
+    return apiFetchDotNet('newInventory/edit_canada_bulk_product', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateCanadaInventoryDownloadapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/download_ca_edit_report', "POST", headerDotNet,JSON.stringify( data ));
+};
+//
+export const getFetchUpdateUAEInventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Edit_UAE_inventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateUAEInventoryapi  = (data) => {
+    
+    return apiFetchDotNet('newInventory/edit_uae_bulk_product', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateUAEInventoryDownloadapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/download_uae_edit_report', "POST", headerDotNet,JSON.stringify( data ));
+};
+//
+
+export const getFetchUpdateSubinventoryapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/editSubinventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateSubinventoryapi  = (data) => {
+    
+    return apiFetchDotNet('newInventory/updatesubinventory', "POST", headerDotNet,JSON.stringify( data ));
+};
+export const getUpdateSubinventoryDownloadapi = (data) => {
+    
+    return apiFetchDotNet('newInventory/Subinventoryreportresult', "POST", headerDotNet,JSON.stringify( data ));
+};
+// ============================= Inventory API end ======================================
+
+// ============================= Node API start ======================================
+
 export const loginAPI = (data) => {
     return apiFetch('api/login/', "POST", header, JSON.stringify({ data }));
 };
@@ -447,6 +568,7 @@ export const TicketStatusChangeAPI = (data) => {
 };
 
 export const getAzabAPI = (data) => {
+    console.log(JSON.stringify({ data }))
     return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
@@ -472,6 +594,36 @@ export const uploadAttachment = (data) => {
     return (apiFetch(`api/ticket/imageUpload`, 'POST', header, data))
 };
 
+// export const getInventoryapi = (data) => {
+//     return apiFetch('api/Inventory/getallvendor', "POST", headerWithWebToken, JSON.stringify({ data }));
+// };
+
+// export const getAllbrandapi = (data) => {
+//     return apiFetch('api/Inventory/getallbrand', "POST", headerWithWebToken, JSON.stringify({ data }));
+// };
+
+// export const getAllcollectionapi = (data) => {
+//     return apiFetch('api/Inventory/getallcollection', "POST", headerWithWebToken, JSON.stringify({ data }));
+// };
+// export const getAllcategorynameapi = (data) => {
+//     return apiFetch('api/Inventory/getAllcategoryname', "POST", headerWithWebToken, JSON.stringify({ data }));
+// };
+// export const getAllpustatusapi = (data) => {
+//     return apiFetch('api/Inventory/getAllpustatus', "POST", headerWithWebToken, JSON.stringify({ data }));
+// };
+// export const getInventoryapi = (data) => {
+//     console.log(JSON.parse(localStorage.getItem('user')).jwtToken)
+//     return apiFetch('api/Inventory/getInventoryapi', "POST", headerWithWebToken, JSON.stringify({ data }));
+// };
+
+export const getAzabReportDetailapi = (data) => {
+
+    return apiFetch('api/azab/getAzabReportDetailapi', "POST", headerWithWebToken, JSON.stringify({ data }));
+};
+// ============================= Node API end ======================================
+
+
+// export const getTrackingInfo  = (data) => {
 
 //============================= User Section ======================================
 

@@ -25,6 +25,7 @@ const ticketState = {
 
 const ticketReducer = (state = ticketState, action) => {
   const { type, data, err } = action;
+  
   let temp = ''
   switch (type) {
     case ADD_TICKET:
@@ -61,7 +62,6 @@ const ticketReducer = (state = ticketState, action) => {
       return {
         ...state,
         vendornames: data.vendorname.split(','),
-        // console.log()
         loading: false,
       };
       //  console.log(vendornames)

@@ -36,28 +36,28 @@ const DownlaodWithReact = (objArray) => {
   str += line + '\r\n';
   line = '';
   for (var i = 0; i < array.length; i++) {
-      var line = '';
-      /*for (var index in array[i]) {
-          line += array[i][index] + ',';
-      }*/
-      //Here is an example where you would wrap the values in double quotes
-      for (var index in array[i]) {
-          line += '"' + (array[i][index] + "").replace(/"/g, '\"') + '",';
-      }
-      line.slice(0, line.Length - 1);
-      str += line + '\r\n';
+  var line = '';
+  /*for (var index in array[i]) {
+  line += array[i][index] + ',';
+  }*/
+  //Here is an example where you would wrap the values in double quotes
+  for (var index in array[i]) {
+  line += '"' + (array[i][index] + "").replace(/"/g, '\"') + '",';
+  }
+  line.slice(0, line.Length - 1);
+  str += line + '\r\n';
   }
   // window.open("data:text/csv;charset=utf-8," + escape(str))
   var uri = 'data:text/csv;charset=utf-8,' + escape(str);
-
+  
   var downloadLink = document.createElement("a");
   downloadLink.href = uri;
   downloadLink.download = "ConfermationNO.csv";
-
+  
   document.body.appendChild(downloadLink);
   downloadLink.click();
   document.body.removeChild(downloadLink);
-}
+  }
 
 //Get Total
 const getTotals = (data, key) => {
@@ -68,7 +68,7 @@ total += parseInt(item[key]);
 //   console.log('item key' ,  parseInt(item[key]))
 //   console.log('loop' , total)
 });
-console.log('final' , total)
+console.log('final' , total) 
 return total;
 };
 

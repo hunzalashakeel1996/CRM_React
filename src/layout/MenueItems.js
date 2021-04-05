@@ -100,19 +100,19 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== ORDERS ========================================================== */}
-      <SubMenu key="Orders" icon={!topMenu && <FeatherIcon icon="shopping-bag" />} title="Orders">
-        <Menu.Item key="Order Reports">
-          <NavLink onClick={toggleCollapsed} to={`${path}/orders/orderReports`}>
-            Order Reports
+        {/* ==================================== ORDERS ========================================================== */}
+        <SubMenu key="Orders" icon={!topMenu && <FeatherIcon icon="shopping-bag" />} title="Orders">
+          <Menu.Item key="Order Reports">
+            <NavLink onClick={toggleCollapsed} to={`${path}/orders/orderReports`}>
+              Order Reports
           </NavLink>
-        </Menu.Item>
-        <Menu.Item key="Marketplace Orders">
-          <NavLink onClick={toggleCollapsed} to={`${path}/orders/marketplaceOrders`}>
-            Marketplace Orders
+          </Menu.Item>
+          <Menu.Item key="Marketplace Orders">
+            <NavLink onClick={toggleCollapsed} to={`${path}/orders/marketplaceOrders`}>
+              Marketplace Orders
           </NavLink>
-        </Menu.Item>
-      </SubMenu>
+          </Menu.Item>
+        </SubMenu>
 
 
       {/* ==================================== SALES ========================================================== */}
@@ -173,11 +173,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== PU STYLES ========================================================== */}
-      <SubMenu key="PUStyles" icon={!topMenu && <FeatherIcon icon="droplet" />} title="PUStyles">
-        <Menu.Item key="Styles Not in PU">
-          <NavLink onClick={toggleCollapsed} to={`${path}/puStyles/stylesNotInPU`}>
-            Styles Not in PU
+        {/* ==================================== PU STYLES ========================================================== */}
+        <SubMenu key="PUStyles" icon={!topMenu && <FeatherIcon icon="droplet" />} title="PUStyles">
+          <Menu.Item key="Styles Not in PU">
+            <NavLink onClick={toggleCollapsed} to={`${path}/puStyles/stylesNotInPU`}>
+              Styles Not in PU
           </NavLink>
         </Menu.Item>
       </SubMenu>
@@ -234,13 +234,13 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       </SubMenu>
 
     </Menu>
-  );
-};
-
+      );
+    };
+    
 MenuItems.propTypes = {
-  darkMode: propTypes.bool,
-  topMenu: propTypes.bool,
-  toggleCollapsed: propTypes.func,
-};
-
-export default MenuItems;
+        darkMode: propTypes.bool,
+      topMenu: propTypes.bool,
+      toggleCollapsed: propTypes.func,
+    };
+    
+    export default MenuItems;

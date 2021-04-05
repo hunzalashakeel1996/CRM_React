@@ -3,9 +3,9 @@ import { Spin } from 'antd';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Dashboard from './dashboard';
 import Tickets from './tickets';
-import withAdminLayout from '../../layout/withAdminLayout';
 import Azab from './azab'
 import Inventory from './Inventory'
+import withAdminLayout from '../../layout/withAdminLayout';
 import Orders from './Orders'
 import Sales from './Sales'
 import Shipping from './Shipping'
