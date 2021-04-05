@@ -35,7 +35,7 @@ const SummaryReport = (props) => {
 
 
     let vendorNames = useSelector(state => state.tickets.vendornames);
-    // console.log(vendorNames)
+    console.log(vendorNames)
 
     let orderType = { orderType : "Amazon,Amazonrizno,Ebay,Newegg,Rakuten,Sears,Walmart"};
     // console.log(orderType)
@@ -282,7 +282,7 @@ const SummaryReport = (props) => {
                             <Col span={8}>
 
                                 <Form.Item name="vendorName" rules={[{ required: true }]}>
-                                {vendorNames.vendorname && <Select
+                                {vendorNames && <Select
                                 mode="multiple"
                                 size={'medium'}
                                 // listHeight={500}
@@ -292,7 +292,7 @@ const SummaryReport = (props) => {
                                 style={{ width: '100%' }}
                                 onChange={changeVendorName}
                                 >
-                                    {vendorNames.vendorname.split(',').map(vendorName => (
+                                    {vendorNames.map(vendorName => (
                                         <Option value={vendorName}>{vendorName}</Option>
                                     ))}
                            

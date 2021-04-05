@@ -215,7 +215,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Manage Users
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="Manage Users">
+        <Menu.Item key="User Right">
           <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/UserRights`}>
             User Rights
           </NavLink>
