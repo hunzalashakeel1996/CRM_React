@@ -27,6 +27,38 @@ const downloadFile = (data) => {
 
 }
 
+const DownlaodWithReact = (objArray) => {
+  var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+  var str = '';
+  for (var index in array[0]) {
+      line += index + ',';
+  }
+  str += line + '\r\n';
+  line = '';
+  for (var i = 0; i < array.length; i++) {
+      var line = '';
+      /*for (var index in array[i]) {
+          line += array[i][index] + ',';
+      }*/
+      //Here is an example where you would wrap the values in double quotes
+      for (var index in array[i]) {
+          line += '"' + (array[i][index] + "").replace(/"/g, '\"') + '",';
+      }
+      line.slice(0, line.Length - 1);
+      str += line + '\r\n';
+  }
+  // window.open("data:text/csv;charset=utf-8," + escape(str))
+  var uri = 'data:text/csv;charset=utf-8,' + escape(str);
+
+  var downloadLink = document.createElement("a");
+  downloadLink.href = uri;
+  downloadLink.download = "ConfermationNO.csv";
+
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+}
+
 //Get Total
 const getTotals = (data, key) => {
   // console.log('data' , data)
@@ -125,4 +157,4 @@ const customTooltips = function (tooltip) {
   tooltipEl.style.padding = `${tooltip.yPadding}px ${tooltip.xPadding}px`;
 };
 
-export { textRefactor, chartLinearGradient, customTooltips, downloadFile,DownlaodWithReact};
+export { textRefactor, chartLinearGradient, customTooltips, downloadFile,DownlaodWithReact, getTotals};

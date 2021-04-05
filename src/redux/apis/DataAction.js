@@ -297,6 +297,22 @@ export const  getBackOrderItems = (data) => {
 
 //============================= ORDER API End ======================================
 
+
+// ============================= Customer Service start ======================================
+//Back Order Items
+export const  getProhibitedWords = () => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/CustomerService/getProbitedWords', "GET");
+};
+
+export const  insertProhibitedWord = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/CustomerService/insertProhibitedWord', "POST", headerDotNet, JSON.stringify(data));
+};
+// ============================= Customer Service end ======================================
+
+
+
 // ============================= REPORT API start ======================================
 
 export const getBalanceSheetRecord = () => {
