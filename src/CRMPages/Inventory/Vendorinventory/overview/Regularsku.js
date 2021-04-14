@@ -117,8 +117,9 @@ const{Regularvendor,loader,updateVendor}=props
       <Row style={{marginLeft:44}}>
        
         <Col span={4} >
-        {console.log(updateVendorList)}
+      
         <Button type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
+       
         </Col>
         <Col span={4} offset={5} >
         <h2>Regular SKU</h2>
@@ -145,7 +146,7 @@ const{Regularvendor,loader,updateVendor}=props
               <Col span={4} style={{ border:'1px solid',  borderWidth:1, borderColor:'#4545cc' ,marginLeft: 10, marginTop: 10, padding: 5,backgroundColor: '#fff', color: '#9299B8'  }}>
            
      
-  
+             
                 <Checkbox checked={isVendorCheckedList.includes(val)}   onChange={(e) => {onListCheckChange(val,i, e.target.checked)}} >
                  {val.vendorname}
             

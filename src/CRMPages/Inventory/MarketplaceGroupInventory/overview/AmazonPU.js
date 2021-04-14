@@ -36,7 +36,7 @@ const AmazonPU = (props) => {
                     <Col span={24} >
                       
                                 <FilterReportGroup genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState}
-                                    puStatusState={puStatusState} Type={Type}  itemType={itemType}  />
+                                    puStatusState={puStatusState} Type={Type}  itemType={itemType} title={'Amazon PU'} />
                         
                       
                         

@@ -11,7 +11,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl, getFetchUpdateInventoryapi, getUpdateSubinventoryapi, getUpdateInventoryDownloadapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getFetchUpdateInventoryapi, getUpdateInventoryapi, getUpdateInventoryDownloadapi } from '../../../../redux/apis/DataAction';
 
 const { TextArea } = Input;
 const EditableContext = React.createContext(null);
@@ -113,6 +113,7 @@ const AmazonUpdateInventory = () => {
                 <Form.Item
                     style={{
                         margin: 0,
+                        width:150,
                     }}
                     name={dataIndex}
                     rules={[
@@ -142,32 +143,6 @@ const AmazonUpdateInventory = () => {
 
     const EditableTable = () => { }
 
-    // const columns = [
-    //     {
-    //         title: 'merchantsku',
-    //         dataIndex: 'merchantsku',
-    //         width: '30%',
-    //         editable: true,
-    //     },
-    //     {
-    //         title: 'age',
-    //         dataIndex: 'age',
-    //     },
-    //     {
-    //         title: 'address',
-    //         dataIndex: 'address',
-    //     },
-    //     {
-    //         title: 'operation',
-    //         dataIndex: 'operation',
-    //         render: (_, record) =>
-    //             state.dataSource.length >= 1 ? (
-    //                 <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-    //                     <a>Delete</a>
-    //                 </Popconfirm>
-    //             ) : null,
-    //     },
-    // ];
 
     const columns = [
         {
@@ -329,7 +304,7 @@ const AmazonUpdateInventory = () => {
         const newData = [...statelive.dataSource];
         console.log('handleupdate', newData)
 
-        dispatch(getUpdateCInventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
+        dispatch(getUpdateInventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             console.log(data)
             setVisible(false)

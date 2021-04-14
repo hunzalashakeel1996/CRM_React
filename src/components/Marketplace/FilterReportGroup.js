@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 const filterReport = (props) => {
 
-    const { vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState,itemType } = props
+    const { vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState, itemType,title } = props
     // console.log('filterReport',vendornameState)
     return (
         <>
@@ -22,187 +22,129 @@ const filterReport = (props) => {
 
 
 
-                <Col xxl={60} lg={24} xs={24} style={{ marginLeft: 10 }}>
-
-                    <div style={{ flex: 1, textAlign: 'center' }}>
-                        <Cards headless >
-                            <h3>Report Filter</h3>
-                        </Cards>
-                    </div>
-
-
-                </Col>
 
 
             </Row>
-            <Cards headless style={{  marginLeft: 10 }}>
+            <Cards title={title} style={{ marginLeft: 10 }}>
 
-            <Row >
-                <Col span={6} >
-                    <Row >
-                        <Col >
-                            
-                            <h3>Vendorname</h3>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col >
+                <Row gutter={50}>
+                    <Col span={7} >
 
-                            <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('vendorFilter', val, true) }} style={{ width: 300}}  >
-                                {vendornameState.map((val, i) => (
-                                    <Option value={`''${val}''`} key={val}>{val}</Option>
 
-                                ))}
+                        <h3>Vendorname</h3>
 
-                            </Select>
-                        </Col>
-                    </Row>
+                        <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('vendorFilter', val, true) }} style={{ width: 300 }}  >
+                            {vendornameState.map((val, i) => (
+                                <Option value={`''${val}''`} key={val}>{val}</Option>
 
-                </Col>
+                            ))}
+
+                        </Select>
+
+                    </Col>
 
 
 
-                <Col span={6}>
+                    <Col span={7}>
 
-                    <Row >
-                        <Col>
-                            <h3>Brandname</h3>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col  >
-                            <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('brandFilter', val, true) }} style={{ width: 300}}>
-                                {brandnameState.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
-                                ))}
+                        <h3>Brandname</h3>
 
-                            </Select>
-                        </Col>
-                    </Row>
+                        <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('brandFilter', val, true) }} style={{ width: 300 }}>
+                            {brandnameState.map((val, i) => (
+                                <Option value={val} key={val}>{val}</Option>
+                            ))}
 
-                </Col>
-                <Col span={6} >
-                    <Row >
-                        <Col  >
+                        </Select>
 
-                            <h3>Collection</h3>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col >
-                            <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('collectionFilter', val, true) }} style={{ width: 300 }}>
-                                {collectionState.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
-                                ))}
+                    </Col>
+                    <Col span={7} >
 
-                            </Select>
-                        </Col>
-                    </Row>
 
-                </Col>
+                        <h3>Collection</h3>
+
+                        <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('collectionFilter', val, true) }} style={{ width: 300 }}>
+                            {collectionState.map((val, i) => (
+                                <Option value={val} key={val}>{val}</Option>
+                            ))}
+
+                        </Select>
+
+
+                    </Col>
 
 
 
-                <Col span={6}>
+                </Row>
 
-                    <Row >
-                        <Col  >
 
-                            <h3>Category</h3>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col >
-                            <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('categoryFilter', val, true) }} style={{ width: 300}}>
-                                {categorynameState.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
-                                ))}
+                <Row gutter={50} style={{ marginTop: 10 }}>
 
-                            </Select>
-                        </Col>
-                    </Row>
-
-                </Col>
-            </Row>
-
-            <Row style={{marginTop:10}}>
-                <Col span={6} >
-                    <Row >
-                        <Col>
-
-                            <h3>Type</h3>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col>
-                            <Select onChange={(val) => { props.genrateFilter('typeFilter', val, false) }} style={{ width: 300 }}>
-                                {Type.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
-                                ))}
-
-                            </Select>
-                        </Col>
-                    </Row>
-
-                </Col>
+                    <Col span={7}>
 
 
 
-                <Col span={6}>
+                        <h3>Category</h3>
 
-                    <Row >
-                        <Col>
+                        <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('categoryFilter', val, true) }} style={{ width: 300 }}>
+                            {categorynameState.map((val, i) => (
+                                <Option value={val} key={val}>{val}</Option>
+                            ))}
 
-                            <h3>PU Status</h3>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col >
-                            <Select onChange={(val) => { props.genrateFilter('statusFilter', val, false) }} style={{ width: 300 }}>
-                                {puStatusState.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
-                                ))}
+                        </Select>
+                    </Col>
+                    <Col span={7} >
 
-                            </Select>
-                        </Col>
-                    </Row>
 
-                </Col>
-                <Col span={6}>
-                    <Row >
-                        <Col >
+                        <h3>Type</h3>
 
-                            <h3>Style Code</h3>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col >
-                            <Input onChange={(event) => { props.genrateFilter('stylecodeFilter', event.target.value, false) }} style={{ width: 300 }} placeholder="Style Code" />
-                        </Col>
-                    </Row>
+                        <Select onChange={(val) => { props.genrateFilter('typeFilter', val, false) }} style={{ width: 300 }}>
+                            {Type.map((val, i) => (
+                                <Option value={val} key={val}>{val}</Option>
+                            ))}
 
-                </Col>
-                <Col span={6} >
-                    <Row >
-                        <Col>
+                        </Select>
 
-                            <h3>Item Type</h3>
-                        </Col>
-                    </Row>
-                    <Row >
-                        <Col>
-                            <Select onChange={(val) => { props.genrateFilter('typeData', val, false) }} style={{ width: 300 }}>
-                                {itemType.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
-                                ))}
+                    </Col>
 
-                            </Select>
-                        </Col>
-                    </Row>
 
-                </Col>
-            </Row>
-         
+
+                    <Col span={7}>
+
+
+                        <h3>PU Status</h3>
+
+                        <Select onChange={(val) => { props.genrateFilter('statusFilter', val, false) }} style={{ width: 300 }}>
+                            {puStatusState.map((val, i) => (
+                                <Option value={val} key={val}>{val}</Option>
+                            ))}
+
+                        </Select>
+
+                    </Col>
+                    <Col span={7}>
+
+
+                        <h3>Style Code</h3>
+
+                        <Input onChange={(event) => { props.genrateFilter('stylecodeFilter', event.target.value, false) }} style={{ width: 300 }} placeholder="Style Code" />
+
+
+                    </Col>
+                    <Col span={7} >
+
+
+                        <h3>Item Type</h3>
+
+                        <Select onChange={(val) => { props.genrateFilter('typeData', val, false) }} style={{ width: 300 }}>
+                            {itemType.map((val, i) => (
+                                <Option value={val} key={val}>{val}</Option>
+                            ))}
+
+                        </Select>
+
+                    </Col>
+                </Row>
+
             </Cards>
         </>
     )

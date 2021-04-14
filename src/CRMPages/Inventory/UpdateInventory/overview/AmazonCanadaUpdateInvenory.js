@@ -113,6 +113,7 @@ const AmazonCanadaUpdateInvenory = () => {
                 <Form.Item
                     style={{
                         margin: 0,
+                        width:150,
                     }}
                     name={dataIndex}
                     rules={[
@@ -219,8 +220,8 @@ const AmazonCanadaUpdateInvenory = () => {
         },
         {
             title: 'ASINS',
-            dataIndex: 'ASINS',
-            key: 'ASINS',
+            dataIndex: 'Canada_Asin',
+            key: 'Canada_Asin',
             editable: true,
         },
        
@@ -272,8 +273,8 @@ const AmazonCanadaUpdateInvenory = () => {
         },
         {
             title: 'UploadType',
-            dataIndex: 'uploadtype',
-            key: 'uploadtype',
+            dataIndex: 'Canada_uploadtype',
+            key: 'Canada_uploadtype',
             editable: true,
         },
         // {

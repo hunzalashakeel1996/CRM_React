@@ -117,7 +117,7 @@ const MarketplaceInventoryView = (props) => {
             dispatch(getInventoryapi(requestObjInventroy)).then(data => {
 
 
-                console.log(data[0][0])
+               // console.log(data[0][0])
 
                 setState({ ...state, summaryDataState: data[0], downloadDataState: data[1], loaderState: false })
                 console.log(state)
@@ -182,7 +182,7 @@ const MarketplaceInventoryView = (props) => {
 
 
                     setState({ ...state, loaderState: false })
-                    console.log(data[0])
+                  //  console.log(data[0])
 
 
                     var link = data
@@ -208,7 +208,7 @@ const MarketplaceInventoryView = (props) => {
 
 
                     setState({ ...state, loaderState: false })
-                    console.log(data[0])
+                //    console.log(data[0])
 
 
                     var link = data
@@ -370,8 +370,6 @@ const MarketplaceInventoryView = (props) => {
                 <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>
                     <TabPane tab="Amazon PU" key="Amazon PU">
                         <AmazonPU genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-
-
                     </TabPane>
                     <TabPane tab="Amazon Rizno" key="Amazon Rizno">
                         <AmazonRizno genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />

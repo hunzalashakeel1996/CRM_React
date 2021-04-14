@@ -9,7 +9,7 @@ import { Button, notification, Space } from 'antd';
 
 export const socketUrl = "ws://3.131.5.41:3000"
 // export const socketUrl = "wss://crm.rizno.com"
-export const url = "http://192.168.0.198:3005";
+export const url = "http://192.168.0.196:3005";
 //export const url = "https://crm.rizno.com";
 
 // export const url = "http://192.168.4.104:3000";
@@ -74,6 +74,9 @@ const multipartHeader = {
 }
 const headerDotNet = {
     "Content-Type": "application/json"
+}
+const headerFileDotNet = {
+    "content-type": "multipart/form-data;"
 }
 
 export const apiTrackingSummaryFetch = (data) => {
@@ -485,6 +488,56 @@ export const getUpdateSubinventoryapi  = (data) => {
 export const getUpdateSubinventoryDownloadapi = (data) => {
     
     return apiFetchDotNet('newInventory/Subinventoryreportresult', "POST", headerDotNet,JSON.stringify( data ));
+};
+//upload File Update
+export const getUploadFileUpdateSKUapi = (data) => {
+    console.log('aaaaa headerFileDotNet', data)
+    return apiFetchDotNet('newInventory/UploadFile', "POST", multipartHeader, data );
+};
+//Marketplace place Weight Update
+export const getUploadmarketplace_weightapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/Uploadmarketplace_weight', "POST", multipartHeader, data );
+};
+//sanmar sales Update 
+export const getSanmarSalesUpdateapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/UploadSanmar', "POST", multipartHeader, data );
+};
+//sanmar sales End 
+export const getSanmarSalesEndapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/EndSanmarSale', "POST", multipartHeader, data );
+};
+//AutoMate SKU
+export const getAutoMateSKUapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/UploadAutoSKU', "POST", multipartHeader, data );
+};
+//Report Data
+export const getReportDataapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/ReportUpload', "POST", multipartHeader, data );
+};
+//Setup Group Asin
+export const getGroupAsinSetupapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/Upload_GroupAsin', "POST", multipartHeader, data );
+};
+//Setup Group Asin
+export const getGroupScrubsetSetupapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/Upload_scrubsetAsin', "POST", multipartHeader, data );
+};
+//AutoMate Group
+export const getAutoMateGroupapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/UploadAutoGroup', "POST", multipartHeader, data );
+};
+//upload File Update Group
+export const getUploadFileUpdateGroupapi = (data) => {
+
+    return apiFetchDotNet('newInventory/UploadFileGroup', "POST", multipartHeader, data );
 };
 // ============================= Inventory API end ======================================
 

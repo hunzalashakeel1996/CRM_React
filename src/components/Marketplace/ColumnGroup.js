@@ -101,7 +101,7 @@ const Column = (props) => {
                 {column &&
                     <Row >
                         {Column.map((val, i) => (
-                            <Col span={4} style={{  marginLeft: 10, marginTop: 10, padding: 5,backgroundColor: '#fff', color: '#9299B8', backgroundColor: '#f4f5f7'  }} >
+                            <Col span={7} style={{  marginLeft: 10, marginTop: 10, padding: 5,backgroundColor: '#fff', color: '#9299B8' }} >
                                 <Checkbox checked={Allcolumn.column.indexOf(val) > -1} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }} >
                                     {val}
                                 </Checkbox>
@@ -111,7 +111,7 @@ const Column = (props) => {
                         ))}
                         {additionalColumns.map((val, i) => (
 
-                            <Col span={4} style={{ marginLeft: 10, marginTop: 10, padding: 10,backgroundColor: '#fff', color: '#9299B8', backgroundColor: '#f4f5f7'  }} >
+                            <Col span={7} style={{ marginLeft: 10, marginTop: 10, padding: 10,backgroundColor: '#fff', color: '#9299B8' }} >
 
                                 <Checkbox checked={Allcolumn.column.indexOf(val) > -1} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }} >
                                     {val}

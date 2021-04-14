@@ -113,6 +113,7 @@ const AmazonUAEUpdateInvenory = () => {
                 <Form.Item
                     style={{
                         margin: 0,
+                        width:150,
                     }}
                     name={dataIndex}
                     rules={[
@@ -219,8 +220,8 @@ const AmazonUAEUpdateInvenory = () => {
         },
         {
             title: 'ASINS',
-            dataIndex: 'ASINS',
-            key: 'ASINS',
+            dataIndex: 'UAE_Asin',
+            key: 'UAE_Asin',
             editable: true,
         },
        
@@ -272,8 +273,8 @@ const AmazonUAEUpdateInvenory = () => {
         },
         {
             title: 'UploadType',
-            dataIndex: 'uploadtype',
-            key: 'uploadtype',
+            dataIndex: 'Uae_uploadtype',
+            key: 'Uae_uploadtype',
             editable: true,
         },
         // {
