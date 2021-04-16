@@ -31,6 +31,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
     >
       {/* ==================================== DASHBOARD ========================================================== */}
       <SubMenu key="dashboard" icon={!topMenu && <FeatherIcon icon="home" />} title="Dashboard">
+      <Menu.Item key="reportGraph">
+          <NavLink onClick={toggleCollapsed} to={`${path}/graph/comparisonGraph`}>
+            Comparison Report
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="viewTickets">
           <NavLink onClick={toggleCollapsed} to={`${path}/ticket/viewTickets`}>
             Tickets

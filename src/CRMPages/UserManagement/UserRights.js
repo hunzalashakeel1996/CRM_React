@@ -83,15 +83,15 @@ const UsersView = (props) => {
     <>
       <PageHeader
         title="Manage Users"
-        buttons={[
-          <div key="1" className="page-header-actions">
+        // buttons={[
+        //   <div key="1" className="page-header-actions">
 
-            <Button size="small" type="primary">
-              <FeatherIcon icon="plus" size={14} />
-              UserName Rights
-            </Button>
-          </div>,
-        ]}
+        //     <Button size="small" type="primary">
+        //       <FeatherIcon icon="plus" size={14} />
+        //       UserName Rights
+        //     </Button>
+        //   </div>,
+        // ]}
       />
 
       <Row style={{ marginLeft: 20, marginRight: 20 }}>

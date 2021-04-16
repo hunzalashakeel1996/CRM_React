@@ -37,7 +37,11 @@
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^3.0.1",
     "styled-components": "^4.4.1",
-    "ws": "^7.4.0"
+    "ws": "^7.4.0",
+    "chart.js": "^2.9.4",
+    "react-chartjs-2": "^2.11.1",
+    "react-google-charts": "^3.0.15",
+    "recharts": "^2.0.4"
   },
   "homepage": "/",
   "scripts": {

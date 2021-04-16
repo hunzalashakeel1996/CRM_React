@@ -252,6 +252,7 @@ const MarketplaceInventoryView = (props) => {
         }
         else if (isSeller == "Sears") {
 
+            
             if (requestObjInventroy.addOrOtherinventory == 'ADD SEARS INVENTORY') {
                 dispatch(getSearsqtyapi(requestObjInventroy)).then(data => {
 

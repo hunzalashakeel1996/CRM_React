@@ -2,6 +2,7 @@ import React, { lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import Tickets from './tickets';
+import ReportChart from './ReportChart';
 
 const Dashboard = lazy(() => import('../../container/dashboard'));
 
@@ -11,6 +12,7 @@ const DashboardRoutes = () => {
     <Switch>
       {/* <Route exact path={path} component={Dashboard} /> */}
       {/* <Route path={`${path}/social`} component={Dashboard} /> */}
+      <Route path={`${path}/graph`} component={ReportChart} />
       <Route path={`${path}/ticket`} component={Tickets} />
     </Switch>
   );

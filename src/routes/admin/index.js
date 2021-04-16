@@ -3,6 +3,7 @@ import { Spin } from 'antd';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Dashboard from './dashboard';
 import Tickets from './tickets';
+import ReportChart from './ReportChart';
 import Azab from './azab'
 import Inventory from './Inventory'
 import withAdminLayout from '../../layout/withAdminLayout';
@@ -14,6 +15,7 @@ import PUStyles from './PUStyles'
 import Chatbot from './Chatbot'
 import UserManagement from './UserManagement'
 import CustomerSupport from './CustomerSupport'
+import ComparisonReportView from './../../CRMPages/Dashboard/ComparisonReport/ComparisonReportView';
 
 const Admin = () => {
   const { path } = useRouteMatch();
@@ -28,7 +30,8 @@ const Admin = () => {
           </div>
         }
       >
-        <Route path={path} component={Tickets} />
+        <Route path={path} component={ReportChart} />
+        <Route path={`${path}/graph`} component={ReportChart} />
         <Route path={`${path}/ticket`} component={Tickets} />
         <Route path={`${path}/azab`} component={Azab} />
         <Route path={`${path}/inventory`} component={Inventory} />
