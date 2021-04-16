@@ -36,6 +36,7 @@ const ViewTickets = (props) => {
 
   // get items from redux
   let tickets = useSelector(state => state.tickets.tickets);
+  console.log(tickets);
   let depart = useSelector(state => state.tickets.depart);
   let socket = useSelector(state => state.socket.socket);
   let user = useSelector(state => state.auth.login);

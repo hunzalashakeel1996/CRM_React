@@ -64,6 +64,7 @@ const ticketReducer = (state = ticketState, action) => {
         vendornames: data.vendorname.split(','),
         loading: false,
       };
+      //  console.log(vendornames)
     case ADD_ALL_COMMENTS:
       return {
         ...state,

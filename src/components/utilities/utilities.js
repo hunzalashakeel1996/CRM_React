@@ -31,7 +31,7 @@ const DownlaodWithReact = (objArray) => {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
   var str = '';
   for (var index in array[0]) {
-  line += index + ',';
+      line += index + ',';
   }
   str += line + '\r\n';
   line = '';

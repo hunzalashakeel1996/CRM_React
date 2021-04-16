@@ -227,14 +227,14 @@ const TopSelling = (props) => {
                                 </Col>
                                 <Col span={1}></Col>
 
-                                {vendorNames.vendorname && <Col span={7} >
+                                {vendorNames && <Col span={7} >
                                     <Form.Item name="vendorName" >
                                         <ReasonAutoComplete
                                             //   style={{ marginRight: 5 }}
                                             placeholder='Search Vendorname'
                                             onInputChange={(vendorName) => { onValueChange('VendorName', vendorName) }}
                                             selectedReason={controls.VendorName} style={{ width: '100%' }}
-                                            dataSource={vendorNames.vendorname.split(',')}
+                                            dataSource={vendorNames}
                                             onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
                                     </Form.Item>
                                 </Col>}

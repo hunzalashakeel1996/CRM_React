@@ -215,11 +215,21 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Manage Users
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="Manage Users">
+        <Menu.Item key="User Right">
           <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/UserRights`}>
             User Rights
           </NavLink>
-        </Menu.Item>s
+        </Menu.Item>
+
+      </SubMenu>
+
+      {/* ==================================== CUSTOMER SUPPORT ========================================================== */}
+      <SubMenu key="Customer Support" icon={!topMenu && <FeatherIcon icon="help-circle" />} title="Customer Support">
+        <Menu.Item key="Email Template">
+          <NavLink onClick={toggleCollapsed} to={`${path}/customerSupport/emailTemplate`}>
+            Email Template
+          </NavLink>
+        </Menu.Item>
 
       </SubMenu>
 

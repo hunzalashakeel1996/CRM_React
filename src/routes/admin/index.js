@@ -13,6 +13,7 @@ import RMA from './Rma'
 import PUStyles from './PUStyles'
 import Chatbot from './Chatbot'
 import UserManagement from './UserManagement'
+import CustomerSupport from './CustomerSupport'
 
 const Admin = () => {
   const { path } = useRouteMatch();
@@ -38,6 +39,7 @@ const Admin = () => {
         <Route path={`${path}/puStyles`} component={PUStyles} />
         <Route path={`${path}/chatbot`} component={Chatbot} />
         <Route path={`${path}/userManagement`} component={UserManagement} />
+        <Route path={`${path}/customerSupport`} component={CustomerSupport} />
       </Suspense>
     </Switch>
   );

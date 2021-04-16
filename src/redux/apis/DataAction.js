@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Button, notification, Space } from 'antd';
 
 
-//export const webURL = `http://localhost:3001`
+export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
 export const socketUrl = "ws://3.131.5.41:3000"
@@ -299,6 +299,22 @@ export const  getBackOrderItems = (data) => {
 
 
 //============================= ORDER API End ======================================
+
+
+// ============================= Customer Service start ======================================
+//Back Order Items
+export const  getProhibitedWords = () => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/CustomerService/getProbitedWords', "GET");
+};
+
+export const  insertProhibitedWord = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/CustomerService/insertProhibitedWord', "POST", headerDotNet, JSON.stringify(data));
+};
+// ============================= Customer Service end ======================================
+
+
 
 // ============================= REPORT API start ======================================
 
@@ -680,8 +696,23 @@ export const getAzabReportDetailapi = (data) => {
 
 // export const getTrackingInfo  = (data) => {
 
-//     return apiTrackinginfoFetch('http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML=<TrackRequest USERID="622PULSE3418"><TrackID ID="9405516902840439853322"></TrackID></TrackRequest>', "GET");
-// };
+//============================= User Section ======================================
+
+export const addNewUser = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Users/insertUser', "POST", headerDotNet, JSON.stringify(data));
+};
+
+export const getAllUserRecord = () => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Users/getAllUserRecord', "GET", headerDotNet, JSON.stringify());
+};
+
+
+
+//============================= User Section ======================================
+
+
 
 
 
