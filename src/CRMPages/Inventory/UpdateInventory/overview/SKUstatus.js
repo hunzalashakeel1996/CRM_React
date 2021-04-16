@@ -266,10 +266,7 @@ const SKUstatus = () => {
                         </Row>
                         <Row style={{ marginTop: 20 }}>
                             <Col span={8} style={{ width: 300, marginRight: 20 }}>
-                                {/* <Upload {...fileDetails}>
-                                    <Button icon={<UploadOutlined />} >Click to Upload</Button>
-                                </Upload> */}
-
+                            
                                 <input type="file" onChange={changeHandler} />
 
                             </Col>
@@ -329,13 +326,9 @@ const SKUstatus = () => {
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 100 }}>
                                     <Option value="PU">PU</Option>
                                     <Option value="Rizno">Rizno</Option>
-
-
-                                </Select>
-
-
-
-                            </Col>
+                                     </Select>
+                                     
+                                </Col>
                         </Row>
 
                         <Row style={{ marginTop: 20 }}>

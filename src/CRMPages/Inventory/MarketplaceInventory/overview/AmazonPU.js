@@ -26,7 +26,7 @@ const AmazonPU = (props) => {
     const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']
 
     const amazonPU = "PU"
-    const isSeller = "Amazon"
+    const isSeller = "Sears"
     return (
         <>
           

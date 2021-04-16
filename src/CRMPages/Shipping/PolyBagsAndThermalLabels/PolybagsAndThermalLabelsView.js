@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import PolyBags from './PolyBags'
 import ThermalBags from './ThermalBags'
 import FeatherIcon from 'feather-icons-react';
+import { BasicFormWrapper } from '../../styled';
 
 const { TabPane } = Tabs;
 

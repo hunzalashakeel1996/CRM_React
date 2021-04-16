@@ -539,7 +539,25 @@ export const getUploadFileUpdateGroupapi = (data) => {
 
     return apiFetchDotNet('newInventory/UploadFileGroup', "POST", multipartHeader, data );
 };
+//upload File Update Ebay Inventory
+export const getUploadFileUpdateEbayInventoryapi = (data) => {
+
+    return apiFetchDotNet('newInventory/UploadEbayFile', "POST", multipartHeader, data );
+};
+//upload File Update Ebay Inventory
+export const getEbayHtmlapi = (data) => {
+
+    return apiFetchDotNet('newInventory/GETHTML', "POST", headerDotNet, JSON.stringify( data ) );
+};
 // ============================= Inventory API end ======================================
+
+// ============================= Shipping API Start ======================================
+//Poly Bag fetch
+export const getFetchAddBagsapi = (data) => {
+
+    return apiFetchDotNet('Newshipping/Addbags', "POST", headerDotNet, JSON.stringify( data ) );
+};
+// ============================= Shipping API end ======================================
 
 // ============================= Node API start ======================================
 
