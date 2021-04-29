@@ -191,13 +191,141 @@ export const feed_report = (data) => {
 export const getBrand = (data) => {
     return apiFetchDotNet('update/getvendor', "GET");
 };
+//shipping Tab Apis
 export const getPolyBags = (data) => {
     return apiFetchDotNet('/Report/Addbags', "POST", headerDotNet, JSON.stringify({}));
+};
+export const getThermalBags = (data) => {
+    return apiFetchDotNet('/Report/Addthermalbags', "POST", headerDotNet, JSON.stringify({}));
+};
+//Amazon shipping Step status
+export const amazonStepStatus = (data) => {
+    return apiFetchDotNet('/AmazonShipping/labels_API', "POST", multipartHeader, data);
+};
+//Amazon shipping Asin uploadFile
+export const insertAmazonAsinShiping = (data) => {
+    return apiFetchDotNet('/Newshipping/InsertAsins', "POST", multipartHeader, data);
+};
+//Amazon shipping Sheet uploadFile
+export const insertAmazonSheetShiping = (data) => {
+    return apiFetchDotNet('/Newshipping/InsertAsins', "POST", multipartHeader, data);
+};
+//Amazon Shiping Validation Sheet uploadFile
+export const amazonShipingValidation = (data) => {
+    return apiFetchDotNet('/AmazonShipping/Amazon_shiping_validation', "POST", headerDotNet, data);
+};
+//Amazon Creat shipping 
+export const amazonCreateShiping = (data) => {
+    return apiFetchDotNet('/AmazonShipping/Create_Amazon_shiping', "POST", headerDotNet, JSON.stringify(data));
+};
+//Amazon generate Feed 
+export const AmazongenerateFeed  = (data) => {
+    return apiFetchDotNet('/AmazonShipping/Genrate_Amazon_Shipping_feed', "POST", headerDotNet, JSON.stringify(data));
+};
+//Non Amazon shipping Sheet uploadFile
+export const insertNonAmazonSheetShiping = (data) => {
+    return apiFetchDotNet('/Newshipping/NonamazonInsertWeight', "POST", multipartHeader, data);
+};
+//Non Amazon Shiping Validation 
+export const nonAmazonShipingValidation = (data) => {
+    return apiFetchDotNet('/NonAmazonShipping/Non_Amazon_shiping_validation', "POST", headerDotNet, data);
+};
+//Non Amazon Creat shipping 
+export const nonAmazonCreateShiping = (data) => {
+    return apiFetchDotNet('/NonAmazonShipping/Create_Non_Amazon_shiping', "POST", headerDotNet, JSON.stringify(data));
+};
+//Non Amazon generate Feed 
+export const nonAmazongenerateFeed  = (data) => {
+    return apiFetchDotNet('/NonAmazonShipping/Genrate_Amazon_Shipping_feed', "POST", headerDotNet, JSON.stringify(data));
+};
+//Endicia shiping sheet 
+export const insertEndiciaShipingSheet  = (data) => {
+    return apiFetchDotNet('/Newshipping/InsertEndiciaWeight', "POST", multipartHeader, data);
+};
+//Endicia Shiping Validation 
+export const endiciaShipingValidation = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/endicia_shiping_validation', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Endicia Create Shiping  
+
+export const endiciaShipingCreateShiping = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/Create_Endicia_shiping', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Endicia check count
+
+export const endiciaShipingcheckcount = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/check_count', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Endicia Daily Check Multiple Create Label
+
+export const multipleCreateLabel = (data) => {
+    return apiFetchDotNet('/Newshipping/daily_Check_multiple_create_label', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Endicia Verify Label
+export const endiciaVerifyLabel = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/verify_label', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Endicia Rizno shiping sheet 
+export const insertRiznoEndiciaShipingSheet  = (data) => {
+    return apiFetchDotNet('/Newshipping/rizno_shipping_File', "POST", multipartHeader, data);
+};
+//Endicia Rizno Shiping Validation 
+export const endiciaRiznoShipingValidation = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/rizno_shiping_Validation', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Endicia Rizno Create Shiping  
+export const riznoEndiciaShipingCreateShiping = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/Create_Rizno_Endicia_shiping', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Endicia Rizno Daily Check Multiple Create Label
+export const multipleCreateLabelRizno = (data) => {
+    return apiFetchDotNet('/Newshipping/daily_Check_multiple_create_label_rizno', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Endicia Rizno check count
+export const endiciaRiznoShipingcheckcount = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/check_rizno_count', "POST", headerDotNet,  JSON.stringify(data));
+};
+
+//Endicia RefundLabel
+export const endiciaRefundLabel = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/create_refund_shiping', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Check Endicia RefundLabel
+export const checkEndiciaRefundLabel = (data) => {
+    return apiFetchDotNet('/Endicia_shiping/verify_refund', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Manual Shipment->POnumber->Submit Button
+export const manualShipmentPonumber = (data) => {
+    return apiFetchDotNet('/Newshipping/ponumbers', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Manual Shipment->POnumber->Manual Tick
+export const manualShipmentPonumberManualTick = (data) => {
+    return apiFetchDotNet('/Walmart/manuallyshipped', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Manual Shipment->Amazon Manual Shipping Upload File
+export const manualShipmentAmazonManualShipping = (data) => {
+    return apiFetchDotNet('/Walmart/uploadamazon', "POST", multipartHeader, data);
+};
+//Manual Shipment->Amazon Manual Shipping File sheet
+export const manualShipmentAmazonManualShippingAmazonFileSheet= (data) => {
+    return apiFetchDotNet('/Walmart/amazonfiledownload', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Manual Shipment->Amazon Manual Shipping Upload File
+export const manualShipmentAmazonManualShippingAmazonFileDownload = (data) => {
+    return apiFetchDotNet('/Walmart/AmazonmanualSheet', "POST", headerDotNet,  JSON.stringify(data));
 };
 
 //DELIVERY TRACKING STATUS
 export const getDeliveyTrackingStatus = (data) => {
     return apiFetchDotNet('/Edit/delivered_tracking_status_report', "POST", headerDotNet, JSON.stringify(data));
+};
+//Intransits Tracking Upload
+export const inTransitsTrackingInsert = (data) => {
+    return apiFetchDotNet('/Edit/TransUpload', "POST", multipartHeader, data);
+};
+//Intransits Tracking Data
+export const inTransitsTrackingData= (data) => {
+    return apiFetchDotNet('/Edit/Intransis_tracking', "POST", headerDotNet, JSON.stringify(data));
 };
 
 //WEB LABELS ORDERS
@@ -208,7 +336,31 @@ export const getWebLabelOrders = (data) => {
 export const getAllMPShipments = () => {
     return apiFetchDotNet('/Report/All_MP_Shipment', "POST", headerDotNet, JSON.stringify());
 };
+//Duplicate Tracking
+export const getDupicateTracking= (data) => {
+    return apiFetchDotNet('/Edit/duplicate_tracking', "POST", headerDotNet, JSON.stringify(data));
+};
+//Get Weight for Label calculation Upoad File
+export const GetWeightforAmazonLabelUpoadFile = (data) => {
+    return apiFetchDotNet('/Edit/AmazonWeightDownload', "POST", multipartHeader, data);
+};
+//Label calculation Download 
 
+export const GetWeightforAmazonLabelDownload = (data) => {
+    return apiFetchDotNet('/Edit/download_amazon_weight_report', "POST", headerDotNet,  JSON.stringify(data));
+};
+//Getweightinventory
+export const Getweightinventory = (data) => {
+    return apiFetchDotNet('/Edit/weightinventory', "POST", headerDotNet,  JSON.stringify(data));
+};
+//PUStyles->PUAppscript
+export const PUAppscript = (data) => {
+    return apiFetchDotNet('/Report/download_PU_App_script', "POST", headerDotNet,  JSON.stringify(data));
+};
+// //RMA->RMA Monthly Report
+// export const PUAppscript = (data) => {
+//     return apiFetchDotNet('/Report/rma_monthly_report', "POST", headerDotNet,  JSON.stringify(data));
+// };
 // ============================= Shipping API end ======================================
 
 // ============================= StylesNotInPU API start ======================================

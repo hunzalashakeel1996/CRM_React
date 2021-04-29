@@ -157,19 +157,14 @@ const MarketplaceInventoryView = (props) => {
             if (requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY') {
 
                 dispatch(getInventoryWalmartapi(requestObjInventroy)).then(data => {
-
-
-                    setState({ ...state, loaderState: false })
-                    console.log(data[0])
-
-
+                setState({ ...state, loaderState: false })
+                    // console.log(data[0])
                     var link = data
 
                     var datalink = link;
                     console.log(datalink.length);
                     for (var z = 0; z < datalink.length;) {
                         downloadFile(datalink[z])
-
                         z++
                     }
                 })

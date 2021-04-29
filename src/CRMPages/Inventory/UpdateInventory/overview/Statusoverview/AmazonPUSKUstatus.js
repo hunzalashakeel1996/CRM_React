@@ -35,10 +35,10 @@ const AmazonPUSKUstatus = (props) => {
         <>
             <Row gutter={5}>
                             <Col span={6}>
-                                <Button style={{ width: 220 }} type="primary" onClick={uploadFile} disabled={buttonStatus === 'disabled' ? true : false}>Update</Button>
+                                <Button style={{ width: 150 }} type="primary" onClick={uploadFile} disabled={buttonStatus === 'disabled' ? true : false}>Update</Button>
                             </Col>
 
-                            <Col span={4}>
+                            <Col span={5}>
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 150 }}>
                                     <Option value="PU">PU</Option>
                                     <Option value="PU_Asin">PU ASIN</Option>
@@ -46,7 +46,7 @@ const AmazonPUSKUstatus = (props) => {
 
                                 </Select>
                             </Col>
-                            <Col span={3}>
+                            <Col span={5}>
                                 <Checkbox onChange={onChangeForceCheck}>Force Check</Checkbox>
                             </Col>
                         </Row>

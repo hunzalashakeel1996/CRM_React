@@ -114,7 +114,7 @@ const{Regularvendor,loader,updateVendor}=props
     <>
       <Cards headless >
 
-      <Row style={{marginLeft:44}}>
+      <Row >
        
         <Col span={4} >
       
@@ -143,14 +143,14 @@ const{Regularvendor,loader,updateVendor}=props
                     <p>Updated By: <span style={{color: "red"}}>{val.UserName}</span>  </p>
                     <p>Updated At: <span style={{color: "red"}}>{formatedate(val.ActionDate)}</span></p>
                   </div>)} title="Last Update Report" trigger="hover">
-              <Col span={4} style={{ border:'1px solid',  borderWidth:1, borderColor:'#4545cc' ,marginLeft: 10, marginTop: 10, padding: 5,backgroundColor: '#fff', color: '#9299B8'  }}>
+              <Col span={6} style={{ marginLeft: 10, marginTop: 10 ,fontSize:30 }}>
            
      
              
                 <Checkbox checked={isVendorCheckedList.includes(val)}   onChange={(e) => {onListCheckChange(val,i, e.target.checked)}} >
                  {val.vendorname}
             
-                 <img src={`/img/VendorLogo/${val.vendorname}.jpg`} width="40" height="40" style={{marginLeft:10}}/> 
+                 {/* <img src={`/img/VendorLogo/${val.vendorname}.jpg`} width="40" height="40" style={{marginLeft:10}}/>  */}
               
                 </Checkbox>
              

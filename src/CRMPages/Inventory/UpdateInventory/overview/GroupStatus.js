@@ -265,7 +265,7 @@ const Groupstatus = () => {
                 <Col span={10} style={{ marginLeft: 20 }} >
                     <Cards headless>
                         <Row>
-                            <Col span={8} >
+                            <Col span={10} >
                                 <Button type="primary" onClick={automateSKU}>Automate SKU</Button>
                             </Col>
 

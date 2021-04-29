@@ -1,57 +1,44 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col,notification} from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
+import { useDispatch, useSelector } from 'react-redux';
+import { downloadFile } from '../../../components/utilities/utilities'
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { getDupicateTracking} from '../../../redux/apis/DataAction';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 
 const ShippingWeightView = (props) => {
+  const dispatch = useDispatch()
   const [state, setState] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
     selectedRows: null,
     values: {},
+    value:[]
   });
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
-  const columns = [
-    {
-      title: 'Order NO',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'PO number',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Tracking NO',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'address',
-      key: 'address',
-    },
+  const {value}=state
+  const checkDuplicateTracking =(val,status)=>{
+      
+    dispatch(getDupicateTracking({ms:value,st:status})).then(data => {
+          downloadFile(data)
+   
+       notification.success({
+           message: `Successfull  ${data}`,
+           description: `Successfully Report`,
+           onClose: close,
+       });
+      
+   })
+};
+const onChange = (event) => {
+  console.log(event.target.value)
+  setState({ ...state, value: event.target.value });
 
-  ];
+};
   return (
     <>
       <Row style={{  }}>
@@ -59,18 +46,18 @@ const ShippingWeightView = (props) => {
           <Row gutter={25}>
             <Col lg={6} xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <TextArea />
+              <TextArea placeholder="input here" className="custom" value={value} onChange={onChange} style={{ height: 50 }} />
               </div>
             </Col>
-            <Col lg={12} xs={24}  >
+            <Col lg={6} xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Button type="success" htmlType="PO Number">
-                  PO Number
-                        </Button>
-                        <Button type="primary" htmlType="OrderNo" style={{ marginLeft: 10 }}>
-                  OrderNo
-                        </Button>
+              <Button type="success" onClick={(val)=>{checkDuplicateTracking(val,'POnumber')} }>Po number</Button>
               </div>
+            </Col>
+            <Col lg={6} xs={24}  >
+              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+              <Button type="success" onClick={ (val)=>{checkDuplicateTracking(val,'orderno')}  }>Orderno</Button>
+             </div>
             </Col>
           </Row>
         </Cards>
