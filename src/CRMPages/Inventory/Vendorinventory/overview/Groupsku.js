@@ -71,7 +71,7 @@ const{Regularvendor}=props
 
 
       
-
+ {/* dsadas  */}
       <Row style={{marginLeft:44}}>
        
         <Col span={4} >

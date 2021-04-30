@@ -130,6 +130,7 @@ const VendorInventoryView = (props) => {
                         </div>
                     }
                 </TabPane>
+                {/* asdad  */}
                 {/* <TabPane tab="Group Skus" key="Group Skus">
                     <Groupsku />
                 </TabPane> */}

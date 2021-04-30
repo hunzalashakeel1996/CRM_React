@@ -113,7 +113,7 @@ const{Regularvendor,loader,updateVendor}=props
   return (
     <>
       <Cards headless >
-
+{/* adasdsadsad  */}
       <Row >
        
         <Col span={4} >
