@@ -4,7 +4,7 @@ import FeatherIcon from 'feather-icons-react';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
-import { ProjectHeader, ProjectSorting } from './style';
+// import { ProjectHeader, ProjectSorting } from './style';
 import { Main } from '../../styled';
 import { PageHeader } from '../../../components/page-headers/page-headers';
 import { AutoComplete } from '../../../components/autoComplete/autoComplete';
