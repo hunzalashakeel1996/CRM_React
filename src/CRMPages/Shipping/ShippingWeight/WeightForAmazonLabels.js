@@ -1,9 +1,12 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col,notification } from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
+import { useDispatch, useSelector } from 'react-redux';
+import { downloadFile } from '../../../components/utilities/utilities'
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { GetWeightforAmazonLabelUpoadFile,GetWeightforAmazonLabelDownload} from '../../../redux/apis/DataAction';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -14,79 +17,76 @@ const ShippingWeightView = (props) => {
     selectedRowKeys: null,
     selectedRows: null,
     values: {},
+    file:''
   });
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
-  const columns = [
-    {
-      title: 'Order NO',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'PO number',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Tracking NO',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'address',
-      key: 'address',
-    },
+  const {file}=state
+  const dispatch = useDispatch()
+  const changeHandler = (event) => {
 
-  ];
+    setState({ ...state, file: event.target.files[0] })
+
+};
+
+const insertWeightCalculationSheet = () => {
+  let username = [];
+  username = JSON.parse(localStorage.getItem('user'))
+
+  const formData = new FormData();
+
+  formData.append('user', username.LoginName);
+  formData.append('File', file);
+  dispatch(GetWeightforAmazonLabelUpoadFile(formData)).then(data => {
+
+      //   message.success(`file uploaded Update ${data}`);
+      notification.success({
+          message: `Successfull Upload Done`,
+          description: `Successfully Report`,
+          onClose: close,
+      });
+      location.reload();
+  })
+};
+const WeightCalculationDown =()=>{
+  dispatch(GetWeightforAmazonLabelDownload()).then(data => {
+        downloadFile(data)
+ 
+     notification.success({
+         message: `Successfull  ${data}`,
+         description: `Successfully Report`,
+         onClose: close,
+     });
+    
+ })
+};
   return (
     <>
-      <Row style={{  }}>
-                <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
-                    <Row gutter={25}>
-                        <Col lg={6} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+      <Row style={{}}>
+        <Cards title="Weight Calculation" caption="The simplest use of Drawer" >
+          <Row gutter={25}>
+            <Col lg={6} xs={24}  >
+              <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div>
+              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                <Button type="success" onClick={insertWeightCalculationSheet}> Shipping Weight</Button>
 
-                                <Button type="success" size="default" htmlType="submit">
-                                    Shipping Weight
-                        </Button>
-                                <Upload >
-                                    <Button style={{ marginTop: 10 }} className="btn-outlined" size="large" type="light" outlined>
-                                        <UploadOutlined /> Click to Upload
-                </Button>
-                                </Upload>
+                <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />
 
-                            </div>
-                        </Col>
-                        <Col lg={6} xs={24}>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 2</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                <Button type="primary" size="default" htmlType="submit">
-                                    Download Shippping Tracking
-                        </Button>
-                                {/* </Cards> */}
-                            </div>
-                        </Col>
-                        
-                    </Row>
-                </Cards>
-            </Row>
-      
+
+              </div>
+            </Col>
+            <Col lg={6} xs={24}>
+              <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 2</h3></div>
+              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
+                <Button type="success" onClick={WeightCalculationDown}> Download Shippping Tracking</Button>
+              
+                {/* </Cards> */}
+              </div>
+            </Col>
+
+          </Row>
+        </Cards>
+      </Row>
+
 
 
 

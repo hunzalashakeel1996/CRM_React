@@ -1,12 +1,15 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image ,notification} from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
+import { downloadFile } from '../../../components/utilities/utilities'
+import { useDispatch, useSelector } from 'react-redux';
 // import { Checkbox } from '../../../components/checkbox/checkbox';
 import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
+import { inTransitsTrackingInsert,inTransitsTrackingData } from '../../../redux/apis/DataAction';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -15,11 +18,11 @@ const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
-
+let sellerList=[]
 const ShippingReportsView = (props) => {
 
 
-    const [state, setstate] = useState({
+    const [state, setState] = useState({
         selectionType: 'checkbox',
         selectedRowKeys: null,
         selectedRows: null,
@@ -28,172 +31,167 @@ const ShippingReportsView = (props) => {
         checkData: [],
         checked: null,
         values: {},
+        states:[],
+        file:'',
+        marketplace:[],
+        startDate:'',
+        endDate:'',
     });
+   
+    const sellerName=['Amazon','Walmart','sears','Ebay','NewEgg','PU','JLC']
+    const dispatch = useDispatch()
+    const {states,file,marketplace,startDate,endDate}=state
     const multipleChange = childData => {
         setState({ ...state, checkData: childData });
     };
-
-
     const onChange = (date, dateString) => {
-        setstate({ ...state, date, dateString });
+        setState({ ...state, date, dateString });
 
     };
+    const onChangeTextArea = (event) => {
+        console.log(event.target.value)
+        setState({ ...state, states: event.target.value });
 
-    const dataSource = [
-        {
-            key: '1',
-            name: 'Mike',
-            age: 32,
-            address: '10 Downing Street',
-        },
-        {
-            key: '2',
-            name: 'John',
-            age: 42,
-            address: '10 Downing Street',
-        },
-    ];
-    const columns = [
-        {
-            title: 'Order NO',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Full Name',
-            dataIndex: 'age',
-            key: 'age',
-        },
-        {
-            title: 'STREET ADDRESS 1',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'STREET ADDRESS 2',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'City',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'State',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'Country',
-            dataIndex: 'address',
-            key: 'address',
-        },
-    ];
+    };
+    const changeHandler = (event) => {
+
+        setState({ ...state, file: event.target.files[0] })
+
+    };
+    const insertTransitsSheet = () => {
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+
+        const formData = new FormData();
+
+        formData.append('user', username.LoginName);
+        formData.append('File', file);
+        dispatch(inTransitsTrackingInsert(formData)).then(data => {
+
+            //   message.success(`file uploaded Update ${data}`);
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            location.reload();
+        })
+    };
+    let username = [];
+  const onListCheckChange = (val, i, isChecked) => {
+   // console.log(isChecked)
+  
+     if(isChecked){
+         console.log('if',val)
+       sellerList.push(
+        val   
+       
+       )
+     }
+     else{
+       
+       let index = sellerList.indexOf(val)
+       sellerList.splice(index, 1)
+ 
+     }
+  
+     setState({ ...state, marketplace: sellerList });
+     
+    }
+    const onChangeStartDate =(value)=>{
+        console.log(value.format('MM/DD/YYYY'))
+        setState({ ...state, startDate: value });
+    }
+    const onChangeEndDate =(value)=>{
+        console.log(value.format('MM/DD/YYYY'))
+        setState({ ...state, endDate: value.format('MM/DD/YYYY')});
+    }
+    const insertTransitsData = () => {
+     
+
+  
+        dispatch(inTransitsTrackingData({state:states,orderdatefrom:startDate,orderdateto:endDate,marketplace:marketplace})).then(data => {
+            downloadFile(data)
+            //   message.success(`file uploaded Update ${data}`);
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            location.reload();
+        })
+    };
     return (
         <>
             <Row style={{  }}>
                 <Cards title="InTransit Tracking Report" caption="The simplest use of Drawer" >
-                    <Row gutter={25}>
-                        <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={onChange} />
-                            </div>
+                <Col span={24}  >
+               <Row gutter={50}>
+                 
+               {sellerName.map((val, i) => (
+                     <Col span={5} style={{ marginLeft: 10, marginTop: 10  }}>
+                   {/* <Cards headless > */}
+                    <Checkbox onChange={(e) => {onListCheckChange(val,i, e.target.checked)}}>
+              
+                 {val}
+               
+                 {/* <img src={`/img/icons/${val}.png`} width="70" height="70" style={{marginLeft:10}}/>  */}
+              
+                </Checkbox>
+                {/* </Cards> */}
+                </Col>
+                    ))}
+                   
+                   </Row>
+                    <Row gutter={25} style={{marginTop:20}}>
+                        <Col Span={8} >
+                            
+                                <DatePicker placeholder="StartDate" onChange={(date) => { onChangeStartDate(date) }} />
+                           
                         </Col>
-                        <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={onChange} />
-                            </div>
+                        <Col span={8}  >
+                           
+                                <DatePicker placeholder="EndDate"  onChange={(date) => { onChangeEndDate(date) }} />
+                            
                         </Col>
-                        <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>State</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <TextArea></TextArea>
-                            </div>
+                        <Col span={8}>
+                            
+                            <TextArea placeholder="State input here" className="custom" value={states} onChange={onChangeTextArea} style={{ height: 50 }} />
+                           
                         </Col>
 
 
-
+                        
+                            
                     </Row>
-
-
+                    <Row style={{marginTop:20}}>
+                        <Col span={6}>
+                        <Button type="success" onClick={insertTransitsData}> Report Data</Button>
+                        </Col>
+                    </Row>
+                    </Col>
                 </Cards>
+                
             </Row>
             {/* MARKETPLACE CHECKBOXES  */}
             <Row style={{  }}>
                 <Cards title="Marketplaces" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
-                        <Col lg={12} xs={24}  >
-                            <Checkbox.Group style={{ width: '100%' }} onChange={onChange}>
-                                <Row>
-                                    <Col span={8}>
-                                        <Checkbox value="Amazon">
-                                            <Image
-                                                width={35}
-                                                src="/img/icons/amazon.png"
-                                            /> Amazon</Checkbox>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Checkbox value="Walmart"><Image
-                                            width={35}
-                                            src="/img/icons/walmart.png"
-                                        /> Walmart</Checkbox>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Checkbox value="Sears"><Image
-                                                width={45}
-                                                src="/img/icons/sears.png"
-                                            /> Sears</Checkbox>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Checkbox value="Ebay"><Image
-                                                width={35}
-                                                src="/img/icons/ebay.png"
-                                            /> Ebay</Checkbox>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Checkbox value="NewEgg"><Image
-                                                width={35}
-                                                src="/img/icons/newegg.png"
-                                            /> NewEgg</Checkbox>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Checkbox value="PU"><Image
-                                                width={90}
-                                                src="/img/icons/pu.png"
-                                            /> PU</Checkbox>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Checkbox value="JLC"><Image
-                                                width={60}
-                                                src="/img/icons/jlc.png"
-                                            /> JLC</Checkbox>
-                                    </Col>
-                                </Row>
-                            </Checkbox.Group>,
-                        </Col>
+                        
                         <Col lg={6} xs={24}  >
                             {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Button type="success" htmlType="submit">
-                                    Report Data
-                                </Button>
-                                <Upload >
-                                    <Button style={{ marginTop: 10 }} className="btn-outlined" size="medium" type="light" outlined>
-                                        <UploadOutlined /> Click to Upload
-                                </Button>
-                                </Upload>
+                      
+                                <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />
 
                             </div>
                         </Col>
                         <Col lg={6} xs={24}  >
                             {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-
-                                <Button size="large"> <img
-                                    style={{ width: 147, height: 141, marginTop: 30 }}
+                           
+                                <Button size="large"  onClick={insertTransitsSheet}> <img
+                                    style={{ width: 80, height: 80, marginTop: 30 }}
                                     src="/img/icons/upload_icon.png"
                                 /></Button>
 

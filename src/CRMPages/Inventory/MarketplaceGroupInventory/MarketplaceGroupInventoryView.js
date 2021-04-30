@@ -292,6 +292,9 @@ const MarketplaceGroupInventoryView = (props) => {
                 <TabPane tab="Amazon Rizno" key="Amazon Rizno">
                     Amazon Rizno component goes here
                 </TabPane>
+                <TabPane tab="Amazon Canada" key="Amazon Canada">
+                    Amazon Canada component goes here
+                </TabPane>
                 <TabPane tab="Amazon UAE" key="Amazon UAE">
                     Amazon UAE component goes here
                 </TabPane>

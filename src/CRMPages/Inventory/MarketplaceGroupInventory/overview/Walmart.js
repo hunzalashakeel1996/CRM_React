@@ -31,7 +31,7 @@ const Walmart = (props) => {
                 <Row>
 
                     <Col span={24} >
-                        <FilterReport genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
+                        <FilterReport title={'Walmart'} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
                       </Col>
                     <Col span={24} style={{ marginTop: 20 }}>
                         <Column genrateFeed={(col, val) => { genrateFeed(WalmartPU, col, isAmazonProcedure, val) }} additionalColumns={WalmartColumn} />

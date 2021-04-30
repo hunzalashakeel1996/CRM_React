@@ -4,6 +4,8 @@ import AmazonUpdateInventory from './overview/AmazonUpdateInventory';
 import AmazonCanadaUpdateInvenory from './overview/AmazonCanadaUpdateInvenory';
 import AmazonUAEUpdateInventory from './overview/AmazonUAEUpdateInventory';
 import AmazonUpdateSubinventory from './overview/AmazonUpdateSubinventory';
+import SKUstatus from './overview/SKUstatus';
+import GroupStatus from './overview/GroupStatus';
 const { TabPane } = Tabs;
 
 const UpdateInventoryView = (props) => {
@@ -18,7 +20,7 @@ const UpdateInventoryView = (props) => {
   
     return (
         <>
-     
+      {/* <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} > */}
             <Tabs defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} centered>
                 <TabPane tab="Amazon Inventory" key="Amazon Inventory">
                 <AmazonUpdateInventory />
@@ -33,13 +35,13 @@ const UpdateInventoryView = (props) => {
                 <AmazonUpdateSubinventory />
                 </TabPane>
                 <TabPane tab="Amazon Group Skus" key="Amazon Group Skus">
-                    Amazon Group Skus component goes here
+                <GroupStatus/>
                 </TabPane>
                 <TabPane tab="Skus Status" key="Skus Status">
-                    Skus Status component goes here
+                <SKUstatus/>
                 </TabPane>
             </Tabs>
-      
+            {/* </Spin > */}
         </>
     );
 };

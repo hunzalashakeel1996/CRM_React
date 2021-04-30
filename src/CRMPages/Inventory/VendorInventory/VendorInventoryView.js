@@ -1,5 +1,5 @@
 
-import { Col, Row, Spin, Tabs, Modal, Table } from 'antd';
+import { Col, Row, Spin, Tabs, Modal, Table ,notification} from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,23 +49,34 @@ const VendorInventoryView = (props) => {
             setstate({ ...state, loader: false, updateData: data,  VerificationData: [...updateVendorList]  })
             console.log('12310', data)
             let checkVerificationResult = []
-
+       
         data.map((value,i) => {
             const { Vendorname, Mapprice,Cost } = value;
         return checkVerificationResult.push({
             key: counter++,
                
-            vendorName: <span style={{ color: 'black' }} className="date-started">{Vendorname}</span>,
-            
+            vendorName: <span style={{ color: 'black' }} className="date-started">{Vendorname}</span>,            
             changeMapprice: <span style={{ color: 'black' }} className="date-started">{Mapprice}</span>,
             changeCost: <span style={{ color: 'black' }} className="date-started">{Cost}</span>
 
         });
         console.log('counter',i)
     });
-
-            setVisible(true)
-            setDataSource(checkVerificationResult)
+   // console.log(data[0].includes=="Scrub")
+  // data[0].includes("Scrub ")
+    if (data[0].Confirm=="Confirm"){
+        setVisible(true)
+        setDataSource(checkVerificationResult)
+       
+        }
+        else {
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            window.location.reload(false)
+        }
             console.log('dataSource', dataSource)
 
         })
@@ -102,7 +113,7 @@ const VendorInventoryView = (props) => {
 
         dispatch(getUpdateVendorInventoryapi(temp)).then(result => {
            setVisible(false)
-
+           window.location.reload(false)
         })
     }
     return (
@@ -119,9 +130,9 @@ const VendorInventoryView = (props) => {
                         </div>
                     }
                 </TabPane>
-                <TabPane tab="Group Skus" key="Group Skus">
+                {/* <TabPane tab="Group Skus" key="Group Skus">
                     <Groupsku />
-                </TabPane>
+                </TabPane> */}
             </Tabs>
 
             <Modal

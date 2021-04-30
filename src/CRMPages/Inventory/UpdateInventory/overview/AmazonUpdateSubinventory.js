@@ -1,4 +1,4 @@
-import { Table, Input,  Popconfirm, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider,Modal } from 'antd';
+import { Table, Input, Popconfirm, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider, Modal } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl, getFetchUpdateSubinventoryapi, getUpdateSubinventoryapi,getUpdateSubinventoryDownloadapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getFetchUpdateSubinventoryapi, getUpdateSubinventoryapi, getUpdateSubinventoryDownloadapi } from '../../../../redux/apis/DataAction';
 
 const { TextArea } = Input;
 const EditableContext = React.createContext(null);
@@ -52,7 +52,7 @@ const AmazonUpdatesubinventory = () => {
         setstatelive({ ...statelive, loaderState: true });
 
         dispatch(getUpdateSubinventoryDownloadapi({ ms: merchantskus })).then(data => {
-            setstatelive({ ...statelive,  loaderState: false });
+            setstatelive({ ...statelive, loaderState: false });
             console.log(data)
             downloadFile(data)
         })
@@ -113,6 +113,7 @@ const AmazonUpdatesubinventory = () => {
                 <Form.Item
                     style={{
                         margin: 0,
+                        width:150,
                     }}
                     name={dataIndex}
                     rules={[
@@ -206,7 +207,7 @@ const AmazonUpdatesubinventory = () => {
             title: 'Stock',
             dataIndex: 'stock',
             key: 'stock',
-            
+
         },
         {
             title: 'Status',
@@ -218,13 +219,13 @@ const AmazonUpdatesubinventory = () => {
             title: 'Vendorname',
             dataIndex: 'vendorname',
             key: 'vendorname',
-           
+
         },
         {
             title: 'MapPrice',
             dataIndex: 'mapprice',
             key: 'mapprice',
-          
+
         }
         ,
         {
@@ -233,7 +234,7 @@ const AmazonUpdatesubinventory = () => {
             key: 'weight',
             editable: true,
         },
-        
+
         {
             title: 'Shipping',
             dataIndex: 'shipping',
@@ -244,7 +245,7 @@ const AmazonUpdatesubinventory = () => {
             title: 'Maincost',
             dataIndex: 'maincost',
             key: 'maincost',
-           
+
         }
         // {
         //     title: 'operation',
@@ -258,18 +259,18 @@ const AmazonUpdatesubinventory = () => {
         // }
 
     ];
-    const  ModalOpen=()=>{
+    const ModalOpen = () => {
 
         setVisible(true)
-    }   
-   
+    }
+
     const handleupdate = () => {
         let username = [];
-        username=JSON.parse(localStorage.getItem('user'))
+        username = JSON.parse(localStorage.getItem('user'))
         const newData = [...statelive.dataSource];
-        console.log('handleupdate',newData)
+        console.log('handleupdate', newData)
 
-        dispatch(getUpdateSubinventoryapi({ newData, ms: merchantskus ,user: username.LoginName})).then(data => {
+        dispatch(getUpdateSubinventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             console.log(data)
             setVisible(false)
@@ -278,7 +279,7 @@ const AmazonUpdatesubinventory = () => {
 
     const handleSave = (row) => {
         console.log(row)
-     
+
         const newData = [...statelive.dataSource];
 
         const index = newData.findIndex((item) => row.merchantsku === item.merchantsku);
@@ -286,13 +287,13 @@ const AmazonUpdatesubinventory = () => {
         const item = newData[index];
 
         newData.splice(index, 1, { ...item, ...row });
-        console.log('handleSave',newData)
+        console.log('handleSave', newData)
         setstatelive({ ...statelive, dataSource: newData });
 
 
     };
 
-  
+
 
     const components = {
         body: {
@@ -344,8 +345,8 @@ const AmazonUpdatesubinventory = () => {
                                 <Button size="default" type="success" onClick={MerchantskuyDownload}  >Download</Button>
                             </Col>
                             <Col span={2} style={{ marginLeft: 20 }}>
-                               
-                                <Button size="default" type="success"  onClick={ModalOpen} >Update</Button>
+
+                                <Button size="default" type="success" onClick={ModalOpen} >Update</Button>
                             </Col>
 
                         </Row>
@@ -362,15 +363,13 @@ const AmazonUpdatesubinventory = () => {
                 </div>
             </Spin >
             <Modal
-               
-                centered
+                 centered
                 visible={visible}
                 onOk={handleupdate}
-
-                onCancel={() => setVisible(false)}                >
-                       <div>
-                       <Cards headless>
-                    <h1>Sure to Update?</h1>
+                 onCancel={() => setVisible(false)}>
+                <div>
+                    <Cards headless>
+                        <h1>Sure to Update?</h1>
                     </Cards>
                 </div>
 
