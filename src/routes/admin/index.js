@@ -9,7 +9,7 @@ import Inventory from './Inventory'
 import withAdminLayout from '../../layout/withAdminLayout';
 import Orders from './Orders'
 import Sales from './Sales'
-import Shipping from './shipping'
+import Shipping from './Shipping'
 import RMA from './Rma'
 import PUStyles from './PUStyles'
 import Chatbot from './Chatbot'
