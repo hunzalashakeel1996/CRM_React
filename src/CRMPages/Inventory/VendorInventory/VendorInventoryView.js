@@ -11,7 +11,7 @@ import { AutoComplete } from '../../../components/autoComplete/autoComplete';
 import { Button } from '../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import Regularsku from './overview/Regularsku'
-import Groupsku from './overview/Groupsku'
+// import Groupsku from './overview/Groupsku'
 import { webURL, audioPlay, uploadUrl, getvendor, getUpdateVendorInventoryapi } from '../../../redux/apis/DataAction';
 
 const { TabPane } = Tabs;
