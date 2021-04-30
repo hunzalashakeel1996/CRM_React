@@ -12,8 +12,8 @@ export const socketUrl = "wss://3.131.5.41:3000"
 // sadsa
 // export const socketUrl = "wss://crm.rizno.com"
 
-export const url = "http://192.168.0.196:3005";
-//export const url = "https://crm.rizno.com";
+// export const url = "http://192.168.0.196:3005";
+export const url = "https://crm.rizno.com";
 
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
