@@ -24,9 +24,9 @@ const options = [
 
 
 
-const AmazonPUCanadaSKUstatus = (props) => {
+const AmazonPUstatus = (props) => {
 
-    const { uploadFile,dataTohandleChange,onChangeForceCheck,onChangetextArea,fileDetails ,state ,changeHandler  } = props
+    const { uploadFile,dataTohandleChange,onChangeForceCheck,onChangetextArea,fileDetails ,state,changeHandler   } = props
    
      const{dataTo,forceCheck,buttonStatus,textAreaStatus,reasonText}=state
  
@@ -40,9 +40,9 @@ const AmazonPUCanadaSKUstatus = (props) => {
 
                             <Col span={5}>
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 150 }}>
-                                    <Option value="PU_canada">PU Canada</Option>
-                                    <Option value="PU_canada_Asin">PU Canada ASIN</Option>
-                                    <Option value="PU_canada_uploadtype">PU Canada Upload Type</Option>
+                                    <Option value="PU">PU</Option>
+                                    <Option value="PU_Asin">PU ASIN</Option>
+                                    <Option value="PU_uploadtype">PU Upload Type</Option>
 
                                 </Select>
                             </Col>
@@ -53,11 +53,10 @@ const AmazonPUCanadaSKUstatus = (props) => {
 
                         <Row style={{ marginTop: 20 }}>
                             <Col span={6}>
-                               {/* <Upload {...fileDetails}>
+                                {/* <Upload {...fileDetails}>
                                     <Button icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload> */}
                                  <input  type="file" onChange={changeHandler} />
-
                             </Col>
                             <Col span={7}>
                         
@@ -77,4 +76,4 @@ const AmazonPUCanadaSKUstatus = (props) => {
 // ReactDOM.render(<EditableTable />, mountNode);
 
 
-export default AmazonPUCanadaSKUstatus;
+export default AmazonPUstatus;

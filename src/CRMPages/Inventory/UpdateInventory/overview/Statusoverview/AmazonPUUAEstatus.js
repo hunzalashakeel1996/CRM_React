@@ -24,9 +24,9 @@ const options = [
 
 
 
-const AmazonRiznoSKUstatus = (props) => {
+const AmazonUAEstatus = (props) => {
 
-    const { uploadFile,dataTohandleChange,onChangeForceCheck,onChangetextArea,fileDetails ,state, changeHandler  } = props
+    const { uploadFile,dataTohandleChange,onChangeForceCheck,onChangetextArea,fileDetails ,state ,changeHandler  } = props
    
      const{dataTo,forceCheck,buttonStatus,textAreaStatus,reasonText}=state
  
@@ -40,9 +40,9 @@ const AmazonRiznoSKUstatus = (props) => {
 
                             <Col span={5}>
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 150 }}>
-                                    <Option value="AllInventory">Rizno</Option>
-                                    <Option value="Rizno_Asin">Rizno ASIN</Option>
-                                    <Option value="Rizno_uploadtype">Rizno Upload Type</Option>
+                                    <Option value="PU_UAE">PU UAE</Option>
+                                    <Option value="PU_UAE_Asin">PU UAE ASIN</Option>
+                                    <Option value="PU_UAE_uploadtype">PU UAE Upload Type</Option>
 
                                 </Select>
                             </Col>
@@ -74,4 +74,4 @@ const AmazonRiznoSKUstatus = (props) => {
 // ReactDOM.render(<EditableTable />, mountNode);
 
 
-export default AmazonRiznoSKUstatus;
+export default AmazonUAEstatus;

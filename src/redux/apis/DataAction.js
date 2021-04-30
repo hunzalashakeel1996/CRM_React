@@ -583,6 +583,10 @@ export const getAllpustatusapi = (data) => {
 export const getInventoryWalmartapi = (data) => {
     return apiFetchDotNet('newInventory/WallMartqty', "POST", headerDotNet,JSON.stringify({ data }));
 };
+export const getInventoryWalmart_all_otherapi = (data) => {
+    return apiFetchDotNet('newInventory/WallMartallother', "POST", headerDotNet,JSON.stringify({ data }));
+};
+
 export const getWallMartasinqtyapi = (data) => {
     return apiFetchDotNet('newInventory/WallMartasinqty', "POST", headerDotNet,JSON.stringify({ data }));
 };
