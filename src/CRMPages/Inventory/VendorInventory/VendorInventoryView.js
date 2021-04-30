@@ -1,19 +1,13 @@
-
-import { Col, Row, Spin, Tabs, Modal, Table ,notification} from 'antd';
-import FeatherIcon from 'feather-icons-react';
+import { Modal, notification, Spin, Table, Tabs } from 'antd';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Route, Switch } from 'react-router-dom';
-// import { ProjectHeader, ProjectSorting } from './style';
-import { Main } from '../../styled';
-import { PageHeader } from '../../../components/page-headers/page-headers';
-import { AutoComplete } from '../../../components/autoComplete/autoComplete';
-import { Button } from '../../../components/buttons/buttons';
-import { useHistory } from "react-router-dom";
-import Regularsku from './overview/Regularsku'
-// import Groupsku from './overview/Groupsku'
-import { webURL, audioPlay, uploadUrl, getvendor, getUpdateVendorInventoryapi } from '../../../redux/apis/DataAction';
+import { useDispatch } from 'react-redux';
 
+import { getUpdateVendorInventoryapi, getvendor } from '../../../redux/apis/DataAction';
+import Regularsku from './overview/Regularsku';
+
+
+// import { ProjectHeader, ProjectSorting } from './style';
+// import Groupsku from './overview/Groupsku'
 const { TabPane } = Tabs;
 
 const VendorInventoryView = (props) => {
