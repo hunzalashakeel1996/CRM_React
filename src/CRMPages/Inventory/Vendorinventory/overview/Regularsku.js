@@ -51,6 +51,7 @@ const{Regularvendor,loader,updateVendor}=props
 
   const onCheckAllChange = e => {
     if(e.target.checked){
+      // askasjdkdj 
       updateVendorList = [...Regularvendor]
     }else{
       updateVendorList = []
