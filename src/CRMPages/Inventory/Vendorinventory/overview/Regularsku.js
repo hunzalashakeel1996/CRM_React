@@ -136,7 +136,7 @@ const{Regularvendor,loader,updateVendor}=props
 
        
          
-       
+       {/* aslkjdaslkjda */}
          
         {Regularvendor.map((val, i) => (
                 <Popover content={( <div>
