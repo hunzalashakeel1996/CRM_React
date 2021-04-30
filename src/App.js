@@ -14,8 +14,9 @@ import store from './redux/store';
 import Admin from './routes/admin';
 import Auth from './routes/auth';
 import { connectSocket } from './redux/socket/socketAction';
-import { setHeaderWithWebToken, getDepartsAPI } from './redux/apis/DataAction';
-import { addDepart } from './redux/ticket/actionCreator';
+import { setHeaderWithWebToken, getDepartsAPI,getVendorName } from './redux/apis/DataAction';
+// import { getVendorName } from './redux/apis/DataAction';
+import { addDepart,addVendorName } from './redux/ticket/actionCreator';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { theme } = config;
@@ -47,21 +48,6 @@ const ProviderConfig = () => {
   }, [setPath]);
 
   useEffect(() => {
-    // timeout logic so taht multiple sockets not created 
-    setTimeout(() => {
-      (socket === null && user !== null) &&dispatch(connectSocket(user.LoginID))
-    }, 4000);
-    dispatch(getDepartsAPI({})).then(departs => {
-      dispatch(addDepart(departs))
-      // setState({ ...state, departs, loader: false  });
-    })
-    // setHeaderWithWebToken()
-  }, []);
-
-
-  useEffect(() => {
-    
-
     Notification.requestPermission(result => {
       if (Notification.permission == 'granted') {
         navigator.serviceWorker.getRegistration().then(async (reg) => {
@@ -79,7 +65,24 @@ const ProviderConfig = () => {
         });
       }
     });
-  },[]);
+
+    // timeout logic so taht multiple sockets not created 
+    setTimeout(() => {
+      (socket === null && user !== null) &&dispatch(connectSocket(user.LoginID))
+    }, 4000);
+    dispatch(getDepartsAPI({})).then(departs => {
+      dispatch(addDepart(departs))
+      // setState({ ...state, departs, loader: false  });
+    }),
+    dispatch(getVendorName({})).then(departs => {
+      dispatch(addVendorName(departs))
+      // setState({ ...state, departs, loader: false  });
+    })
+    // get vendor api
+
+    
+    // setHeaderWithWebToken()
+  }, []);
 
   return (
     <ConfigProvider direction={rtl ? 'rtl' : 'ltr'}>

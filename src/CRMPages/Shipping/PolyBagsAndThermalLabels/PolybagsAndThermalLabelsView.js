@@ -1,21 +1,31 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
+import PolyBags from './PolyBags'
+import ThermalBags from './ThermalBags'
+import FeatherIcon from 'feather-icons-react';
+import { BasicFormWrapper } from '../../styled';
 
 const { TabPane } = Tabs;
 
-const PolybagsAndThermalLabelsView = (props) => {
+const PolyBagsAndThermalLabelsView = (props) => {
+    const [activeTab, setActiveTab] = useState('');
+
     return (
         <>
-            <Tabs defaultActiveKey="PolyBags" style={{marginLeft: 20, marginTop: 20}}>
-                <TabPane tab="PolyBags" key="PolyBags">
-                    PolyBags  component goes here
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }} >
+                <TabPane 
+                tab={<span> <FeatherIcon icon="briefcase" style={{ width: 15, height: 15, marginRight:5 }} />Poly Bag</span>} 
+                key="Poly Bag" >
+                    <PolyBags />
                 </TabPane>
-                <TabPane tab="Thermal Labels" key="Thermal Labels">
-                    Thermal Labels component goes here
+                <TabPane
+                tab={<span> <FeatherIcon icon="shopping-bag" style={{ width: 15, height: 15, marginRight:5 }} />Thermal Bags</span>} 
+                key="Thermal Bags">
+                    <ThermalBags />
                 </TabPane>
             </Tabs>
         </>
     );
 };
 
-export default PolybagsAndThermalLabelsView;
+export default PolyBagsAndThermalLabelsView;

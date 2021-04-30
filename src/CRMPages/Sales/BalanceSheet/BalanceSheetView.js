@@ -1,14 +1,272 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Tabs } from 'antd';
+// import moment from moment;
+// import React, { useState } from 'react';
+import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, Checkbox, Tabs } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import ReasonAutoComplete from '../../../components/ReasonAutoComplete/ReasonAutoComplete';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { getBalanceSheetRecordOnClick,getBalanceSheetRecord } from '../../../redux/apis/DataAction';
+import { ProjectHeader, ProjectList } from '../../Tickets/style';
+import { Cards } from '../../../components/cards/frame/cards-frame';
+import { PageHeader } from '../../../components/page-headers/page-headers';
+// import { Main } from '../../styled';
+import { VerticalAlignBottomOutlined } from '@ant-design/icons';
+import { Button } from '../../../components/buttons/buttons';
+import { downloadFile } from '../../../components/utilities/utilities';
+// import { getDate } from 'date-fns';
 
-const { TabPane } = Tabs;
+// const { TabPane } = Tabs;
 
-const BalanceSheetView = (props) => {
+// const rangeConfig = {
+//     rules: [{ type: 'array', required: true, message: 'Please select time!' }],
+// };
+
+
+const formInit = {
+    VendorName: '',
+    loader: false,
+}
+
+
+
+
+const { RangePicker } = DatePicker;
+const { Option } = Select;
+const { TextArea } = Input;
+const validateMessages = {
+    required: '${name} is required!',
+    types: {
+        email: '${name} is not validate email!',
+        number: '${name} is not a validate number!',
+    },
+    number: {
+        range: '${name} must be between ${min} and ${max}',
+    },
+};
+
+// const layout = {
+//     labelCol: {
+//         span: 8,
+//     },
+//     wrapperCol: {
+//         span: 8,
+//     },
+// };
+// const tailLayout = {
+//     wrapperCol: {
+//         offset: 8,
+//         span: 8,
+//     },
+// };
+
+// const {}
+
+
+const ReportView = (props) => {
+
+
+    let vendorNames = useSelector(state => state.tickets.vendornames);
+    // console.log(vendorNames)
+
+    const [state, setState] = useState({
+        controls: { ...formInit },
+        dataSource: [],
+        isLoading: false,
+        downLoadLink : '',
+       
+    });
+
+
+   
+
+    const { controls } = state
+
+    
+
+  
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setState({ ...state, loader: true })
+        let tempDataSource = [];
+        // get balance sheet record
+        dispatch(getBalanceSheetRecord({  })).then(data => {
+            // console.log('12310', data[1])
+            
+   
+            let tempLinkDownload = data[0];
+            // console.log(tempLinkDownload);
+            data[1].map(value => {
+                const { vendorname, past_due, date} = value;
+                return tempDataSource.push({
+                    vendorname: vendorname,
+                    past_due: past_due,
+                    date: date,
+
+                });
+              });
+
+    setState({ ...state, dataSource: [...tempDataSource],downLoadLink : tempLinkDownload,  loader: false });
+        }) 
+    }, []);
+
+
+
+    
+    // user: JSON.parse(localStorage.getItem('user')).LoginName,
+    // date: moment().format('MM-DD-YYYY'),
+
+
+    const onSubmit = (values) => {
+        setState({ ...state, loader: true })
+
+        // get balance sheet record
+        dispatch(getBalanceSheetRecordOnClick({ user : JSON.parse(localStorage.getItem('user')).LoginName, vendor: controls.VendorName, date: values['startDate'].format('YYYY-MM-DD'), payamount : values['payCount']})).then(data => {
+            console.log('buttonResult', data)
+            
+            let tempDataSource = []
+            data.map(value => {
+                const { vendorname, past_due, date} = value;
+                return tempDataSource.push({
+                    vendorname: vendorname,
+                    past_due: past_due,
+                    date: date,
+                    
+                  
+                });
+              });
+            setState({ ...state, dataSource: [...tempDataSource],  loader: false });
+
+        })
+        // console.log(objValues)
+
+    };
+
+    
+    const downloadF = () => {
+        setState({ ...state })
+        // console.log("Button 2 clicked!");
+        console.log(state.downLoadLink);
+        downloadFile(state.downLoadLink)
+      }
+
+    const onSubmitFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+
+    const onValueChange = (name, value) => {
+        let temp = { ...controls }
+        temp[name] = value
+        console.log(temp[name])
+        setState({ ...state, controls: temp })
+    }
+
+
+    // Sheet Columns
+    const columns = [
+        {
+            title: 'Vendorname',
+            dataIndex: 'vendorname',
+            key: 'vendorname',
+        },
+        {
+            title: 'Date',
+            dataIndex: 'date',
+            key: 'date',
+        },
+        {
+            title: 'Pasts Due',
+            dataIndex: 'past_due',
+            key: 'past_due',
+        },
+    ];
+
+
+
     return (
-        <>
-           Balance sheet component goes here
-        </>
+        <div>
+            <ProjectHeader>
+                <PageHeader
+                    ghost
+                    title="Balance Sheet"
+
+                />
+            </ProjectHeader>
+
+            <Row style={{ marginRight: 20, marginLeft: 20 }}>
+                <Cards size="large">
+                    <Form validateMessages={validateMessages}
+                        name="basic"
+                        onFinish={onSubmit}
+                        onFinishFailed={onSubmitFailed}
+                    >
+                        <Row>
+                            {vendorNames && <Col span={5} >
+                                <Form.Item name="vendorName" >
+                                    <ReasonAutoComplete
+                                        //   style={{ marginRight: 5 }}
+                                        placeholder='Search Vendorname'
+                                        onInputChange={(vendorName) => { onValueChange('VendorName', vendorName) }}
+                                        selectedReason={controls.VendorName} style={{ width: '100%' }}
+                                        dataSource={vendorNames}
+                                        onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
+                                </Form.Item>
+                            </Col>}
+                            <Col span={1}></Col>
+                            <Col span={7}>
+                                <Form.Item name="startDate"  rules={[{ required: true }]} >
+                                    {/* <Space label="" {...rangeConfig}> */}
+                                    <DatePicker style={{ padding: 10 }} renderExtraFooter={() => 'extra footer'} placeholder="Enter date" />
+                                    {/* </Space > */}
+                                </Form.Item>
+                            </Col>
+                            <Col span={3}>
+                              <Form.Item name="payCount" rules={[{ required: true }]} >
+                                <InputNumber style={{ height: 44 }} min={1} max={10} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={3}>
+                                <Form.Item >
+                                    <Button type="success" size="small"  htmlType="submit" >
+                                        <Icon type="left" />
+                                        Search
+                                    </Button>
+                                </Form.Item>
+                            </Col>
+                            <Col span={2}>
+                                <Form.Item >
+                                    <Button type="primary" size="small" icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
+                                        <Icon type="left" />
+                                        Download
+                                    </Button>
+                                </Form.Item>
+                            </Col>
+
+
+                        </Row>
+
+                    </Form>
+                </Cards>
+            </Row>
+            <Row style={{ marginRight: 20, marginLeft: 20 }}>
+                <Col xs={24}>
+                    <Cards headless>
+                        <ProjectList>
+                     
+                            <div className="table-responsive">
+                                <Table pagination={true} dataSource={state.dataSource} columns={columns} />
+                            </div>
+
+                        </ProjectList>
+                    </Cards>
+                </Col>
+
+            </Row>
+
+        </div>
     );
 };
 
-export default BalanceSheetView;
+export default ReportView;
+

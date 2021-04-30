@@ -1,23 +1,26 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
+import WalmartOrders from './WalmartOrders'
+import EbayOrders from './EbayOrders'
+import SearsOrders from './SearsOrders'
 
 const { TabPane } = Tabs;
 
 const MarketplaceOrdersView = (props) => {
+    const [activeTab, setActiveTab] = useState('');
+
+
     return (
         <>
-            <Tabs defaultActiveKey="Walmart Orders" style={{marginLeft: 20, marginTop: 20}}>
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }}  style={{marginLeft: 20, marginTop: 20, marginRight: 20}}>
                 <TabPane tab="Walmart Orders" key="Walmart Orders">
-                    Walmart Orders  component goes here
-                </TabPane>
-                <TabPane tab="Update Walmart Orders Emails" key="Update Walmart Orders Emails">
-                    Update Walmart Orders Emails component goes here
+                    <WalmartOrders />
                 </TabPane>
                 <TabPane tab="Ebay Orders" key="Ebay Orders">
-                    Ebay Orders component goes here
+                    <EbayOrders />
                 </TabPane>
                 <TabPane tab="Sears Orders" key="Sears Orders">
-                    Sears Orders component goes here
+                    <SearsOrders />
                 </TabPane>
             </Tabs>
         </>

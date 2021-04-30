@@ -1,17 +1,25 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
+import StyleCodes from './StyleCodes';
+import Variations from './Variations';
+import PUAppScript from './PUAppScript';
 
 const { TabPane } = Tabs;
 
 const StylesNotInPUView = (props) => {
+    const [activeTab, setActiveTab] = useState('');
+
     return (
         <>
-            <Tabs defaultActiveKey="Variations" style={{marginLeft: 20, marginTop: 20}}>
-                <TabPane tab="Variations" key="Variations">
-                    Variations component goes here
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }}  style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
+            <TabPane tab="Style Code" key="Style Code">
+                    <StyleCodes />
                 </TabPane>
-                <TabPane tab="Style Code" key="Style Code">
-                    Style Code component goes here
+                <TabPane tab="Variations" key="Variations">
+                    <Variations />
+                </TabPane>
+                <TabPane tab="PUAppScript" key="PUAppScript">
+                    <PUAppScript />
                 </TabPane>
             </Tabs>
         </>

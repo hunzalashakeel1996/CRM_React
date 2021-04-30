@@ -8,9 +8,11 @@ const {
   addReminderAction,
   addAllCommentsAction,
   addDepartAction,
+  addVendorNameAction,
   addAllRemindersAction,
   editReminderStatusAction,
-  addSingleReminderAction
+  addSingleReminderAction,
+  addVendorsAction
 } = actions;
 
 // ================================= Tickets ===================================================
@@ -120,4 +122,16 @@ const addDepart = (values) => {
   };
 };
 
-export { addTicket, addComment, addAllTickets, addAllComments, addReminder, addDepart, addAllReminders, editReminderStatus, addSingleReminder};
+const addVendorName = (values) => {
+  return async dispatch => {
+    try {
+      dispatch(addVendorNameAction(values));
+    
+      // dispatch(singleProjectSuccess(data));
+    } catch (err) {
+      console.log(err)
+    }
+  };
+};
+
+export { addTicket, addComment, addAllTickets, addAllComments, addReminder, addDepart,addVendorName, addAllReminders, editReminderStatus, addSingleReminder};

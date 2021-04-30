@@ -42,6 +42,7 @@ const actions = {
   ADD_ALL_REMINDERS: 'ADD_ALL_REMINDERS',
   EDIT_REMINDER_STATUS: 'EDIT_REMINDER_STATUS',
   ADD_SINGLE_REMINDER: 'ADD_SINGLE_REMINDER',
+  ADD_VENDOR_NAME: 'ADD_VENDOR_NAME',
 
   addReminderAction: data => {
     return {
@@ -77,6 +78,14 @@ const actions = {
       data,
     };
   },
+  addVendorNameAction: data => {
+    return {
+      type: actions.ADD_VENDOR_NAME,
+      data,
+    };
+  },
 };
+
+
 
 export default actions;

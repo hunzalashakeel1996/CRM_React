@@ -21,8 +21,8 @@ const ViewAzabReport = (props) => {
     visible: false,
     filterAzabReport: [],
     loader: false,
-    monthvalue: null,
-
+    monthvalue: 0,
+    value: 'All'
 
 
   });
@@ -47,13 +47,15 @@ const ViewAzabReport = (props) => {
 
 
   const handleChange = (value) => {
-    setState({ ...state, value: value, loader: false });
+    console.log('aaa', value)
+    setState({ ...state, value, loader: false });
   }
   const getmonth = (value) => {
     //console.log(`Selected: ${value}`);
     //   monthvalue(value)
     setState({ ...state, loader: true })
-
+    console.log('value',value)
+    value = value == 'All'?0:value
 
     // get report 
     dispatch(getAzabAPI({ month: value })).then(data => {
@@ -66,7 +68,7 @@ const ViewAzabReport = (props) => {
     // console.log(state.monthvalue);
 
   }
-  const month = ['', 'jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const month = ['All','jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   // const children = [];
   // for (let i = 1; i <month.length; i++) {
 
@@ -78,16 +80,17 @@ const ViewAzabReport = (props) => {
 
     const handleSizeChange = e => {
       setSize(e.target.value);
-      console.log(e.target.value)
+   
     };
 
     return (
       <>
         <Row gutter={24}>
           <Col xs={6}>
-            <Select value={state.value} size={size} defaultValue="All" onChange={handleChange} style={{ width: 200, marginLeft: 20, marginRight: 20 }}>
+            <Select value={state.value} size={size} defaultValue={month[0]} onChange={handleChange} style={{ width: 200, marginLeft: 20, marginRight: 20 }}>
               {month.map((val, i) => (
-                <Option key={i+1}>{val}</Option>
+            
+                <Option key={i}>{val}</Option>
               ))}
               {/* {children} */}
             </Select>
