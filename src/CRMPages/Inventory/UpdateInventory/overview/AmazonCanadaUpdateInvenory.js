@@ -143,33 +143,6 @@ const AmazonCanadaUpdateInvenory = () => {
 
     const EditableTable = () => { }
 
-    // const columns = [
-    //     {
-    //         title: 'merchantsku',
-    //         dataIndex: 'merchantsku',
-    //         width: '30%',
-    //         editable: true,
-    //     },
-    //     {
-    //         title: 'age',
-    //         dataIndex: 'age',
-    //     },
-    //     {
-    //         title: 'address',
-    //         dataIndex: 'address',
-    //     },
-    //     {
-    //         title: 'operation',
-    //         dataIndex: 'operation',
-    //         render: (_, record) =>
-    //             state.dataSource.length >= 1 ? (
-    //                 <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-    //                     <a>Delete</a>
-    //                 </Popconfirm>
-    //             ) : null,
-    //     },
-    // ];
-
     const columns = [
         {
             title: 'MerchantSku',
@@ -302,7 +275,7 @@ const AmazonCanadaUpdateInvenory = () => {
 
         dispatch(getUpdateCanadaInventoryapi({ newData, ms: merchantskus ,user: username.LoginName})).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
-            console.log(data)
+           
             setVisible(false)
         })
     };

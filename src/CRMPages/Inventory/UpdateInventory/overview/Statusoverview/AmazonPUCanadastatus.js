@@ -24,7 +24,7 @@ const options = [
 
 
 
-const AmazonUAESKUstatus = (props) => {
+const AmazonPUCanadastatus = (props) => {
 
     const { uploadFile,dataTohandleChange,onChangeForceCheck,onChangetextArea,fileDetails ,state ,changeHandler  } = props
    
@@ -40,9 +40,9 @@ const AmazonUAESKUstatus = (props) => {
 
                             <Col span={5}>
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 150 }}>
-                                    <Option value="PU_UAE">PU UAE</Option>
-                                    <Option value="PU_UAE_Asin">PU UAE ASIN</Option>
-                                    <Option value="PU_UAE_uploadtype">PU UAE Upload Type</Option>
+                                    <Option value="PU_canada">PU Canada</Option>
+                                    <Option value="PU_canada_Asin">PU Canada ASIN</Option>
+                                    <Option value="PU_canada_uploadtype">PU Canada Upload Type</Option>
 
                                 </Select>
                             </Col>
@@ -53,7 +53,10 @@ const AmazonUAESKUstatus = (props) => {
 
                         <Row style={{ marginTop: 20 }}>
                             <Col span={6}>
-                            <input  type="file" onChange={changeHandler} />
+                               {/* <Upload {...fileDetails}>
+                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                </Upload> */}
+                                 <input  type="file" onChange={changeHandler} />
 
                             </Col>
                             <Col span={7}>
@@ -74,4 +77,4 @@ const AmazonUAESKUstatus = (props) => {
 // ReactDOM.render(<EditableTable />, mountNode);
 
 
-export default AmazonUAESKUstatus;
+export default AmazonPUCanadastatus;

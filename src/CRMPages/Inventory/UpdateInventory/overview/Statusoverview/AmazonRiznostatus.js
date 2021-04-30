@@ -24,9 +24,9 @@ const options = [
 
 
 
-const AmazonPUSKUstatus = (props) => {
+const AmazonRiznostatus = (props) => {
 
-    const { uploadFile,dataTohandleChange,onChangeForceCheck,onChangetextArea,fileDetails ,state,changeHandler   } = props
+    const { uploadFile,dataTohandleChange,onChangeForceCheck,onChangetextArea,fileDetails ,state, changeHandler  } = props
    
      const{dataTo,forceCheck,buttonStatus,textAreaStatus,reasonText}=state
  
@@ -40,9 +40,9 @@ const AmazonPUSKUstatus = (props) => {
 
                             <Col span={5}>
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 150 }}>
-                                    <Option value="PU">PU</Option>
-                                    <Option value="PU_Asin">PU ASIN</Option>
-                                    <Option value="PU_uploadtype">PU Upload Type</Option>
+                                    <Option value="AllInventory">Rizno</Option>
+                                    <Option value="Rizno_Asin">Rizno ASIN</Option>
+                                    <Option value="Rizno_uploadtype">Rizno Upload Type</Option>
 
                                 </Select>
                             </Col>
@@ -53,10 +53,8 @@ const AmazonPUSKUstatus = (props) => {
 
                         <Row style={{ marginTop: 20 }}>
                             <Col span={6}>
-                                {/* <Upload {...fileDetails}>
-                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                                </Upload> */}
-                                 <input  type="file" onChange={changeHandler} />
+                            <input  type="file" onChange={changeHandler} />
+
                             </Col>
                             <Col span={7}>
                         
@@ -76,4 +74,4 @@ const AmazonPUSKUstatus = (props) => {
 // ReactDOM.render(<EditableTable />, mountNode);
 
 
-export default AmazonPUSKUstatus;
+export default AmazonRiznostatus;

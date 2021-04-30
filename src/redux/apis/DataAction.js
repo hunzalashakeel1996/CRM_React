@@ -7,8 +7,9 @@ import { Button, notification, Space } from 'antd';
 export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
-export const socketUrl = "ws://3.131.5.41:3000"
-// export const socketUrl = "wss://crm.rizno.com"
+// export const socketUrl = "ws://3.131.5.41:3000"
+export const socketUrl = "wss://crm.rizno.com"
+
 export const url = "http://192.168.0.196:3005";
 //export const url = "https://crm.rizno.com";
 
@@ -583,6 +584,10 @@ export const getAllpustatusapi = (data) => {
 export const getInventoryWalmartapi = (data) => {
     return apiFetchDotNet('newInventory/WallMartqty', "POST", headerDotNet,JSON.stringify({ data }));
 };
+export const getInventoryWalmart_all_otherapi = (data) => {
+    return apiFetchDotNet('newInventory/WallMartallother', "POST", headerDotNet,JSON.stringify({ data }));
+};
+
 export const getWallMartasinqtyapi = (data) => {
     return apiFetchDotNet('newInventory/WallMartasinqty', "POST", headerDotNet,JSON.stringify({ data }));
 };

@@ -145,17 +145,11 @@ const MarketplaceGroupInventoryView = (props) => {
             })
         }
         else if (isAmazon == false) {
-            console.log('Walmart',requestObjInventroy)
-            if (requestObjInventroy.addOrOtherinventory === 'ADD AMAZON INVENTORY') {
-               
-                dispatch(getWallMartasinqtyapi(requestObjInventroy)).then(data => {
+           
+                dispatch(requestObjInventroy.addOrOtherinventory === 'ADD AMAZON INVENTORY'?getWallMartasinqtyapi(requestObjInventroy):getwalmart_asin_all_otherapi(requestObjInventroy)).then(data => {
 
                     setState({ ...state, loaderState: false })
-                    console.log(data[0])
-               
-                    
                      var link = data
-                     
                      var datalink = link;
                      console.log(datalink.length);
                      for ( var z = 0; z < datalink.length;) {
@@ -165,18 +159,8 @@ const MarketplaceGroupInventoryView = (props) => {
                      }
                 })
 
-             }
-             else {
-                dispatch(getwalmart_asin_all_otherapi(requestObjInventroy)).then(data => {
-
-                    setState({ ...state, loaderState: false })
-                    console.log(data)
-               
-                    
-                    downloadFile(data)
-                })
-
-             }
+             
+            
 
              
         }

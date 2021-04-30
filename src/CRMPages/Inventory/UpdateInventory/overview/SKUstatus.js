@@ -14,10 +14,10 @@ import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { webURL, audioPlay, uploadUrl, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
 import Promotions from '../../../../components/Marketplace/Promotions'
-import AmazonPUSKUstatus from './Statusoverview/AmazonPUSKUstatus';
-import AmazonRiznoSKUstatus from './Statusoverview/AmazonRiznoSKUstatus';
-import AmazonPUUAESKUstatus from './Statusoverview/AmazonPUUAESKUstatus';
-import AmazonPUCanadaSKUstatus from './Statusoverview/AmazonPUCanadaSKUstatus';
+import AmazonPUstatus from './Statusoverview/AmazonPUstatus';
+import AmazonRiznostatus from './Statusoverview/AmazonRiznostatus';
+import AmazonPUUAEstatus from './Statusoverview/AmazonPUUAEstatus';
+import AmazonPUCanadastatus from './Statusoverview/AmazonPUCanadastatus';
 
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -305,7 +305,7 @@ const SKUstatus = () => {
                 <Col span={10} style={{ marginLeft: 20 }} >
                     <Cards headless>
                         <Row>
-                            <Col span={8} >
+                            <Col span={10} >
                                 <Button type="primary" onClick={automateSKU}>Automate SKU</Button>
                             </Col>
 
@@ -379,16 +379,16 @@ const SKUstatus = () => {
 
                         <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>
                             <TabPane tab="Amazon PU" key="Amazon PU">
-                                <AmazonPUSKUstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                <AmazonPUstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
                             </TabPane>
                             <TabPane tab="Amazon Rizno" key="Amazon Rizno">
-                                <AmazonRiznoSKUstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
+                                <AmazonRiznostatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
                             </TabPane>
                             <TabPane tab="Amazon Canada" key="Amazon Canada">
-                                <AmazonPUCanadaSKUstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
+                                <AmazonPUCanadastatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
                             </TabPane>
                             <TabPane tab="Amazon UAE" key="Amazon UAE">
-                                <AmazonPUUAESKUstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
+                                <AmazonPUUAEstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
                             </TabPane>
 
                         </Tabs>
