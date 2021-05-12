@@ -102,21 +102,21 @@ export const apiTrackingSummaryFetch = (data) => {
 export const apiFetchDotNet = (apiUrl, apiMethod, apiHeader, apiBody) => {
     let headerParameters = apiMethod === 'GET' ? { method: apiMethod } : { method: apiMethod, headers: apiHeader, body: apiBody }
     return dispatch => {
-        console.log("1");
+        // console.log("1");
         return new Promise((resolve, reject) => {
             fetch(`${urlDotNet}/${apiUrl}`, headerParameters)
                 .then(res => {
-                    console.log("2");
+                    // console.log("2");
                     return res.json()
                 })
                 .then(resJson => {
-                    console.log("3");
+                    // console.log("3");
                     if (resJson) {
                         resolve(resJson);
                     }
                 })
                 .catch(err => {
-                    console.log("4");
+                    // console.log("4");
                     return saveErrorLog(err, apiUrl)
                 })
         });
@@ -470,7 +470,21 @@ export const getAllUserRecord = () => {
 };
 
 
+export const getNavigation = () => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Users/userManagementNav', "POST", headerDotNet, JSON.stringify());
+};
 
+
+export const saveAllUserRights = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Users/saveUserRights', "POST", headerDotNet, JSON.stringify(data));
+};
+
+
+export const getUserRole = (data) => {
+    return apiFetchDotNet('/Users/UserRole', "POST", headerDotNet, JSON.stringify(data));
+}
 //============================= User Section ======================================
 
 

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FacebookOutlined, TwitterOutlined } from '@ant-design/icons';
 import { AuthWrapper } from './style';
 import { login } from '../../../../redux/authentication/actionCreator';
-import { loginAPI, setHeader } from '../../../../redux/apis/DataAction';
+import { loginAPI, setHeader , getUserRole} from '../../../../redux/apis/DataAction';
 import { Checkbox } from '../../../../components/checkbox/checkbox';
 import Heading from '../../../../components/heading/heading';
 import firebase from './../../../../firebase';
@@ -29,11 +29,17 @@ const SignIn = () => {
             firebase.messaging().getToken()
               .then(token => {
                 console.log('token', token)
-                dispatch(loginAPI({ username: value.username, password: value.password, Token: token })).then(data => {
+                dispatch(loginAPI({ username: value.username, password: value.password, Token: token }))
+                  .then(data => {
                   if (data.err)
                     alert(data.err)
                   else {
                     console.log('user', data)
+                    dispatch(getUserRole({ loginid : data.LoginID})).then(dataOne =>{
+                      console.log(dataOne);
+                      localStorage.setItem('userRole', JSON.stringify(dataOne))
+                    })
+                    
                     dispatch(login(data));
                     history.push('/admin');
                   }

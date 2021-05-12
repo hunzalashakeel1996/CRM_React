@@ -13,30 +13,58 @@ const { TabPane } = Tabs;
 const OrderReportsView = (props) => {
     const [activeTab, setActiveTab] = useState('');
 
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+    const tabChildBar = JSON.parse(userAccess.child_bar)['Order Reports'];
+
+    console.log(tabChildBar);
+  
+
+    const topManu = [
+        {
+            tab: 'PNL',
+            key: 'PNL',
+            tabName: <PNL onLoaderStateChange={(state) => { setIsLoader(state) }} />
+        },
+        {
+            tab: 'Sales Report',
+            key: 'Sales Report',
+            tabName: <SalesReport />
+        },
+        {
+            tab: `PO's Net Amount Report`,
+            key: `PO's Net Amount Report`,
+            tabName: <PONetAmount />
+        },
+        {
+            tab: 'Instock Order Report',
+            key: 'Instock Order Report',
+            tabName: <InStockOrders />
+        },
+        {
+            tab: 'Order Search',
+            key: 'Order Search',
+            tabName: <OrderSearch />
+        },
+        {
+            tab: 'Order Confirmation Number',
+            key: 'Order Confirmation Number',
+            tabName: <OrderConfirmationNumber />
+        }, {
+            tab: 'Back Order Items',
+            key: 'Back Order Items',
+            tabName: <BackOrderItems />
+        }
+    ];
+
+
     return (
         <div >
             <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
-                <TabPane tab="PNL" key="PNL">
-                    <PNL onLoaderStateChange={(state) => { setIsLoader(state) }} />
-                </TabPane>
-                <TabPane tab="Sales Report" key="Sales Report">
-                    <SalesReport />
-                </TabPane>
-                <TabPane tab="PO's Net Amount Report" key="PO's Net Amount Report">
-                    <PONetAmount />
-                </TabPane>
-                <TabPane tab="Instock Order Report" key="Instock Order Report">
-                    <InStockOrders />
-                </TabPane>
-                <TabPane tab="Order Search" key="Order Search">
-                    <OrderSearch />
-                </TabPane>
-                <TabPane tab="Order Confirmation Number" key="Order Confirmation Number">
-                    <OrderConfirmationNumber />
-                </TabPane>
-                <TabPane tab="Back Order Items" key="Back Order Items">
-                    <BackOrderItems />
-                </TabPane>
+                {topManu.map(item =>
+                tabChildBar?.includes(item.tab) && (
+                    <TabPane tab={item.tab} key={item.key}>
+                        {item.tabName}
+                    </TabPane>))}
             </Tabs>
         </div>
     );
