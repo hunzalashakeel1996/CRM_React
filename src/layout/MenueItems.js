@@ -250,13 +250,13 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </SubMenu>))}
 
     </Menu>
-  );
-};
-
+      );
+    };
+    
 MenuItems.propTypes = {
-  darkMode: propTypes.bool,
-  topMenu: propTypes.bool,
-  toggleCollapsed: propTypes.func,
-};
-
-export default MenuItems;
+        darkMode: propTypes.bool,
+      topMenu: propTypes.bool,
+      toggleCollapsed: propTypes.func,
+    };
+    
+    export default MenuItems;

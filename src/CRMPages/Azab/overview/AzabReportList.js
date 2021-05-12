@@ -12,7 +12,7 @@ import { formatDate } from '../../../components/time/formatDate'
 const AzabReportList = (props) => {
   // let ticket = useSelector(state => state.tickets.tickets );
 
-
+ // let azab = useSelector(state => state.AzabReport.AzabReport );
 
   const [state, setState] = useState({
     AzabReport: props.filterAzabReport,
@@ -20,7 +20,7 @@ const AzabReportList = (props) => {
     pageSize: 0,
   });
   // const { tickets } = state;
-
+  const { AzabReport } = state;
   useEffect(() => {
     if (props.filterAzabReport) {
       setState({
@@ -29,7 +29,7 @@ const AzabReportList = (props) => {
     }
   }, [props.filterAzabReport]);
 
-  const { AzabReport } = state;
+ 
 
   const dataSource = [];
   let counter = 0;
@@ -81,7 +81,8 @@ const AzabReportList = (props) => {
       return dataSource.push({
         key: counter++,
 
-        OrderNo: <span style={{ color: 'black' }} className="date-started">{OrderNo}</span>,
+      //  OrderNo: <span style={{ color: 'black' }} className="date-started">{OrderNo}</span>,
+      OrderNo: <Link to={{pathname:`/admin/azab/viewazabreportdetails/${OrderNo}`, azab:{OrderNo}}}><span style={{color: 'black'}} className="date-started">{OrderNo}</span></Link>,
         OrderStatus: <span style={{ color: 'black' }} className="date-started">{OrderStatus}</span>,
         OrderDate: <span style={{ color: 'black' }} className="date-started">{OrderDate}</span>,
         OrderEShipdate: <span style={{ color: 'black' }} className="date-started">{EShipdate}</span>,

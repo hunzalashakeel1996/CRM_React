@@ -11,7 +11,8 @@ const {
   addVendorNameAction,
   addAllRemindersAction,
   editReminderStatusAction,
-  addSingleReminderAction
+  addSingleReminderAction,
+  addVendorsAction
 } = actions;
 
 // ================================= Tickets ===================================================

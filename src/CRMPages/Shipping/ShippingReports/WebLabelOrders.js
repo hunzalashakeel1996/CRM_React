@@ -68,27 +68,24 @@ const ShippingReportsView = (props) => {
                 <Row style={{}}>
                     <Cards title="Web Label Orders" caption="The simplest use of Drawer" >
                         <Row gutter={25}>
-                            <Col lg={6} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                    <DatePicker onChange={(date) => { onChange(date, 'startDate') }} />
-                                </div>
+                            <Col span={8} >
+                               
+                                    <DatePicker placeholder="StartDate" onChange={(date) => { onChange(date, 'startDate') }} />
+                              
                             </Col>
-                            <Col lg={6} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                    <DatePicker onChange={(date) => { onChange(date, 'endDate') }} />
-                                </div>
+                            <Col span={8} >
+                                
+                                    <DatePicker placeholder="EndDate" onChange={(date) => { onChange(date, 'endDate') }} />
+                               
                             </Col>
 
-                            <Col lg={6} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div>
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                            <Col span={8} >
+                              
                                     <Button onClick={getWebLabelOrdersReporting} size="default" type="success" htmlType="Submit">
                                         Download
-                        </Button>
+                               </Button>
 
-                                </div>
+                               
                             </Col>
 
 

@@ -14,44 +14,25 @@ const RMAView = (props) => {
     selectedRowKeys: null,
     selectedRows: null,
     values: {},
+    RMA:[]
   });
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
-  const columns = [
-    {
-      title: 'Order NO',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'PO number',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Tracking NO',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'address',
-      key: 'address',
-    },
+  const{RMA}=state
 
-  ];
+  const onChange = (event) => {
+    console.log(event.target.value)
+    setState({ ...state, RMA: event.target.value });
+
+};
+
+const RMA_All = () => {
+
+  dispatch(getRMA_All({ms:RMA})).then(data => {
+      console.log(data)
+     
+      setState({ ...state, dataSource: datasources })
+  })
+
+};
   return (
     <>
       <Row style={{}}>
@@ -59,15 +40,16 @@ const RMAView = (props) => {
           <Row gutter={25}>
             <Col lg={6} xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <TextArea />
+              <TextArea placeholder="input here" className="custom"  onChange={onChange} style={{ height: 50 }} />
               </div>
             </Col>
             <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+            <Button type="success" >Update</Button>
+              {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                 <Button type="success" htmlType="Submit">
                   Update
                         </Button>
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Cards>

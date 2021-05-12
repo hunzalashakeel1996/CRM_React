@@ -31,7 +31,7 @@ const DownlaodWithReact = (objArray) => {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
   var str = '';
   for (var index in array[0]) {
-  line += index + ',';
+      line += index + ',';
   }
   str += line + '\r\n';
   line = '';
@@ -68,7 +68,7 @@ total += parseInt(item[key]);
 //   console.log('item key' ,  parseInt(item[key]))
 //   console.log('loop' , total)
 });
-console.log('final' , total)
+console.log('final' , total) 
 return total;
 };
 

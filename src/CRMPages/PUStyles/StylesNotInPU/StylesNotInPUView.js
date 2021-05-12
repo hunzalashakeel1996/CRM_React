@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import StyleCodes from './StyleCodes';
 import Variations from './Variations';
+import PUAppScript from './PUAppScript';
 
 const { TabPane } = Tabs;
 
@@ -17,7 +18,9 @@ const StylesNotInPUView = (props) => {
                 <TabPane tab="Variations" key="Variations">
                     <Variations />
                 </TabPane>
-               
+                <TabPane tab="PUAppScript" key="PUAppScript">
+                    <PUAppScript />
+                </TabPane>
             </Tabs>
         </>
     );
