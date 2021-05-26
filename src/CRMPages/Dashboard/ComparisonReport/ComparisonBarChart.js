@@ -3,43 +3,39 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Cards } from '../../../components/cards/frame/cards-frame';
-import { CardBarChart } from './Amazon/style';
-import { Bar } from 'react-chartjs-2';
+import { CardBarChart } from './overview/style';
+import { Bar,Line } from 'react-chartjs-2';
 
-const labels = {
-    overall:['Overall'], 
-    week: ['1 Week', '2 Week', '3 Week', 'This Week'], 
-    today:['Today'], 
-    month:['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-}
-
-const ReportBarChart = ({ isTimelineChange, dataset, title }) => {
+const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelineMonth }) => {
+   
     const [state, setState] = useState({
         selectedTimeline: 'today',
         isLoading: false,
     });
     const { selectedTimeline, isLoading } = state;
-    console.log('aaaa', typeof(dataset[0])==='number')
+    // console.log('typeofNumber',[dataset[1]])
+    // console.log('aaaa', typeof(dataset[0])==='number')
     const chartOptions = {
         datasets: [
             {
                 label: `${new Date().getFullYear() - 1}`,
-                backgroundColor: '#ff9059',
-                borderColor: '#ff732e',
+                fill: true,
+                backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "rgba(75,192,192,1)",
                 borderWidth: 1,
-                hoverBackgroundColor: '#db642a',
-                hoverBorderColor: '#ba5c2f',
+                hoverBackgroundColor: '#1a2a3b',
+                hoverBorderColor: '#1a2a3b',
                 data: typeof(dataset[1])==='number' ? [dataset[1]]: [...dataset[1]],
                 // data: [140, 3135, 1753,140, 3135, 1753,140, 3135, 1753,140, 3135, 1753],
                 barPercentage: 0.6,
             },
             {
                 label: `${new Date().getFullYear()}`,
-                backgroundColor: '#304860',
-                borderColor: '#233445',
+                backgroundColor: "rgba(116, 39, 116, 0.2)",
+                borderColor: "rgba(116, 39, 116, 1)",
                 borderWidth: 1,
                 hoverBackgroundColor: '#1a2a3b',
-                hoverBorderColor: '#14212e',
+                hoverBorderColor: '#1a2a3b',
                 // data: [727, 2552, 17412],
                 data: typeof(dataset[0])==='number' ? [dataset[0]]: [...dataset[0]],
                 barPercentage: 0.6,
@@ -92,20 +88,20 @@ const ReportBarChart = ({ isTimelineChange, dataset, title }) => {
                       </li>
                       <li className={selectedTimeline === 'month' ? 'active' : 'deactivate'}>
                         <Link onClick={() => {timelineChange('month')}} to="#">
-                          Month
+                          {ordersSelectedTimelineMonth}
                         </Link>
                       </li>
-                      <li className={selectedTimeline === 'overall' ? 'active' : 'deactivate'}>
-                        <Link onClick={() => {timelineChange('overall')}} to="#">
-                          Overall
+                      <li className={selectedTimeline === 'over All' ? 'active' : 'deactivate'}>
+                        <Link onClick={() => {timelineChange('over All')}} to="#">
+                          over All
                         </Link>
                       </li>
                     </ul>
                   </div>
                 }
             >
-                <Bar
-                    data={{...chartOptions, labels: labels[selectedTimeline]}}
+                <Line
+                    data={{...chartOptions, labels: ['Amazon','Walmart','PU', 'JLC']}}
                     options={options}
                 />
             </Cards>

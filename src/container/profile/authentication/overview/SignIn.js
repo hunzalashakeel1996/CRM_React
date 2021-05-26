@@ -33,8 +33,9 @@ const SignIn = () => {
                   if (data.err)
                     alert(data.err)
                   else {
-                    console.log('user', data)
-                    dispatch(login(data));
+                    let result = {...data[0][0], jwtToken: data[1]}
+                  
+                    dispatch(login(result));
                     history.push('/admin');
                   }
                 })

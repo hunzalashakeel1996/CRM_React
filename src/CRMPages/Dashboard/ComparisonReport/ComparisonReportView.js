@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import AmazonComparisonReports from './Amazon/AmazonComparisonReports';
+import ComparisonReports from './overview/ComparisonReports'
+import SaleReport from './overview/SaleReport'
+import TeamReport from './overview/TeamReport'
+import VendorSales from './overview/VendorSales'
+import SaleSummary from './overview/SaleSummary'
+import TargetSummary from './overview/TargetSummary'
 import { Row, Col, Tabs } from 'antd';
-import WalmartComparisonReports from './Walmart/WalmartComparisonReports';
-import PUComparisonReports from './PU/PUComparisonReports';
-import JLCComparisonReports from './JLC/JLCComparisonReports';
 
 const { TabPane } = Tabs;
 
@@ -11,18 +13,24 @@ const ComparisonReportView = () => {
 
     return (
         <>
-            <Tabs type={'card'} defaultActiveKey="Amazon" style={{ marginTop: 20, marginLeft: 20, marginRight: 20 }} >
-                <TabPane tab="Amazon" key="Amazon">
-                    <AmazonComparisonReports />
+            <Tabs type={'card'} defaultActiveKey="ComparisonReport" style={{ marginTop: 20, marginLeft: 20, marginRight: 20 }} >
+                <TabPane tab="Comparison Report" key="ComparisonReport">
+                    <ComparisonReports />
                 </TabPane>
-                <TabPane tab="Walmart" key="Walmart">
-                    <WalmartComparisonReports />
+                <TabPane tab="Sale Report" key="SaleReport">
+                    <SaleReport />
                 </TabPane>
-                <TabPane tab="Pulse Uniform" key="Pulse Uniform">
-                    <PUComparisonReports />
+                <TabPane tab="Team Report" key="TeamReport">
+                    <TeamReport />
                 </TabPane>
-                <TabPane tab="Just Lab Coats" key="Just Lab Coats">
-                    <JLCComparisonReports />
+                <TabPane tab="Vendor Sales" key="VendorSales">
+                    <VendorSales />
+                </TabPane>
+                <TabPane tab="Sale Sumary" key="SaleSummary">
+                    <SaleSummary />
+                </TabPane>
+                <TabPane tab="Target Sumary" key="TargetSummary">
+                    <TargetSummary />
                 </TabPane>
             </Tabs>
         </>
