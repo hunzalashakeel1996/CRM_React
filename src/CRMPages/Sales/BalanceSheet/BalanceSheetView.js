@@ -90,10 +90,10 @@ const ReportView = (props) => {
         setState({ ...state, loader: true })
         let tempDataSource = [];
         // get balance sheet record
-        dispatch(getBalanceSheetRecord({  })).then(data => {
+        dispatch(getBalanceSheetRecord()).then(data => {
             // console.log('12310', data[1])
             
-   
+                
             let tempLinkDownload = data[0];
             // console.log(tempLinkDownload);
             data[1].map(value => {
