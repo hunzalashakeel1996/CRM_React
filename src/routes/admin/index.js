@@ -15,6 +15,7 @@ import PUStyles from './PUStyles'
 import Chatbot from './Chatbot'
 import UserManagement from './UserManagement'
 import CustomerSupport from './CustomerSupport'
+import Reporting  from './Reporting'
 import ComparisonReportView from './../../CRMPages/Dashboard/ComparisonReport/ComparisonReportView';
 
 const Admin = () => {
@@ -43,6 +44,7 @@ const Admin = () => {
         <Route path={`${path}/chatbot`} component={Chatbot} />
         <Route path={`${path}/userManagement`} component={UserManagement} />
         <Route path={`${path}/customerSupport`} component={CustomerSupport} />
+        <Route path={`${path}/Reporting`} component={Reporting} />
       </Suspense>
     </Switch>
   );

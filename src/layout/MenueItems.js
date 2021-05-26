@@ -207,6 +207,18 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
 
       </SubMenu>
 
+      
+      {/* ==================================== REPORTING ========================================================== */}
+      <SubMenu key="Reporting" icon={!topMenu && <FeatherIcon icon="rotate-cw" />} title="Reporting">
+        <Menu.Item key="RMA Notes">
+          <NavLink onClick={toggleCollapsed} to={`${path}/reporting`}>
+            FrontReports
+          </NavLink>
+        </Menu.Item>
+
+
+      </SubMenu>
+
       {/* ==================================== USER MANAGEMENT ========================================================== */}
       <SubMenu key="User Management" icon={!topMenu && <FeatherIcon icon="users" />} title="User Management">
         <Menu.Item key="Add New Users">
