@@ -371,6 +371,58 @@ export const PUAppscript = (data) => {
 // };
 // ============================= Shipping API end ======================================
 
+// ============================= Reports API start ======================================
+
+
+export const getOverViewReport = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/SalesReport', "POST", headerDotNet, JSON.stringify(data));
+};
+export const getTeamReport = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/CRMReportS', "POST", headerDotNet, JSON.stringify(data));
+};
+export const getVendorSalesReport = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/VendorCRMReportS', "POST", headerDotNet, JSON.stringify(data));
+};
+export const getUnshippedOrders = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/po_item_received', "POST", headerDotNet, JSON.stringify(data));
+};
+
+export const getSalesSummary = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/sale_summary', "POST", headerDotNet, JSON.stringify(data));
+};
+
+export const getTargetReport = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/Target_report', "POST", headerDotNet, JSON.stringify(data));
+};
+
+export const getReturnPercentageReport = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/Return_percentage_report', "POST", headerDotNet, JSON.stringify(data));
+};
+export const getCRMOrderReport = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/OrdersREPORT', "POST", headerDotNet, JSON.stringify({  }));
+};
+export const getCRMOrderReportPU = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/OrdersREPORTPU', "POST", headerDotNet, JSON.stringify(data));
+};
+export const getCRMOrderReportJLC = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/OrdersREPORTJLC', "POST", headerDotNet, JSON.stringify(data));
+};
+export const getCRMOrderReportWM = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Ereports/OrdersREPORTWallmart', "POST", headerDotNet, JSON.stringify(data));
+};
+
+// ============================= Reports API End ======================================
 // ============================= StylesNotInPU API start ======================================
 
 export const getStylesNotInPu = (data) => {

@@ -18,58 +18,48 @@ const ReportView = (props) => {
   const dataSource = [
     {
       key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
+      userName: '1038',
+      Count: '1038'
     },
     {
       key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
+      userName: '562',
+      Count: '1038'
     },
+    {
+      key: '3',
+      userName: '178',
+      Count: '1038'
+    },
+    {
+      key: '4',
+      userName: '1778',
+      Count: '1038'
+    }
   ];
   const columns = [
     {
-      title: 'Order NO',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'User Name',
+      dataIndex: 'userName',
+      key: 'userName',
     },
     {
-      title: 'PO number',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Tracking NO',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'address',
-      key: 'address',
-    },
+      title: 'Count',
+      dataIndex: 'Count',
+      key: 'Count',
+    }
 
   ];
+
+
   return (
     <>
       <Row style={{  }}>
         <Cards title="Update Order Notes" caption="The simplest use of Drawer" >
-          <Row gutter={25}>
-            <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <TextArea />
-              </div>
-            </Col>
-            <Col lg={12} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Button type="success" htmlType="PO Number">
-                  Insert
-                        </Button>
-              </div>
-            </Col>
-          </Row>
+              <Row>
+              <Table dataSource={dataSource} columns={columns} />
+              </Row>
+        
         </Cards>
       </Row>
       

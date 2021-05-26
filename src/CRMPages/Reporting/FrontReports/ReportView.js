@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import SalesReport from './SalesReport';
 import TeamReport from './TeamReport';
+import ComparisonReport from './ComparisonReport';
 import ReturnRecieved from './ReturnReceived';
 import OrderProcess from './OrderProcess';
 import VendorSales from './VendorSales';
@@ -17,7 +18,7 @@ const ReportView = (props) => {
 
      return (
         <>
-            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }}  style={{marginTop: 20, marginLeft: 20, marginRight: 20}}>
+            <Tabs type="card" defaultActiveKey={"SalesReport"} onChange={(key) => { setActiveTab(key) }}  style={{marginTop: 20, marginLeft: 20, marginRight: 20}}>
                 <TabPane
                 tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />SalesReport</span>}
                 key="SalesReport">
@@ -25,20 +26,26 @@ const ReportView = (props) => {
                     
                 </TabPane>
                 <TabPane
+                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />ComparisonReport</span>}
+                key="ComparisonReport">
+                    <ComparisonReport />
+                    
+                </TabPane>
+                <TabPane
                 tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />TeamReport</span>}
                 key="TeamReport">
                     <TeamReport />
                 </TabPane>
-                <TabPane
+                {/* <TabPane
                 tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Return Recieved</span>}
                 key="Return Recieved">
                     <ReturnRecieved />
-                </TabPane>
-                <TabPane
+                </TabPane> */}
+                {/* <TabPane
                 tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Order Process</span>}
                 key="Order Process">
                     <OrderProcess />
-                </TabPane>
+                </TabPane> */}
                 <TabPane
                 tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Vendor Sales</span>}
                 key="Vendor Sales">

@@ -1,84 +1,179 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col } from 'antd';
-import { Button, BtnGroup } from '../../../components/buttons/buttons';
-import { Drawer } from '../../../components/drawer/drawer';
+import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Tabs, Spin } from 'antd';
+import ReasonAutoComplete from '../../../components/ReasonAutoComplete/ReasonAutoComplete';
+import { ProjectHeader, ProjectList } from '../../Tickets/style';
+import { PageHeader } from '../../../components/page-headers/page-headers';
+import { useDispatch } from 'react-redux';
 import { Cards } from '../../../components/cards/frame/cards-frame';
-import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button } from '../../../components/buttons/buttons';
+import { getVendorSalesReport } from '../../../redux/apis/DataAction';
+
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const dateFormat = 'YYYY/MM/DD';
+const monthFormat = 'YYYY/MM';
+const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
-const ReportView = (props) => {
-  const [state, setState] = useState({
+
+
+
+const VendorSales = (props) => {
+
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setstate({ ...state, loader: true })
+  }, []);
+  const [state, setstate] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
     selectedRows: null,
+    date: null,
+    dateString: null,
+    checkData: [],
+    checked: null,
     values: {},
+    isLoader: false,
   });
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
+  const onChange = (value, key) => {
+    // console.log('aaa', date, dateString)
+    setstate({ ...state, [key]: value });
+
+  };
+
+  const getVendorSalesReporing = () => {
+    console.log('aaaaa')
+    setstate({ ...state, isLoader: true })
+
+    dispatch(getVendorSalesReport({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
+      setstate({ ...state, isLoader: false })
+      console.log('My Data: ', data)
+      //downloadFile(data);
+      notification.success({
+        message: 'Successfull Rendered',
+        description: `Successfully Rendered Vendor Sales Reports From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
+        onClose: close,
+      });
+      let tempDataSource = [];
+      data.map(value => {
+        const { VENDORNAME, TotalOrders, TotalUnits,TotalCost,TotalSales } = value;   
+          return tempDataSource.push({
+            VENDORNAME: VENDORNAME,
+            TotalOrders: TotalOrders,
+            TotalUnits: TotalUnits,
+            TotalCost: TotalCost,
+            TotalSales: TotalSales,
+          });
+     
+      });
+      setstate({ ...state, dataSource: [...tempDataSource],isLoader: false });
+   
+     
+      
+      
+    })
+
+  };
+
+
   const columns = [
     {
-      title: 'Order NO',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'VendorName',
+      dataIndex: 'VENDORNAME',
+      key: 'VENDORNAME',
     },
     {
-      title: 'PO number',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'TotalOrders',
+      dataIndex: 'TotalOrders',
+      key: 'TotalOrders',
     },
     {
-      title: 'Tracking NO',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'TotalUnits',
+      dataIndex: 'TotalUnits',
+      key: 'TotalUnits',
     },
     {
-      title: 'Status',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'TotalCost',
+      dataIndex: 'TotalCost',
+      key: 'TotalCost',
     },
-
+    {
+      title: 'TotalSales',
+      dataIndex: 'TotalSales',
+      key: 'TotalSales',
+    },
   ];
+
+
+
   return (
-    <>
-      <Row style={{  }}>
-        <Cards title="Update Order Notes" caption="The simplest use of Drawer" >
-          <Row gutter={25}>
-            <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <TextArea />
-              </div>
-            </Col>
-            <Col lg={12} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Button type="success" htmlType="PO Number">
-                  Insert
-                        </Button>
-              </div>
-            </Col>
-          </Row>
-        </Cards>
-      </Row>
-      
+
+    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+
+      <div>
+        {/* <ProjectHeader>
+          <PageHeader
+            ghost
+           
+          />
+        </ProjectHeader> */}
+
+        <Row>
+          <Cards  title="Target Report Summary Report">
+            <Form name="basic">
+
+              <Row>
+                <Col span={6}>
+                  <Form.Item name="startDate" rules={[{ required: true }]}>
+                    {/* <Space label="" {...rangeConfig}> */}
+                    <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+                    {/* </Space > */}
+                  </Form.Item>
+                </Col>
+                <Col span={1}></Col>
+                <Col span={6}>
+                  <Form.Item name="endDate" rules={[{ required: true }]}>
+                    {/* <Space label="" {...rangeConfig}> */}
+                    <DatePicker style={{ padding: 10 }}
+                      placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
+                    {/* </Space > */}
+                  </Form.Item>
+                </Col>
+                <Col span={1}></Col>
+                <Col span={3}  >
+
+                  <Button onClick={getVendorSalesReporing}   style={{ margintTop: 7 }} key="1" type="primary" size="default" htmlType="submit">
+                    Search
+                    </Button>
+
+                </Col>
 
 
+              </Row>
 
+            </Form>
+          </Cards>
+        </Row>
+        <Row >
+          <Col xs={24}>
+            <Cards headless>
+              <ProjectList>
 
-    </>
+                <div className="table-responsive">
+                  <Table pagination={true} dataSource={state.dataSource} columns={columns} />
+                </div>
+
+              </ProjectList>
+            </Cards>
+          </Col>
+
+        </Row>
+      </div>
+    </Spin>
   );
+
 };
 
-export default ReportView;
+export default VendorSales;
