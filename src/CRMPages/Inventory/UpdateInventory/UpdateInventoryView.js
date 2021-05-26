@@ -21,7 +21,7 @@ const UpdateInventoryView = (props) => {
     return (
         <>
       {/* <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} > */}
-            <Tabs defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} centered>
+            <Tabs type="card" style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }} defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} centered>
                 <TabPane tab="Amazon Inventory" key="Amazon Inventory">
                 <AmazonUpdateInventory />
                 </TabPane>

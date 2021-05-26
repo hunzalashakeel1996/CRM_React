@@ -345,11 +345,11 @@ const AmazonCanadaUpdateInvenory = () => {
 
 
                             <Col span={3} style={{ marginLeft: 20 }}>
-                                <Button size="default" type="success" onClick={MerchantskuyDownload}  >Download</Button>
+                                <Button style={{backgroundColor: '#20c997', color: 'white'}} size="default" type="success" onClick={MerchantskuyDownload}  >Download</Button>
                             </Col>
                             <Col span={2} style={{ marginLeft: 20 }}>
                                
-                                <Button size="default" type="success"  onClick={ModalOpen} >Update</Button>
+                                <Button size="default"  type="success"  onClick={ModalOpen} style={{backgroundColor: '#20c997', color: 'white'}}>Update</Button>
                             </Col>
 
                         </Row>

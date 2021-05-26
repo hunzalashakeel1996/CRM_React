@@ -4,7 +4,7 @@ import { ButtonStyledGroup, ButtonStyled } from './styled';
 
 // @Todo props spreading
 
-const Button = props => {
+const SuccessButton = props => {
   const {
     type,
     shape,
@@ -39,25 +39,23 @@ const Button = props => {
       data={type}
       size={size}
       shape={shape}
-      type={type}
+    //   type={type}
       icon={icon}
       color={color}
       social={social}
       onClick={load && enterLoading}
       loading={state.loading}
-      style={{backgroundColor: type==='success'&&'#42ba96', color: type==='success'&&'white'}}
+      style={{backgroundColor: 'red'}}
       {...rest}
     >
       {children}
     </ButtonStyled>
   );
 };
-
-Button.defaultProps = {
+ SuccessButton.defaultProps = {
   type: 'default',
 };
-
-Button.propTypes = {
+ SuccessButton.propTypes = {
   type: PropTypes.oneOf([
     'primary',
     'secondary',
@@ -95,4 +93,4 @@ BtnGroup.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 
-export { Button, BtnGroup };
+export { SuccessButton, BtnGroup };

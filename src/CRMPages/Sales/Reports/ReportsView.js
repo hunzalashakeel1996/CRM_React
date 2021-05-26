@@ -184,7 +184,7 @@ const ReportView = (props) => {
                             </Row>
                             <Row>
                                 <Form.Item >
-                                    <Button key="1" type="success" size="small" htmlType="submit">
+                                    <Button key="1" type="success" size="default" htmlType="submit">
                                         Download
                            </Button>
                                 </Form.Item>

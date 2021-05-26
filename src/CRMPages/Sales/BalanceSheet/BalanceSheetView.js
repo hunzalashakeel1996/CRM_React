@@ -228,7 +228,7 @@ const ReportView = (props) => {
                             </Col>
                             <Col span={3}>
                                 <Form.Item >
-                                    <Button type="success" size="small"  htmlType="submit" >
+                                    <Button type="success" size="default"  htmlType="submit" >
                                         <Icon type="left" />
                                         Search
                                     </Button>
@@ -236,7 +236,7 @@ const ReportView = (props) => {
                             </Col>
                             <Col span={2}>
                                 <Form.Item >
-                                    <Button type="primary" size="small" icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
+                                    <Button type="primary" size="default" icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
                                         <Icon type="left" />
                                         Download
                                     </Button>

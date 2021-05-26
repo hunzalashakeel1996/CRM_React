@@ -158,8 +158,8 @@ const OrderReportsView = (props) => {
             <Row style={{  }}>
                 <Cards title="Order Search" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
-                        <Col lg={6} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Select a Vendor</h3></div>
+                        <Col lg={8} xs={24}  >
+                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Select a Vendor</h3></div> */}
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                 <Select
                                     showSearch
@@ -232,32 +232,31 @@ const OrderReportsView = (props) => {
                                 </Select>
                             </div>
                         </Col>
-                        <Col lg={6} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
+                        <Col lg={8} xs={24}  >
+                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                             <DatePicker onChange={(date) => { onChange(date, 'startDate') }} />
                             </div>
                         </Col>
-                        <Col lg={6} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
+                        <Col lg={8} xs={24}  >
+                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                            <DatePicker onChange={(date) => { onChange(date, 'endDate') }} />
-                            </div>
-                        </Col>
-                        <Col lg={6} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Button onClick={getOrderSearchReporting} size="default" type="success" htmlType="Submit">
-                                    Download
+                                    <DatePicker onChange={(date) => { onChange(date, 'endDate') }} />
+                                </div>
+                            </Col>
+                        </Row>
+
+                        <Row style={{ marginTop: 20 }}>
+                            <Col lg={6} xs={24}  >
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
+                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                    <Button onClick={getOrderSearchReporting} size="default" type="success" htmlType="Submit">
+                                        Download
                         </Button>
 
-                            </div>
-                        </Col>
-
-
-
-                    </Row>
-
+                                </div>
+                            </Col>
+                        </Row>
 
 
                 </Cards>

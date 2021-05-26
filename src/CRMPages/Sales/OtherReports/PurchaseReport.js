@@ -129,7 +129,7 @@ const PurchaseReport = (props) => {
                                 <Col span={6}>
                                     <Form.Item name="startDate" rules={[{ required: true }]}>
                                         {/* <Space label="" {...rangeConfig}> */}
-                                        <DatePicker style={{ padding: 10 }} size='small'
+                                        <DatePicker style={{ padding: 10 }} size='default'
                                             renderExtraFooter={() => 'extra footer'} />
                                         {/* </Space > */}
                                     </Form.Item>
