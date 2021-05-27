@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Button } from '../../../components/buttons/buttons';
 import { downloadFile } from '../../../components/utilities/utilities'
-import { getTargetReport } from '../../../redux/apis/DataAction';
+import { chartTargetSummaryData } from '../../../redux/apis/DataAction';
+import TargetSummaryGraph from '../../Dashboard/ComparisonReport/overview/TargetSummary';
 
 
 const { TabPane } = Tabs;
@@ -40,7 +41,9 @@ const TargetSummaryReport = (props) => {
     values: {},
     AddDays: null,
     isLoader: false,
+    dataReport:[]
   });
+  const {downloadLink,dataReport}=state
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
@@ -51,7 +54,7 @@ const TargetSummaryReport = (props) => {
     console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
-    dispatch(getTargetReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
+    dispatch(chartTargetSummaryData({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
       setstate({ ...state, isLoader: false })
       console.log('My Data: ', data)
       //downloadFile(data);
@@ -78,7 +81,7 @@ const TargetSummaryReport = (props) => {
         });
 
       });
-      setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+      setstate({ ...state,dataReport:data[1], dataSource: [...tempDataSource], isLoader: false });
 
 
 
@@ -92,7 +95,7 @@ const TargetSummaryReport = (props) => {
     console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
-    dispatch(getTargetReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
+    dispatch(chartTargetSummaryData({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
       setstate({ ...state, isLoader: false })
       console.log('My Data: ', data)
       downloadFile(data[0]);
@@ -233,7 +236,12 @@ const TargetSummaryReport = (props) => {
               </ProjectList>
             </Cards>
           </Col>
-
+          {console.log('dataReport',dataReport)}
+          {dataReport.length>0&&
+         <Col lg={24} s={24}>
+          
+          <TargetSummaryGraph data={dataReport}/>
+        </Col>}
         </Row>
       </div>
     </Spin>

@@ -7,8 +7,8 @@ import { useDispatch } from 'react-redux';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Button } from '../../../components/buttons/buttons';
 import { downloadFile } from '../../../components/utilities/utilities'
-import { getSalesSummary } from '../../../redux/apis/DataAction';
-
+import { chartSaleSummaryData } from '../../../redux/apis/DataAction';
+import SaleSummaryGraph from '../../Dashboard/ComparisonReport/overview/SaleSummary';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -20,13 +20,13 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 
 
-const SalesSummary = (props) => {
+const SalesSummary = () => {
 
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    setstate({ ...state, loader: true })
-  }, []);
+  // useEffect(() => {
+  //   setstate({ ...state, loader: true })
+  // }, []);
   const [state, setstate] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
@@ -38,7 +38,10 @@ const SalesSummary = (props) => {
     values: {},
     AddDays: null,
     isLoader: false,
+    downloadLink:'',
+    dataReport:[],
   });
+  const {downloadLink,dataReport}=state
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
@@ -49,7 +52,7 @@ const SalesSummary = (props) => {
     console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
-    dispatch(getSalesSummary({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
+    dispatch(chartSaleSummaryData({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
       setstate({ ...state, isLoader: false })
       console.log('My Data: ', data)
       //downloadFile(data);
@@ -59,9 +62,10 @@ const SalesSummary = (props) => {
         onClose: close,
       });
       let tempDataSource = [];
-      console.log(data);
+      console.log(data[0] );
+      setstate({ ...state,downloadLink:data[0] });
       data[1].map(value => {
-         console.log(value)
+        // console.log(value)
         const { Revenue_Sources, Total_Orders,Profit_Orders,Profit_Amouont,Loss_Orders,Loss_Amount } = value;
         // const total = (value.POCOMINGTOMORROW + value.PO_COMING_TODAY_NON_SHIPPING + value.PO_DELIVERED_NON_SHIPPED);
         //console.log(total);
@@ -77,7 +81,7 @@ const SalesSummary = (props) => {
         });
 
       });
-      setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+      setstate({ ...state,dataReport:data[1], dataSource: [...tempDataSource], isLoader: false });
 
 
 
@@ -88,10 +92,10 @@ const SalesSummary = (props) => {
 
   
   const getSalesSummaryReportingDownlaod = () => {
-    console.log('aaaaa')
+
     setstate({ ...state, isLoader: true })
 
-    dispatch(getSalesSummary({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
+    dispatch(chartSaleSummaryData({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
       setstate({ ...state, isLoader: false })
       console.log('My Data: ', data)
       downloadFile(data[0]);
@@ -221,7 +225,12 @@ const SalesSummary = (props) => {
               </ProjectList>
             </Cards>
           </Col>
-
+          {console.log('dataReport',dataReport)}
+          {dataReport.length>0&&
+         <Col lg={24} s={24}>
+          
+          <SaleSummaryGraph data={dataReport}/>
+        </Col>}
         </Row>
       </div>
     </Spin>

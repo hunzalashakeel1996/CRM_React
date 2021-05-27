@@ -12,22 +12,58 @@ import { Cards } from '../../../components/cards/frame/cards-frame';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import Heading from '../../../components/heading/heading';
 import { CardBarChart2, EChartCard } from '../../Dashboard (old)/style';
+import ComparisonBarChart from '../../Dashboard/ComparisonReport/ComparisonBarChart';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
-import { getCRMOrderReport,getCRMOrderReportPU,getCRMOrderReportJLC,getCRMOrderReportWM } from '../../../redux/apis/DataAction';
-
+// import { getCRMOrderReport,getCRMOrderReportPU,getCRMOrderReportJLC,getCRMOrderReportWM } from '../../../redux/apis/DataAction';
+import { chartAmazonData, chartWalmartData, chartJLCData, chartPUData } from '../../../redux/apis/DataAction';
 
 
 const ReportView = (props) => {
 
-
+  let tempDataSourceCRMReport=[]
+  let tempDataSourceCRMReportWM=[]
+  let tempDataSourceCRMReportPU=[]
+  let tempDataSourceCRMReportJLC=[]
   const dispatch = useDispatch();
   useEffect(async() => {
-    setstate({ ...state, loader: true })
-    // await getCRMOrderReporting();
-    // await getCRMOrderPUReportingPU();
-    // await getCRMOrderPUReportingJLC();
-    // await getCRMOrderPUReportingWM();
+    setstate({ ...state, isLoader: true })
+   
+    Promise.all([dispatch(chartAmazonData()), dispatch(chartWalmartData()), dispatch(chartPUData()), dispatch(chartJLCData())]).then(data => {
+      var AmazonData = JSON.parse(data[0])
+      var WalmartData = JSON.parse(data[1])
+      var PUData = JSON.parse(data[2])
+      var JLCData = JSON.parse(data[3])
+     // console.log(AmazonData,WalmartData,PUData,JLCData)
+      let dataTemp = [AmazonData, WalmartData, PUData, JLCData]
+
+      let dataTempState = [tempDataSourceCRMReport, tempDataSourceCRMReportWM, tempDataSourceCRMReportPU, tempDataSourceCRMReportJLC]
+      dataTemp.map((value,index) => {
+      //  console.log('val',dataTemp[a])
+        value.Table.map(value=> {
+        console.log(dataTempState[index])
+        const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
+     
+
+        return dataTempState[index].push({
+          TodayDate: TodayDate,
+          OrdersCountCurrent: OrdersCountCurrent,
+          OrdersCountOld: OrdersCountOld,
+          PendingOrderCurrent: PendingOrderCurrent,
+          PendingOrderOld: PendingOrderOld,
+          ReturnCurrentRMA: ReturnCurrentRMA,
+          ReturnOldRMA: ReturnOldRMA,
+          SalesCurrent: '$ '+SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+          SalesOld: '$ '+SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+        });
+
+      });
+     
+    });
+
+    setstate({ ...state, dataSourceCRM: tempDataSourceCRMReport,dataSourceCRMWM:tempDataSourceCRMReportWM,dataSourceCRMPU:tempDataSourceCRMReportPU,dataSourceCRMJLC:tempDataSourceCRMReportJLC, isLoader: false });
+
+    })
   }, []);
   const [state, setstate] = useState({
     selectionType: 'checkbox',
@@ -79,177 +115,177 @@ const ReportView = (props) => {
 
 
 
-  const getCRMOrderReporting = () => {
-    console.log("Function 1")
-    setstate({ ...state, isLoader: true })
-      dispatch(getCRMOrderReport()).then(data => {
-        setstate({ ...state, isLoader: false })
-        // console.log('My Data: ', data)
-        //downloadFile(data);
-        notification.success({
-          message: 'Successfull Rendered',
-          description: `Successfully Rendered Sales Reports `,
-          onClose: close,
-        });
-        let tempDataSourceCRMReport = [];
+  // const getCRMOrderReporting = () => {
+  //   console.log("Function 1")
+  //   setstate({ ...state, isLoader: true })
+  //     dispatch(getCRMOrderReport()).then(data => {
+  //       setstate({ ...state, isLoader: false })
+  //       // console.log('My Data: ', data)
+  //       //downloadFile(data);
+  //       notification.success({
+  //         message: 'Successfull Rendered',
+  //         description: `Successfully Rendered Sales Reports `,
+  //         onClose: close,
+  //       });
+  //       let tempDataSourceCRMReport = [];
         
-        data = JSON.parse(data);
-        // console.log(typeof(data));
-        // console.log(data);
-        data.Table.map(value => {
-          // console.log(value)
-          const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
+  //       data = JSON.parse(data);
+  //       // console.log(typeof(data));
+  //       // console.log(data);
+  //       data.Table.map(value => {
+  //         // console.log(value)
+  //         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
        
 
-          return tempDataSourceCRMReport.push({
-            TodayDate: TodayDate,
-            OrdersCountCurrent: OrdersCountCurrent,
-            OrdersCountOld: OrdersCountOld,
-            PendingOrderCurrent: PendingOrderCurrent,
-            PendingOrderOld: PendingOrderOld,
-            ReturnCurrentRMA: ReturnCurrentRMA,
-            ReturnOldRMA: ReturnOldRMA,
-            SalesCurrent: '$ '+SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-            SalesOld: '$ '+SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-          });
+  //         return tempDataSourceCRMReport.push({
+  //           TodayDate: TodayDate,
+  //           OrdersCountCurrent: OrdersCountCurrent,
+  //           OrdersCountOld: OrdersCountOld,
+  //           PendingOrderCurrent: PendingOrderCurrent,
+  //           PendingOrderOld: PendingOrderOld,
+  //           ReturnCurrentRMA: ReturnCurrentRMA,
+  //           ReturnOldRMA: ReturnOldRMA,
+  //           SalesCurrent: '$ '+SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+  //           SalesOld: '$ '+SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+  //         });
 
-        });
-        setstate({ ...state, dataSourceCRM: [...tempDataSourceCRMReport], isLoader: false });
-        console.log(tempDataSourceCRMReport)
-        console.log(state.dataSourceCRM)
-      })
-  };
+  //       });
+  //       setstate({ ...state, dataSourceCRM: [...tempDataSourceCRMReport], isLoader: false });
+  //       console.log(tempDataSourceCRMReport)
+  //       console.log(state.dataSourceCRM)
+  //     })
+  // };
 
 
-  //CRM PU REPORT
+  // //CRM PU REPORT
 
-  const getCRMOrderPUReportingPU = () => {
-    console.log("Function 2")
-    setstate({ ...state, isLoader: true })
-      dispatch(getCRMOrderReportPU()).then(data => {
-        setstate({ ...state, isLoader: false })
-        // console.log('My Data: ', data)
-        //downloadFile(data);
-        notification.success({
-          message: 'Successfull Rendered',
-          description: `Successfully Rendered Sales Reports `,
-          onClose: close,
-        });
-        let tempDataSourceCRMReportPU = [];
+  // const getCRMOrderPUReportingPU = () => {
+  //   console.log("Function 2")
+  //   setstate({ ...state, isLoader: true })
+  //     dispatch(getCRMOrderReportPU()).then(data => {
+  //       setstate({ ...state, isLoader: false })
+  //       // console.log('My Data: ', data)
+  //       //downloadFile(data);
+  //       notification.success({
+  //         message: 'Successfull Rendered',
+  //         description: `Successfully Rendered Sales Reports `,
+  //         onClose: close,
+  //       });
+  //       let tempDataSourceCRMReportPU = [];
         
-        data = JSON.parse(data);
-        // console.log(typeof(data));
-        // console.log(data);
-        data.Table.map(value => {
-          // console.log(value)
-          const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
+  //       data = JSON.parse(data);
+  //       // console.log(typeof(data));
+  //       // console.log(data);
+  //       data.Table.map(value => {
+  //         // console.log(value)
+  //         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
        
 
-          return tempDataSourceCRMReportPU.push({
-            TodayDate: TodayDate,
-            OrdersCountCurrent: OrdersCountCurrent,
-            OrdersCountOld: OrdersCountOld,
-            PendingOrderCurrent: PendingOrderCurrent,
-            PendingOrderOld: PendingOrderOld,
-            ReturnCurrentRMA: ReturnCurrentRMA,
-            ReturnOldRMA: ReturnOldRMA,
-            SalesCurrent: '$ '+ SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-            SalesOld: '$ '+ SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-          });
+  //         return tempDataSourceCRMReportPU.push({
+  //           TodayDate: TodayDate,
+  //           OrdersCountCurrent: OrdersCountCurrent,
+  //           OrdersCountOld: OrdersCountOld,
+  //           PendingOrderCurrent: PendingOrderCurrent,
+  //           PendingOrderOld: PendingOrderOld,
+  //           ReturnCurrentRMA: ReturnCurrentRMA,
+  //           ReturnOldRMA: ReturnOldRMA,
+  //           SalesCurrent: '$ '+ SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+  //           SalesOld: '$ '+ SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+  //         });
 
-        });
-        setstate({ ...state, dataSourceCRMPU: [...tempDataSourceCRMReportPU], isLoader: false });
-        console.log(tempDataSourceCRMReportPU)
-        console.log(state.dataSourceCRMPU)
+  //       });
+  //       setstate({ ...state, dataSourceCRMPU: [...tempDataSourceCRMReportPU], isLoader: false });
+  //       console.log(tempDataSourceCRMReportPU)
+  //       console.log(state.dataSourceCRMPU)
 
-      })
-  };
+  //     })
+  // };
 
-  //CRM JLC REPORT
+  // //CRM JLC REPORT
 
-  const getCRMOrderPUReportingJLC = () => {
-    console.log("Function 3")
-    setstate({ ...state, isLoader: true })
-      dispatch(getCRMOrderReportJLC()).then(data => {
-        setstate({ ...state, isLoader: false })
-        // console.log('My Data: ', data)
-        //downloadFile(data);
-        notification.success({
-          message: 'Successfull Rendered',
-          description: `Successfully Rendered Sales Reports `,
-          onClose: close,
-        });
-        let tempDataSourceCRMReportJLC = [];
+  // const getCRMOrderPUReportingJLC = () => {
+  //   console.log("Function 3")
+  //   setstate({ ...state, isLoader: true })
+  //     dispatch(getCRMOrderReportJLC()).then(data => {
+  //       setstate({ ...state, isLoader: false })
+  //       // console.log('My Data: ', data)
+  //       //downloadFile(data);
+  //       notification.success({
+  //         message: 'Successfull Rendered',
+  //         description: `Successfully Rendered Sales Reports `,
+  //         onClose: close,
+  //       });
+  //       let tempDataSourceCRMReportJLC = [];
         
-        data = JSON.parse(data);
-        // console.log(typeof(data));
-        // console.log(data);
-        data.Table.map(value => {
-          // console.log(value)
-          const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
+  //       data = JSON.parse(data);
+  //       // console.log(typeof(data));
+  //       // console.log(data);
+  //       data.Table.map(value => {
+  //         // console.log(value)
+  //         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
        
 
-          return tempDataSourceCRMReportJLC.push({
-            TodayDate: TodayDate,
-            OrdersCountCurrent: OrdersCountCurrent,
-            OrdersCountOld: OrdersCountOld,
-            PendingOrderCurrent: PendingOrderCurrent,
-            PendingOrderOld: PendingOrderOld,
-            ReturnCurrentRMA: ReturnCurrentRMA,
-            ReturnOldRMA: ReturnOldRMA,
-            SalesCurrent: '$ '+SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-            SalesOld: '$ '+SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-          });
+  //         return tempDataSourceCRMReportJLC.push({
+  //           TodayDate: TodayDate,
+  //           OrdersCountCurrent: OrdersCountCurrent,
+  //           OrdersCountOld: OrdersCountOld,
+  //           PendingOrderCurrent: PendingOrderCurrent,
+  //           PendingOrderOld: PendingOrderOld,
+  //           ReturnCurrentRMA: ReturnCurrentRMA,
+  //           ReturnOldRMA: ReturnOldRMA,
+  //           SalesCurrent: '$ '+SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+  //           SalesOld: '$ '+SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+  //         });
 
-        });
-        setstate({ ...state, dataSourceCRMJLC: [...tempDataSourceCRMReportJLC], isLoader: false });
-        console.log(tempDataSourceCRMReportJLC)
-        console.log(state.dataSourceCRMJLC)
-      })
-  };
+  //       });
+  //       setstate({ ...state, dataSourceCRMJLC: [...tempDataSourceCRMReportJLC], isLoader: false });
+  //       console.log(tempDataSourceCRMReportJLC)
+  //       console.log(state.dataSourceCRMJLC)
+  //     })
+  // };
 
-  //CRM WM REPORT
+  // //CRM WM REPORT
 
-  const getCRMOrderPUReportingWM = () => {
-    console.log("Function 4")
-    setstate({ ...state, isLoader: true })
-      dispatch(getCRMOrderReportWM()).then(data => {
-        setstate({ ...state, isLoader: false })
-        // console.log('My Data: ', data)
-        //downloadFile(data);
-        notification.success({
-          message: 'Successfull Rendered',
-          description: `Successfully Rendered Sales Reports `,
-          onClose: close,
-        });
-        let tempDataSourceCRMReportWM = [];
+  // const getCRMOrderPUReportingWM = () => {
+  //   console.log("Function 4")
+  //   setstate({ ...state, isLoader: true })
+  //     dispatch(getCRMOrderReportWM()).then(data => {
+  //       setstate({ ...state, isLoader: false })
+  //       // console.log('My Data: ', data)
+  //       //downloadFile(data);
+  //       notification.success({
+  //         message: 'Successfull Rendered',
+  //         description: `Successfully Rendered Sales Reports `,
+  //         onClose: close,
+  //       });
+  //       let tempDataSourceCRMReportWM = [];
         
-        data = JSON.parse(data);
-        // console.log(typeof(data));
-        // console.log(data);
-        data.Table.map(value => {
-          // console.log(value)
-          const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
+  //       data = JSON.parse(data);
+  //       // console.log(typeof(data));
+  //       // console.log(data);
+  //       data.Table.map(value => {
+  //         // console.log(value)
+  //         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
        
 
-          return tempDataSourceCRMReportWM.push({
-            TodayDate: TodayDate,
-            OrdersCountCurrent: OrdersCountCurrent,
-            OrdersCountOld: OrdersCountOld,
-            PendingOrderCurrent: PendingOrderCurrent,
-            PendingOrderOld: PendingOrderOld,
-            ReturnCurrentRMA: ReturnCurrentRMA,
-            ReturnOldRMA: ReturnOldRMA,
-            SalesCurrent: '$ '+SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-            SalesOld: '$ '+SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-          });
+  //         return tempDataSourceCRMReportWM.push({
+  //           TodayDate: TodayDate,
+  //           OrdersCountCurrent: OrdersCountCurrent,
+  //           OrdersCountOld: OrdersCountOld,
+  //           PendingOrderCurrent: PendingOrderCurrent,
+  //           PendingOrderOld: PendingOrderOld,
+  //           ReturnCurrentRMA: ReturnCurrentRMA,
+  //           ReturnOldRMA: ReturnOldRMA,
+  //           SalesCurrent: '$ '+SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+  //           SalesOld: '$ '+SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+  //         });
 
-        });
-        setstate({ ...state, dataSourceCRMWM: [...tempDataSourceCRMReportWM], isLoader: false });
-        console.log(tempDataSourceCRMReportWM)
-        console.log(state.dataSourceCRMWM)
-      })
-  };
+  //       });
+  //       setstate({ ...state, dataSourceCRMWM: [...tempDataSourceCRMReportWM], isLoader: false });
+  //       console.log(tempDataSourceCRMReportWM)
+  //       console.log(state.dataSourceCRMWM)
+  //     })
+  // };
 
   const columns = [
     {
@@ -356,7 +392,7 @@ const ReportView = (props) => {
 
       <Row>
 
-      <Col span={6}>
+      {/* <Col span={6}>
                   <Button onClick={getCRMOrderReporting} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary" size="default" htmlType="submit">
                     Amazon
                   </Button>
@@ -373,7 +409,7 @@ const ReportView = (props) => {
 
                   
 
-                </Col>
+                </Col> */}
         <Cards title="Amazon">
         {/* {console.log(state.dataSource)} */}
           <Table

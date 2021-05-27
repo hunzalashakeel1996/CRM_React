@@ -9,7 +9,8 @@ import ReportBarChart from '../ReportBarChart';
 //import { chartAmazonData } from '../../../redux/apis/DataAction';
 import { chartSaleSummaryData } from '../../../../redux/apis/DataAction';
 import SaleBarChart from '../SaleBarChart';
-const SaleSummary = () => {
+const SaleSummary = (props) => {
+    const {data}=props
     var Type = [];
     var categories = ['Total Orders', 'Profit Orders', 'Profit Amouont', 'Loss Orders', 'Loss Amount'];
     const dispatch = useDispatch()
@@ -27,23 +28,23 @@ const SaleSummary = () => {
     useEffect(() => {
         let dataSourceTemp = dataSource
 
-        dispatch(chartSaleSummaryData({"orderdatefrom":"5/24/2021","orderdateto":"5/25/2021"})).then(data => {
+        // dispatch(chartSaleSummaryData({"orderdatefrom":"5/24/2021","orderdateto":"5/25/2021"})).then(data => {
             console.log(data)
 
-            for (let i = 0; i < data[1].length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 Type.push(
-                    data[1][i].Revenue_Sources
+                    data[i].Revenue_Sources
                 )
-                dataSourceTemp[0].push(data[1][i].Total_Orders)
-                dataSourceTemp[1].push(data[1][i].Profit_Orders)
-                dataSourceTemp[2].push(data[1][i].Profit_Amouont)
-                dataSourceTemp[3].push(data[1][i].Loss_Orders)
-                dataSourceTemp[4].push(data[1][i].Loss_Amount)
+                dataSourceTemp[0].push(data[i].Total_Orders)
+                dataSourceTemp[1].push(data[i].Profit_Orders)
+                dataSourceTemp[2].push(data[i].Profit_Amouont)
+                dataSourceTemp[3].push(data[i].Loss_Orders)
+                dataSourceTemp[4].push(data[i].Loss_Amount)
           
             }
 
             setState({ ...state, orderType: Type, loaderState: false, dataSource: dataSourceTemp })
-        })
+        // })
 
     }, [])
 

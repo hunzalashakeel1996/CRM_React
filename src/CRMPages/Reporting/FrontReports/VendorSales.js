@@ -6,7 +6,8 @@ import { PageHeader } from '../../../components/page-headers/page-headers';
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Button } from '../../../components/buttons/buttons';
-import { getVendorSalesReport } from '../../../redux/apis/DataAction';
+import { chartVendorSalesData } from '../../../redux/apis/DataAction';
+import VendorSalestGraph from '../../Dashboard/ComparisonReport/overview/VendorSales';
 
 
 const { TabPane } = Tabs;
@@ -23,9 +24,9 @@ const VendorSales = (props) => {
 
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    setstate({ ...state, loader: true })
-  }, []);
+  // useEffect(() => {
+  //   setstate({ ...state, loader: true })
+  // }, []);
   const [state, setstate] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
@@ -36,7 +37,9 @@ const VendorSales = (props) => {
     checked: null,
     values: {},
     isLoader: false,
+    dataReport:[]
   });
+const {dataReport}=state
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
@@ -47,7 +50,7 @@ const VendorSales = (props) => {
     console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
-    dispatch(getVendorSalesReport({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
+    dispatch(chartVendorSalesData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
       setstate({ ...state, isLoader: false })
       console.log('My Data: ', data)
       //downloadFile(data);
@@ -68,7 +71,7 @@ const VendorSales = (props) => {
           });
      
       });
-      setstate({ ...state, dataSource: [...tempDataSource],isLoader: false });
+      setstate({ ...state,dataReport:data, dataSource: [...tempDataSource],isLoader: false });
    
      
       
@@ -121,7 +124,7 @@ const VendorSales = (props) => {
         </ProjectHeader> */}
 
         <Row>
-          <Cards  title="Target Report Summary Report">
+          <Cards  title="Vendor Sales">
             <Form name="basic">
 
               <Row>
@@ -168,7 +171,11 @@ const VendorSales = (props) => {
               </ProjectList>
             </Cards>
           </Col>
-
+          {dataReport.length>0&&
+        <Col lg={24} s={24}>
+          
+          <VendorSalestGraph data={dataReport}/>
+        </Col>}
         </Row>
       </div>
     </Spin>

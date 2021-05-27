@@ -6,8 +6,8 @@ import { PageHeader } from '../../../components/page-headers/page-headers';
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Button } from '../../../components/buttons/buttons';
-import { getTeamReport } from '../../../redux/apis/DataAction';
-
+import { chartTeamData } from '../../../redux/apis/DataAction';
+import TeamReportGraph from '../../Dashboard/ComparisonReport/overview/TeamReport';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -17,13 +17,15 @@ const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 
-const TeamReport = (props) => {
+const TeamReport = () => {
 
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    setstate({ ...state, loader: true })
-  }, []);
+
+  // useEffect(() => {
+  //   setstate({ ...state, loader: true })
+  // }, []);
+
   const [state, setstate] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
@@ -34,7 +36,13 @@ const TeamReport = (props) => {
     checked: null,
     values: {},
     isLoader: false,
+    dataReport:[],
+    dataSourceTR:[],
+    dataSourceOP:[],
+    dataSourceR:[]
+    
   });
+  const {dataReport } = state;
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
@@ -45,15 +53,11 @@ const TeamReport = (props) => {
     console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
-    dispatch(getTeamReport({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
+    dispatch(chartTeamData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
       setstate({ ...state, isLoader: false })
       console.log('My Data: ', data)
       //downloadFile(data);
-      notification.success({
-        message: 'Successfull Rendered',
-        description: `Successfully Rendered All Team Reports From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
-        onClose: close,
-      });
+     
       let tempDataSource = [];
       let tempDataSourceTR = [];
       let tempDataSourceOP = [];
@@ -86,9 +90,9 @@ const TeamReport = (props) => {
       
         // setstate({ ...state,  isLoader: false });
       });
-      setstate({ ...state, dataSourceTR: [...tempDataSourceTR],dataSourceOP: [...tempDataSourceOP], dataSourceR: [...tempDataSourceR],isLoader: false });
-      // setstate({ ...state,  isLoader: false });
-      // setstate({ ...state,  isLoader: false });
+      setstate({...state, dataReport:data ,  dataSourceTR: [...tempDataSourceTR],dataSourceOP: [...tempDataSourceOP], dataSourceR: [...tempDataSourceR],isLoader: false });
+    
+
      
       
       
@@ -158,7 +162,7 @@ const TeamReport = (props) => {
         </Row>
         <Row style={{}}>
           <Col xs={24}>
-            <Cards title="">
+            <Cards title="Team Report">
               <ProjectList>
 
                 <div className="table-responsive">
@@ -199,8 +203,14 @@ const TeamReport = (props) => {
               </ProjectList>
             </Cards>
           </Col>
-
+       
+        {dataReport.length>0&&
+        <Col lg={24} s={24}>
+          
+          <TeamReportGraph data={dataReport}/>
+        </Col>}
         </Row>
+       
 
       </div>
     </Spin>

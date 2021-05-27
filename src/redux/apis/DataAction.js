@@ -111,7 +111,7 @@ export const apiTrackingSummaryFetch = (data) => {
 };
 
 export const apiFetchDotNet = (apiUrl, apiMethod, apiHeader, apiBody) => {
-    let headerParameters = apiMethod === 'GET' ? { method: apiMethod } : { method: apiMethod, headers: apiHeader, body: apiBody }
+    let headerParameters = apiMethod === 'GET' ? { method: apiMethod, headers: apiHeader } : { method: apiMethod, headers: apiHeader, body: apiBody }
     return dispatch => {
    
         return new Promise((resolve, reject) => {
@@ -390,10 +390,10 @@ export const getVendorSalesReport = (data) => {
     console.log("Hello World!")
     return apiFetchDotNet('/Ereports/VendorCRMReportS', "POST", headerDotNet, JSON.stringify(data));
 };
-export const getUnshippedOrders = (data) => {
-    console.log("Hello World!")
-    return apiFetchDotNet('/Ereports/po_item_received', "POST", headerDotNet, JSON.stringify(data));
-};
+// export const getUnshippedOrders = (data) => {
+//     console.log("Hello World!")
+//     return apiFetchDotNet('/Ereports/po_item_received', "POST", headerDotNet, JSON.stringify(data));
+// };
 
 export const getSalesSummary = (data) => {
     console.log("Hello World!")
@@ -405,10 +405,10 @@ export const getTargetReport = (data) => {
     return apiFetchDotNet('/Ereports/Target_report', "POST", headerDotNet, JSON.stringify(data));
 };
 
-export const getReturnPercentageReport = (data) => {
-    console.log("Hello World!")
-    return apiFetchDotNet('/Ereports/Return_percentage_report', "POST", headerDotNet, JSON.stringify(data));
-};
+// export const getReturnPercentageReport = (data) => {
+//     console.log("Hello World!")
+//     return apiFetchDotNet('/Ereports/Return_percentage_report', "POST", headerDotNet, JSON.stringify(data));
+// };
 export const getCRMOrderReport = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/OrdersREPORT', "POST", headerDotNet, JSON.stringify({  }));
@@ -606,7 +606,7 @@ export const purchaseReport = (data) => {
 
 // ============================= Inventory API start ======================================
 export const getvendor = (data) => {
-    return apiFetchDotNet('newInventory/getVendor_active', "GET");
+    return apiFetchDotNet('newInventory/getVendor_active', "GET",headerDotNetWithJwt);
 };
 
 export const getUpdateVendorInventoryapi = (data) => {
@@ -625,19 +625,19 @@ export const getSubInventoryapi = (data) => {
 };
 
 export const getAllVendorapi = (data) => {
-    return apiFetchDotNet('newInventory/getvendor', "GET");
+    return apiFetchDotNet('newInventory/getvendor', "GET",headerDotNetWithJwt);
 };
 export const getAllbrandapi = (data) => {
-    return apiFetchDotNet('newInventory/getBrand', "GET");
+    return apiFetchDotNet('newInventory/getBrand', "GET",headerDotNetWithJwt);
 };
 export const getAllcollectionapi = (data) => {
-    return apiFetchDotNet('newInventory/getCollection', "GET");
+    return apiFetchDotNet('newInventory/getCollection', "GET",headerDotNetWithJwt);
 };
 export const getAllcategorynameapi = (data) => {
-    return apiFetchDotNet('newInventory/getcategoryname', "GET");
+    return apiFetchDotNet('newInventory/getcategoryname', "GET",headerDotNetWithJwt);
 };
 export const getAllpustatusapi = (data) => {
-    return apiFetchDotNet('newInventory/getpustatus', "GET");
+    return apiFetchDotNet('newInventory/getpustatus', "GET",headerDotNetWithJwt);
 };
 export const getInventoryWalmartapi = (data) => {
     return apiFetchDotNet('newInventory/WallMartqty', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
@@ -940,34 +940,44 @@ export const getAllUserRecord = () => {
 
 
 export const chartAmazonData = (data) => {
-    return apiFetchDotNet('Orders/OrdersREPORT', "POST", headerDotNet, JSON.stringify({ data }));
+    return apiFetchDotNet('Orders/OrdersREPORT', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const chartWalmartData = (data) => {
-    return apiFetchDotNet('Orders/OrdersREPORTWallmart', "POST", headerDotNet, JSON.stringify({ data }));
+    return apiFetchDotNet('Orders/OrdersREPORTWallmart', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const chartJLCData = (data) => {
-    return apiFetchDotNet('Orders/OrdersREPORTJLC', "POST", headerDotNet, JSON.stringify({ data }));
+    return apiFetchDotNet('Orders/OrdersREPORTJLC', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const chartPUData = (data) => {
-    return apiFetchDotNet('Orders/OrdersREPORTPU', "POST", headerDotNet, JSON.stringify({ data }));
+    return apiFetchDotNet('Orders/OrdersREPORTPU', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 
 export const chartSaleData = (data) => {
-    return apiFetchDotNet('Orders/SalesReport', "POST", headerDotNet, JSON.stringify({ data }));
+    return apiFetchDotNet('Orders/SalesReport', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 
 export const chartTeamData = (data) => {
-    return apiFetchDotNet('Orders/CRMReportS', "POST", headerDotNet, JSON.stringify( data ));
+    return apiFetchDotNet('Orders/CRMReportS', "POST", headerDotNetWithJwt, JSON.stringify( data ));
 };
 
 export const chartVendorSalesData = (data) => {
-    return apiFetchDotNet('Orders/VendorCRMReportS', "POST", headerDotNet, JSON.stringify( data ));
+    return apiFetchDotNet('Orders/VendorCRMReportS', "POST", headerDotNetWithJwt, JSON.stringify( data ));
 };
 
 export const chartSaleSummaryData = (data) => {
-    return apiFetchDotNet('report/sale_summary', "POST", headerDotNet, JSON.stringify( data ));
+    return apiFetchDotNet('report/sale_summary', "POST", headerDotNetWithJwt, JSON.stringify( data ));
 };
 
 export const chartTargetSummaryData = (data) => {
-    return apiFetchDotNet('report/Target_report', "POST", headerDotNet, JSON.stringify( data ));
+    return apiFetchDotNet('report/Target_report', "POST", headerDotNetWithJwt, JSON.stringify( data ));
+};
+
+export const getUnshippedOrders = (data) => {
+   
+    return apiFetchDotNet('/Orders/po_item_received', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const getReturnPercentageReport = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/report/Return_percentage_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };

@@ -14,18 +14,23 @@ import Heading from '../../../components/heading/heading';
 import { CardBarChart2, EChartCard } from '../../Dashboard (old)/style';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
-import { getOverViewReport} from '../../../redux/apis/DataAction';
+import { chartSaleData} from '../../../redux/apis/DataAction';
+import SaleReport from '../../Dashboard/ComparisonReport/overview/SaleReport';
 
 
 
 const ReportView = (props) => {
 
-
+  var Type =[];
   const dispatch = useDispatch();
-  useEffect(() => {
-    setstate({ ...state, loader: true })
+  // useEffect(() => {
+  //   // let orders = {...totalReport}
+  //   // let sales = {...salesReport}
+  //   // let item = {...itemReport}
+    
+  //   setstate({ ...state, loader: true })
 
-  }, []);
+  // }, []);
 
 
   const [state, setstate] = useState({
@@ -49,10 +54,12 @@ const ReportView = (props) => {
     dataSourceCRMPU :[],
     dataSourceCRMJLC :[],
     dataSourceCRMWM :[],
+    dataSale:[[]]
+  
   });
 
 
-
+  const {dataSource, loaderState,dataSale } = state;
 
 
   const onChangeDefault = (e) => {
@@ -81,8 +88,11 @@ const ReportView = (props) => {
     console.log(state.rType);
     if (state.rType == 'Date') {
 
-      dispatch(getOverViewReport({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY'), oType: '1', rType: state.rType })).then(data => {
-        setstate({ ...state, isLoader: false })
+      dispatch(chartSaleData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY'), oType: '1', rType: state.rType })).then(data => {
+        console.log(data)
+      
+
+        // setstate({ ...state,dataSale:data,isLoader: false })
         console.log('My Data: ', data)
         //downloadFile(data);
         notification.success({
@@ -91,7 +101,7 @@ const ReportView = (props) => {
           onClose: close,
         });
         let tempDataSource = [];
-        console.log(data);
+        // console.log(data);
         data[0].map(value => {
           console.log(value)
           const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
@@ -105,13 +115,15 @@ const ReportView = (props) => {
           });
 
         });
-        setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+        setstate({ ...state, dataSource: [...tempDataSource], isLoader: false,dataSale:data });
       })
 
     }else if(state.rType == 'Default')
     {
-      dispatch(getOverViewReport({ FROMDATE: '', TODATE: '', oType: state.oType, rType: state.rType })).then(data => {
-        setstate({ ...state, isLoader: false })
+     
+      dispatch(chartSaleData({ FROMDATE: '', TODATE: '', oType: state.oType, rType: state.rType })).then(data => {
+      
+        // setstate({ ...state,dataSale:data, isLoader: false })
         console.log('My Data: ', data)
         //downloadFile(data);
         notification.success({
@@ -120,9 +132,9 @@ const ReportView = (props) => {
           onClose: close,
         });
         let tempDataSource = [];
-        console.log(data);
+        // console.log(data);
         data[0].map(value => {
-          console.log(value)
+          // console.log(value)
           const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
           
          
@@ -136,7 +148,7 @@ const ReportView = (props) => {
           });
 
         });
-        setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+        setstate({ ...state, dataSource: [...tempDataSource], isLoader: false, dataSale:data });
       })
     }
 
@@ -211,7 +223,10 @@ const ReportView = (props) => {
 
           </Cards>
         </Row>
-
+        <Row gutter={20}>
+        
+       
+        </Row>
       </div>
 
 
@@ -238,7 +253,11 @@ const ReportView = (props) => {
         </Col>
         )) }
         
-        
+        {dataSale[0].length>0&&
+        <Col lg={24} s={24}>
+          
+          <SaleReport data={dataSale}/>
+        </Col>}
 
 
       </Row>
