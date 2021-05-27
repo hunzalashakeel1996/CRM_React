@@ -72,9 +72,8 @@ const MarketplaceInventoryView = (props) => {
 
 
         Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
-
-            setState({
-                ...state, brandnameState: data[0][0].brandname.split(","),
+                console.log('promise All',data)
+            setState({...state, brandnameState: data[0][0].brandname.split(","),
                 collectionState: data[1][0].collectionname.split(","), categorynameState: data[2][0].categoryname.split(","), puStatusState: data[3][0].pustatus.split(","), loaderState: false
             })
 
@@ -332,7 +331,7 @@ const MarketplaceInventoryView = (props) => {
         <>
 
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
-                <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>
+                <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} type="card" style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
                     <TabPane tab="Amazon PU" key="Amazon PU">
                         <AmazonPU genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
                     </TabPane>

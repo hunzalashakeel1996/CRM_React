@@ -146,8 +146,8 @@ const PolyBagsAndThermalLabelsView = (props) => {
                         </Col>
                         <Col lg={6} xs={24}>
                            
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Button size="default" type="success" htmlType="Update">
+                            <div className="atbd-drawer" style={{ marginLeft: 20, marginTop:8 }}>
+                                <Button size="large" type="success" htmlType="Update" style={{backgroundColor: '#42ba96',  color:'white'}}>
                                    Update
                         </Button>
                                 {/* </Cards> */}

@@ -9,7 +9,8 @@ import ReportBarChart from '../ReportBarChart';
 //import { chartAmazonData } from '../../../redux/apis/DataAction';
 import { chartVendorSalesData } from '../../../../redux/apis/DataAction';
 import SaleBarChart from '../SaleBarChart';
-const VendorSales = () => {
+const VendorSales = (props) => {
+    const {data}=props
     var Type = [];
     var categories = ['Total Orders', 'Total Units', 'Total Cost', 'Total Sales'];
     const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const VendorSales = () => {
     useEffect(() => {
         let dataSourceTemp = dataSource
 
-        dispatch(chartVendorSalesData({ "FROMDATE": "5/1/2021", "TODATE": "5/25/2021" })).then(data => {
+        // dispatch(chartVendorSalesData({ "FROMDATE": "5/1/2021", "TODATE": "5/25/2021" })).then(data => {
             console.log(data)
 
             for (let i = 0; i < data.length; i++) {
@@ -43,7 +44,7 @@ const VendorSales = () => {
             }
 
             setState({ ...state, orderType: Type, loaderState: false, dataSource: dataSourceTemp })
-        })
+        // })
 
     }, [])
 

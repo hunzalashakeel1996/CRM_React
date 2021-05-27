@@ -98,9 +98,11 @@ const ReportBarChart = ({ isTimelineChange, dataset, title,orderType }) => {
                 //   </div>
                 // }
             >
-                <Line
+                
+                <Bar
                     data={{...chartOptions, labels: orderType}}
                     options={options}
+                    
                 />
             </Cards>
         </>

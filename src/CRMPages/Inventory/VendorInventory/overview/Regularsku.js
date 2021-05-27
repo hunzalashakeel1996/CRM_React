@@ -113,7 +113,7 @@ const{Regularvendor,loader,updateVendor}=props
   return (
     <>
       <Cards headless >
-{/* adasdsadsad  */}
+
       <Row >
        
         <Col span={4} >
@@ -136,7 +136,7 @@ const{Regularvendor,loader,updateVendor}=props
 
        
          
-       {/* aslkjdaslkjda */}
+       
          
         {Regularvendor.map((val, i) => (
                 <Popover content={( <div>

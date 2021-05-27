@@ -17,7 +17,7 @@ const ComparisonReportView = () => {
                 <TabPane tab="Comparison Report" key="ComparisonReport">
                     <ComparisonReports />
                 </TabPane>
-                <TabPane tab="Sale Report" key="SaleReport">
+                {/* <TabPane tab="Sale Report" key="SaleReport">
                     <SaleReport />
                 </TabPane>
                 <TabPane tab="Team Report" key="TeamReport">
@@ -31,7 +31,7 @@ const ComparisonReportView = () => {
                 </TabPane>
                 <TabPane tab="Target Sumary" key="TargetSummary">
                     <TargetSummary />
-                </TabPane>
+                </TabPane> */}
             </Tabs>
         </>
     );

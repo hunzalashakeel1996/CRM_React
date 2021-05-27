@@ -212,7 +212,7 @@ const verifyLabel = () => {
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
 
-                                <Button type="success" onClick={insertEndiciaSheet}> Insert Shipping</Button>
+                                <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={insertEndiciaSheet}> Insert Shipping</Button>
 
                                 <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />
 
@@ -221,7 +221,7 @@ const verifyLabel = () => {
                         <Col lg={6} xs={24}>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 2</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Button type="success" onClick={startEndiciaShipping}> Start Endicia Shipping</Button>
+                                <Button type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={startEndiciaShipping}> Start Endicia Shipping</Button>
 
                                 {/* </Cards> */}
                             </div>
@@ -229,7 +229,7 @@ const verifyLabel = () => {
                         <Col lg={6} xs={24}>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 3</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                            <Button type="success" onClick={checkEndiciaLabel}>Check Endicia Label</Button>
+                            <Button type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={checkEndiciaLabel}>Check Endicia Label</Button>
                            
                                 {/* </Cards> */}
                             </div>
@@ -256,7 +256,7 @@ const verifyLabel = () => {
                         </Col>
                         <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                            <Button type="success" onClick={verifyLabel}> Search</Button>
+                            <Button type="success" onClick={verifyLabel} style={{backgroundColor: '#42ba96',  color:'white'}}> Search</Button>
                    
                             </div>
                         </Col>

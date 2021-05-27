@@ -22,7 +22,7 @@ const AmazonShipmentView = (props) => {
                 key="Non Amazon Orders">
                     <NonAmazonShipment />
                 </TabPane>
-            </Tabs>
+            </Tabs> 
         </>
     );
 };

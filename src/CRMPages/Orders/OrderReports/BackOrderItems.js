@@ -9,7 +9,7 @@ import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
 import { getBackOrderItems } from '../../../redux/apis/DataAction';
-import { downloadFile,DownlaodWithReact } from '../../../components/utilities/utilities'
+import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -57,7 +57,7 @@ const OrderReportsView = (props) => {
             });
             let tempDataSource = [];
             data.map(value => {
-                const { orderno, itemno,stylecode,stylename,vendorstylecode,colorcode,sizename,itemqty,backorderdate,ponumber,order_status,vendorname} = value;
+                const { orderno, itemno, stylecode, stylename, vendorstylecode, colorcode, sizename, itemqty, backorderdate, ponumber, order_status, vendorname } = value;
                 return tempDataSource.push({
                     orderno: orderno,
                     itemno: itemno,
@@ -128,7 +128,7 @@ const OrderReportsView = (props) => {
             dataIndex: 'vendorname',
             key: 'vendorname',
         },
-     ];
+    ];
 
 
     return (
@@ -137,8 +137,8 @@ const OrderReportsView = (props) => {
                 <Row style={{}}>
                     <Cards title="Order Search" caption="The simplest use of Drawer" >
                         <Row gutter={25}>
-                            <Col lg={6} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Select a Vendor</h3></div>
+                            <Col lg={8} xs={24}  >
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Select a Vendor</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                     <Select
                                         showSearch
@@ -146,7 +146,7 @@ const OrderReportsView = (props) => {
                                         size="large"
                                         placeholder="Select a Vendor"
                                         optionFilterProp="children"
-                                        onChange={(VendorName) => { onChange(VendorName, 'VendorName') }} 
+                                        onChange={(VendorName) => { onChange(VendorName, 'VendorName') }}
                                         filterOption={(input, option) =>
                                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                         }
@@ -209,20 +209,25 @@ const OrderReportsView = (props) => {
                                     </Select>
                                 </div>
                             </Col>
-                            <Col lg={6} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
+                            <Col lg={8} xs={24}  >
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={(date) => { onChange(date, 'startDate') }} />
+                                    <DatePicker onChange={(date) => { onChange(date, 'startDate') }} />
                                 </div>
                             </Col>
-                            <Col lg={6} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
+                            <Col lg={8} xs={24}  >
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={(date) => { onChange(date, 'endDate') }} />
+                                    <DatePicker onChange={(date) => { onChange(date, 'endDate') }} />
                                 </div>
                             </Col>
+
+
+                        </Row>
+
+                        <Row style={{ marginTop: 20 }}>
                             <Col lg={6} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div>
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                     <Button onClick={getBackOrderItemsReporting} size="default" type="success" htmlType="Submit">
                                         Download
@@ -230,11 +235,7 @@ const OrderReportsView = (props) => {
 
                                 </div>
                             </Col>
-
-
-
                         </Row>
-
 
 
                     </Cards>
@@ -246,7 +247,7 @@ const OrderReportsView = (props) => {
                 <Row style={{}}>
 
                     <Col xs={24}>
-                    <Table pagination={true} dataSource={state.dataSource} columns={columns} />
+                        <Table pagination={true} dataSource={state.dataSource} columns={columns} />
                     </Col>
 
                 </Row>

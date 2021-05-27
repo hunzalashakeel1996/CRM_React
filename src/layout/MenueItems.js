@@ -189,7 +189,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
 
       {/* ==================================== CHATBOT ========================================================== */}
       <SubMenu key="Chatbot" icon={!topMenu && <FeatherIcon icon="message-square" />} title="Chatbot">
-        <Menu.Item key="Styles Not in PU">
+        <Menu.Item key="Chatbot">
           <NavLink onClick={toggleCollapsed} to={`${path}/chatbot/chat`}>
             Chatbot
           </NavLink>
@@ -201,6 +201,18 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         <Menu.Item key="RMA Notes">
           <NavLink onClick={toggleCollapsed} to={`${path}/rma/rmaupdates`}>
             RMA Updates
+          </NavLink>
+        </Menu.Item>
+
+
+      </SubMenu>
+
+      
+      {/* ==================================== REPORTING ========================================================== */}
+      <SubMenu key="Reporting" icon={!topMenu && <FeatherIcon icon="rotate-cw" />} title="Reporting">
+        <Menu.Item key="RMA Notes">
+          <NavLink onClick={toggleCollapsed} to={`${path}/reporting`}>
+            FrontReports
           </NavLink>
         </Menu.Item>
 

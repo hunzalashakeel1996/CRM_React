@@ -8,11 +8,15 @@ import { Bar } from 'react-chartjs-2';
 import ReportBarChart from '../ReportBarChart';
 //import { chartAmazonData } from '../../../redux/apis/DataAction';
 import { chartTeamData } from '../../../../redux/apis/DataAction';
-const TeamReport = () => {
+
+const TeamReport = (props) => {
+   
+    const {data}=props
+    
     var UserTR = [];
     var UserOP = [];
     var orderProcess = [];
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const [state, setState] = useState({
         userNameTR: [],
         userNameOP: [],
@@ -20,10 +24,10 @@ const TeamReport = () => {
         selectedTimeline: '',
         isLoading: false,
         qTYTeamReport: {
-            Data: [3135]
+            Data: []
         },
         qTYOrderProcess: {
-            Data: [3135]
+            Data: []
         },
         QTYSelectedTimeline: 'Data',
 
@@ -34,7 +38,7 @@ const TeamReport = () => {
         let QTYTR = { ...qTYTeamReport }
         let QTYOP = { ...qTYOrderProcess }
 
-        dispatch(chartTeamData({ "FROMDATE": "5/1/2021", "TODATE": "5/25/2021" })).then(data => {
+        // dispatch(chartTeamData({ "FROMDATE": "5/1/2021", "TODATE": "5/25/2021" })).then(data => {
          //   console.log('Team', data)
 
             for (let i = 0; i < data.length; i++) {
@@ -60,7 +64,7 @@ const TeamReport = () => {
                 }
             }
             setState({ ...state, userNameTR: UserTR, userNameOP: UserOP, loaderState: false })
-        })
+        // })
 
     }, [])
     return (

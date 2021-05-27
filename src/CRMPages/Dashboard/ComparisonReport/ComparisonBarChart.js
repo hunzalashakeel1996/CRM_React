@@ -100,7 +100,7 @@ const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelin
                   </div>
                 }
             >
-                <Line
+                <Bar
                     data={{...chartOptions, labels: ['Amazon','Walmart','PU', 'JLC']}}
                     options={options}
                 />

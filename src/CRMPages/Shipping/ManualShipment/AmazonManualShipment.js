@@ -105,7 +105,7 @@ const AmazonManualShippingAmazonFileDownload = () => {
             <Col lg={4} xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
            
-              <Button type="success" onClick={manualShipmentPonumberManualTick}> Manual Tick</Button>
+              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={manualShipmentPonumberManualTick}> Manual Tick</Button>
                 
               </div>
             </Col>
@@ -127,13 +127,13 @@ const AmazonManualShippingAmazonFileDownload = () => {
           <Row style={{ marginTop: 20 }} gutter={25}>
            
               <Col lg={7}   >
-              <Button type="success" onClick={AmazonManualShipping}> Amazon Manual Ship</Button>
+              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={AmazonManualShipping}> Amazon Manual Ship</Button>
               </Col>
               <Col lg={7}  >
-              <Button type="success" onClick={AmazonManualShippingAmazonFileSheet}>Amazon Manual Ship Sheet</Button>
+              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={AmazonManualShippingAmazonFileSheet}>Amazon Manual Ship Sheet</Button>
               </Col>
               <Col lg={7}   >
-              <Button type="success" onClick={AmazonManualShippingAmazonFileDownload}>Amazon Manual Ship Donwload</Button> 
+              <Button type="success"  onClick={AmazonManualShippingAmazonFileDownload}>Amazon Manual Ship Donwload</Button> 
               </Col>
            
                         

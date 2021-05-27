@@ -72,7 +72,7 @@ const ProhibitedWords = (props) => {
                         layout="inline"
                     >
                         <Row gutter={20} >
-                            <Form.Item name="marketplaceName" style={{ width: 200 }}>
+                            <Form.Item name="marketplaceName" style={{ width: 200, marginRight: 50}}>
                                 <Col >
                                     <Select
                                         size='medium'
@@ -87,14 +87,14 @@ const ProhibitedWords = (props) => {
                                     </Select>
                                 </Col>
                             </Form.Item>
-                            <Form.Item name="prohibitedWord" rules={[{ required: true }]}  >
+                            <Form.Item name="prohibitedWord" rules={[{ required: true }]} style={{ marginRight: 50}} >
                                 <Col >
                                     <Input placeholder='Prohibited Word' />
                                 </Col>
                             </Form.Item>
                             <Form.Item name="button" >
                                 <Col >
-                                    <Button size="default" type="success" htmlType="submit">
+                                    <Button size="default" type="primary" htmlType="submit" >
                                         Insert
                                 </Button>
                                 </Col>

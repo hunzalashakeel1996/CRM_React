@@ -124,7 +124,7 @@ const EndiciaShipmentView = (props) => {
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Refund</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                 {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                <Button type="success" onClick={openModal}> Refund Tracking</Button>
+                                <Button type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={openModal}> Refund Tracking</Button>
                                 {/* </Cards> */}
                             </div>
                         </Col>

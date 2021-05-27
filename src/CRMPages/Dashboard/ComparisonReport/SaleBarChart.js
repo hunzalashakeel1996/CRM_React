@@ -117,7 +117,7 @@ const SaleBarChart = ({ isTimelineChange, dataset, title, orderType, categories 
                     </div>
                 }
             >
-                <Line
+                <Bar
                     data={{...chartOptions, labels: orderType }}
                     options={options}
                 />

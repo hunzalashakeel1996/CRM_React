@@ -10,7 +10,8 @@ import ReportBarChart from '../ReportBarChart';
 import { chartTargetSummaryData } from '../../../../redux/apis/DataAction';
 import SaleBarChart from '../SaleBarChart';
 
-const TargetSummary = () => {
+const TargetSummary = (props) => {
+    const {data}=props
     var Type = [];
     var categories = ['Amazon', 'Walmart', 'Sears', 'Ebay'];
     const dispatch = useDispatch()
@@ -26,23 +27,23 @@ const TargetSummary = () => {
     useEffect(() => {
         let dataSourceTemp = dataSource
 
-        dispatch(chartTargetSummaryData({"orderdatefrom":"5/24/2021","orderdateto":"5/25/2021"})).then(data => {
+        // dispatch(chartTargetSummaryData({"orderdatefrom":"5/24/2021","orderdateto":"5/25/2021"})).then(data => {
             console.log(data)
 
-            for (let i = 0; i <  data[1].length; i++) {
+            for (let i = 0; i <  data.length; i++) {
                 Type.push(
-                     data[1][i].vendorname
+                     data[i].vendorname
                 )
 
-                dataSourceTemp[0].push(data[1][i].Amazon)
-                dataSourceTemp[1].push(data[1][i].Walmart)
-                dataSourceTemp[2].push(data[1][i].Sears)
-                dataSourceTemp[3].push(data[1][i].Ebay)
+                dataSourceTemp[0].push(data[i].Amazon)
+                dataSourceTemp[1].push(data[i].Walmart)
+                dataSourceTemp[2].push(data[i].Sears)
+                dataSourceTemp[3].push(data[i].Ebay)
           
             }
 
             setState({ ...state, orderType: Type, loaderState: false, dataSource: dataSourceTemp })
-        })
+        // })
 
     }, [])
 

@@ -75,7 +75,7 @@ const AmazonComparisonReports = () => {
       // first loop is for objects(orders, sales, etc) and second loop is for set values from db to each object. ObjectCountName is for 2020 and 2021 values
       for (let i = 0; i < 4; i++) {
         for (let j = 0; j < 4; j++) {
-          console.log(WalmartData.Table)
+        
           objects[i][categories[j]][0][0] = AmazonData.Table[j][objectsCountName[i][0]]
           objects[i][categories[j]][1][0] = AmazonData.Table[j][objectsCountName[i][1]]
           objects[i][categories[j]][0][1] = WalmartData.Table[j][objectsCountName[i][0]]
