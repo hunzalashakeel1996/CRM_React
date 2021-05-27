@@ -9,9 +9,47 @@ import FeatherIcon from 'feather-icons-react';
 const EndiciaShipmentView = (props) => {
     const [activeTab, setActiveTab] = useState('');
 
+
+
+
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+    const tabChildBar = JSON.parse(userAccess.child_bar)['Endicia Shipment'];
+
+
+    const topManu = [
+        {
+            tab: 'Endica PU',
+            key: 'Endica PU',
+            tabName: <EndiciaPU />
+        },
+        {
+            tab: 'Endicia Rizno',
+            key: 'Endicia Rizno',
+            tabName: <EndiciaRizno />
+        }
+        ,
+        {
+            tab: 'Endicia Refund',
+            key: 'Endicia Refund',
+            tabName: <EndiciaRefund />
+        }
+    ];
+
     return (
         <>
-            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
+
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
+
+                {topManu.map(item => (
+                    tabChildBar?.includes(item.tab) && (
+                        <TabPane tab={item.tab} key={item.key}>
+                            {item.tabName}
+                        </TabPane>)
+
+                ))}
+
+            </Tabs>
+            {/* <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
                 <TabPane 
                     tab={<span> <FeatherIcon icon="underline" style={{ width: 15, height: 15, marginRight: 5 }} />Endica PU</span>}
                     key="Endica PU">
@@ -27,7 +65,7 @@ const EndiciaShipmentView = (props) => {
                     key="Endicia Refund">
                     <EndiciaRefund />
                 </TabPane>
-            </Tabs>
+            </Tabs> */}
         </>
     );
 };
