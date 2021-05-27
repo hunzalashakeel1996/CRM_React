@@ -32,6 +32,7 @@ const AuthInfo = ({ rtl }) => {
       let data = {token, LoginName: user.LoginName}
       dispatch(logoutAPI(data)).then(res => {
         localStorage.removeItem('user')
+        localStorage.removeItem('userRole')
         window.location.reload(); 
       })
     })

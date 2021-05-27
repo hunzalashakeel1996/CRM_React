@@ -5,16 +5,45 @@ import RMAMonthlyReport from './RMAMonthlyReport';
 
 const { TabPane } = Tabs;
 
+
+    
+const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+const tabChildBar = JSON.parse(userAccess.child_bar)['RMA Updates'];
+
+
+const topManu = [
+    {
+        tab: 'RMA Notes',
+        key: 'RMA Notes',
+        tabName: <RMANotes />
+    },
+    {
+        tab: 'RMA Monthly Report',
+        key: 'RMA Monthly Report',
+        tabName: <RMAMonthlyReport />
+    }
+
+];
+
 const RMAView = (props) => {
     return (
         <>
             <Tabs type="card" defaultActiveKey="RMA Notes" style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
-                <TabPane tab="RMA Notes" key="RMA Notes">
+                {topManu.map(item => (
+                    tabChildBar?.includes(item.tab) && (
+                        <TabPane tab={item.tab} key={item.key}>
+                            {item.tabName}
+                        </TabPane>)
+
+                ))}
+
+
+                {/* <TabPane tab="RMA Notes" key="RMA Notes">
                     <RMANotes />
                 </TabPane>
                 <TabPane tab="RMA Monthly Report" key="RMA Monthly Report">
                     <RMAMonthlyReport />
-                </TabPane>
+                </TabPane> */}
             </Tabs>
         </>
     );

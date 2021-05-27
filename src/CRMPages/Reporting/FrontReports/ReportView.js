@@ -16,64 +16,66 @@ const { TabPane } = Tabs;
 const ReportView = (props) => {
     const [activeTab, setActiveTab] = useState('');
 
-     return (
+
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+    const tabChildBar = JSON.parse(userAccess.child_bar)['FrontReports'];
+
+
+    const topManu = [
+        {
+            tab: 'SalesReport',
+            key: 'SalesReport',
+            tabName: <SalesReport />
+        },
+        {
+            tab: 'ComparisonReport',
+            key: 'ComparisonReport',
+            tabName: <ComparisonReport />
+        },
+        {
+            tab: `TeamReport`,
+            key: `TeamReport`,
+            tabName: <TeamReport />
+        },
+        {
+            tab: `Vendor Sales`,
+            key: `Vendor Sales`,
+            tabName: <VendorSales />
+        },
+        {
+            tab: `Un-Shipped Orders`,
+            key: `Un-Shipped Orders`,
+            tabName: <UnShippedOrders />
+        },
+        {
+            tab: `Target Summary Report`,
+            key: `Target Summary Report`,
+            tabName: <TargetSummaryReport />
+        }
+        ,
+        {
+            tab: `Return Percentage`,
+            key: `Return Percentage`,
+            tabName: <ReturnPercentage />
+        }
+    ];
+
+    return (
         <>
-            <Tabs type="card" defaultActiveKey={"SalesReport"} onChange={(key) => { setActiveTab(key) }}  style={{marginTop: 20, marginLeft: 20, marginRight: 20}}>
-                <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />SalesReport</span>}
-                key="SalesReport">
-                    <SalesReport />
-                    
-                </TabPane>
-                <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />ComparisonReport</span>}
-                key="ComparisonReport">
-                    <ComparisonReport />
-                    
-                </TabPane>
-                <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />TeamReport</span>}
-                key="TeamReport">
-                    <TeamReport />
-                </TabPane>
-                {/* <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Return Recieved</span>}
-                key="Return Recieved">
-                    <ReturnRecieved />
-                </TabPane> */}
-                {/* <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Order Process</span>}
-                key="Order Process">
-                    <OrderProcess />
-                </TabPane> */}
-                <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Vendor Sales</span>}
-                key="Vendor Sales">
-                    <VendorSales />
-                </TabPane>
-                <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Un-Shipped Orders</span>}
-                key="Un-Shipped Orders">
-                    <UnShippedOrders />
-                </TabPane>
-                <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Sales Summary</span>}
-                key="Sales Summary">
-                    <SalesSummary />
-                </TabPane>
-                <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Target Summary Report</span>}
-                key="Target Summary Report">
-                    <TargetSummaryReport />
-                </TabPane>
-                <TabPane
-                tab={<span> <FeatherIcon icon="book-open" style={{ width: 15, height: 15, marginRight: 5 }} />Return Percentage
-                </span>}
-                key="Return Percentage">
-                    <ReturnPercentage/>
-                </TabPane>
+
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
+
+                {topManu.map(item => (
+                    tabChildBar?.includes(item.tab) && (
+                        <TabPane tab={item.tab} key={item.key}>
+                            {item.tabName}
+                        </TabPane>)
+
+                ))}
+
             </Tabs>
-            
+
+
         </>
     );
 };

@@ -55,7 +55,7 @@ const ReportView = (props) => {
   return (
     <>
       <Row style={{  }}>
-        <Cards title="Update Order Notes" caption="The simplest use of Drawer" >
+        <Cards title="Return Received" caption="The simplest use of Drawer" >
               <Row>
               <Table dataSource={dataSource} columns={columns} />
               </Row>

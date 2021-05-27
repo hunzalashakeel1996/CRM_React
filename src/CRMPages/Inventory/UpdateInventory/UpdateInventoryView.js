@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Tabs,Spin } from 'antd';
+import { Tabs, Spin } from 'antd';
 import AmazonUpdateInventory from './overview/AmazonUpdateInventory';
 import AmazonCanadaUpdateInvenory from './overview/AmazonCanadaUpdateInvenory';
 import AmazonUAEUpdateInventory from './overview/AmazonUAEUpdateInventory';
@@ -12,17 +12,63 @@ const UpdateInventoryView = (props) => {
 
     const [activeTab, setActiveTab] = useState('');
 
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+    const tabChildBar = JSON.parse(userAccess.child_bar)['Update Inventory'];
+
+    console.log(tabChildBar)
     // const [state, setState] = useState({
-      
+
     //     loaderState: true
     // });
 
-  
+
+    const topManu = [
+        {
+            tab: 'Amazon Inventory',
+            key: 'Amazon Inventory',
+            tabName: <AmazonUpdateInventory />
+        },
+        {
+            tab: 'Amazon Canada Inventory',
+            key: 'Amazon Canada Inventory',
+            tabName: <AmazonCanadaUpdateInvenory />
+        },
+        {
+            tab: `Amazon UAE Inventory`,
+            key: `Amazon UAE Inventory`,
+            tabName: <AmazonUAEUpdateInventory />
+        },
+        {
+            tab: 'Amazon Subinventory',
+            key: 'Amazon Subinventory',
+            tabName: <AmazonUpdateSubinventory />
+        },
+        {
+            tab: 'Amazon Group Skus',
+            key: 'Amazon Group Skus',
+            tabName: <GroupStatus />
+        },
+        {
+            tab: 'Skus Status',
+            key: 'Skus Status',
+            tabName: <SKUstatus />
+        }
+    ];
+
+
     return (
         <>
-      {/* <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} > */}
-            <Tabs type="card" style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }} defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} centered>
-                <TabPane tab="Amazon Inventory" key="Amazon Inventory">
+            {/* <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} > */}
+            <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>
+
+                {topManu.map(item => (
+                    tabChildBar?.includes(item.tab) && (
+                        <TabPane tab={item.tab} key={item.key}>
+                            {item.tabName}
+                        </TabPane>)
+
+                ))}
+                {/* <TabPane tab="Amazon Inventory" key="Amazon Inventory">
                 <AmazonUpdateInventory />
                 </TabPane>
                 <TabPane tab="Amazon Canada Inventory" key="Amazon Canada Inventory">
@@ -39,7 +85,7 @@ const UpdateInventoryView = (props) => {
                 </TabPane>
                 <TabPane tab="Skus Status" key="Skus Status">
                 <SKUstatus/>
-                </TabPane>
+                </TabPane> */}
             </Tabs>
             {/* </Spin > */}
         </>

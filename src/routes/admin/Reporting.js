@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-const ReportingView = lazy(() => import('../../CRMPages/Reporting/FrontReports/ReportView'));
+const ReportView = lazy(() => import('../../CRMPages/Reporting/FrontReports/ReportView'));
 // const EndiciaShipmentView = lazy(() => import('../../CRMPages/Shipping/EndiciaShipment/EndiciaShipmentView'));
 // const PolybagsAndThermalLabelsView = lazy(() => import('../../CRMPages/Shipping/PolyBagsAndThermalLabels/PolybagsAndThermalLabelsView'));
 // const ManualShipmentView = lazy(() => import('../../CRMPages/Shipping/ManualShipment/ManualShipmentView'));
@@ -13,8 +13,8 @@ const ProjectRoutes = () => {
   const { path } = useRouteMatch();
   return (
     <Switch>
-      <Route exact path={`${path}`} component={ReportingView} />
-      <Route exact path={`${path}/Reporting`} component={ReportingView} />
+      <Route exact path={`${path}`} component={ReportView} />
+      <Route exact path={`${path}/reporting`} component={ReportView} />
       {/* <Route exact path={`${path}/amazonShipment`} component={AmazonShipmentView} />
       <Route exact path={`${path}/endiciaShipment`} component={EndiciaShipmentView} />
       <Route exact path={`${path}/manualShipment`} component={ManualShipmentView} />

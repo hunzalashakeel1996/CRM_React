@@ -44,7 +44,7 @@ const Admin = () => {
         <Route path={`${path}/chatbot`} component={Chatbot} />
         <Route path={`${path}/userManagement`} component={UserManagement} />
         <Route path={`${path}/customerSupport`} component={CustomerSupport} />
-        <Route path={`${path}/Reporting`} component={Reporting} />
+        <Route path={`${path}/reporting`} component={Reporting} />
       </Suspense>
     </Switch>
   );

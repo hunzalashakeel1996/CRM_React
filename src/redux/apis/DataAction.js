@@ -933,7 +933,26 @@ export const getAllUserRecord = () => {
 };
 
 
+export const getNavigation = () => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Users/userManagementNav', "POST", headerDotNet, JSON.stringify());
+};
 
+
+export const saveAllUserRights = (data) => {
+    //    console.log("Hello World!")
+    return apiFetchDotNet('/Users/saveUserRights', "POST", headerDotNet, JSON.stringify(data));
+};
+
+
+export const getUserRole = (data) => {
+    return apiFetchDotNet('/Users/UserRole', "POST", headerDotNet, JSON.stringify(data));
+}
+
+
+export const getUserRights = (data) => {
+    return apiFetchDotNet('/Users/UserRightsJson', "POST", headerDotNet, JSON.stringify(data));
+}
 //============================= User Section ======================================
 
 //================================ Email CRM Api Start ===================================
