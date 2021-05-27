@@ -29,8 +29,13 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       defaultOpenKeys={!topMenu ? [`${mainPathSplit.length > 2 ? mainPathSplit[1] : 'dashboard'}`] : []}
       overflowedIndicator={<FeatherIcon icon="more-vertical" />}
     >
-      {/* ==================================== DASHBOARD ========================================================== */}
+      {/ ==================================== DASHBOARD ========================================================== /}
       <SubMenu key="dashboard" icon={!topMenu && <FeatherIcon icon="home" />} title="Dashboard">
+      <Menu.Item key="reportGraph">
+          <NavLink onClick={toggleCollapsed} to={`${path}/graph/comparisonGraph`}>
+            Comparison Report
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="viewTickets">
           <NavLink onClick={toggleCollapsed} to={`${path}/ticket/viewTickets`}>
             Tickets
@@ -41,14 +46,14 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
             Reminders
           </NavLink>
         </Menu.Item>
-        {/* <Menu.Item key="ViewAzabReport">
+        <Menu.Item key="ViewAzabReport">
           <NavLink onClick={toggleCollapsed} to={`${path}/azab/ViewAzabReport`}>
             AzabReport
           </NavLink>
-        </Menu.Item> */}
+        </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== TICKETS ========================================================== */}
+      {/ ==================================== TICKETS ========================================================== /}
       <SubMenu key="Tickets" icon={!topMenu && <FeatherIcon icon="list" />} title="Tickets">
         <Menu.Item key="viewTickets">
           <NavLink onClick={toggleCollapsed} to={`${path}/ticket/viewTickets`}>
@@ -62,7 +67,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== REMINDERS ========================================================== */}
+      {/ ==================================== REMINDERS ========================================================== /}
       <SubMenu key="Reminders" icon={!topMenu && <FeatherIcon icon="calendar" />} title="Reminders">
         <Menu.Item key="viewReminders">
           <NavLink onClick={toggleCollapsed} to={`${path}/ticket/viewReminders`}>
@@ -76,7 +81,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== INVENTORY ========================================================== */}
+      {/ ==================================== INVENTORY ========================================================== /}
       <SubMenu key="Inventory" icon={!topMenu && <FeatherIcon icon="package" />} title="Inventory">
         <Menu.Item key="Vendor Inventory">
           <NavLink onClick={toggleCollapsed} to={`${path}/inventory/vendorInventory`}>
@@ -100,22 +105,22 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== ORDERS ========================================================== */}
-      <SubMenu key="Orders" icon={!topMenu && <FeatherIcon icon="shopping-bag" />} title="Orders">
-        <Menu.Item key="Order Reports">
-          <NavLink onClick={toggleCollapsed} to={`${path}/orders/orderReports`}>
-            Order Reports
+        {/ ==================================== ORDERS ========================================================== /}
+        <SubMenu key="Orders" icon={!topMenu && <FeatherIcon icon="shopping-bag" />} title="Orders">
+          <Menu.Item key="Order Reports">
+            <NavLink onClick={toggleCollapsed} to={`${path}/orders/orderReports`}>
+              Order Reports
           </NavLink>
-        </Menu.Item>
-        <Menu.Item key="Marketplace Orders">
-          <NavLink onClick={toggleCollapsed} to={`${path}/orders/marketplaceOrders`}>
-            Marketplace Orders
+          </Menu.Item>
+          <Menu.Item key="Marketplace Orders">
+            <NavLink onClick={toggleCollapsed} to={`${path}/orders/marketplaceOrders`}>
+              Marketplace Orders
           </NavLink>
-        </Menu.Item>
-      </SubMenu>
+          </Menu.Item>
+        </SubMenu>
 
 
-      {/* ==================================== SALES ========================================================== */}
+      {/ ==================================== SALES ========================================================== /}
       <SubMenu key="Sales" icon={!topMenu && <FeatherIcon icon="dollar-sign" />} title="Sales">
         <Menu.Item key="Reports">
           <NavLink onClick={toggleCollapsed} to={`${path}/sales/reports`}>
@@ -134,7 +139,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== SHIPPING ========================================================== */}
+      {/ ==================================== SHIPPING ========================================================== /}
       <SubMenu key="Shipping" icon={!topMenu && <FeatherIcon icon="truck" />} title="Shipping">
         <Menu.Item key="PolyBags and Thermal Labels">
           <NavLink onClick={toggleCollapsed} to={`${path}/shipping/PolybagsAndThermalLabels`}>
@@ -173,25 +178,25 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== PU STYLES ========================================================== */}
-      <SubMenu key="PUStyles" icon={!topMenu && <FeatherIcon icon="droplet" />} title="PUStyles">
-        <Menu.Item key="Styles Not in PU">
-          <NavLink onClick={toggleCollapsed} to={`${path}/puStyles/stylesNotInPU`}>
-            Styles Not in PU
+        {/ ==================================== PU STYLES ========================================================== /}
+        <SubMenu key="PUStyles" icon={!topMenu && <FeatherIcon icon="droplet" />} title="PUStyles">
+          <Menu.Item key="Styles Not in PU">
+            <NavLink onClick={toggleCollapsed} to={`${path}/puStyles/stylesNotInPU`}>
+              Styles Not in PU
           </NavLink>
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== CHATBOT ========================================================== */}
+      {/ ==================================== CHATBOT ========================================================== /}
       <SubMenu key="Chatbot" icon={!topMenu && <FeatherIcon icon="message-square" />} title="Chatbot">
-        <Menu.Item key="Styles Not in PU">
+        <Menu.Item key="Chatbot">
           <NavLink onClick={toggleCollapsed} to={`${path}/chatbot/chat`}>
             Chatbot
           </NavLink>
         </Menu.Item>
       </SubMenu>
 
-      {/* ==================================== RMA ========================================================== */}
+      {/ ==================================== RMA ========================================================== /}
       <SubMenu key="RMA" icon={!topMenu && <FeatherIcon icon="rotate-cw" />} title="RMA">
         <Menu.Item key="RMA Notes">
           <NavLink onClick={toggleCollapsed} to={`${path}/rma/rmaupdates`}>
@@ -202,7 +207,19 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
 
       </SubMenu>
 
-      {/* ==================================== USER MANAGEMENT ========================================================== */}
+      
+      {/ ==================================== REPORTING ========================================================== /}
+      <SubMenu key="Reporting" icon={!topMenu && <FeatherIcon icon="rotate-cw" />} title="Reporting">
+        <Menu.Item key="RMA Notes">
+          <NavLink onClick={toggleCollapsed} to={`${path}/reporting`}>
+            FrontReports
+          </NavLink>
+        </Menu.Item>
+
+
+      </SubMenu>
+
+      {/ ==================================== USER MANAGEMENT ========================================================== /}
       <SubMenu key="User Management" icon={!topMenu && <FeatherIcon icon="users" />} title="User Management">
         <Menu.Item key="Add New Users">
           <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/addNewUsers`}>
@@ -219,18 +236,28 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
           <NavLink onClick={toggleCollapsed} to={`${path}/userManagement/UserRights`}>
             User Rights
           </NavLink>
-        </Menu.Item>s
+        </Menu.Item>
+
+      </SubMenu>
+
+      {/ ==================================== CUSTOMER SUPPORT ========================================================== /}
+      <SubMenu key="Customer Support" icon={!topMenu && <FeatherIcon icon="help-circle" />} title="Customer Support">
+        <Menu.Item key="Email Template">
+          <NavLink onClick={toggleCollapsed} to={`${path}/customerSupport/emailTemplate`}>
+            Email Template
+          </NavLink>
+        </Menu.Item>
 
       </SubMenu>
 
     </Menu>
-  );
-};
-
+      );
+    };
+    
 MenuItems.propTypes = {
-  darkMode: propTypes.bool,
-  topMenu: propTypes.bool,
-  toggleCollapsed: propTypes.func,
-};
-
-export default MenuItems;
+        darkMode: propTypes.bool,
+      topMenu: propTypes.bool,
+      toggleCollapsed: propTypes.func,
+    };
+    
+    export default MenuItems;

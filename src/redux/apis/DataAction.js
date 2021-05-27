@@ -12,14 +12,14 @@ export const socketUrl = "wss://3.131.5.41:3000"
 // sadsa
 // export const socketUrl = "wss://crm.rizno.com"
 
-// export const url = "http://192.168.0.196:3005";
-export const url = "https://crm.rizno.com";
+export const url = "http://192.168.0.115:3000";
+// export const url = "https://crm.rizno.com";
 
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
-//export const urlDotNet ="http://localhost:47463/api"
-export const urlDotNet = "http://74.208.31.179:8520/crm_3.0/api"
+export const urlDotNet ="http://localhost:47463/api"
+// export const urlDotNet = "http://74.208.31.179:8520/crm_3.0/api"
 // export const urlDotNet = "http://localhost:47463/api"
 
 // export const url = "https://crmserver-development.herokuapp.com";
@@ -887,6 +887,11 @@ export const saveAllUserRights = (data) => {
 
 export const getUserRole = (data) => {
     return apiFetchDotNet('/Users/UserRole', "POST", headerDotNet, JSON.stringify(data));
+}
+
+
+export const getUserRights = (data) => {
+    return apiFetchDotNet('/Users/UserRightsJson', "POST", headerDotNet, JSON.stringify(data));
 }
 //============================= User Section ======================================
 

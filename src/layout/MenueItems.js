@@ -21,6 +21,10 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       title: 'Dashboard',
       icon: 'home',
       items: [{
+        key: 'reportGraph',
+        title: 'Comparison Report',
+        path: `${path}/graph/comparisonGraph`
+      }, {
         key: 'viewTickets',
         title: 'Tickets',
         path: `${path}/ticket/viewTickets`
@@ -28,6 +32,10 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'viewReminders',
         title: 'Reminder',
         path: `${path}/ticket/viewReminders`
+      }, {
+        key: 'ViewAzabReport',
+        title: 'AzabReport',
+        path: `${path}/azab/ViewAzabReport`
       }]
     },
     {
@@ -39,9 +47,9 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         title: 'Tickets',
         path: `${path}/ticket/viewTickets`
       }, {
-        key: 'viewReminders',
-        title: 'Reminders',
-        path: `${path}/ticket/viewReminders`
+        key: 'addTicket',
+        title: 'Add Ticket',
+        path: `${path}/ticket/addTicket`
       }]
     },
     {
@@ -209,12 +217,22 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         title: 'User Right',
         path: `${path}/userManagement/UserRights`
       }]
+    },
+    {
+      key: 'Reporting',
+      title: 'Reporting',
+      icon: 'users',
+      items: [{
+        key: 'FrontReports',
+        title: 'FrontReports',
+        path: `${path}/reporting/`
+      }]
     }
-    ]
-   
+  ]
 
 
-  
+
+
   useEffect(() => {
     console.log("ew", JSON.parse(userAccess.top_navigation))
     console.log("child_bar", JSON.parse(userAccess.child_bar))
@@ -250,13 +268,13 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         </SubMenu>))}
 
     </Menu>
-      );
-    };
-    
+  );
+};
+
 MenuItems.propTypes = {
-        darkMode: propTypes.bool,
-      topMenu: propTypes.bool,
-      toggleCollapsed: propTypes.func,
-    };
-    
-    export default MenuItems;
+  darkMode: propTypes.bool,
+  topMenu: propTypes.bool,
+  toggleCollapsed: propTypes.func,
+};
+
+export default MenuItems;
