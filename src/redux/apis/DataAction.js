@@ -18,9 +18,9 @@ export const url = "http://3.131.5.41:3000";
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
-//export const urlDotNet ="http://localhost:47463/api"
+export const urlDotNet ="http://localhost:47463/api"
 // export const urlDotNet = "http://74.208.31.179:8520/crm_3.0/api"
-export const urlDotNet = "https://crm.rizno.com/api"
+//export const urlDotNet = "https://crm.rizno.com/api"
 
 // export const url = "https://crmserver-development.herokuapp.com";
 
@@ -36,6 +36,12 @@ let headerWithWebToken = {
     "jsonwebtoken": localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null
 }
 
+let headerDotNetWithJwt = {
+    "Content-Type": "application/json",
+    "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
+}
+
+
 export const setHeader = () => {
     headerWithWebToken = {
         Accept: "application/json",
@@ -46,14 +52,19 @@ export const setHeader = () => {
 }
 
 export const setHeaderWithWebToken = () => {
-    localStorage.getItem('user').then((val) => {
-        headerWithWebToken = {
-            Accept: "application/json",
+    console.log('adfdfdfd')
+    // localStorage.getItem('user').then((val) => {
+        // headerWithWebToken = {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json",
+        //     'Cache-Control': 'no-cache',
+        //     "jsonwebtoken": val.jwtKey
+        // }
+        headerDotNetWithJwt = {
             "Content-Type": "application/json",
-            'Cache-Control': 'no-cache',
-            "jsonwebtoken": val.jwtKey
+            "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
         }
-    })
+    // })
 }
 
 export const audioPlay = () => {
@@ -77,10 +88,6 @@ const multipartHeader = {
 }
 const headerDotNet = {
     "Content-Type": "application/json"
-}
-const headerDotNetWithJwt = {
-    "Content-Type": "application/json",
-    "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
 }
 
 const headerFileDotNet = {
@@ -410,11 +417,10 @@ export const getTargetReport = (data) => {
 //     return apiFetchDotNet('/Ereports/Return_percentage_report', "POST", headerDotNet, JSON.stringify(data));
 // };
 export const getCRMOrderReport = (data) => {
-    // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/OrdersREPORT', "POST", headerDotNet, JSON.stringify({  }));
 };
 export const getCRMOrderReportPU = (data) => {
-    // console.log("Hello World!")
+    console.log("Hello World!", JSON.parse(localStorage.getItem('user')).jwtToken)
     return apiFetchDotNet('/Ereports/OrdersREPORTPU', "POST", headerDotNet, JSON.stringify(data));
 };
 export const getCRMOrderReportJLC = (data) => {
@@ -959,6 +965,7 @@ export const getUserRights = (data) => {
 
 
 export const chartAmazonData = (data) => {
+    console.log('Data Action',JSON.parse(localStorage.getItem('user')).jwtToken)
     return apiFetchDotNet('Orders/OrdersREPORT', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const chartWalmartData = (data) => {
