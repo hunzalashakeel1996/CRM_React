@@ -12,15 +12,15 @@ export const socketUrl = "wss://3.131.5.41:3000"
 // sadsa
 // export const socketUrl = "wss://crm.rizno.com"
 
-// export const url = "http://192.168.0.196:3005";
-export const url = "http://3.131.5.41:3000";
+// export const url = "http://192.168.0.177:3001";
+export const url = "http://3.131.5.41:3001";
 
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
-export const urlDotNet ="http://localhost:47463/api"
+// export const urlDotNet ="http://localhost:47463/api"
 // export const urlDotNet = "http://74.208.31.179:8520/crm_3.0/api"
-//export const urlDotNet = "https://crm.rizno.com/api"
+export const urlDotNet = "https://crm.rizno.com/api"
 
 // export const url = "https://crmserver-development.herokuapp.com";
 
