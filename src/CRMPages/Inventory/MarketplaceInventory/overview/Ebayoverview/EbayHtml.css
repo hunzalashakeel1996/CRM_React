@@ -1,0 +1,76 @@
+.top-header{
+    background-color: #311843;
+    color: #fff;
+    }
+    .top-header p{
+    margin-bottom: 0;
+    padding: 5px 15px;
+    }
+    .header{
+    background-color: #3D2151;
+    padding: 30px 15px;
+    }
+    .header .nav {
+    background: transparent;
+    text-align: right;
+    list-style: none;
+    border-right:0px solid transparent;
+    }
+    .header .nav li{
+    display: inline-block;
+    margin: 0;
+    margin-bottom: 0 !important;
+    padding: 0;
+    }
+    .header .nav li a{
+    font-size: 18px;
+    color: #fff;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-right: 1px solid #fff;
+    font-weight: bold;
+    }
+    .header .nav li a:hover{
+    color: #fec501;
+    text-decoration: none;
+    }
+    
+    
+    .content-box{
+    padding: 20px 15px;
+    }
+    .content-box .ant-card-body {
+    padding: 0;
+    }
+    .content-box .category-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+    .content-box .category-list li{
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    }
+    .content-box .category-list li a{
+    color: inherit;
+    }
+    .content-box .category-list li a:hover{
+    color: #fec501;
+    }
+    
+    .description-pera{
+    background-color: #3D2151;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    }
+    
+    .description-conn{
+    margin-bottom: 20px;
+    }
+    .description-conn h1{
+    text-transform: uppercase;
+    }
+    .description-conn p{
+    margin-bottom: 5px;
+    }

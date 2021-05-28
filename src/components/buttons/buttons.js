@@ -45,6 +45,7 @@ const Button = props => {
       social={social}
       onClick={load && enterLoading}
       loading={state.loading}
+      style={{backgroundColor: type==='success'&&'#42ba96', color: type==='success'&&'white'}}
       {...rest}
     >
       {children}

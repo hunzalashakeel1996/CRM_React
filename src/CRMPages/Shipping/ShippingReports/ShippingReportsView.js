@@ -11,9 +11,48 @@ const { TabPane } = Tabs;
 const ShippingReportsView = (props) => {
     const [activeTab, setActiveTab] = useState('');
 
+
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+    const tabChildBar = JSON.parse(userAccess.child_bar)['Shipping Reports'];
+
+
+    const topManu = [
+        {
+            tab: 'Delivered Tracking Status',
+            key: 'Delivered Tracking Status',
+            tabName: <DeliveryTrackingStatus />
+        }, {
+            tab: 'InTransit Tracking',
+            key: 'InTransit Tracking',
+            tabName: <InTransitTracking />
+        }, {
+            tab: 'Web Label Orders',
+            key: 'Web Label Orders',
+            tabName: <WebLabelOrders />
+        }, {
+            tab: 'Marketplace Data Reports',
+            key: 'Marketplace Data Reports',
+            tabName: <AllMpShipment />
+        }
+    ];
+
+
     return (
         <>
-            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{marginLeft: 20, marginRight: 20, marginTop: 20}}>
+
+
+            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
+
+                {topManu.map(item => (
+                    tabChildBar?.includes(item.tab) && (
+                        <TabPane tab={item.tab} key={item.key}>
+                            {item.tabName}
+                        </TabPane>)
+
+                ))}
+
+            </Tabs>
+            {/* <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{marginLeft: 20, marginRight: 20, marginTop: 20}}>
                 <TabPane 
                 tab={<span> <FeatherIcon icon="truck" style={{ width: 15, height: 15, marginRight: 5 }} />Delivered Tracking Status</span>}
                 key="Delivered Tracking Status">
@@ -34,7 +73,7 @@ const ShippingReportsView = (props) => {
                     key="Marketplace Data Reports">
                     <AllMpShipment />
                 </TabPane>
-            </Tabs>
+            </Tabs> */}
         </>
     );
 };

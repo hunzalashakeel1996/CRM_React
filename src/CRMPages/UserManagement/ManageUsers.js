@@ -40,7 +40,7 @@ const UsersView = (props) => {
       data.map(value => {
         const { loginid, loginName, firstname, lastname, EmailAddress, Loginstatus } = value;
         return tempDataSource.push({
-          loginid: <Link to={{ pathname: `/admin/userManagement/UserRights/${loginid}` }}>{loginid}</Link>,
+          loginid: <Link to={{ pathname: `/admin/userManagement/UserRights/${loginid}` , loginid: {loginid}}}>{loginid}</Link>,
           loginName: loginName,
           firstname: firstname,
           lastname: lastname,
