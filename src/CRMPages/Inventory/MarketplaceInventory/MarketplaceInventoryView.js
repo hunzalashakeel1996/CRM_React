@@ -13,7 +13,7 @@ import Ebay from './overview/Ebay';
 
 import { downloadFile } from '../../../components/utilities/utilities'
 
-import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi } from '../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl,getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi } from '../../../redux/apis/DataAction';
 
 
 const { TabPane } = Tabs;
@@ -51,7 +51,7 @@ const MarketplaceInventoryView = (props) => {
     const tabChildBar = JSON.parse(userAccess.child_bar)['Marketplace Inventory'];
 
     //  get vendors from redux 
-    let vendornameState = useSelector(state => state.tickets.vendornames);
+   let vendornameState = useSelector(state => state.tickets.vendornames);
 
     const dispatch = useDispatch();
 
@@ -66,7 +66,8 @@ const MarketplaceInventoryView = (props) => {
         collectionState: [],
         categorynameState: [],
         puStatusState: [],
-        loaderState: true
+        loaderState: true,
+        
     });
 
     const { downloadDataState, summaryDataState, brandnameState, collectionState, categorynameState, puStatusState, loaderState } = state;
@@ -74,7 +75,7 @@ const MarketplaceInventoryView = (props) => {
     useEffect(() => {
 
 
-        Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
+        Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => { 
              //   console.log('promise All',data)
             setState({...state, brandnameState: data[0][0].brandname.split(","),
                 collectionState: data[1][0].collectionname.split(","), categorynameState: data[2][0].categoryname.split(","), puStatusState: data[3][0].pustatus.split(","), loaderState: false

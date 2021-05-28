@@ -53,7 +53,7 @@ const ReportView = (props) => {
 
 
     let vendorNames = useSelector(state => state.tickets.vendornames);
-    // console.log('redux',vendorNames)
+    console.log('redux',vendorNames)
 
     const [state, setState] = useState({
         controls: { ...formInit },

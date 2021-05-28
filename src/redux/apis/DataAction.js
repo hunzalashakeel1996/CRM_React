@@ -22,10 +22,10 @@ export const url = "http://192.168.0.197:3005";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
-//export const urlDotNet ="http://localhost:47463/api"
+export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-export const urlDotNet = "https://crm.rizno.com/api"
+//export const urlDotNet = "https://crm.rizno.com/api"
 
 // export const url = "https://crmserver-development.herokuapp.com";
 
@@ -620,6 +620,9 @@ export const getvendor = (data) => {
     return apiFetchDotNet('newInventory/getVendor_active', "GET",headerDotNetWithJwt);
 };
 
+export const getVendorName = (data) => {
+    return apiFetchDotNet('newInventory/getVendorname', "GET",headerDotNetWithJwt);
+};
 export const getUpdateVendorInventoryapi = (data) => {
 
     return apiFetchDotNet('newInventory/updateVendorInventory', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
@@ -813,8 +816,13 @@ export const getEbayHtmlapi = (data) => {
 // };.
 
 export const loginAPI = (data) => {
-    return apiFetchDotNet('Users/login/', "POST", header, JSON.stringify( data ));
+    return apiFetchDotNet('Users/login', "POST", header, JSON.stringify( data ));
 };
+
+export const logoutAPI = (data) => {
+    return apiFetchDotNet('Users/logoutCRM', "POST", header, JSON.stringify( data ));
+};
+
 
 export const addTicketAPI = (data) => {
     return apiFetch('api/ticket/addTicket', "POST", headerWithWebToken, JSON.stringify({ data }));
@@ -865,9 +873,9 @@ export const getCustomerDetailAPI = (data) => {
     return apiFetch('api/ticket/getCustomerDetail', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
-export const logoutAPI = (data) => {
-    return apiFetch('api/login/logout', "POST", header, JSON.stringify({ data }));
-};
+// export const logoutAPI = (data) => {
+//     return apiFetch('api/login/logout', "POST", header, JSON.stringify({ data }));
+// };
 
 export const TicketStatusChangeAPI = (data) => {
     return apiFetch('api/ticket/TicketStatusChange', "POST", headerWithWebToken, JSON.stringify({ data }));
@@ -886,9 +894,9 @@ export const downloadallmpreport = (data) => {
     return apiFetch('api/shipping/allmpreport', "POST", headerWithWebToken, JSON.stringify({}));
 };
 
-export const getVendorName = (data) => {
-    return apiFetch('api/general/getVendorname', "POST", headerWithWebToken, JSON.stringify());
-};
+// export const getVendorName = (data) => {
+//     return apiFetch('api/general/getVendorname', "POST", headerWithWebToken, JSON.stringify());
+// };
 
 
 export const insertPractice = () => {

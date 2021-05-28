@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FacebookOutlined, TwitterOutlined } from '@ant-design/icons';
 import { AuthWrapper } from './style';
 import { login } from '../../../../redux/authentication/actionCreator';
-import { loginAPI, setHeader, getUserRole, setHeaderWithWebToken } from '../../../../redux/apis/DataAction';
+import { loginAPI, setHeader, getUserRole, setHeaderWithWebToken, getVendorName } from '../../../../redux/apis/DataAction';
 import { Checkbox } from '../../../../components/checkbox/checkbox';
 import Heading from '../../../../components/heading/heading';
 import firebase from './../../../../firebase';
-import { Spin } from 'antd';
+import { Spin, notification } from 'antd';
+import { addDepart,addVendorName } from '../../../../redux/ticket/actionCreator';
 
 const SignIn = () => {
   const history = useHistory();
@@ -23,11 +24,9 @@ const SignIn = () => {
   });
   const handleSubmit = (value) => {
     Notification.requestPermission().then(permission => {
-      // if (permission == 'granted') {
+      if (permission == 'granted') {
       navigator.serviceWorker.getRegistration().then(async (reg) => {
-        let title = 'Reminder from CRM';
-        let body = 'Provide details to Paul on skype';
-        if (reg)
+        if (reg){
           firebase.messaging().getToken()
             .then(token => {
               setState({ ...state, loader: true })
@@ -37,29 +36,33 @@ const SignIn = () => {
                     alert(data.err)
                   else {
                     data = { ...data[0][0], jwtToken: data[1] }
-                    console.log('user', data)
                     dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
-                      console.log(dataOne);
                       localStorage.setItem('userRole', JSON.stringify(dataOne))
                       localStorage.setItem('user', JSON.stringify(data))
                       dispatch(login(data));
                       setHeaderWithWebToken()
-                      // setTimeout(() => {
-                        setState({ ...state, loader: false })
-                        history.push('/admin');
-
-                      // }, 1000);
+                      setState({ ...state, loader: false })
+                      dispatch(getVendorName({})).then(departs => {
+                        console.log('aaaa', departs)
+                        dispatch(addVendorName(departs[0]))
+                        // setState({ ...state, departs, loader: false  });
+                      })
+                      history.push('/admin');
                     })
                   }
                 })
             })
+          }
       });
-      // }
-      // else {
-      //   alert('Please grant access for notification through (i) icon')
-      //   Notification.requestPermission().then(result => {
-      //   })
-      // }
+      }
+      else {
+        notification['info']({
+          duration: 0,
+          message: 'Sorry',
+          description:
+              'Please allow access for notification through (i) icon',
+      });
+      }
     });
 
   };
