@@ -8,21 +8,20 @@ export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
 // export const socketUrl = "ws://3.131.5.41:3000"
-export const socketUrl = "wss://3.131.5.41:3000"
-// sadsa
+export const socketUrl = "wss://crm.rizno.com:3001"
 // export const socketUrl = "wss://crm.rizno.com"
 
-// export const url = "http://192.168.0.177:3001";
+//##################### Node Server Live ########################
 export const url = "https://crm.rizno.com:3001";
+//##################### Node Server Local ########################
+// export const url = "http://192.168.0.177:3001";
 
-// export const url = "http://192.168.4.104:3000";
-// export const url = "https://pu-crm-backend-develop.herokuapp.com";
-// export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
+//#################### Dot NET Local URL ####################
 // export const urlDotNet ="http://localhost:47463/api"
-// export const urlDotNet = "http://74.208.31.179:8520/crm_3.0/api"
+
+//#################### Dot NET Live URL ####################
 export const urlDotNet = "https://crm.rizno.com/api"
 
-// export const url = "https://crmserver-development.herokuapp.com";
 
 export const uploadUrl = "https://images.vanwala.pk";
 
@@ -615,6 +614,9 @@ export const getvendor = (data) => {
     return apiFetchDotNet('newInventory/getVendor_active', "GET",headerDotNetWithJwt);
 };
 
+export const getVendorName = (data) => {
+    return apiFetchDotNet('newInventory/getVendorname', "GET",headerDotNetWithJwt);
+};
 export const getUpdateVendorInventoryapi = (data) => {
 
     return apiFetchDotNet('newInventory/updateVendorInventory', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
@@ -808,8 +810,13 @@ export const getEbayHtmlapi = (data) => {
 // };.
 
 export const loginAPI = (data) => {
-    return apiFetchDotNet('Users/login/', "POST", header, JSON.stringify( data ));
+    return apiFetchDotNet('Users/login', "POST", header, JSON.stringify( data ));
 };
+
+export const logoutAPI = (data) => {
+    return apiFetchDotNet('Users/logoutCRM', "POST", header, JSON.stringify( data ));
+};
+
 
 export const addTicketAPI = (data) => {
     return apiFetch('api/ticket/addTicket', "POST", headerWithWebToken, JSON.stringify({ data }));
@@ -860,9 +867,9 @@ export const getCustomerDetailAPI = (data) => {
     return apiFetch('api/ticket/getCustomerDetail', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
-export const logoutAPI = (data) => {
-    return apiFetch('api/login/logout', "POST", header, JSON.stringify({ data }));
-};
+// export const logoutAPI = (data) => {
+//     return apiFetch('api/login/logout', "POST", header, JSON.stringify({ data }));
+// };
 
 export const TicketStatusChangeAPI = (data) => {
     return apiFetch('api/ticket/TicketStatusChange', "POST", headerWithWebToken, JSON.stringify({ data }));
@@ -881,9 +888,9 @@ export const downloadallmpreport = (data) => {
     return apiFetch('api/shipping/allmpreport', "POST", headerWithWebToken, JSON.stringify({}));
 };
 
-export const getVendorName = (data) => {
-    return apiFetch('api/general/getVendorname', "POST", headerWithWebToken, JSON.stringify());
-};
+// export const getVendorName = (data) => {
+//     return apiFetch('api/general/getVendorname', "POST", headerWithWebToken, JSON.stringify());
+// };
 
 
 export const insertPractice = () => {
@@ -965,7 +972,7 @@ export const getUserRights = (data) => {
 
 
 export const chartAmazonData = (data) => {
-    console.log('Data Action',JSON.parse(localStorage.getItem('user')).jwtToken)
+
     return apiFetchDotNet('Orders/OrdersREPORT', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const chartWalmartData = (data) => {

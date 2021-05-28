@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FacebookOutlined, TwitterOutlined } from '@ant-design/icons';
 import { AuthWrapper } from './style';
 import { login } from '../../../../redux/authentication/actionCreator';
-import { loginAPI, setHeader, getUserRole, setHeaderWithWebToken } from '../../../../redux/apis/DataAction';
+import { loginAPI, setHeader, getUserRole, setHeaderWithWebToken, getVendorName } from '../../../../redux/apis/DataAction';
 import { Checkbox } from '../../../../components/checkbox/checkbox';
 import Heading from '../../../../components/heading/heading';
 import firebase from './../../../../firebase';
 import { Spin, notification } from 'antd';
+import { addDepart,addVendorName } from '../../../../redux/ticket/actionCreator';
 
 const SignIn = () => {
   const history = useHistory();
@@ -35,14 +36,17 @@ const SignIn = () => {
                     alert(data.err)
                   else {
                     data = { ...data[0][0], jwtToken: data[1] }
-                    console.log('user', data)
                     dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
-                      console.log(dataOne);
                       localStorage.setItem('userRole', JSON.stringify(dataOne))
                       localStorage.setItem('user', JSON.stringify(data))
                       dispatch(login(data));
                       setHeaderWithWebToken()
                       setState({ ...state, loader: false })
+                      dispatch(getVendorName({})).then(departs => {
+                        console.log('aaaa', departs)
+                        dispatch(addVendorName(departs[0]))
+                        // setState({ ...state, departs, loader: false  });
+                      })
                       history.push('/admin');
                     })
                   }

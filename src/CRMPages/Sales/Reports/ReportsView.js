@@ -53,7 +53,7 @@ const ReportView = (props) => {
 
 
     let vendorNames = useSelector(state => state.tickets.vendornames);
-    // console.log(vendorNames)
+    console.log('redux',vendorNames)
 
     const [state, setState] = useState({
         controls: { ...formInit },
@@ -127,7 +127,7 @@ const ReportView = (props) => {
                 <ProjectHeader>
                     <PageHeader
                         ghost
-                        title="Reports Section"
+                        // title="Reports Section"
                     />
                 </ProjectHeader>
 
@@ -176,7 +176,7 @@ const ReportView = (props) => {
                                                 placeholder='Search Vendorname'
                                                 onInputChange={(vendorName) => { onValueChange('VendorName', vendorName) }}
                                                 selectedReason={controls.VendorName} style={{ width: '100%' }}
-                                                dataSource={vendorNames.vendorname.split(',')}
+                                                dataSource={vendorNames}
                                                 onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
                                         </Form.Item>}
                                 </Col>

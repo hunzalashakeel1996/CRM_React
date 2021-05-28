@@ -30,7 +30,9 @@ const AuthInfo = ({ rtl }) => {
   const SignOut = e => {
     firebase.messaging().getToken().then(token => {
       let data = {token, LoginName: user.LoginName}
+      console.log('logout',data);
       dispatch(logoutAPI(data)).then(res => {
+        console.log('logout',res);
         localStorage.removeItem('user')
         localStorage.removeItem('userRole')
         window.location.reload(); 

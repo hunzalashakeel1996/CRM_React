@@ -73,11 +73,12 @@ const ProviderConfig = () => {
     dispatch(getDepartsAPI({})).then(departs => {
       dispatch(addDepart(departs))
       // setState({ ...state, departs, loader: false  });
-    }),
-    dispatch(getVendorName({})).then(departs => {
-      dispatch(addVendorName(departs))
-      // setState({ ...state, departs, loader: false  });
     })
+    // dispatch(getVendorName({})).then(departs => {
+    //   console.log('aaaa', departs)
+    //   dispatch(addVendorName(departs[0]))
+    //   // setState({ ...state, departs, loader: false  });
+    // })
     // get vendor api
 
     

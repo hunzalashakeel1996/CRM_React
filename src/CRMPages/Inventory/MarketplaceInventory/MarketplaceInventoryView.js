@@ -13,7 +13,7 @@ import Ebay from './overview/Ebay';
 
 import { downloadFile } from '../../../components/utilities/utilities'
 
-import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi } from '../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl,getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi } from '../../../redux/apis/DataAction';
 
 
 const { TabPane } = Tabs;
@@ -51,7 +51,7 @@ const MarketplaceInventoryView = (props) => {
     const tabChildBar = JSON.parse(userAccess.child_bar)['Marketplace Inventory'];
 
     //  get vendors from redux 
-    let vendornameState = useSelector(state => state.tickets.vendornames);
+   let vendornameState = useSelector(state => state.tickets.vendornames);
 
     const dispatch = useDispatch();
 
@@ -66,7 +66,8 @@ const MarketplaceInventoryView = (props) => {
         collectionState: [],
         categorynameState: [],
         puStatusState: [],
-        loaderState: true
+        loaderState: true,
+        
     });
 
     const { downloadDataState, summaryDataState, brandnameState, collectionState, categorynameState, puStatusState, loaderState } = state;
@@ -74,8 +75,8 @@ const MarketplaceInventoryView = (props) => {
     useEffect(() => {
 
 
-        Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
-                console.log('promise All',data)
+        Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => { 
+             //   console.log('promise All',data)
             setState({...state, brandnameState: data[0][0].brandname.split(","),
                 collectionState: data[1][0].collectionname.split(","), categorynameState: data[2][0].categoryname.split(","), puStatusState: data[3][0].pustatus.split(","), loaderState: false
             })
@@ -160,7 +161,7 @@ const MarketplaceInventoryView = (props) => {
 
                 dispatch(requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY' ? getInventoryWalmartapi(requestObjInventroy) : getInventoryWalmart_all_otherapi(requestObjInventroy)).then(data => {
                     setState({ ...state, loaderState: false })
-                    // console.log(data[0])
+                     console.log(data)
                     var link = data
 
                     var datalink = link;
@@ -394,31 +395,7 @@ const MarketplaceInventoryView = (props) => {
                             </TabPane>)
 
                     ))}
-                    {/* <TabPane tab="Amazon PU" key="Amazon PU">
-                        <AmazonPU genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-                    </TabPane>
-                    <TabPane tab="Amazon Rizno" key="Amazon Rizno">
-                        <AmazonRizno genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-                    </TabPane>
-                    <TabPane tab="Amazon UAE" key="Amazon UAE">
-                        <AmazonUAE genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-                    </TabPane>
-                    <TabPane tab="Amazon Canada" key="Amazon Canada">
-                        <AmazonCanada genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-                    </TabPane>
-                    <TabPane tab="Walmart" key="Walmart">
-                        <Walmart genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-
-                    </TabPane>
-                    <TabPane tab="Walmart Canada" key="Walmart Canada">
-                        <WalmartCanada genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-                    </TabPane>
-                    <TabPane tab="Sears" key="Sears">
-                        <Sears genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-                    </TabPane>
-                    <TabPane tab="Ebay" key="Ebay">
-                        <Ebay genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
-                    </TabPane> */}
+                 
                 </Tabs>
 
             </Spin >

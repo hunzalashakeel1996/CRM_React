@@ -20,7 +20,7 @@ const downloadFile = (data) => {
   var a = document.createElement('a');
   a.href = `https://crm.rizno.com/admin/${data}`;
   a.target = '_blank';
-  // a.download = `http://localhost:47463/admin/${data}`;
+  //a.download = `https://crm.rizno.com/admin/${data}`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

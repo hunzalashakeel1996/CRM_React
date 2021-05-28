@@ -19,7 +19,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
           selectedRowKeys: null,
           selectedRows: null,
           values: {},
-          isLoader: false,
+          isLoader: true,
           dataSource:[]
         });
 
@@ -44,8 +44,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
         
           let counter = 0;
         dispatch(getThermalBags("")).then(data => {
-          setState({ ...state, isLoader: false })
-          console.log('My Data: ', data)
+      
           let tempdatasource = []
           if (data.length)
           data.map(value => {
@@ -68,7 +67,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
               });
               
           });
-          setState({...state,dataSource:tempdatasource})
+          setState({...state,dataSource:tempdatasource, isLoader: false })
         })
       }, []);
         
