@@ -52,7 +52,7 @@ const UsersView = (props) => {
         objectToArray = [...objectToArray, ...value]
       })
       setState({ ...state, isLoading: false, sidebars: data[0], userrightJson: JSON.parse(data[1][0].top_navigation), sidebarRights: objectToArray, subChildRights: JSON.parse(data[1][0].child_bar), subparentRights: JSON.parse(data[1][0].top_navigation) });
-      console.log('Mapp', objectToArray);
+      // console.log('Mapp', objectToArray);
     })
 
     // dispatch(getNavigation({})).then(data => {
@@ -96,69 +96,76 @@ const UsersView = (props) => {
 
   // console.log([...state.sidebarRights])
   const onAddSidebarRight = (sidebarOption, parentBar, topNavigationName) => {
-    // console.log('aaa', topNavigationName)
+    // console.log('aaa', parentBar)
 
-    let temp = [...state.sidebarRights]
-    console.log(temp);
-    let subChildRightsTemp = { ...state.subChildRights }
+    // let temp = [...state.sidebarRights]
+
+    let sideBarRightsTemp = { ...state.userrightJson }
+
+    let subChildRightsTemp = { ...state.subChildRights };
 
 
-    console.log('subChildRightsTemp', subChildRightsTemp);
-    let subParentRightsTemp = { ...state.subparentRights }
-    // console.log('89', subParentRightsTemp);
+    // console.log('b',parentBar);
+    // console.log('c', sideBarRightsTemp[parentBar]);
+    if (sideBarRightsTemp[parentBar] === undefined) {
+      // parent not found
+      sideBarRightsTemp = { ...sideBarRightsTemp, [parentBar]: [sidebarOption] }
 
-    if (temp.includes(sidebarOption)) {
-      // remove this sidebar option from array
-      let index = temp.indexOf(sidebarOption)
-      temp.splice(index, 1);
-      delete subChildRightsTemp[sidebarOption]
-      let index2 = subParentRightsTemp[parentBar].indexOf(sidebarOption)
-      subParentRightsTemp[parentBar].splice(index2, 1)
-      if (subParentRightsTemp !== undefined && subParentRightsTemp[parentBar].length === 0) {
-        // console.log('coming')
-        delete subParentRightsTemp[parentBar]
+
+      subChildRightsTemp = { ...subChildRightsTemp, [sidebarOption]: topNavigationName !== undefined ? [topNavigationName] : [null] }
+      // console.log('if');
+      // console.log('if child', subChildRightsTemp);
+    }
+    else if (sideBarRightsTemp[parentBar].includes(sidebarOption)) {
+      // parent and child both included so remove it from array
+      let index = sideBarRightsTemp[parentBar].indexOf(sidebarOption)
+      // console.log(index);
+      sideBarRightsTemp[parentBar].splice(index, 1);
+      // delete key if arrray length become 0 
+      if (sideBarRightsTemp[parentBar].length === 0) {
+        delete sideBarRightsTemp[parentBar];
+        delete subChildRightsTemp[sidebarOption];
       }
-
-    } else {
-      // console.log('else');
-      // insert this sidebat option from array   
-      temp.push(sidebarOption)
-      subChildRightsTemp[sidebarOption] = [];
-      subChildRightsTemp[sidebarOption].push(topNavigationName);
-
-      subParentRightsTemp = {
-        ...subParentRightsTemp,
-        [parentBar]: subParentRightsTemp.hasOwnProperty(parentBar) ? [...subParentRightsTemp[parentBar],
-          sidebarOption] : [sidebarOption]
-      }
+      // console.log('else if', sideBarRightsTemp);
 
     }
+    else {
+      // parent found but child is not found so push that child
+      sideBarRightsTemp[parentBar].push(sidebarOption)
 
-    console.log('right ', subParentRightsTemp)
-    setState({ ...state, sidebarRights: temp, subChildRights: subChildRightsTemp, subparentRights: subParentRightsTemp })
-    // console.log('subparentRights',state.subparentRights);
-  };
+      subChildRightsTemp = { ...subChildRightsTemp, [sidebarOption]: topNavigationName !== undefined ? [topNavigationName] : [null] }
+
+      console.log({ ...subChildRightsTemp, [sidebarOption]: [topNavigationName] });
+
+    }
+    console.log('sideBarRightsTemp', sideBarRightsTemp);
+    console.log('subChildRightsTemp', subChildRightsTemp);
+
+    setState({ ...state, userrightJson: sideBarRightsTemp, subChildRights: subChildRightsTemp })
+  }
+
+
+
 
   const onAddTopNavigationRight = (parentName, topNavigationName) => {
-    console.log(state.subChildRights)
     let temp = { ...state.subChildRights }
 
+    if (temp[parentName] == undefined) {
+      temp = { ...temp, [parentName]: [topNavigationName] }
 
-    if (state.subChildRights[parentName].includes(topNavigationName)) {
+    }
+    else if (state.subChildRights[parentName].includes(topNavigationName)) {
       // console.log(state.subChildRights);
       let index = temp[parentName].indexOf(topNavigationName)
       temp[parentName].splice(index, 1);
-
-      // if(temp[parentName].length ===0)
-      // {
-      //   console.log('coming IN CHILD');
-      //   delete temp[parentName]
-      // }
+      if (temp[parentName].length === 0) {
+        delete temp[parentName]
+      }
     } else {
       temp[parentName].push(topNavigationName);
     }
-    setState({ ...state, subChildRights: temp })
-    console.log(state.subChildRights)
+    setState({ ...state, subChildRights: { ...temp } })
+    console.log(temp)
   }
 
 
@@ -193,16 +200,16 @@ const UsersView = (props) => {
                         {JSON.parse(sidebar.child_bar).map((singleChildBar, index2) =>
                         (<Col xs={12}>
                           {/* {console.log('vfvd', Object.value(state.userrightJson).includes(singleChildBar))} */}
-                          <Checkbox id={singleChildBar} defaultChecked={state.sidebarRights.includes(singleChildBar)} onChange={() => { onAddSidebarRight(singleChildBar, sidebar.parent_bar, JSON.parse(sidebar.top_navigation)[`${singleChildBar}`][0]) }}>{singleChildBar}</Checkbox>
-                          {/* {console.log(state.userrightJson[`${sidebar.parent_bar}`][index2])}  */}
+                          <Checkbox id={singleChildBar} checked={state.userrightJson[sidebar.parent_bar]?.includes(singleChildBar)} onChange={() => { onAddSidebarRight(singleChildBar, sidebar.parent_bar, JSON.parse(sidebar.top_navigation)[`${singleChildBar}`][0]) }}>{singleChildBar}</Checkbox>
 
 
-                          {(state.sidebarRights.includes(singleChildBar)) &&
+                          {(state.userrightJson[sidebar.parent_bar]?.includes(singleChildBar)) &&
+
                             <Row style={{ marginLeft: 20 }}>
-                              {/* {console.log(JSON.parse(sidebar.top_navigation))}  */}
+
                               {JSON.parse(sidebar.top_navigation)[`${singleChildBar}`].map((topNavigations, index) => (
 
-                                <Checkbox style={{ marginLeft: 10 }} checked={state.subChildRights[singleChildBar]?.includes(topNavigations)} id={topNavigations} onChange={() => { onAddTopNavigationRight(singleChildBar, topNavigations) }}>{topNavigations}</Checkbox>
+                                <Checkbox style={{ marginLeft: 10 }} checked={state.subChildRights[singleChildBar] && state.subChildRights[singleChildBar].includes(topNavigations)} id={topNavigations} onChange={() => { onAddTopNavigationRight(singleChildBar, topNavigations) }}>{topNavigations}</Checkbox>
 
 
                               ))
