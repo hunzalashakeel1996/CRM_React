@@ -27,14 +27,13 @@ const filterReport = (props) => {
             </Row>
             <Cards title={title} style={{ marginLeft: 10 }}>
 
-                <Row gutter={50}>
-                    <Col span={7} >
+                <Row gutter={50} style={{marginBottom: 20}}>
+                    <Col span={8} >
                       
 
-                                <h3>Vendorname</h3>
                           
 
-                                <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('vendorFilter', val, true) }} style={{ width: 300 }}  >
+                                <Select placeholder='Vendor Name' mode="multiple" allowClear onChange={(val) => { props.genrateFilter('vendorFilter', val, true) }} style={{ width: 300 }}  >
                                     {vendornameState.map((val, i) => (
                                         <Option value={`''${val}''`} key={val}>{val}</Option>
 
@@ -47,12 +46,12 @@ const filterReport = (props) => {
 
 
 
-                    <Col span={7}>
+                    <Col span={8}>
 
                         
-                                <h3>Brandname</h3>
+                                {/* <h3>Brandname</h3> */}
                            
-                                <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('brandFilter', val, true) }} style={{ width: 300 }}>
+                                <Select placeholder='Brand Name' mode="multiple" allowClear onChange={(val) => { props.genrateFilter('brandFilter', val, true) }} style={{ width: 300 }}>
                                     {brandnameState.map((val, i) => (
                                         <Option value={val} key={val}>{val}</Option>
                                     ))}
@@ -61,13 +60,13 @@ const filterReport = (props) => {
                           
 
                     </Col>
-                    <Col span={7} >
+                    <Col span={8} >
                         
 
-                                <h3>Collection</h3>
+                                {/* <h3>Collection</h3> */}
                           
                        
-                                <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('collectionFilter', val, true) }} style={{ width: 300 }}>
+                                <Select placeholder='Collection' mode="multiple" allowClear onChange={(val) => { props.genrateFilter('collectionFilter', val, true) }} style={{ width: 300 }}>
                                     {collectionState.map((val, i) => (
                                         <Option value={val} key={val}>{val}</Option>
                                     ))}
@@ -82,13 +81,13 @@ const filterReport = (props) => {
 
                 </Row>
 
-                <Row  gutter={50} style={{ marginTop: 10 }}>
-                    <Col span={7}>
+                <Row  gutter={50} style={{ marginTop: 10, marginBottom: 20 }}>
+                    <Col span={8}>
 
                       
-                                <h3>Category</h3>
+                                {/* <h3>Category</h3> */}
                         
-                                <Select mode="multiple" allowClear onChange={(val) => { props.genrateFilter('categoryFilter', val, true) }} style={{ width: 300 }}>
+                                <Select placeholder='Category' mode="multiple" allowClear onChange={(val) => { props.genrateFilter('categoryFilter', val, true) }} style={{ width: 300 }}>
                                     {categorynameState.map((val, i) => (
                                         <Option value={val} key={val}>{val}</Option>
                                     ))}
@@ -97,12 +96,12 @@ const filterReport = (props) => {
                        
 
                     </Col>
-                    <Col span={7} >
+                    <Col span={8} >
                         
 
-                                <h3>Type</h3>
+                                {/* <h3>Type</h3> */}
                         
-                                <Select onChange={(val) => { props.genrateFilter('typeFilter', val, false) }} style={{ width: 300 }}>
+                                <Select  placeholder='Type' onChange={(val) => { props.genrateFilter('typeFilter', val, false) }} style={{ width: 300 }}>
                                     {Type.map((val, i) => (
                                         <Option value={val} key={val}>{val}</Option>
                                     ))}
@@ -113,14 +112,14 @@ const filterReport = (props) => {
 
 
 
-                    <Col span={7}>
+                    <Col span={8}>
 
                       
 
-                                <h3>PU Status</h3>
+                                {/* <h3>PU Status</h3> */}
                           
                       
-                                <Select onChange={(val) => { props.genrateFilter('statusFilter', val, false) }} style={{ width: 300 }}>
+                                <Select placeholder='PU Status' onChange={(val) => { props.genrateFilter('statusFilter', val, false) }} style={{ width: 300 }}>
                                     {puStatusState.map((val, i) => (
                                         <Option value={val} key={val}>{val}</Option>
                                     ))}
@@ -133,12 +132,12 @@ const filterReport = (props) => {
                 </Row>
                 <Row style={{ marginTop: 10 }}>
                 <Col span={6}>
-                        <Row >
+                        {/* <Row >
                             <Col >
 
                                 <h3>Style Code</h3>
                             </Col>
-                        </Row>
+                        </Row> */}
                         <Row >
                             <Col >
                                 <Input onChange={(event) => { props.genrateFilter('stylecodeFilter', event.target.value, false) }} style={{ width: 300 }} placeholder="Style Code" />

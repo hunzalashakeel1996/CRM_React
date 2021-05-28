@@ -1,7 +1,9 @@
-import React, { lazy, Suspense, useEffect, useState, useDispatch } from 'react';
-import { Input, Tabs, Form, Col, DatePicker, Table, Upload, Row, Radio, Select } from 'antd';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
+import { Input, Tabs, Form, Col, DatePicker, Table, Upload, Row, Radio, Select, notification, Spin } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import { ProjectHeader, ProjectList } from '../../Tickets/style';
 import { PageHeader } from '../../../components/page-headers/page-headers';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
@@ -12,170 +14,156 @@ import Heading from '../../../components/heading/heading';
 import { CardBarChart2, EChartCard } from '../../Dashboard (old)/style';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
+import { chartSaleData} from '../../../redux/apis/DataAction';
+import SaleReport from '../../Dashboard/ComparisonReport/overview/SaleReport';
 
 
 
 const ReportView = (props) => {
-  const [state, setState] = useState({
+
+  var Type =[];
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   // let orders = {...totalReport}
+  //   // let sales = {...salesReport}
+  //   // let item = {...itemReport}
+    
+  //   setstate({ ...state, loader: true })
+
+  // }, []);
+
+
+  const [state, setstate] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
     selectedRows: null,
     values: {},
-    value: "Default",
-    products: 'year'
+    rType: "Default",
+    products: 'year',
+    electionType: 'checkbox',
+    date: null,
+    dateString: null,
+    checkData: [],
+    checked: null,
+    values: {},
+    AddDays: null,
+    isLoader: false,
+    oType: '1',
+    dataSource: [],
+    dataSourceCRM :[],
+    dataSourceCRMPU :[],
+    dataSourceCRMJLC :[],
+    dataSourceCRMWM :[],
+    dataSale:[[]]
+  
   });
 
 
+  const {dataSource, loaderState,dataSale } = state;
 
+
+  const onChangeDefault = (e) => {
+    console.log(e);
+    setstate({ ...state, rType: e.target.value })
+
+  }
 
 
   const onChange = (e) => {
     console.log(e);
+    setstate({ ...state, oType: e })
 
-    setState({ ...state, value: e.target.value })
   }
 
-  const columns = [
+  const onDateChange = (value, key) => {
+    setstate({ ...state, [key]: value });
+
+  };
+
+
+
+  const getOverViewReporting = () => {
+
+    setstate({ ...state, isLoader: true })
+    console.log(state.rType);
+    if (state.rType == 'Date') {
+
+      dispatch(chartSaleData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY'), oType: '1', rType: state.rType })).then(data => {
+        console.log(data)
+      
+
+        // setstate({ ...state,dataSale:data,isLoader: false })
+        console.log('My Data: ', data)
+        //downloadFile(data);
+        notification.success({
+          message: 'Successfull Rendered',
+          description: `Successfully Rendered Sales Reports From ${state.startDate.format('MM/DD/YYYY')}`,
+          onClose: close,
+        });
+        let tempDataSource = [];
+        // console.log(data);
+        data[0].map(value => {
+          console.log(value)
+          const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
+       
+
+          return tempDataSource.push({
+            TYPE: TYPE,
+            TOTALORDER: TOTALORDER,
+            ITEMCOUNT: ITEMCOUNT,
+            TOTALAMOUNT: TOTALAMOUNT,
+          });
+
+        });
+        setstate({ ...state, dataSource: [...tempDataSource], isLoader: false,dataSale:data });
+      })
+
+    }else if(state.rType == 'Default')
     {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-      width: 100,
-      fixed: 'left',
-      filters: [
-        {
-          text: 'Today',
-          value: 'Today',
-        },
-        {
-          text: 'Week',
-          value: 'Week',
-        },
-        {
-          text: 'May',
-          value: 'May',
-        },
-        {
-          text: 'Over All',
-          value: 'Over All',
-        },
-      ],
-      onFilter: (value, record) => record.type.indexOf(value) === 0,
-    },
-    // {
-    //   title: 'Other',
-    //   children: [
-    //     {
-    //       title: 'Age',
-    //       dataIndex: 'age',
-    //       key: 'age',
-    //       width: 150,
-    //       sorter: (a, b) => a.age - b.age,
-    //     },
+     
+      dispatch(chartSaleData({ FROMDATE: '', TODATE: '', oType: state.oType, rType: state.rType })).then(data => {
+      
+        // setstate({ ...state,dataSale:data, isLoader: false })
+        console.log('My Data: ', data)
+        //downloadFile(data);
+        notification.success({
+          message: 'Successfull Rendered',
+          description: `Successfully Rendered Sales Reports }`,
+          onClose: close,
+        });
+        let tempDataSource = [];
+        // console.log(data);
+        data[0].map(value => {
+          // console.log(value)
+          const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
+          
+         
 
-    //   ],
-    // },
-    {
-      title: 'Orders',
-      children: [
-        {
-          title: '2020',
-          dataIndex: 'orders2020',
-          key: 'orders20202020',
-          // width: 200,
-          width: 80,
-        },
-        {
-          title: '2021',
-          dataIndex: 'orders20202021',
-          key: 'orders20202021',
-          width: 80,
-        },
-      ],
-    },
-    {
-      title: 'Sales',
-      children: [
-        {
-          title: '2020',
-          dataIndex: 'sales2020',
-          key: 'sales2020',
-          // width: 200,
-          width: 100,
-        },
-        {
-          title: '2021',
-          dataIndex: 'sales2021',
-          key: 'sales2021',
-          width: 100,
-        },
-      ],
-    },
-    {
-      title: 'Pending',
-      children: [
-        {
-          title: '2020',
-          dataIndex: 'pending2020',
-          key: 'pending2020',
-          // width: 200,
-          width: 80,
-        },
-        {
-          title: '2021',
-          dataIndex: 'pending2021',
-          key: 'pending2021',
-          width: 80,
-        },
-      ],
-    },
-    {
-      title: 'Return',
-      children: [
-        {
-          title: '2020',
-          dataIndex: 'return2020',
-          key: 'return2020',
-          // width: 200,
-          width: 80,
-        },
-        {
-          title: '2021',
-          dataIndex: 'return2021',
-          key: 'return2021',
-          width: 80,
-        },
-      ],
-    },
+          
+          return tempDataSource.push({
+            TYPE: TYPE,
+            TOTALORDER: TOTALORDER,
+            ITEMCOUNT: ITEMCOUNT,
+            TOTALAMOUNT: TOTALAMOUNT,
+          });
 
-  ];
+        });
+        setstate({ ...state, dataSource: [...tempDataSource], isLoader: false, dataSale:data });
+      })
+    }
+
+
+  };
 
 
 
 
-  const data = [];
-  for (let i = 0; i < 3; i++) {
-    data.push({
-      key: i,
-      type: 'John Brown',
-      age: i + 1,
-      street: 'Lake Park',
-      building: 'C',
-      number: 2035,
-      companyAddress: 'Lake Street 42',
-      companyName: 'SoftLake Co',
-      gender: 'M',
-    });
-  }
 
-
-
-  const handleChange = (data) => {
-    console.log('ds', data)
-  }
 
   return (
+
     <>
+    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
       <div>
 
 
@@ -185,7 +173,7 @@ const ReportView = (props) => {
             <Form>
               <Row >
                 <Col span={4} style={{ marginTop: 15 }}>
-                  <Radio.Group onChange={onChange} value={state.value}>
+                  <Radio.Group onChange={onChangeDefault} value={state.rType}>
                     <Radio value={"Default"}>Default</Radio>
                     <Radio value={"Date"}>Date</Radio>
                   </Radio.Group>
@@ -193,32 +181,39 @@ const ReportView = (props) => {
 
                 <Col span={14}>
 
-                  {state.value == "Default" ?
-                    <Select defaultValue="Today" style={{ width: 120, marginTop: 7 }} onChange={handleChange}>
-                      <Option value="Today">Today</Option>
-                      <Option value="1 Week">1 Week</Option>
-                      <Option value="1 Month">1 Month</Option>
+                  {state.rType == "Default" ?
+                    <Select
+                      showSearch
+                      style={{ width: 300 }}
+                      size="large"
+                      placeholder="Search By"
+                      optionFilterProp="children"
+                      onChange={(value) => { onChange(value, 'value') }}
+                      filterOption={(input, option) =>
+                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      <Option value="1">Today</Option>
+                      <Option value="7">Week</Option>
+                      <Option value="30">Month</Option>
                     </Select>
                     :
                     <Col>
-                      <DatePicker style={{ padding: 10, marginRight: 15 }} size='small' />
+                      <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onDateChange(date, 'startDate') }} />
 
-                      <DatePicker style={{ padding: 10 }} size='small' />
+                      <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onDateChange(date, 'endDate') }} />
                     </Col>
 
                   }
                 </Col>
 
                 <Col span={6}>
-                  <Button style={{ marginTop: 7 }} key="1" type="primary" size="default" htmlType="submit">
+                  <Button onClick={getOverViewReporting} style={{ marginTop: 7 }} key="1" type="primary" size="default" htmlType="submit">
                     Search
                   </Button>
+                  
 
-                  {/* <Form.Item name="startDate" rules={[{ required: true }]}>
-                
-                    <DatePicker style={{ padding: 10 }} size='small' />
-                   
-                  </Form.Item> */}
+                  
 
                 </Col>
 
@@ -228,384 +223,54 @@ const ReportView = (props) => {
 
           </Cards>
         </Row>
-
+        <Row gutter={20}>
+        
+       
+        </Row>
       </div>
 
- 
-        <Row gutter={25}>
-          <Col span={6}>
-            <Cards headless>
-              <EChartCard>
-                <div className="card-chunk">
-                  <CardBarChart2>
-                    {/* <span>PU</span> */}
-                    <Heading as="h1">PU</Heading>
-                    <h3>Total $7,461</h3>
-                    <h3>Item 461</h3>
-                    <h3>Sales $70,461</h3>
-                    {/* <span>Orders</span> */}
-                    {/* <p>
-                      <span className="growth-upward">
-                        <FeatherIcon icon="arrow-up" /> 25%
-                      </span>
-                      <span>Since last week</span>
-                    </p> */}
-                  </CardBarChart2>
-                </div>
-              </EChartCard>
-            </Cards>
-          </Col>
-          <Col span={6}>
-            <Cards headless>
-              <EChartCard>
-                <div className="card-chunk">
-                  <CardBarChart2>
-                    {/* <span>PU</span> */}
-                    <Heading as="h1">PU</Heading>
-                    <h3>Total $7,461</h3>
-                    <h3>Item 461</h3>
-                    <h3>Sales $70,461</h3>
-                    {/* <span>Orders</span> */}
-                    {/* <p>
-                      <span className="growth-upward">
-                        <FeatherIcon icon="arrow-up" /> 25%
-                      </span>
-                      <span>Since last week</span>
-                    </p> */}
-                  </CardBarChart2>
-                </div>
-              </EChartCard>
-            </Cards>
-          </Col>
-          <Col span={6}>
-            <Cards headless>
-              <EChartCard>
-                <div className="card-chunk">
-                  <CardBarChart2>
-                    {/* <span>PU</span> */}
-                    <Heading as="h1">PU</Heading>
-                    <h3>Total $7,461</h3>
-                    <h3>Item 461</h3>
-                    <h3>Sales $70,461</h3>
-                    {/* <span>Orders</span> */}
-                    {/* <p>
-                      <span className="growth-upward">
-                        <FeatherIcon icon="arrow-up" /> 25%
-                      </span>
-                      <span>Since last week</span>
-                    </p> */}
-                  </CardBarChart2>
-                </div>
-              </EChartCard>
-            </Cards>
-          </Col>
-          <Col span={6}>
-            <Cards headless>
-              <EChartCard>
-                <div className="card-chunk">
-                  <CardBarChart2>
-                    {/* <span>PU</span> */}
-                    <Heading as="h1">PU</Heading>
-                    <h3>Total $7,461</h3>
-                    <h3>Item 461</h3>
-                    <h3>Sales $70,461</h3>
-                    {/* <span>Orders</span> */}
-                    {/* <p>
-                      <span className="growth-upward">
-                        <FeatherIcon icon="arrow-up" /> 25%
-                      </span>
-                      <span>Since last week</span>
-                    </p> */}
-                  </CardBarChart2>
-                </div>
-              </EChartCard>
-            </Cards>
-          </Col>
+
+      <Row gutter={25}>
+        {state.dataSource.map((value) => (
           
-         
-         
-        </Row>
+          <Col span={6}>
+          <Cards headless>
+            <EChartCard>
+              <div >
+                <CardBarChart2 >
+            
+                  <Heading as="h2" style={{fontColor: "Blue"}} >
+                    {value.TYPE}</Heading>
+                  <h3>Orders {value.TOTALORDER}</h3>
+                  <h3>Items {value.ITEMCOUNT}</h3>
+                  <h4>Amount $ {value.TOTALAMOUNT.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                    </h4>
 
-        <Row gutter={25}>
-          <Col span={6}>
-            <Cards headless>
-              <EChartCard>
-                {/* <div className="card-chunk"> */}
-                  <CardBarChart2>
-                    {/* <span>PU</span> */}
-                    <Heading as="h1"  style={{color:'red'}}>PU</Heading>
-                    <h3>Total $7,461</h3>
-                    <h3>Item 461</h3>
-                    <h3>Sales $70,461</h3>
-                    {/* <span>Orders</span> */}
-                    {/* <p>
-                      <span className="growth-upward">
-                        <FeatherIcon icon="arrow-up" /> 25%
-                      </span>
-                      <span>Since last week</span>
-                    </p> */}
-                  </CardBarChart2>
-                {/* </div> */}
-              </EChartCard>
-            </Cards>
-          </Col>
-          <Col span={6}>
-            <Cards headless>
-              <EChartCard>
-                <div className="card-chunk">
-                  <CardBarChart2>
-                    {/* <span>PU</span> */}
-                    <Heading as="h1">PU</Heading>
-                    <h3>Total $7,461</h3>
-                    <h3>Item 461</h3>
-                    <h3>Sales $70,461</h3>
-                    {/* <span>Orders</span> */}
-                    {/* <p>
-                      <span className="growth-upward">
-                        <FeatherIcon icon="arrow-up" /> 25%
-                      </span>
-                      <span>Since last week</span>
-                    </p> */}
-                  </CardBarChart2>
-                </div>
-              </EChartCard>
-            </Cards>
-          </Col>
-          <Col span={6}>
-            <Cards headless>
-              <EChartCard>
-                <div className="card-chunk">
-                  <CardBarChart2>
-                    {/* <span>PU</span> */}
-                    <Heading as="h1">PU</Heading>
-                    <h3>Total $7,461</h3>
-                    <h3>Item 461</h3>
-                    <h3>Sales $70,461</h3>
-                    {/* <span>Orders</span> */}
-                    {/* <p>
-                      <span className="growth-upward">
-                        <FeatherIcon icon="arrow-up" /> 25%
-                      </span>
-                      <span>Since last week</span>
-                    </p> */}
-                  </CardBarChart2>
-                </div>
-              </EChartCard>
-            </Cards>
-          </Col>
-          <Col span={6}>
-            <Cards headless>
-              <EChartCard>
-                <div className="card-chunk">
-                  <CardBarChart2>
-                    {/* <span>PU</span> */}
-                    <Heading as="h1">PU</Heading>
-                    <h3>Total $7,461</h3>
-                    <h3>Item 461</h3>
-                    <h3>Sales $70,461</h3>
-                    {/* <span>Orders</span> */}
-                    {/* <p>
-                      <span className="growth-upward">
-                        <FeatherIcon icon="arrow-up" /> 25%
-                      </span>
-                      <span>Since last week</span>
-                    </p> */}
-                  </CardBarChart2>
-                </div>
-              </EChartCard>
-            </Cards>
-          </Col>
+                </CardBarChart2>
+              </div>
+            </EChartCard>
+          </Cards>
+        </Col>
+        )) }
+        
+        {dataSale[0].length>0&&
+        <Col lg={24} s={24}>
           
-         
-         
-        </Row>
+          <SaleReport data={dataSale}/>
+        </Col>}
 
 
-
-
-
-
-      <Row>
-        <Cards title="Amazon">
-          <Table
-            columns={columns}
-            dataSource={data}
-            bordered
-            size="middle"
-            pagination={false}
-            scroll={{ x: 'calc(700px + 50%)' }}
-          />
-        </Cards>
-      </Row>
-
-      <Row>
-        <Cards title="Walmart">
-          <Table
-            columns={columns}
-            dataSource={data}
-            bordered
-            size="middle"
-            pagination={false}
-            scroll={{ x: 'calc(700px + 50%)' }}
-          />
-        </Cards>
       </Row>
 
 
-      <Row>
-        <Cards title="PU">
-          <Table
-            columns={columns}
-            dataSource={data}
-            bordered
-            size="middle"
-            pagination={false}
-            scroll={{ x: 'calc(700px + 50%)' }}
-          />
-        </Cards>
-      </Row>
 
 
-      <Row>
-        <Cards title="JLC">
-          <Table
-            columns={columns}
-            dataSource={data}
-            bordered
-            size="middle"
-            pagination={false}
-            scroll={{ x: 'calc(700px + 50%)' }}
-          />
-        </Cards>
-      </Row>
-
-
+      </Spin>
 
     </>
+   
   );
 };
 
 export default ReportView;
-
-
-
-{/* <Row> 
-        <Col span={11} >
-          <Cards
-            title="Orders"
-            size="medium"
-            bodypadding="0px"
-          >
-            <div className="table-bordered top-seller-table table-responsive">
-              <Table columns={sellingColumns} dataSource={sellingData} pagination={false} />
-            </div>
-          </Cards>
-        </Col>
-        <Col span={11} style={{ marginLeft: 7 }}>
-          <Cards
-            title="Sales"
-            size="medium"
-            bodypadding="0px"
-          >
-            <div className="table-bordered top-seller-table table-responsive">
-              <Table columns={ordersColumns} dataSource={Orders} pagination={false} />
-            </div>
-          </Cards>
-        </Col>
-
-      </Row>
-      <Row>
-        <Col span={11} >
-          <Cards
-            title="Orders"
-            size="medium"
-            bodypadding="0px"
-          >
-            <div className="table-bordered top-seller-table table-responsive">
-              <Table columns={sellingColumns} dataSource={sellingData} pagination={false} />
-            </div>
-          </Cards>
-        </Col>
-        <Col span={11} style={{ marginLeft: 7 }}>
-          <Cards
-            title="Sales"
-            size="medium"
-            bodypadding="0px"
-          >
-            <div className="table-bordered top-seller-table table-responsive">
-              <Table columns={ordersColumns} dataSource={Orders} pagination={false} />
-            </div>
-          </Cards>
-        </Col>
-
-      </Row> */}
-
-
-      // const sellingColumns = [
-      //   {
-      //     title: 'Type',
-      //     dataIndex: 'name',
-      //     key: 'name'
-
-
-      //   },
-      //   {
-      //     title: '2020',
-      //     dataIndex: 'price',
-      //     key: 'price'
-
-      //   },
-      //   {
-      //     title: '2021',
-      //     dataIndex: 'sold',
-      //     key: 'sold'
-
-      //   }
-      // ];
-
-      // const ordersColumns = [
-
-      //   {
-      //     title: '2020',
-      //     dataIndex: 'sales2020',
-      //     key: 'sales2020',
-      //   },
-      //   {
-      //     title: '2021',
-      //     dataIndex: 'sales2021',
-      //     key: 'sales2021',
-      //   }
-      // ];
-
-
-
-
-      // const Orders = [
-
-      //   {
-      //     sales2020: '$3,780.96',
-      //     sales2021: '$3,780.96',
-      //   },
-      //   {
-      //     sales2020: '$3,783.430.96',
-      //     sales2021: '$3,783.430.96'
-
-      //   }
-      // ]
-
-
-      // const sellingData = [
-      //   {
-      //     name: "In Stock",
-      //     price: 720,
-      //     sold: "$1522"
-      //   },
-      //   {
-      //     name: "Over All",
-      //     price: 23440,
-      //     sold: "$12564"
-      //   }
-      // ]
-
-
 

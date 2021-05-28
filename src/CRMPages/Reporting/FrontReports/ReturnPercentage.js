@@ -5,84 +5,146 @@ import { ProjectHeader, ProjectList } from '../../Tickets/style';
 import { PageHeader } from '../../../components/page-headers/page-headers';
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../components/cards/frame/cards-frame';
-import { downloadFile, getTotals } from '../../../components/utilities/utilities';
 import { Button } from '../../../components/buttons/buttons';
-import {  } from '../../../redux/apis/DataAction';
+import { downloadFile } from '../../../components/utilities/utilities'
+import { getReturnPercentageReport } from '../../../redux/apis/DataAction';
 
 
-
+const { TabPane } = Tabs;
+const { TextArea } = Input;
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const dateFormat = 'YYYY/MM/DD';
+const monthFormat = 'YYYY/MM';
+const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 
 const ReturnPercentage = (props) => {
 
 
   const dispatch = useDispatch();
-
-  const [state, setState] = useState({
-    dataSource: [],
-    isLoading: false,
-    downLoadLink: '',
+  useEffect(() => {
+    setstate({ ...state, loader: true })
+  }, []);
+  const [state, setstate] = useState({
+    selectionType: 'checkbox',
+    selectedRowKeys: null,
+    selectedRows: null,
+    date: null,
+    dateString: null,
+    checkData: [],
+    checked: null,
+    values: {},
+    AddDays: null,
+    isLoader: false,
   });
+  const onChange = (value, key) => {
+    // console.log('aaa', date, dateString)
+    setstate({ ...state, [key]: value });
 
-  const { controls, dataSource, isLoading, downLoadLink } = state
+  };
 
-  const onSubmit = (values) => {
+  const getReturnPercentageReporting = () => {
+    console.log('aaaaa')
+    setstate({ ...state, isLoader: true })
 
-   
-  }
-
-
-  const downloadFiles = () => {
-    setState({ ...state })
-    // console.log("Button 2 clicked!");
-    // console.log(state.downLoadLink);
-
-    if (downLoadLink == "") {
-      notification.error({
-        message: 'Download Failed',
-        description: `Please Select Record First`,
-        onClose: close,
-      });
-    }
-    else {
-
-      downloadFile(downLoadLink);
+    dispatch(getReturnPercentageReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
+      setstate({ ...state, isLoader: false })
+      console.log('My Data: ', data)
+      //downloadFile(data);
       notification.success({
-        message: 'Successfull Dowload',
-        description: `File Downloaded`,
+        message: 'Successfull Rendered',
+        description: `Successfully Rendered Return Percentage Reports From ${state.startDate.format('MM/DD/YYYY')}`,
         onClose: close,
       });
+      let tempDataSource = [];
+      console.log(data[0]);
+      data[1].map(value => {
+         console.log(value)
+        const { vendorstylecode, colorcode,sizename,ordercount,Sold,Return,percentage } = value;
+        const RP = percentage+'%';
+       
+        return tempDataSource.push({
+          vendorstylecode: vendorstylecode,
+          colorcode: colorcode,
+          sizename: sizename,
+          ordercount: ordercount,
+          Sold: Sold,
+          Return: Return,
+          percentage: RP,
+        });
 
-    }
+      });
+      setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
 
-  }
 
-  const onSubmitFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+
+
+    })
+
+  };
+
+  
+  const getReturnPercentageReportingDownlaod = () => {
+    console.log('aaaaa')
+    setstate({ ...state, isLoader: true })
+
+    dispatch(getReturnPercentageReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
+      setstate({ ...state, isLoader: false })
+      console.log('My Data: ', data)
+      downloadFile(data[0]);
+      notification.success({
+        message: 'Successfull Download',
+        description: `Successfully Download Return Percentage From ${state.startDate.format('MM/DD/YYYY')}`,
+        onClose: close,
+      });
+      let tempDataSource = [];
+      console.log(data[0]);
+      data[1].map(value => {
+         console.log(value)
+        const { vendorstylecode, colorcode,sizename,ordercount,Sold,Return,percentage } = value;
+        
+        const RP = percentage+'%';
+        return tempDataSource.push({
+          vendorstylecode: vendorstylecode,
+          colorcode: colorcode,
+          sizename: sizename,
+          ordercount: ordercount,
+          Sold: Sold,
+          Return: Return,
+          percentage: RP,
+        });
+
+      });
+      setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+
+
+
+
+    })
+
   };
 
 
   const columns = [
-
     {
-      title: 'Vendorstylecode',
-      dataIndex: 'Vendorstylecode',
-      key: 'Vendorstylecode',
+      title: 'VendorStyleCode',
+      dataIndex: 'vendorstylecode',
+      key: 'vendorstylecode',
     },
     {
-      title: 'Colorcode',
-      dataIndex: 'Colorcode',
-      key: 'Colorcode',
+      title: 'ColorCode',
+      dataIndex: 'colorcode',
+      key: 'colorcode',
     },
     {
-      title: 'Sizename',
-      dataIndex: 'Sizename',
-      key: 'Sizename',
+      title: 'Size',
+      dataIndex: 'sizename',
+      key: 'sizename',
     },
     {
-      title: 'Ordercount',
-      dataIndex: 'Ordercount',
-      key: 'Ordercount',
+      title: 'OrderCount',
+      dataIndex: 'ordercount',
+      key: 'ordercount',
     },
     {
       title: 'Sold',
@@ -93,61 +155,54 @@ const ReturnPercentage = (props) => {
       title: 'Return',
       dataIndex: 'Return',
       key: 'Return',
-    }  ,
-  
+    },
     {
-      title: 'Percentage',
-      dataIndex: 'Percentage',
-      key: 'Percentage',
-    }
+      title: 'Return Percentage',
+      dataIndex: 'percentage',
+      key: 'percentage',
+    },
+    
+    
+  ];
 
-
-  ]
 
 
 
   return (
 
-    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoading} >
+    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
 
       <div>
   
 
         <Row>
           <Cards  title="Target Report Summary Report">
-            <Form name="basic"
-              onFinish={onSubmit}
-              onFinishFailed={onSubmitFailed}>
+            <Form name="basic">
 
               <Row>
                 <Col span={6}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
-                    {/* <Space label="" {...rangeConfig}> */}
-                    <DatePicker style={{ padding: 10 }} size='small'
-                      renderExtraFooter={() => 'extra footer'} />
-                    {/* </Space > */}
+                  <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
                   </Form.Item>
                 </Col>
                 <Col span={1}></Col>
                 <Col span={6}>
                   <Form.Item name="endDate" rules={[{ required: true }]}>
-                    {/* <Space label="" {...rangeConfig}> */}
-                    <DatePicker style={{ padding: 10 }}
-                      renderExtraFooter={() => 'extra footer'} placeholder="End date" />
-                    {/* </Space > */}
+                  <DatePicker style={{ padding: 10 }}
+                      placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                   </Form.Item>
                 </Col>
                 <Col span={1}></Col>
                 <Col span={3}  >
 
-                  <Button style={{ margintTop: 7 }}  key="1" type="primary" size="default" htmlType="submit">
+                  <Button onClick={getReturnPercentageReporting} style={{ margintTop: 7 }}  key="1" type="primary" size="default" htmlType="submit">
                     Search
                            </Button>
 
                 </Col>
                 <Col span={3}  >
 
-                  <Button   style={{ margintTop: 7 }} key="1" type="success" size="default" onClick={() => { downloadFiles() }}>
+                  <Button onClick={getReturnPercentageReportingDownlaod}   style={{ margintTop: 7 }} key="1" type="success" size="default">
                     Download
                            </Button>
 
@@ -158,13 +213,13 @@ const ReturnPercentage = (props) => {
             </Form>
           </Cards>
         </Row>
-        <Row style={{ marginRight: 15, marginLeft: 15 }}>
+        <Row >
           <Col xs={24}>
             <Cards headless>
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={dataSource} columns={columns} />
+                  <Table pagination={true} dataSource={state.dataSource} columns={columns} />
                 </div>
 
               </ProjectList>

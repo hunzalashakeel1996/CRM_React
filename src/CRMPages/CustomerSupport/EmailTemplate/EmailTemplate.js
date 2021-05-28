@@ -91,7 +91,7 @@ const EmailTemplate = ({ prohibitedWords }) => {
 
                                 <Col span={12}>
                                     <Form.Item name="button" initialValue="" label="">
-                                        <Button key="1" type="success" size="small" style={{ marginLeft: 20 }} htmlType="submit" >
+                                        <Button key="1" style={{backgroundColor: '#20c997', color: 'white', marginLeft: 30}} type="secondary" size="default" htmlType="submit" >
                                             Check Email
                                     </Button>
                                     </Form.Item>

@@ -5,9 +5,19 @@ import { ProjectHeader, ProjectList } from '../../Tickets/style';
 import { PageHeader } from '../../../components/page-headers/page-headers';
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../components/cards/frame/cards-frame';
-import { downloadFile, getTotals } from '../../../components/utilities/utilities';
 import { Button } from '../../../components/buttons/buttons';
-import {  } from '../../../redux/apis/DataAction';
+import { downloadFile } from '../../../components/utilities/utilities'
+import { chartTargetSummaryData } from '../../../redux/apis/DataAction';
+import TargetSummaryGraph from '../../Dashboard/ComparisonReport/overview/TargetSummary';
+
+
+const { TabPane } = Tabs;
+const { TextArea } = Input;
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const dateFormat = 'YYYY/MM/DD';
+const monthFormat = 'YYYY/MM';
+const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+
 
 
 
@@ -17,57 +27,116 @@ const TargetSummaryReport = (props) => {
 
 
   const dispatch = useDispatch();
-
-  const [state, setState] = useState({
-    dataSource: [],
-    isLoading: false,
-    downLoadLink: '',
+  useEffect(() => {
+    setstate({ ...state, loader: true })
+  }, []);
+  const [state, setstate] = useState({
+    selectionType: 'checkbox',
+    selectedRowKeys: null,
+    selectedRows: null,
+    date: null,
+    dateString: null,
+    checkData: [],
+    checked: null,
+    values: {},
+    AddDays: null,
+    isLoader: false,
+    dataReport:[]
   });
+  const {downloadLink,dataReport}=state
+  const onChange = (value, key) => {
+    // console.log('aaa', date, dateString)
+    setstate({ ...state, [key]: value });
 
-  const { controls, dataSource, isLoading, downLoadLink } = state
+  };
 
-  const onSubmit = (values) => {
+  const getTargetSummaryReporting = () => {
+    console.log('aaaaa')
+    setstate({ ...state, isLoader: true })
 
-   
-  }
-
-
-  const downloadFiles = () => {
-    setState({ ...state })
-    // console.log("Button 2 clicked!");
-    // console.log(state.downLoadLink);
-
-    if (downLoadLink == "") {
-      notification.error({
-        message: 'Download Failed',
-        description: `Please Select Record First`,
-        onClose: close,
-      });
-    }
-    else {
-
-      downloadFile(downLoadLink);
+    dispatch(chartTargetSummaryData({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
+      setstate({ ...state, isLoader: false })
+      console.log('My Data: ', data)
+      //downloadFile(data);
       notification.success({
-        message: 'Successfull Dowload',
-        description: `File Downloaded`,
+        message: 'Successfull Rendered',
+        description: `Successfully Rendered TargetSummary Reports From ${state.startDate.format('MM/DD/YYYY')}`,
         onClose: close,
       });
+      let tempDataSource = [];
+      console.log(data[0]);
+      data[1].map(value => {
+         console.log(value)
+        const { vendorname, Amazon,Walmart,Sears,Ebay,Target,Diff } = value;
+        
+       
+        return tempDataSource.push({
+          vendorname: vendorname,
+          Amazon: Amazon,
+          Walmart: Walmart,
+          Sears: Sears,
+          Ebay: Ebay,
+          Target: Target,
+          Diff: Diff,
+        });
 
-    }
+      });
+      setstate({ ...state,dataReport:data[1], dataSource: [...tempDataSource], isLoader: false });
 
-  }
 
-  const onSubmitFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+
+
+    })
+
+  };
+
+  
+  const getTargetReportingDownlaod = () => {
+    console.log('aaaaa')
+    setstate({ ...state, isLoader: true })
+
+    dispatch(chartTargetSummaryData({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
+      setstate({ ...state, isLoader: false })
+      console.log('My Data: ', data)
+      downloadFile(data[0]);
+      notification.success({
+        message: 'Successfull Download',
+        description: `Successfully Download TargetSummary Reports From ${state.startDate.format('MM/DD/YYYY')}`,
+        onClose: close,
+      });
+      let tempDataSource = [];
+      console.log(data[0]);
+      data[1].map(value => {
+         console.log(value)
+        const { vendorname, Amazon,Walmart,Sears,Ebay,Target,Diff } = value;
+        
+       
+        return tempDataSource.push({
+          vendorname: vendorname,
+          Amazon: Amazon,
+          Walmart: Walmart,
+          Sears: Sears,
+          Ebay: Ebay,
+          Target: Target,
+          Diff: Diff,
+        });
+
+      });
+      setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+
+
+
+
+    })
+
   };
 
 
   const columns = [
-
     {
-      title: 'Vendorname',
-      dataIndex: 'Vendorname',
-      key: 'Vendorname',
+      title: 'VendorName',
+      dataIndex: 'vendorname',
+      key: 'vendorname',
     },
     {
       title: 'Amazon',
@@ -93,22 +162,21 @@ const TargetSummaryReport = (props) => {
       title: 'Target',
       dataIndex: 'Target',
       key: 'Target',
-    }  ,
-  
+    },
     {
       title: 'Diff',
       dataIndex: 'Diff',
       key: 'Diff',
-    }
-
-
-  ]
+    },
+    
+    
+  ];
 
 
 
   return (
 
-    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoading} >
+    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
 
       <div>
         {/* <ProjectHeader>
@@ -120,39 +188,32 @@ const TargetSummaryReport = (props) => {
 
         <Row>
           <Cards  title="Target Report Summary Report">
-            <Form name="basic"
-              onFinish={onSubmit}
-              onFinishFailed={onSubmitFailed}>
+            <Form name="basic">
 
               <Row>
                 <Col span={6}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
-                    {/* <Space label="" {...rangeConfig}> */}
-                    <DatePicker style={{ padding: 10 }} size='small'
-                      renderExtraFooter={() => 'extra footer'} />
-                    {/* </Space > */}
+                  <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
                   </Form.Item>
                 </Col>
                 <Col span={1}></Col>
                 <Col span={6}>
                   <Form.Item name="endDate" rules={[{ required: true }]}>
-                    {/* <Space label="" {...rangeConfig}> */}
-                    <DatePicker style={{ padding: 10 }}
-                      renderExtraFooter={() => 'extra footer'} placeholder="End date" />
-                    {/* </Space > */}
+                  <DatePicker style={{ padding: 10 }}
+                      placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                   </Form.Item>
                 </Col>
                 <Col span={1}></Col>
                 <Col span={3}  >
 
-                  <Button style={{ margintTop: 7 }}  key="1" type="primary" size="default" htmlType="submit">
+                  <Button onClick={getTargetSummaryReporting} style={{ margintTop: 7 }}  key="1" type="primary" size="default" htmlType="submit">
                     Search
                            </Button>
 
                 </Col>
                 <Col span={3}  >
 
-                  <Button   style={{ margintTop: 7 }} key="1" type="success" size="default" onClick={() => { downloadFiles() }}>
+                  <Button onClick={getTargetReportingDownlaod}  style={{ margintTop: 7 }} key="1" type="success" size="default">
                     Download
                            </Button>
 
@@ -169,13 +230,18 @@ const TargetSummaryReport = (props) => {
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={dataSource} columns={columns} />
+                  <Table pagination={true} dataSource={state.dataSource} columns={columns} />
                 </div>
 
               </ProjectList>
             </Cards>
           </Col>
-
+          {console.log('dataReport',dataReport)}
+          {dataReport.length>0&&
+         <Col lg={24} s={24}>
+          
+          <TargetSummaryGraph data={dataReport}/>
+        </Col>}
         </Row>
       </div>
     </Spin>

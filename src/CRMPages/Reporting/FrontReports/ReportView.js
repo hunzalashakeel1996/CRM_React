@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import SalesReport from './SalesReport';
 import TeamReport from './TeamReport';
+import ComparisonReport from './ComparisonReport';
 import ReturnRecieved from './ReturnReceived';
 import OrderProcess from './OrderProcess';
 import VendorSales from './VendorSales';
@@ -9,7 +10,6 @@ import UnShippedOrders from './UnShippedOrders';
 import SalesSummary from './SalesSummary';
 import TargetSummaryReport from './TargetSummaryReport';
 import ReturnPercentage from './ReturnPercentage';
-import ComparisonReport from './ComparisonReport';
 import FeatherIcon from 'feather-icons-react';
 
 const { TabPane } = Tabs;

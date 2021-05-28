@@ -5,83 +5,120 @@ import { ProjectHeader, ProjectList } from '../../Tickets/style';
 import { PageHeader } from '../../../components/page-headers/page-headers';
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../components/cards/frame/cards-frame';
-import { downloadFile, getTotals } from '../../../components/utilities/utilities';
 import { Button } from '../../../components/buttons/buttons';
-import { } from '../../../redux/apis/DataAction';
+import { chartTeamData } from '../../../redux/apis/DataAction';
+import TeamReportGraph from '../../Dashboard/ComparisonReport/overview/TeamReport';
+
+const { TabPane } = Tabs;
+const { TextArea } = Input;
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const dateFormat = 'YYYY/MM/DD';
+const monthFormat = 'YYYY/MM';
+const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 
-
-
-
-const TeamReport = (props) => {
+const TeamReport = () => {
 
 
   const dispatch = useDispatch();
 
-  const [state, setState] = useState({
-    dataSource: [],
-    isLoading: false,
-    downLoadLink: '',
+  // useEffect(() => {
+  //   setstate({ ...state, loader: true })
+  // }, []);
+
+  const [state, setstate] = useState({
+    selectionType: 'checkbox',
+    selectedRowKeys: null,
+    selectedRows: null,
+    date: null,
+    dateString: null,
+    checkData: [],
+    checked: null,
+    values: {},
+    isLoader: false,
+    dataReport:[],
+    dataSourceTR:[],
+    dataSourceOP:[],
+    dataSourceR:[]
+    
   });
+  const {dataReport } = state;
+  const onChange = (value, key) => {
+    // console.log('aaa', date, dateString)
+    setstate({ ...state, [key]: value });
 
-  const { controls, dataSource, isLoading, downLoadLink } = state
+  };
 
-  const onSubmit = (values) => {
+  const getTeamReporing = () => {
+    console.log('aaaaa')
+    setstate({ ...state, isLoader: true })
 
-
-  }
-
-
-  const downloadFiles = () => {
-    setState({ ...state })
-    // console.log("Button 2 clicked!");
-    // console.log(state.downLoadLink);
-
-    if (downLoadLink == "") {
-      notification.error({
-        message: 'Download Failed',
-        description: `Please Select Record First`,
-        onClose: close,
+    dispatch(chartTeamData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
+      setstate({ ...state, isLoader: false })
+      console.log('My Data: ', data)
+      //downloadFile(data);
+     
+      let tempDataSource = [];
+      let tempDataSourceTR = [];
+      let tempDataSourceOP = [];
+      let tempDataSourceR = [];
+      data.map(value => {
+        const { USERNAME, QTY, Type } = value;
+        
+        if (Type == 'Team Report') {
+          return tempDataSourceTR.push({
+            USERNAME: USERNAME,
+            QTY: QTY,
+          });
+          
+          
+        } else if(Type == 'Order Process')
+        {
+          return tempDataSourceOP.push({
+            USERNAME: USERNAME,
+            QTY: QTY,
+          });
+        }
+         else if(Type == 'Return Received')
+        {
+          return tempDataSourceR.push({
+            USERNAME: USERNAME,
+            QTY: QTY,
+          });
+        }
+      //  console.log(tempDataSourceTR)
+      
+        // setstate({ ...state,  isLoader: false });
       });
-    }
-    else {
+      setstate({...state, dataReport:data ,  dataSourceTR: [...tempDataSourceTR],dataSourceOP: [...tempDataSourceOP], dataSourceR: [...tempDataSourceR],isLoader: false });
+    
 
-      downloadFile(downLoadLink);
-      notification.success({
-        message: 'Successfull Dowload',
-        description: `File Downloaded`,
-        onClose: close,
-      });
+     
+      
+      
+    })
 
-    }
-
-  }
-
-  const onSubmitFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
 
 
   const columns = [
-
     {
-      title: 'UserName',
-      dataIndex: 'User name',
-      key: 'User name',
+      title: 'USERNAME',
+      dataIndex: 'USERNAME',
+      key: 'USERNAME',
     },
     {
-      title: 'Count',
-      dataIndex: 'Count',
-      key: 'Count',
-    }
-
-  ]
+      title: 'COUNT',
+      dataIndex: 'QTY',
+      key: 'QTY',
+    },
+  ];
 
 
 
   return (
 
-    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoading} >
+    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
 
       <div>
 
@@ -89,14 +126,13 @@ const TeamReport = (props) => {
         <Row>
           <Cards title="Team Report" >
             <Form name="basic"
-              onFinish={onSubmit}
-              onFinishFailed={onSubmitFailed}>
+            >
 
               <Row>
                 <Col span={6}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
                     {/* <Space label="" {...rangeConfig}> */}
-                    <DatePicker style={{ padding: 10 }} size='small' />
+                    <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
                     {/* </Space > */}
                   </Form.Item>
                 </Col>
@@ -105,14 +141,14 @@ const TeamReport = (props) => {
                   <Form.Item name="endDate" rules={[{ required: true }]}>
                     {/* <Space label="" {...rangeConfig}> */}
                     <DatePicker style={{ padding: 10 }}
-                      placeholder="End date" />
+                      placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                     {/* </Space > */}
                   </Form.Item>
                 </Col>
                 <Col span={1}></Col>
                 <Col span={3}  >
 
-                  <Button style={{ margintTop: 15 }} key="1" type="primary" size="default" htmlType="submit">
+                  <Button onClick={getTeamReporing} style={{ margintTop: 15 }} key="1" type="primary" size="default" >
                     Search
                            </Button>
 
@@ -126,11 +162,11 @@ const TeamReport = (props) => {
         </Row>
         <Row style={{}}>
           <Col xs={24}>
-            <Cards title="All Over">
+            <Cards title="Team Report">
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={dataSource} columns={columns} />
+                  <Table pagination={true} dataSource={state.dataSourceTR} columns={columns} />
                 </div>
 
               </ProjectList>
@@ -139,37 +175,43 @@ const TeamReport = (props) => {
 
         </Row>
 
-      
-          <Row style={{}}>
-            <Col xs={24}>
-              <Cards title="Return Received" >
-                <ProjectList>
 
-                  <div className="table-responsive">
-                    <Table pagination={true} dataSource={dataSource} columns={columns} />
-                  </div>
+        <Row style={{}}>
+          <Col xs={24}>
+            <Cards title="Return Received" >
+              <ProjectList>
 
-                </ProjectList>
-              </Cards>
-            </Col>
+                <div className="table-responsive">
+                  <Table pagination={true} dataSource={state.dataSourceR}  columns={columns} />
+                </div>
 
-          </Row>
+              </ProjectList>
+            </Cards>
+          </Col>
 
-          <Row style={{}}>
-            <Col xs={24}>
-              <Cards title="Order Process" >
-                <ProjectList>
+        </Row>
 
-                  <div className="table-responsive">
-                    <Table pagination={true} dataSource={dataSource} columns={columns} />
-                  </div>
+        <Row style={{}}>
+          <Col xs={24}>
+            <Cards title="Order Process" >
+              <ProjectList>
 
-                </ProjectList>
-              </Cards>
-            </Col>
+                <div className="table-responsive">
+                  <Table pagination={true} dataSource={state.dataSourceOP} columns={columns} />
+                </div>
 
-          </Row>
-    
+              </ProjectList>
+            </Cards>
+          </Col>
+       
+        {dataReport.length>0&&
+        <Col lg={24} s={24}>
+          
+          <TeamReportGraph data={dataReport}/>
+        </Col>}
+        </Row>
+       
+
       </div>
     </Spin>
   );

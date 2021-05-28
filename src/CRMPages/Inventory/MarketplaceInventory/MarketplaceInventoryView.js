@@ -75,9 +75,8 @@ const MarketplaceInventoryView = (props) => {
 
 
         Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
-
-            setState({
-                ...state, brandnameState: data[0][0].brandname.split(","),
+                console.log('promise All',data)
+            setState({...state, brandnameState: data[0][0].brandname.split(","),
                 collectionState: data[1][0].collectionname.split(","), categorynameState: data[2][0].categoryname.split(","), puStatusState: data[3][0].pustatus.split(","), loaderState: false
             })
 

@@ -7,6 +7,7 @@ import { Cards } from '../../../components/cards/frame/cards-frame';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { getPolyBags, } from '../../../redux/apis/DataAction';
 import { BasicFormWrapper } from '../styled';
+import {SuccessButton} from './../../../components/buttons/SuccessButton';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -156,14 +157,15 @@ const PolyBagsAndThermalLabelsView = (props) => {
                   </div>
                 </Col>
                 <Col lg={8} xs={24}>
-                  {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Update</h3></div> */}
-                  <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                  <Form.Item  wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
-                    <Button size="default" type="success" htmlType="Update">
-                      Update
+                      {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Update</h3></div> */}
+                      <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                        {/* <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}> */}
+
+                          <Button size="large" type="success" htmlType="Update" style={{backgroundColor: '#42ba96', marginTop: 8, color:'white'}}>
+                            Update
                         </Button>
-                    </Form.Item>
-                    {/* </Cards> */}
+                        {/* </Form.Item> */}
+                        {/* </Cards> */}
                   </div>
                 </Col>
 

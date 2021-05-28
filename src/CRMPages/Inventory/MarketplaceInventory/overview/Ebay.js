@@ -1,4 +1,4 @@
-import { Col, Row, Select, Spin, Radio, Checkbox, Divider, message, notification, Input ,Modal} from 'antd';
+import { Col, Row, Select, Spin, Radio, Checkbox, Divider, message, notification, Input, Modal } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 
-import { webURL, audioPlay, uploadUrl, getUploadFileUpdateEbayInventoryapi,getEbayHtmlapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getUploadFileUpdateEbayInventoryapi, getEbayHtmlapi } from '../../../../redux/apis/DataAction';
 import Column from '../../../../components/Marketplace/Column'
 import FilterReport from '../../../../components/Marketplace/FilterReport'
 import Promotions from '../../../../components/Marketplace/Promotions'
@@ -36,9 +36,9 @@ const Ebay = (props) => {
     const [state, setstate] = useState({
         dataTo: '',
         file: '',
-        vendorname:'',
-        vendorstylecode:'',
-        EbayHtml:[]
+        vendorname: '',
+        vendorstylecode: '',
+        EbayHtml: []
 
     })
     const [visible, setVisible] = useState(false);
@@ -77,29 +77,27 @@ const Ebay = (props) => {
 
     const getHtmlData = () => {
 
-       
+
 
         dispatch(getEbayHtmlapi(state)).then(data => {
-       
+
             console.log(data)
-           
-            setstate({...state,EbayHtml:data})
+
+            setstate({ ...state, EbayHtml: data })
             setVisible(true)
         })
 
     }
-    const getVendor =(event)=>
-    {   
-   setstate({...state,vendorname:event})
-       
+    const getVendor = (event) => {
+        setstate({ ...state, vendorname: event })
+
     }
-    const getVendorStylecode =(event)=>
-    {
-     
-        setstate({...state,vendorstylecode:event.target.value})
-     
+    const getVendorStylecode = (event) => {
+
+        setstate({ ...state, vendorstylecode: event.target.value })
+
     }
-    
+
     return (
         <>
 
@@ -138,12 +136,12 @@ const Ebay = (props) => {
                                     <Row >
                                         <Col span={5} >
 
-                                            <Button type="primary" onClick={getHtmlData}>Report Data</Button>
+                                            <Button type="primary" onClick={()=>getHtmlData()}>Report Data</Button>
 
                                         </Col>
                                         <Col span={10}>
-                                           
-                                            <Select defaultValue="Vendor Name" onChange={getVendor} style={{ width: 250 }}  >
+
+                                            <Select showSearch  defaultValue="Vendor Name" onChange={getVendor} style={{ width: 250 }}  >
                                                 {vendorname.map((val, i) => (
                                                     <Option value={val} key={val}>{val}</Option>
 
@@ -153,15 +151,15 @@ const Ebay = (props) => {
                                         </Col>
 
                                         <Col span={7}>
-                                            
-                                            <Input type="text" onChange={getVendorStylecode}  placeholder="Vendor Style code"/>
+
+                                            <Input type="text" onChange={getVendorStylecode} placeholder="Vendor Style code" />
 
                                         </Col>
 
                                     </Row>
                                     <Row>
                                         <Col>
-                                        <TextArea style={{ height: 50 }} />
+                                            <TextArea style={{ height: 50 }} />
                                         </Col>
                                     </Row>
                                 </Cards>
@@ -178,7 +176,7 @@ const Ebay = (props) => {
 
 
             </div>
-            
+
             <Modal
                 title="Report Summary Add Inventory Template"
                 centered
@@ -190,7 +188,7 @@ const Ebay = (props) => {
 
 
                 <div className="table-responsive">
-                <EbayHtml state={state}/>
+                    <EbayHtml state={state} />
                 </div>
 
 

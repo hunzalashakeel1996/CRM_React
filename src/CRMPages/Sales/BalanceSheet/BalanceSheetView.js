@@ -90,10 +90,10 @@ const ReportView = (props) => {
         setState({ ...state, loader: true })
         let tempDataSource = [];
         // get balance sheet record
-        dispatch(getBalanceSheetRecord({  })).then(data => {
+        dispatch(getBalanceSheetRecord()).then(data => {
             // console.log('12310', data[1])
             
-   
+                
             let tempLinkDownload = data[0];
             // console.log(tempLinkDownload);
             data[1].map(value => {
@@ -228,7 +228,7 @@ const ReportView = (props) => {
                             </Col>
                             <Col span={3}>
                                 <Form.Item >
-                                    <Button type="success" size="small"  htmlType="submit" >
+                                    <Button type="success" size="default"  htmlType="submit" >
                                         <Icon type="left" />
                                         Search
                                     </Button>
@@ -236,7 +236,7 @@ const ReportView = (props) => {
                             </Col>
                             <Col span={2}>
                                 <Form.Item >
-                                    <Button type="primary" size="small" icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
+                                    <Button type="primary" size="default" icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
                                         <Icon type="left" />
                                         Download
                                     </Button>
