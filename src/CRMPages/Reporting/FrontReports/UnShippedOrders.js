@@ -131,13 +131,13 @@ const UnShippedOrders = (props) => {
             <Form name="basic">
 
               <Row>
-                <Col span={6}>
+                <Col lg={8} xs={24}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
                     <DatePicker style={{ padding: 10 }} size='small' placeholder='From' onChange={(date) => { onChange(date, 'startDate') }} />
                   </Form.Item>
                 </Col>
                 
-                <Col span={6}>
+                <Col lg={8} xs={24}>
                   <Select
                     showSearch
                     style={{ width: 300 }}
@@ -160,7 +160,7 @@ const UnShippedOrders = (props) => {
 
 
                
-                <Col lg={6} xs={24}  >
+                <Col lg={8} xs={24}  >
                                
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                     <Button onClick={getUnshippedOrder} size="default" type="primary" htmlType="Submit">

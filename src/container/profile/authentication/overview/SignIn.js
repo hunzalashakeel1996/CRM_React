@@ -44,11 +44,11 @@ const SignIn = () => {
                       localStorage.setItem('user', JSON.stringify(data))
                       dispatch(login(data));
                       setHeaderWithWebToken()
-                      setTimeout(() => {
+                      // setTimeout(() => {
                         setState({ ...state, loader: false })
                         history.push('/admin');
 
-                      }, 1000);
+                      // }, 1000);
                     })
                   }
                 })
