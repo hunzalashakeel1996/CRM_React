@@ -15,20 +15,19 @@ const VendorInventoryView = (props) => {
     const [activeTab, setActiveTab] = useState('');
     const [state, setstate] = useState({
         Regularvendorstate: [],
+        loader: true,
         updateData: [],
        VerificationData:[],
-       VerificationData: [],
-        isLoader: true
 
     })
     const [visible, setVisible] = useState(false);
     const [dataSource, setDataSource] = useState([]);
-    const { Regularvendorstate, isLoader } = state;
+    const { Regularvendorstate, loader } = state;
 
     useEffect(() => {
         dispatch(getvendor()).then(data => {
             console.log('aaaaa', data)
-            setstate({ ...state, Regularvendorstate: data, isLoader: false })
+            setstate({ ...state, Regularvendorstate: data, loader: false })
         })
 
 
