@@ -15,19 +15,19 @@ const VendorInventoryView = (props) => {
     const [activeTab, setActiveTab] = useState('');
     const [state, setstate] = useState({
         Regularvendorstate: [],
-        loader: true,
+        isLoader: true,
         updateData: [],
-       VerificationData:[],
+        VerificationData: [],
 
     })
     const [visible, setVisible] = useState(false);
     const [dataSource, setDataSource] = useState([]);
-    const { Regularvendorstate, loader } = state;
+    const { Regularvendorstate, isLoader } = state;
 
     useEffect(() => {
         dispatch(getvendor()).then(data => {
             console.log('aaaaa', data)
-            setstate({ ...state, Regularvendorstate: data, loader: false })
+            setstate({ ...state, Regularvendorstate: data, isLoader: false })
         })
 
 
@@ -38,39 +38,39 @@ const VendorInventoryView = (props) => {
 
     const updateVendor = (updateVendorList) => {
         console.log('abc', updateVendorList)
-
+        setstate({ ...state,isLoader: true })
         dispatch(getUpdateVendorInventoryapi(updateVendorList)).then(data => {
-            setstate({ ...state, loader: false, updateData: data,  VerificationData: [...updateVendorList]  })
+            setstate({ ...state, isLoader: false, updateData: data, VerificationData: [...updateVendorList] })
             console.log('12310', data)
             let checkVerificationResult = []
-       
-        data.map((value,i) => {
-            const { Vendorname, Mapprice,Cost } = value;
-        return checkVerificationResult.push({
-            key: counter++,
-               
-            vendorName: <span style={{ color: 'black' }} className="date-started">{Vendorname}</span>,            
-            changeMapprice: <span style={{ color: 'black' }} className="date-started">{Mapprice}</span>,
-            changeCost: <span style={{ color: 'black' }} className="date-started">{Cost}</span>
 
-        });
-        console.log('counter',i)
-    });
-   // console.log(data[0].includes=="Scrub")
-  // data[0].includes("Scrub ")
-    if (data[0].Confirm=="Confirm"){
-        setVisible(true)
-        setDataSource(checkVerificationResult)
-       
-        }
-        else {
-            notification.success({
-                message: `Successfull  ${data}`,
-                description: `Successfully Report`,
-                onClose: close,
+            data.map((value, i) => {
+                const { Vendorname, Mapprice, Cost } = value;
+                return checkVerificationResult.push({
+                    key: counter++,
+
+                    vendorName: <span style={{ color: 'black' }} className="date-started">{Vendorname}</span>,
+                    changeMapprice: <span style={{ color: 'black' }} className="date-started">{Mapprice}</span>,
+                    changeCost: <span style={{ color: 'black' }} className="date-started">{Cost}</span>
+
+                });
+      
             });
-            window.location.reload(false)
-        }
+            // console.log(data[0].includes=="Scrub")
+            // data[0].includes("Scrub ")
+            if (data[0].Confirm == "Confirm") {
+                setVisible(true)
+                setDataSource(checkVerificationResult)
+
+            }
+            else {
+                notification.success({
+                    message: `Successfull  ${data}`,
+                    description: `Successfully Report`,
+                    onClose: close,
+                });
+              //  window.location.reload(false)
+            }
             console.log('dataSource', dataSource)
 
         })
@@ -103,51 +103,47 @@ const VendorInventoryView = (props) => {
         console.log(temp)
 
         setstate({ ...state, VerificationData: temp })
-      
+
 
         dispatch(getUpdateVendorInventoryapi(temp)).then(result => {
-           setVisible(false)
-           window.location.reload(false)
+            setVisible(false)
+            window.location.reload(false)
         })
     }
     return (
         <>
-            <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{marginLeft: 20, marginTop: 20}}>
-                <TabPane tab="Regular Skus" key="Regular Skus">
-                    {!loader ?
-                        <div>
-                            <Regularsku Regularvendor={Regularvendorstate} updateVendor={updateVendor} />
-                        </div>
-                        :
-                        <div style={{ textAlign: 'center' }}>
-                            <Spin />
-                        </div>
-                    }
-                </TabPane>
-                {/* asdad  */}
-                {/* <TabPane tab="Group Skus" key="Group Skus">
-                    <Groupsku />
-                </TabPane> */}
-            </Tabs>
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
+                <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20 }}>
+                    <TabPane tab="Regular Skus" key="Regular Skus">
 
-            <Modal
-                title="Report Summary "
-                centered
-                visible={visible}
+                        <Regularsku Regularvendor={Regularvendorstate} updateVendor={updateVendor} />
 
-                onOk={() => vendorconfirm()}
-                onCancel={() => setVisible(false)}
-                width={1000}
-            >
+                        {/* <Spin /> */}
 
 
-                <div className="table-responsive">
+                    </TabPane>
+
+                </Tabs>
+
+                <Modal
+                    title="Report Summary "
+                    centered
+                    visible={visible}
+
+                    onOk={() => vendorconfirm()}
+                    onCancel={() => setVisible(false)}
+                    width={1000}
+                >
+
+
+
                     <Table pagination={true} dataSource={dataSource} columns={columns} />
-                </div>
 
 
 
-            </Modal>
+
+                </Modal>
+            </Spin>
         </>
     );
 };

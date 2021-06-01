@@ -59,7 +59,7 @@ const UpdateInventoryView = (props) => {
     return (
         <>
             {/* <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} > */}
-            <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>
+            <Tabs type={'card'}  defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginTop: 20, marginLeft: 20, marginRight: 20 }}>
 
                 {topManu.map(item => (
                     tabChildBar?.includes(item.tab) && (

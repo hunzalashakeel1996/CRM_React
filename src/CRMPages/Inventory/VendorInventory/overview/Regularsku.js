@@ -71,7 +71,11 @@ const{Regularvendor,loader,updateVendor}=props
         Fileformat:val.Fileformat,
         TableName:val.TableName,
         user: username.LoginName,
-        vendorconfirm:""
+        vendorconfirm:"",
+        ftpFilePath: val.ftpFilePath,
+        ftpUserName: val.ftpUserName,
+        ftpPassword: val.ftpPassword,
+        backupFileFolder: val.backupFileFolder,
       }
       )
     }else{
