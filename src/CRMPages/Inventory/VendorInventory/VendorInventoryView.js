@@ -15,21 +15,20 @@ const VendorInventoryView = (props) => {
     const [activeTab, setActiveTab] = useState('');
     const [state, setstate] = useState({
         Regularvendorstate: [],
-        loader: true,
         updateData: [],
        VerificationData:[],
        VerificationData: [],
-        isLoader: false
+        isLoader: true
 
     })
     const [visible, setVisible] = useState(false);
     const [dataSource, setDataSource] = useState([]);
-    const { Regularvendorstate, loader } = state;
+    const { Regularvendorstate, isLoader } = state;
 
     useEffect(() => {
         dispatch(getvendor()).then(data => {
             console.log('aaaaa', data)
-            setstate({ ...state, Regularvendorstate: data, loader: false })
+            setstate({ ...state, Regularvendorstate: data, isLoader: false })
         })
 
 
@@ -41,8 +40,9 @@ const VendorInventoryView = (props) => {
     const updateVendor = (updateVendorList) => {
         console.log('abc', updateVendorList)
 
+        setstate({ ...state, isLoader: true })
         dispatch(getUpdateVendorInventoryapi(updateVendorList)).then(data => {
-            setstate({ ...state, loader: false, updateData: data,  VerificationData: [...updateVendorList]  })
+            setstate({ ...state, isLoader: false, updateData: data,  VerificationData: [...updateVendorList]  })
             console.log('12310', data)
             let checkVerificationResult = []
        
