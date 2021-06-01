@@ -40,21 +40,21 @@ const VendorInventoryView = (props) => {
     const updateVendor = (updateVendorList) => {
         console.log('abc', updateVendorList)
 
-        setstate({ ...state, isLoader: true })
         dispatch(getUpdateVendorInventoryapi(updateVendorList)).then(data => {
-            setstate({ ...state, isLoader: false, updateData: data,  VerificationData: [...updateVendorList]  })
+            setstate({ ...state, loader: false, updateData: data,  VerificationData: [...updateVendorList]  })
             console.log('12310', data)
             let checkVerificationResult = []
-            data.map((value, i) => {
-                const { Vendorname, Mapprice, Cost } = value;
-                return checkVerificationResult.push({
-                    key: counter++,
+       
+        data.map((value,i) => {
+            const { Vendorname, Mapprice,Cost } = value;
+        return checkVerificationResult.push({
+            key: counter++,
+               
+            vendorName: <span style={{ color: 'black' }} className="date-started">{Vendorname}</span>,            
+            changeMapprice: <span style={{ color: 'black' }} className="date-started">{Mapprice}</span>,
+            changeCost: <span style={{ color: 'black' }} className="date-started">{Cost}</span>
 
-                    vendorName: <span style={{ color: 'black' }} className="date-started">{Vendorname}</span>,
-                    changeMapprice: <span style={{ color: 'black' }} className="date-started">{Mapprice}</span>,
-                    changeCost: <span style={{ color: 'black' }} className="date-started">{Cost}</span>
-
-                });
+        });
         console.log('counter',i)
     });
    // console.log(data[0].includes=="Scrub")
