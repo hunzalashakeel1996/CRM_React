@@ -18,6 +18,8 @@ const VendorInventoryView = (props) => {
         loader: true,
         updateData: [],
        VerificationData:[],
+       VerificationData: [],
+        isLoader: false
 
     })
     const [visible, setVisible] = useState(false);
