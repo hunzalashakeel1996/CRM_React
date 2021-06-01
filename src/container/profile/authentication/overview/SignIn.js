@@ -32,8 +32,10 @@ const SignIn = () => {
               setState({ ...state, loader: true })
               dispatch(loginAPI({ username: value.username, password: value.password, Token: token }))
                 .then(data => {
-                  if (data.err)
-                    alert(data.err)
+                  if (data[0].err){
+                    setState({ ...state, loader: false })
+                    alert(data[0].err)
+                  }
                   else {
                     data = { ...data[0][0], jwtToken: data[1] }
                     dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
