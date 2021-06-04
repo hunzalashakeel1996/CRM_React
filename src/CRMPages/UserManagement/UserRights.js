@@ -27,7 +27,6 @@ const UsersView = (props) => {
     key: 0,
     sidebarRights: [],
     parentBarRight: [],
-    subparentRights: {},
     subChildRights: {},
     isLoading: false,
     id: 0
@@ -51,7 +50,7 @@ const UsersView = (props) => {
       JsonMap.map(value => {
         objectToArray = [...objectToArray, ...value]
       })
-      setState({ ...state, isLoading: false, sidebars: data[0], userrightJson: JSON.parse(data[1][0].top_navigation), sidebarRights: objectToArray, subChildRights: JSON.parse(data[1][0].child_bar), subparentRights: JSON.parse(data[1][0].top_navigation) });
+      setState({ ...state, isLoading: false, sidebars: data[0], userrightJson: JSON.parse(data[1][0].top_navigation), sidebarRights: objectToArray, subChildRights: JSON.parse(data[1][0].child_bar) });
       // console.log('Mapp', objectToArray);
     })
 
@@ -84,7 +83,7 @@ const UsersView = (props) => {
         userid: id,
         username: '',
         topNav: state.subChildRights,
-        childNav: state.subparentRights
+        childNav: state.userrightJson
       })).then(data => {
 
         // console.log(data);
