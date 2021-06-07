@@ -44,7 +44,7 @@ const ReportView = (props) => {
         console.log(dataTempState[index])
         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
      
-
+          console.log('aaaa', SalesCurrent === null)
         return dataTempState[index].push({
           TodayDate: TodayDate,
           OrdersCountCurrent: OrdersCountCurrent,
@@ -53,8 +53,10 @@ const ReportView = (props) => {
           PendingOrderOld: PendingOrderOld,
           ReturnCurrentRMA: ReturnCurrentRMA,
           ReturnOldRMA: ReturnOldRMA,
-          SalesCurrent: '$ '+SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-          SalesOld: '$ '+SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+          // SalesCurrent: '$ '+ SalesCurrent === null ? '0' : SalesCurrent.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+          // SalesOld: '$ '+SalesOld=== null ? '0' : SalesOld.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+            SalesCurrent:  SalesCurrent === null ?"-": SalesCurrent,
+          SalesOld: SalesOld,
         });
 
       });

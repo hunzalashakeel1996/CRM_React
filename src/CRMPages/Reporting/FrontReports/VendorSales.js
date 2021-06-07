@@ -37,15 +37,33 @@ const VendorSales = (props) => {
     checked: null,
     values: {},
     isLoader: false,
-    dataReport:[]
+    dataReport:[],
+    sortedInfo:[]
   });
-const {dataReport}=state
+const {dataReport,sortedInfo}=state
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
+  const handleChange = (pagination, filters, sorter) =>  {
+    console.log('Various parameters', pagination, filters, sorter);
+    setstate({...state,
+     
+      sortedInfo: sorter,
+    });
+  };
+  
 
+
+ const setAgeSort = () => {
+    setstate({...state,
+      sortedInfo: {
+        order: 'descend',
+        columnKey: 'age',
+      },
+    });
+  };
   const getVendorSalesReporing = () => {
     console.log('aaaaa')
     setstate({ ...state, isLoader: true })
@@ -91,21 +109,33 @@ const {dataReport}=state
       title: 'TotalOrders',
       dataIndex: 'TotalOrders',
       key: 'TotalOrders',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.TotalOrders - d.TotalOrders,
+      sortOrder: sortedInfo.columnKey === 'TotalOrders' && sortedInfo.order,
     },
     {
       title: 'TotalUnits',
       dataIndex: 'TotalUnits',
       key: 'TotalUnits',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.TotalUnits - d.TotalUnits,
+      sortOrder: sortedInfo.columnKey === 'TotalUnits' && sortedInfo.order,
     },
     {
       title: 'TotalCost',
       dataIndex: 'TotalCost',
       key: 'TotalCost',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.TotalCost - d.TotalCost,
+      sortOrder: sortedInfo.columnKey === 'TotalCost' && sortedInfo.order,
     },
     {
       title: 'TotalSales',
       dataIndex: 'TotalSales',
       key: 'TotalSales',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.TotalSales - d.TotalSales,
+      sortOrder: sortedInfo.columnKey === 'TotalSales' && sortedInfo.order,
     },
   ];
 
@@ -165,7 +195,7 @@ const {dataReport}=state
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={state.dataSource} columns={columns} />
+                  <Table pagination={false} dataSource={state.dataSource} columns={columns} onChange={handleChange} />
                 </div>
 
               </ProjectList>

@@ -17,6 +17,7 @@ export const socketUrl = "wss://3.131.5.41:3000"
 //export const url = "http://3.131.5.41:3001";
 //##################### Node Server Local ########################
 export const url = "http://192.168.0.197:3005";
+
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
@@ -619,13 +620,19 @@ export const purchaseReport = (data) => {
 export const getvendor = (data) => {
     return apiFetchDotNet('newInventory/getVendor_active', "GET",headerDotNetWithJwt);
 };
-
+export const getWebvendor = (data) => {
+    return apiFetchDotNet('newInventory/getWebVendor_active', "GET",headerDotNetWithJwt);
+};
 export const getVendorName = (data) => {
     return apiFetchDotNet('newInventory/getVendorname', "GET",headerDotNetWithJwt);
 };
 export const getUpdateVendorInventoryapi = (data) => {
 
     return apiFetchDotNet('newInventory/updateVendorInventory', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
+};
+export const getUpdateWebVendorInventoryapi = (data) => {
+
+    return apiFetchDotNet('newInventory/updateWebVendorInventory', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 
 export const getInventoryapi = (data) => {
@@ -1020,3 +1027,10 @@ export const getReturnPercentageReport = (data) => {
     console.log("Hello World!")
     return apiFetchDotNet('/report/Return_percentage_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+
+export const getGoogleMarketPlaceVerifyapi = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/newInventory/fetchGoogleMarketplaceVerifyapi', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+

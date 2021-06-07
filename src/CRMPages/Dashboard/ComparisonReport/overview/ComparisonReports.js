@@ -18,35 +18,45 @@ const AmazonComparisonReports = () => {
     ordersReport: {
       today: [[], []],
       week: [[], []],
-      month: [[], []],
+      month1: [[], []],
+      month2: [[], []],
+      month3: [[], []],
       'over All': [[], []]
     },
     salesReport: {
       today: [[], []],
       week: [[], []],
-      month: [[], []],
+      month1: [[], []],
+      month2: [[], []],
+      month3: [[], []],
       'over All': [[], []]
     },
     retrurnReport: {
       today: [[], []],
       week: [[], []],
-      month: [[], []],
+      month1: [[], []],
+      month2: [[], []],
+      month3: [[], []],
       'over All': [[], []]
     },
     pendingReport: {
       today: [[], []],
       week: [[], []],
-      month: [[], []],
+      month1: [[], []],
+      month2: [[], []],
+      month3: [[], []],
       'over All': [[], []]
     },
     ordersSelectedTimeline: 'today',
     salesSelectedTimeline: 'today',
     returnSelectedTimeline: 'today',
     pendingSelectedTimeline: 'today',
-    ordersSelectedTimelineMonth: '',
+    ordersSelectedTimelineThisMonth: '',
+    ordersSelectedTimelineLastMonth: '',
+    ordersSelectedTimelineLast2Month: '',
     loaderState: true
   });
-  const { ordersReport, ordersSelectedTimeline, salesReport, retrurnReport, pendingReport, salesSelectedTimeline, returnSelectedTimeline, pendingSelectedTimeline, ordersSelectedTimelineMonth, loaderState } = state;
+  const { ordersReport, ordersSelectedTimeline, salesReport, retrurnReport, pendingReport, salesSelectedTimeline, returnSelectedTimeline, pendingSelectedTimeline, ordersSelectedTimelineThisMonth,ordersSelectedTimelineLastMonth,ordersSelectedTimelineLast2Month, loaderState } = state;
   useEffect(() => {
     let orders = { ...ordersReport }
     let sales = { ...salesReport }
@@ -54,12 +64,13 @@ const AmazonComparisonReports = () => {
     let pending = { ...pendingReport }
 
     Promise.all([dispatch(chartAmazonData()), dispatch(chartWalmartData()), dispatch(chartPUData()), dispatch(chartJLCData())]).then(data => {
+     
       var AmazonData = JSON.parse(data[0])
       var WalmartData = JSON.parse(data[1])
       var PUData = JSON.parse(data[2])
       var JLCData = JSON.parse(data[3])
       let dataTemp = [AmazonData, WalmartData, PUData, JLCData]
-
+      console.log(AmazonData)
       // condition to check if any marketplace does not contain today object
       dataTemp.map(value => {
         if (value.Table.length === 3) {
@@ -68,14 +79,17 @@ const AmazonComparisonReports = () => {
       })
 
       let objects = [orders, sales, returnRep, pending]
-      let categories = ['today', 'week', 'month', 'over All']
+      let categories = ['today', 'week', 'month1','month2','month3', 'over All']
 
       let objectsCountName = [['OrdersCountCurrent', 'OrdersCountOld'], ['SalesCurrent', 'SalesOld'], ['ReturnCurrentRMA', 'ReturnOldRMA'], ['PendingOrderCurrent', 'PendingOrderOld']]
 
       // first loop is for objects(orders, sales, etc) and second loop is for set values from db to each object. ObjectCountName is for 2020 and 2021 values
       for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-        
+        for (let j = 0; j < 6; j++) {
+          
+      
+          
+
           objects[i][categories[j]][0][0] = AmazonData.Table[j][objectsCountName[i][0]]
           objects[i][categories[j]][1][0] = AmazonData.Table[j][objectsCountName[i][1]]
           objects[i][categories[j]][0][1] = WalmartData.Table[j][objectsCountName[i][0]]
@@ -86,7 +100,9 @@ const AmazonComparisonReports = () => {
           objects[i][categories[j]][1][3] = JLCData.Table[j][objectsCountName[i][1]]
         }
       }
-      setState({ ...state, ordersSelectedTimelineMonth: AmazonData.Table[2].TodayDate, loaderState: false })
+      console.log('AmazonData',AmazonData.Table[2].TodayDate);
+
+      setState({ ...state, ordersSelectedTimelineThisMonth: AmazonData.Table[2].TodayDate,ordersSelectedTimelineLastMonth: AmazonData.Table[3].TodayDate,ordersSelectedTimelineLast2Month: AmazonData.Table[4].TodayDate, loaderState: false })
     })
 
   }, [])
@@ -110,20 +126,20 @@ const AmazonComparisonReports = () => {
       <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
         <Row gutter={20}>
           <Col lg={12} s={24}>
-            <ComparisonBarChart title='Orders' ordersSelectedTimelineMonth={ordersSelectedTimelineMonth} isTimelineChange={(timeline) => { setState({ ...state, ordersSelectedTimeline: timeline }) }} dataset={ordersReport[ordersSelectedTimeline]} />
+            <ComparisonBarChart title='Orders' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth} ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, ordersSelectedTimeline: timeline }) }} dataset={ordersReport[ordersSelectedTimeline]} />
           </Col>
 
           <Col lg={12} s={24}>
-            <ComparisonBarChart title='Sales' ordersSelectedTimelineMonth={ordersSelectedTimelineMonth} isTimelineChange={(timeline) => { setState({ ...state, salesSelectedTimeline: timeline }) }} dataset={salesReport[salesSelectedTimeline]} />
+            <ComparisonBarChart title='Sales' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth} ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, salesSelectedTimeline: timeline }) }} dataset={salesReport[salesSelectedTimeline]} />
           </Col>
         </Row>
         <Row gutter={20} >
           <Col lg={12} s={24}>
-            <ComparisonBarChart title='Return' ordersSelectedTimelineMonth={ordersSelectedTimelineMonth} isTimelineChange={(timeline) => { setState({ ...state, returnSelectedTimeline: timeline }) }} dataset={retrurnReport[returnSelectedTimeline]} />
+            <ComparisonBarChart title='Return' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth}ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, returnSelectedTimeline: timeline }) }} dataset={retrurnReport[returnSelectedTimeline]} />
           </Col>
 
           <Col lg={12} s={24}>
-            <ComparisonBarChart title='Pending' ordersSelectedTimelineMonth={ordersSelectedTimelineMonth} isTimelineChange={(timeline) => { setState({ ...state, pendingSelectedTimeline: timeline }) }} dataset={pendingReport[pendingSelectedTimeline]} />
+            <ComparisonBarChart title='Pending' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth} ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, pendingSelectedTimeline: timeline }) }} dataset={pendingReport[pendingSelectedTimeline]} />
           </Col>
         </Row>
       </Spin >

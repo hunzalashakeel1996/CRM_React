@@ -39,16 +39,32 @@ const TeamReport = () => {
     dataReport:[],
     dataSourceTR:[],
     dataSourceOP:[],
-    dataSourceR:[]
+    dataSourceR:[],
+    sortedInfo:[],
+    filteredInfo:[]
     
   });
-  const {dataReport } = state;
+  const {dataReport,sortedInfo,filteredInfo } = state;
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
+  //New Sort Start
+  const handleChange = (pagination, filters, sorter) =>  {
+    console.log('Various parameters', pagination, filters, sorter);
+    setstate({...state,
+      filteredInfo: filters,
+      sortedInfo: sorter,
+    });
+  };
+  
+  const clearFilters = () => {
+    setstate({ ...state,filteredInfo: null });
+  };
 
+ 
+  //New Sort End
   const getTeamReporing = () => {
     console.log('aaaaa')
     setstate({ ...state, isLoader: true })
@@ -105,13 +121,21 @@ const TeamReport = () => {
     {
       title: 'USERNAME',
       dataIndex: 'USERNAME',
-      key: 'USERNAME',
+      key: 'USERNAME', 
+      filteredValue: filteredInfo.USERNAME || null,
+      onFilter: (value, record) => record.name.includes(value),
+      sorter: (a, b) => a.USERNAME.length - b.USERNAME.length,
+      sortOrder: sortedInfo.columnKey === 'USERNAME' && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: 'COUNT',
       dataIndex: 'QTY',
       key: 'QTY',
-    },
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.QTY - d.QTY,
+      sortOrder: sortedInfo.columnKey === 'QTY' && sortedInfo.order,
+    }
   ];
 
 
@@ -166,7 +190,7 @@ const TeamReport = () => {
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={state.dataSourceTR} columns={columns} />
+                  <Table pagination={false} dataSource={state.dataSourceTR} columns={columns} onChange={handleChange}  />
                 </div>
 
               </ProjectList>
@@ -182,7 +206,7 @@ const TeamReport = () => {
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={state.dataSourceR}  columns={columns} />
+                  <Table pagination={false} dataSource={state.dataSourceR}  columns={columns} />
                 </div>
 
               </ProjectList>
@@ -197,7 +221,7 @@ const TeamReport = () => {
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={state.dataSourceOP} columns={columns} />
+                  <Table pagination={false} dataSource={state.dataSourceOP} columns={columns} />
                 </div>
 
               </ProjectList>

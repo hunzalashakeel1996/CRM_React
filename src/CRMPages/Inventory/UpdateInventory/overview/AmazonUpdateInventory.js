@@ -392,6 +392,7 @@ const AmazonUpdateInventory = () => {
                             bordered
                             dataSource={dataSource}
                             columns={column}
+                            
                         />
                     </div>
                 </div>

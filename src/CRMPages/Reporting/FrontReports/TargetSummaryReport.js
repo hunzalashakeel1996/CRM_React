@@ -41,9 +41,10 @@ const TargetSummaryReport = (props) => {
     values: {},
     AddDays: null,
     isLoader: false,
-    dataReport:[]
+    dataReport:[],
+    sortedInfo:[]
   });
-  const {downloadLink,dataReport}=state
+  const {downloadLink,dataReport,sortedInfo}=state
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
@@ -89,7 +90,13 @@ const TargetSummaryReport = (props) => {
     })
 
   };
-
+  const handleChange = (pagination, filters, sorter) =>  {
+    console.log('Various parameters', pagination, filters, sorter);
+    setstate({...state,
+      filteredInfo: filters,
+      sortedInfo: sorter,
+    });
+  };
   
   const getTargetReportingDownlaod = () => {
     console.log('aaaaa')
@@ -142,31 +149,50 @@ const TargetSummaryReport = (props) => {
       title: 'Amazon',
       dataIndex: 'Amazon',
       key: 'Amazon',
+      
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.Amazon - d.Amazon,
+      sortOrder: sortedInfo.columnKey === 'Amazon' && sortedInfo.order,
     },
     {
       title: 'Walmart',
       dataIndex: 'Walmart',
       key: 'Walmart',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.Walmart - d.Walmart,
+      sortOrder: sortedInfo.columnKey === 'Walmart' && sortedInfo.order,
     },
     {
       title: 'Sears',
       dataIndex: 'Sears',
       key: 'Sears',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.Sears - d.Sears,
+      sortOrder: sortedInfo.columnKey === 'Sears' && sortedInfo.order,
     },
     {
       title: 'Ebay',
       dataIndex: 'Ebay',
       key: 'Ebay',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.Ebay - d.Ebay,
+      sortOrder: sortedInfo.columnKey === 'Ebay' && sortedInfo.order,
     },
     {
       title: 'Target',
       dataIndex: 'Target',
       key: 'Target',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.Target - d.Target,
+      sortOrder: sortedInfo.columnKey === 'Target' && sortedInfo.order,
     },
     {
       title: 'Diff',
       dataIndex: 'Diff',
       key: 'Diff',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.Diff - d.Diff,
+      sortOrder: sortedInfo.columnKey === 'Diff' && sortedInfo.order,
     },
     
     
@@ -230,13 +256,13 @@ const TargetSummaryReport = (props) => {
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={state.dataSource} columns={columns} />
+                  <Table pagination={false} dataSource={state.dataSource} columns={columns} onChange={handleChange} />
                 </div>
 
               </ProjectList>
             </Cards>
           </Col>
-          {console.log('dataReport',dataReport)}
+      
           {dataReport.length>0&&
          <Col lg={24} s={24}>
           
