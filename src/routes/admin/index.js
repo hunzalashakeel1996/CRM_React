@@ -20,11 +20,11 @@ import ComparisonReportView from './../../CRMPages/Dashboard/ComparisonReport/Co
 
 const Admin = () => {
   const { path } = useRouteMatch();
-  let a = JSON.parse(localStorage.getItem('userRole'))
+  // let a = JSON.parse(localStorage.getItem('userRole'))
   // const Tickets = () => import('./tickets')
   return (
     <Switch>
-      {console.log('vvd', JSON.parse(a))}
+      {/* {console.log('vvd', JSON.parse(a))} */}
       <Suspense
         fallback={
           <div className="spin">
