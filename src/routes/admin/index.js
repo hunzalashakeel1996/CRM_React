@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect} from 'react';
 import { Spin } from 'antd';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Dashboard from './dashboard';
@@ -20,11 +20,11 @@ import ComparisonReportView from './../../CRMPages/Dashboard/ComparisonReport/Co
 
 const Admin = () => {
   const { path } = useRouteMatch();
-  // let a = JSON.parse(localStorage.getItem('userRole'))
+
+  
   // const Tickets = () => import('./tickets')
   return (
     <Switch>
-      {/* {console.log('vvd', JSON.parse(a))} */}
       <Suspense
         fallback={
           <div className="spin">

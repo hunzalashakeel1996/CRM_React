@@ -44,11 +44,11 @@ const SignIn = () => {
                       dispatch(login(data));
                       setHeaderWithWebToken()
                       setState({ ...state, loader: false })
-                      dispatch(getVendorName({})).then(departs => {
-                        console.log('aaaa', departs)
-                        dispatch(addVendorName(departs[0]))
-                        // setState({ ...state, departs, loader: false  });
-                      })
+                      // dispatch(getVendorName({})).then(departs => {
+                      //   console.log('aaaa', departs)
+                      //   dispatch(addVendorName(departs[0]))
+                      //   // setState({ ...state, departs, loader: false  });
+                      // })
                       history.push('/admin');
                       // console.log('aaaa', dataOne)
                     })
