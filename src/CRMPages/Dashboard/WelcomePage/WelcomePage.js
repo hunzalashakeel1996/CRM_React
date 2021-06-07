@@ -9,7 +9,7 @@ const WelcomePage = () => {
 
     return (
         <>
-            <div style={{ backgroundColor: 'white',width: '100%', height: 600,display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {/* <div style={{ backgroundColor: 'white',width: '100%', height: 600,display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                <Row>
                <p style={{fontSize: 50, color: 'rgb(106 107 110)'}}>
                     Welcome To 
@@ -19,11 +19,13 @@ const WelcomePage = () => {
                 </p>
                </Row>
                
-            </div>
-                {/* <img
-                    style={{ width: '100%', height: 500, opacity: 0.5 }}
+            </div> */}
+            <div style={{ backgroundColor: 'white',width: '100%', height: 600,display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <img
+                    style={{ width: 900, height: 550}}
                     src="/img/icons/CRM_background.jpg"
-                /> */}
+                />
+                </div>
                 
         </>
     );
