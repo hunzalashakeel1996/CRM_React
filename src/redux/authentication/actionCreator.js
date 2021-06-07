@@ -9,6 +9,7 @@ const login = (data) => {
     try {
       dispatch(loginBegin());
       setTimeout(() => {
+        console.log('aaa', JSON.stringify(data))
         localStorage.setItem('user', JSON.stringify(data))
         setHeader()
         return dispatch(loginSuccess(data));
