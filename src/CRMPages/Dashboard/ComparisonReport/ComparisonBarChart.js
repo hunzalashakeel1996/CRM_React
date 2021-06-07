@@ -6,8 +6,8 @@ import { Cards } from '../../../components/cards/frame/cards-frame';
 import { CardBarChart } from './overview/style';
 import { Bar,Line } from 'react-chartjs-2';
 
-const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelineMonth }) => {
-   
+const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelineThisMonth,ordersSelectedTimelineLastMonth,ordersSelectedTimelineLast2Month }) => {
+//    console.log(dataset)
     const [state, setState] = useState({
         selectedTimeline: 'today',
         isLoading: false,
@@ -86,9 +86,19 @@ const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelin
                           Week
                         </Link>
                       </li>
-                      <li className={selectedTimeline === 'month' ? 'active' : 'deactivate'}>
-                        <Link onClick={() => {timelineChange('month')}} to="#">
-                          {ordersSelectedTimelineMonth}
+                      <li className={selectedTimeline === 'month1' ? 'active' : 'deactivate'}>
+                        <Link onClick={() => {timelineChange('month1')}} to="#">
+                          {ordersSelectedTimelineThisMonth}
+                        </Link>
+                      </li>
+                      <li className={selectedTimeline === 'month2' ? 'active' : 'deactivate'}>
+                        <Link onClick={() => {timelineChange('month2')}} to="#">
+                          {ordersSelectedTimelineLastMonth}
+                        </Link>
+                      </li>
+                      <li className={selectedTimeline === 'month3' ? 'active' : 'deactivate'}>
+                        <Link onClick={() => {timelineChange('month3')}} to="#">
+                          {ordersSelectedTimelineLast2Month}
                         </Link>
                       </li>
                       <li className={selectedTimeline === 'over All' ? 'active' : 'deactivate'}>

@@ -28,17 +28,22 @@ const SaleReports = (props) => {
     itemReport: {
         Data: []
     },
+    Total:{
+      Data:[]
+    },
     totalSelectedTimeline: 'Data',
     salesSelectedTimeline: 'Data',
     itemRSelectedTimeline: 'Data',
     loaderState: true
   });
-  const {orderType, totalReport, totalSelectedTimeline, salesReport, itemReport,  salesSelectedTimeline, itemRSelectedTimeline, loaderState } = state;
+  const {Total,orderType, totalReport, totalSelectedTimeline, salesReport, itemReport,  salesSelectedTimeline, itemRSelectedTimeline, loaderState } = state;
   useEffect(()=>{
+   
     setState({...state,loaderState: false})
     let orders = {...totalReport}
     let sales = {...salesReport}
     let item = {...itemReport}
+    
     // dispatch(chartSaleData({"rType":"Date","oType":0,"FROMDATE":"5/1/2021","TODATE":"5/25/2021"})).then(data => {
      console.log(data)
      let objects = [orders]
@@ -50,7 +55,16 @@ const SaleReports = (props) => {
           orders.Data[i]  = data[0][i].TOTALORDER
           sales.Data[i]  = data[0][i].TOTALAMOUNT
           item.Data[i]  = data[0][i].ITEMCOUNT
+
+          //   totaLorder =+data[0][i].TOTALORDER
+          // totalAmount =+data[0][i].TOTALAMOUNT
+          // itemCount =+data[0][i].ITEMCOUNT
+        
     }
+            // orders.Data["Total"]  = totaLorder
+            // sales.Data["Total"]  = totalAmount
+            // item.Data["Total"]  = itemCount
+          
      }
          setState({...state,orderType:Type, loaderState: false})
     // })

@@ -36,13 +36,14 @@ const ReturnPercentage = (props) => {
     values: {},
     AddDays: null,
     isLoader: false,
+    sortedInfo:[]
   });
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
-
+  const {sortedInfo}=state
   const getReturnPercentageReporting = () => {
     console.log('aaaaa')
     setstate({ ...state, isLoader: true })
@@ -145,16 +146,26 @@ const ReturnPercentage = (props) => {
       title: 'OrderCount',
       dataIndex: 'ordercount',
       key: 'ordercount',
+        
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.ordercount - d.ordercount,
+      sortOrder: sortedInfo.columnKey === 'ordercount' && sortedInfo.order,
     },
     {
       title: 'Sold',
       dataIndex: 'Sold',
       key: 'Sold',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.Sold - d.Sold,
+      sortOrder: sortedInfo.columnKey === 'Sold' && sortedInfo.order,
     },
     {
       title: 'Return',
       dataIndex: 'Return',
       key: 'Return',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.Return - d.Return,
+      sortOrder: sortedInfo.columnKey === 'Return' && sortedInfo.order,
     },
     {
       title: 'Return Percentage',
@@ -165,7 +176,13 @@ const ReturnPercentage = (props) => {
     
   ];
 
-
+  const handleChange = (pagination, filters, sorter) =>  {
+    console.log('Various parameters', pagination, filters, sorter);
+    setstate({...state,
+      filteredInfo: filters,
+      sortedInfo: sorter,
+    });
+  };
 
 
   return (
@@ -219,7 +236,7 @@ const ReturnPercentage = (props) => {
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={true} dataSource={state.dataSource} columns={columns} />
+                  <Table pagination={false} scroll={{ x: 1500, y: 500 }} dataSource={state.dataSource} columns={columns} onChange={handleChange}/>
                 </div>
 
               </ProjectList>

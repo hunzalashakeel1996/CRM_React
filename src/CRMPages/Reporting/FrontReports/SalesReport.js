@@ -23,6 +23,9 @@ const ReportView = (props) => {
 
   var Type =[];
   const dispatch = useDispatch();
+  let totalOrder=0;
+  let totalAmount=0;
+  let itemCount=0;
   // useEffect(() => {
   //   // let orders = {...totalReport}
   //   // let sales = {...salesReport}
@@ -93,7 +96,7 @@ const ReportView = (props) => {
       
 
         // setstate({ ...state,dataSale:data,isLoader: false })
-        console.log('My Data: ', data)
+      //  console.log('My Data: ', data)
         //downloadFile(data);
         notification.success({
           message: 'Successfull Rendered',
@@ -103,17 +106,27 @@ const ReportView = (props) => {
         let tempDataSource = [];
         // console.log(data);
         data[0].map(value => {
-          console.log(value)
+        //  console.log(value)
           const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
        
-
+          totalOrder =+TOTALORDER
+          totalAmount =+TOTALAMOUNT
+          itemCount =+ITEMCOUNT
           return tempDataSource.push({
             TYPE: TYPE,
             TOTALORDER: TOTALORDER,
             ITEMCOUNT: ITEMCOUNT,
             TOTALAMOUNT: TOTALAMOUNT,
+            
           });
 
+        });
+        return tempDataSource.push({
+          TYPE: "Total",
+          TOTALORDER: totalOrder,
+          ITEMCOUNT: itemCount,
+          TOTALAMOUNT: totalAmount,
+          
         });
         setstate({ ...state, dataSource: [...tempDataSource], isLoader: false,dataSale:data });
       })
@@ -124,7 +137,7 @@ const ReportView = (props) => {
       dispatch(chartSaleData({ FROMDATE: '', TODATE: '', oType: state.oType, rType: state.rType })).then(data => {
       
         // setstate({ ...state,dataSale:data, isLoader: false })
-        console.log('My Data: ', data)
+     //   console.log('My Data: ', data)
         //downloadFile(data);
         notification.success({
           message: 'Successfull Rendered',
@@ -137,10 +150,13 @@ const ReportView = (props) => {
           // console.log(value)
           const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
           
+          totalOrder =totalOrder+TOTALORDER
+          totalAmount =totalAmount+TOTALAMOUNT
+          itemCount =itemCount+ITEMCOUNT
          
-
+         console.log(totalOrder,itemCount,totalAmount)
           
-          return tempDataSource.push({
+           tempDataSource.push({
             TYPE: TYPE,
             TOTALORDER: TOTALORDER,
             ITEMCOUNT: ITEMCOUNT,
@@ -148,6 +164,15 @@ const ReportView = (props) => {
           });
 
         });
+
+         tempDataSource.push({
+          TYPE: "Total",
+          TOTALORDER: totalOrder,
+          ITEMCOUNT: itemCount,
+          TOTALAMOUNT: totalAmount,
+          
+        });
+        console.log(tempDataSource)
         setstate({ ...state, dataSource: [...tempDataSource], isLoader: false, dataSale:data });
       })
     }
