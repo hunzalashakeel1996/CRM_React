@@ -14,7 +14,9 @@ const ProjectRoutes = () => {
   const { path } = useRouteMatch();
   return (
     <Switch>
-      <Route exact path={`${path}`} component={ComparisonReportView} />
+      {console.log('vvd', JSON.parse(localStorage.getItem('userRole'))[0])}
+
+      <Route exact path={`${path}`} component={ JSON.parse(JSON.parse(localStorage.getItem('userRole'))[0].top_navigation).Dashboard.includes('Comparison Report') ? ComparisonReportView : WelcomePage} />
       <Route exact path={`${path}/comparisonGraph`} component={ComparisonReportView} />
       <Route exact path={`${path}/welcomePage`} component={WelcomePage} />
     </Switch>
@@ -22,3 +24,4 @@ const ProjectRoutes = () => {
 };
 
 export default ProjectRoutes;
+//

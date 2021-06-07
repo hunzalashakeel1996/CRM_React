@@ -14,7 +14,7 @@ import store from './redux/store';
 import Admin from './routes/admin';
 import Auth from './routes/auth';
 import { connectSocket } from './redux/socket/socketAction';
-import { setHeaderWithWebToken, getDepartsAPI,getVendorName,getPolyBags } from './redux/apis/DataAction';
+import { setHeaderWithWebToken, getDepartsAPI,getVendorName, getPolyBags } from './redux/apis/DataAction';
 // import { getVendorName } from './redux/apis/DataAction';
 import { addDepart,addVendorName } from './redux/ticket/actionCreator';
 
@@ -70,8 +70,11 @@ const ProviderConfig = () => {
     setTimeout(() => {
       (socket === null && user !== null) &&dispatch(connectSocket(user.LoginID))
     }, 4000);
-    Promise.all([dispatch(getDepartsAPI()),getPolyBags("")]).then(data=>{
+
+    Promise.all([dispatch(getDepartsAPI()),dispatch(getVendorName({})), getPolyBags("")]).then(data=>{
       dispatch(addDepart(data[0]) )
+      dispatch(addVendorName(data[1][0]))
+      console.log('asdasdsa0', data)
     })
 
     // dispatch(getDepartsAPI({})).then(departs => {
