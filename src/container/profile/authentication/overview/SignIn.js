@@ -35,22 +35,22 @@ const SignIn = () => {
                   if (data[0].err){
                     setState({ ...state, loader: false })
                     alert(data[0].err)
-
                   }
                   else {
                     data = { ...data[0][0], jwtToken: data[1] }
                     dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
-                      localStorage.setItem('userRole', JSON.stringify(dataOne))
-                      localStorage.setItem('user', JSON.stringify(data))
-                      dispatch(login(data));
-                      setHeaderWithWebToken()
-                      setState({ ...state, loader: false })
-                      dispatch(getVendorName({})).then(departs => {
-                        console.log('aaaa', departs)
-                        dispatch(addVendorName(departs[0]))
-                        // setState({ ...state, departs, loader: false  });
-                      })
-                      history.push('/admin');
+                      // localStorage.setItem('userRole', JSON.stringify(dataOne))
+                      // localStorage.setItem('user', JSON.stringify(data))
+                      // dispatch(login(data));
+                      // setHeaderWithWebToken()
+                      // setState({ ...state, loader: false })
+                      // dispatch(getVendorName({})).then(departs => {
+                      //   console.log('aaaa', departs)
+                      //   dispatch(addVendorName(departs[0]))
+                      //   // setState({ ...state, departs, loader: false  });
+                      // })
+                      // history.push('/admin');
+                      console.log('aaaa', dataOne)
                     })
                   }
                 })

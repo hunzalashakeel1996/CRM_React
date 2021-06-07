@@ -256,13 +256,13 @@ const MarketplaceGroupInventoryView = (props) => {
     //  const downloadFile =(data)=>
     //  {
     //  var d = new Date();
-    //     var n = d.getTime();
-    //     var a = document.createElement('a');
-    //    a.href = `http://localhost:47463/admin/${data}`;
-    //     a.target = '_blank';
-    //     a.download = `http://localhost:47463/admin/${data}`;
-    //     document.body.appendChild(a);
-    //     a.click();
+    //  var n = d.getTime();
+    //  var a = document.createElement('a');
+    //  a.href = `http://localhost:47463/admin/${data}`;
+    //  a.target = '_blank';
+    //  a.download = `http://localhost:47463/admin/${data}`;
+    //  document.body.appendChild(a);
+    //  a.click();
 
     //  }
     return (

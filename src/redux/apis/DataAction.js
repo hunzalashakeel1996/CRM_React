@@ -8,13 +8,11 @@ export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
 // export const socketUrl = "ws://3.131.5.41:3000"
-export const socketUrl = "wss://3.131.5.41:3000"
-// sadsa
+export const socketUrl = "wss://crm.rizno.com:3001"
 // export const socketUrl = "wss://crm.rizno.com"
 
-// export const url = "http://192.168.0.196:3005";
 //##################### Node Server Live ########################
-//export const url = "http://3.131.5.41:3001";
+export const url = "https://crm.rizno.com:3001";
 //##################### Node Server Local ########################
 export const url = "http://192.168.0.197:3005";
 
@@ -23,12 +21,11 @@ export const url = "http://192.168.0.197:3005";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
-export const urlDotNet ="http://localhost:47463/api"
+// export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-//export const urlDotNet = "https://crm.rizno.com/api"
+export const urlDotNet = "https://crm.rizno.com/api"
 
-// export const url = "https://crmserver-development.herokuapp.com";
 
 export const uploadUrl = "https://images.vanwala.pk";
 
