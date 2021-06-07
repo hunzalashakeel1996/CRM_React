@@ -11,12 +11,13 @@ let requestObjInventroy = {
 
 };
 const GoogleMarketPlace = (props) => {      
+
     let vendornameState = useSelector(state => state.tickets.vendornames);
 
          const [state,setState]=useState({
             file:'',
             dataTo:'',
-            loaderState:true
+            loaderState:false
 
           })
     
@@ -81,11 +82,10 @@ const GoogleMarketPlace = (props) => {
                         </Row>
                     </Cards>
                 </Col>
-                </Row>
-                <Row gutter={50} style={{marginBottom: 20}}>
+                
                     <Col span={8} >
                       
-
+                    <Cards headless>
                           
 
                                 <Select placeholder='Vendor Name' mode="multiple" allowClear onChange={(val) => { props.genrateFilter('vendorFilter', val, true) }} style={{ width: 300 }}  >
@@ -96,7 +96,7 @@ const GoogleMarketPlace = (props) => {
 
                                 </Select>
                          
-
+                                </Cards>
                     </Col>
                     </Row>
             </Spin>
