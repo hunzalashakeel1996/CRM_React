@@ -75,6 +75,12 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'Marketplace Group Inventory',
         title: 'Marketplace Group Inventory',
         path: `${path}/inventory/marketplaceGroupInventory`
+      }
+      ,
+      {
+        key: 'Google MarketPlace',
+        title: 'Google MarketPlace',
+        path: `${path}/inventory/googleMarketPlace`
       }]
     },
     {
