@@ -1030,4 +1030,9 @@ export const getGoogleMarketPlaceVerifyapi = (data) => {
     return apiFetchDotNet('/newInventory/fetchGoogleMarketplaceVerifyapi', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
+export const getGoogleMarketplaceNotVerifyUploadapi = (data) => {
+    console.log("Hello World!")
+    return apiFetchDotNet('/newInventory/GoogleMarketplaceNotVerifyUpload', "POST", multipartHeader, data);
+};
+
 

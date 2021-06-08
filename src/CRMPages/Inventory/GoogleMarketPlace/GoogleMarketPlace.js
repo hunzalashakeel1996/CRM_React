@@ -3,7 +3,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Button } from '../../../components/buttons/buttons';
 import { useDispatch,useSelector } from 'react-redux';
-import { getGoogleMarketPlaceVerifyapi} from '../../../redux/apis/DataAction';
+import { getGoogleMarketPlaceVerifyapi,getGoogleMarketplaceNotVerifyUploadapi} from '../../../redux/apis/DataAction';
 import { downloadFile } from '../../../components/utilities/utilities';
 const { TabPane } = Tabs;
 let requestObjInventroy = {
@@ -26,6 +26,12 @@ const GoogleMarketPlace = (props) => {
     const dispatch = useDispatch();
 
       const uploadFile = () => {
+        setState({ ...state, file: event.target.files[0] })
+
+    }
+ 
+    
+    const googleMarketplaceNotVerify = () => {
         setState({...state,loaderState:true})
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
@@ -33,33 +39,33 @@ const GoogleMarketPlace = (props) => {
         console.log('file', file)
         const formData = new FormData();
         formData.append('File', file);
-        formData.append('datato', dataTo);
+     //  formData.append('datato', dataTo);
       
         formData.append('by', username.LoginName);
 
-        // dispatch(getGoogleMarketPlaceVerifyapi(formData)).then(data => {
+        dispatch(getGoogleMarketplaceNotVerifyUploadapi(formData)).then(data => {
+            setState({...state,loaderState:false})
+            notification.success({
+                message: `Successfull Upload File Update SKU ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
 
-        //     notification.success({
-        //         message: `Successfull Upload File Update SKU ${data}`,
-        //         description: `Successfully Report`,
-        //         onClose: close,
-        //     });
 
-
-        // })
+        })
 
     }
     const getGoogleVerifyReport = () => {
         setState({...state,loaderState:true})
-        let username = [];
-        username = JSON.parse(localStorage.getItem('user'))
+        // let username = [];
+        // username = JSON.parse(localStorage.getItem('user'))
 
-        console.log('file', file)
-        const formData = new FormData();
-        formData.append('File', file);
-        formData.append('datato', dataTo);
+        // console.log('file', file)
+        // const formData = new FormData();
+        // formData.append('File', file);
+        // formData.append('datato', dataTo);
       
-        formData.append('by', username.LoginName);
+        // formData.append('by', username.LoginName);
 
         dispatch(getGoogleMarketPlaceVerifyapi({'vendorFilter':requestObjInventroy.vendorFilter.toString()})).then(data => {
             console.log('Google Market Place',data)
@@ -94,7 +100,7 @@ const GoogleMarketPlace = (props) => {
             <Cards title="GoogleMarketPlace Not Approve">
                             <Col span={20} >
                 
-                                <Button type="primary" onClick={""}>GoogleMarketPlace Not Approve</Button>
+                                <Button type="primary" onClick={googleMarketplaceNotVerify}>GoogleMarketPlace Not Approve</Button>
                               
                                 </Col>
                    
