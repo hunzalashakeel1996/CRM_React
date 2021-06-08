@@ -3,20 +3,21 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Button } from '../../../components/buttons/buttons';
 import { useDispatch,useSelector } from 'react-redux';
-import { getGoogleMarketPlaceVerifyapi} from '../../../redux/apis/DataAction';
-
+import { getGoogleMarketPlaceVerifyapi,getGoogleMarketplaceNotVerifyUploadapi} from '../../../redux/apis/DataAction';
+import { downloadFile } from '../../../components/utilities/utilities';
 const { TabPane } = Tabs;
 let requestObjInventroy = {
     vendorFilter: ""
 
 };
 const GoogleMarketPlace = (props) => {      
+
     let vendornameState = useSelector(state => state.tickets.vendornames);
 
          const [state,setState]=useState({
             file:'',
             dataTo:'',
-            loaderState:true
+            loaderState:false
 
           })
     
@@ -25,6 +26,12 @@ const GoogleMarketPlace = (props) => {
     const dispatch = useDispatch();
 
       const uploadFile = () => {
+        setState({ ...state, file: event.target.files[0] })
+
+    }
+ 
+    
+    const googleMarketplaceNotVerify = () => {
         setState({...state,loaderState:true})
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
@@ -32,14 +39,39 @@ const GoogleMarketPlace = (props) => {
         console.log('file', file)
         const formData = new FormData();
         formData.append('File', file);
-        formData.append('datato', dataTo);
-        formData.append('vendorFilter', requestObjInventroy.vendorFilter);
+     //  formData.append('datato', dataTo);
+      
         formData.append('by', username.LoginName);
 
-        dispatch(getGoogleMarketPlaceVerifyapi(formData)).then(data => {
-
+        dispatch(getGoogleMarketplaceNotVerifyUploadapi(formData)).then(data => {
+            setState({...state,loaderState:false})
             notification.success({
                 message: `Successfull Upload File Update SKU ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+
+
+        })
+
+    }
+    const getGoogleVerifyReport = () => {
+        setState({...state,loaderState:true})
+        // let username = [];
+        // username = JSON.parse(localStorage.getItem('user'))
+
+        // console.log('file', file)
+        // const formData = new FormData();
+        // formData.append('File', file);
+        // formData.append('datato', dataTo);
+      
+        // formData.append('by', username.LoginName);
+
+        dispatch(getGoogleMarketPlaceVerifyapi({'vendorFilter':requestObjInventroy.vendorFilter.toString()})).then(data => {
+            console.log('Google Market Place',data)
+            downloadFile(data)
+            notification.success({
+                message: `Successfull Download Google Markerplace Verift Report`,
                 description: `Successfully Report`,
                 onClose: close,
             });
@@ -62,33 +94,31 @@ const GoogleMarketPlace = (props) => {
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
-            <Row gutter={16} style={{ marginTop: 20 }}>
-                <Col span={10} style={{ marginLeft: 20 }}>
+            <Row >
+                
 
-                    <Cards headless>
-                        <Row >
-                            <Col span={10}>
-                                <Button type="primary" onClick={""}>GoogleMarketPlace Not Approve</Button>
-
-                            </Col>
-                        </Row>
-                        <Row style={{ marginTop: 20 }}>
-                            <Col span={8} style={{ width: 300, marginRight: 20 }}>
-                            
+            <Cards title="GoogleMarketPlace Not Approve">
+                            <Col span={20} >
+                
+                                <Button type="primary" onClick={googleMarketplaceNotVerify}>GoogleMarketPlace Not Approve</Button>
+                              
+                                </Col>
+                   
+                                <Col span={24} style={{ marginTop: 10 }}>
+                 
                                 <input type="file" onChange={uploadFile} />
-
-                            </Col>
-                        </Row>
-                    </Cards>
-                </Col>
+                              
+                                </Col>
+                                </Cards>
                 </Row>
-                <Row gutter={50} style={{marginBottom: 20}}>
-                    <Col span={8} >
+                <Row >
+                <Cards title="GoogleMarketPlace ">
+                    <Col span={12} >
                       
-
+                
                           
 
-                                <Select placeholder='Vendor Name' mode="multiple" allowClear onChange={(val) => { props.genrateFilter('vendorFilter', val, true) }} style={{ width: 300 }}  >
+                                <Select placeholder='Vendor Name' mode="multiple" allowClear onChange={(val) => { genrateFilter('vendorFilter', val, true) }} style={{ width: 300 }}  >
                                     {vendornameState.map((val, i) => (
                                         <Option value={`''${val}''`} key={val}>{val}</Option>
 
@@ -96,8 +126,14 @@ const GoogleMarketPlace = (props) => {
 
                                 </Select>
                          
-
+                              
                     </Col>
+                    <Col span ={6} style={{ marginTop: 10 }}>
+                    <Button size="default" type="success" onClick={getGoogleVerifyReport} >Generate</Button>
+
+
+                </Col>
+                </Cards>
                     </Row>
             </Spin>
         </>
