@@ -21,7 +21,7 @@ const Walmart = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
 
     const WalmartColumn =['WALLMARTSTATUS', 'WALLMARTPRICE' ]
-    const columnDropdown = ['ADD WALMART INVENTORY', 'ALL', 'OTHER']
+    const columnDropdown = ['ADD WALMART INVENTORY', 'Walmart PRICE TEMPLATE', 'ALL', 'OTHER']
     const isSeller = "Walmart"
     const WalmartPU = "WalmartUSA"
     

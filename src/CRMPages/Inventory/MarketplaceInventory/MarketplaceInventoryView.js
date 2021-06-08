@@ -13,7 +13,7 @@ import Ebay from './overview/Ebay';
 
 import { downloadFile } from '../../../components/utilities/utilities'
 
-import { webURL, audioPlay, uploadUrl,getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi } from '../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl,getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi,getSearsPriceapi,getPriceWalmartapi } from '../../../redux/apis/DataAction';
 
 
 const { TabPane } = Tabs;
@@ -157,9 +157,9 @@ const MarketplaceInventoryView = (props) => {
         }
         else if (isSeller == "Walmart") {
 
-            if (requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY') {
+            if (requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY' ||requestObjInventroy.addOrOtherinventory === 'Walmart PRICE TEMPLATE') {
 
-                dispatch(requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY' ? getInventoryWalmartapi(requestObjInventroy) : getInventoryWalmart_all_otherapi(requestObjInventroy)).then(data => {
+                dispatch(requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY' ? getInventoryWalmartapi(requestObjInventroy) :  requestObjInventroy.addOrOtherinventory == 'Walmart PRICE TEMPLATE' ? getPriceWalmartapi(requestObjInventroy) :getInventoryWalmart_all_otherapi(requestObjInventroy)).then(data => {
                     setState({ ...state, loaderState: false })
                      console.log(data)
                     var link = data
@@ -231,7 +231,7 @@ const MarketplaceInventoryView = (props) => {
         else if (isSeller == "Sears") {
 
 
-            dispatch(requestObjInventroy.addOrOtherinventory == 'ADD SEARS INVENTORY' ? getSearsqtyapi(requestObjInventroy) : getSears_all_otherapi(requestObjInventroy)).then(data => {
+            dispatch(requestObjInventroy.addOrOtherinventory == 'ADD SEARS INVENTORY' ? getSearsqtyapi(requestObjInventroy) : requestObjInventroy.addOrOtherinventory == 'SEARS PRICE TEMPLATE'? getSearsPriceapi(requestObjInventroy) :getSears_all_otherapi(requestObjInventroy)).then(data => {
 
 
                 setState({ ...state, loaderState: false })

@@ -22,7 +22,7 @@ const Sears = (props) => {
 
     const searsColumn =['SearsStatus']
     const Sears = "Sears"
-    const columnDropdown = ['ADD SEARS INVENTORY', 'ALL', 'OTHER']
+    const columnDropdown = ['ADD SEARS INVENTORY','SEARS PRICE TEMPLATE', 'ALL', 'OTHER']
     const isSeller = "Sears"
     return (
         <>
