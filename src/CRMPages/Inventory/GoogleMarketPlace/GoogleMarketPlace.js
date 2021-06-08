@@ -68,7 +68,8 @@ const GoogleMarketPlace = (props) => {
         // formData.append('by', username.LoginName);
 
         dispatch(getGoogleMarketPlaceVerifyapi({'vendorFilter':requestObjInventroy.vendorFilter.toString()})).then(data => {
-            console.log('Google Market Place',data)
+            setState({...state,loaderState:false})
+             console.log('Google Market Place',data)
             downloadFile(data)
             notification.success({
                 message: `Successfull Download Google Markerplace Verift Report`,
