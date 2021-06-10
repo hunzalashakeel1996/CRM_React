@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, notification } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, notification ,Spin} from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
@@ -35,8 +35,10 @@ const OrderReportsView = (props) => {
         checkData: [],
         checked: null,
         values: {},
+        loaderState: false,
     });
 
+    const {loaderState}= state
 
     const btn = (
         <Button type="primary" size="small" onClick={() => notification.close(key)}>
@@ -122,6 +124,7 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
+          <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
             <Row style={{}}>
                 <Cards title="Profit & Loss Report (PNL)" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
@@ -155,7 +158,7 @@ const OrderReportsView = (props) => {
                 </Cards>
             </Row>
 
-
+            </Spin>
 
 
 
