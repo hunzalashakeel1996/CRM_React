@@ -23,7 +23,7 @@ const OrderReportsView = (props) => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        setstate({ ...state, loader: true })
+        setstate({ ...state, loader: false })
     }, []);
     const [state, setstate] = useState({
         selectionType: 'checkbox',
@@ -36,6 +36,7 @@ const OrderReportsView = (props) => {
         values: {},
         isLoader: false,
     });
+    const {isLoader}=state
     const onChange = (value, key) => {
         // console.log('aaa', date, dateString)
         setstate({ ...state, [key]: value });
@@ -56,31 +57,31 @@ const OrderReportsView = (props) => {
             });
         })
 
-    };
-    const getInstockSoldReporting = () => {
+     };
+    // const getInstockSoldReporting = () => {
 
-        setstate({ ...state, isLoader: true })
-        dispatch(getInstockSoldReport({ orderdate: state.orderdate.format('MM/DD/YYYY') })).then(data => {
-            // setstate({ ...state, isLoader: false })
-            console.log('My Data: ', data)
-            //downloadFile(data);
-            notification.success({
-                message: 'Successfull Rendered',
-                description: `Successfully Rendered InStock Sold Report From ${state.orderdate.format('MM/DD/YYYY')}`,
-                onClose: close,
-            });
-            let tempDataSource = [];
-            data[1].map(value => {
-                const { vendorname, Total } = value;
-                return tempDataSource.push({
-                    vendorname: vendorname,
-                    Total: Total,
-                });
-            });
-            setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
-        })
+    //     setstate({ ...state, isLoader: true })
+    //     dispatch(getInstockSoldReport({ orderdate: state.orderdate.format('MM/DD/YYYY') })).then(data => {
+    //         // setstate({ ...state, isLoader: false })
+    //         console.log('My Data: ', data)
+    //         //downloadFile(data);
+    //         notification.success({
+    //             message: 'Successfull Rendered',
+    //             description: `Successfully Rendered InStock Sold Report From ${state.orderdate.format('MM/DD/YYYY')}`,
+    //             onClose: close,
+    //         });
+    //         let tempDataSource = [];
+    //         data[1].map(value => {
+    //             const { vendorname, Total } = value;
+    //             return tempDataSource.push({
+    //                 vendorname: vendorname,
+    //                 Total: Total,
+    //             });
+    //         });
+    //         setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+    //     })
 
-    };
+    // };
 
 
     const columns = [
@@ -97,7 +98,7 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
-            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
                 <Row style={{}}>
                     <Cards title="Instock Order Reports" caption="The simplest use of Drawer" >
                         <Row gutter={25}>
@@ -135,17 +136,17 @@ const OrderReportsView = (props) => {
                 {/* INSTOCK SOLD REPORT */}
 
                 {/* INSTOCK SOLD REPORT */}
-                <Row style={{}}>
+                {/* <Row style={{}}>
                     <Cards title="Instock Sold Report" caption="The simplest use of Drawer" >
                         <Row gutter={25}>
                             <Col lg={8} xs={24}  >
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>From</h3></div> */}
+                              
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                     <DatePicker onChange={(date) => { onChange(date, 'orderdate') }} />
                                 </div>
                             </Col>
                             <Col lg={8} xs={24}  >
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
+                               
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                     <Button onClick={getInstockSoldReporting} size="default" type="success" htmlType="Submit">
                                         GetReport
@@ -161,7 +162,7 @@ const OrderReportsView = (props) => {
                     <Table pagination={true} dataSource={state.dataSource} columns={columns} />
                     </Col>
 
-                </Row>
+                </Row> */}
 
             </Spin>
 

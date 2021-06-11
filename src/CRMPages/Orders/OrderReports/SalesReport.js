@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image,notification } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image,notification,Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
@@ -22,9 +22,9 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 const OrderReportsView = (props) => {
 
     const dispatch = useDispatch();
-    useEffect(() => {
-        setstate({ ...state, loader: true })
-    }, []);
+    // useEffect(() => {
+    //     setstate({ ...state, loader: true })
+    // }, []);
     const [state, setstate] = useState({
         selectionType: 'checkbox',
         selectedRowKeys: null,
@@ -34,8 +34,9 @@ const OrderReportsView = (props) => {
         checkData: [],
         checked: null,
         values: {},
+        isLoader:false
     });
-    
+    const {isLoader}=state
 
     const onChange = (date, dateString) => {
         // console.log('aaa', date, dateString)
@@ -46,11 +47,11 @@ const OrderReportsView = (props) => {
     
   
   const getSalesReporting = () => {
-
+    setstate({ ...state, isLoader: true });
     //    console.log('bbb', state.startDate.format('MM/DD/YYYY'))
     //  console.log('bbb', state.endDate.format('MM/DD/YYYY'))
     dispatch(getSalesReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), })).then(data => {
-        console.log('My Data: ', data)
+        setstate({ ...state, isLoader: false });
         downloadFile(data);
         notification.success({
             message: 'Successfull Dowload',
@@ -64,6 +65,7 @@ const OrderReportsView = (props) => {
     
     return (
         <>
+         <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row style={{  }}>
                 <Cards title="Sales Report" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
@@ -98,7 +100,7 @@ const OrderReportsView = (props) => {
             </Row>
             
 
-
+            </Spin>
 
 
         </>

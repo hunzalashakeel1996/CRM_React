@@ -38,6 +38,7 @@ const OrderReportsView = (props) => {
         values: {},
         isLoader: false,
     });
+    const {isLoader}= state
     const onChange = (value, key) => {
         // console.log('aaa', date, dateString)
         setstate({ ...state, [key]: value });
@@ -154,7 +155,7 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
-            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row style={{  }}>
                 <Cards title="Order Search" caption="The simplest use of Drawer" >
                     <Row gutter={25}>

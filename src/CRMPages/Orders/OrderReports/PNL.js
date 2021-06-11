@@ -35,10 +35,10 @@ const OrderReportsView = (props) => {
         checkData: [],
         checked: null,
         values: {},
-        loaderState: false,
+        isLoader: false,
     });
 
-    const {loaderState}= state
+    const {isLoader}= state
 
     const btn = (
         <Button type="primary" size="small" onClick={() => notification.close(key)}>
@@ -46,7 +46,7 @@ const OrderReportsView = (props) => {
         </Button>
     );
     const multipleChange = childData => {
-        setState({ ...state, checkData: childData });
+        setstate({ ...state, checkData: childData });
     };
 
 
@@ -56,11 +56,11 @@ const OrderReportsView = (props) => {
         console.log(dateString);
     };
     const getPNLReporting = () => {
-
+        setstate({ ...state, isLoader: true });
         //    console.log('bbb', state.startDate.format('MM/DD/YYYY'))
         //  console.log('bbb', state.endDate.format('MM/DD/YYYY'))
         dispatch(getPNLReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), })).then(data => {
-            console.log('My Data: ', data)
+            setstate({ ...state, isLoader: false });
             downloadFile(data);
             notification.success({
                 message: 'Successfull Dowload',
@@ -124,7 +124,7 @@ const OrderReportsView = (props) => {
     ];
     return (
         <>
-          <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
+          <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row style={{}}>
                 <Cards title="Profit & Loss Report (PNL)" caption="The simplest use of Drawer" >
                     <Row gutter={25}>

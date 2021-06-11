@@ -46,7 +46,7 @@ const OrderReportsView = (props) => {
         setstate({ ...state, [key]: value });
  
     };
-
+const {isLoader}=state
     const getPONetAmountReporting = () => {
 
         setstate({ ...state, isLoader: true })
@@ -66,7 +66,7 @@ const OrderReportsView = (props) => {
 
     return (
         <>
-            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
                 <Row style={{}}>
                     <Cards title="PO's Net Amount" caption="The simplest use of Drawer" >
                         <Row gutter={25}>
