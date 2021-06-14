@@ -87,7 +87,7 @@ const ReportView = (props) => {
 
   const getOverViewReporting = () => {
 
-    setstate({ ...state, isLoader: true })
+
     console.log(state.rType);
     if (state.rType == 'Date') {
 
@@ -98,11 +98,7 @@ const ReportView = (props) => {
         // setstate({ ...state,dataSale:data,isLoader: false })
       //  console.log('My Data: ', data)
         //downloadFile(data);
-        notification.success({
-          message: 'Successfull Rendered',
-          description: `Successfully Rendered Sales Reports From ${state.startDate.format('MM/DD/YYYY')}`,
-          onClose: close,
-        });
+      
         let tempDataSource = [];
         // console.log(data);
         data[0].map(value => {
@@ -112,7 +108,7 @@ const ReportView = (props) => {
           totalOrder =+TOTALORDER
           totalAmount =+TOTALAMOUNT
           itemCount =+ITEMCOUNT
-          return tempDataSource.push({
+           tempDataSource.push({
             TYPE: TYPE,
             TOTALORDER: TOTALORDER,
             ITEMCOUNT: ITEMCOUNT,
@@ -121,7 +117,7 @@ const ReportView = (props) => {
           });
 
         });
-        return tempDataSource.push({
+         tempDataSource.push({
           TYPE: "Total",
           TOTALORDER: totalOrder,
           ITEMCOUNT: itemCount,
@@ -129,6 +125,12 @@ const ReportView = (props) => {
           
         });
         setstate({ ...state, dataSource: [...tempDataSource], isLoader: false,dataSale:data });
+
+        notification.success({
+          message: 'Successfull Rendered',
+          description: `Successfully Rendered Sales Reports From ${state.startDate.format('MM/DD/YYYY')}`,
+          onClose: close,
+        });
       })
 
     }else if(state.rType == 'Default')
