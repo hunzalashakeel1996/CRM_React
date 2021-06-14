@@ -88,11 +88,10 @@ const ReportView = (props) => {
   const getOverViewReporting = () => {
 
 
-    console.log(state.rType);
     if (state.rType == 'Date') {
-
+      setstate({ ...state,isLoader: true })
       dispatch(chartSaleData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY'), oType: '1', rType: state.rType })).then(data => {
-        console.log(data)
+      
       
 
         // setstate({ ...state,dataSale:data,isLoader: false })
@@ -135,17 +134,13 @@ const ReportView = (props) => {
 
     }else if(state.rType == 'Default')
     {
-     
+          setstate({ ...state,isLoader: true })
       dispatch(chartSaleData({ FROMDATE: '', TODATE: '', oType: state.oType, rType: state.rType })).then(data => {
       
         // setstate({ ...state,dataSale:data, isLoader: false })
      //   console.log('My Data: ', data)
         //downloadFile(data);
-        notification.success({
-          message: 'Successfull Rendered',
-          description: `Successfully Rendered Sales Reports }`,
-          onClose: close,
-        });
+        
         let tempDataSource = [];
         // console.log(data);
         data[0].map(value => {
@@ -156,7 +151,7 @@ const ReportView = (props) => {
           totalAmount =totalAmount+TOTALAMOUNT
           itemCount =itemCount+ITEMCOUNT
          
-         console.log(totalOrder,itemCount,totalAmount)
+    
           
            tempDataSource.push({
             TYPE: TYPE,
@@ -174,7 +169,12 @@ const ReportView = (props) => {
           TOTALAMOUNT: totalAmount,
           
         });
-        console.log(tempDataSource)
+       
+        notification.success({
+          message: 'Successfull Rendered',
+          description: `Successfully Rendered Sales Reports }`,
+          onClose: close,
+        });
         setstate({ ...state, dataSource: [...tempDataSource], isLoader: false, dataSale:data });
       })
     }
