@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select, Spin, notification } from 'antd';
+import { Input,Form, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select, Spin, notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
@@ -19,12 +19,21 @@ const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
-
+const validateMessages = {
+    required: '${name} is required!',
+    types: {
+      email: '${name} is not validate email!',
+      number: '${name} is not a validate number!',
+    },
+    number: {
+      range: '${name} must be between ${min} and ${max}',
+    },
+  };
 const OrderReportsView = (props) => {
+     //  get vendors from redux 
+   let vendornameState = useSelector(state => state.tickets.vendornames);
     const dispatch = useDispatch();
-    useEffect(() => {
-        setstate({ ...state, loader: true })
-    }, []);
+    const [form] = Form.useForm();
 
     const [state, setstate] = useState({
         selectionType: 'checkbox',
@@ -158,107 +167,51 @@ const OrderReportsView = (props) => {
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row style={{  }}>
                 <Cards title="Order Search" caption="The simplest use of Drawer" >
+                <Form layout="inline" initialValue="" label="" form={form} id="Order Search" name="nest-messages" onFinish={getOrderSearchReporting} validateMessages={validateMessages}>
                     <Row gutter={25}>
                         <Col lg={8} xs={24}  >
-                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Select a Vendor</h3></div> */}
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Select
-                                    showSearch
-                                    style={{ width: 300 }}
-                                    size="large"
-                                    placeholder="Select a Vendor"
-                                    optionFilterProp="children"
-                                    mode="multiple"
-                                    allowClear
-                                    onChange={(VendorName) => { onChange(VendorName, 'VendorName') }} 
-                                    filterOption={(input, option) =>
-                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                    }
-                                >
-                                   
-                                    <option value="Adar">Adar</option>
-                                    <option value="Ahead Corporate">Ahead Corporate</option>
-                                    <option value="AllStar Chef">AllStar Chef</option>
-                                    <option value="Alpha Broder">Alpha Broder</option>
-                                    <option value="ATN Compression Socks">ATN Compression Socks</option>
-                                    <option value="Augusta Sportswear">Augusta Sportswear</option>
-                                    <option value="Barco Uniforms">Barco Uniforms</option>
-                                    <option value="Bodek and Rhodes">Bodek and Rhodes</option>
-                                    <option value="California Uniform">California Uniform</option>
-                                    <option value="Carolina Made">Carolina Made</option>
-                                    <option value="Charles River Apparel">Charles River Apparel</option>
-                                    <option value="Cherokee">Cherokee</option>
-                                    <option value="Cherokee School">Cherokee School</option>
-                                    <option value="Cutter&amp;Buck">Cutter&amp;Buck</option>
-                                    <option value="Delta Apparel">Delta Apparel</option>
-                                    <option value="Dickies">Dickies</option>
-                                    <option value="Edwards">Edwards</option>
-                                    <option value="Fame Fabrics">Fame Fabrics</option>
-                                    <option value="Forum Novelties">Forum Novelties</option>
-                                    <option value="Hanes">Hanes</option>
-                                    <option value="Healing Hands">Healing Hands</option>
-                                    <option value="Heritage sportswear">Heritage sportswear</option>
-                                    <option value="IguanaMed">IguanaMed</option>
-                                    <option value="kavio">kavio</option>
-                                    <option value="Key Apparel">Key Apparel</option>
-                                    <option value="KOI">KOI</option>
-                                    <option value="Landau">Landau</option>
-                                    <option value="Life Threads">Life Threads</option>
-                                    <option value="Maevn">Maevn</option>
-                                    <option value="Med Couture">Med Couture</option>
-                                    <option value="Meta">Meta</option>
-                                    <option value="Natural Uniforms">Natural Uniforms</option>
-                                    <option value="Novatech">Novatech</option>
-                                    <option value="OttoCap">OttoCap</option>
-                                    <option value="PortWest">PortWest</option>
-                                    <option value="Prestige">Prestige</option>
-                                    <option value="Pulse Uniform">Pulse Uniform</option>
-                                    <option value="Renfro">Renfro</option>
-                                    <option value="RoutetoCute">RoutetoCute</option>
-                                    <option value="RoyalApperal">RoyalApperal</option>
-                                    <option value="S&amp;S Activewear">S&amp;S Activewear</option>
-                                    <option value="Sanmar">Sanmar</option>
-                                    <option value="Soffe">Soffe</option>
-                                    <option value="Spectrum Uniforms">Spectrum Uniforms</option>
-                                    <option value="Think Medical">Think Medical</option>
-                                    <option value="TiedyaUSA">TiedyaUSA</option>
-                                    <option value="Tri mountain">Tri mountain</option>
-                                    <option value="Tscapparel">Tscapparel</option>
-                                    <option value="TSF Sportswear">TSF Sportswear</option>
-                                    <option value="Uncommon Threads">Uncommon Threads</option>
-                                    <option value="VF Imagewear">VF Imagewear</option>
-                                    <option value="Whispering Pines Sportswear">Whispering Pines Sportswear</option>
-                                    <option value="Whitecross">Whitecross</option>
-                                    <option value="Wonder Wink Scrubs">Wonder Wink Scrubs</option>
+                          
+                                
+                                 <Form.Item name="Vendor Name" rules={[{ required: true }]}>
+                                <Select mode="multiple" style={{ padding: 10 }} placeholder='Vendor Name'  allowClear  onChange={(VendorName) => { onChange(VendorName, 'VendorName') }}
+                                        filterOption={(input, option) =>
+                                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                        } style={{ width: 300 }}  >
+                                    {vendornameState.map((val, i) => (
+                                        <Option value={val} key={val}>{val}</Option>
+
+                                    ))}
+
                                 </Select>
-                            </div>
+                                </Form.Item>
+                           
                         </Col>
                         <Col lg={8} xs={24}  >
                             {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                            <DatePicker onChange={(date) => { onChange(date, 'startDate') }} />
-                            </div>
+                            <Form.Item name="startDate" rules={[{ required: true }]}>
+                            <DatePicker style={{ padding: 10 }} onChange={(date) => { onChange(date, 'startDate') }} />
+                            </Form.Item>
                         </Col>
                         <Col lg={8} xs={24}  >
                             {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                    <DatePicker onChange={(date) => { onChange(date, 'endDate') }} />
-                                </div>
+                            <Form.Item name="endDate" rules={[{ required: true }]}>
+                                    <DatePicker  style={{ padding: 10 }} onChange={(date) => { onChange(date, 'endDate') }} />
+                                    </Form.Item>
                             </Col>
                         </Row>
 
                         <Row style={{ marginTop: 20 }}>
                             <Col lg={6} xs={24}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                    <Button onClick={getOrderSearchReporting} size="default" type="success" htmlType="Submit">
+                                <Form.Item >
+                                    <Button size="default" type="success" htmlType="Submit">
                                         Download
-                        </Button>
+                                     </Button>
 
-                                </div>
+                                     </Form.Item>
                             </Col>
                         </Row>
-
+                        </Form>
 
                 </Cards>
             </Row>

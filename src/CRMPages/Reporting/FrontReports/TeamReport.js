@@ -16,9 +16,19 @@ const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
+const validateMessages = {
+  required: '${name} is required!',
+  types: {
+    email: '${name} is not validate email!',
+    number: '${name} is not a validate number!',
+  },
+  number: {
+    range: '${name} must be between ${min} and ${max}',
+  },
+};
 
 const TeamReport = () => {
-
+  const [form] = Form.useForm();
 
   const dispatch = useDispatch();
 
@@ -36,34 +46,35 @@ const TeamReport = () => {
     checked: null,
     values: {},
     isLoader: false,
-    dataReport:[],
-    dataSourceTR:[],
-    dataSourceOP:[],
-    dataSourceR:[],
-    sortedInfo:[],
-    filteredInfo:[]
-    
+    dataReport: [],
+    dataSourceTR: [],
+    dataSourceOP: [],
+    dataSourceR: [],
+    sortedInfo: [],
+    filteredInfo: []
+
   });
-  const {dataReport,sortedInfo,filteredInfo } = state;
+  const { dataReport, sortedInfo, filteredInfo } = state;
   const onChange = (value, key) => {
     // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
   //New Sort Start
-  const handleChange = (pagination, filters, sorter) =>  {
+  const handleChange = (pagination, filters, sorter) => {
     console.log('Various parameters', pagination, filters, sorter);
-    setstate({...state,
+    setstate({
+      ...state,
       filteredInfo: filters,
       sortedInfo: sorter,
     });
   };
-  
+
   const clearFilters = () => {
-    setstate({ ...state,filteredInfo: null });
+    setstate({ ...state, filteredInfo: null });
   };
 
- 
+
   //New Sort End
   const getTeamReporing = () => {
     console.log('aaaaa')
@@ -73,21 +84,21 @@ const TeamReport = () => {
       setstate({ ...state, isLoader: false })
       console.log('My Data: ', data)
       //downloadFile(data);
-     
+
       let tempDataSource = [];
       let tempDataSourceTR = [];
       let tempDataSourceOP = [];
       let tempDataSourceR = [];
       data.map(value => {
         const { USERNAME, QTY, Type } = value;
-        
+
         if (Type == 'Team Report') {
           return tempDataSourceTR.push({
             USERNAME: USERNAME,
             QTY: QTY,
           });
-          
-          
+
+
         } else if(Type == 'Order Process')
         {
           return tempDataSourceOP.push({
@@ -103,15 +114,15 @@ const TeamReport = () => {
           });
         }
       //  console.log(tempDataSourceTR)
-      
+
         // setstate({ ...state,  isLoader: false });
       });
       setstate({...state, dataReport:data ,  dataSourceTR: [...tempDataSourceTR],dataSourceOP: [...tempDataSourceOP], dataSourceR: [...tempDataSourceR],isLoader: false });
-    
 
-     
-      
-      
+
+
+
+
     })
 
   };
@@ -121,7 +132,7 @@ const TeamReport = () => {
     {
       title: 'USERNAME',
       dataIndex: 'USERNAME',
-      key: 'USERNAME', 
+      key: 'USERNAME',
       filteredValue: filteredInfo.USERNAME || null,
       onFilter: (value, record) => record.name.includes(value),
       sorter: (a, b) => a.USERNAME.length - b.USERNAME.length,
@@ -138,7 +149,13 @@ const TeamReport = () => {
     }
   ];
 
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
 
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
 
@@ -147,21 +164,20 @@ const TeamReport = () => {
       <div>
 
 
-        <Row>
+        <Row gutter={50}>
           <Cards title="Team Report" >
-            <Form name="basic"
-            >
+            <Form layout="inline" initialValue="" label="" form={form} id="Team Report" name="nest-messages" onFinish={getTeamReporing} validateMessages={validateMessages}>
 
-              <Row>
-                <Col span={6}>
+             
+                <Col span={8}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
                     {/* <Space label="" {...rangeConfig}> */}
                     <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
                     {/* </Space > */}
                   </Form.Item>
                 </Col>
-                <Col span={1}></Col>
-                <Col span={6}>
+
+                <Col span={8}>
                   <Form.Item name="endDate" rules={[{ required: true }]}>
                     {/* <Space label="" {...rangeConfig}> */}
                     <DatePicker style={{ padding: 10 }}
@@ -169,28 +185,26 @@ const TeamReport = () => {
                     {/* </Space > */}
                   </Form.Item>
                 </Col>
-                <Col span={1}></Col>
-                <Col span={3}  >
 
-                  <Button onClick={getTeamReporing} style={{ margintTop: 15 }} key="1" type="primary" size="default" >
-                    Search
+                <Col span={4}  >
+                  <Form.Item >
+                    <Button style={{ margintTop: 15 }} key="1" type="primary" size="default" htmlType="submit" >
+                      Search
                            </Button>
-
+                  </Form.Item>
                 </Col>
-
-
-              </Row>
+              
 
             </Form>
           </Cards>
         </Row>
-        <Row style={{}}>
+        <Row >
           <Col xs={24}>
             <Cards title="Team Report">
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={false} dataSource={state.dataSourceTR} columns={columns} onChange={handleChange}  />
+                  <Table pagination={false} dataSource={state.dataSourceTR} columns={columns} onChange={handleChange} />
                 </div>
 
               </ProjectList>
@@ -206,7 +220,7 @@ const TeamReport = () => {
               <ProjectList>
 
                 <div className="table-responsive">
-                  <Table pagination={false} dataSource={state.dataSourceR}  columns={columns} />
+                  <Table pagination={false} dataSource={state.dataSourceR} columns={columns} />
                 </div>
 
               </ProjectList>
@@ -227,14 +241,14 @@ const TeamReport = () => {
               </ProjectList>
             </Cards>
           </Col>
-       
-        {dataReport.length>0&&
-        <Col lg={24} s={24}>
-          
-          <TeamReportGraph data={dataReport}/>
-        </Col>}
+
+          {dataReport.length > 0 &&
+            <Col lg={24} s={24}>
+
+              <TeamReportGraph data={dataReport} />
+            </Col>}
         </Row>
-       
+
 
       </div>
     </Spin>

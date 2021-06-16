@@ -17,14 +17,24 @@ const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
+const validateMessages = {
+  required: '${name} is required!',
+  types: {
+    email: '${name} is not validate email!',
+    number: '${name} is not a validate number!',
+  },
+  number: {
+    range: '${name} must be between ${min} and ${max}',
+  },
+};
+
+
 
 const ReturnPercentage = (props) => {
-
+  const [form] = Form.useForm();
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    setstate({ ...state, loader: true })
-  }, []);
+ 
   const [state, setstate] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
@@ -193,36 +203,36 @@ const ReturnPercentage = (props) => {
   
 
         <Row>
-          <Cards  title="Target Report Summary Report">
-            <Form name="basic">
+          <Cards  title="Return Percentage">
+          <Form layout="inline" initialValue="" label="" form={form} id="Return Percentage" name="nest-messages" onFinish={getReturnPercentageReporting} validateMessages={validateMessages}>
 
-              <Row>
-                <Col span={6}>
+              <Row gutter={50}>
+                <Col span={8}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
                   <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
                   </Form.Item>
                 </Col>
-                <Col span={1}></Col>
-                <Col span={6}>
+               
+                <Col span={8}>
                   <Form.Item name="endDate" rules={[{ required: true }]}>
                   <DatePicker style={{ padding: 10 }}
                       placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                   </Form.Item>
                 </Col>
-                <Col span={1}></Col>
-                <Col span={3}  >
-
-                  <Button onClick={getReturnPercentageReporting} style={{ margintTop: 7 }}  key="1" type="primary" size="default" htmlType="submit">
+               
+                <Col span={4} >
+                <Form.Item >
+                  <Button  style={{ margintTop: 7 }}  key="1" type="primary" size="default" htmlType="submit">
                     Search
                            </Button>
-
+                           </Form.Item>
                 </Col>
-                <Col span={3}  >
-
-                  <Button onClick={getReturnPercentageReportingDownlaod}   style={{ margintTop: 7 }} key="1" type="success" size="default">
+                <Col span={4}  >
+                <Form.Item >
+                  <Button   style={{ margintTop: 7 }} key="1" type="success" size="default" htmlType="submit">
                     Download
                            </Button>
-
+                           </Form.Item>
                 </Col>
 
               </Row>

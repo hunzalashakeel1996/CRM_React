@@ -14,26 +14,37 @@ import Heading from '../../../components/heading/heading';
 import { CardBarChart2, EChartCard } from '../../Dashboard (old)/style';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
-import { chartSaleData} from '../../../redux/apis/DataAction';
+import { BasicFormWrapper } from '../../styled';
+import { chartSaleData } from '../../../redux/apis/DataAction';
 import SaleReport from '../../Dashboard/ComparisonReport/overview/SaleReport';
 
+const validateMessages = {
+  required: '${name} is required!',
+  types: {
+    email: '${name} is not validate email!',
+    number: '${name} is not a validate number!',
+  },
+  number: {
+    range: '${name} must be between ${min} and ${max}',
+  },
+};
 
 
 const ReportView = (props) => {
-
-  var Type =[];
+  const [form] = Form.useForm();
+ 
+  const tailLayout = {
+    wrapperCol: {
+      offset: 8,
+      span: 16,
+    },
+  };
+  var Type = [];
   const dispatch = useDispatch();
-  let totalOrder=0;
-  let totalAmount=0;
-  let itemCount=0;
-  // useEffect(() => {
-  //   // let orders = {...totalReport}
-  //   // let sales = {...salesReport}
-  //   // let item = {...itemReport}
-    
-  //   setstate({ ...state, loader: true })
-
-  // }, []);
+  let totalOrder = 0;
+  let totalAmount = 0;
+  let itemCount = 0;
+  
 
 
   const [state, setstate] = useState({
@@ -53,16 +64,16 @@ const ReportView = (props) => {
     isLoader: false,
     oType: '1',
     dataSource: [],
-    dataSourceCRM :[],
-    dataSourceCRMPU :[],
-    dataSourceCRMJLC :[],
-    dataSourceCRMWM :[],
-    dataSale:[[]]
-  
+    dataSourceCRM: [],
+    dataSourceCRMPU: [],
+    dataSourceCRMJLC: [],
+    dataSourceCRMWM: [],
+    dataSale: [[]]
+
   });
 
 
-  const {dataSource, loaderState,dataSale } = state;
+  const { dataSource, loaderState, dataSale } = state;
 
 
   const onChangeDefault = (e) => {
@@ -90,20 +101,12 @@ const ReportView = (props) => {
 
     if (state.rType == 'Date') {
       setstate({ ...state,isLoader: true })
-      dispatch(chartSaleData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY'), oType: '1', rType: state.rType })).then(data => {
-      
-      
+      dispatch(chartSaleData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY'), oType: '1', rType: state.rType })).then(data => {        let tempDataSource = [];
 
-        // setstate({ ...state,dataSale:data,isLoader: false })
-      //  console.log('My Data: ', data)
-        //downloadFile(data);
-      
-        let tempDataSource = [];
-        // console.log(data);
         data[0].map(value => {
-        //  console.log(value)
+
           const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
-       
+
           totalOrder =+TOTALORDER
           totalAmount =+TOTALAMOUNT
           itemCount =+ITEMCOUNT
@@ -112,7 +115,7 @@ const ReportView = (props) => {
             TOTALORDER: TOTALORDER,
             ITEMCOUNT: ITEMCOUNT,
             TOTALAMOUNT: TOTALAMOUNT,
-            
+
           });
 
         });
@@ -121,7 +124,7 @@ const ReportView = (props) => {
           TOTALORDER: totalOrder,
           ITEMCOUNT: itemCount,
           TOTALAMOUNT: totalAmount,
-          
+
         });
         setstate({ ...state, dataSource: [...tempDataSource], isLoader: false,dataSale:data });
 
@@ -136,23 +139,19 @@ const ReportView = (props) => {
     {
           setstate({ ...state,isLoader: true })
       dispatch(chartSaleData({ FROMDATE: '', TODATE: '', oType: state.oType, rType: state.rType })).then(data => {
-      
-        // setstate({ ...state,dataSale:data, isLoader: false })
-     //   console.log('My Data: ', data)
-        //downloadFile(data);
-        
+
         let tempDataSource = [];
         // console.log(data);
         data[0].map(value => {
           // console.log(value)
           const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
-          
+
           totalOrder =totalOrder+TOTALORDER
           totalAmount =totalAmount+TOTALAMOUNT
           itemCount =itemCount+ITEMCOUNT
-         
-    
-          
+
+
+
            tempDataSource.push({
             TYPE: TYPE,
             TOTALORDER: TOTALORDER,
@@ -167,9 +166,9 @@ const ReportView = (props) => {
           TOTALORDER: totalOrder,
           ITEMCOUNT: itemCount,
           TOTALAMOUNT: totalAmount,
-          
+
         });
-       
+
         notification.success({
           message: 'Successfull Rendered',
           description: `Successfully Rendered Sales Reports }`,
@@ -183,22 +182,27 @@ const ReportView = (props) => {
   };
 
 
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
 
-
-
-
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
   return (
 
     <>
-    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
-      <div>
+      <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+        <div>
 
 
-        <Row style={{}} >
-          <Cards title="Sales Report">
+          <Row  >
+            <Cards title="Sales Report">
 
-            <Form>
-              <Row >
+              {/* <BasicFormWrapper> */}
+              <Form layout="inline" form={form} id="Sales Report" name="nest-messages" onFinish={getOverViewReporting} validateMessages={validateMessages}>
+
+
                 <Col span={4} style={{ marginTop: 15 }}>
                   <Radio.Group onChange={onChangeDefault} value={state.rType}>
                     <Radio value={"Default"}>Default</Radio>
@@ -209,85 +213,94 @@ const ReportView = (props) => {
                 <Col span={14}>
 
                   {state.rType == "Default" ?
-                    <Select
-                      showSearch
-                      style={{ width: 300 }}
-                      size="large"
-                      placeholder="Search By"
-                      optionFilterProp="children"
-                      onChange={(value) => { onChange(value, 'value') }}
-                      filterOption={(input, option) =>
-                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                      }
-                    >
-                      <Option value="1">Today</Option>
-                      <Option value="7">Week</Option>
-                      <Option value="30">Month</Option>
-                    </Select>
-                    :
-                    <Col>
-                      <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onDateChange(date, 'startDate') }} />
-
-                      <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onDateChange(date, 'endDate') }} />
+                    <Col span={10}>
+                      <Form.Item rules={[{ required: true }]} name="Select Dropdown" label="">
+                        <Select
+                          showSearch
+                          style={{ width: 250 }}
+                          size="large"
+                          placeholder="Search By"
+                          optionFilterProp="children"
+                          onChange={(value) => { onChange(value, 'value') }}
+                          filterOption={(input, option) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                          }
+                        >
+                          <Option value="1">Today</Option>
+                          <Option value="7">Week</Option>
+                          <Option value="30">Month</Option>
+                        </Select>
+                      </Form.Item>
                     </Col>
-
+                    :
+                    <Row>
+                      <Col span={12}>
+                        <Form.Item label="" name="startDate" rules={[{ required: true }]}>
+                          <DatePicker  style={{ padding: 10 }} size='default' onChange={(date) => { onDateChange(date, 'startDate') }} />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item  label="" name="endDate" rules={[{ required: true }]}>
+                          <DatePicker style={{ padding: 10 }} size='default' onChange={(date) => { onDateChange(date, 'endDate') }} />
+                        </Form.Item>
+                      </Col>
+                    </Row>
                   }
+                </Col >
+
+                <Col span={4}>
+                  <Form.Item >
+                    <Button  style={{ margintTop: 15 }} key="1" type="primary" size="default" htmlType="submit">
+                      Search
+                   </Button>
+                  </Form.Item>
                 </Col>
 
-                <Col span={6}>
-                  <Button onClick={getOverViewReporting} style={{ marginTop: 7 }} key="1" type="primary" size="default" htmlType="submit">
-                    Search
-                  </Button>
-                  
-
-                  
-
-                </Col>
 
 
-              </Row>
-            </Form>
+              </Form>
+              {/* </BasicFormWrapper> */}
 
-          </Cards>
-        </Row>
-        <Row gutter={20}>
+            </Cards>
+          </Row>
+          {/* <Row gutter={20}>
         
        
+        </Row> */}
+        </div>
+
+
+        <Row gutter={25}>
+          {state.dataSource.map((value) => (
+
+            <Col span={6}>
+              <Cards headless>
+                <EChartCard>
+                  <div >
+                    <CardBarChart2 >
+
+                      <Heading as="h2" style={{ fontColor: "Blue" }} >
+                        {value.TYPE}</Heading>
+                      <h3>Orders {value.TOTALORDER}</h3>
+                      <h3>Items {value.ITEMCOUNT}</h3>
+                      <h4>Amount $ {value.TOTALAMOUNT.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                      </h4>
+
+                    </CardBarChart2>
+                  </div>
+                </EChartCard>
+              </Cards>
+            </Col>
+          ))}
+
+          {dataSale[0].length > 0 &&
+            <Col lg={24} s={24}>
+
+              <SaleReport data={dataSale} />
+            </Col>}
+
+
         </Row>
-      </div>
-
-
-      <Row gutter={25}>
-        {state.dataSource.map((value) => (
-          
-          <Col span={6}>
-          <Cards headless>
-            <EChartCard>
-              <div >
-                <CardBarChart2 >
-            
-                  <Heading as="h2" style={{fontColor: "Blue"}} >
-                    {value.TYPE}</Heading>
-                  <h3>Orders {value.TOTALORDER}</h3>
-                  <h3>Items {value.ITEMCOUNT}</h3>
-                  <h4>Amount $ {value.TOTALAMOUNT.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
-                    </h4>
-
-                </CardBarChart2>
-              </div>
-            </EChartCard>
-          </Cards>
-        </Col>
-        )) }
-        
-        {dataSale[0].length>0&&
-        <Col lg={24} s={24}>
-          
-          <SaleReport data={dataSale}/>
-        </Col>}
-
-
-      </Row>
 
 
 
@@ -295,7 +308,7 @@ const ReportView = (props) => {
       </Spin>
 
     </>
-   
+
   );
 };
 
