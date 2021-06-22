@@ -128,14 +128,14 @@ const PolyBagsAndThermalLabelsView = (props) => {
             </Col>
           </Row> */}
         
-        <BasicFormWrapper>
+        {/* <BasicFormWrapper>
           <Form {...layout} form={form} id="new_ticket" name="nest-messages"  validateMessages={validateMessages}>
            
           <Row>
             <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
               <Row gutter={25}>
                 <Col lg={8} xs={24}  >
-                  {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Small</h3></div> */}
+                 
                   <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                   
                   <Form.Item name='Small' label="" rules={[{ required: true }]}>
@@ -146,7 +146,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
                   
                 </Col>
                 <Col lg={8} xs={24}>
-                  {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Large</h3></div> */}
+               
                   <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                 
                  
@@ -157,15 +157,14 @@ const PolyBagsAndThermalLabelsView = (props) => {
                   </div>
                 </Col>
                 <Col lg={8} xs={24}>
-                      {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Update</h3></div> */}
+                   
                       <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                        {/* <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}> */}
+              
 
                           <Button size="large" type="success" htmlType="Update" style={{backgroundColor: '#42ba96', marginTop: 8, color:'white'}}>
                             Update
                         </Button>
-                        {/* </Form.Item> */}
-                        {/* </Cards> */}
+                     
                   </div>
                 </Col>
 
@@ -173,12 +172,20 @@ const PolyBagsAndThermalLabelsView = (props) => {
             </Cards>
           </Row>
           </Form>
-        </BasicFormWrapper>
+        </BasicFormWrapper> */}
           {/* Summary Div  */}
-          <div className="table-responsive">
-                    <Table pagination={true} dataSource={dataSource} columns={columns} />
-                </div>
+       
+                <Row>
+                <Cards title="Poly Bags" caption="The simplest use of Drawer" >
+                     <Row style={{ marginTop: 20 }}>
 
+                        <Col xs={24}>
+                        <Table pagination={true} dataSource={dataSource} columns={columns} />
+                        </Col>
+
+                    </Row>
+                </Cards>
+            </Row>
         </Spin>
 
       </>

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select } from 'antd';
+import { Input,Form, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select } from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
@@ -32,7 +32,18 @@ function onSearch(val) {
     console.log('search:', val);
 }
 
+const validateMessages = {
+    required: '${name} is required!',
+    types: {
+      email: '${name} is not validate email!',
+      number: '${name} is not a validate number!',
+    },
+    number: {
+      range: '${name} must be between ${min} and ${max}',
+    },
+  };
 const MarketplaceOrdersView = (props) => {
+    const [form] = Form.useForm();
 
 
     const [state, setstate] = useState({
@@ -110,34 +121,35 @@ const MarketplaceOrdersView = (props) => {
         <>
             <Row style={{  }}>
                 <Cards title="Get Ebay Orders (API)" caption="The simplest use of Drawer" >
-                    <Row gutter={25}>
+                <Form layout="inline" initialValue="" label="" form={form} id="Get Ebay Orders (API) - USA" name="nest-messages"  validateMessages={validateMessages}>
+                    <Row gutter={50}>
                         <Col lg={8} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={onChange} />
-                            </div>
+                             <Form.Item name="startDate" rules={[{ required: true }]}>
+                                <DatePicker style={{ padding: 10 }} onChange={onChange} />
+                                </Form.Item>
                         </Col>
                         <Col lg={8} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <DatePicker onChange={onChange} />
-                            </div>
+                            <Form.Item name="endDate" rules={[{ required: true }]}>
+                                <DatePicker style={{ padding: 10 }} onChange={onChange} />
+                                </Form.Item>
                         </Col>
 
                         <Col lg={8} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>GetOrders</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                            <Form.Item >
                                 <Button size="default" type="success" htmlType="Submit">
                                     GetOrders
                         </Button>
 
-                            </div>
+                        </Form.Item >
                         </Col>
 
 
 
                     </Row>
-
+                </Form>
 
                 </Cards>
             </Row>

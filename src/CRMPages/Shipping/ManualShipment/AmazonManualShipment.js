@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col } from 'antd';
+import { Input,Form, Tabs, Table, Upload, Row, Col } from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
@@ -9,9 +9,19 @@ import { manualShipmentPonumber,manualShipmentPonumberManualTick,manualShipmentA
 import { downloadFile } from '../../../components/utilities/utilities'
 const { TabPane } = Tabs;
 const { TextArea } = Input;
-
+const validateMessages = {
+  required: '${name} is required!',
+  types: {
+    email: '${name} is not validate email!',
+    number: '${name} is not a validate number!',
+  },
+  number: {
+    range: '${name} must be between ${min} and ${max}',
+  },
+};
 const ManualShipmentView = (props) => {
   const dispatch = useDispatch()
+  const [form] = Form.useForm();
   const [state, setState] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
@@ -89,11 +99,12 @@ const AmazonManualShippingAmazonFileDownload = () => {
     <>
       <Row style={{}}>
         <Cards title="PO Numbers" caption="The simplest use of Drawer" >
+        <Form layout="inline" initialValue="" label="" form={form} id="PO Numbers" name="nest-messages" onFinish={manualShipmentPonumberSubmit} validateMessages={validateMessages}>
           <Row gutter={25}>
             <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+            <Form.Item name="PO Numbers" rules={[{ required: true }]}>
               <TextArea placeholder="input here" className="custom" value={poNumber} onChange={onChange} style={{ height: 50 }} />
-              </div>
+              </Form.Item>
             </Col>
             <Col lg={4} xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
@@ -110,6 +121,7 @@ const AmazonManualShippingAmazonFileDownload = () => {
               </div>
             </Col>
           </Row>
+          </Form>
         </Cards>
       </Row>
       <Row style={{  }}>

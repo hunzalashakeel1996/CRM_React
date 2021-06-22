@@ -22,17 +22,25 @@ const formInit = {
   VendorName: []
 }
 
+const validateMessages = {
+  required: '${name} is required!',
+  types: {
+    email: '${name} is not validate email!',
+    number: '${name} is not a validate number!',
+  },
+  number: {
+    range: '${name} must be between ${min} and ${max}',
+  },
+};
 
 
 
 
 const UnShippedOrders = (props) => {
-
+  const [form] = Form.useForm();
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    setstate({ ...state, loader: true })
-  }, []);
+
   const [state, setstate] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
@@ -128,19 +136,20 @@ const UnShippedOrders = (props) => {
 
         <Row>
           <Cards title="Unshipped Report">
-            <Form name="basic">
+          <Form layout="inline" initialValue="" label="" form={form} id="Unshipped Report" name="nest-messages" onFinish={getUnshippedOrder} validateMessages={validateMessages}>
 
-              <Row>
-                <Col lg={8} xs={24}>
+              <Row gutter={50}>
+                <Col span={8} >
                   <Form.Item name="startDate" rules={[{ required: true }]}>
                     <DatePicker style={{ padding: 10 }} size='small' placeholder='From' onChange={(date) => { onChange(date, 'startDate') }} />
                   </Form.Item>
                 </Col>
                 
-                <Col lg={8} xs={24}>
+                <Col span={8}>
+                <Form.Item name="Add Days" rules={[{ required: true }]}>
                   <Select
                     showSearch
-                    style={{ width: 300 }}
+                    style={{ width: 250 }}
                     size="large"
                     placeholder="Add Days"
                     optionFilterProp="children"
@@ -155,32 +164,33 @@ const UnShippedOrders = (props) => {
                     <Option value="4">4</Option>
                     <Option value="5">5</Option>
                   </Select>
-
+                  </Form.Item>
                 </Col>
 
 
                
-                <Col lg={8} xs={24}  >
+                <Col span={4}>
                                
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                    <Button onClick={getUnshippedOrder} size="default" type="primary" htmlType="Submit">
+                                <Form.Item >
+                                    <Button  size="default" type="primary" htmlType="Submit">
                                         Search
-                        </Button>
-
+                                  </Button>
+                                  </Form.Item>
                                 </div>
                             </Col>
 
 
 
               </Row>
-
+              </Form>
               <Row >
                 <Col span={24}>
                   <Table className="full-width-table" dataSource={state.dataSource} columns={columns} />
                 </Col>
               </Row>
 
-            </Form>
+            
           </Cards>
         </Row>
       </div>

@@ -36,6 +36,7 @@ const formInit = {
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 const { TextArea } = Input;
+
 const validateMessages = {
     required: '${name} is required!',
     types: {

@@ -203,7 +203,7 @@ const ReportView = (props) => {
                     >
                         <Row>
                             {vendorNames && <Col span={5} >
-                                <Form.Item name="vendorName" >
+                            <Form.Item name="Vendorname"  rules={[{ required: true }]} >
                                     <ReasonAutoComplete
                                         //   style={{ marginRight: 5 }}
                                         placeholder='Search Vendorname'

@@ -109,14 +109,14 @@ const PolyBagsAndThermalLabelsView = (props) => {
     return (
         <>
           <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
-          <BasicFormWrapper>
+          {/* <BasicFormWrapper>
           <Form {...layout} form={form} id="new_Thermalbags" name="nest-messages"  validateMessages={validateMessages}>
            
             <Row style={{  }}>
                 <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={6} xs={24}  >
-                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>UPS</h3></div> */}
+                          
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                             <Form.Item name='UPS' label="" rules={[{ required: true }]}>
                             <Input placeholder="UPS"/>
@@ -149,7 +149,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
                                 <Button size="large" type="success" htmlType="Update" style={{backgroundColor: '#42ba96',  color:'white'}}>
                                    Update
                         </Button>
-                                {/* </Cards> */}
+                              
                             </div>
                         </Col>
                         
@@ -157,10 +157,10 @@ const PolyBagsAndThermalLabelsView = (props) => {
                 </Cards>
             </Row>
             </Form>
-        </BasicFormWrapper>
+        </BasicFormWrapper> */}
             {/* Summary Div  */}
-            <Row style={{  }}>
-                <Cards title="Summary" caption="The simplest use of Drawer" >
+            <Row>
+                <Cards title="Thermal Labels" caption="The simplest use of Drawer" >
                      <Row style={{ marginTop: 20 }}>
 
                         <Col xs={24}>
