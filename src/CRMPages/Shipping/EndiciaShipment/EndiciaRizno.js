@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, notification, Modal } from 'antd';
+import { Input,Form, Tabs, Table, Upload, Row, Col, notification, Modal } from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,18 @@ import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
-
+const validateMessages = {
+    required: '${name} is required!',
+    types: {
+      email: '${name} is not validate email!',
+      number: '${name} is not a validate number!',
+    },
+    number: {
+      range: '${name} must be between ${min} and ${max}',
+    },
+  };
 const EndiciaShipmentView = (props) => {
+    const [form] = Form.useForm();
     const [state, setState] = useState({
         selectionType: 'checkbox',
         selectedRowKeys: null,
@@ -207,6 +217,7 @@ const verifyLabel = () => {
         <>
             <Row style={{}}>
                 <Cards title="Endica Rizno Shiping Label" caption="The simplest use of Drawer" >
+                
                     <Row gutter={25}>
                         <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div>
@@ -248,17 +259,18 @@ const verifyLabel = () => {
             {/* Check Labels Here Div  */}
             <Row style={{}}>
                 <Cards title="Check Labels Here" caption="The simplest use of Drawer" >
+                <Form layout="inline" initialValue="" label="" form={form} id="Check Labels Here" name="nest-messages" onFinish={verifyLabel} validateMessages={validateMessages}>
                     <Row gutter={25}>
-                        <Col lg={6} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                        <Col lg={12} xs={24}  >
+                        <Form.Item name="Tracking Number"rules={[{ required: true }]}>
                             <TextArea placeholder="input here" className="custom" value={orderno} onChange={onChange} style={{ height: 50 }} />
-                            </div>
+                            </Form.Item>
                         </Col>
                         <Col lg={6} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                            <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={verifyLabel}> Search</Button>
+                        <Form.Item >
+                            <Button type="success" size="default" type="success" htmlType="Submit" > Search</Button>
                    
-                            </div>
+                            </Form.Item>
                         </Col>
                         <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
@@ -268,6 +280,7 @@ const verifyLabel = () => {
                             </div>
                         </Col>
                     </Row>
+                    </Form>
                     <Row style={{ marginTop: 20 }}>
 
                         <Col xs={24}>
