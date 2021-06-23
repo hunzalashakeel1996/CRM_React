@@ -2,7 +2,7 @@ import { Modal, notification, Spin, Table, Tabs } from 'antd';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { getUpdateVendorInventoryapi, getvendor,getUpdateWebVendorInventoryapi,getWebvendor } from '../../../redux/apis/DataAction';
+import { getUpdateVendorInventoryapi, getvendor, getUpdateWebVendorInventoryapi, getWebvendor } from '../../../redux/apis/DataAction';
 import Regularsku from './overview/Regularsku';
 import WebInventory from './overview/WebInventory';
 
@@ -12,6 +12,10 @@ import WebInventory from './overview/WebInventory';
 const { TabPane } = Tabs;
 
 const VendorInventoryView = (props) => {
+
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+    const tabChildBar = JSON.parse(userAccess.child_bar)['Vendor Inventory'];
+
     const dispatch = useDispatch();
     const [activeTab, setActiveTab] = useState('');
     const [state, setstate] = useState({
@@ -22,13 +26,18 @@ const VendorInventoryView = (props) => {
         VerificationData: [],
 
     })
+
+
+
+
+
     const [visible, setVisible] = useState(false);
     const [dataSource, setDataSource] = useState([]);
-    const { Regularvendorstate, isLoader,webVendorstate } = state;
+    const { Regularvendorstate, isLoader, webVendorstate } = state;
 
     useEffect(() => {
         Promise.all([dispatch(getvendor()), dispatch(getWebvendor())]).then(data => {
-            setstate({ ...state, Regularvendorstate: data[0],webVendorstate: data[1], isLoader: false })
+            setstate({ ...state, Regularvendorstate: data[0], webVendorstate: data[1], isLoader: false })
         })
         // dispatch(getvendor()).then(data => {
         //     console.log('Regular', data)
@@ -49,8 +58,8 @@ const VendorInventoryView = (props) => {
         console.log('abc', updateVendorList)
         setstate({ ...state, isLoader: true })
 
-                /// Web Update inventory
-                  
+        /// Web Update inventory
+
         dispatch(getUpdateWebVendorInventoryapi(updateVendorList)).then(data => {
             setstate({ ...state, isLoader: false, updateData: data, VerificationData: [...updateVendorList] })
             console.log('12310', data)
@@ -127,7 +136,7 @@ const VendorInventoryView = (props) => {
             console.log('dataSource', dataSource)
 
         })
-             
+
 
     }
     const columns = [
@@ -163,27 +172,58 @@ const VendorInventoryView = (props) => {
             window.location.reload(false)
         })
     }
+
+
+    
+
+    const topManu = [
+        {
+            tab: 'Regular Skus',
+            key: 'Regular Skus',
+            tabName: <Regularsku Regularvendor={Regularvendorstate} updateVendor={updateVendor} />
+        },
+        {
+            tab: 'Web Vendors',
+            key: 'Web Vendors',
+            tabName: <WebInventory webVendor={webVendorstate} updateVendor={updateWebVendor} />
+
+        }
+
+
+    ];
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
-                <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20 }}>
+
+
+                <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
+
+                    {topManu.map(item => (
+                        tabChildBar?.includes(item.tab) && (
+                            <TabPane tab={item.tab} key={item.key}>
+                                {item.tabName}
+                            </TabPane>)
+
+                    ))}
+
+                </Tabs>
+
+
+                {/* <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20 }}>
                     <TabPane tab="Regular Skus" key="Regular Skus">
                       
                         <Regularsku Regularvendor={Regularvendorstate} updateVendor={updateVendor} />
-
-                        {/* <Spin /> */}
-
 
                     </TabPane>
                     <TabPane tab="Web Vendors" key="Web Vendors">
 
                         <WebInventory webVendor={webVendorstate} updateVendor={updateWebVendor} />
 
-                        {/* <Spin /> */}
+                   
 
 
                     </TabPane>
-                </Tabs>
+                </Tabs> */}
 
                 <Modal
                     title="Report Summary "
