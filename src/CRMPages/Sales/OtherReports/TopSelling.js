@@ -21,7 +21,7 @@ const formInit = {
 }
 
 const TopSelling = (props) => {
-
+    const [form] = Form.useForm();
     let vendorNames = useSelector(state => state.tickets.vendornames);
 
 
@@ -186,7 +186,16 @@ const TopSelling = (props) => {
 
 
     ]
-
+    const validateMessages = {
+        required: '${name} is required!',
+        types: {
+          email: '${name} is not validate email!',
+          number: '${name} is not a validate number!',
+        },
+        number: {
+          range: '${name} must be between ${min} and ${max}',
+        },
+      };
 
 
     return (
@@ -203,12 +212,10 @@ const TopSelling = (props) => {
 
                 <Row>
                     <Cards>
-                        <Form name="basic"
-                            onFinish={onSubmit}
-                            onFinishFailed={onSubmitFailed}>
+                        <Form layout="inline" initialValue="" label=""  name="basic"  form={form} id="Top Selling" onFinish={onSubmit}  onFinishFailed={onSubmitFailed}  validateMessages={validateMessages}>
 
-                            <Row>
-                                <Col span={6}>
+                            <Row gutter={50}>
+                                <Col span={8}>
                                     <Form.Item name="startDate" rules={[{ required: true }]}>
                                         {/* <Space label="" {...rangeConfig}> */}
                                         <DatePicker style={{ padding: 10 }} size='default'
@@ -216,8 +223,8 @@ const TopSelling = (props) => {
                                         {/* </Space > */}
                                     </Form.Item>
                                 </Col>
-                                <Col span={1}></Col>
-                                <Col span={6}>
+                           
+                                <Col span={8}>
                                     <Form.Item name="endDate" rules={[{ required: true }]}>
                                         {/* <Space label="" {...rangeConfig}> */}
                                         <DatePicker style={{ padding: 10 }}
@@ -225,10 +232,10 @@ const TopSelling = (props) => {
                                         {/* </Space > */}
                                     </Form.Item>
                                 </Col>
-                                <Col span={1}></Col>
+                           
 
-                                {vendorNames && <Col span={7} >
-                                    <Form.Item name="vendorName" >
+                                {vendorNames && <Col span={8} >
+                                    <Form.Item name="vendorName" rules={[{ required: true }]} >
                                         <ReasonAutoComplete
                                             //   style={{ marginRight: 5 }}
                                             placeholder='Search Vendorname'
@@ -239,17 +246,17 @@ const TopSelling = (props) => {
                                     </Form.Item>
                                 </Col>}
                             </Row>
-                            <Row>
+                            <Row style={{marginTop:10}} gutter={50}>
 
 
-                                <Col span={3}>
+                                <Col span={12}>
 
                                     <Button key="1" type="primary" size="default" htmlType="submit">
                                         Search
                            </Button>
 
                                 </Col>
-                                <Col span={3}>
+                                <Col span={12}>
 
                                     <Button key="1" type="success" size="default" onClick={() => { downloadFiles() }}>
                                         Download
