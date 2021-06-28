@@ -13,7 +13,7 @@ const ShippingReportsView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Shipping Reports'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Shipping Reports'];
 
 
     const topManu = [

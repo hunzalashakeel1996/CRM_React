@@ -18,7 +18,7 @@ const ReportView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['FrontReports'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['FrontReports'];
 
 
     const topManu = [

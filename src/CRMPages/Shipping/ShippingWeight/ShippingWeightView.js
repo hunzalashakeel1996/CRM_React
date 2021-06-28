@@ -13,7 +13,7 @@ const ShippingWeightView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Shipping Weight'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Shipping Weight'];
 
 
 

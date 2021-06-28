@@ -10,7 +10,7 @@ const StylesNotInPUView = (props) => {
     const [activeTab, setActiveTab] = useState('');
     
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Styles Not in PU'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Styles Not in PU'];
 
 
     const topManu = [

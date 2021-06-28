@@ -13,7 +13,7 @@ const AmazonShipmentView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Amazon Shipment'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Amazon Shipment'];
 
 
     const topManu = [
