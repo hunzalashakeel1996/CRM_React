@@ -22,7 +22,8 @@ const ShippingWeightView = (props) => {
   });
   const {value}=state
   const checkDuplicateTracking =(val,status)=>{
-      
+    if(val.length>0)
+    {
     dispatch(getDupicateTracking({ms:value,st:status})).then(data => {
           downloadFile(data)
    
@@ -33,6 +34,10 @@ const ShippingWeightView = (props) => {
        });
       
    })
+  }
+  else{
+  alert(`insert ${status}`)
+  }
 };
 const onChange = (event) => {
   console.log(event.target.value)

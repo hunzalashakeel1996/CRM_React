@@ -28,7 +28,8 @@ const ShippingWeightView = (props) => {
   
   };
   const weightReport =(status)=>{
-      
+    if(value.length>0)
+    {
     dispatch(Getweightinventory({ms:value,st:status})).then(data => {
           downloadFile(data)
    
@@ -39,6 +40,10 @@ const ShippingWeightView = (props) => {
        });
       
    })
+  }
+  else{
+  alert(`insert ${status}`)
+  }
 };
   return (
     <>
