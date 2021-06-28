@@ -13,7 +13,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
   const mainPath = pathArray[1];
   const mainPathSplit = mainPath.split('/');
   const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-  const userTopNavigation = JSON.parse(userAccess.top_navigation);
+  const userTopNavigation = JSON.parse(userAccess.child_bar);
 
   const sideMenu = [
     {

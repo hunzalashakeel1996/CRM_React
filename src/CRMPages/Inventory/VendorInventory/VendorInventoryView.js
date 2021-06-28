@@ -14,7 +14,7 @@ const { TabPane } = Tabs;
 const VendorInventoryView = (props) => {
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Vendor Inventory'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Vendor Inventory'];
 
     const dispatch = useDispatch();
     const [activeTab, setActiveTab] = useState('');

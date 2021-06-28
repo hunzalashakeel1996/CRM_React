@@ -44,7 +44,7 @@ const MarketplaceGroupInventoryView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Marketplace Group Inventory'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Marketplace Group Inventory'];
     const [activeTab, setActiveTab] = useState('');
     let vendornameState = useSelector(state => state.tickets.vendornames);
 
