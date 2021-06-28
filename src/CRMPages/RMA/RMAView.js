@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 
     
 const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-const tabChildBar = JSON.parse(userAccess.child_bar)['RMA Updates'];
+const tabChildBar = JSON.parse(userAccess.top_navigation)['RMA Updates'];
 
 
 const topManu = [

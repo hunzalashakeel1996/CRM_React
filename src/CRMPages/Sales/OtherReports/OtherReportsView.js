@@ -11,7 +11,7 @@ const OtherReportsView = (props) => {
     const [activeTab, setActiveTab] = useState('');
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Other Reports'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Other Reports'];
 
 
     const topManu = [

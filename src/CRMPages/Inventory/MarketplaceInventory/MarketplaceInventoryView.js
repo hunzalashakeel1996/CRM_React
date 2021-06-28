@@ -48,7 +48,7 @@ let requestObjInventroy = {
 const MarketplaceInventoryView = (props) => {
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Marketplace Inventory'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Marketplace Inventory'];
 
     //  get vendors from redux 
    let vendornameState = useSelector(state => state.tickets.vendornames);

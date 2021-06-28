@@ -11,7 +11,7 @@ const MarketplaceOrdersView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Marketplace Orders'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Marketplace Orders'];
 
     const topManu = [
         {

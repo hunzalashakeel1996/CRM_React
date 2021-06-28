@@ -12,7 +12,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['PolyBags and Thermal Labels'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['PolyBags and Thermal Labels'];
 
 
     const topManu = [

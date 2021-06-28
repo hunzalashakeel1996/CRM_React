@@ -11,7 +11,7 @@ const ShippingNotesView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Shipping Notes'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Shipping Notes'];
 
 
     const topManu = [
