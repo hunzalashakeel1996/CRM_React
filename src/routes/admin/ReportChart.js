@@ -16,7 +16,7 @@ const ProjectRoutes = () => {
     <Switch>
       {console.log('vvd', JSON.parse(localStorage.getItem('userRole'))[0])}
 
-      <Route exact path={`${path}`} component={ JSON.parse(JSON.parse(localStorage.getItem('userRole'))[0].top_navigation).Dashboard.includes('Comparison Report') ? ComparisonReportView : WelcomePage} />
+      <Route exact path={`${path}`} component={ JSON.parse(JSON.parse(localStorage.getItem('userRole'))[0].child_bar).Dashboard.includes('Comparison Report') ? ComparisonReportView : WelcomePage} />
       <Route exact path={`${path}/comparisonGraph`} component={ComparisonReportView} />
       <Route exact path={`${path}/welcomePage`} component={WelcomePage} />
     </Switch>
