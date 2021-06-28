@@ -39,18 +39,33 @@ const ManualShipmentView = (props) => {
 
 };
   const manualShipmentPonumberSubmit = () => {
+   
+    if(poNumber.length>0)
+    {
+      dispatch(manualShipmentPonumber({ Ponumber: poNumber })).then(data => {
+  
+      
+        downloadFile(data)
+      })
+    }
+    else{
+    alert('insert Ponumber')
+    }
     
-    dispatch(manualShipmentPonumber({ Ponumber: poNumber })).then(data => {
-    
-      downloadFile(data)
-    })
 };
 const manualShipmentPonumberManualTick = () => {
+
     
+  if(poNumber.length>0)
+  {
   dispatch(manualShipmentPonumber({ Ponumber: poNumber })).then(data => {
   
     downloadFile(data)
   })
+}
+else{
+alert('insert Ponumber')
+}
 };
 const AmazonManualShippingAmazonFileSheet =()=>{
   dispatch(manualShipmentAmazonManualShippingAmazonFileSheet()).then(data => {
@@ -99,29 +114,29 @@ const AmazonManualShippingAmazonFileDownload = () => {
     <>
       <Row style={{}}>
         <Cards title="PO Numbers" caption="The simplest use of Drawer" >
-        <Form layout="inline" initialValue="" label="" form={form} id="PO Numbers" name="nest-messages" onFinish={manualShipmentPonumberSubmit} validateMessages={validateMessages}>
+       
           <Row gutter={25}>
             <Col lg={6} xs={24}  >
-            <Form.Item name="PO Numbers" rules={[{ required: true }]}>
+   
               <TextArea placeholder="input here" className="custom" value={poNumber} onChange={onChange} style={{ height: 50 }} />
-              </Form.Item>
+           
             </Col>
             <Col lg={4} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-              <Button type="primary" onClick={manualShipmentPonumberSubmit}>Submit</Button>
+        
+              <Button type="primary" htmlType="Submit" onClick={manualShipmentPonumberSubmit}>Submit</Button>
              
                 
-              </div>
+             
             </Col>
             <Col lg={4} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+         
            
-              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={manualShipmentPonumberManualTick}> Manual Tick</Button>
+              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} htmlType="Submit" onClick={manualShipmentPonumberManualTick}> Manual Tick</Button>
                 
-              </div>
+              
             </Col>
           </Row>
-          </Form>
+        
         </Cards>
       </Row>
       <Row style={{  }}>

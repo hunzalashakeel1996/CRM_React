@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Tabs, Button, Table, Modal, Spin, Alert, Switch,notification  } from 'antd';
+import { Tabs, Button, Table, Modal, Spin, Alert, Switch, notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import AmazonPU from './overview/AmazonPU';
 
@@ -7,9 +7,9 @@ import Walmart from './overview/Walmart';
 
 
 //import { ExportData } from '../../../components/downloadtxt/exportTxt'
-import {downloadFile}  from '../../../components/utilities/utilities'
+import { downloadFile } from '../../../components/utilities/utilities'
 
-import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getSubInventoryapi,getWallMartasinqtyapi,getwalmart_asin_all_otherapi } from '../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getSubInventoryapi, getWallMartasinqtyapi, getwalmart_asin_all_otherapi } from '../../../redux/apis/DataAction';
 
 
 const { TabPane } = Tabs;
@@ -22,7 +22,7 @@ const statusFilter = "";
 const stylecodeFilter = "";
 const addOrOtherinventory = "";
 
-const itemType = ['Group', 'Neither','single','ScrubSet'];
+const itemType = ['Group', 'Neither', 'single', 'ScrubSet'];
 const Type = ['All', 'Inhouse'];
 
 let requestObjInventroy = {
@@ -41,16 +41,20 @@ let requestObjInventroy = {
 
 };
 const MarketplaceGroupInventoryView = (props) => {
+
+
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+    const tabChildBar = JSON.parse(userAccess.child_bar)['Marketplace Group Inventory'];
     const [activeTab, setActiveTab] = useState('');
-    let vendornameState = useSelector(state => state.tickets.vendornames );
+    let vendornameState = useSelector(state => state.tickets.vendornames);
 
     const dispatch = useDispatch();
-  
 
-  
+
+
     const [visible, setVisible] = useState(false);
 
-   
+
     const [state, setState] = useState({
         downloadDataState: [],
         summaryDataState: [],
@@ -66,8 +70,8 @@ const MarketplaceGroupInventoryView = (props) => {
     useEffect(() => {
 
 
-        Promise.all([ dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
-      
+        Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
+
             setState({
                 ...state, brandnameState: data[0][0].brandname.split(","),
                 collectionState: data[1][0].collectionname.split(","), categorynameState: data[2][0].categoryname.split(","), puStatusState: data[3][0].pustatus.split(","), loaderState: false
@@ -80,14 +84,43 @@ const MarketplaceGroupInventoryView = (props) => {
     }, [])
 
 
+
+
+    {/* <Tabs defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} type="card" style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
+                <TabPane tab="Amazon PU" key="Amazon PU">
+                <AmazonPU genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
+                </TabPane>
+                <TabPane tab="Amazon Rizno" key="Amazon Rizno">
+                    Amazon Rizno component goes here
+                </TabPane>
+                <TabPane tab="Amazon Canada" key="Amazon Canada">
+                    Amazon Canada component goes here
+                </TabPane>
+                <TabPane tab="Amazon UAE" key="Amazon UAE">
+                    Amazon UAE component goes here
+                </TabPane>
+                <TabPane tab="Walmart" key="Walmart">
+                <Walmart genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
+                </TabPane>
+                <TabPane tab="Walmart Canada" key="Walmart Canada">
+                    Walmart Canada component goes here
+                </TabPane>
+                <TabPane tab="Sears" key="Sears">
+                    Sears component goes here
+                </TabPane>
+                <TabPane tab="Ebay" key="Ebay">
+                    Ebay component goes here
+                </TabPane>
+            </Tabs> */}
+
     var dataSource = [];
     let counter = 0;
-   
+
 
     const genrateFeed = (query, column, isAmazon, val) => {
         console.log(requestObjInventroy)
-        setState({ ...state,loaderState: true })
-      
+        setState({ ...state, loaderState: true })
+
         //vendorFilter Array to string        
         requestObjInventroy.vendorFilter = requestObjInventroy.vendorFilter.toString();
         //brandFilter Array to string
@@ -100,18 +133,18 @@ const MarketplaceGroupInventoryView = (props) => {
         //   requestObjInventroy.statusFilter = statusFilter
         //column Array to column 
         requestObjInventroy.column = column.toString();
-           //column Array to addOrOtherinventory 
+        //column Array to addOrOtherinventory 
         requestObjInventroy.addOrOtherinventory = val
-         
-          //column Array to dataFrom 
+
+        //column Array to dataFrom 
         requestObjInventroy.dataFrom = query
 
         requestObjInventroy.isAmazonProcedure = isAmazon
 
-        
+
         if (isAmazon == true) {
             dispatch(getSubInventoryapi(requestObjInventroy)).then(data => {
-                    console.log(data)
+                console.log(data)
                 setState({ ...state, summaryDataState: data[0], downloadDataState: data[1], loaderState: false })
 
                 if (data[3] === 'Amazon') {
@@ -120,7 +153,7 @@ const MarketplaceGroupInventoryView = (props) => {
                     }
                     else if (data[2] != 'ADD AMAZON INVENTORY') {
                         setVisible(false)
-              
+
                         //This Coding wait for live testing 
                         // let currentDate = new Date();
                         // let currentTime = currentDate.getTime();
@@ -131,7 +164,7 @@ const MarketplaceGroupInventoryView = (props) => {
                         // tempElemet.download = 'Amazon Inventoy' + '.txt';
                         // tempElemet.click();
                         // window.URL.revokeObjectURL(url);
-                   
+
                         downloadFile(data[1])
                         notification.success({
                             message: 'Successfull Dowload',
@@ -145,24 +178,24 @@ const MarketplaceGroupInventoryView = (props) => {
             })
         }
         else if (isAmazon == false) {
-           
-                dispatch(requestObjInventroy.addOrOtherinventory === 'ADD AMAZON INVENTORY'?getWallMartasinqtyapi(requestObjInventroy):getwalmart_asin_all_otherapi(requestObjInventroy)).then(data => {
 
-                    setState({ ...state, loaderState: false })
-                     var link = data
-                     var datalink = link;
-                     console.log(datalink.length);
-                     for ( var z = 0; z < datalink.length;) {
-                        downloadFile(datalink[z])
-                      
-                         z++
-                     }
-                })
+            dispatch(requestObjInventroy.addOrOtherinventory === 'ADD AMAZON INVENTORY' ? getWallMartasinqtyapi(requestObjInventroy) : getwalmart_asin_all_otherapi(requestObjInventroy)).then(data => {
 
-             
-            
+                setState({ ...state, loaderState: false })
+                var link = data
+                var datalink = link;
+                console.log(datalink.length);
+                for (var z = 0; z < datalink.length;) {
+                    downloadFile(datalink[z])
 
-             
+                    z++
+                }
+            })
+
+
+
+
+
         }
 
 
@@ -236,11 +269,11 @@ const MarketplaceGroupInventoryView = (props) => {
 
             requestObjInventroy[obj] = e
         }
-    
+
     };
 
     const Download = (data) => {
-     //   downloadFile(data[1])
+        //   downloadFile(data[1])
         notification.success({
             message: 'Successfull Dowload',
             description: `Successfully Add Amazon Inventory Template`,
@@ -253,6 +286,61 @@ const MarketplaceGroupInventoryView = (props) => {
 
 
     }
+
+    
+
+    const topManu = [
+        {
+            tab: 'Amazon PU',
+            key: 'Amazon PU',
+            tabName: <AmazonPU genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
+
+        },
+        {
+            tab: 'Amazon Rizno',
+            key: 'Amazon Rizno',
+            tabName: "Amazon Rizno component goes here"
+        }
+        ,
+        {
+            tab: 'Amazon Canada',
+            key: 'Amazon Canada',
+            tabName: "Amazon Canada component goes here"
+        }
+        ,
+        {
+            tab: 'Amazon UAE',
+            key: 'Amazon UAE',
+            tabName: "Amazon UAE component goes here"
+        }
+        ,
+        {
+            tab: 'Walmart',
+            key: 'Walmart',
+            tabName: <Walmart genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
+
+        }
+        ,
+        {
+            tab: 'Walmart Canada',
+            key: 'Walmart Canada',
+            tabName: "Walmart Canada component goes here"
+        }
+        ,
+        {
+            tab: 'Sears',
+            key: 'Sears',
+            tabName: "Sears component goes here"
+        }
+        ,
+        {
+            tab: 'Ebay',
+            key: 'Ebay',
+            tabName: "Ebay component goes here"
+        }
+
+    ];
+
     //  const downloadFile =(data)=>
     //  {
     //  var d = new Date();
@@ -267,36 +355,24 @@ const MarketplaceGroupInventoryView = (props) => {
     //  }
     return (
         <>
-         
-          <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
-            <Tabs defaultActiveKey={activeTab} onChange={(key) => {setActiveTab(key)}} type="card" style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
-                <TabPane tab="Amazon PU" key="Amazon PU">
-                <AmazonPU genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
-                </TabPane>
-                <TabPane tab="Amazon Rizno" key="Amazon Rizno">
-                    Amazon Rizno component goes here
-                </TabPane>
-                <TabPane tab="Amazon Canada" key="Amazon Canada">
-                    Amazon Canada component goes here
-                </TabPane>
-                <TabPane tab="Amazon UAE" key="Amazon UAE">
-                    Amazon UAE component goes here
-                </TabPane>
-                <TabPane tab="Walmart" key="Walmart">
-                <Walmart genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
-                </TabPane>
-                <TabPane tab="Walmart Canada" key="Walmart Canada">
-                    Walmart Canada component goes here
-                </TabPane>
-                <TabPane tab="Sears" key="Sears">
-                    Sears component goes here
-                </TabPane>
-                <TabPane tab="Ebay" key="Ebay">
-                    Ebay component goes here
-                </TabPane>
-            </Tabs>
+
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
+                <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
+
+                    {topManu.map(item => (
+                        tabChildBar?.includes(item.tab) && (
+                            <TabPane tab={item.tab} key={item.key}>
+                                {item.tabName}
+                            </TabPane>)
+
+                    ))}
+
+                </Tabs>
+
+
+
             </Spin >
-            
+
             <Modal
                 title="Report Summary Add Inventory Template"
                 centered
