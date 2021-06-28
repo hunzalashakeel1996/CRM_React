@@ -11,7 +11,7 @@ const ManualShipmentView = (props) => {
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.child_bar)['Manual Shipment'];
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Manual Shipment'];
 
 
     const topManu = [
