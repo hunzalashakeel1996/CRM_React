@@ -21,10 +21,10 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
-  // export const urlDotNet ="http://localhost:47463/api"
+  export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-export const urlDotNet = "https://crm.rizno.com/api"
+//export const urlDotNet = "https://crm.rizno.com/api"
 
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -982,6 +982,9 @@ export const getUserRole = (data) => {
 export const getUserRights = (data) => {
     return apiFetchDotNet('/Users/UserRightsJson', "POST", headerDotNet, JSON.stringify(data));
 }
+export const getSideAndTopNavBar = (data) => {
+    return apiFetchDotNet('/Users/SideAndTopNavBar', "POST", headerDotNetWithJwt, JSON.stringify(data));
+}
 //============================= User Section ======================================
 
 //================================ Email CRM Api Start ===================================
@@ -1027,7 +1030,7 @@ export const getUnshippedOrders = (data) => {
 };
 
 export const getReturnPercentageReport = (data) => {
-    console.log("Hello World!")
+    
     return apiFetchDotNet('/report/Return_percentage_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 

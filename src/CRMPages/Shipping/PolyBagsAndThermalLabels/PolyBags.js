@@ -53,7 +53,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
     let counter = 0;
   dispatch(getPolyBags("")).then(data => {
     setstate({ ...state, isLoader: false,smallBags:data[0].Remaing_Small,largeBags:data[0].Remaing_Large })
-    console.log('My Data: ', data[0].Remaing_Small)
+   
     let tempdatasource = []
     if (data.length)
     data.map(value => {

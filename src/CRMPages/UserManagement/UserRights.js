@@ -73,7 +73,8 @@ const UsersView = (props) => {
   const saveUserRights = () => {
     console.log('submitting');
     // setState({ ...state, isLoading : true})
-
+    console.log('subChildRights',state.subChildRights)
+    console.log('userrightJson',state.userrightJson)
     var id = props.location.pathname.split('/')
     id = id[id.length - 1]
     console.log('aaaa', id)
@@ -82,8 +83,8 @@ const UsersView = (props) => {
       {
         userid: id,
         username: '',
-        topNav: state.subChildRights,
-        childNav: state.userrightJson
+        childNav: state.subChildRights,
+        topNav: state.userrightJson
       })).then(data => {
 
         // console.log(data);

@@ -74,7 +74,7 @@ const ProviderConfig = () => {
     Promise.all([dispatch(getDepartsAPI()),dispatch(getVendorName({})), getPolyBags("")]).then(data=>{
       dispatch(addDepart(data[0]) )
       dispatch(addVendorName(data[1][0]))
-      console.log('asdasdsa0', data)
+    
     })
 
     // dispatch(getDepartsAPI({})).then(departs => {

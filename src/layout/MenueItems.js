@@ -222,7 +222,14 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'User Right',
         title: 'User Right',
         path: `${path}/userManagement/UserRights`
-      }]
+      }
+      ,
+      {
+        key: 'Add Navigation Tab',
+        title: 'Add Navigation Tab',
+        path: `${path}/userManagement/AddNavigationTab`
+      }
+    ]
     },
     {
       key: 'Reporting',
