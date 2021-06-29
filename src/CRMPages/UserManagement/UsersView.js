@@ -9,12 +9,19 @@ const UsersView = (props) => {
     return (
         <>
             <Tabs type="card" defaultActiveKey="Add New Users"  >
+                
                 <TabPane tab="Add New Users" key="Add New Users">
                     Add New Users
                     
                 </TabPane>
                 <TabPane tab="Manage Users" key="Manage Users">
                     Manage Users
+                    
+                </TabPane>
+
+
+                <TabPane tab="Add Navigation Tab" key="Add Navigation Tab">
+                   Add Navigation Tab
                     
                 </TabPane>
             </Tabs>
