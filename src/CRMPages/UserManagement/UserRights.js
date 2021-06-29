@@ -77,26 +77,27 @@ const UsersView = (props) => {
     var id = props.location.pathname.split('/')
     id = id[id.length - 1]
     console.log('aaaa', id)
+    console.log('asjdhakjhdas', state.subChildRights)
+    console.log('asjdhakjhdas', state.userrightJson)
+    // dispatch(saveAllUserRights(
+    //   {
+    //     userid: id,
+    //     username: '',
+    //     topNav: state.subChildRights,
+    //     childNav: state.userrightJson
+    //   })).then(data => {
 
-    dispatch(saveAllUserRights(
-      {
-        userid: id,
-        username: '',
-        topNav: state.subChildRights,
-        childNav: state.userrightJson
-      })).then(data => {
 
+    //     notification.success({
+    //       message: 'Successfull Update',
+    //       description: `Successfull Update`,
+    //       onClose: close,
+    //   });
 
-        notification.success({
-          message: 'Successfull Update',
-          description: `Successfull Update`,
-          onClose: close,
-      });
+    //     // console.log(data);
+    //     setState({ ...state, isLoading: false })
 
-        // console.log(data);
-        setState({ ...state, isLoading: false })
-
-      })
+    //   })
 
   }
 

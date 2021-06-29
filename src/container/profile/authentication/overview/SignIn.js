@@ -41,14 +41,15 @@ const SignIn = () => {
                     dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
                       localStorage.setItem('userRole', JSON.stringify(dataOne))
                       localStorage.setItem('user', JSON.stringify(data))
+                      console.log('user', data)
                       dispatch(login(data));
                       setHeaderWithWebToken()
                       setState({ ...state, loader: false })
-                      // dispatch(getVendorName({})).then(departs => {
-                      //   console.log('aaaa', departs)
-                      //   dispatch(addVendorName(departs[0]))
-                      //   // setState({ ...state, departs, loader: false  });
-                      // })
+                      dispatch(getVendorName({})).then(data => {
+                        console.log('data', data)
+                        dispatch(addVendorName(data[0]))
+                        // setState({ ...state, departs, loader: false  });
+                      })
                       history.push('/admin');
                       // console.log('aaaa', dataOne)
                     })
