@@ -26,7 +26,7 @@ const SignIn = () => {
     // Notification.requestPermission().then(permission => {
       // if (permission == 'granted') {
       navigator.serviceWorker.getRegistration().then(async (reg) => {
-        if (reg){
+        // if (reg){
           firebase.messaging().getToken()
             .then(token => {
               setState({ ...state, loader: true })
@@ -56,7 +56,7 @@ const SignIn = () => {
                   }
                 })
             })
-          }
+          // }
       });
       // }
       // else {
