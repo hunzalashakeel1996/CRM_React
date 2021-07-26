@@ -23,8 +23,8 @@ const SignIn = () => {
     loader: false
   });
   const handleSubmit = (value) => {
-    Notification.requestPermission().then(permission => {
-      if (permission == 'granted') {
+    // Notification.requestPermission().then(permission => {
+      // if (permission == 'granted') {
       navigator.serviceWorker.getRegistration().then(async (reg) => {
         if (reg){
           firebase.messaging().getToken()
@@ -58,16 +58,16 @@ const SignIn = () => {
             })
           }
       });
-      }
-      else {
-        notification['info']({
-          duration: 0,
-          message: 'Sorry',
-          description:
-              'Please allow access for notification through (i) icon',
-      });
-      }
-    });
+      // }
+      // else {
+      //   notification['info']({
+      //     duration: 0,
+      //     message: 'Sorry',
+      //     description:
+      //         'Please allow access for notification through (i) icon',
+      // });
+      // }
+    // });
 
   };
 
