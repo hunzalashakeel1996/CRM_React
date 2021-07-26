@@ -11,7 +11,7 @@ import { Checkbox } from '../../../../components/checkbox/checkbox';
 import Heading from '../../../../components/heading/heading';
 import firebase from './../../../../firebase';
 import { Spin, notification } from 'antd';
-import { addDepart,addVendorName } from '../../../../redux/ticket/actionCreator';
+import { addDepart, addVendorName } from '../../../../redux/ticket/actionCreator';
 
 const SignIn = () => {
   const history = useHistory();
@@ -22,53 +22,56 @@ const SignIn = () => {
     checked: null,
     loader: false
   });
-  const handleSubmit = (value) => {
-    // Notification.requestPermission().then(permission => {
-      // if (permission == 'granted') {
-      navigator.serviceWorker.getRegistration().then(async (reg) => {
-        // if (reg){
+  const handleSubmit =  (value) => {
+    Notification.requestPermission().then(permission => {
+      setState({ ...state, loader: true })
+      if (permission == 'granted') {
+        navigator.serviceWorker.getRegistration().then(async (reg) => {
           firebase.messaging().getToken()
             .then(token => {
-              setState({ ...state, loader: true })
-              dispatch(loginAPI({ username: value.username, password: value.password, Token: token }))
-                .then(data => {
-                  if (data[0].err){
-                    setState({ ...state, loader: false })
-                    alert(data[0].err)
-                  }
-                  else {
-                    data = { ...data[0][0], jwtToken: data[1] }
-                    dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
-                      localStorage.setItem('userRole', JSON.stringify(dataOne))
-                      localStorage.setItem('user', JSON.stringify(data))
-                      dispatch(login(data));
-                      setHeaderWithWebToken()
-                      dispatch(getVendorName({})).then(data => {
-                        setState({ ...state, loader: false })
-                        dispatch(addVendorName(data[0]))
-                        history.push('/admin');
-
-                        // setState({ ...state, departs, loader: false  });
-                      })
-                      // console.log('aaaa', dataOne)
-                    })
-                  }
-                })
+              loginUser({ ...value, Token: token })
             })
-          // }
-      });
-      // }
-      // else {
-      //   notification['info']({
-      //     duration: 0,
-      //     message: 'Sorry',
-      //     description:
-      //         'Please allow access for notification through (i) icon',
-      // });
-      // }
-    // });
+            .catch(e => {
+              console.log('check error')
+            })
+        });
+      }
+      else {
+        loginUser({ ...value, Token: 'not provided' })
+      }
+    });
 
   };
+
+  const loginUser = (value) => {
+    console.log('a1', value)
+    dispatch(loginAPI({ username: value.username, password: value.password, Token: value.Token }))
+      .then(data => {
+        console.log('cehck23343', data)
+        if (data[0].err) {
+          setState({ ...state, loader: false })
+          alert(data[0].err)
+        }
+        else {
+          data = { ...data[0][0], jwtToken: data[1] }
+          dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
+            localStorage.setItem('userRole', JSON.stringify(dataOne))
+            localStorage.setItem('user', JSON.stringify(data))
+            dispatch(login(data));
+            setHeaderWithWebToken()
+            dispatch(getVendorName({})).then(data => {
+            console.log('inside123',data)
+
+              setState({ ...state, loader: false })
+              dispatch(addVendorName(data[0]))
+              history.push('/admin');
+              // setState({ ...state, departs, loader: false  });
+            })
+            // console.log('aaaa', dataOne)
+          })
+        }
+      })
+  }
 
   const onChange = checked => {
     setState({ ...state, checked });

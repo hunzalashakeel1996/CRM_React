@@ -28,17 +28,30 @@ const AuthInfo = ({ rtl }) => {
   const { flag } = state;
 
   const SignOut = e => {
-    firebase.messaging().getToken().then(token => {
-      let data = {token, LoginName: user.LoginName}
-      console.log('logout',data);
-      dispatch(logoutAPI(data)).then(res => {
-        console.log('logout',res);
-        localStorage.removeItem('user')
-        localStorage.removeItem('userRole')
-        window.location.reload(); 
-      })
-    })
+    // Notification.requestPermission().then(permission => {
+    //   setState({ ...state, loader: true })
+      if (Notification.permission == 'granted') {
+        firebase.messaging().getToken().then(token => {
+          let data = {token, LoginName: user.LoginName}
+          logoutUser(data)
+        })
+      }
+      else{
+          let data = {token: 'not provided', LoginName: user.LoginName}
+          logoutUser(data)
+      }
+    // })
+    
   };
+
+  const logoutUser = (data) => {
+    dispatch(logoutAPI(data)).then(res => {
+      console.log('logout',res);
+      localStorage.removeItem('user')
+      localStorage.removeItem('userRole')
+      window.location.reload(); 
+    })
+  }
 
   const userContent = (
     <UserDropDwon>
