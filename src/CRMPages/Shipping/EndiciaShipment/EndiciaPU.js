@@ -261,19 +261,19 @@ const verifyLabel = () => {
             <Row style={{}}>
                 <Cards title="Check Labels Here" caption="The simplest use of Drawer" >
                 <Form layout="inline" initialValue="" label="" form={form} id="Check Labels Here" name="nest-messages" onFinish={verifyLabel} validateMessages={validateMessages}>
-                    <Row gutter={25}>
-                        <Col lg={6} xs={24}  >
+                    <Row gutter={50}>
+                        <Col span={8}  >
                         <Form.Item name="Tracking Number"rules={[{ required: true }]}>
-                            <TextArea placeholder="input here" className="custom" value={orderno} onChange={onChange} style={{ height: 50 }} />
+                            <TextArea placeholder="input here" className="custom" value={orderno} onChange={onChange} style={{ height: 50,width:300 }} />
                           </Form.Item>
                         </Col>
-                        <Col lg={6} xs={24}  >
+                        <Col span={8} >
                         <Form.Item >
                             <Button type="success"  size="default" type="success" htmlType="Submit"> Search</Button>
                    
                             </Form.Item>
                         </Col>
-                        <Col lg={6} xs={24}  >
+                        <Col span={8}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                            
                              

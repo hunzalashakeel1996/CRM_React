@@ -985,6 +985,10 @@ export const getUserRights = (data) => {
 export const getSideAndTopNavBar = (data) => {
     return apiFetchDotNet('/Users/SideAndTopNavBar', "POST", headerDotNetWithJwt, JSON.stringify(data));
 }
+export const insertSideNavandTop = (data) => {
+    return apiFetchDotNet('/Users/AddTopandNav', "POST", headerDotNetWithJwt, JSON.stringify(data));
+}
+
 //============================= User Section ======================================
 
 //================================ Email CRM Api Start ===================================

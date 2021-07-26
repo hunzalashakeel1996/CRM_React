@@ -18,8 +18,8 @@ const EndiciaShipmentView = (props) => {
 
     const topManu = [
         {
-            tab: 'Endica PU',
-            key: 'Endica PU',
+            tab: 'Endicia PU',
+            key: 'Endicia PU',
             tabName: <EndiciaPU />
         },
         {
