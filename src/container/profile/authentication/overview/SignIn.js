@@ -41,16 +41,15 @@ const SignIn = () => {
                     dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
                       localStorage.setItem('userRole', JSON.stringify(dataOne))
                       localStorage.setItem('user', JSON.stringify(data))
-                      console.log('user', data)
                       dispatch(login(data));
                       setHeaderWithWebToken()
-                      setState({ ...state, loader: false })
                       dispatch(getVendorName({})).then(data => {
-                        console.log('data', data)
+                        setState({ ...state, loader: false })
                         dispatch(addVendorName(data[0]))
+                        history.push('/admin');
+
                         // setState({ ...state, departs, loader: false  });
                       })
-                      history.push('/admin');
                       // console.log('aaaa', dataOne)
                     })
                   }
@@ -93,7 +92,7 @@ const SignIn = () => {
               <Input />
               {/* //test  */}
             </Form.Item>
-            <Form.Item name="password" label="Password">
+            <Form.Item name="password" label="Password" rules={[{ message: 'Password is required', required: true }]}>
               <Input.Password placeholder="Password" />
             </Form.Item>
             <Form.Item>
