@@ -50,8 +50,7 @@ const UsersView = (props) => {
       JsonMap.map(value => {
         objectToArray = [...objectToArray, ...value]
       })
-
-      setState({ ...state, isLoading: false, sidebars: data[0], subChildRights: JSON.parse(data[1][0].top_navigation), sidebarRights: objectToArray, userrightJson: JSON.parse(data[1][0].child_bar) });
+      setState({ ...state, isLoading: false, sidebars: data[0], userrightJson: JSON.parse(data[1][0].child_bar), sidebarRights: objectToArray, subChildRights: JSON.parse(data[1][0].top_navigation) });
       // console.log('Mapp', objectToArray);
     })
 
@@ -83,8 +82,8 @@ const UsersView = (props) => {
       {
         userid: id,
         username: '',
-        topNav: state.subChildRights,
-        childNav: state.userrightJson
+        topNav: state.userrightJson,
+        childNav: state.subChildRights
       })).then(data => {
 
 
@@ -103,7 +102,9 @@ const UsersView = (props) => {
 
   // console.log([...state.sidebarRights])
   const onAddSidebarRight = (sidebarOption, parentBar, topNavigationName) => {
-    // console.log('aaa', parentBar)
+     console.log('parentBar', parentBar)
+    //  console.log('sidebarOption', sidebarOption)
+    //  console.log('top', topNavigationName)
 
     // let temp = [...state.sidebarRights]
 
@@ -118,37 +119,35 @@ const UsersView = (props) => {
       // parent not found
       sideBarRightsTemp = { ...sideBarRightsTemp, [parentBar]: [sidebarOption] }
 
-
+      // console.log('sad',sideBarRightsTemp)
       subChildRightsTemp = { ...subChildRightsTemp, [sidebarOption]: topNavigationName !== undefined ? [topNavigationName] : [null] }
       // console.log('if');
-      // console.log('if child', subChildRightsTemp);
+      //  console.log('if child', subChildRightsTemp);
     }
     else if (sideBarRightsTemp[parentBar].includes(sidebarOption)) {
+      console.log('1',subChildRightsTemp)
+      // console.log(sideBarRightsTemp[parentBar])
       // parent and child both included so remove it from array
       let index = sideBarRightsTemp[parentBar].indexOf(sidebarOption)
       // console.log(index);
       sideBarRightsTemp[parentBar].splice(index, 1);
+      delete subChildRightsTemp[sidebarOption];
       // delete key if arrray length become 0 
       if (sideBarRightsTemp[parentBar].length === 0) {
+        console.log('coming into if')
         delete sideBarRightsTemp[parentBar];
         delete subChildRightsTemp[sidebarOption];
       }
-      // console.log('else if', sideBarRightsTemp);
-
     }
     else {
       // parent found but child is not found so push that child
       sideBarRightsTemp[parentBar].push(sidebarOption)
-
       subChildRightsTemp = { ...subChildRightsTemp, [sidebarOption]: topNavigationName !== undefined ? [topNavigationName] : [null] }
-
-      console.log({ ...subChildRightsTemp, [sidebarOption]: [topNavigationName] });
+      // console.log({ ...subChildRightsTemp, [sidebarOption]: [topNavigationName] });
 
     }
-    console.log('sideBarRightsTemp', sideBarRightsTemp);
-    console.log('subChildRightsTemp', subChildRightsTemp);
-
     setState({ ...state, userrightJson: sideBarRightsTemp, subChildRights: subChildRightsTemp })
+    console.log('subChildRights', subChildRightsTemp )
   }
 
 
@@ -156,7 +155,6 @@ const UsersView = (props) => {
 
   const onAddTopNavigationRight = (parentName, topNavigationName) => {
     let temp = { ...state.subChildRights }
-
     if (temp[parentName] == undefined) {
       temp = { ...temp, [parentName]: [topNavigationName] }
 
@@ -172,7 +170,7 @@ const UsersView = (props) => {
       temp[parentName].push(topNavigationName);
     }
     setState({ ...state, subChildRights: { ...temp } })
-    console.log(temp)
+    // console.log('Temp',temp)
   }
 
 
