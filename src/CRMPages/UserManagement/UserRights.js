@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col, Switch, Checkbox, Collapse, Spin } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col, Switch, Checkbox, Collapse, Spin,notification } from 'antd';
 import { Button, BtnGroup } from '../../components/buttons/buttons';
 import FeatherIcon from 'feather-icons-react';
 import { PageHeader } from '../../components/page-headers/page-headers';
@@ -37,20 +37,20 @@ const UsersView = (props) => {
   useEffect(() => {
     var id = props.location.pathname.split('/')
     id = id[id.length - 1]
-    console.log('aaaa', id)
+    // console.log('aaaa', id)
     setState({ ...state, isLoading: true, id: id })
     // get balance sheet record
     Promise.all([dispatch(getNavigation({})), dispatch(getUserRights({ userid: id }))]).then(data => {
 
       let databaseJson = JSON.parse(data[1][0].top_navigation)
-      console.log(databaseJson);
+      // console.log(databaseJson);
       let JsonMap = Object.values(databaseJson)
       let objectToArray = []
 
       JsonMap.map(value => {
         objectToArray = [...objectToArray, ...value]
       })
-      setState({ ...state, isLoading: false, sidebars: data[0], userrightJson: JSON.parse(data[1][0].top_navigation), sidebarRights: objectToArray, subChildRights: JSON.parse(data[1][0].child_bar) });
+      setState({ ...state, isLoading: false, sidebars: data[0], userrightJson: JSON.parse(data[1][0].child_bar), sidebarRights: objectToArray, subChildRights: JSON.parse(data[1][0].top_navigation) });
       // console.log('Mapp', objectToArray);
     })
 
@@ -71,10 +71,9 @@ const UsersView = (props) => {
 
 
   const saveUserRights = () => {
-    console.log('submitting');
-    // setState({ ...state, isLoading : true})
-    console.log('subChildRights',state.subChildRights)
-    console.log('userrightJson',state.userrightJson)
+    // console.log('submitting');
+    setState({ ...state, isLoading : true})
+
     var id = props.location.pathname.split('/')
     id = id[id.length - 1]
     console.log('aaaa', id)
@@ -83,9 +82,16 @@ const UsersView = (props) => {
       {
         userid: id,
         username: '',
-        childNav: state.subChildRights,
-        topNav: state.userrightJson
+        topNav: state.userrightJson,
+        childNav: state.subChildRights
       })).then(data => {
+
+
+        notification.success({
+          message: 'Successfull Update',
+          description: `Successfull Update`,
+          onClose: close,
+      });
 
         // console.log(data);
         setState({ ...state, isLoading: false })
@@ -96,7 +102,9 @@ const UsersView = (props) => {
 
   // console.log([...state.sidebarRights])
   const onAddSidebarRight = (sidebarOption, parentBar, topNavigationName) => {
-    // console.log('aaa', parentBar)
+     console.log('parentBar', parentBar)
+    //  console.log('sidebarOption', sidebarOption)
+    //  console.log('top', topNavigationName)
 
     // let temp = [...state.sidebarRights]
 
@@ -111,37 +119,35 @@ const UsersView = (props) => {
       // parent not found
       sideBarRightsTemp = { ...sideBarRightsTemp, [parentBar]: [sidebarOption] }
 
-
+      // console.log('sad',sideBarRightsTemp)
       subChildRightsTemp = { ...subChildRightsTemp, [sidebarOption]: topNavigationName !== undefined ? [topNavigationName] : [null] }
       // console.log('if');
-      // console.log('if child', subChildRightsTemp);
+      //  console.log('if child', subChildRightsTemp);
     }
     else if (sideBarRightsTemp[parentBar].includes(sidebarOption)) {
+      console.log('1',subChildRightsTemp)
+      // console.log(sideBarRightsTemp[parentBar])
       // parent and child both included so remove it from array
       let index = sideBarRightsTemp[parentBar].indexOf(sidebarOption)
       // console.log(index);
       sideBarRightsTemp[parentBar].splice(index, 1);
+      delete subChildRightsTemp[sidebarOption];
       // delete key if arrray length become 0 
       if (sideBarRightsTemp[parentBar].length === 0) {
+        console.log('coming into if')
         delete sideBarRightsTemp[parentBar];
         delete subChildRightsTemp[sidebarOption];
       }
-      // console.log('else if', sideBarRightsTemp);
-
     }
     else {
       // parent found but child is not found so push that child
       sideBarRightsTemp[parentBar].push(sidebarOption)
-
       subChildRightsTemp = { ...subChildRightsTemp, [sidebarOption]: topNavigationName !== undefined ? [topNavigationName] : [null] }
-
-      console.log({ ...subChildRightsTemp, [sidebarOption]: [topNavigationName] });
+      // console.log({ ...subChildRightsTemp, [sidebarOption]: [topNavigationName] });
 
     }
-    console.log('sideBarRightsTemp', sideBarRightsTemp);
-    console.log('subChildRightsTemp', subChildRightsTemp);
-
     setState({ ...state, userrightJson: sideBarRightsTemp, subChildRights: subChildRightsTemp })
+    console.log('subChildRights', subChildRightsTemp )
   }
 
 
@@ -149,7 +155,6 @@ const UsersView = (props) => {
 
   const onAddTopNavigationRight = (parentName, topNavigationName) => {
     let temp = { ...state.subChildRights }
-
     if (temp[parentName] == undefined) {
       temp = { ...temp, [parentName]: [topNavigationName] }
 
@@ -165,7 +170,7 @@ const UsersView = (props) => {
       temp[parentName].push(topNavigationName);
     }
     setState({ ...state, subChildRights: { ...temp } })
-    console.log(temp)
+    // console.log('Temp',temp)
   }
 
 
@@ -179,8 +184,8 @@ const UsersView = (props) => {
           buttons={[
             <div key="1" className="page-header-actions">
 
-              <Button size="small" type="primary" onClick={() => { saveUserRights() }}>
-                <FeatherIcon size={14} />
+              <Button variant=  "outlined" size="small" type="primary" onClick={() => { saveUserRights() }}>
+                {/* <FeatherIcon size={14}  /> */}
              Save User
             </Button>
             </div>,
@@ -210,7 +215,6 @@ const UsersView = (props) => {
                               {JSON.parse(sidebar.top_navigation)[`${singleChildBar}`].map((topNavigations, index) => (
 
                                 <Checkbox style={{ marginLeft: 10 }} checked={state.subChildRights[singleChildBar] && state.subChildRights[singleChildBar].includes(topNavigations)} id={topNavigations} onChange={() => { onAddTopNavigationRight(singleChildBar, topNavigations) }}>{topNavigations}</Checkbox>
-
 
                               ))
 

@@ -89,7 +89,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       icon: 'calendar',
       items: [{
         key: 'viewReminders',
-        title: 'Reminder',
+        title: 'Reminders',
         path: `${path}/ticket/viewReminders`
       },
       {
@@ -97,6 +97,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         title: 'Add Reminder',
         path: `${path}/ticket/addReminder`
       }]
+      
     },
     {
       key: 'Orders',
@@ -247,8 +248,8 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
 
 
   useEffect(() => {
-    console.log("ew", JSON.parse(userAccess.top_navigation))
-    console.log("child_bar", JSON.parse(userAccess.child_bar))
+    // console.log("ew", JSON.parse(userAccess.top_navigation))
+    // console.log("child_bar", JSON.parse(userAccess.child_bar))
   }, [])
 
   return (
