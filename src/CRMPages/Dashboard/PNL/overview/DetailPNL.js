@@ -283,6 +283,14 @@ const DetailPNL = (props) => {
       sortOrder: sortedInfo.columnKey === 'PPS' && sortedInfo.order,
     },
     {
+      title: 'Final Profit',
+      dataIndex: 'final_profit',
+      key: 'final_profit',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.final_profit - d.final_profit,
+      sortOrder: sortedInfo.columnKey === 'final_profit' && sortedInfo.order,
+    },
+    {
       title: 'Type',
       dataIndex: 'Type',
       key: 'Type',
