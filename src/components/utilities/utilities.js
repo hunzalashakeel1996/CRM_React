@@ -21,7 +21,7 @@ const downloadFile = (data) => {
   //Live Downlaod Link
   a.href = `https://crm.rizno.com/admin/${data}`;
   //Local Download Link
-  // a.href = `http://localhost:47463/admin/${data}`;
+ // a.href = `http://localhost:47463/admin/${data}`;
   a.target = '_blank';
   //a.download = `https://crm.rizno.com/admin/${data}`;
   document.body.appendChild(a);

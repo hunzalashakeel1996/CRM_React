@@ -36,6 +36,10 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'ViewAzabReport',
         title: 'AzabReport',
         path: `${path}/azab/ViewAzabReport`
+      }, {
+        key: 'ViewReportPNL',
+        title: 'Report PNL',
+        path: `${path}/PNL/ViewReportPNL`
       }]
     },
     {

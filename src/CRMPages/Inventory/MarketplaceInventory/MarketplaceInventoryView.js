@@ -116,6 +116,7 @@ const MarketplaceInventoryView = (props) => {
         requestObjInventroy.dataFrom = query
         requestObjInventroy.isAmazonProcedure = isSeller
         console.log('requestObjInventroy', requestObjInventroy)
+
         if (isSeller == "Amazon") {
             dispatch(getInventoryapi(requestObjInventroy)).then(data => {
 
@@ -123,7 +124,7 @@ const MarketplaceInventoryView = (props) => {
                 // console.log(data[0][0])
 
                 setState({ ...state, summaryDataState: data[0], downloadDataState: data[1], loaderState: false })
-                console.log(state)
+              //  console.log(data)
 
                 if (data[3] === 'Amazon') {
 
