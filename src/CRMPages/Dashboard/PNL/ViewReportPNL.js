@@ -78,10 +78,10 @@ const ReportPNLView = () => {
     setstate({ ...state, isLoader: true })
     Promise.all([dispatch(apiSummaryReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})), 
     dispatch(apiSummaryReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
-     dispatch(apiSummaryReportPriceWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})), 
+     dispatch(apiSummaryReportPriceWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
      dispatch(apiSummaryReportDetailWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
     ]).then((data) => { 
-        
+        console.log(data)
 //Order PNL
               data[0][1].map(value => {
       
@@ -222,7 +222,7 @@ const ReportPNLView = () => {
               setstate({ ...state, dataSourceOrder: [...tempDataSource_summary_report_order_wise],
                  dataSourceItem: [...tempDataSource_summary_report_item_wise],
                  dataSourcePrice: [...tempDataSource_summary_report_Price_wise],
-                 dataSourceDetails: [...tempDataSource_summary_report_Detail_wise],
+                dataSourceDetails: [...tempDataSource_summary_report_Detail_wise],
                 isLoader: false });
   
 
@@ -254,7 +254,7 @@ const topMenu = [
     {
         tab: 'PNL Detail',
         key: 'Detail PNL',
-        tabName: <DetailPNL dataSourceDetails={dataSourceDetails} />
+        tabName: <DetailPNL  dataSourceDetails={dataSourceDetails}  />
 
     }
 ];

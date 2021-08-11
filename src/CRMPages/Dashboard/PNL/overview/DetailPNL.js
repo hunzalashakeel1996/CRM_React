@@ -319,7 +319,7 @@ const DetailPNL = (props) => {
               {/* <ProjectList> */}
 
                 <div className="table-responsive">
-                  <Table pagination={false} scroll={{ x: 5000, y: 1000 }} dataSource={dataSourceDetails} columns={columns} onChange={handleChange}/>
+                  <Table pagination={true} scroll={{ x: 5000, y: 1000 }} dataSource={dataSourceDetails} columns={columns} onChange={handleChange}/>
                 </div>
 
               {/* </ProjectList> */}
