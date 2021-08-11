@@ -21,10 +21,10 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
- //export const urlDotNet ="http://localhost:47463/api"
+  export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-export const urlDotNet = "https://crm.rizno.com/api"
+//export const urlDotNet = "https://crm.rizno.com/api"
 
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -1037,6 +1037,22 @@ export const getUnshippedOrders = (data) => {
 export const getReturnPercentageReport = (data) => {
     
     return apiFetchDotNet('/report/Return_percentage_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const apiSummaryReportOrderWise = (data) => {
+    
+    return apiFetchDotNet('/report/summary_report_order_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const apiSummaryReportItemWise = (data) => {
+    
+    return apiFetchDotNet('/report/summary_report_item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const apiSummaryReportPriceWise = (data) => {
+    
+    return apiFetchDotNet('/report/summary_report_price_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const apiSummaryReportDetailWise = (data) => {
+    
+    return apiFetchDotNet('/report/sale_reportUT', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const getGoogleMarketPlaceVerifyapi = (data) => {

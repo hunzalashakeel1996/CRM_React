@@ -16,6 +16,7 @@ import Chatbot from './Chatbot'
 import UserManagement from './UserManagement'
 import CustomerSupport from './CustomerSupport'
 import Reporting  from './Reporting'
+import ReportPNL  from './ReportPNL'
 import ComparisonReportView from './../../CRMPages/Dashboard/ComparisonReport/ComparisonReportView';
 
 const Admin = () => {
@@ -36,6 +37,7 @@ const Admin = () => {
         <Route path={`${path}/graph`} component={ReportChart} />
         <Route path={`${path}/ticket`} component={Tickets} />
         <Route path={`${path}/azab`} component={Azab} />
+        <Route path={`${path}/azab`} component={Azab} />
         <Route path={`${path}/inventory`} component={Inventory} />
         <Route path={`${path}/orders`} component={Orders} />
         <Route path={`${path}/sales`} component={Sales} />
@@ -46,6 +48,7 @@ const Admin = () => {
         <Route path={`${path}/userManagement`} component={UserManagement} />
         <Route path={`${path}/customerSupport`} component={CustomerSupport} />
         <Route path={`${path}/reporting`} component={Reporting} />
+        <Route path={`${path}/PNL`} component={ReportPNL} />
       </Suspense>
     </Switch>
   );

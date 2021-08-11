@@ -71,11 +71,11 @@ const ProviderConfig = () => {
       (socket === null && user !== null) &&dispatch(connectSocket(user.LoginID))
     }, 4000);
 
-    Promise.all([dispatch(getDepartsAPI()),dispatch(getVendorName({})), getPolyBags("")]).then(data=>{
+    Promise.all([dispatch(getDepartsAPI()), getPolyBags(""),localStorage.getItem('user')&&dispatch(getVendorName({}))]).then(data=>{
+      console.log('cehjcig', data)
       dispatch(addDepart(data[0]) )
-     
-      dispatch(addVendorName(data[1][0]))
-    
+      data[2] && dispatch(addVendorName(data[2][0]))
+      console.log('asdasdsa0', data)
     })
 
     // dispatch(getDepartsAPI({})).then(departs => {

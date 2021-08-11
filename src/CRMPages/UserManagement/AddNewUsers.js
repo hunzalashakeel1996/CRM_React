@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, InputNumber, Tabs, Table, Upload,Form, Row,Select, Col,Switch,notification } from 'antd';
+import { Input, InputNumber, Tabs, Table, Upload, Form, Row, Select, Col, Switch, notification } from 'antd';
 import { Button, BtnGroup } from '../../components/buttons/buttons';
 import { Main, BasicFormWrapper } from '../styled';
 import FeatherIcon from 'feather-icons-react';
@@ -21,11 +21,11 @@ const { Option } = Select;
 const validateMessages = {
   required: '${name} is required!',
   types: {
-      email: '${name} is not validate email!',
-      number: '${name} is not a validate number!',
+    email: '${name} is not validate email!',
+    number: '${name} is not a validate number!',
   },
   number: {
-      range: '${name} must be between ${min} and ${max}',
+    range: '${name} must be between ${min} and ${max}',
   },
 };
 
@@ -36,49 +36,51 @@ const UsersView = (props) => {
     cascaderItem: [],
   });
 
-  
+
   const dispatch = useDispatch();
-  
-  
+
+
   const onInsertUser = (values) => {
 
 
     let obj = {
-      firstName : values['firstName'],
-      lastName : values['lastName'],
-      userName : values['userName'],
+      firstName: values['firstName'],
+      lastName: values['lastName'],
+      userName: values['userName'],
       email: values['email'],
-      password : values['password'],
-      status : values['status']
+      password: values['password'],
+      status: values['status']
     }
 
     console.log(obj)
 
-    dispatch(addNewUser({ firstName : values['firstName'],
-    lastName : values['lastName'],
-    userName : values['userName'],
-    email: values['email'],
-    password : values['password'],
-    status : values['status']})).then(data => {
+    dispatch(addNewUser({
+      firstName: values['firstName'],
+      lastName: values['lastName'],
+      userName: values['userName'],
+      email: values['email'],
+      password: values['password'],
+      status: values['status']
+    })).then(data => {
 
       notification.success({
         message: 'Hey There',
         description: data,
         onClose: close,
-    });
+      });
     });
 
   };
 
   const onInsertUserFailed = (error) => {
- 
+
 
     console.log('obj', error)
   };
 
   return (
     <>
-    <PageHeader
+      <PageHeader
         ghost
         title="Add New Users"
         buttons={[
@@ -95,12 +97,12 @@ const UsersView = (props) => {
           <Col md={12} sm={24} xs={24}>
             <Cards title="User Entry Form" caption="The simplest use of Form">
               <BasicFormWrapper>
-                <Form layout="vertical" 
-                form={form} 
-                name="basicforms" 
-                onFinish={onInsertUser}
-                onFinishFailed={onInsertUserFailed}>
-                  
+                <Form layout="vertical"
+                  form={form}
+                  name="basicforms"
+                  onFinish={onInsertUser}
+                  onFinishFailed={onInsertUserFailed}>
+
                   <Form.Item name="firstName" rules={[{ required: true }]}>
                     <Input placeholder="FirstName" />
                   </Form.Item>
@@ -108,7 +110,7 @@ const UsersView = (props) => {
                     <Input placeholder="LastName" />
                   </Form.Item>
                   <Form.Item name="userName" rules={[{ required: true }]}
-                    >
+                  >
                     <Input placeholder="Username" />
                   </Form.Item>
 
@@ -117,15 +119,16 @@ const UsersView = (props) => {
                     rules={[{ required: true }]}
                   >
                     <Input placeholder="Email" />
-                  </Form.Item>   
+                  </Form.Item>
 
-                <Form.Item
-                          name="password"
-                          rules={[{ required: true, message: 'Please input password!' }]}
-                        >
-                          <Input.Password placeholder="password" />   
-                          </Form.Item>              
-                  <Form.Item name="status"  rules={[{ required: true, message: 'Please Enter Status!'}]}>
+                  <Form.Item
+
+                    name="password"
+                    rules={[{ required: true, message: 'Please input password!' }]}
+                  >
+                    <Input.Password placeholder="password" />
+                  </Form.Item>
+                  <Form.Item name="status" rules={[{ required: true, message: 'Please Enter Status!' }]}>
                     <Select
                       showSearch
                       placeholder="Please Slelect"
