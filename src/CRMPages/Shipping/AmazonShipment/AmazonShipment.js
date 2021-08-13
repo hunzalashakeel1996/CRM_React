@@ -187,9 +187,9 @@ const insertAmazonShipingSheet =()=>{
     return (
         <>
             <Row style={{  }}>
-                <Cards title="Amazon Shiping Label" caption="The simplest use of Drawer" >
-                    <Row gutter={5}>
-                        <Col span={5} >
+                <Cards title="Amazon Shiping Label" caption="The simplest use of Drawer" style={{paddingTop:0}}>
+                    <Row gutter={25}>
+                        <Col sm={12} md={10} lg={6} xl={5} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 5}}><h3>Step 1</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 5 }}>
 
@@ -200,19 +200,19 @@ const insertAmazonShipingSheet =()=>{
 
                             </div>
                         </Col>
-                        <Col span={6}>
+                        <Col xs={24} sm={12} md={10} lg={7} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" ><h3>Step 2</h3></div>
                             <Button type="primary" onClick={insertAmazonShipingSheet} disabled={ordersSheet}>Insert Amazon Shiping Sheet</Button>
                             <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />  
                         </Col>
-                        <Col span={6}>
+                        <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" ><h3>Step 3</h3></div>
                             <div className="atbd-drawer" >
                             <Button type="primary" onClick={startAmazonShipping} disabled={createLabels}>Insert Amazon Shiping Sheet</Button>
                                 {/* </Cards> */}
                             </div>
                         </Col>
-                        <Col span={7}>
+                        <Col xs={24} sm={12} md={10} lg={5} xl={5} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 4</h3></div>
                             <div className="atbd-drawer" >
                                 {/* <Cards title="Total Count" caption="The simplest use of Drawer"> */}

@@ -10,6 +10,7 @@ import { DateRangePickerOne, CustomDateRange } from '../../../components/datePic
 import { getDeliveyTrackingStatus } from '../../../redux/apis/DataAction';
 import { downloadFile } from '../../../components/utilities/utilities'
 // import Form from 'antd/lib/form/Form';
+import './shippingDeliveryTrackingStatus.css';
 
 
 const { TabPane } = Tabs;
@@ -72,21 +73,21 @@ const ShippingReportsView = (props) => {
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
          
                 <Cards title="Delivery Tracking Status Report" caption="The simplest use of Drawer" >
-                <Form layout="inline" initialValue="" label="" form={form} id="PO Numbers" name="nest-messages"  onFinish={getDeliveyTrackingStatusReporting} validateMessages={validateMessages}>
-                 <Row gutter={50}>
+                <Form initialValue="" label="" form={form} id="PO Numbers" name="nest-messages"  onFinish={getDeliveyTrackingStatusReporting} validateMessages={validateMessages} style={{width:'100%',}}>
+                 <Row gutter={25}>
 
-                            <Col span={8} >
+                            <Col xs={24} sm={12} md={8} lg={6} >
                             <Form.Item name="StartDate" rules={[{ required: true }]}>
-                                    <DatePicker placeholder="StartDate" style={{padding:10}} onChange={(date) => { onChange(date, 'startDate') }} />
+                                    <DatePicker placeholder="StartDate" style={{padding:10, width:'100%',}} onChange={(date) => { onChange(date, 'startDate') }} />
                                     </Form.Item>
                             </Col>
-                            <Col span={8} >
+                            <Col xs={24} sm={12} md={8} lg={6} >
                             <Form.Item name="EndDate" rules={[{ required: true }]}>
                                     <DatePicker placeholder="EndDate" style={{padding:10}}  onChange={(date) => { onChange(date, 'endDate') }} />
                                     </Form.Item>
                             </Col>
                             
-                            <Col span={8} >
+                            <Col xs={24} sm={12} md={8} lg={6} >
                                <Form.Item>
                                     <Button  size="default" type="success"  htmlType="Submit">
                                         Download

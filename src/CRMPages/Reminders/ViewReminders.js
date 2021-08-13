@@ -100,7 +100,8 @@ const ViewReminders = (props) => {
         <Row gutter={25}>
           <Col xs={24}>
             <Row style={{ marginBottom: 10 }} gutter={10}>
-              <Col md={8} xs={24}>
+
+              <Col md={8} lg={6} xl={5} xs={24} sm={12} style={{marginBottom:7}}>
                 <div className="project-sort-search">
                   <AutoComplete onSearch={(e) => { handleSearch(e, 'RefrenceId') }} placeholder="Reference Id" patterns />
                 </div>
@@ -110,19 +111,22 @@ const ViewReminders = (props) => {
                   <ReasonAutoComplete dataSource={['abc', 'def', 'hih']}/>
                 </div>
               </Col> */}
-              <Col md={8} xs={24}>
+              <Col md={8} lg={6} xl={5} xs={24} sm={12}  style={{marginBottom:7}}>
                 <div className="project-sort-search">
                   <AutoComplete onSearch={(e) => { handleSearch(e, 'CreateBy') }} placeholder="Create By" patterns />
                 </div>
               </Col>
 
-              <Col md={8} xs={24}>
+              <Col md={8} lg={6} xl={5} xs={24} sm={12}  style={{marginBottom:7}}>
                 <div className="project-sort-search">
                   <AutoComplete onSearch={(e) => { handleSearch(e, 'Message') }} placeholder="Message" patterns />
                 </div>
               </Col>
 
-              <Col md={24} xs={24} style={{ marginTop: 10 }} >
+              </Row>
+              
+              <Row>
+              <Col md={24} xs={24} style={{ marginBottom: 10 }} >
                 <Button variant="danger" onClick={(val) => { setState({ ...state, StatusSort: 'Open' }); }} style={{ borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
                 <Button variant="primary" onClick={(val) => { setState({ ...state, StatusSort: 'Closed' }); }} style={{ borderColor: StatusSort == "Closed" ? '#5F63F2' : null }}>Closed</Button>
               </Col>

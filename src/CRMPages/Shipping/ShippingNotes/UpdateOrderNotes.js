@@ -57,13 +57,13 @@ const ShippingWeightView = (props) => {
       <Row style={{  }}>
         <Cards title="Update Order Notes" caption="The simplest use of Drawer" >
           <Row gutter={25}>
-            <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+            <Col xs={24}  >
+              <div className="atbd-drawer" style={{ marginLeft: 0, marginBottom:10, width:'100%', maxWidth:400,  }}>
                 <TextArea />
               </div>
             </Col>
-            <Col lg={12} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+            <Col xs={24}  >
+              <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                 <Button type="success" htmlType="PO Number">
                   Insert
                         </Button>

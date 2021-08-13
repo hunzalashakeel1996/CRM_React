@@ -13,6 +13,7 @@ import { PageHeader } from '../../../components/page-headers/page-headers';
 import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { Button } from '../../../components/buttons/buttons';
 import { downloadFile } from '../../../components/utilities/utilities';
+import './saleBalanceSheet.css';
 // import { getDate } from 'date-fns';
 
 // const { TabPane } = Tabs;
@@ -201,8 +202,9 @@ const ReportView = (props) => {
                         onFinish={onSubmit}
                         onFinishFailed={onSubmitFailed}
                     >
-                        <Row>
-                            {vendorNames && <Col span={5} >
+                        <Row gutter={25}>
+
+                            {vendorNames && <Col xs={24} md={12} lg={6}  >
                             <Form.Item name="Vendorname"  rules={[{ required: true }]} >
                                     <ReasonAutoComplete
                                         //   style={{ marginRight: 5 }}
@@ -213,29 +215,26 @@ const ReportView = (props) => {
                                         onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
                                 </Form.Item>
                             </Col>}
-                            <Col span={1}></Col>
-                            <Col span={7}>
+                            
+                            <Col  xs={24} md={8} lg={6}>
                                 <Form.Item name="startDate"  rules={[{ required: true }]} >
                                     {/* <Space label="" {...rangeConfig}> */}
                                     <DatePicker style={{ padding: 10 }} renderExtraFooter={() => 'extra footer'} placeholder="Enter date" />
                                     {/* </Space > */}
                                 </Form.Item>
                             </Col>
-                            <Col span={3}>
+                            <Col lg={3}>
                               <Form.Item name="payCount" rules={[{ required: true }]} >
-                                <InputNumber style={{ height: 44 }} min={1} max={10} />
+                                <InputNumber style={{ height: 42 }} min={1} max={10} />
                                 </Form.Item>
                             </Col>
-                            <Col span={3}>
+                            <Col xs={24} lg={9}>
                                 <Form.Item >
-                                    <Button type="success" size="default"  htmlType="submit" >
+                                    <Button style={{marginRight:'15px',}} type="success" size="default"  htmlType="submit" >
                                         <Icon type="left" />
                                         Search
                                     </Button>
-                                </Form.Item>
-                            </Col>
-                            <Col span={2}>
-                                <Form.Item >
+                                
                                     <Button type="primary" size="default" icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
                                         <Icon type="left" />
                                         Download

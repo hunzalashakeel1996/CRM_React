@@ -361,29 +361,44 @@ const AmazonUpdateInventory = () => {
                         <Row >
 
 
-                            <Col span={8} >
+                            <Col xs={24} md={12} lg={10} >
 
                                 <div className="auto-complete-input">
 
-                                    <TextArea placeholder="input here" className="custom" value={merchantskus} onChange={onChange} style={{ height: 50 }} />
+                                    <TextArea placeholder="input here" className="custom" value={merchantskus} onChange={onChange} style={{ height: 50, marginBottom:15 }} />
                                 </div>
 
                             </Col>
-                            <Col span={2} style={{ marginLeft: 20 }}>
 
-                                <Button size="default" type="primary" onClick={getMerchantskuDetail} >Search</Button>
+
+                        </Row>
+
+                        <Row >
+
+                        <Col xs={24} md={12} lg={10} >
+                            <Row>
+                            <Col xs={12} sm={8} style={{ paddingRight:10 }}>
+
+                                <Button size="default" type="primary" onClick={getMerchantskuDetail} style={{width:'100%', borderRadius:0, marginBottom:8}}>Search</Button>
                             </Col>
 
 
-                            <Col span={3} style={{ marginLeft: 20 }}>
-                                <Button size="default" type="success" onClick={MerchantskuyDownload}  >Download</Button>
+                            <Col xs={12} sm={8} style={{  paddingRight:10  }}>
+                                <Button size="default" type="success" onClick={MerchantskuyDownload} style={{width:'100%', borderRadius:0, marginBottom:8}}>Download</Button>
                             </Col>
-                            <Col span={2} style={{ marginLeft: 20 }}>
 
-                                <Button size="default" type="success" onClick={ModalOpen} >Update</Button>
+                            <Col xs={24} sm={8} style={{ paddingRight:10  }}>
+
+                                <Button size="default" type="primary" onClick={ModalOpen} style={{width:'100%', borderRadius:0, marginBottom:8}}>Update</Button>
+                            </Col>
+
+                            </Row>
+
                             </Col>
 
                         </Row>
+
+
                     </Cards>
                     <div className="table-responsive">
                         <Table
