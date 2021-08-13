@@ -11,6 +11,7 @@ import { PageHeader } from '../../../components/page-headers/page-headers';
 import { downloadFile } from '../../../components/utilities/utilities';
 import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { Button } from '../../../components/buttons/buttons';
+import './saleReport.css';
 
 // const { TabPane } = Tabs;
 
@@ -139,8 +140,8 @@ const ReportView = (props) => {
                             onFinish={onSubmit}
                             onFinishFailed={onSubmitFailed}
                         >
-                            <Row>
-                                <Col span={5} >
+                            <Row gutter={25}>
+                                <Col xs={24} sm={12} md={8} lg={6} >
                                     <Form.Item name="reportType" initialValue="" label="" rules={[{ required: true }]}>
                                         <Select onChange={(val) => { onValueChange('reportType', val) }}>
                                             <Option value="">For</Option>
@@ -154,22 +155,22 @@ const ReportView = (props) => {
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                                <Col span={1}></Col>
-                                <Col span={7}>
+                                
+                                <Col xs={24} sm={12} md={8} lg={6}>
                                     <Form.Item name="startDate" rules={[{ required: true }]}>
                                         {/* <Space label="" {...rangeConfig}> */}
                                         <DatePicker style={{ padding: 10 }} renderExtraFooter={() => 'extra footer'} />
                                         {/* </Space > */}
                                     </Form.Item>
                                 </Col>
-                                <Col span={7}>
+                                <Col xs={24} sm={12} md={8} lg={6}>
                                     <Form.Item name="endDate" rules={[{ required: true }]}>
                                         {/* <Space label="" {...rangeConfig}> */}
                                         <DatePicker style={{ padding: 10 }} renderExtraFooter={() => 'extra footer'} placeholder="End date" />
                                         {/* </Space > */}
                                     </Form.Item>
                                 </Col>
-                                <Col span={4}>
+                                <Col xs={24} sm={12} md={8} lg={6}>
                                     {controls.reportType === 'Vendor Name' &&
                                         <Form.Item name="vendorName" value={state.VendorName} label="">
                                             <ReasonAutoComplete
@@ -204,13 +205,13 @@ const ReportView = (props) => {
                             >
                                 <Row gutter={25}>
 
-                                    <Col span={6} >
+                                    <Col xs={24} sm={12} md={12} lg={12} xl={12}>
                                         <Form.Item name='merchantSku' rules={[{ required: true }]}>
                                         <TextArea rows={4} />
                                         </Form.Item>
                                     </Col>
 
-                                    <Col span={18}>
+                                    <Col xs={24} lg={24}>
                                         {/* two */}
                                         <Button type="primary" shape="round" icon={<VerticalAlignBottomOutlined />} htmlType="submit"  >
                                             <Icon type="left" />

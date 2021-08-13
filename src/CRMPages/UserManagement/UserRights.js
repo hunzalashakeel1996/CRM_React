@@ -198,7 +198,7 @@ const UsersView = (props) => {
                       <Row>
                         {/* {console.log('aasdasdas', state.userrightJson)} */}
                         {JSON.parse(sidebar.child_bar).map((singleChildBar, index2) =>
-                        (<Col xs={12}>
+                        (<Col xs={24} lg={12}>
                           {/* {console.log('vfvd', Object.value(state.userrightJson).includes(singleChildBar))} */}
                           <Checkbox id={singleChildBar} checked={state.userrightJson[sidebar.parent_bar]?.includes(singleChildBar)} onChange={() => { onAddSidebarRight(singleChildBar, sidebar.parent_bar, JSON.parse(sidebar.top_navigation)[`${singleChildBar}`][0]) }}>{singleChildBar}</Checkbox>
 

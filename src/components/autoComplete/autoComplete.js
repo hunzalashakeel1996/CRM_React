@@ -87,7 +87,7 @@ const AutoComplete = props => {
 };
 
 AutoComplete.defaultProps = {
-  width: '350px',
+  width: '100%',
   placeholder: 'Input here',
 };
 

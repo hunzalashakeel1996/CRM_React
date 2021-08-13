@@ -220,35 +220,35 @@ const verifyLabel = () => {
                 <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
                 
                     <Row gutter={25}>
-                        <Col lg={6} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                        <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 1</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}>
 
-                                <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={insertEndiciaSheet}> Insert Shipping</Button>
+                                <Button type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertEndiciaSheet}> Insert Shipping</Button>
 
-                                <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />
+                                <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
 
                             </div>
                         </Col>
-                        <Col lg={6} xs={24}>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 2</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                        <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 2</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                 <Button type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={startEndiciaShipping}> Start Endicia Shipping</Button>
 
                                 {/* </Cards> */}
                             </div>
                         </Col>
-                        <Col lg={6} xs={24}>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 3</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                        <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 3</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                             <Button type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={checkEndiciaLabel}>Check Endicia Label</Button>
                            
                                 {/* </Cards> */}
                             </div>
                         </Col>
-                        <Col lg={6} xs={24}>
+                        <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Total Count</h3></div>
-                            <div className="atbd-drawer" style={{ marginRight: 20 }}>
+                            <div className="atbd-drawer" style={{ marginRight: 0 }}>
                             <Button type="primary" onClick={checkEndiciaLabelCount}> Today Count</Button>:{checkCount}
                             
                                 {/* </Cards> */}
@@ -260,25 +260,30 @@ const verifyLabel = () => {
             {/* Check Labels Here Div  */}
             <Row style={{}}>
                 <Cards title="Check Labels Here" caption="The simplest use of Drawer" >
-                <Form layout="inline" initialValue="" label="" form={form} id="Check Labels Here" name="nest-messages" onFinish={verifyLabel} validateMessages={validateMessages}>
-                    <Row gutter={50}>
-                        <Col span={8}  >
+                <Form layout="inline" initialValue="" label="" form={form} id="Check Labels Here" name="nest-messages" onFinish={verifyLabel} validateMessages={validateMessages} style={{width: '100%'}}>
+                    <Row gutter={25} style={{width: '100%'}}>
+
+                        <Col xs={24} lg={8}  >
                         <Form.Item name="Tracking Number"rules={[{ required: true }]}>
-                            <TextArea placeholder="input here" className="custom" value={orderno} onChange={onChange} style={{ height: 50,width:300 }} />
+                            <TextArea placeholder="input here" className="custom" value={orderno} onChange={onChange} style={{ height: 50,width:'100%' }} />
                           </Form.Item>
                         </Col>
-                        <Col span={8} >
-                        <Form.Item >
+
+                        <Col  xs={24} >
+                        <Form.Item style={{float:'left',}}>
                             <Button type="success"  size="default" type="success" htmlType="Submit"> Search</Button>
                    
                             </Form.Item>
-                        </Col>
-                        <Col span={8}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+
+
+                            <Form.Item style={{float:'left',}}>
+                       
+                            <div className="atbd-drawer" style={{ marginLeft: 0,  }}>
                            
                              
                             <Button type="primary" onClick={refreshPage}> Refresh</Button>
                             </div>
+                            </Form.Item>
                         </Col>
                     </Row>
                     </Form>

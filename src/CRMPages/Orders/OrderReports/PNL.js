@@ -136,18 +136,18 @@ const OrderReportsView = (props) => {
             <Row >
                 <Cards title="Profit & Loss Report (PNL)" caption="The simplest use of Drawer" >
                 <Form layout="inline" initialValue="" label="" form={form} id="Profit & Loss Report (PNL)" name="nest-messages" onFinish={getPNLReporting} validateMessages={validateMessages}>
-                    <Row gutter={50}>
-                        <Col lg={8} xs={24}  >
+                    <Row gutter={30}>
+                        <Col lg={9} md={9} xs={24}  >
                         <Form.Item name="startDate" rules={[{ required: true }]}>
                                 <DatePicker style={{ padding: 10 }} onChange={(date) => { onChange(date, 'startDate') }} />
                                 </Form.Item>
                         </Col>
-                        <Col lg={8} xs={24}  >
+                        <Col lg={9} md={9} xs={24}  >
                         <Form.Item name="endDate" rules={[{ required: true }]}>
                                 <DatePicker style={{ padding: 10 }} onChange={(date) => { onChange(date, 'endDate') }} />
                                 </Form.Item>
                         </Col>
-                        <Col lg={8} xs={24}  >
+                        <Col lg={5} md={6} xs={24}  >
                         <Form.Item >
                                 <Button  size="default" type="success" htmlType="Submit">
                                     Download

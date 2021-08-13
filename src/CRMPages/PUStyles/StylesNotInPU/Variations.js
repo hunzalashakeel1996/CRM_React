@@ -88,8 +88,9 @@ const StylesNotInPUView = (props) => {
         <Row style={{}}>
           <Cards title="Variations Not in PU" caption="The simplest use of Drawer" >
             <Row gutter={25}>
-              <Col span={8} >
-                <Select placeholder="Vendorname" allowClear onChange={onChange} style={{ width: 300 }}  >
+
+              <Col xs={24} style={{marginBottom:15}}  >
+                <Select placeholder="Vendorname" allowClear onChange={onChange} style={{ width: '100%', maxWidth:400,}}  >
                   {vendornameState.map((val, i) => (
                     <Option value={val} key={val}>{val}</Option>
 
@@ -99,15 +100,11 @@ const StylesNotInPUView = (props) => {
 
               </Col>
 
-              <Col span={3} >
+              <Col xs={24} >
 
-                <Button size="default" type="success" onClick={getStyleVariations} >Download</Button>
+                <Button  style={{marginRight:10, marginBottom:5, backgroundColor: 'rgb(66, 186, 150)', color: 'white'}} size="default" type="success" onClick={getStyleVariations} >Download</Button>
 
-              </Col>
-              <Col span={6}>
-
-
-                <Button size="default" type="danger" onClick={getExcludedStyleVariations} >Downlaod (Excluded Styles)</Button>
+                <Button  style={{marginRight:10, marginBottom:5, }} size="default" type="success" onClick={getExcludedStyleVariations} >Downlaod (Excluded Styles)</Button>
 
 
               </Col>

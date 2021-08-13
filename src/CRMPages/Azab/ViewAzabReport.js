@@ -10,6 +10,7 @@ import { AutoComplete } from '../../components/autoComplete/autoComplete';
 import { Button } from '../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { addCommentAPI, addTicketAPI, getTicketsAPI, webURL, audioPlay, uploadUrl, getAzabAPI } from '../../redux/apis/DataAction';
+import './DasboardAzab.css';
 const AzabReportList = lazy(() => import('./overview/AzabReportList'));
 
 const ViewAzabReport = (props) => {
@@ -85,8 +86,9 @@ const ViewAzabReport = (props) => {
 
     return (
       <>
-        <Row gutter={24}>
-          <Col xs={6}>
+        <Row gutter={24} style={{paddingLeft:'0 !important',}}>
+
+          <Col xs={14} lg={6}>
             <Select value={state.value} size={size} defaultValue={month[0]} onChange={handleChange} style={{ width: 200, marginLeft: 20, marginRight: 20 }}>
               {month.map((val, i) => (
             
@@ -96,7 +98,7 @@ const ViewAzabReport = (props) => {
             </Select>
           </Col>
 
-          <Col xs={18}>
+          <Col >
             <Button type="primary" onClick={(value) => getmonth(state.value)}> Azab Report   </Button>
             {/* OrderCount:{state.filterAzabReport.length} */}
           </Col>

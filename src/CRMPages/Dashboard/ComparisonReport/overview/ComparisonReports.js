@@ -125,20 +125,20 @@ const AmazonComparisonReports = () => {
     <>
       <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
         <Row gutter={20}>
-          <Col lg={12} s={24}>
+          <Col lg={12} sm={24}>
             <ComparisonBarChart title='Orders' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth} ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, ordersSelectedTimeline: timeline }) }} dataset={ordersReport[ordersSelectedTimeline]} />
           </Col>
 
-          <Col lg={12} s={24}>
+          <Col lg={12} sm={24}>
             <ComparisonBarChart title='Sales' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth} ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, salesSelectedTimeline: timeline }) }} dataset={salesReport[salesSelectedTimeline]} />
           </Col>
         </Row>
         <Row gutter={20} >
-          <Col lg={12} s={24}>
+          <Col lg={12} sm={24}>
             <ComparisonBarChart title='Return' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth}ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, returnSelectedTimeline: timeline }) }} dataset={retrurnReport[returnSelectedTimeline]} />
           </Col>
 
-          <Col lg={12} s={24}>
+          <Col lg={12} sm={24}>
             <ComparisonBarChart title='Pending' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth} ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, pendingSelectedTimeline: timeline }) }} dataset={pendingReport[pendingSelectedTimeline]} />
           </Col>
         </Row>
