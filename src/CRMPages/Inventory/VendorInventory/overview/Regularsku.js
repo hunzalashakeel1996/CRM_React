@@ -100,7 +100,7 @@ const{Regularvendor,loader,updateVendor}=props
     setIsVendorCheckedList(temp)
   }
   const style = { background: '#fff', padding:10,marginLeft: 10,marginTop:10};
-  const stylecheckbosrow = { padding:10,paddingLeft: 30, paddingRight: 10};
+  const stylecheckbosrow = { padding:0,paddingLeft: 0, paddingRight: 0};
 
   const formatedate = (value) => {
    
@@ -120,34 +120,47 @@ const{Regularvendor,loader,updateVendor}=props
 
       <Row >
        
-        <Col span={4} >
-      
-        <Button type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
-       
+        
+        <Col span={15} >
+        <h2 style={{marginBottom:0}}>Regular SKU</h2>
         </Col>
-        <Col span={4} offset={5} >
-        <h2>Regular SKU</h2>
+
+        <Col span={9} >
+        <Button className='pull-right' type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
         </Col>
-        <Col span={4} offset={6}>
-        <Checkbox  checked={checkAll} onChange={onCheckAllChange} >
-            Check all
-        </Checkbox>
-      </Col>
+
+        
        
       </Row>
+
+      <hr style={{margin:' 17px 0',    border: 'none',    background: '#ccc',    height: '1px' }}/>
+
+
+      <Row >
+                    <Col span={24} style={{marginBottom:15}}>
+                      <Checkbox  checked={checkAll} onChange={onCheckAllChange} >
+                          <strong>Check All</strong>
+                      </Checkbox>
+                    </Col>
+                  </Row>
 
       <Row style={stylecheckbosrow} >
 
        
          
        
-         
+     
+
         {Regularvendor.map((val, i) => (
                 <Popover content={( <div>
                     <p>Updated By: <span style={{color: "red"}}>{val.UserName}</span>  </p>
                     <p>Updated At: <span style={{color: "red"}}>{formatedate(val.ActionDate)}</span></p>
                   </div>)} title="Last Update Report" trigger="hover">
-              <Col span={6} style={{ marginLeft: 10, marginTop: 10 ,fontSize:30 }}>
+
+                  
+
+
+              <Col span={6} xs={24} sm={12} xl={6} style={{ marginBottom: 10  }}>
            
      
              

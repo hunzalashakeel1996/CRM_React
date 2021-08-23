@@ -12,6 +12,7 @@ import { PageHeader } from '../../../components/page-headers/page-headers';
 import { downloadFile,getTotals } from '../../../components/utilities/utilities';
 import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { Button } from '../../../components/buttons/buttons';
+import './saleOtherReport.css';
 
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
@@ -260,8 +261,8 @@ const SummaryReport = (props) => {
                     onFinish={onSubmit}
                     onFinishFailed={onSubmitFailed}>
                     
-                            <Row>
-                            <Col span={6}>
+                            <Row gutter={25}>
+                            <Col xs={24} md={12} lg={6}>
                                 <Form.Item name="startDate" rules={[{ required: true }]}>
                                     {/* <Space label="" {...rangeConfig}> */}
                                     <DatePicker style={{ padding: 10}} size='default' 
@@ -269,8 +270,8 @@ const SummaryReport = (props) => {
                                     {/* </Space > */}
                                 </Form.Item> 
                                 </Col>
-                                <Col span={1}></Col>
-                            <Col span={6}>
+                               
+                            <Col xs={24} md={12} lg={6}>
                                 <Form.Item name="endDate" rules={[{ required: true }]}>
                                     {/* <Space label="" {...rangeConfig}> */}
                                     <DatePicker style={{ padding: 10 }} 
@@ -278,8 +279,8 @@ const SummaryReport = (props) => {
                                     {/* </Space > */}
                                 </Form.Item>
                             </Col>
-                            <Col span={1}></Col>
-                            <Col span={8}>
+                        
+                            <Col xs={24} md={12} lg={6}>
 
                                 <Form.Item name="vendorName" rules={[{ required: true }]}>
                                 {vendorNames && <Select
@@ -300,9 +301,8 @@ const SummaryReport = (props) => {
 
                                 </Form.Item>
                             </Col>
-                            </Row>
-                            <Row>
-                            <Col span={5}>
+                            
+                            <Col xs={24} md={12} lg={6}>
                             <Form.Item name="orderType" rules={[{ required: true }]}>
                                 {orderType.orderType && <Select
                                 mode="multiple"
@@ -322,16 +322,15 @@ const SummaryReport = (props) => {
                                 </Form.Item>
                             </Col>
 
-                            <Col span={1}></Col>
+                            
 
-                            <Col span={3}>
+                            <Col xs={24}>
 
-                            <Button key="1" type="primary" size="default" htmlType="submit">
+                            <Button key="1" type="primary" size="default" htmlType="submit" style={{marginRight:15,}}>
                                 Search
                            </Button>
         
-                            </Col>
-                            <Col span={3}>
+                           
 
                             <Button key="1" type="success" size="default" onClick={() => { downloadFiles() }}>
                                 Download

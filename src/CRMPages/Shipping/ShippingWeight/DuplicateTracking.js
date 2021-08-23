@@ -46,23 +46,22 @@ const onChange = (event) => {
 };
   return (
     <>
-      <Row style={{  }}>
+      <Row style={{ width:'100%' }}>
         <Cards title="Duplicate Trackings" caption="The simplest use of Drawer" >
           <Row gutter={25}>
-            <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-              <TextArea placeholder="input here" className="custom" value={value} onChange={onChange} style={{ height: 50 }} />
+            <Col xs={24}  >
+              <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+              <TextArea placeholder="input here" className="custom" value={value} onChange={onChange} style={{ height: 50 , marginBottom:15, maxWidth:400, width:'100%',}} />
               </div>
             </Col>
-            <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-              <Button type="success" onClick={(val)=>{checkDuplicateTracking(val,'POnumber')} }>Po number</Button>
-              </div>
-            </Col>
-            <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+            <Col lg={24} xs={24}  >
+              
+              <Button style={{marginRight:8}} type="success" onClick={(val)=>{checkDuplicateTracking(val,'POnumber')} }>Po number</Button>
+              
+            
+             
               <Button type="success" onClick={ (val)=>{checkDuplicateTracking(val,'orderno')}  }>Orderno</Button>
-             </div>
+             
             </Col>
           </Row>
         </Cards>

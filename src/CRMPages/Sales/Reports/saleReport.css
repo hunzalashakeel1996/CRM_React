@@ -1,0 +1,10 @@
+.ant-picker{width: 100%; min-width: auto;}
+.ant-form-inline .ant-form-item{margin-right:0;}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    height: 42px !important;
+}
+
+.ant-form-item {
+    margin-bottom: 8px;
+}

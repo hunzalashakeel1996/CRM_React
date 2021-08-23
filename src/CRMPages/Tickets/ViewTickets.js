@@ -170,20 +170,20 @@ const ViewTickets = (props) => {
         <Row gutter={25}>
           <Col xs={24}>
             <Row style={{ marginBottom: 10 }} gutter={10}>
-              <Col md={8} xs={24}>
-                <div className="project-sort-search">
-                  <AutoComplete onSearch={(e) => { handleSearch(e, 'TicketNo') }} placeholder="Ticket Number" patterns />
+              <Col sm={12} md={8} lg={5} xs={24} >
+                <div className="project-sort-search" style={{marginBottom:10, }}>
+                  <AutoComplete  onSearch={(e) => { handleSearch(e, 'TicketNo') }} placeholder="Ticket Number" patterns />
                 </div>
               </Col>
 
-              <Col md={8} xs={24}>
-                <div className="project-sort-search">
+              <Col sm={12} md={8} lg={5} xs={24}>
+                <div className="project-sort-search" style={{marginBottom:10, }}>
                   <AutoComplete onSearch={(e) => { handleSearch(e, 'OrderNo') }} placeholder="Order Number" patterns />
                 </div>
               </Col>
 
-              <Col md={8} xs={24}>
-                <div className="project-sort-search">
+              <Col sm={12} md={8} lg={5} xs={24}>
+                <div className="project-sort-search" style={{marginBottom:10, }}>
                   <AutoComplete onSearch={(e) => { handleSearch(e, 'CustomerName') }} placeholder="Customer Name" patterns />
                 </div>
               </Col>

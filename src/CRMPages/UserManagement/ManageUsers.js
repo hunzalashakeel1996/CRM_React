@@ -131,7 +131,7 @@ const UsersView = (props) => {
         <Row style={{ marginLeft: 20, marginRight: 20 }}>
           <Cards title="Users List" caption="The simplest use of Drawer" >
             <Row gutter={25}>
-              <Col md={8} xs={24}>
+              <Col md={8} xs={24} style={{marginBottom:20,}}>
                 <div className="project-sort-search">
                   <AutoComplete onSearch={(e) => { handleSearch(e, 'loginName') }} placeholder="User Name" patterns />
                 </div>

@@ -98,10 +98,13 @@ const RMAView = (props) => {
           <Row gutter={25}>
             <Col lg={24} xs={24}  >
               {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+              <div className="atbd-drawer" style={{ marginLeft: 0 , }}>
 
                 <RangePicker onChange={onChange} />
-                <Button onClick={getRmaMonthlyReport} size="default" type="success" htmlType="download" style={{ marginLeft: 20 }}>
+
+                <br/>
+
+                <Button onClick={getRmaMonthlyReport} size="default" type="success" htmlType="download" style={{ marginLeft: 0, marginTop:8, }}>
                   Download
                 </Button>
               </div>

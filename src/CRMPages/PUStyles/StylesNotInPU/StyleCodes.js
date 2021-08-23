@@ -110,10 +110,11 @@ const StylesNotInPUView = (props) => {
           <Cards title="Style Codes Not in PU " caption="The simplest use of Drawer" >
 
             <Row gutter={25}>
-              <Col span={8}  >
+
+              <Col xs={24} style={{marginBottom:15}}  >
 
 
-                <Select placeholder="Vendorname" allowClear onChange={onChange} style={{ width: 300 }}  >
+                <Select placeholder="Vendorname" allowClear onChange={onChange} style={{ width: '100%', maxWidth:400, }}  >
                   {vendornameState.map((val, i) => (
                     <Option value={val} key={val}>{val}</Option>
 
@@ -123,20 +124,15 @@ const StylesNotInPUView = (props) => {
 
 
               </Col>
-              <Col span={3} >
+              
+              
+              
+              <Col xs={24} >
 
-                <Button size="default" type="success" onClick={getStyleCodes} >Download</Button>
+                <Button style={{marginRight:10, marginBottom:5, backgroundColor: 'rgb(66, 186, 150)', color: 'white'}} size="default" type="success" onClick={getStyleCodes} >Download</Button>
 
-              </Col>
-              <Col span={6}>
-
-
-                <Button size="default" type="danger" onClick={getExcludedStyleCodes} >Downlaod (Excluded Styles)</Button>
-
-
-              </Col>
-              <Col span={5}>
-                <Button size="default" type="info" onClick={info} >For More Info</Button>
+                <Button style={{marginRight:10,  marginBottom:5,}} size="default" type="success" onClick={getExcludedStyleCodes} >Downlaod (Excluded Styles)</Button>
+               <Button style={{marginRight:10,  marginBottom:5, backgroundColor: 'rgb(66, 186, 150)', color: 'white'}} size="default" type="info" onClick={info} >For More Info</Button>
 
 
 

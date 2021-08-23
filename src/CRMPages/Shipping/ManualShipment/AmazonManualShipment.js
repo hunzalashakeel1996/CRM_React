@@ -115,20 +115,19 @@ const AmazonManualShippingAmazonFileDownload = () => {
       <Row style={{}}>
         <Cards title="PO Numbers" caption="The simplest use of Drawer" >
        
-          <Row gutter={25}>
-            <Col lg={6} xs={24}  >
+          <Row gutter={25} style={{width: '100%'}}>
+            <Col xs={24} lg={8}  >
    
-              <TextArea placeholder="input here" className="custom" value={poNumber} onChange={onChange} style={{ height: 50 }} />
+              <TextArea placeholder="input here" className="custom" value={poNumber} onChange={onChange} style={{ height: 50, width:'100%',marginBottom:15, }} />
            
             </Col>
-            <Col lg={4} xs={24}  >
+            <Col xs={24} >
         
-              <Button type="primary" htmlType="Submit" onClick={manualShipmentPonumberSubmit}>Submit</Button>
+              <Button type="primary" htmlType="Submit" onClick={manualShipmentPonumberSubmit} style={{marginRight:10,}}>Submit</Button>
              
                 
              
-            </Col>
-            <Col lg={4} xs={24}  >
+            
          
            
               <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} htmlType="Submit" onClick={manualShipmentPonumberManualTick}> Manual Tick</Button>
@@ -153,20 +152,14 @@ const AmazonManualShippingAmazonFileDownload = () => {
         </Row>
           <Row style={{ marginTop: 20 }} gutter={25}>
            
-              <Col lg={7}   >
-              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={AmazonManualShipping}> Amazon Manual Ship</Button>
-              </Col>
-              <Col lg={7}  >
-              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white'}} onClick={AmazonManualShippingAmazonFileSheet}>Amazon Manual Ship Sheet</Button>
-              </Col>
-              <Col lg={7}   >
-              <Button type="success"  onClick={AmazonManualShippingAmazonFileDownload}>Amazon Manual Ship Donwload</Button> 
-              </Col>
-           
-                        
+              <Col xs={24} gutter={50} >
+              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8, marginBottom:6,}} onClick={AmazonManualShipping}> Amazon Manual Ship</Button>
              
-
-          
+              <Button type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8, marginBottom:6,}} onClick={AmazonManualShippingAmazonFileSheet}>Amazon Manual Ship Sheet</Button>
+              
+              <Button type="success"  onClick={AmazonManualShippingAmazonFileDownload} style={{ backgroundColor: '#42ba96',  color:'white', marginRight:8, marginBottom:6,}}>Amazon Manual Ship Donwload</Button> 
+              </Col>
+               
             
           </Row>
         </Cards>

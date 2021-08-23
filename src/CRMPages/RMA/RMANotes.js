@@ -38,12 +38,12 @@ const RMA_All = () => {
       <Row style={{}}>
         <Cards title="RMA Notes Insert" caption="The simplest use of Drawer" >
           <Row gutter={25}>
-            <Col lg={6} xs={24}  >
-              <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-              <TextArea placeholder="input here" className="custom"  onChange={onChange} style={{ height: 50 }} />
+            <Col xs={24}  >
+              <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+              <TextArea placeholder="input here" className="custom"  onChange={onChange} style={{ height: 50,  width: '100%', maxWidth:400, marginBottom:10, }} />
               </div>
             </Col>
-            <Col lg={6} xs={24}  >
+            <Col xs={24}  >
             <Button type="success" >Update</Button>
               {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                 <Button type="success" htmlType="Submit">

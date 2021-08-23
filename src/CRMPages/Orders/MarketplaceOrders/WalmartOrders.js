@@ -7,6 +7,8 @@ import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
+import './MarketplaceOrders.css';
+
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -122,22 +124,22 @@ const MarketplaceOrdersView = (props) => {
             <Row>
                 <Cards title="Get Walmart Orders (API) - USA" caption="The simplest use of Drawer" >
                 <Form layout="inline" initialValue="" label="" form={form} id="Get Walmart Orders (API) - USA" name="nest-messages"  validateMessages={validateMessages}>
-                    <Row gutter={50}>
+                    <Row gutter={15}>
                         <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>StartDate</h3></div>
                             <Form.Item name="startDate" rules={[{ required: true }]}>
-                                <DatePicker style={{ padding: 10 }} onChange={onChange} />
+                                <DatePicker style={{ padding: 10, width:'100%', }} onChange={onChange} />
                                 </Form.Item>
                         </Col>
                         <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>EndDate</h3></div>
                             <Form.Item name="endDate" rules={[{ required: true }]}>
                                 <DatePicker style={{ padding: 10 }} onChange={onChange} />
                                 </Form.Item>
                         </Col>
 
                         <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>GetOrders</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
                             <Form.Item >
                                 <Button size="default" type="success" htmlType="Submit">
                                     GetOrders
@@ -158,8 +160,8 @@ const MarketplaceOrdersView = (props) => {
                 <Cards title="Get Walmart Orders (Sheet Method) - USA" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Upload Walmart Order Sheet</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                 {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
                                 <Button size="default" type="success" htmlType="submit">
                                     Upload Sheet
@@ -175,8 +177,8 @@ const MarketplaceOrdersView = (props) => {
                         </Col>
 
                         <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>GetOrders</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                 <Button size="default" type="success" htmlType="Submit">
                                     GetOrders
                         </Button>
@@ -196,8 +198,8 @@ const MarketplaceOrdersView = (props) => {
                 <Cards title="Get Walmart Orders (Sheet Method) - Canada" caption="The simplest use of Drawer" >
                     <Row gutter={25}>
                         <Col lg={8} xs={24}>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Upload Walmart Order Sheet</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                 {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
                                 <Button size="default" type="success" htmlType="submit">
                                     Upload Sheet
@@ -213,8 +215,8 @@ const MarketplaceOrdersView = (props) => {
                         </Col>
 
                         <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>GetOrders</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                 <Button size="default" type="success" htmlType="Submit">
                                     GetOrders
                         </Button>

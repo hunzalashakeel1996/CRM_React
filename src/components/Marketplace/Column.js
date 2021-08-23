@@ -74,12 +74,8 @@ const Column = (props) => {
 
             <Row style={{marginBottom:10}}>
 
-                <Col style={{ marginLeft: 10 }}>
-
-                    <Button size="default" type="primary" value={!column?"Show Column":"Hide Column"} onClick={() => { setViewColumn(!column) }} >{!column?"Show Column":"Hide Column"}</Button>
-
-                </Col>
-                <Col span ={15} style={{ marginLeft: 10 }}>
+               
+                <Col xs={24} md={8} lg={6} style={{ marginBottom:8 }}>
 
                     {/* <Select onChange={handleChange} defaultValue="Select " style={{ width: 270 }} >
 
@@ -89,7 +85,7 @@ const Column = (props) => {
 
                     </Select> */}
                         {/* onChange={(val) => { props.genrateFilter('vendorFilter', val, true) }} */}
-                    <Select onChange={(val) => {handleChange(val)}} defaultValue="Select " style={{ width: 270 }} >
+                    <Select onChange={(val) => {handleChange(val)}} defaultValue="Select " style={{ width: '100%' }} >
                                 {columnDropdown.map((val, i) => (
                                     <Option value={`${val}`} key={val}>{val}</Option>
 
@@ -98,7 +94,11 @@ const Column = (props) => {
                             </Select>
 
                 </Col>
-                <Col span ={4} style={{ marginLeft: 10 }}>
+               
+              
+                <Col xs={24} md={12} className='pull-right' style={{ marginLeft: 'auto', width:'auto', textAlign:'right'}}>
+
+                <Button  style={{marginRight:15}} size="default" type="default" value={!column?"Show Column":"Hide Column"} onClick={() => { setViewColumn(!column) }} >{!column?"Show Column":"Hide Column"}</Button>
                     <Button size="default" type="success" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
 
 
@@ -106,10 +106,12 @@ const Column = (props) => {
 
             </Row>
 
+            <hr style={{margin:' 17px 0',    border: 'none',    background: '#ccc',    height: '1px' }}/>
+
                 {column &&
                     <Row >
                         {plainOptions.map((val, i) => (
-                            <Col span={7} style={{  marginLeft: 10, marginTop: 10, padding: 10,backgroundColor: '#fff', color: '#9299B8'  }} >
+                            <Col xs={24} sm={12} lg={7} style={{  marginTop: 10, padding: 4,backgroundColor: '#fff', color: '#9299B8'  }} >
                                 <Checkbox checked={Allcolumn.column.indexOf(val) > -1} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }} >
                                     {val}
                                 </Checkbox>
@@ -119,7 +121,7 @@ const Column = (props) => {
                         ))}
                         {additionalColumns.map((val, i) => (
 
-                            <Col span={7} style={{ marginLeft: 10, marginTop: 10, padding: 10,backgroundColor: '#fff', color: '#9299B8' }} >
+                            <Col xs={24} sm={12} lg={7} style={{  marginTop: 10, padding: 4,backgroundColor: '#fff', color: '#9299B8' }} >
 
                                 <Checkbox checked={Allcolumn.column.indexOf(val) > -1} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }} >
                                     {val}

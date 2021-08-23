@@ -95,7 +95,8 @@ const GoogleMarketPlace = (props) => {
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
-            <Row >
+
+            <Row style={{ margin: '15px 15px',}}>
                 
 
             <Cards title="GoogleMarketPlace Not Approve">
@@ -112,14 +113,14 @@ const GoogleMarketPlace = (props) => {
                                 </Col>
                                 </Cards>
                 </Row>
-                <Row >
+                <Row style={{ margin: '0px 15px',}}>
                 <Cards title="GoogleMarketPlace ">
-                    <Col span={12} >
+                    <Col span={24} >
                       
                 
                           
 
-                                <Select placeholder='Vendor Name' mode="multiple" allowClear onChange={(val) => { genrateFilter('vendorFilter', val, true) }} style={{ width: 300 }}  >
+                                <Select placeholder='Vendor Name' mode="multiple" allowClear onChange={(val) => { genrateFilter('vendorFilter', val, true) }} style={{ maxWidth: 300, width:'100%', }}  >
                                     {vendornameState.map((val, i) => (
                                         <Option value={`''${val}''`} key={val}>{val}</Option>
 
