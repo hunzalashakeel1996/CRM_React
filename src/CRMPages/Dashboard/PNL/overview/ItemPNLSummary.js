@@ -29,24 +29,21 @@ const validateMessages = {
 
 
 
-const PricePNL = (props) => {
-
-    const {dataSourcePrice}= props
-    // console.log('PricePNL',dataSourcePrice)
+const ItemPNLSummary = (props) => {
+    const {dataSourceItem}= props
+    // console.log('ItemPNL',dataSourceItem)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
   const [state, setstate] = useState({
    
     sortedInfo:[],
-   
+    dataSource:[],
     isLoader:false
   });
 
   const {sortedInfo,isLoader}=state
  
-
-
   const columns = [
     {
       title: 'Vendorname',
@@ -57,29 +54,29 @@ const PricePNL = (props) => {
       sortOrder: sortedInfo.columnKey === 'vendorname' && sortedInfo.order,
     },
     {
-      title: 'Total Amont',
-      dataIndex: 'TotalAmont',
-      key: 'TotalAmont',
+      title: 'Item count',
+      dataIndex: 'Item_count',
+      key: 'Item_count',
       defaultSortOrder: 'descend',
-      sorter: (c, d) => c.TotalAmont - d.TotalAmont,
-      sortOrder: sortedInfo.columnKey === 'TotalAmont' && sortedInfo.order,
+      sorter: (c, d) => c.Item_count - d.Item_count,
+      sortOrder: sortedInfo.columnKey === 'Item_count' && sortedInfo.order,
     },
     {
-      title: 'Profit',
-      dataIndex: 'profit',
-      key: 'profit',
+      title: 'Total Item Profit',
+      dataIndex: 'Total_item_profit',
+      key: 'Total_item_profit',
       defaultSortOrder: 'descend',
-      sorter: (c, d) => c.profit - d.profit,
-      sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
+      sorter: (c, d) => c.Total_item_profit - d.Total_item_profit,
+      sortOrder: sortedInfo.columnKey === 'Total_item_profit' && sortedInfo.order,
     },
     {
-      title: 'Loss',
-      dataIndex: 'loss',
-      key: 'loss',
+      title: 'Total Item Loss',
+      dataIndex: 'Total_item_loss',
+      key: 'Total_item_loss',
         
       defaultSortOrder: 'descend',
-      sorter: (c, d) => c.loss - d.loss,
-      sortOrder: sortedInfo.columnKey === 'loss' && sortedInfo.order,
+      sorter: (c, d) => c.Total_item_loss - d.Total_item_loss,
+      sortOrder: sortedInfo.columnKey === 'Total_item_loss' && sortedInfo.order,
     },
     {
       title: 'Percentge',
@@ -114,7 +111,7 @@ const PricePNL = (props) => {
               {/* <ProjectList> */}
 
                 {/* <div className="table-responsive"> */}
-                  <Table pagination={false} dataSource={dataSourcePrice} columns={columns} onChange={handleChange}/>
+                  <Table pagination={false} dataSource={dataSourceItem} columns={columns} onChange={handleChange}/>
                 {/* </div> */}
 
               {/* </ProjectList> */}
@@ -128,4 +125,4 @@ const PricePNL = (props) => {
 
 };
 
-export default PricePNL
+export default ItemPNLSummary

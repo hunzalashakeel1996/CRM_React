@@ -36,17 +36,23 @@ const DetailPNL = (props) => {
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
-  const [state, setstate] = useState({
+  const [state, setState] = useState({
    
     sortedInfo:[],
    
-    isLoader:false
+    isLoader:false,
+    dataSourceDetailsTemp:[]
   });
 
-  const {sortedInfo,isLoader}=state
+  const {sortedInfo,isLoader,dataSourceDetailsTemp}=state
  
+  useEffect(() => {
+    // Update the document title using the browser API
+    setState({ ...state, dataSourceDetailsTemp: dataSourceDetails });
 
-
+  },[dataSourceDetails]);
+  const dataSource = [];
+  let temp =[];
   const columns = [
     {
       title: 'Vendor Name',
@@ -307,12 +313,32 @@ const DetailPNL = (props) => {
 
   const handleChange = (pagination, filters, sorter) =>  {
     console.log('Various parameters', pagination, filters, sorter);
-    setstate({...state,
+    setState({...state,
       filteredInfo: filters,
       sortedInfo: sorter,
     });
   };
 
+  const handleSearch = (searchText) => {
+   // temp  = [...temp, dataSourceDetails.filter(item => item['merchantsku']==null?[]:[...item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())])]
+
+   console.log(searchText.toUpperCase())
+   temp  = [...temp,...dataSourceDetails.filter(item => item['merchantsku']!==null&&item['merchantsku'].toUpperCase().includes(searchText.toUpperCase()))]
+    
+   
+   console.log('merchantsku',temp)
+    // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
+   
+     temp =[...temp,...dataSourceDetails.filter(item => item['orderno'].toUpperCase().includes(searchText.toUpperCase()))]
+    // console.log('orderno',temp)
+
+
+     temp = [...temp,...dataSourceDetails.filter(item => item['ORDERTYPE'].toUpperCase().includes(searchText.toUpperCase()))]
+    // console.log('ORDERTYPE',temp)
+
+   console.log('dataSourceDetails',temp)
+    setState({ ...state, dataSourceDetailsTemp: temp });
+  };
 
   return (
 
@@ -322,12 +348,17 @@ const DetailPNL = (props) => {
   
 
         <Row >
+        <Col md={8} xs={24} style={{marginBottom:10 }}>
+               
+                  <Input onChange={(event) => { handleSearch(event.target.value) }} placeholder="Filter" patterns />
+                
+              </Col>
           <Col xs={24}>
             <Cards headless>
               {/* <ProjectList> */}
 
                 <div className="table-responsive">
-                  <Table pagination={true} scroll={{ x: 5000, y: 1000 }} dataSource={dataSourceDetails} columns={columns} onChange={handleChange}/>
+                  <Table pagination={true} scroll={{ x: 5000, y: 1000 }} dataSource={dataSourceDetailsTemp} columns={columns} onChange={handleChange}/>
                 </div>
 
               {/* </ProjectList> */}

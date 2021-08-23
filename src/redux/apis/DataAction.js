@@ -1054,6 +1054,15 @@ export const apiSummaryReportDetailWise = (data) => {
     
     return apiFetchDotNet('/report/sale_reportUT', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+export const apiReportOrderWise = (data) => {
+    
+    return apiFetchDotNet('/report/PNL_Order_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const apiReportItemWise = (data) => {
+    
+    return apiFetchDotNet('/report/PNL_Item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 
 export const getGoogleMarketPlaceVerifyapi = (data) => {
     console.log("Hello World!")

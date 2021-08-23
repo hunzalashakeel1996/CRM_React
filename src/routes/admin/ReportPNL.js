@@ -3,10 +3,11 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 const ViewReportPNL = lazy(() => import('../../CRMPages/Dashboard/PNL/ViewReportPNL'));
 const detailPNL = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/DetailPNL'));
-const itemPNL = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/ItemPNL'));
-const orderPNL = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/OrderPNL'));
-const pricePNL = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/PricePNL'));
-
+const ItemPNLSummary = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/ItemPNLSummary'));
+const OrderPNLSummary = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/OrderPNLSummary'));
+const PricePNLSummary = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/PricePNLSummary'));
+const OrderPNL = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/OrderPNL'));
+const ItemPNL = lazy(() => import('../../CRMPages/Dashboard/PNL/overview/ItemPNL'));
 
 const ProjectRoutes = () => {
   const { path } = useRouteMatch();
@@ -14,9 +15,11 @@ const ProjectRoutes = () => {
     <Switch>
       <Route exact path={`${path}/ViewReportPNL`} component={ViewReportPNL} />
       <Route exact path={`${path}/detailPNL`} component={detailPNL} />
-      <Route exact path={`${path}/itemPNL`} component={itemPNL} />
-      <Route exact path={`${path}/orderPNL`} component={orderPNL} />
-      <Route exact path={`${path}/pricePNL`} component={pricePNL} />
+      <Route exact path={`${path}/ItemPNLSummary`} component={ItemPNLSummary} />
+      <Route exact path={`${path}/OrderPNLSummary`} component={OrderPNLSummary} />
+      <Route exact path={`${path}/PricePNLSummary`} component={PricePNLSummary} />
+      <Route exact path={`${path}/OrderPNL`} component={OrderPNL} />
+      <Route exact path={`${path}/ItemPNL`} component={ItemPNL} />
 
     </Switch>
   );
