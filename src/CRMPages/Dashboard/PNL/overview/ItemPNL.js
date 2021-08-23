@@ -339,13 +339,11 @@ const ItemPNL = (props) => {
                </Col>
           <Col xs={24}>
             <Cards headless>
-              {/* <ProjectList> */}
 
                 <div className="table-responsive">
                   <Table pagination={true} scroll={{ x: 5000, y: 1000 }} dataSource={dataSourceItemTemp} columns={columns} onChange={handleChange}/>
                 </div>
 
-              {/* </ProjectList> */}
             </Cards>
           </Col>
 
