@@ -393,7 +393,7 @@ const topMenu = [
                 
                 <Col span={4}  >
                
-                  <Button   type="Primary" 
+                  <Button   type="success" 
                   onClick={(event) => { activeTab==='OrderPNL'?downloadFile(dataOrderDownload):downloadFile(dataItemDownload)}} >
                     Download
                            </Button>
