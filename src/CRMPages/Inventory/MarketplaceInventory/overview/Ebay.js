@@ -81,7 +81,7 @@ const Ebay = (props) => {
 
         dispatch(getEbayHtmlapi(state)).then(data => {
 
-            console.log(data)
+            // console.log(data)
 
             setstate({ ...state, EbayHtml: data })
             setVisible(true)

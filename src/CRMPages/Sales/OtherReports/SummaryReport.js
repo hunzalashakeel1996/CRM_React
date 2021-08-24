@@ -36,10 +36,10 @@ const SummaryReport = (props) => {
 
 
     let vendorNames = useSelector(state => state.tickets.vendornames);
-    console.log(vendorNames)
+    // console.log(vendorNames)
 
     let orderType = { orderType : "Amazon,Amazonrizno,Ebay,Newegg,Rakuten,Sears,Walmart"};
-    // console.log(orderType)
+    // // console.log(orderType)
     const [state, setState] = useState({
         controls: { ...formInit },
         dataSource: [],
@@ -63,7 +63,7 @@ const SummaryReport = (props) => {
             marketplace : values['orderType']
         }
 
-        console.log('success:', object);
+        // console.log('success:', object);
 
         setState({ ...state, isLoading: true })
         dispatch(saleSummaryReport({ vendor : values['vendorName'],
@@ -71,10 +71,10 @@ const SummaryReport = (props) => {
         orderdateto:values['endDate'].format('YYYY-MM-DD'), 
         marketplace : values['orderType']})).then(data => {
           
-            console.log(data[1])
+            // console.log(data[1])
             let tempDataSource = [];
             let tempLinkDownload = data[0];
-            console.log(tempLinkDownload);
+            // console.log(tempLinkDownload);
             data[1].map(value => {
                 const { Order_Count, PPS, SalePrice,Total_Profit,Total_item_loss,Total_loss,commision,cost,final_profit,ordertype,po_shipping,profit,purchaseCost,shipping,vendorname} = value;
                 return tempDataSource.push({
@@ -224,7 +224,7 @@ const SummaryReport = (props) => {
     ]
 
     const onSubmitFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
 
@@ -232,13 +232,13 @@ const SummaryReport = (props) => {
 
     const changeVendorName = (values) => {
 
-        console.log('selectedVendorName', values);
+        // console.log('selectedVendorName', values);
 
     }
 
     const changeOrderType = (values) => {
 
-        console.log('selectedOrderType', values);
+        // console.log('selectedOrderType', values);
 
     }
 

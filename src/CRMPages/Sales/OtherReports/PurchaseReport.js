@@ -33,7 +33,7 @@ const PurchaseReport = (props) => {
             orderdateto: values['endDate'].format('YYYY-MM-DD')
         }
 
-        console.log('success:', object);
+        // console.log('success:', object);
 
         setState({ ...state, isLoading: true })
         dispatch(purchaseReport({
@@ -41,10 +41,10 @@ const PurchaseReport = (props) => {
             orderdateto: values['endDate'].format('YYYY-MM-DD')
         })).then(data => {
 
-            console.log(data[1])
+            // console.log(data[1])
             let tempDataSource = [];
             let tempLinkDownload = data[0];
-            console.log(data);
+            // console.log(data);
             data[1].map(value => {
                 const { vendorname, PurchaseCost } = value;
                 return tempDataSource.push({
@@ -60,8 +60,8 @@ const PurchaseReport = (props) => {
 
     const downloadFiles = () => {
         setState({ ...state })
-        // console.log("Button 2 clicked!");
-        // console.log(state.downLoadLink);
+        // // console.log("Button 2 clicked!");
+        // // console.log(state.downLoadLink);
 
         if(downLoadLink == ""){
             notification.error({
@@ -85,7 +85,7 @@ const PurchaseReport = (props) => {
     }
 
     const onSubmitFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
 

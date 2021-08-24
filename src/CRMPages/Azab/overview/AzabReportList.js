@@ -38,12 +38,12 @@ const AzabReportList = (props) => {
   }
 
   const handleChange = (e) => {
-    console.log(e.target.value);
-    //console.log(`Selected: ${value}`);
+    // console.log(e.target.value);
+    //// console.log(`Selected: ${value}`);
     //   monthvalue(value)
 
 
-    // console.log(state.monthvalue);
+    // // console.log(state.monthvalue);
     if (e.target.value != '') {
 
       setState({

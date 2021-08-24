@@ -65,7 +65,7 @@ const {itemDetail,orderItemStatus }=props.azabReportDetailsState
     
 
 
-    //   console.log(dataSource)
+    //   // console.log(dataSource)
     return (
         <>
 <Cards title="Item Details">

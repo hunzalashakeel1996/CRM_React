@@ -4,7 +4,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 const AddNewUsersView = lazy(() => import('../../CRMPages/UserManagement/AddNewUsers'));
 const ManageUsersView = lazy(() => import('../../CRMPages/UserManagement/ManageUsers'));
 const UserRights = lazy(() => import('../../CRMPages/UserManagement/UserRights'));
-const AddNavigationTab = lazy(() => import('../../CRMPages/UserManagement/AddNavigationTab'));
+const AddNavigationTab = lazy(() => import('../../CRMPages/UserManagement/NavigationTabView'));
 
 
 const ProjectRoutes = () => {

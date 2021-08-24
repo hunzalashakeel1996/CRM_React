@@ -66,7 +66,7 @@ const ReportPNLView = () => {
     let tempDataSource_summary_report_Detail_wise = [];
 
     const handleChange = (pagination, filters, sorter) =>  {
-        console.log('Various parameters', pagination, filters, sorter);
+        // console.log('Various parameters', pagination, filters, sorter);
         setstate({...state,
           filteredInfo: filters,
           sortedInfo: sorter,
@@ -74,7 +74,7 @@ const ReportPNLView = () => {
       };
        
   const onChange = (value, key) => {
-    // console.log('aaa', date, dateString)
+    // // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
@@ -89,7 +89,7 @@ const ReportPNLView = () => {
       dispatch(apiReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
      dispatch(apiReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
         ]).then((data) => { 
-        console.log(data)
+        // console.log(data)
 //Order PNL
               data[0][1].map(value => {
       
@@ -302,7 +302,7 @@ Discount_amount: Math.round(Discount_amount * 100) / 100
               //         });
               //         downloadFile(data[3][0])
                       // let json = JSON.stringify(data[3][1])
-                      // console.log('json',json)
+                      // // console.log('json',json)
 
               setstate({ ...state, dataOrderDownload:data[0][0],dataSourceOrder: [...tempDataSource_summary_report_order_wise],
                 dataItemDownload:data[1][0],dataSourceItem: [...tempDataSource_summary_report_item_wise],

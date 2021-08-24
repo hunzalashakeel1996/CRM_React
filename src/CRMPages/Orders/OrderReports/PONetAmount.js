@@ -49,7 +49,7 @@ const OrderReportsView = (props) => {
     });
 
     const onChange = (value, key) => {
-        // console.log('aaa', date, dateString)
+        // // console.log('aaa', date, dateString)
         setstate({ ...state, [key]: value });
  
     };
@@ -59,7 +59,7 @@ const {isLoader}=state
         setstate({ ...state, isLoader: true })
         dispatch(getPONetAmount({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), flag: state.POType })).then(data => {
             setstate({ ...state, isLoader: false })
-            console.log('My Data: ', data)
+            // console.log('My Data: ', data)
             downloadFile(data);
             notification.success({
                 message: 'Successfull Dowload',

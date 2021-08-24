@@ -49,18 +49,18 @@ const ReturnPercentage = (props) => {
     sortedInfo:[]
   });
   const onChange = (value, key) => {
-    // console.log('aaa', date, dateString)
+    // // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
   const {sortedInfo}=state
   const getReturnPercentageReporting = () => {
-    console.log('aaaaa')
+    // console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
     dispatch(getReturnPercentageReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       //downloadFile(data);
       notification.success({
         message: 'Successfull Rendered',
@@ -68,9 +68,9 @@ const ReturnPercentage = (props) => {
         onClose: close,
       });
       let tempDataSource = [];
-      console.log(data[0]);
+      // console.log(data[0]);
       data[1].map(value => {
-         console.log(value)
+         // console.log(value)
         const { vendorstylecode, colorcode,sizename,ordercount,Sold,Return,percentage } = value;
         const RP = percentage+'%';
        
@@ -96,12 +96,12 @@ const ReturnPercentage = (props) => {
 
   
   const getReturnPercentageReportingDownlaod = () => {
-    console.log('aaaaa')
+    // console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
     dispatch(getReturnPercentageReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       downloadFile(data[0]);
       notification.success({
         message: 'Successfull Download',
@@ -109,9 +109,9 @@ const ReturnPercentage = (props) => {
         onClose: close,
       });
       let tempDataSource = [];
-      console.log(data[0]);
+      // console.log(data[0]);
       data[1].map(value => {
-         console.log(value)
+         // console.log(value)
         const { vendorstylecode, colorcode,sizename,ordercount,Sold,Return,percentage } = value;
         
         const RP = percentage+'%';
@@ -187,7 +187,7 @@ const ReturnPercentage = (props) => {
   ];
 
   const handleChange = (pagination, filters, sorter) =>  {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setstate({...state,
       filteredInfo: filters,
       sortedInfo: sorter,

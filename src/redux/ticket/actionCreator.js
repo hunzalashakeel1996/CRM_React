@@ -23,7 +23,7 @@ const addTicket = (values) => {
     
       // dispatch(singleProjectSuccess(data));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
@@ -35,7 +35,7 @@ const addAllTickets = (values) => {
     
       // dispatch(singleProjectSuccess(data));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
@@ -48,20 +48,20 @@ const addReminder = (values) => {
     
       // dispatch(singleProjectSuccess(data));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
 
 const addAllReminders = (values) => {
-  console.log(values);
+  // console.log(values);
   return async dispatch => {
     try {
       dispatch(addAllRemindersAction(values));
     
       // dispatch(singleProjectSuccess(data));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
@@ -71,7 +71,7 @@ const editReminderStatus = (values) => {
     try {
       dispatch(editReminderStatusAction(values));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
@@ -81,7 +81,7 @@ const addSingleReminder = (values) => {
     try {
       dispatch(addSingleReminderAction(values));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
@@ -93,7 +93,7 @@ const addComment = (values) => {
     
       // dispatch(singleProjectSuccess(data));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
@@ -105,7 +105,7 @@ const addAllComments = (values) => {
     
       // dispatch(singleProjectSuccess(data));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
@@ -117,7 +117,7 @@ const addDepart = (values) => {
     
       // dispatch(singleProjectSuccess(data));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };
@@ -129,7 +129,7 @@ const addVendorName = (values) => {
     
       // dispatch(singleProjectSuccess(data));
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   };
 };

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 
 const WelcomePage = () => {
-    //  console.log(categories)
+    //  // console.log(categories)
 
 
     return (

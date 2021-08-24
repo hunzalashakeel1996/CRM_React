@@ -23,7 +23,7 @@ const ShippingWeightView = (props) => {
   const {value}=state
 
   const onChange = (event) => {
-   // console.log(event.target.value)
+   // // console.log(event.target.value)
     setState({ ...state, value: event.target.value });
   
   };

@@ -34,17 +34,17 @@ const ReportView = (props) => {
       var WalmartData = JSON.parse(data[1])
       var PUData = JSON.parse(data[2])
       var JLCData = JSON.parse(data[3])
-     // console.log(AmazonData,WalmartData,PUData,JLCData)
+     // // console.log(AmazonData,WalmartData,PUData,JLCData)
       let dataTemp = [AmazonData, WalmartData, PUData, JLCData]
 
       let dataTempState = [tempDataSourceCRMReport, tempDataSourceCRMReportWM, tempDataSourceCRMReportPU, tempDataSourceCRMReportJLC]
       dataTemp.map((value,index) => {
-      //  console.log('val',dataTemp[a])
+      //  // console.log('val',dataTemp[a])
         value.Table.map(value=> {
-        console.log(dataTempState[index])
+        // console.log(dataTempState[index])
         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
      
-          console.log('aaaa', SalesCurrent === null)
+          // console.log('aaaa', SalesCurrent === null)
         return dataTempState[index].push({
           TodayDate: TodayDate,
           OrdersCountCurrent: OrdersCountCurrent,
@@ -95,14 +95,14 @@ const ReportView = (props) => {
 
 
   const onChangeDefault = (e) => {
-    // console.log(e);
+    // // console.log(e);
     setstate({ ...state, rType: e.target.value })
 
   }
 
 
   const onChange = (e) => {
-    // console.log(e);
+    // // console.log(e);
     setstate({ ...state, oType: e })
 
   }
@@ -118,11 +118,11 @@ const ReportView = (props) => {
 
 
   // const getCRMOrderReporting = () => {
-  //   console.log("Function 1")
+  //   // console.log("Function 1")
   //   setstate({ ...state, isLoader: true })
   //     dispatch(getCRMOrderReport()).then(data => {
   //       setstate({ ...state, isLoader: false })
-  //       // console.log('My Data: ', data)
+  //       // // console.log('My Data: ', data)
   //       //downloadFile(data);
   //       notification.success({
   //         message: 'Successfull Rendered',
@@ -132,10 +132,10 @@ const ReportView = (props) => {
   //       let tempDataSourceCRMReport = [];
         
   //       data = JSON.parse(data);
-  //       // console.log(typeof(data));
-  //       // console.log(data);
+  //       // // console.log(typeof(data));
+  //       // // console.log(data);
   //       data.Table.map(value => {
-  //         // console.log(value)
+  //         // // console.log(value)
   //         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
        
 
@@ -153,8 +153,8 @@ const ReportView = (props) => {
 
   //       });
   //       setstate({ ...state, dataSourceCRM: [...tempDataSourceCRMReport], isLoader: false });
-  //       console.log(tempDataSourceCRMReport)
-  //       console.log(state.dataSourceCRM)
+  //       // console.log(tempDataSourceCRMReport)
+  //       // console.log(state.dataSourceCRM)
   //     })
   // };
 
@@ -162,11 +162,11 @@ const ReportView = (props) => {
   // //CRM PU REPORT
 
   // const getCRMOrderPUReportingPU = () => {
-  //   console.log("Function 2")
+  //   // console.log("Function 2")
   //   setstate({ ...state, isLoader: true })
   //     dispatch(getCRMOrderReportPU()).then(data => {
   //       setstate({ ...state, isLoader: false })
-  //       // console.log('My Data: ', data)
+  //       // // console.log('My Data: ', data)
   //       //downloadFile(data);
   //       notification.success({
   //         message: 'Successfull Rendered',
@@ -176,10 +176,10 @@ const ReportView = (props) => {
   //       let tempDataSourceCRMReportPU = [];
         
   //       data = JSON.parse(data);
-  //       // console.log(typeof(data));
-  //       // console.log(data);
+  //       // // console.log(typeof(data));
+  //       // // console.log(data);
   //       data.Table.map(value => {
-  //         // console.log(value)
+  //         // // console.log(value)
   //         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
        
 
@@ -197,8 +197,8 @@ const ReportView = (props) => {
 
   //       });
   //       setstate({ ...state, dataSourceCRMPU: [...tempDataSourceCRMReportPU], isLoader: false });
-  //       console.log(tempDataSourceCRMReportPU)
-  //       console.log(state.dataSourceCRMPU)
+  //       // console.log(tempDataSourceCRMReportPU)
+  //       // console.log(state.dataSourceCRMPU)
 
   //     })
   // };
@@ -206,11 +206,11 @@ const ReportView = (props) => {
   // //CRM JLC REPORT
 
   // const getCRMOrderPUReportingJLC = () => {
-  //   console.log("Function 3")
+  //   // console.log("Function 3")
   //   setstate({ ...state, isLoader: true })
   //     dispatch(getCRMOrderReportJLC()).then(data => {
   //       setstate({ ...state, isLoader: false })
-  //       // console.log('My Data: ', data)
+  //       // // console.log('My Data: ', data)
   //       //downloadFile(data);
   //       notification.success({
   //         message: 'Successfull Rendered',
@@ -220,10 +220,10 @@ const ReportView = (props) => {
   //       let tempDataSourceCRMReportJLC = [];
         
   //       data = JSON.parse(data);
-  //       // console.log(typeof(data));
-  //       // console.log(data);
+  //       // // console.log(typeof(data));
+  //       // // console.log(data);
   //       data.Table.map(value => {
-  //         // console.log(value)
+  //         // // console.log(value)
   //         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
        
 
@@ -241,19 +241,19 @@ const ReportView = (props) => {
 
   //       });
   //       setstate({ ...state, dataSourceCRMJLC: [...tempDataSourceCRMReportJLC], isLoader: false });
-  //       console.log(tempDataSourceCRMReportJLC)
-  //       console.log(state.dataSourceCRMJLC)
+  //       // console.log(tempDataSourceCRMReportJLC)
+  //       // console.log(state.dataSourceCRMJLC)
   //     })
   // };
 
   // //CRM WM REPORT
 
   // const getCRMOrderPUReportingWM = () => {
-  //   console.log("Function 4")
+  //   // console.log("Function 4")
   //   setstate({ ...state, isLoader: true })
   //     dispatch(getCRMOrderReportWM()).then(data => {
   //       setstate({ ...state, isLoader: false })
-  //       // console.log('My Data: ', data)
+  //       // // console.log('My Data: ', data)
   //       //downloadFile(data);
   //       notification.success({
   //         message: 'Successfull Rendered',
@@ -263,10 +263,10 @@ const ReportView = (props) => {
   //       let tempDataSourceCRMReportWM = [];
         
   //       data = JSON.parse(data);
-  //       // console.log(typeof(data));
-  //       // console.log(data);
+  //       // // console.log(typeof(data));
+  //       // // console.log(data);
   //       data.Table.map(value => {
-  //         // console.log(value)
+  //         // // console.log(value)
   //         const { TodayDate, OrdersCountCurrent,  OrdersCountOld, PendingOrderCurrent,PendingOrderOld,ReturnCurrentRMA,ReturnOldRMA,SalesCurrent,SalesOld} = value;
        
 
@@ -284,8 +284,8 @@ const ReportView = (props) => {
 
   //       });
   //       setstate({ ...state, dataSourceCRMWM: [...tempDataSourceCRMReportWM], isLoader: false });
-  //       console.log(tempDataSourceCRMReportWM)
-  //       console.log(state.dataSourceCRMWM)
+  //       // console.log(tempDataSourceCRMReportWM)
+  //       // console.log(state.dataSourceCRMWM)
   //     })
   // };
 
@@ -380,7 +380,7 @@ const ReportView = (props) => {
 
 
   const handleChange = (data) => {
-    // console.log('ds', data)
+    // // console.log('ds', data)
   }
 
 
@@ -413,7 +413,6 @@ const ReportView = (props) => {
 
                 </Col> */}
         <Cards title="Amazon">
-        {/* {console.log(state.dataSource)} */}
           <Table
             
             columns={columns}
@@ -428,7 +427,6 @@ const ReportView = (props) => {
 
       <Row>
         <Cards title="Walmart">
-        {/* {console.log(state.dataSourceCRMWM)} */}
           <Table
             columns={columns}
             dataSource={state.dataSourceCRMWM}
@@ -443,7 +441,6 @@ const ReportView = (props) => {
 
       <Row>
         <Cards title="PU">
-        {/* {console.log(state.dataSourceCRMPU)} */}
           <Table
             columns={columns}
             dataSource={state.dataSourceCRMPU}

@@ -32,7 +32,7 @@ const validateMessages = {
 const OrderPNLSummary = (props) => {
 
     const {dataSourceOrder}= props
-    // console.log('orderPNL',dataSourceOrder)
+    // // console.log('orderPNL',dataSourceOrder)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -93,7 +93,7 @@ const OrderPNLSummary = (props) => {
   ];
 
   const handleChange = (pagination, filters, sorter) =>  {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setstate({...state,
       filteredInfo: filters,
       sortedInfo: sorter,

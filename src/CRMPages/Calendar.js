@@ -9,7 +9,7 @@ import { Button } from '../components/buttons/buttons';
 
 const Calendar = () => {
   // const onChange = (date, dateString) => {
-  //   console.log(date, dateString);
+  //   // console.log(date, dateString);
   // };
 
   return (

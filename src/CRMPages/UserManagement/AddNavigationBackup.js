@@ -52,9 +52,9 @@ const AddNavigationView = (props) => {
     useEffect(() => {
 
         dispatch(getSideAndTopNavBar()).then(data => {
-            console.log(data)
+            // console.log(data)
 
-            // console.log(JSON.parse(data.top_navigation))
+            // // console.log(JSON.parse(data.top_navigation))
             //JSON.stringify(data)
             data.map(value => {
 
@@ -65,7 +65,7 @@ const AddNavigationView = (props) => {
                 )
 
                 // JSON.parse(child_bar).map(child=>{
-                //     //  console.log('child',value)
+                //     //  // console.log('child',value)
                 //     temp.push({
                 //      //   Parent: <span style={{ color: 'black' }} className="date-started">{value}</span>,
                 //      parent_bar: <span style={{ color: 'black' }} className="date-started">{child}</span>,
@@ -73,7 +73,7 @@ const AddNavigationView = (props) => {
                 //     })
 
                 //     JSON.parse(top_navigation)[child].map(top=>{
-                //         //  console.log('child',value)
+                //         //  // console.log('child',value)
                 //         temp.push({
                 //         //     'topBar':top
                 //      //   Parent: <span style={{ color: 'black' }} className="date-started">{value}</span>,
@@ -85,10 +85,10 @@ const AddNavigationView = (props) => {
                 // })   
 
 
-                // console.log('child',child)
+                // // console.log('child',child)
             })
 
-            // console.log(temp.da)   
+            // // console.log(temp.da)   
             setState({ ...state, parentbar: parent, dataSource: data })
         })
 
@@ -131,7 +131,7 @@ const AddNavigationView = (props) => {
     //     NavigationObject.child_bar = [...selectChildBar]
     //     NavigationObject.top_navigation = [...selectTopBar]
     //     NavigationObject.type = type
-    //     console.log(NavigationObject)
+    //     // console.log(NavigationObject)
   
     // }
     // const createChild = (data) => {
@@ -140,7 +140,7 @@ const AddNavigationView = (props) => {
     //     NavigationObject.child_bar = [data]
     //     NavigationObject.top_navigation = [...selectTopBar]
     //     NavigationObject.type = 'Child'
-    //     console.log(NavigationObject)
+    //     // console.log(NavigationObject)
   
     // }
     // const createTop= (data) => {
@@ -150,7 +150,7 @@ const AddNavigationView = (props) => {
     //     NavigationObject.top_navigation = [data]
       
     //     NavigationObject.type = 'Top'
-    //     console.log(NavigationObject)
+    //     // console.log(NavigationObject)
   
     // }
 
@@ -170,7 +170,7 @@ const AddNavigationView = (props) => {
     //     NavigationObject.parent_bar = parentBarList
     //     NavigationObject.top_navigation = JSON.parse(filter[0].top_navigation)
     //     NavigationObject.child_bar = childArray
-    //     console.log(NavigationObject)
+    //     // console.log(NavigationObject)
     
     // }
     // const createTopParentandNavexists = (data) => {
@@ -185,11 +185,11 @@ const AddNavigationView = (props) => {
     //     NavigationObject.parent_bar = parentBarList
     //     NavigationObject.child_bar = childArray
     //     NavigationObject.top_navigation = topobject
-    //     console.log(NavigationObject)
+    //     // console.log(NavigationObject)
     // }
     const InsertSideNavandTop =()=>{
        
-        console.log('asdsdfzdf', tempNavigationObject)
+        // console.log('asdsdfzdf', tempNavigationObject)
         dispatch(insertSideNavandTop(tempNavigationObject)).then(data => {
 
             notification.success({

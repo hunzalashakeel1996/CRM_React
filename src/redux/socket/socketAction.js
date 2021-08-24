@@ -13,7 +13,7 @@ export const connectSocket = (userId, dispatchFunc) => {
       // ws = new WebSocket("wss://pu-crm-backend-develop.herokuapp.com")
       // ws = new WebSocket("wss://crm.rizno.com")
       ws = new WebSocket(socketUrl)
-      console.log('websocket obejct', ws)
+      // console.log('websocket obejct', ws)
     }
 
     function heartbeat() {
@@ -24,14 +24,14 @@ export const connectSocket = (userId, dispatchFunc) => {
     }
 
     ws.onopen = () => {
-      console.log('connected');
+      // console.log('connected');
       ws.send(JSON.stringify({type: 'join room', id: userId}))
       dispatch(initializeConnectSocket(ws))
       heartbeat();
     };
 
     ws.onclose = () => {
-      console.log('disconnected');
+      // console.log('disconnected');
       dispatch(initializeConnectSocket(null))
 
     };
@@ -69,11 +69,11 @@ export const connectSocket = (userId, dispatchFunc) => {
     //     jsonp: false
     //   });
 
-    //   console.log('bbbb', getState().socket.socket)
+    //   // console.log('bbbb', getState().socket.socket)
 
     //   socket.on('connect', () => {
     //     socket.emit("testSocket", { id: userId })
-    //     console.log('connection success')
+    //     // console.log('connection success')
     //     socket.on('disconnect', () => {
     //     });
     //   })
@@ -82,7 +82,7 @@ export const connectSocket = (userId, dispatchFunc) => {
 
     // } else {
     //   getState().socket.socket.emit("testSocket", { id: userId })
-    //   console.log("sockeeeeeeety", getState().socket.socket)
+    //   // console.log("sockeeeeeeety", getState().socket.socket)
     // }
 
   }

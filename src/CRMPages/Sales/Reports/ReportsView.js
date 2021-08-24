@@ -55,7 +55,7 @@ const ReportView = (props) => {
 
 
     let vendorNames = useSelector(state => state.tickets.vendornames);
-    console.log('redux',vendorNames)
+    // console.log('redux',vendorNames)
 
     const [state, setState] = useState({
         controls: { ...formInit },
@@ -81,7 +81,7 @@ const ReportView = (props) => {
         }
 
         let reportToUse = reportingAPIs.filter(value => { return values.reportType === value.name })
-        // console.log(reportToUse)
+        // // console.log(reportToUse)
         let data = { user: JSON.parse(localStorage.getItem('user')).LoginName, orderdatefrom: values['startDate'].format('YYYY-MM-DD'), orderdateto: values['endDate'].format('YYYY-MM-DD') }
         values.reportType === 'Vendor Name' ? data = { ...data, VendorName: controls.VendorName } : null
         setState({ ...state, isLoading: true })
@@ -92,13 +92,13 @@ const ReportView = (props) => {
     };
 
     const onSubmitFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
     const onMerchantSkuSubmit = (values) =>{
 
     
-        console.log('sd : ', values )
+        // console.log('sd : ', values )
         
         setState({ ...state, isLoading: true })
         dispatch(orderDownloadReport({ ms : values.merchantSku })).then(data => {
@@ -109,14 +109,14 @@ const ReportView = (props) => {
 
     const onMerchantSkuSubmitFailed = (errorInfo) =>{
 
-        console.log('error : ', errorInfo )
+        // console.log('error : ', errorInfo )
     }
 
 
     const onValueChange = (name, value) => {
         let temp = { ...controls }
         temp[name] = value
-        // console.log(temp[name])
+        // // console.log(temp[name])
         setState({ ...state, controls: temp })
     }
 

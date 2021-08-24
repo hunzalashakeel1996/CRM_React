@@ -10,7 +10,7 @@ import ReportBarChart from '../ReportBarChart';
 import { chartSaleData } from '../../../../redux/apis/DataAction';
 const SaleReports = (props) => {
   const {data}=props
-  console.log('saleData',data)
+  // console.log('saleData',data)
     var Type =[];
   const dispatch = useDispatch()
   const [state, setState] = useState({
@@ -45,7 +45,7 @@ const SaleReports = (props) => {
     let item = {...itemReport}
     
     // dispatch(chartSaleData({"rType":"Date","oType":0,"FROMDATE":"5/1/2021","TODATE":"5/25/2021"})).then(data => {
-     console.log(data)
+     // console.log(data)
      let objects = [orders]
      if (data[0].length>0){
      for (let i = 0; i < data[0].length; i++) {

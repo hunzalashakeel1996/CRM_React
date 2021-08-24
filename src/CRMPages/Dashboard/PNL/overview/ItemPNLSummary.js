@@ -31,7 +31,7 @@ const validateMessages = {
 
 const ItemPNLSummary = (props) => {
     const {dataSourceItem}= props
-    // console.log('ItemPNL',dataSourceItem)
+    // // console.log('ItemPNL',dataSourceItem)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -90,7 +90,7 @@ const ItemPNLSummary = (props) => {
   ];
 
   const handleChange = (pagination, filters, sorter) =>  {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setstate({...state,
       filteredInfo: filters,
       sortedInfo: sorter,

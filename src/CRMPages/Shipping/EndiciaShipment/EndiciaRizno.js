@@ -87,7 +87,7 @@ const EndiciaShipmentView = (props) => {
         }
     ];
     const onChange = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         setState({ ...state, orderno: event.target.value });
 
     };
@@ -119,7 +119,7 @@ const EndiciaShipmentView = (props) => {
     const startEndiciaRiznoShipping = () => {
 
         dispatch(endiciaRiznoShipingValidation()).then(data => {
-            console.log(data)
+            // console.log(data)
             let datasources = []
 
             if (data.length)
@@ -173,7 +173,7 @@ const EndiciaShipmentView = (props) => {
    };
    const checkEndiciaRiznoLabelCount =()=>{
     dispatch(endiciaRiznoShipingcheckcount()).then(data => {
-        console.log(data)
+        // console.log(data)
          setState({...state,checkCount:data[0].today_count})
    
       
@@ -186,7 +186,7 @@ const refreshPage =()=>{
 const verifyLabel = () => {
 
     dispatch(endiciaVerifyLabel({ms:orderno})).then(data => {
-        console.log(data)
+        // console.log(data)
         let datasources = []
 
         if (data.length)

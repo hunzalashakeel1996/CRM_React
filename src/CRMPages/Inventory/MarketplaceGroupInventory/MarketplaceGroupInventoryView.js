@@ -118,7 +118,7 @@ const MarketplaceGroupInventoryView = (props) => {
 
 
     const genrateFeed = (query, column, isAmazon, val) => {
-        console.log(requestObjInventroy)
+        // console.log(requestObjInventroy)
         setState({ ...state, loaderState: true })
 
         //vendorFilter Array to string        
@@ -144,7 +144,7 @@ const MarketplaceGroupInventoryView = (props) => {
 
         if (isAmazon == true) {
             dispatch(getSubInventoryapi(requestObjInventroy)).then(data => {
-                console.log(data)
+                // console.log(data)
                 setState({ ...state, summaryDataState: data[0], downloadDataState: data[1], loaderState: false })
 
                 if (data[3] === 'Amazon') {
@@ -184,7 +184,7 @@ const MarketplaceGroupInventoryView = (props) => {
                 setState({ ...state, loaderState: false })
                 var link = data
                 var datalink = link;
-                console.log(datalink.length);
+                // console.log(datalink.length);
                 for (var z = 0; z < datalink.length;) {
                     downloadFile(datalink[z])
 

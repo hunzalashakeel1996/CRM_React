@@ -29,7 +29,7 @@ const VendorSales = (props) => {
         let dataSourceTemp = dataSource
 
         // dispatch(chartVendorSalesData({ "FROMDATE": "5/1/2021", "TODATE": "5/25/2021" })).then(data => {
-            console.log(data)
+            // console.log(data)
 
             for (let i = 0; i < data.length; i++) {
                 Type.push(

@@ -70,7 +70,7 @@ const AmazonComparisonReports = () => {
       var PUData = JSON.parse(data[2])
       var JLCData = JSON.parse(data[3])
       let dataTemp = [AmazonData, WalmartData, PUData, JLCData]
-      console.log(AmazonData)
+      // console.log(AmazonData)
       // condition to check if any marketplace does not contain today object
       dataTemp.map(value => {
         if (value.Table.length === 3) {
@@ -100,7 +100,7 @@ const AmazonComparisonReports = () => {
           objects[i][categories[j]][1][3] = JLCData.Table[j][objectsCountName[i][1]]
         }
       }
-      console.log('AmazonData',AmazonData.Table[2].TodayDate);
+      // console.log('AmazonData',AmazonData.Table[2].TodayDate);
 
       setState({ ...state, ordersSelectedTimelineThisMonth: AmazonData.Table[2].TodayDate,ordersSelectedTimelineLastMonth: AmazonData.Table[3].TodayDate,ordersSelectedTimelineLast2Month: AmazonData.Table[4].TodayDate, loaderState: false })
     })

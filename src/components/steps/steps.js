@@ -46,9 +46,9 @@ const Steps = ({
     boxShadow: '0px -1px 0 0 #e8e8e8 inset',
   };
 
-  // console.log(steps);
+  // // console.log(steps);
   const onChanges = curr => {
-    // console.log('onChange:', current);
+    // // console.log('onChange:', current);
     setState({ currents: curr });
     if (onChange) onChange(curr);
   };

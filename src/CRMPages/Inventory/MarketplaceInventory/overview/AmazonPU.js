@@ -20,7 +20,7 @@ import Priceupdate from '../../../../components/Marketplace/Priceupdate'
 const AmazonPU = (props) => {
 
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
-  //  console.log('vendornameState',vendornameState)
+  //  // console.log('vendornameState',vendornameState)
     const amazonPUcolumn = ['PU_PRICE', 'deliveryinfo', 'PUSTATUS', 'ISPU', 'ASINS', 'IsAutomated_PU']
 
     const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']

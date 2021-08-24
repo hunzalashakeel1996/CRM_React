@@ -15,7 +15,7 @@ const UpdateInventoryView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Update Inventory'];
 
-    console.log(tabChildBar)
+    // console.log(tabChildBar)
     // const [state, setState] = useState({
 
     //     loaderState: true

@@ -45,7 +45,7 @@ const TopSelling = (props) => {
             marketplace: values['orderType']
         }
 
-        console.log('success:', object);
+        // console.log('success:', object);
 
         setState({ ...state, isLoading: true })
         dispatch(topSellingStyleCodes({
@@ -54,10 +54,10 @@ const TopSelling = (props) => {
             orderdateto: values['endDate'].format('YYYY-MM-DD')
         })).then(data => {
 
-            console.log(data[1])
+            // console.log(data[1])
             let tempDataSource = [];
             let tempLinkDownload = data[0];
-            console.log(data);
+            // console.log(data);
             data[1].map(value => {
                 const { stylecode, vendorname, categoryname, Amazon, AmazonRizno, Walmart, Ebay,
                     Sears, Newegg, Rakuten, Sold_qty, Rank_no } = value;
@@ -84,8 +84,8 @@ const TopSelling = (props) => {
 
     const downloadFiles = () => {
         setState({ ...state })
-        // console.log("Button 2 clicked!");
-        // console.log(state.downLoadLink);
+        // // console.log("Button 2 clicked!");
+        // // console.log(state.downLoadLink);
 
         if(downLoadLink == ""){
             // alert("Please Select Record First")
@@ -111,13 +111,13 @@ const TopSelling = (props) => {
     }
 
     const onSubmitFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
     const onValueChange = (name, value) => {
         let temp = { ...controls }
         temp[name] = value
-        console.log(temp[name])
+        // console.log(temp[name])
         setState({ ...state, controls: temp })
     }
 

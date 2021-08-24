@@ -33,7 +33,7 @@ const validateMessages = {
 const ItemPNL = (props) => {
 
     const {dataSourceItem,dataItemDownload}= props
-     console.log('dataSourceItem',dataSourceItem)
+     // console.log('dataSourceItem',dataSourceItem)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -403,7 +403,7 @@ const ItemPNL = (props) => {
   ];
 
   const handleChange = (pagination, filters, sorter) =>  {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setState({...state,
       filteredInfo: filters,
       sortedInfo: sorter,

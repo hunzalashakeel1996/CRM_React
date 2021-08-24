@@ -60,7 +60,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
-        console.log('values', values)
+        // console.log('values', values)
         onAdd(values)
     };
 
@@ -182,7 +182,6 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
 
                                 <Col span={12}>
                                     <Form.Item name="Assigned" initialValue="" label=""  rules={[{ required: true }]}>
-                                        {console.log('depar', departmentName)}
                                         {(depart.length > 0 && departmentName !== '') ?
                                             <Select onChange={(val) => {form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>

@@ -19,10 +19,10 @@ const isLocalhost = Boolean(
 );
 
 export function register(config) {
-  console.log('insidesss 3', process.env.PUBLIC_URL)
+  // console.log('insidesss 3', process.env.PUBLIC_URL)
  
   // if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-  console.log('inside 4')
+  // console.log('inside 4')
 
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
@@ -34,7 +34,7 @@ export function register(config) {
     }
 
     window.addEventListener('load', () => {
-      console.log('inside 1')
+      // console.log('inside 1')
       
 
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
@@ -42,7 +42,7 @@ export function register(config) {
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
-        console.log('inside 2')
+        // console.log('inside 2')
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
@@ -52,7 +52,7 @@ export function register(config) {
           if (Notification.permission == 'granted') {
             navigator.serviceWorker.getRegistration().then(async (reg) => {
               // let a = await messaging.getToken({vapidKey: "BJ6G0B9lW13RHZhpALupcHOBMybQTKiflLxRAle4bxQNUYrP8mQfY5poWNBfP7mrMMxkzU5stnUizBp9LkC-CjY"})
-              // console.log('aaadsfd', a)
+              // // console.log('aaadsfd', a)
               let title = 'Reminder from CRM';
               let body = 'Provide details to Paul on skype';
               if (reg)
@@ -81,7 +81,7 @@ function registerValidSW(swUrl, config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              console.log(
+              // console.log(
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://bit.ly/CRA-PWA.',
               );
@@ -94,7 +94,7 @@ function registerValidSW(swUrl, config) {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.');
+              // console.log('Content is cached for offline use.');
 
               // Execute callback
               if (config && config.onSuccess) {
@@ -131,7 +131,7 @@ function checkValidServiceWorker(swUrl, config) {
       }
     })
     .catch(() => {
-      console.log('No internet connection found. App is running in offline mode.');
+      // console.log('No internet connection found. App is running in offline mode.');
     });
 }
 

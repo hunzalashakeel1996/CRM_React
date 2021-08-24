@@ -36,7 +36,7 @@ const GoogleMarketPlace = (props) => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
 
-        console.log('file', file)
+        // console.log('file', file)
         const formData = new FormData();
         formData.append('File', file);
      //  formData.append('datato', dataTo);
@@ -60,7 +60,7 @@ const GoogleMarketPlace = (props) => {
         // let username = [];
         // username = JSON.parse(localStorage.getItem('user'))
 
-        // console.log('file', file)
+        // // console.log('file', file)
         // const formData = new FormData();
         // formData.append('File', file);
         // formData.append('datato', dataTo);
@@ -69,7 +69,7 @@ const GoogleMarketPlace = (props) => {
 
         dispatch(getGoogleMarketPlaceVerifyapi({'vendorFilter':requestObjInventroy.vendorFilter.toString()})).then(data => {
             setState({...state,loaderState:false})
-             console.log('Google Market Place',data)
+             // console.log('Google Market Place',data)
             downloadFile(data)
             notification.success({
                 message: `Successfull Download Google Markerplace Verift Report`,

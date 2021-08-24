@@ -59,14 +59,14 @@ const OrderReportsView = (props) => {
 
 
     const onChange = (date, dateString) => {
-        // console.log('aaa', date, dateString)
+        // // console.log('aaa', date, dateString)
         setstate({ ...state, [dateString]: date });
-        console.log(dateString);
+        // console.log(dateString);
     };
     const getPNLReporting = () => {
         setstate({ ...state, isLoader: true });
-        //    console.log('bbb', state.startDate.format('MM/DD/YYYY'))
-        //  console.log('bbb', state.endDate.format('MM/DD/YYYY'))
+        //    // console.log('bbb', state.startDate.format('MM/DD/YYYY'))
+        //  // console.log('bbb', state.endDate.format('MM/DD/YYYY'))
         dispatch(getPNLReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), })).then(data => {
             setstate({ ...state, isLoader: false });
             downloadFile(data);
