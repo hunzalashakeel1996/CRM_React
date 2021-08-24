@@ -33,7 +33,7 @@ const validateMessages = {
 const OrderPNL = (props) => {
 
     const {dataSourceOrder,dataOrderDownload}= props
-    // console.log('dataSourceOrder',dataSourceOrder)
+    // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -194,7 +194,7 @@ const OrderPNL = (props) => {
   ];
 
   const handleChange = (pagination, filters, sorter) =>  {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setState({...state,
       filteredInfo: filters,
       sortedInfo: sorter,
@@ -204,21 +204,21 @@ const OrderPNL = (props) => {
   const handleSearch = (searchText) => {
    // temp  = [...temp, dataSourceDetails.filter(item => item['merchantsku']==null?[]:[...item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())])]
 
-   console.log(searchText.toUpperCase())
+   // console.log(searchText.toUpperCase())
   //  temp  = [...temp,...dataSourceOrder.filter(item => item['merchantsku']!==null&&item['merchantsku'].toUpperCase().includes(searchText.toUpperCase()))]
     
    
-  //  console.log('merchantsku',temp)
-    // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
+  //  // console.log('merchantsku',temp)
+    // // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
    
      temp =[...temp,...dataSourceOrder.filter(item => item['orderno'].toUpperCase().includes(searchText.toUpperCase()))]
-    // console.log('orderno',temp)
+    // // console.log('orderno',temp)
 
 
     //  temp = [...temp,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(searchText.toUpperCase()))]
-    // console.log('ORDERTYPE',temp)
+    // // console.log('ORDERTYPE',temp)
 
-  //  console.log('dataSourceDetails',temp)
+  //  // console.log('dataSourceDetails',temp)
     setState({ ...state, dataSourceOrderTemp: temp });
   };
   const Download = ( data) =>  {

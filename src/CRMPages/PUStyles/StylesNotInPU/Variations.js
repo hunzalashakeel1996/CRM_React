@@ -35,27 +35,27 @@ const StylesNotInPUView = (props) => {
 
 
   function onChange(value) {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setstate({ ...state, vendorname: value })
   }
 
   function onBlur() {
-    console.log('blur');
+    // console.log('blur');
   }
 
   function onFocus() {
-    console.log('focus');
+    // console.log('focus');
   }
 
   function onSearch(val) {
-    console.log('search:', val);
+    // console.log('search:', val);
   }
 
   const getStyleVariations = () => {
     setstate({ ...state, isLoader: true })
     dispatch(getStyleVariationsNotInPu({ vendorname: state.vendorname })).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       downloadFile(data);
       notification.success({
         message: 'Successfull Dowload',
@@ -68,7 +68,7 @@ const StylesNotInPUView = (props) => {
     setstate({ ...state, isLoader: true })
     dispatch(getExcludedStyleVariationsNotInPu({ vendorname: state.vendorname })).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       downloadFile(data);
       notification.success({
         message: 'Successfull Dowload',

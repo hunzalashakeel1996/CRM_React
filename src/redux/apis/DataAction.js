@@ -55,7 +55,7 @@ export const setHeader = () => {
 }
 
 export const setHeaderWithWebToken = () => {
-    console.log('adfdfdfd')
+    // console.log('adfdfdfd')
     // localStorage.getItem('user').then((val) => {
         // headerWithWebToken = {
         //     Accept: "application/json",
@@ -73,9 +73,9 @@ export const setHeaderWithWebToken = () => {
 export const audioPlay = () => {
     let audio = new Audio(sound).play()
     audio.then(() => {
-        console.log('suiccess')
+        // console.log('suiccess')
     }).catch(err => {
-        console.log('err', err)
+        // console.log('err', err)
     })
 }
 
@@ -389,49 +389,49 @@ export const PUAppscript = (data) => {
 
 
 export const getOverViewReport = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/SalesReport', "POST", headerDotNet, JSON.stringify(data));
 };
 export const getTeamReport = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/CRMReportS', "POST", headerDotNet, JSON.stringify(data));
 };
 export const getVendorSalesReport = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/VendorCRMReportS', "POST", headerDotNet, JSON.stringify(data));
 };
 // export const getUnshippedOrders = (data) => {
-//     console.log("Hello World!")
+//     // console.log("Hello World!")
 //     return apiFetchDotNet('/Ereports/po_item_received', "POST", headerDotNet, JSON.stringify(data));
 // };
 
 export const getSalesSummary = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/sale_summary', "POST", headerDotNet, JSON.stringify(data));
 };
 
 export const getTargetReport = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/Target_report', "POST", headerDotNet, JSON.stringify(data));
 };
 
 // export const getReturnPercentageReport = (data) => {
-//     console.log("Hello World!")
+//     // console.log("Hello World!")
 //     return apiFetchDotNet('/Ereports/Return_percentage_report', "POST", headerDotNet, JSON.stringify(data));
 // };
 export const getCRMOrderReport = (data) => {
     return apiFetchDotNet('/Ereports/OrdersREPORT', "POST", headerDotNet, JSON.stringify({  }));
 };
 export const getCRMOrderReportPU = (data) => {
-    console.log("Hello World!", JSON.parse(localStorage.getItem('user')).jwtToken)
+    // console.log("Hello World!", JSON.parse(localStorage.getItem('user')).jwtToken)
     return apiFetchDotNet('/Ereports/OrdersREPORTPU', "POST", headerDotNet, JSON.stringify(data));
 };
 export const getCRMOrderReportJLC = (data) => {
-    // console.log("Hello World!")
+    // // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/OrdersREPORTJLC', "POST", headerDotNet, JSON.stringify(data));
 };
 export const getCRMOrderReportWM = (data) => {
-    // console.log("Hello World!")
+    // // console.log("Hello World!")
     return apiFetchDotNet('/Ereports/OrdersREPORTWallmart', "POST", headerDotNet, JSON.stringify(data));
 };
 
@@ -439,22 +439,22 @@ export const getCRMOrderReportWM = (data) => {
 // ============================= StylesNotInPU API start ======================================
 
 export const getStylesNotInPu = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/Report/download_pu_style_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const getExcludedStylesNotInPu = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Report/download_pu_style_report_excluded', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const getStyleVariationsNotInPu = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/Report/variation_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const getExcludedStyleVariationsNotInPu = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Report/variation_wise_Excluded', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //============================= StylesNotInPU API end ======================================
@@ -463,7 +463,7 @@ export const getExcludedStyleVariationsNotInPu = (data) => {
 //============================= RMA API Start ======================================
 
 export const getRMAMonthlyreporting = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Report/rma_monthly_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
@@ -475,50 +475,50 @@ export const getRMAMonthlyreporting = (data) => {
 
 //PNL Report
 export const getPNLReport = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Edit/sale_reportUT', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Sales Report
 export const getSalesReport = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Edit/sale_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //PONet Amount
 export const getPONetAmount = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Edit/ponet_amount', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //InstockOrders
 export const getInstockReport = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Edit/instock_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Instock Sold Report
 export const  getInstockSoldReport = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Edit/Instock_sold', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Order Confirmation Number
 export const  getOrderConfirmationNumber = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/AmazonShipping/confirmationpo', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Order Search
 export const  getOrderSearch = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/orders/List', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 
 //Back Order Items
 export const  getBackOrderItems = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/orders/Back_order_items_log', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
@@ -529,12 +529,12 @@ export const  getBackOrderItems = (data) => {
 // ============================= Customer Service start ======================================
 //Back Order Items
 export const  getProhibitedWords = () => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/CustomerService/getProbitedWords', "GET");
 };
 
 export const  insertProhibitedWord = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/CustomerService/insertProhibitedWord', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 // ============================= Customer Service end ======================================
@@ -544,7 +544,7 @@ export const  insertProhibitedWord = (data) => {
 // ============================= REPORT API start ======================================
 
 export const getBalanceSheetRecord = () => {
-    console.log('abcd')
+    // console.log('abcd')
     return apiFetchDotNet('Report/balance_sheet_view', "POST", headerDotNetWithJwt, JSON.stringify({  }));
 };
 export const getBalanceSheetRecordOnClick = (data) => {
@@ -552,61 +552,61 @@ export const getBalanceSheetRecordOnClick = (data) => {
 };
 
 // export const getBalanceSheetRecord2 = (data) => {
-//     // console.log('abcd')
+//     // // console.log('abcd')
 //     return apiFetchDotNet('Report/balance_sheet_view', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 // };
 
 export const getFeedBackRecordOnClick = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/feed_report', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 export const getReturnRecordOnClick = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/Check_Return_report', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 export const getVendorTrackingRecordOnClick = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/Vendor_Tracking_with_Shiping_Price', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 
 export const getCheckReleaseOrdersRecordOnClick = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/Check_Released_Order', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 export const getOrderTrackingRecordOnClick = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/ordertrackingstatus', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 export const getPOitemReceivedRecordOnClick = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/PurchasedOrders', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 export const orderDownloadReport = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/order_download_report', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 export const saleSummaryReport = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/summary_report', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 export const comparisonReport = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/Comparison_report', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 export const topSellingStyleCodes = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/Top_Selling_Report', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 export const purchaseReport = (data) => {
-    // console.log('abcd')
+    // // console.log('abcd')
     return apiFetchDotNet('Report/purchase_report', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 // ============================= REPORT API end ======================================
@@ -621,7 +621,7 @@ export const getWebvendor = (data) => {
     return apiFetchDotNet('newInventory/getWebVendor_active', "GET",headerDotNetWithJwt);
 };
 export const getVendorName = (data) => {
-    console.log('vendor')
+    // console.log('vendor')
     return apiFetchDotNet('newInventory/getVendorname', "GET",headerDotNetWithJwt);
 };
 export const getUpdateVendorInventoryapi = (data) => {
@@ -752,7 +752,7 @@ export const getUpdateSubinventoryDownloadapi = (data) => {
 };
 //upload File Update
 export const getUploadFileUpdateSKUapi = (data) => {
-    console.log('aaaaa headerFileDotNet', data)
+    // console.log('aaaaa headerFileDotNet', data)
     return apiFetchDotNet('newInventory/UploadFile', "POST", multipartHeader, data );
 };
 //Marketplace place Weight Update
@@ -893,7 +893,7 @@ export const TicketStatusChangeAPI = (data) => {
 };
 
 export const getAzabAPI = (data) => {
-    console.log(JSON.stringify({ data }))
+    // console.log(JSON.stringify({ data }))
     return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
@@ -937,7 +937,7 @@ export const uploadAttachment = (data) => {
 //     return apiFetch('api/Inventory/getAllpustatus', "POST", headerWithWebToken, JSON.stringify({ data }));
 // };
 // export const getInventoryapi = (data) => {
-//     console.log(JSON.parse(localStorage.getItem('user')).jwtToken)
+//     // console.log(JSON.parse(localStorage.getItem('user')).jwtToken)
 //     return apiFetch('api/Inventory/getInventoryapi', "POST", headerWithWebToken, JSON.stringify({ data }));
 // };
 
@@ -953,24 +953,24 @@ export const getAzabReportDetailapi = (data) => {
 //============================= User Section ======================================
 
 export const addNewUser = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Users/insertUser', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const getAllUserRecord = () => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Users/getAllUserRecord', "GET", headerDotNetWithJwt, JSON.stringify());
 };
 
 
 export const getNavigation = () => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Users/userManagementNav', "POST", headerDotNet, JSON.stringify());
 };
 
 
 export const saveAllUserRights = (data) => {
-    //    console.log("Hello World!")
+    //    // console.log("Hello World!")
     return apiFetchDotNet('/Users/saveUserRights', "POST", headerDotNet, JSON.stringify(data));
 };
 
@@ -1065,12 +1065,12 @@ export const apiReportItemWise = (data) => {
 };
 
 export const getGoogleMarketPlaceVerifyapi = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/newInventory/fetchGoogleMarketplaceVerifyapi', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const getGoogleMarketplaceNotVerifyUploadapi = (data) => {
-    console.log("Hello World!")
+    // console.log("Hello World!")
     return apiFetchDotNet('/newInventory/GoogleMarketplaceNotVerifyUpload', "POST", multipartHeader, data);
 };
 

@@ -31,11 +31,11 @@ const ViewAzabReport = (props) => {
 
   //     useEffect(() => {
   //     setState({ ...state, loader: true })
-  //     console.log('check')
+  //     // console.log('check')
 
   //     // get report 
   //     dispatch(getAzabAPI({ month: state.monthvalue })).then(data => {
-  //       console.log('12310', data)
+  //       // console.log('12310', data)
 
   //       setState({ ...state, filterAzabReport: data, loader: false });
   //     })
@@ -48,25 +48,25 @@ const ViewAzabReport = (props) => {
 
 
   const handleChange = (value) => {
-    console.log('aaa', value)
+    // console.log('aaa', value)
     setState({ ...state, value, loader: false });
   }
   const getmonth = (value) => {
-    //console.log(`Selected: ${value}`);
+    //// console.log(`Selected: ${value}`);
     //   monthvalue(value)
     setState({ ...state, loader: true })
-    console.log('value',value)
+    // console.log('value',value)
     value = value == 'All'?0:value
 
     // get report 
     dispatch(getAzabAPI({ month: value })).then(data => {
-      console.log('12310', data)
+      // console.log('12310', data)
 
       setState({ ...state, filterAzabReport: data, loader: false });
     })
     //setState({ ...state, monthvalue: value, loader: false });
 
-    // console.log(state.monthvalue);
+    // // console.log(state.monthvalue);
 
   }
   const month = ['All','jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

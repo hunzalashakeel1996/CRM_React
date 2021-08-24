@@ -17,19 +17,19 @@ const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 function onChange(value) {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
 }
 
 function onBlur() {
-    console.log('blur');
+    // console.log('blur');
 }
 
 function onFocus() {
-    console.log('focus');
+    // console.log('focus');
 }
 
 function onSearch(val) {
-    console.log('search:', val);
+    // console.log('search:', val);
 }
 
 const validateMessages = {

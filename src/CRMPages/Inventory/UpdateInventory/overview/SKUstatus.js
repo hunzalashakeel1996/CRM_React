@@ -54,7 +54,7 @@ const SKUstatus = () => {
 
     const onChangeForceCheck = (e) => {
 
-        // console.log(`checked = ${e.target.checked}`);
+        // // console.log(`checked = ${e.target.checked}`);
         if (e.target.checked === true) {
             setstate({ ...state, forceCheck: e.target.checked, buttonStatus: 'disabled', textAreaStatus: 'able' })
         }
@@ -84,12 +84,12 @@ const SKUstatus = () => {
     //     },
     //     onChange(info) {
     //         if (info.file.status !== 'uploading') {
-    //             console.log(info.file, info.fileList);
+    //             // console.log(info.file, info.fileList);
     //         }
     //         if (info.file.status === 'done') {
     //             message.success(`${info.file.name} file uploaded successfully`);
 
-    //             console.log('file', info.fileList[0].originFileObj);
+    //             // console.log('file', info.fileList[0].originFileObj);
     //             setstate({ ...state, file: info.fileList[0].originFileObj })
     //         } else if (info.file.status === 'error') {
     //             message.error(`${info.file.name} file upload failed.`);
@@ -97,7 +97,7 @@ const SKUstatus = () => {
     //     },
     // };
     const dataTohandleChange = (value) => {
-        console.log(`selected ${value}`);
+        // console.log(`selected ${value}`);
         setstate({ ...state, dataTo: value })
     }
 
@@ -106,7 +106,7 @@ const SKUstatus = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
 
-        console.log('file', file)
+        // console.log('file', file)
         const formData = new FormData();
         formData.append('File', file);
         formData.append('datato', dataTo);
@@ -130,7 +130,7 @@ const SKUstatus = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
 
-        console.log('file', file)
+        // console.log('file', file)
         const formData = new FormData();
         formData.append('File', file);
         formData.append('datato', dataTo);
@@ -235,7 +235,7 @@ const SKUstatus = () => {
         formData.append('uploadtype', radioButtonValue);
 
         dispatch(getReportDataapi(formData)).then(data => {
-            console.log(data)
+            // console.log(data)
             //   message.success(`file uploaded Update Done` );
             downloadFile(data)
 

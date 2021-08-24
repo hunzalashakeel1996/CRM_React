@@ -52,12 +52,12 @@ const VendorSales = (props) => {
   });
 const {dataReport,sortedInfo}=state
   const onChange = (value, key) => {
-    // console.log('aaa', date, dateString)
+    // // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
   const handleChange = (pagination, filters, sorter) =>  {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setstate({...state,
      
       sortedInfo: sorter,
@@ -75,12 +75,12 @@ const {dataReport,sortedInfo}=state
     });
   };
   const getVendorSalesReporing = () => {
-    console.log('aaaaa')
+    // console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
     dispatch(chartVendorSalesData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       //downloadFile(data);
       notification.success({
         message: 'Successfull Rendered',
@@ -150,7 +150,7 @@ const {dataReport,sortedInfo}=state
   ];
 
   const onFinish = (values) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
   };
 
   return (

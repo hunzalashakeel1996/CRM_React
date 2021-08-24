@@ -7,14 +7,14 @@ import { CardBarChart } from './overview/style';
 import { Bar,Line } from 'react-chartjs-2';
 
 const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelineThisMonth,ordersSelectedTimelineLastMonth,ordersSelectedTimelineLast2Month }) => {
-//    console.log(dataset)
+//    // console.log(dataset)
     const [state, setState] = useState({
         selectedTimeline: 'today',
         isLoading: false,
     });
     const { selectedTimeline, isLoading } = state;
-    // console.log('typeofNumber',[dataset[1]])
-    // console.log('aaaa', typeof(dataset[0])==='number')
+    // // console.log('typeofNumber',[dataset[1]])
+    // // console.log('aaaa', typeof(dataset[0])==='number')
     const chartOptions = {
         datasets: [
             {

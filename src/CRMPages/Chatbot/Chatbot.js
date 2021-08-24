@@ -32,9 +32,9 @@ const ChatApp = ({ match }) => {
     // sockets
     socket ? socket.onmessage = (data) => {
       let message = JSON.parse(data.data)
-      console.log('123', message.data)
+      // console.log('123', message.data)
       if (message.reason === 'chatbotReply') {
-        console.log('1111',Array.isArray(message.data))
+        // console.log('1111',Array.isArray(message.data))
         if(message.data.length > 0){
           Array.isArray(message.data) ? 
           addResponseMessage(message.data[0].orderStatus)

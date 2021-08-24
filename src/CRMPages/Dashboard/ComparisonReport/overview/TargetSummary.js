@@ -28,7 +28,7 @@ const TargetSummary = (props) => {
         let dataSourceTemp = dataSource
 
         // dispatch(chartTargetSummaryData({"orderdatefrom":"5/24/2021","orderdateto":"5/25/2021"})).then(data => {
-            console.log(data)
+            // console.log(data)
 
             for (let i = 0; i <  data.length; i++) {
                 Type.push(

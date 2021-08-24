@@ -51,7 +51,7 @@ const OrderReportsView = (props) => {
     });
     const {isLoader}= state
     const onChange = (value, key) => {
-        // console.log('aaa', date, dateString)
+        // // console.log('aaa', date, dateString)
         setstate({ ...state, [key]: value });
 
     };
@@ -61,7 +61,7 @@ const OrderReportsView = (props) => {
         setstate({ ...state, isLoader: true })
         dispatch(getBackOrderItems({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), vendor: state.VendorName })).then(data => {
             setstate({ ...state, isLoader: false })
-            // console.log('My Data: ', data)
+            // // console.log('My Data: ', data)
             // DownlaodWithReact(data);
             downloadFile(data);
             notification.success({

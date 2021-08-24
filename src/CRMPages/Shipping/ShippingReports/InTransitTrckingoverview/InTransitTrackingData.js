@@ -57,7 +57,7 @@ const InTransitTrackingData = (props) => {
 
     };
     const onChangeTextArea = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         setState({ ...state, states: event.target.value });
 
     };
@@ -87,10 +87,10 @@ const InTransitTrackingData = (props) => {
     };
     let username = [];
     const onListCheckChange = (val, i, isChecked) => {
-        // console.log(isChecked)
+        // // console.log(isChecked)
 
         if (isChecked) {
-            console.log('if', val)
+            // console.log('if', val)
             sellerList.push(
                 val
 
@@ -107,15 +107,15 @@ const InTransitTrackingData = (props) => {
 
     }
     const onChangeStartDate = (value) => {
-        console.log(value.format('MM/DD/YYYY'))
+        // console.log(value.format('MM/DD/YYYY'))
         setState({ ...state, startDate: value });
     }
     const onChangeEndDate = (value) => {
-        console.log(value.format('MM/DD/YYYY'))
+        // console.log(value.format('MM/DD/YYYY'))
         setState({ ...state, endDate: value.format('MM/DD/YYYY') });
     }
     const insertTransitsData = () => {
-        console.log('seller',sellerList)
+        // console.log('seller',sellerList)
 
         if (sellerList.length > 0) {
             dispatch(inTransitsTrackingData({ state: states, orderdatefrom: startDate, orderdateto: endDate, marketplace: marketplace })).then(data => {

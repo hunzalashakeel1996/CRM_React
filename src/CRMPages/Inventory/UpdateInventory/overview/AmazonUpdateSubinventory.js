@@ -32,7 +32,7 @@ const AmazonUpdatesubinventory = () => {
 
     const { merchantskus, merchantskusResult, loaderState, dataSource } = statelive
     const onChange = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         setstatelive({ ...statelive, merchantskus: event.target.value });
 
     };
@@ -42,7 +42,7 @@ const AmazonUpdatesubinventory = () => {
 
         dispatch(getFetchUpdateSubinventoryapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
-            console.log(data)
+            // console.log(data)
             //  merchantskustable(data)
         })
 
@@ -53,7 +53,7 @@ const AmazonUpdatesubinventory = () => {
 
         dispatch(getUpdateSubinventoryDownloadapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, loaderState: false });
-            console.log(data)
+            // console.log(data)
             downloadFile(data)
         })
 
@@ -102,7 +102,7 @@ const AmazonUpdatesubinventory = () => {
                 toggleEdit();
                 handleSave({ ...record, ...values });
             } catch (errInfo) {
-                console.log('Save failed:', errInfo);
+                // console.log('Save failed:', errInfo);
             }
         };
 
@@ -268,17 +268,17 @@ const AmazonUpdatesubinventory = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
         const newData = [...statelive.dataSource];
-        console.log('handleupdate', newData)
+        // console.log('handleupdate', newData)
 
         dispatch(getUpdateSubinventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
-            console.log(data)
+            // console.log(data)
             setVisible(false)
         })
     };
 
     const handleSave = (row) => {
-        console.log(row)
+        // console.log(row)
 
         const newData = [...statelive.dataSource];
 
@@ -287,7 +287,7 @@ const AmazonUpdatesubinventory = () => {
         const item = newData[index];
 
         newData.splice(index, 1, { ...item, ...row });
-        console.log('handleSave', newData)
+        // console.log('handleSave', newData)
         setstatelive({ ...statelive, dataSource: newData });
 
 

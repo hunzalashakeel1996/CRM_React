@@ -68,7 +68,7 @@ const EndiciaShipmentView = (props) => {
 
 
         dispatch(checkEndiciaRefundLabel({ ms: trackingNoRefund })).then(data => {
-                console.log(data)
+                // console.log(data)
                 let datasources = []
 
                 if (data.length)
@@ -90,12 +90,12 @@ const EndiciaShipmentView = (props) => {
         })
     }
     const onChange = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         setState({ ...state, trackingNo: event.target.value });
 
     };
     const onChangeRefund = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         setState({ ...state, trackingNoRefund: event.target.value });
 
     };

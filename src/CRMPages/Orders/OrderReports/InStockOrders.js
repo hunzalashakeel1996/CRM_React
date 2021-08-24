@@ -47,7 +47,7 @@ const OrderReportsView = (props) => {
     });
     const {isLoader}=state
     const onChange = (value, key) => {
-        // console.log('aaa', date, dateString)
+        // // console.log('aaa', date, dateString)
         setstate({ ...state, [key]: value });
 
     };
@@ -57,7 +57,7 @@ const OrderReportsView = (props) => {
         setstate({ ...state, isLoader: true })
         dispatch(getInstockReport({ datefrom: state.startDate.format('MM/DD/YYYY'), dateto: state.endDate.format('MM/DD/YYYY'), flag: state.POType })).then(data => {
             setstate({ ...state, isLoader: false })
-            console.log('My Data: ', data)
+            // console.log('My Data: ', data)
             downloadFile(data);
             notification.success({
                 message: 'Successfull Dowload',
@@ -72,7 +72,7 @@ const OrderReportsView = (props) => {
     //     setstate({ ...state, isLoader: true })
     //     dispatch(getInstockSoldReport({ orderdate: state.orderdate.format('MM/DD/YYYY') })).then(data => {
     //         // setstate({ ...state, isLoader: false })
-    //         console.log('My Data: ', data)
+    //         // console.log('My Data: ', data)
     //         //downloadFile(data);
     //         notification.success({
     //             message: 'Successfull Rendered',

@@ -56,13 +56,13 @@ const TeamReport = () => {
   });
   const { dataReport, sortedInfo, filteredInfo } = state;
   const onChange = (value, key) => {
-    // console.log('aaa', date, dateString)
+    // // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
   //New Sort Start
   const handleChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setstate({
       ...state,
       filteredInfo: filters,
@@ -77,12 +77,12 @@ const TeamReport = () => {
 
   //New Sort End
   const getTeamReporing = () => {
-    console.log('aaaaa')
+    // console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
     dispatch(chartTeamData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       //downloadFile(data);
 
       let tempDataSource = [];
@@ -113,7 +113,7 @@ const TeamReport = () => {
             QTY: QTY,
           });
         }
-      //  console.log(tempDataSourceTR)
+      //  // console.log(tempDataSourceTR)
 
         // setstate({ ...state,  isLoader: false });
       });
@@ -150,11 +150,11 @@ const TeamReport = () => {
   ];
 
   const onFinish = (values) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    // console.log('Failed:', errorInfo);
   };
 
   return (

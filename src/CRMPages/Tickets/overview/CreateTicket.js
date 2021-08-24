@@ -138,7 +138,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   //   //   }).then(res => {
   //   //     return res
   //   //   }).catch((err) => {
-  //   //     console.log(err)
+  //   //     // console.log(err)
   //   //   })
   //   // }
   // }

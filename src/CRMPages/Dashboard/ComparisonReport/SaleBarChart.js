@@ -14,7 +14,7 @@ const labels = {
 }
 
 const SaleBarChart = ({ isTimelineChange, dataset, title, orderType, categories }) => {
-  //  console.log(categories)
+  //  // console.log(categories)
     const [state, setState] = useState({
         selectedTimeline: categories[0],
         isLoading: false,
@@ -35,8 +35,8 @@ const SaleBarChart = ({ isTimelineChange, dataset, title, orderType, categories 
         // }
     });
     const { selectedTimeline, isLoading } = state;
-    // console.log('typeofNumber',[dataset[1]])
-    // console.log('aaaa', typeof(dataset[0])==='number')
+    // // console.log('typeofNumber',[dataset[1]])
+    // // console.log('aaaa', typeof(dataset[0])==='number')
     const chartOptions = {
         datasets: [
             {

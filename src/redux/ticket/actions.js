@@ -4,7 +4,7 @@ const actions = {
   ADD_ALL_TICKETS: 'ADD_ALL_TICKETS',
 
   addTicketAction: data => {
-    console.log('1 action', data)
+    // console.log('1 action', data)
     return {
       type: actions.ADD_TICKET,
       data,

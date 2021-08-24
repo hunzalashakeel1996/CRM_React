@@ -52,7 +52,7 @@ const UsersView = (props) => {
       status: values['status']
     }
 
-    console.log(obj)
+    // console.log(obj)
 
     dispatch(addNewUser({
       firstName: values['firstName'],
@@ -75,7 +75,7 @@ const UsersView = (props) => {
   const onInsertUserFailed = (error) => {
 
 
-    console.log('obj', error)
+    // console.log('obj', error)
   };
 
   return (

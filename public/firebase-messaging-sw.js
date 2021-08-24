@@ -30,7 +30,7 @@
 //      return promiseChain;
 // });
 // self.addEventListener("notificationclick", function(event) {
-//      console.log(event);
+//      // console.log(event);
 // });
 
 
@@ -40,9 +40,9 @@ importScripts('https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js');
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('../firebase-messaging-sw.js')
     .then(function (registration) {
-      console.log('Registration successful, scope is:', registration.scope);
+      // console.log('Registration successful, scope is:', registration.scope);
     }).catch(function (err) {
-      console.log('Service worker registration failed, error:', err);
+      // console.log('Service worker registration failed, error:', err);
     });
 }
 
@@ -60,7 +60,7 @@ firebase.initializeApp({
 this.addEventListener('notificationclick', function(event) {
   let data = event.notification.data.FCM_MSG.data
   let url = data.ReminderID ? `${data.url}/${data.ReminderID}` : data.url;
-  console.log(url)
+  // console.log(url)
   event.notification.close(); // Android needs explicit close.
   event.waitUntil(
       clients.matchAll({type: 'window'}).then( windowClients => {

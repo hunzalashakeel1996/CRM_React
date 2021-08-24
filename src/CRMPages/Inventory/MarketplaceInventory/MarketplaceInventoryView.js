@@ -76,7 +76,7 @@ const MarketplaceInventoryView = (props) => {
 
 
         Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => { 
-             //   console.log('promise All',data)
+             //   // console.log('promise All',data)
             setState({...state, brandnameState: data[0][0].brandname.split(","),
                 collectionState: data[1][0].collectionname.split(","), categorynameState: data[2][0].categoryname.split(","), puStatusState: data[3][0].pustatus.split(","), loaderState: false
             })
@@ -93,7 +93,7 @@ const MarketplaceInventoryView = (props) => {
 
 
     const genrateFeed = (query, column, isSeller, val) => {
-        console.log(column)
+        // console.log(column)
         setState({ ...state, loaderState: true })
 
         //vendorFilter Array to string
@@ -115,16 +115,16 @@ const MarketplaceInventoryView = (props) => {
         //   requestObjInventroy.column = column
         requestObjInventroy.dataFrom = query
         requestObjInventroy.isAmazonProcedure = isSeller
-        console.log('requestObjInventroy', requestObjInventroy)
+        // console.log('requestObjInventroy', requestObjInventroy)
 
         if (isSeller == "Amazon") {
             dispatch(getInventoryapi(requestObjInventroy)).then(data => {
 
 
-                // console.log(data[0][0])
+                // // console.log(data[0][0])
 
                 setState({ ...state, summaryDataState: data[0], downloadDataState: data[1], loaderState: false })
-              //  console.log(data)
+              //  // console.log(data)
 
                 if (data[3] === 'Amazon') {
 
@@ -162,11 +162,11 @@ const MarketplaceInventoryView = (props) => {
 
                 dispatch(requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY' ? getInventoryWalmartapi(requestObjInventroy) :  requestObjInventroy.addOrOtherinventory == 'Walmart PRICE TEMPLATE' ? getPriceWalmartapi(requestObjInventroy) :getInventoryWalmart_all_otherapi(requestObjInventroy)).then(data => {
                     setState({ ...state, loaderState: false })
-                     console.log(data)
+                     // console.log(data)
                     var link = data
 
                     var datalink = link;
-                    console.log(datalink.length);
+                    // console.log(datalink.length);
                     for (var z = 0; z < datalink.length;) {
                         downloadFile(datalink[z])
                         z++
@@ -187,13 +187,13 @@ const MarketplaceInventoryView = (props) => {
 
 
                     setState({ ...state, loaderState: false })
-                    //    console.log(data[0])
+                    //    // console.log(data[0])
 
 
                     var link = data
 
                     var datalink = link;
-                    console.log(datalink.length);
+                    // console.log(datalink.length);
                     for (var z = 0; z < datalink.length;) {
                         downloadFile(datalink[z])
 
@@ -209,7 +209,7 @@ const MarketplaceInventoryView = (props) => {
 
 
                     setState({ ...state, loaderState: false })
-                    console.log(data)
+                    // console.log(data)
                     downloadFile(data)
                 })
 
@@ -222,7 +222,7 @@ const MarketplaceInventoryView = (props) => {
 
 
                 setState({ ...state, loaderState: false })
-                console.log(data)
+                // console.log(data)
                 downloadFile(data[1])
 
             })
@@ -236,7 +236,7 @@ const MarketplaceInventoryView = (props) => {
 
 
                 setState({ ...state, loaderState: false })
-                console.log(data)
+                // console.log(data)
                 downloadFile(data)
 
             })

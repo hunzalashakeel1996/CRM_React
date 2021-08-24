@@ -39,7 +39,7 @@ const TeamReport = (props) => {
         let QTYOP = { ...qTYOrderProcess }
 
         // dispatch(chartTeamData({ "FROMDATE": "5/1/2021", "TODATE": "5/25/2021" })).then(data => {
-         //   console.log('Team', data)
+         //   // console.log('Team', data)
 
             for (let i = 0; i < data.length; i++) {
 
@@ -53,7 +53,7 @@ const TeamReport = (props) => {
                     QTYTR.Data.push(data[i].QTY)
                 }
                 if (data[i].Type == 'Order Process') {
-                    console.log( data[i].QTY)
+                    // console.log( data[i].QTY)
                     UserOP.push(
 
                         data[i].USERNAME

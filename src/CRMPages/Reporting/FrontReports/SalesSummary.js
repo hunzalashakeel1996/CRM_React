@@ -43,18 +43,18 @@ const SalesSummary = () => {
   });
   const {downloadLink,dataReport}=state
   const onChange = (value, key) => {
-    // console.log('aaa', date, dateString)
+    // // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
 
   const getSalesSummaryReporting = () => {
-    console.log('aaaaa')
+    // console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
     dispatch(chartSaleSummaryData({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       //downloadFile(data);
       notification.success({
         message: 'Successfull Rendered',
@@ -62,13 +62,13 @@ const SalesSummary = () => {
         onClose: close,
       });
       let tempDataSource = [];
-      console.log(data[0] );
+      // console.log(data[0] );
       setstate({ ...state,downloadLink:data[0] });
       data[1].map(value => {
-        // console.log(value)
+        // // console.log(value)
         const { Revenue_Sources, Total_Orders,Profit_Orders,Profit_Amouont,Loss_Orders,Loss_Amount } = value;
         // const total = (value.POCOMINGTOMORROW + value.PO_COMING_TODAY_NON_SHIPPING + value.PO_DELIVERED_NON_SHIPPED);
-        //console.log(total);
+        //// console.log(total);
         const PA = '$ '+Profit_Amouont.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         const lA = '$ '+Loss_Amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         return tempDataSource.push({
@@ -97,7 +97,7 @@ const SalesSummary = () => {
 
     dispatch(chartSaleSummaryData({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       downloadFile(data[0]);
       notification.success({
         message: 'Successfull Download',
@@ -105,9 +105,9 @@ const SalesSummary = () => {
         onClose: close,
       });
       let tempDataSource = [];
-      console.log(data[0]);
+      // console.log(data[0]);
       data[1].map(value => {
-         console.log(value)
+         // console.log(value)
         const { Revenue_Sources, Total_Orders,Profit_Orders,Profit_Amouont,Loss_Orders,Loss_Amount } = value;
         
         const PA = '$ '+Profit_Amouont.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
@@ -225,7 +225,6 @@ const SalesSummary = () => {
               </ProjectList>
             </Cards>
           </Col>
-          {console.log('dataReport',dataReport)}
           {dataReport.length>0&&
          <Col lg={24} s={24}>
           

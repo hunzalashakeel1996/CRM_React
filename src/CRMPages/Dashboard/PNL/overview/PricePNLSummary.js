@@ -32,7 +32,7 @@ const validateMessages = {
 const PricePNLSummary = (props) => {
 
     const {dataSourcePrice}= props
-    // console.log('PricePNL',dataSourcePrice)
+    // // console.log('PricePNL',dataSourcePrice)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -93,7 +93,7 @@ const PricePNLSummary = (props) => {
   ];
 
   const handleChange = (pagination, filters, sorter) =>  {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setstate({...state,
       filteredInfo: filters,
       sortedInfo: sorter,

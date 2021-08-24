@@ -29,7 +29,7 @@ const SaleSummary = (props) => {
         let dataSourceTemp = dataSource
 
         // dispatch(chartSaleSummaryData({"orderdatefrom":"5/24/2021","orderdateto":"5/25/2021"})).then(data => {
-            console.log(data)
+            // console.log(data)
 
             for (let i = 0; i < data.length; i++) {
                 Type.push(
@@ -49,7 +49,7 @@ const SaleSummary = (props) => {
     }, [])
 
     const isTimelineChange = (index) => {
-        console.log(dataSource)
+        // console.log(dataSource)
         setState({...state, selectedDatasetIndex: index})
     }
     return (

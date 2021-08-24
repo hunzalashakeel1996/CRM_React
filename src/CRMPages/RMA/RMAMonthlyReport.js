@@ -33,8 +33,8 @@ const RMAView = (props) => {
   });
   const onChange = (date, dateString) => {
     setstate({ ...state, date, dateString });
-    console.log(date);
-    console.log(dateString);
+    // console.log(date);
+    // console.log(dateString);
   };
 
 
@@ -43,7 +43,7 @@ const RMAView = (props) => {
     setstate({ ...state, isLoader: true })
      dispatch(getRMAMonthlyreporting({ orderdatefrom:state.dateString[0],orderdateto:state.dateString[1],})).then(data => {
       setstate({ ...state, isLoader: false })
-     console.log('My Data: ', data)
+     // console.log('My Data: ', data)
       downloadFile(data);
       notification.success({
         message: 'Successfull Dowload',

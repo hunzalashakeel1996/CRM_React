@@ -14,7 +14,6 @@ const ProjectRoutes = () => {
   const { path } = useRouteMatch();
   return (
     <Switch>
-      {/* {console.log('vvd', JSON.parse(localStorage.getItem('userRole'))[0])} */}
 
       {/* <Route exact path={`${path}`} component={ JSON.parse(JSON.parse(localStorage.getItem('userRole'))[0].top_navigation).Dashboard.includes('Comparison Report') ? ComparisonReportView : WelcomePage} /> */}
       <Route exact path={`${path}`} component={WelcomePage} />

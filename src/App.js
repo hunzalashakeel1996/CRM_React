@@ -52,7 +52,7 @@ const ProviderConfig = () => {
       if (Notification.permission == 'granted') {
         navigator.serviceWorker.getRegistration().then(async (reg) => {
           // let a = await messaging.getToken({vapidKey: "BJ6G0B9lW13RHZhpALupcHOBMybQTKiflLxRAle4bxQNUYrP8mQfY5poWNBfP7mrMMxkzU5stnUizBp9LkC-CjY"})
-          // console.log('aaadsfd', a)
+          // // console.log('aaadsfd', a)
           let title = 'Reminder from CRM';
           let body = 'Provide details to Paul on skype';
           if (reg)
@@ -60,7 +60,7 @@ const ProviderConfig = () => {
             // const msg = firebase.messaging();
             firebase.messaging().getToken()
             .then(token => {
-              console.log('token', token)
+              // console.log('token', token)
             })
         });
       }
@@ -72,10 +72,10 @@ const ProviderConfig = () => {
     }, 4000);
 
     Promise.all([dispatch(getDepartsAPI()), getPolyBags(""),localStorage.getItem('user')&&dispatch(getVendorName({}))]).then(data=>{
-      console.log('cehjcig', data)
+      // console.log('cehjcig', data)
       dispatch(addDepart(data[0]) )
       data[2] && dispatch(addVendorName(data[2][0]))
-      console.log('asdasdsa0', data)
+      // console.log('asdasdsa0', data)
     })
 
     // dispatch(getDepartsAPI({})).then(departs => {
@@ -83,7 +83,7 @@ const ProviderConfig = () => {
     //   // setState({ ...state, departs, loader: false  });
     // })
     // dispatch(getVendorName({})).then(departs => {
-    //   console.log('aaaa', departs)
+    //   // console.log('aaaa', departs)
     //   dispatch(addVendorName(departs[0]))
     //   // setState({ ...state, departs, loader: false  });
     // })

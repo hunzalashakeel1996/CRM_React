@@ -27,7 +27,7 @@ const Tag = props => {
   const handleChangeHot = (tag, checke) => {
     const { selectedTags } = state;
     const nextSelectedTags = checke ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
-    // console.log('You are interested in: ', nextSelectedTags);
+    // // console.log('You are interested in: ', nextSelectedTags);
     setState({
       ...state,
       selectedTags: nextSelectedTags,
@@ -79,7 +79,7 @@ const AnimatedTags = props => {
 
   const handleClose = removedTag => {
     const tags = state.tags.filter(tag => tag !== removedTag);
-    // console.log(tags);
+    // // console.log(tags);
     setState({ tags });
     if (onChange) onChange(tags);
   };

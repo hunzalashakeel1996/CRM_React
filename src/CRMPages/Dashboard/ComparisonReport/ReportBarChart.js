@@ -14,15 +14,15 @@ const labels = {
 }
 
 const ReportBarChart = ({ isTimelineChange, dataset, title,orderType }) => {
- //console.log(orderType)
+ //// console.log(orderType)
   
     const [state, setState] = useState({
         selectedTimeline: 'Data',
         isLoading: false,
     });
     const { selectedTimeline, isLoading } = state;
-    // console.log('typeofNumber',[dataset[1]])
-    // console.log('aaaa', typeof(dataset[0])==='number')
+    // // console.log('typeofNumber',[dataset[1]])
+    // // console.log('aaaa', typeof(dataset[0])==='number')
     const chartOptions = {
         datasets: [
             {

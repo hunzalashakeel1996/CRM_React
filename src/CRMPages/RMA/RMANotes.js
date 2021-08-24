@@ -19,7 +19,7 @@ const RMAView = (props) => {
   const{RMA}=state
 
   const onChange = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setState({ ...state, RMA: event.target.value });
 
 };
@@ -27,7 +27,7 @@ const RMAView = (props) => {
 const RMA_All = () => {
 
   dispatch(getRMA_All({ms:RMA})).then(data => {
-      console.log(data)
+      // console.log(data)
      
       setState({ ...state, dataSource: datasources })
   })
