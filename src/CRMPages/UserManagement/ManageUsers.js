@@ -35,7 +35,7 @@ const UsersView = (props) => {
     let tempDataSource = [];
     // get balance sheet record
     dispatch(getAllUserRecord({})).then(data => {
-      // console.log('12310', data)
+      // // console.log('12310', data)
 
       data.map(value => {
         const { loginid, loginName, firstname, lastname, EmailAddress, Loginstatus } = value;
@@ -58,9 +58,9 @@ const UsersView = (props) => {
   const handleSearch = (searchText, objectName) => {
     setState({ ...state })
 
-    // console.log(state.dataSource);
+    // // console.log(state.dataSource);
     let temp = state.dataSource.filter(item => item[objectName].toUpperCase().includes(searchText.toUpperCase()))
-    // console.log(temp)
+    // // console.log(temp)
 
     setState({ ...state, filterDataSource: temp, });
   };

@@ -54,8 +54,8 @@ const Column = (props) => {
         if (value == "ALL") {
             selectedcol = [...Column];
           //  selectedcol += [...props.additionalColumn];
-          console.log([...Column])
-         //  console.log(additionalColumns)
+          // console.log([...Column])
+         //  // console.log(additionalColumns)
          //  selectedcol = additionalColumns;
         }
         else if (value == "ADD AMAZON INVENTORY") {

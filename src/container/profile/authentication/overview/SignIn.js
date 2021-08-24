@@ -32,7 +32,7 @@ const SignIn = () => {
               loginUser({ ...value, Token: token })
             })
             .catch(e => {
-              console.log('check error')
+              // console.log('check error')
             })
         });
       }
@@ -46,7 +46,7 @@ const SignIn = () => {
   const loginUser = (value) => {
     dispatch(loginAPI({ username: value.username, password: value.password, Token: value.Token }))
       .then(data => {
-        console.log('cehck23343', data)
+        // console.log('cehck23343', data)
         if (data[0].err) {
           setState({ ...state, loader: false })
           alert(data[0].err)
@@ -59,14 +59,14 @@ const SignIn = () => {
             dispatch(login(data));
             setHeaderWithWebToken()
             dispatch(getVendorName({})).then(data => {
-            console.log('inside123',data)
+            // console.log('inside123',data)
 
               setState({ ...state, loader: false })
               dispatch(addVendorName(data[0]))
               history.push('/admin');
               // setState({ ...state, departs, loader: false  });
             })
-            // console.log('aaaa', dataOne)
+            // // console.log('aaaa', dataOne)
           })
         }
       })

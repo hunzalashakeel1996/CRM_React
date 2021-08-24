@@ -54,18 +54,18 @@ const UnShippedOrders = (props) => {
     isLoader: false,
   });
   const onChange = (value, key) => {
-    // console.log('aaa', date, dateString)
+    // // console.log('aaa', date, dateString)
     setstate({ ...state, [key]: value });
 
   };
 
   const getUnshippedOrder = () => {
-    console.log('aaaaa')
+    // console.log('aaaaa')
     setstate({ ...state, isLoader: true })
 
     dispatch(getUnshippedOrders({ FROMDATE: state.startDate.format('MM/DD/YYYY'), addday: state.AddDays})).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       //downloadFile(data);
       notification.success({
         message: 'Successfull Rendered',
@@ -73,12 +73,12 @@ const UnShippedOrders = (props) => {
         onClose: close,
       });
       let tempDataSource = [];
-      console.log(data);
+      // console.log(data);
       data.map(value => {
-        // console.log(value)
+        // // console.log(value)
         const { POCOMINGTOMORROW, PO_COMING_TODAY_NON_SHIPPING,PO_DELIVERED_NON_SHIPPED } = value;
         const total = (value.POCOMINGTOMORROW + value.PO_COMING_TODAY_NON_SHIPPING + value.PO_DELIVERED_NON_SHIPPED);
-        console.log(total);
+        // console.log(total);
         return tempDataSource.push({
           POCOMINGTOMORROW: POCOMINGTOMORROW,
           PO_COMING_TODAY_NON_SHIPPING: PO_COMING_TODAY_NON_SHIPPING,

@@ -16,7 +16,7 @@ const OrderReportsView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Order Reports'];
 
-    console.log(tabChildBar);
+    // console.log(tabChildBar);
   
 
     const topManu = [

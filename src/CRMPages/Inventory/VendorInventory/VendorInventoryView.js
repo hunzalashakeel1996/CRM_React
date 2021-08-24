@@ -40,12 +40,12 @@ const VendorInventoryView = (props) => {
             setstate({ ...state, Regularvendorstate: data[0], webVendorstate: data[1], isLoader: false })
         })
         // dispatch(getvendor()).then(data => {
-        //     console.log('Regular', data)
+        //     // console.log('Regular', data)
         //     setstate({ ...state, Regularvendorstate: data, isLoader: false })
         // })
 
         // dispatch(getWebvendor()).then(data => {
-        //     console.log('web', data)
+        //     // console.log('web', data)
         //     setstate({ ...state, webVendorstate: data, isLoader: false })
         // })
 
@@ -55,14 +55,14 @@ const VendorInventoryView = (props) => {
     let counter = 0;
 
     const updateWebVendor = (updateVendorList) => {
-        console.log('abc', updateVendorList)
+        // console.log('abc', updateVendorList)
         setstate({ ...state, isLoader: true })
 
         /// Web Update inventory
 
         dispatch(getUpdateWebVendorInventoryapi(updateVendorList)).then(data => {
             setstate({ ...state, isLoader: false, updateData: data, VerificationData: [...updateVendorList] })
-            console.log('12310', data)
+            // console.log('12310', data)
             let checkVerificationResult = []
 
             data.map((value, i) => {
@@ -77,7 +77,7 @@ const VendorInventoryView = (props) => {
                 });
 
             });
-            // console.log(data[0].includes=="Scrub")
+            // // console.log(data[0].includes=="Scrub")
             // data[0].includes("Scrub ")
             if (data[0].Confirm == "Confirm") {
                 setVisible(true)
@@ -92,18 +92,18 @@ const VendorInventoryView = (props) => {
                 });
                 //  window.location.reload(false)
             }
-            console.log('dataSource', dataSource)
+            // console.log('dataSource', dataSource)
 
         })
 
     }
     const updateVendor = (updateVendorList) => {
-        console.log('abc', updateVendorList)
+        // console.log('abc', updateVendorList)
         setstate({ ...state, isLoader: true })
 
         dispatch(getUpdateVendorInventoryapi(updateVendorList)).then(data => {
             setstate({ ...state, isLoader: false, updateData: data, VerificationData: [...updateVendorList] })
-            console.log('12310', data)
+            // console.log('12310', data)
             let checkVerificationResult = []
 
             data.map((value, i) => {
@@ -118,7 +118,7 @@ const VendorInventoryView = (props) => {
                 });
 
             });
-            // console.log(data[0].includes=="Scrub")
+            // // console.log(data[0].includes=="Scrub")
             // data[0].includes("Scrub ")
             if (data[0].Confirm == "Confirm") {
                 setVisible(true)
@@ -133,7 +133,7 @@ const VendorInventoryView = (props) => {
                 });
                 //  window.location.reload(false)
             }
-            console.log('dataSource', dataSource)
+            // console.log('dataSource', dataSource)
 
         })
 
@@ -162,7 +162,7 @@ const VendorInventoryView = (props) => {
         temp.map(value => {
             value.vendorconfirm = "confirm"
         })
-        console.log(temp)
+        // console.log(temp)
 
         setstate({ ...state, VerificationData: temp })
 

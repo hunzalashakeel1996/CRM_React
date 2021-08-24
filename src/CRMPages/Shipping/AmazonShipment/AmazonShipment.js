@@ -34,7 +34,7 @@ const EndiciaShipmentView = (props) => {
     const {dataTo,file,dataSource,asinSheet,createLabels,feed,ordersSheet}=state
     useEffect(()=>{
         dispatch(amazonStepStatus()).then(data => {
-                console.log(data)
+                // console.log(data)
                 setState({...state,asinSheet:data[0].asin_sheet,createLabels:data[0].create_labels,feed:data[0].feed,ordersSheet:data[0].orders_sheet})
            })
     },[])
@@ -156,7 +156,7 @@ const insertAmazonShipingSheet =()=>{
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
     
-            console.log('username',username.LoginName)
+            // console.log('username',username.LoginName)
         dispatch(amazonCreateShiping({user:username.LoginName})).then(data => {
     
       

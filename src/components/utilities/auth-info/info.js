@@ -46,7 +46,7 @@ const AuthInfo = ({ rtl }) => {
 
   const logoutUser = (data) => {
     dispatch(logoutAPI(data)).then(res => {
-      console.log('logout',res);
+      // console.log('logout',res);
       localStorage.removeItem('user')
       localStorage.removeItem('userRole')
       window.location.reload(); 

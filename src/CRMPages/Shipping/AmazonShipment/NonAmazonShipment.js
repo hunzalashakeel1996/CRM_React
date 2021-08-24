@@ -72,7 +72,7 @@ const insertNonAmazonSheet =()=>{
 
         dispatch(nonAmazonShipingValidation()).then(data => {
             let datasources =[]
-            console.log(data)
+            // console.log(data)
          //   message.success(`file uploaded Update ${data}`);
             // notification.success({
             //     message: `Successfull  ${data}`,
@@ -113,7 +113,7 @@ const insertNonAmazonSheet =()=>{
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
     
-            console.log('username',username.LoginName)
+            // console.log('username',username.LoginName)
         dispatch(nonAmazonCreateShiping({user:username.LoginName})).then(data => {
     
          //   message.success(`file uploaded Update ${data}`);

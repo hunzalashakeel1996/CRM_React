@@ -64,14 +64,14 @@ const DownlaodWithReact = (objArray) => {
 
 //Get Total
 const getTotals = (data, key) => {
-  // console.log('data' , data)
+  // // console.log('data' , data)
 let total = 0;
 data.forEach(item => {
 total += parseInt(item[key]);
-//   console.log('item key' ,  parseInt(item[key]))
-//   console.log('loop' , total)
+//   // console.log('item key' ,  parseInt(item[key]))
+//   // console.log('loop' , total)
 });
-console.log('final' , total) 
+// console.log('final' , total) 
 return total;
 };
 

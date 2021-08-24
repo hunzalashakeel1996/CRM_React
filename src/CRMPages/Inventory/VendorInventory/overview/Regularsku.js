@@ -43,7 +43,7 @@ const{Regularvendor,loader,updateVendor}=props
   const [isVendorCheckedList, setIsVendorCheckedList] = React.useState([]);
 
   const onChange = list => {
-    console.log('onChange',list)
+    // console.log('onChange',list)
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < Regularvendor.length);
     setCheckAll(list.length === Regularvendor.length);

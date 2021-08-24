@@ -100,7 +100,7 @@ const SingleGroupChat = ({ match }) => {
     listType: 'picture-card',
     onChange(info) {
       if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
+        // console.log(info.file, info.fileList);
         setState({
           ...state,
           fileList: info.fileList,
@@ -122,7 +122,7 @@ const SingleGroupChat = ({ match }) => {
     },
     onChange(info) {
       if (info.file.status !== 'uploading') {
-        // console.log(info.file, info.fileList);
+        // // console.log(info.file, info.fileList);
         setState({
           ...state,
           fileList2: info.fileList,

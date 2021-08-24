@@ -57,7 +57,7 @@ const InTransittrackingInsert = (props) => {
 
     };
     const onChangeTextArea = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         setState({ ...state, states: event.target.value });
 
     };
@@ -87,10 +87,10 @@ const InTransittrackingInsert = (props) => {
     };
     let username = [];
     const onListCheckChange = (val, i, isChecked) => {
-        // console.log(isChecked)
+        // // console.log(isChecked)
 
         if (isChecked) {
-            console.log('if', val)
+            // console.log('if', val)
             sellerList.push(
                 val
 

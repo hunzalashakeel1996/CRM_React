@@ -47,7 +47,7 @@ const ShippingReportsView = (props) => {
         values: {},
     });
     const onChange = (value, key) => {
-        // console.log('aaa', date, dateString)
+        // // console.log('aaa', date, dateString)
         setstate({ ...state, [key]: value });
 
     };
@@ -56,7 +56,7 @@ const ShippingReportsView = (props) => {
         setstate({ ...state, isLoader: true })
         dispatch(getDeliveyTrackingStatus({ datefrom: state.startDate.format('MM/DD/YYYY'), dateto: state.endDate.format('MM/DD/YYYY') })).then(data => {
             setstate({ ...state, isLoader: false })
-            console.log('My Data: ', data)
+            // console.log('My Data: ', data)
             downloadFile(data);
             notification.success({
                 message: 'Successfull Dowload',

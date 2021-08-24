@@ -77,14 +77,14 @@ const ReportView = (props) => {
 
 
   const onChangeDefault = (e) => {
-    console.log(e);
+    // console.log(e);
     setstate({ ...state, rType: e.target.value })
 
   }
 
 
   const onChange = (e) => {
-    console.log(e);
+    // console.log(e);
     setstate({ ...state, oType: e })
 
   }
@@ -141,9 +141,9 @@ const ReportView = (props) => {
       dispatch(chartSaleData({ FROMDATE: '', TODATE: '', oType: state.oType, rType: state.rType })).then(data => {
 
         let tempDataSource = [];
-        // console.log(data);
+        // // console.log(data);
         data[0].map(value => {
-          // console.log(value)
+          // // console.log(value)
           const { TYPE, TOTALORDER,  ITEMCOUNT, TOTALAMOUNT} = value;
 
           totalOrder =totalOrder+TOTALORDER
@@ -183,11 +183,11 @@ const ReportView = (props) => {
 
 
   const onFinish = (values) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    // console.log('Failed:', errorInfo);
   };
   return (
 

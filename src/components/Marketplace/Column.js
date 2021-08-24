@@ -49,13 +49,13 @@ const Column = (props) => {
     const style = { background: '#fff', padding: 10, marginLeft: 10, marginTop: 10 };
     const stylecheckbosrow = { padding: 10, paddingLeft: 30, paddingRight: 10 };
     const handleChange = (value, i, isChecked) => {
-         console.log('handleChange',value)
+         // console.log('handleChange',value)
 
         if (value == "ALL") {
             selectedcol = [...plainOptions];
             selectedcol += [...additionalColumns];
-          console.log([...plainOptions])
-         //  console.log(additionalColumns)
+          // console.log([...plainOptions])
+         //  // console.log(additionalColumns)
          //  selectedcol = additionalColumns;
         }
         else if (value == "ADD AMAZON INVENTORY") {

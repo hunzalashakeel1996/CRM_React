@@ -67,7 +67,7 @@ const ReportView = (props) => {
 
 
     let vendorNames = useSelector(state => state.tickets.vendornames);
-    // console.log(vendorNames)
+    // // console.log(vendorNames)
 
     const [state, setState] = useState({
         controls: { ...formInit },
@@ -92,11 +92,11 @@ const ReportView = (props) => {
         let tempDataSource = [];
         // get balance sheet record
         dispatch(getBalanceSheetRecord()).then(data => {
-            // console.log('12310', data[1])
+            // // console.log('12310', data[1])
             
                 
             let tempLinkDownload = data[0];
-            // console.log(tempLinkDownload);
+            // // console.log(tempLinkDownload);
             data[1].map(value => {
                 const { vendorname, past_due, date} = value;
                 return tempDataSource.push({
@@ -123,7 +123,7 @@ const ReportView = (props) => {
 
         // get balance sheet record
         dispatch(getBalanceSheetRecordOnClick({ user : JSON.parse(localStorage.getItem('user')).LoginName, vendor: controls.VendorName, date: values['startDate'].format('YYYY-MM-DD'), payamount : values['payCount']})).then(data => {
-            console.log('buttonResult', data)
+            // console.log('buttonResult', data)
             
             let tempDataSource = []
             data.map(value => {
@@ -139,27 +139,27 @@ const ReportView = (props) => {
             setState({ ...state, dataSource: [...tempDataSource],  loader: false });
 
         })
-        // console.log(objValues)
+        // // console.log(objValues)
 
     };
 
     
     const downloadF = () => {
         setState({ ...state })
-        // console.log("Button 2 clicked!");
-        console.log(state.downLoadLink);
+        // // console.log("Button 2 clicked!");
+        // console.log(state.downLoadLink);
         downloadFile(state.downLoadLink)
       }
 
     const onSubmitFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
 
     const onValueChange = (name, value) => {
         let temp = { ...controls }
         temp[name] = value
-        console.log(temp[name])
+        // console.log(temp[name])
         setState({ ...state, controls: temp })
     }
 

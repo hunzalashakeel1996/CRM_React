@@ -38,7 +38,7 @@ const ComparisonReport = (props) =>{
             marketplace: values['orderType']
         }
 
-        console.log('success:', object);
+        // console.log('success:', object);
 
         setState({ ...state, isLoading: true })
         dispatch(comparisonReport({
@@ -48,10 +48,10 @@ const ComparisonReport = (props) =>{
             marketplace: values['orderType']
         })).then(data => {
 
-            console.log(data[1])
+            // console.log(data[1])
             let tempDataSource = [];
             let tempLinkDownload = data[0];
-            console.log(tempLinkDownload);
+            // console.log(tempLinkDownload);
             data[1].map(value => {
                 const { vendorname, Past_year, current_Year, Amazon, AmazonRizno, Walmart,Ebay,
                      Sears, Newegg, Rakuten, Map, NonMap, Rank_no } = value;
@@ -79,8 +79,8 @@ const ComparisonReport = (props) =>{
 
     const downloadFiles = () => {
         setState({ ...state })
-        // console.log("Button 2 clicked!");
-        // console.log(state.downLoadLink);
+        // // console.log("Button 2 clicked!");
+        // // console.log(state.downLoadLink);
 
         if(downLoadLink == ""){
             notification.error({
@@ -102,7 +102,7 @@ const ComparisonReport = (props) =>{
     }
 
     const onSubmitFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
     const columns = [
@@ -178,7 +178,7 @@ const ComparisonReport = (props) =>{
 
     const changeVendorName = (values) => {
 
-        console.log('selectedVendorName', values);
+        // console.log('selectedVendorName', values);
 
     }
 

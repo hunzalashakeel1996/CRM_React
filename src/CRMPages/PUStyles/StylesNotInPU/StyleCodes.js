@@ -37,27 +37,27 @@ const StylesNotInPUView = (props) => {
   const { vendorname } = state
 
   function onChange(value) {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setstate({ ...state, vendorname: value })
   }
 
   function onBlur() {
-    console.log('blur');
+    // console.log('blur');
   }
 
   function onFocus() {
-    console.log('focus');
+    // console.log('focus');
   }
 
   function onSearch(val) {
-    console.log('search:', val);
+    // console.log('search:', val);
   }
 
   const getStyleCodes = () => {
     setstate({ ...state, isLoader: true })
     dispatch(getStylesNotInPu({ vendorname: vendorname })).then(data => {
       setstate({ ...state, isLoader: false })
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       downloadFile(data);
       notification.success({
         message: 'Successfull Dowload',
@@ -71,7 +71,7 @@ const StylesNotInPUView = (props) => {
     dispatch(getExcludedStylesNotInPu({ vendorname: vendorname })).then(data => {
       setstate({ ...state, isLoader: false })
 
-      console.log('My Data: ', data)
+      // console.log('My Data: ', data)
       downloadFile(data);
       notification.success({
         message: 'Successfull Dowload',

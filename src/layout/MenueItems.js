@@ -252,8 +252,8 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
 
 
   useEffect(() => {
-    // console.log("ew", JSON.parse(userAccess.top_navigation))
-    // console.log("child_bar", JSON.parse(userAccess.child_bar))
+    // // console.log("ew", JSON.parse(userAccess.top_navigation))
+    // // console.log("child_bar", JSON.parse(userAccess.child_bar))
   }, [])
 
   return (

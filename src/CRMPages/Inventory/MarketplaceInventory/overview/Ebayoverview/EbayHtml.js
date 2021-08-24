@@ -191,8 +191,8 @@ const EbayHtml = (props) => {
         //     Feature_4: EbayHtml[1][0].FEATURE_4,
         //     Feature_5: EbayHtml[1][0].FEATURE_5,
         // })
-        // console.log(EbayHtml[0])
-        // console.log(renderTableHeader())
+        // // console.log(EbayHtml[0])
+        // // console.log(renderTableHeader())
 
         let tempdata = []
         if (EbayHtml[0].length)
@@ -214,7 +214,7 @@ const EbayHtml = (props) => {
 
                 });
             });
-        // console.log('tempdata', tempdata)
+        // // console.log('tempdata', tempdata)
         htmlSetState({
             vendorStyleCode: EbayHtml[2][0].VENDORSTYLECODE, styleCode: EbayHtml[2][0].STYLECODE,
             sizeMin: EbayHtml[0][0].SIZE, sizeMax: EbayHtml[0][EbayHtml[0].length - 1].SIZE,
@@ -405,7 +405,7 @@ const EbayHtml = (props) => {
 
 
                                             {
-        console.log('asdas0', sizeDesc[0]),
+        // console.log('asdas0', sizeDesc[0]),
                                                 sizeValue.map(sizeValue => (
 
   sizeValue.SIZETYPE === value && sizeValue.SIZETYPEDESCRIPTION === sizeDesc[0] && <td> {sizeDesc[0]}</td>

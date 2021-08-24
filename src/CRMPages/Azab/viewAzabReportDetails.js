@@ -86,10 +86,10 @@ const viewAzabReportDetails = ({ match, location }) => {
 
     dispatch(getAzabReportDetailapi({ orderno: match.params.id })).then(data => {
 
-    //  console.log(data);
-      //  console.log('tracking state0',data[5][0].TrackingNo);
+    //  // console.log(data);
+      //  // console.log('tracking state0',data[5][0].TrackingNo);
 
-     // console.log('tracking state', data[5][0].TrackingNo);
+     // // console.log('tracking state', data[5][0].TrackingNo);
       dispatch(apiTrackingSummaryFetch({ trackingNO: data[5][0].TrackingNo })).then(response => {
         setstateAzabReportDetails({
           ...azabReportDetailsState,
@@ -101,10 +101,10 @@ const viewAzabReportDetails = ({ match, location }) => {
     })
 
     // dispatch(getvendor()).then(res => {
-    //  console.log('getvendor',res)
+    //  // console.log('getvendor',res)
     // })
     // dispatch(getvendor({})).then(res => {
-    //   console.log('getvendor',res)
+    //   // console.log('getvendor',res)
 
     //  })
     // dispatch(feed_report({
@@ -113,7 +113,7 @@ const viewAzabReportDetails = ({ match, location }) => {
     //                           "orderdateto": "Thu Mar 04 2021"
     //                         }
     // )).then(res => {
-    //   console.log('FeedBack',res)
+    //   // console.log('FeedBack',res)
     //  })
  
 
@@ -127,7 +127,7 @@ const viewAzabReportDetails = ({ match, location }) => {
 
   
 
-  //   console.log(dataSource)
+  //   // console.log(dataSource)
   return (
     <>
 

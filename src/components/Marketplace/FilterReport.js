@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 const filterReport = (props) => {
 
     const { vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState, title } = props
-    // console.log('filterReport',vendornameState)
+    // // console.log('filterReport',vendornameState)
     return (
         <>
 

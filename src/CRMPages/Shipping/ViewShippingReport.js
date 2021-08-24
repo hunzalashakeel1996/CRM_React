@@ -30,11 +30,11 @@ const ViewShippingReport = (props) => {
 
   //     useEffect(() => {
   //     setState({ ...state, loader: true })
-  //     console.log('check')
+  //     // console.log('check')
 
   //     // get report 
   //     dispatch(getAzabAPI({ month: state.monthvalue })).then(data => {
-  //       console.log('12310', data)
+  //       // console.log('12310', data)
 
   //       setState({ ...state, filterAzabReport: data, loader: false });
   //     })
@@ -50,20 +50,20 @@ const ViewShippingReport = (props) => {
     setState({ ...state, value: value, loader: false });
   }
   const getmonth = (value) => {
-    //console.log(`Selected: ${value}`);
+    //// console.log(`Selected: ${value}`);
     //   monthvalue(value)
     setState({ ...state, loader: true })
 
 
     // get report 
     dispatch(getAzabAPI({ month: value })).then(data => {
-      console.log('12310', data)
+      // console.log('12310', data)
 
       setState({ ...state, filterAzabReport: data, loader: false });
     })
     //setState({ ...state, monthvalue: value, loader: false });
 
-    // console.log(state.monthvalue);
+    // // console.log(state.monthvalue);
 
   }
   const month = ['', 'jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -78,7 +78,7 @@ const ViewShippingReport = (props) => {
 
     const handleSizeChange = e => {
       setSize(e.target.value);
-      console.log(e.target.value)
+      // console.log(e.target.value)
     };
 
     return (

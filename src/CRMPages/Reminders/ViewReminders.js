@@ -47,7 +47,7 @@ const ViewReminders = (props) => {
     let message = JSON.parse(data.data)
 
     if (message.reason === 'newReminder' && message.data.Assigned.toLowerCase() === user.LoginName.toLowerCase()) {
-      console.log('socekt', message.data)
+      // console.log('socekt', message.data)
       audioPlay()
       dispatch(addSingleReminder(message.data))
       // let temp = [...reminders]

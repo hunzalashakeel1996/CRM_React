@@ -34,7 +34,7 @@ const ManualShipmentView = (props) => {
 
 
   const onChange = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setState({ ...state, poNumber: event.target.value });
 
 };
