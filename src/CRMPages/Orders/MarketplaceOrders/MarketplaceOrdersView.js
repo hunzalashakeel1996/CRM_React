@@ -41,7 +41,6 @@ const MarketplaceOrdersView = (props) => {
                         <TabPane tab={item.tab} key={item.key}>
                             {item.tabName}
                         </TabPane>)
-
                 ))}
                 {/* <TabPane tab="Walmart Orders" key="Walmart Orders">
                     <WalmartOrders />

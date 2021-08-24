@@ -14,6 +14,7 @@ import { Cards } from '../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../components/utilities/utilities'
 import { apiReportOrderWise,apiReportItemWise,apiSummaryReportOrderWise,apiSummaryReportItemWise,apiSummaryReportPriceWise,apiSummaryReportDetailWise } from '../../../redux/apis/DataAction';
 // import { webURL, audioPlay, uploadUrl, getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi, getSearsPriceapi, getPriceWalmartapi } from '../../../redux/apis/DataAction';
+import './overview/style.css';
 
 
 const { TabPane } = Tabs;
@@ -41,7 +42,7 @@ const ReportPNLView = () => {
 
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL'];
 
-    const [activeTab, setActiveTab] = useState('');
+    const [activeTab, setActiveTab] = useState('OrderPNL');
 
 
     const [state, setstate] = useState({
@@ -117,18 +118,18 @@ const ReportPNLView = () => {
                   FULLNAME:FULLNAME,
                   Zip:Zip,
                   State:State,
-                  po_shipping:po_shipping,
-                  customerPay:customerPay,
-                  ShippingCost:ShippingCost,
-                  cost:cost,
-                  purchaseCost:purchaseCost,
-                  ordertotal:ordertotal,
-                  Moneycollected:Moneycollected,
-                  commission:commission,
-                  profit:profit,
+                  po_shipping:Math.round(po_shipping * 100) / 100  ,
+                  customerPay: Math.round(customerPay * 100) / 100  ,
+                  ShippingCost:Math.round(ShippingCost * 100) / 100 ,
+                  cost: Math.round(cost * 100) / 100 ,
+                  purchaseCost: Math.round(purchaseCost * 100) / 100  ,
+                  ordertotal:Math.round(ordertotal * 100) / 100  ,
+                  Moneycollected:Math.round(Moneycollected * 100) / 100  ,
+                  commission: Math.round(commission * 100) / 100 ,
+                  profit: Math.round(profit * 100) / 100 ,
                   Isdropship:Isdropship,
                   IsReplacement:IsReplacement,
-                  OrderDiscount:OrderDiscount
+                  OrderDiscount: Math.round(OrderDiscount * 100) / 100 
                   
                   
                 });
@@ -185,23 +186,23 @@ ORDERTYPE:ORDERTYPE,
 orderno:orderno,
 purchaseorderno:purchaseorderno,
 itemqty:itemqty,
-cost:cost,
-purchaseCost:purchaseCost,
-commit_status:commit_status,
-commision:commision,
-SalePrice:SalePrice,
-pu_price:pu_price,
+cost: Math.round(cost * 100) / 100  ,
+purchaseCost: Math.round(purchaseCost * 100) / 100  ,
+commit_status: commit_status ,
+commision:  Math.round(commision * 100) / 100  ,
+SalePrice:  Math.round(SalePrice * 100) / 100 ,
+pu_price: Math.round(pu_price * 100) / 100  ,
 Weight:Weight,
-shipping:shipping,
-po_shipping:po_shipping,
+shipping:  Math.round(shipping * 100) / 100  ,
+po_shipping:  Math.round(po_shipping * 100) / 100  ,
 isRMA:isRMA,
-customer_pay_ship:customer_pay_ship,
-profit:profit,
+customer_pay_ship:  Math.round(customer_pay_ship * 100) / 100  ,
+profit:  Math.round(profit * 100) / 100 ,
 PPS:PPS,
-final_profit:final_profit,
+final_profit:  Math.round(final_profit * 100) / 100 ,
 Type:Type,
 IsReplacement:IsReplacement,
-Discount_amount:Discount_amount
+Discount_amount: Math.round(Discount_amount * 100) / 100  
   });
 
 });
@@ -345,14 +346,14 @@ const topMenu = [
     {
         tab: 'PNL Order',
         key: 'OrderPNL',
-        tabName: <OrderPNL dataSourceOrder={dataSourceOrder} dataOrderDownload={dataOrderDownload} />
+        tabName: <OrderPNL dataSourceOrder={dataSourceOrder}  />
 
     }
     ,
     {
         tab: 'PNL Item',
         key: 'ItemPNL',
-        tabName: <ItemPNL  dataSourceItem={dataSourceItem} dataItemDownload={dataItemDownload}  />
+        tabName: <ItemPNL  dataSourceItem={dataSourceItem}  />
 
     }
 ];
@@ -360,18 +361,23 @@ const topMenu = [
         <>
             {/* <h1>test</h1> */}
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
-            <Row>
+            
+      
+  
+
+              <Row  style={{ marginLeft: 20,  marginRight: 20, marginTop: 20  }}>
+              <Col span={24}>
           <Cards  title="PNL Report">
         
 
               <Row gutter={50}>
-                <Col span={8}>
+                <Col span={6}>
                  
-                  <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+                  <DatePicker style={{ padding: 10 }} placeholder="Start date" size='small' onChange={(date) => { onChange(date, 'startDate') }} />
              
                 </Col>
                
-                <Col span={8}>
+                <Col span={6}>
                 
                   <DatePicker style={{ padding: 10 }}
                       placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
@@ -385,21 +391,23 @@ const topMenu = [
                 </Col>
              
                 
-                {/* <Col span={4}  >
-                <Form.Item >
-                  <Button   style={{ margintTop: 7 }} key="1" type="success" size="default" >
+                <Col span={4}  >
+               
+                  <Button   type="success" 
+                  onClick={(event) => { activeTab==='OrderPNL'?downloadFile(dataOrderDownload):downloadFile(dataItemDownload)}} >
                     Download
                            </Button>
-                           </Form.Item>
-                </Col> */}
+                         
+                </Col>
 
               </Row>
 
            
             
           </Cards>
+          </Col>
         </Row>
-                <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
+                <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20,  marginRight: 20 }}>
              
                     {topMenu.map(item => (
                         tabChildBar?.includes(item.tab) && (
