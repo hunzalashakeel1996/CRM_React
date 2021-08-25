@@ -1,15 +1,11 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Select, Tabs, Table, Upload, Row, Col, Switch, Checkbox, Collapse, Spin, notification } from 'antd';
-import { Button, BtnGroup } from '../../components/buttons/buttons';
-import FeatherIcon from 'feather-icons-react';
-import { PageHeader } from '../../components/page-headers/page-headers';
-import { Drawer } from '../../components/drawer/drawer';
-import { Cards } from '../../components/cards/frame/cards-frame';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSideAndTopNavBar, insertSideNavandTop } from '../../redux/apis/DataAction';
-import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import startOfYesterday from 'date-fns/startOfYesterday';
+import { Checkbox, Col, Collapse, Input, notification, Row, Select, Spin, Tabs } from 'antd';
 import e from 'cors';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { Button } from '../../components/buttons/buttons';
+import { Cards } from '../../components/cards/frame/cards-frame';
+import { getSideAndTopNavBar, insertSideNavandTop } from '../../redux/apis/DataAction';
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -203,7 +199,6 @@ const AddNavigationTab = (props) => {
                                 </Select>
                             </Col>
                             <Col span={8} >
-                                {/ <Select style={{ width: 300 }} onChange={(val) => { selectChild(val) }} > /}
                                 <Select disabled={state.onChecked} allowClear style={{ width: 300 }} onChange={(val) => { selectChild(val) }} value={selectChildBar}>
                                     {childBar.map((val, i) => (
                                         <Option value={val} key={val}>{val}</Option>

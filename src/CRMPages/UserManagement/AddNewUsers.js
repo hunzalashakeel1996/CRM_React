@@ -85,7 +85,7 @@ const UsersView = (props) => {
         title="Add New Users"
         buttons={[
           <div key="1" className="page-header-actions">
-            <Button size="small" type="primary">
+            <Button size="small" type="primary"  onClick={() => { history.push(`/admin/userManagement/manageUser`);}}>
               <FeatherIcon icon="plus" size={14} />
               Manage Users
             </Button>

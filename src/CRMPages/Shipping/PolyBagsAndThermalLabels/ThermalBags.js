@@ -6,7 +6,6 @@ import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { getThermalBags } from '../../../redux/apis/DataAction';
-import { BasicFormWrapper } from '../styled';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
