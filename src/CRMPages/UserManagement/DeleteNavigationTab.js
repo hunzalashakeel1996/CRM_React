@@ -14,7 +14,10 @@ import e from 'cors';
 
 const DeleteNavigationTab = (props) => {
 
-
+    return (
+<>
+</>
+    )
 
 }
 

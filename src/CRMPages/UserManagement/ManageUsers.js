@@ -12,6 +12,7 @@ import { ShareButtonPageHeader } from '../../components/buttons/share-button/sha
 import { ExportButtonPageHeader } from '../../components/buttons/export-button/export-button';
 import { CalendarButtonPageHeader } from '../../components/buttons/calendar-button/calendar-button';
 import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -27,7 +28,7 @@ const UsersView = (props) => {
     isLoading : false
   });
 
-
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -119,8 +120,7 @@ const UsersView = (props) => {
           title="Manage Users"
           buttons={[
             <div key="1" className="page-header-actions">
-
-              <Button size="small" type="primary">
+              <Button size="small" type="primary" onClick={() => { history.push(`/admin/userManagement/addNewUsers`);}}>
                 <FeatherIcon icon="plus" size={14} />
               Add New Users
             </Button>
