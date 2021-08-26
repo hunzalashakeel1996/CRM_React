@@ -26,7 +26,6 @@ const Admin = () => {
 
   // const Tickets = () => import('./tickets')
   return (
-    <Router>
       <Switch>
 
         <Suspense
@@ -59,7 +58,6 @@ const Admin = () => {
         </Suspense>
        
       </Switch>
-    </Router>
   );
 };
 
