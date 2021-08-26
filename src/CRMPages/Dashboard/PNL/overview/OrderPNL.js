@@ -68,7 +68,6 @@ const OrderPNL = (props) => {
     onChange={e => {        
  
       temp =[...temp,...dataSourceOrder.filter(item => JSON.stringify(item[value]).includes(e.target.value.toString()))]
-     
       setState({...state,dataSourceOrderTemp:temp}); 
 
     }}
