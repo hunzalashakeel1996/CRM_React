@@ -491,9 +491,9 @@ const ReportPNLView = () => {
 
 
                 <Col span={4}  >
-
-                  <Button type="Primary"
-                    onClick={(event) => { activeTab === 'OrderPNL' ? downloadFile(dataOrderDownload) : downloadFile(dataItemDownload) }} >
+               
+                  <Button   type="success" 
+                  onClick={(event) => { activeTab==='OrderPNL'?downloadFile(dataOrderDownload):downloadFile(dataItemDownload)}} >
                     Download
                            </Button>
 

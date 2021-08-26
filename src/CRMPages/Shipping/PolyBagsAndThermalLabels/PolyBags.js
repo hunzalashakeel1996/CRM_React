@@ -180,7 +180,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
                      <Row style={{ marginTop: 20 }}>
 
                         <Col xs={24}>
-                        <Table pagination={true} dataSource={dataSource} columns={columns} />
+                        <Table className="table-responsive" pagination={true} dataSource={dataSource} columns={columns} />
                         </Col>
 
                     </Row>

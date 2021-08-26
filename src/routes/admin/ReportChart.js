@@ -9,6 +9,7 @@ const ViewReminders = lazy(() => import('../../CRMPages/Reminders/ViewReminders'
 // const CreateTicket = lazy(() => import('../../CRMPages/Tickets/CreateTicket'));
 import ComparisonReportView from './../../CRMPages/Dashboard/ComparisonReport/ComparisonReportView';
 import WelcomePage from './../../CRMPages/Dashboard/WelcomePage/WelcomePage';
+import NotFoundPage from './../../CRMPages/NotFoundPage/NotFoundPage';
 
 const ProjectRoutes = () => {
   const { path } = useRouteMatch();
@@ -19,6 +20,7 @@ const ProjectRoutes = () => {
       <Route exact path={`${path}`} component={WelcomePage} />
       <Route exact path={`${path}/comparisonGraph`} component={ComparisonReportView} />
       <Route exact path={`${path}/welcomePage`} component={WelcomePage} />
+      
     </Switch>
   );
 };
