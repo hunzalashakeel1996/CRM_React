@@ -370,36 +370,37 @@ const topMenu = [
           <Cards  title="PNL Report">
         
 
-              <Row gutter={50}>
-                <Col span={6}>
+              <Row gutter={25}>
+                <Col xs={24} md={10} lg={8} style={{marginBottom:10}}>
                  
-                  <DatePicker style={{ padding: 10 }} placeholder="Start date" size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+                  <DatePicker style={{ padding: 10, width:'100%', }} placeholder="Start date" size='small' onChange={(date) => { onChange(date, 'startDate') }} />
              
                 </Col>
                
-                <Col span={6}>
+                <Col xs={24} md={10} lg={8} style={{marginBottom:10}}>
                 
-                  <DatePicker style={{ padding: 10 }}
+                  <DatePicker style={{ padding: 10, width:'100%', }}
                       placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                   
                 </Col>
                
-                <Col span={4} >
-               
-                <Button size="default" type="primary" onClick={getsummary_report_order_wise} > Search</Button>
                 
-                </Col>
-             
-                
-                <Col span={4}  >
-               
-                  <Button   type="success" 
-                  onClick={(event) => { activeTab==='OrderPNL'?downloadFile(dataOrderDownload):downloadFile(dataItemDownload)}} >
-                    Download
-                           </Button>
-                         
-                </Col>
 
+              </Row>
+
+              <Row>
+              <Col xs={24} >
+               
+               <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{marginRight:10,}} > Search</Button>
+               
+               
+              
+                 <Button   type="success" 
+                 onClick={(event) => { activeTab==='OrderPNL'?downloadFile(dataOrderDownload):downloadFile(dataItemDownload)}} >
+                   Download
+                          </Button>
+                        
+               </Col>
               </Row>
 
            

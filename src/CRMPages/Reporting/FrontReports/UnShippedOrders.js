@@ -138,18 +138,18 @@ const UnShippedOrders = (props) => {
           <Cards title="Unshipped Report">
           <Form layout="inline" initialValue="" label="" form={form} id="Unshipped Report" name="nest-messages" onFinish={getUnshippedOrder} validateMessages={validateMessages}>
 
-              <Row gutter={50}>
-                <Col span={8} >
+              <Row style={{  width:'100%',}}>
+                <Col xs={24} sm={12} lg={8}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
-                    <DatePicker style={{ padding: 10 }} size='small' placeholder='From' onChange={(date) => { onChange(date, 'startDate') }} />
+                    <DatePicker style={{ padding: 10, width:'100%', }} size='small' placeholder='From' onChange={(date) => { onChange(date, 'startDate') }} />
                   </Form.Item>
                 </Col>
                 
-                <Col span={8}>
+                <Col xs={24} sm={12} lg={8}>
                 <Form.Item name="Add Days" rules={[{ required: true }]}>
                   <Select
                     showSearch
-                    style={{ width: 250 }}
+                    style={{  width:'100%', height:42, }}
                     size="large"
                     placeholder="Add Days"
                     optionFilterProp="children"
@@ -169,9 +169,9 @@ const UnShippedOrders = (props) => {
 
 
                
-                <Col span={4}>
+                <Col span={24}>
                                
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                <div className="atbd-drawer" style={{ marginTop: 0, marginBottom: 20 }}>
                                 <Form.Item >
                                     <Button  size="default" type="primary" htmlType="Submit">
                                         Search

@@ -203,21 +203,21 @@ const ReportView = (props) => {
               <Form layout="inline" form={form} id="Sales Report" name="nest-messages" onFinish={getOverViewReporting} validateMessages={validateMessages}>
 
 
-                <Col span={4} style={{ marginTop: 15 }}>
+                <Col xs={24} style={{ marginBottom: 10 }}>
                   <Radio.Group onChange={onChangeDefault} value={state.rType}>
                     <Radio value={"Default"}>Default</Radio>
                     <Radio value={"Date"}>Date</Radio>
                   </Radio.Group>
                 </Col>
 
-                <Col span={14}>
+                <Col xs={24}>
 
                   {state.rType == "Default" ?
                     <Col span={10}>
                       <Form.Item rules={[{ required: true }]} name="Select Dropdown" label="">
                         <Select
                           showSearch
-                          style={{ width: 250 }}
+                          style={{ width: '100%', maxWidth:420, }}
                           size="large"
                           placeholder="Search By"
                           optionFilterProp="children"
@@ -234,14 +234,14 @@ const ReportView = (props) => {
                     </Col>
                     :
                     <Row>
-                      <Col span={12}>
+                      <Col xs={24} md={10} lg={8}>
                         <Form.Item label="" name="startDate" rules={[{ required: true }]}>
-                          <DatePicker  style={{ padding: 10 }} size='default' onChange={(date) => { onDateChange(date, 'startDate') }} />
+                          <DatePicker  style={{ padding: 10, width: '100%'  }} size='default' onChange={(date) => { onDateChange(date, 'startDate') }} />
                         </Form.Item>
                       </Col>
-                      <Col span={12}>
+                      <Col xs={24} md={10} lg={8}>
                         <Form.Item  label="" name="endDate" rules={[{ required: true }]}>
-                          <DatePicker style={{ padding: 10 }} size='default' onChange={(date) => { onDateChange(date, 'endDate') }} />
+                          <DatePicker style={{ padding: 10, width: '100%'  }} size='default' onChange={(date) => { onDateChange(date, 'endDate') }} />
                         </Form.Item>
                       </Col>
                     </Row>
@@ -273,7 +273,7 @@ const ReportView = (props) => {
         <Row gutter={25}>
           {state.dataSource.map((value) => (
 
-            <Col span={6}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <Cards headless>
                 <EChartCard>
                   <div >
