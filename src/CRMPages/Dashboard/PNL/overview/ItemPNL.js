@@ -32,7 +32,7 @@ const validateMessages = {
 
 const ItemPNL = (props) => {
 
-    const {dataSourceItem,dataItemDownload}= props
+    const {dataSourceItem,dataSourceItemTempParent,dataItemDownload}= props
      // console.log('dataSourceItem',dataSourceItem)
   const [form] = Form.useForm();
    
@@ -49,9 +49,9 @@ const ItemPNL = (props) => {
  
   useEffect(() => {
     // Update the document title using the browser API
-    setState({ ...state, dataSourceItemTemp: dataSourceItem });
+    setState({ ...state, dataSourceItemTemp: dataSourceItemTempParent });
 
-  },[dataSourceItem]);
+  },[dataSourceItemTempParent]);
   const dataSource = [];
   let temp =[];
   
