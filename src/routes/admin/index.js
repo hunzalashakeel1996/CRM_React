@@ -26,7 +26,6 @@ const Admin = () => {
 
   // const Tickets = () => import('./tickets')
   return (
-    <Router>
       <Switch>
 
         <Suspense
@@ -36,7 +35,7 @@ const Admin = () => {
             </div>
           }
         >
-          <Route exact path={path} component={ReportChart} />
+          <Route path={path} component={ReportChart} />
           <Route path={`${path}/graph`} component={ReportChart} />
           <Route path={`${path}/ticket`} component={Tickets} />
           <Route path={`${path}/azab`} component={Azab} />
@@ -59,7 +58,6 @@ const Admin = () => {
         </Suspense>
        
       </Switch>
-    </Router>
   );
 };
 
