@@ -167,27 +167,27 @@ const {dataReport,sortedInfo}=state
 
         <Row>
           <Cards  title="Vendor Sales">
-          <Form layout="inline" initialValue="" label="" form={form} id="Vendor Sales" name="nest-messages" onFinish={getVendorSalesReporing} validateMessages={validateMessages}>
+          <Form layout="inline"  initialValue="" label="" form={form} id="Vendor Sales" name="nest-messages" onFinish={getVendorSalesReporing} validateMessages={validateMessages}>
 
-              <Row gutter={50}>
-                <Col span={8}>
+              <Row style={{  width:'100%',}} >
+                <Col xs={24} sm={12} lg={8}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
                     {/* <Space label="" {...rangeConfig}> */}
-                    <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+                    <DatePicker style={{ padding: 10, width:'100%',}} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
                     {/* </Space > */}
                   </Form.Item>
                 </Col>
               
-                <Col span={8}>
+                <Col xs={24} sm={12} lg={8}>
                   <Form.Item name="endDate" rules={[{ required: true }]}>
                     {/* <Space label="" {...rangeConfig}> */}
-                    <DatePicker style={{ padding: 10 }}
+                    <DatePicker style={{ padding: 10, width:'100%', }}
                       placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                     {/* </Space > */}
                   </Form.Item>
                 </Col>
                 
-                <Col span={4}  >
+                <Col span={24}  >
                 <Form.Item >
                   <Button   style={{ margintTop: 15 }} key="1" type="primary" size="default" htmlType="submit">
                     Search
