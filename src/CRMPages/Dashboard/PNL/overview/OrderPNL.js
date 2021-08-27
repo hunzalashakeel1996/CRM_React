@@ -35,7 +35,7 @@ const validateMessages = {
 
 const OrderPNL = (props) => {
 
-    const {dataSourceOrder,dataOrderDownload}= props
+    const {dataSourceOrderTempParent,dataOrderDownload}= props
     // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
@@ -53,9 +53,9 @@ const OrderPNL = (props) => {
  
   useEffect(() => {
     // Update the document title using the browser API
-    setState({ ...state, dataSourceOrderTemp: dataSourceOrder });
+    setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent });
 
-  },[dataSourceOrder]);
+  },[dataSourceOrderTempParent]);
   const dataSource = [];
   let temp =[];
 

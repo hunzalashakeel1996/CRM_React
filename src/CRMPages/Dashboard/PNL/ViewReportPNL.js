@@ -372,9 +372,9 @@ const ReportPNLView = () => {
     }
   ];
 
-
+  let ordertype = []
   const handleOrderTypeChange = (e) => {
-    let ordertype = []
+    
     let tempOrder=[];
     let tempItem=[];
     if ('MarketPlace' === e.target.value.toString()) {
@@ -399,11 +399,11 @@ const ReportPNLView = () => {
       
       tempOrder =[...tempOrder,...dataSourceOrder.filter(item =>  item.ORDERTYPE==='PU'||item.ORDERTYPE==='JLC')]
 
-        // console.log('Web',tempOrder)
+         console.log('Web',tempOrder)
         
         tempItem =[...tempItem,...dataSourceItem.filter(item =>  item.ORDERTYPE==='PU'|| item.ORDERTYPE==='JLC')]  
 
-          // console.log('Web',tempItem)
+           console.log('Web',tempItem)
 
           setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem , sellerType: ordertype, isSellerType: 'Enable' });
     
