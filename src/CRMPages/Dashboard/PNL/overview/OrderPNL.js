@@ -35,7 +35,7 @@ const validateMessages = {
 
 const OrderPNL = (props) => {
 
-    const {dataSourceOrderTempParent,dataOrderDownload}= props
+    const {dataSourceOrderTempParent,dataSourceOrder,dataOrderDownload}= props
     // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
