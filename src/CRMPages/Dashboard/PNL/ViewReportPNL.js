@@ -43,7 +43,7 @@ const ReportPNLView = () => {
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL'];
 
   const [activeTab, setActiveTab] = useState('OrderPNL');
-  
+
 
   const [state, setstate] = useState({
 
@@ -487,7 +487,6 @@ const ReportPNLView = () => {
               setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem  });
              }
   };
-
   return (
     <>
       {/* <h1>test</h1> */}
@@ -510,7 +509,7 @@ const ReportPNLView = () => {
 
               <Row>
                 <Col xs={24} style={{marginBottom:10}}>
-                  <Button type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                  <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
                   <Button type="success"
                     onClick={(event) => { activeTab === 'OrderPNL' ? downloadFile(dataOrderDownload) : downloadFile(dataItemDownload) }} >
