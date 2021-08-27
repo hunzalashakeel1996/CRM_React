@@ -31,7 +31,7 @@ const validateMessages = {
 
 const OrderPNLSummary = (props) => {
 
-    const {dataSourceOrder}= props
+    const {dataSourceOrdersummary}= props
     // // console.log('orderPNL',dataSourceOrder)
   const [form] = Form.useForm();
    
@@ -114,7 +114,7 @@ const OrderPNLSummary = (props) => {
               {/* <ProjectList> */}
 
                 {/* <div className="table-responsive"> */}
-                  <Table pagination={false} dataSource={dataSourceOrder} columns={columns} onChange={handleChange}/>
+                  <Table pagination={false} dataSource={dataSourceOrdersummary} columns={columns} onChange={handleChange}/>
                 {/* </div> */}
 
               {/* </ProjectList> */}
