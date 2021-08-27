@@ -43,7 +43,7 @@ const ReportPNLView = () => {
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL'];
 
   const [activeTab, setActiveTab] = useState('OrderPNL');
-
+  
 
   const [state, setstate] = useState({
 
@@ -391,9 +391,11 @@ const ReportPNLView = () => {
 
 
   };
-  let tempOrder = [];
-  let tempItem = [];
+
+
   const handleSizeChange = e => {
+    let tempOrder = [];
+    let tempItem = [];
     console.log('handleSizeChange', e.target.value.toString())
     if ('MPALL' === e.target.value.toString()) {
 
@@ -411,13 +413,11 @@ const ReportPNLView = () => {
       )]
       setstate({ ...state, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
     }
-    else if ('Amazon' === e.target.value.toString() || 'AmazonRizno' === e.target.value.toString() || 'Walmart' === e.target.value.toString() ||
-      'Sears' === e.target.value.toString() || 'Ebay' === e.target.value.toString()) {
-
+    else if(['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(e.target.value.toString())){
       tempOrder = [...tempOrder, ...dataSourceOrder.filter(item =>
         item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase())
       )]
-
+        console.log('a2', tempOrder)
       tempItem = [...tempItem, ...dataSourceItem.filter(item => item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase()))]
 
       setstate({ ...state, filterValue: e.target.value, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
@@ -456,6 +456,7 @@ const ReportPNLView = () => {
       setstate({ ...state, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
     }
   };
+
   return (
     <>
       {/* <h1>test</h1> */}
@@ -481,7 +482,7 @@ const ReportPNLView = () => {
 
               <Row>
                 <Col xs={24} style={{marginBottom:10}}>
-                  <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                  <Button type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
                   <Button type="success"
                     onClick={(event) => { activeTab === 'OrderPNL' ? downloadFile(dataOrderDownload) : downloadFile(dataItemDownload) }} >

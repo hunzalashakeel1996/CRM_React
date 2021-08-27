@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components'
-import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Tabs, Spin } from 'antd';
-
+import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification,Radio   , Tabs, Spin } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
@@ -34,8 +34,8 @@ const validateMessages = {
 
 const OrderPNL = (props) => {
 
-    const {dataSourceOrder,dataOrderDownload}= props
-    // // console.log('dataSourceOrder',dataSourceOrder)
+    const {dataSourceOrder,dataSourceOrderTempParent,dataOrderDownload,seller}= props
+     console.log('dataSourceOrder',dataSourceOrderTempParent)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -44,17 +44,17 @@ const OrderPNL = (props) => {
     sortedInfo:[],
    
     isLoader:false,
-    dataSourceOrderTemp:[],
+    dataSourceOrderTemp:[]
     
   });
 
-  const {sortedInfo,isLoader,dataSourceOrderTemp}=state
+  const {sortedInfo,isLoader,dataSourceOrderTemp,searchText,searchedColumn}=state
  
   useEffect(() => {
     // Update the document title using the browser API
-    setState({ ...state, dataSourceOrderTemp: dataSourceOrder });
+    setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent });
 
-  },[dataSourceOrder]);
+  },[dataSourceOrderTempParent]);
   const dataSource = [];
   let temp =[];
 
@@ -67,24 +67,80 @@ const OrderPNL = (props) => {
     size='small'
     onChange={e => {        
  
-      temp =[...temp,...dataSourceOrder.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
+      temp =[...temp,...dataSourceOrder.filter(item => JSON.stringify(item[value].toUpperCase()).includes(e.target.value.toString().toUpperCase()))]
+     
       setState({...state,dataSourceOrderTemp:temp}); 
 
     }}
   />
   }
 
-  // const filterByZipInput = (
-  //   <Input
-  //     placeholder="Search Zip"
-     
-  //     onChange={e => {
-        
-  //       temp =[...temp,...dataSourceOrder.filter(item => item['Zip'].toUpperCase().includes( e.target.value))]
-  //       setState({...state,dataSourceOrderTemp:temp}); 
-  //     }}
-  //   />
-  // );
+
+//  const getColumnSearchProps = (dataIndex) => ({
+//     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+//       <div style={{ padding: 8 }}>
+//         <Input
+//           ref={node => {
+//             searchInput = node;
+//           }}
+//           placeholder={`Search ${dataIndex}`}
+//           value={selectedKeys[0]}
+//           onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+//           onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+//           style={{ marginBottom: 8, display: 'block' }}
+//         />
+//         <Space>
+//           <Button
+//             type="primary"
+//             onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+//             icon={<SearchOutlined />}
+//             size="small"
+//             style={{ width: 90 }}
+//           >
+//             Search
+//           </Button>
+//           <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+//             Reset
+//           </Button>
+//           <Button
+//             type="link"
+//             size="small"
+//             onClick={() => {
+//               confirm({ closeDropdown: false });
+//               this.setState({
+//                 searchText: selectedKeys[0],
+//                 searchedColumn: dataIndex,
+//               });
+//             }}
+//           >
+//             Filter
+//           </Button>
+//         </Space>
+//       </div>
+//     ),
+//     filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+//     onFilter: (value, record) =>
+//       record[dataIndex]
+//         ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+//         : '',
+//     onFilterDropdownVisibleChange: visible => {
+//       if (visible) {
+//         setTimeout(() => searchInput.select(), 100);
+//       }
+//     },
+//     render: text =>
+//         searchedColumn === dataIndex ? (
+//         <Highlighter
+//           highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+//           searchWords={[searchText]}
+//           autoEscape
+//           textToHighlight={text ? text.toString() : ''}
+//         />
+//       ) : (
+//         text
+//       ),
+//   });
+
   const columns = [
     {
       
@@ -99,6 +155,21 @@ const OrderPNL = (props) => {
       dataIndex: 'orderno',
       key: 'orderno' ,
     },
+    //   {
+      
+    //   title: 
+    //   <>
+    //   <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+    //   <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>orderno</p>
+    //   </div>
+
+    //   {/* { filter('orderno')} */}
+    //   </> ,
+    //   dataIndex: 'orderno',
+    //   key: 'orderno' ,
+    //   // ...this.getColumnSearchProps('orderno')
+    //   ...getColumnSearchProps('orderno')
+    // },
     {
       title: <>
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
@@ -322,26 +393,26 @@ const OrderPNL = (props) => {
     });
   };
 
-  const handleSearch = (searchText) => {
-   // temp  = [...temp, dataSourceDetails.filter(item => item['merchantsku']==null?[]:[...item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())])]
+  // const handleSearch = (searchText) => {
+  //  // temp  = [...temp, dataSourceDetails.filter(item => item['merchantsku']==null?[]:[...item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())])]
 
-   // console.log(searchText.toUpperCase())
-  //  temp  = [...temp,...dataSourceOrder.filter(item => item['merchantsku']!==null&&item['merchantsku'].toUpperCase().includes(searchText.toUpperCase()))]
+  //  // console.log(searchText.toUpperCase())
+  // //  temp  = [...temp,...dataSourceOrder.filter(item => item['merchantsku']!==null&&item['merchantsku'].toUpperCase().includes(searchText.toUpperCase()))]
     
    
-  //  // console.log('merchantsku',temp)
-    // // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
+  // //  // console.log('merchantsku',temp)
+  //   // // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
    
-     temp =[...temp,...dataSourceOrder.filter(item => item['orderno'].toUpperCase().includes(searchText.toUpperCase()))]
-    // // console.log('orderno',temp)
+  //    temp =[...temp,...dataSourceOrder.filter(item => item['orderno'].toUpperCase().includes(searchText.toUpperCase()))]
+  //   // // console.log('orderno',temp)
 
 
-    //  temp = [...temp,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(searchText.toUpperCase()))]
-    // // console.log('ORDERTYPE',temp)
+  //   //  temp = [...temp,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(searchText.toUpperCase()))]
+  //   // // console.log('ORDERTYPE',temp)
 
-  //  // console.log('dataSourceDetails',temp)
-    setState({ ...state, dataSourceOrderTemp: temp });
-  };
+  // //  // console.log('dataSourceDetails',temp)
+  //   setState({ ...state, dataSourceOrderTemp: temp });
+  // };
   const Download = ( data) =>  {
    
   downloadFile(data)
