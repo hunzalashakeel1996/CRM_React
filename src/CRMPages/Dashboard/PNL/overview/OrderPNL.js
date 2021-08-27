@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components'
-import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification,Radio   , Tabs, Spin } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Tabs, Spin } from 'antd';
+
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
@@ -35,8 +35,8 @@ const validateMessages = {
 
 const OrderPNL = (props) => {
 
-    const {dataSourceOrder,dataSourceOrderTempParent,dataOrderDownload,seller}= props
-     console.log('dataSourceOrder',dataSourceOrderTempParent)
+    const {dataSourceOrder,dataOrderDownload}= props
+    // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -45,17 +45,17 @@ const OrderPNL = (props) => {
     sortedInfo:[],
    
     isLoader:false,
-    dataSourceOrderTemp:[]
+    dataSourceOrderTemp:[],
     
   });
 
-  const {sortedInfo,isLoader,dataSourceOrderTemp,searchText,searchedColumn}=state
+  const {sortedInfo,isLoader,dataSourceOrderTemp}=state
  
   useEffect(() => {
     // Update the document title using the browser API
-    setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent });
+    setState({ ...state, dataSourceOrderTemp: dataSourceOrder });
 
-  },[dataSourceOrderTempParent]);
+  },[dataSourceOrder]);
   const dataSource = [];
   let temp =[];
 
@@ -632,26 +632,26 @@ const OrderPNL = (props) => {
     });
   };
 
-  // const handleSearch = (searchText) => {
-  //  // temp  = [...temp, dataSourceDetails.filter(item => item['merchantsku']==null?[]:[...item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())])]
+  const handleSearch = (searchText) => {
+   // temp  = [...temp, dataSourceDetails.filter(item => item['merchantsku']==null?[]:[...item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())])]
 
-  //  // console.log(searchText.toUpperCase())
-  // //  temp  = [...temp,...dataSourceOrder.filter(item => item['merchantsku']!==null&&item['merchantsku'].toUpperCase().includes(searchText.toUpperCase()))]
+   // console.log(searchText.toUpperCase())
+  //  temp  = [...temp,...dataSourceOrder.filter(item => item['merchantsku']!==null&&item['merchantsku'].toUpperCase().includes(searchText.toUpperCase()))]
     
    
-  // //  // console.log('merchantsku',temp)
-  //   // // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
+  //  // console.log('merchantsku',temp)
+    // // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
    
-  //    temp =[...temp,...dataSourceOrder.filter(item => item['orderno'].toUpperCase().includes(searchText.toUpperCase()))]
-  //   // // console.log('orderno',temp)
+     temp =[...temp,...dataSourceOrder.filter(item => item['orderno'].toUpperCase().includes(searchText.toUpperCase()))]
+    // // console.log('orderno',temp)
 
 
-  //   //  temp = [...temp,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(searchText.toUpperCase()))]
-  //   // // console.log('ORDERTYPE',temp)
+    //  temp = [...temp,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(searchText.toUpperCase()))]
+    // // console.log('ORDERTYPE',temp)
 
-  // //  // console.log('dataSourceDetails',temp)
-  //   setState({ ...state, dataSourceOrderTemp: temp });
-  // };
+  //  // console.log('dataSourceDetails',temp)
+    setState({ ...state, dataSourceOrderTemp: temp });
+  };
   const Download = ( data) =>  {
    
   downloadFile(data)
@@ -669,11 +669,13 @@ const OrderPNL = (props) => {
                   <Input onChange={(event) => { handleSearch(event.target.value) }} placeholder="Filter" patterns />
                 
               </Col> */}
-             
-
-             
+              {/* <Col span={4} >
+               
+               <Button  style={{marginLeft:10 }}  size="default" type="primary" onClick={(event) => {  Download(dataOrderDownload)  }} > Download</Button>
+               
+               </Col> */}
             
-          <Col style={{marginTop:10 }} xs={24}>
+          <Col xs={24}>
             <Cards headless>
               {/* <ProjectList> */}
 

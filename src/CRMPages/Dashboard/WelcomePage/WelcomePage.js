@@ -22,7 +22,7 @@ const WelcomePage = () => {
             </div> */}
             <div style={{ backgroundColor: 'white',width: '100%', height: 600,display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <img
-                    style={{ width: 900, height: 550}}
+                    style={{ maxWidth: 900, height: 'auto', width:'100%',}}
                     src="/img/icons/CRM_background.jpg"
                 />
                 </div>

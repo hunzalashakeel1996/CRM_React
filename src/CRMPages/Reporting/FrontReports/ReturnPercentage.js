@@ -206,29 +206,26 @@ const ReturnPercentage = (props) => {
           <Cards  title="Return Percentage">
           <Form layout="inline" initialValue="" label="" form={form} id="Return Percentage" name="nest-messages" onFinish={getReturnPercentageReporting} validateMessages={validateMessages}>
 
-              <Row gutter={50}>
-                <Col span={8}>
+              <Row style={{width:'100%'}}>
+                <Col  xs={24} sm={12} lg={8}>
                   <Form.Item name="startDate" rules={[{ required: true }]}>
-                  <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+                  <DatePicker style={{ padding: 10, width:'100%', }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
                   </Form.Item>
                 </Col>
                
-                <Col span={8}>
+                <Col xs={24} sm={12} lg={8}>
                   <Form.Item name="endDate" rules={[{ required: true }]}>
-                  <DatePicker style={{ padding: 10 }}
+                  <DatePicker style={{ padding: 10, width:'100%', }}
                       placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                   </Form.Item>
                 </Col>
                
-                <Col span={4} >
+                <Col span={24} >
                 <Form.Item >
-                  <Button  style={{ margintTop: 7 }}  key="1" type="primary" size="default" htmlType="submit">
+                  <Button  style={{ margintTop: 7, marginRight:10, }}  key="1" type="primary" size="default" htmlType="submit">
                     Search
                            </Button>
-                           </Form.Item>
-                </Col>
-                <Col span={4}  >
-                <Form.Item >
+                          
                   <Button   style={{ margintTop: 7 }} key="1" type="success" size="default" htmlType="submit">
                     Download
                            </Button>

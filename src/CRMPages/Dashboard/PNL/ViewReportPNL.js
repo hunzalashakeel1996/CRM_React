@@ -57,14 +57,14 @@ const ReportPNLView = () => {
     dataItemDownload: '',
     sellerType: [],
     isSellerType: 'disabled',
-    filterValue:'',
-    dataSourceOrderTempParent:[],
-    dataSourceItemTempParent:[]
-    
+    filterValue: '',
+    dataSourceOrderTempParent: [],
+    dataSourceItemTempParent: []
+
 
   });
 
-  const {dataSourceOrderTempParent,dataSourceItemTempParent, filterValue,isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails } = state
+  const { dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails } = state
 
   let tempDataSource_summary_report_order_wise = [];
   let tempDataSource_summary_report_item_wise = [];
@@ -315,10 +315,10 @@ const ReportPNLView = () => {
 
       setstate({
         ...state, dataOrderDownload: data[0][0],
-        dataSourceOrderTempParent:[...tempDataSource_summary_report_order_wise],
-         dataSourceOrder: [...tempDataSource_summary_report_order_wise],
+        dataSourceOrderTempParent: [...tempDataSource_summary_report_order_wise],
+        dataSourceOrder: [...tempDataSource_summary_report_order_wise],
         dataItemDownload: data[1][0], dataSourceItem: [...tempDataSource_summary_report_item_wise],
-        dataSourceItemTempParent:[...tempDataSource_summary_report_item_wise],
+        dataSourceItemTempParent: [...tempDataSource_summary_report_item_wise],
         //  dataSourcePrice: [...tempDataSource_summary_report_Price_wise],
         // dataSourceDetails: [...tempDataSource_summary_report_Detail_wise],
         isLoader: false
@@ -367,12 +367,12 @@ const ReportPNLView = () => {
     {
       tab: 'PNL Item',
       key: 'ItemPNL',
-      tabName: <ItemPNL dataSourceItem={dataSourceItem} dataSourceItemTempParent={dataSourceItemTempParent}  />
+      tabName: <ItemPNL dataSourceItem={dataSourceItem} dataSourceItemTempParent={dataSourceItemTempParent} />
 
     }
   ];
 
- 
+
   const handleOrderTypeChange = (e) => {
     let ordertype = []
     let tempOrder=[];
@@ -420,7 +420,7 @@ const ReportPNLView = () => {
 
   };
 
-  const handleSizeChange = e => {
+  const handleTypeChange = e => {
     let tempOrder=[];
     let tempItem=[];
     console.log('handleSizeChange',e.target.value.toString())
@@ -448,7 +448,7 @@ const ReportPNLView = () => {
 
     setstate({ ...state, filterValue: e.target.value,dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem  });
     }
-    else if ('PU' === e.target.value.toString()){
+    else if ('JLC' === e.target.value.toString()) {
       // cond for pu
        // filter(item => item.orderno.split('-')[0]!=='JLC)
        // filter(item => item.orderno.split('-')[0]==='JLC)
@@ -495,67 +495,57 @@ const ReportPNLView = () => {
         <Row style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
           <Col span={24}>
             <Cards title="PNL Report">
-
-
-              <Row gutter={50}>
-                <Col span={6}>
-
-                  <DatePicker style={{ padding: 10 }} placeholder="Start date" size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+              <Row gutter={25}>
+                <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+                  <DatePicker style={{ padding: 10, width: '100%', }} placeholder="Start date" size='small' onChange={(date) => { onChange(date, 'startDate') }} />
 
                 </Col>
 
-                <Col span={6}>
-
-                  <DatePicker style={{ padding: 10 }}
+                <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+                  <DatePicker style={{ padding: 10, width: '100%', }}
                     placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
-
                 </Col>
+              </Row>
 
-                <Col span={4} >
+              <Row>
+                <Col xs={24} style={{marginBottom:10}}>
+                  <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
-                  <Button size="default" type="primary" onClick={getsummary_report_order_wise} > Search</Button>
-
-                </Col>
-
-
-                <Col span={4}  >
-               
-                  <Button   type="success" 
-                  onClick={(event) => { activeTab==='OrderPNL'?downloadFile(dataOrderDownload):downloadFile(dataItemDownload)}} >
+                  <Button type="success"
+                    onClick={(event) => { activeTab === 'OrderPNL' ? downloadFile(dataOrderDownload) : downloadFile(dataItemDownload) }} >
                     Download
-                           </Button>
-
+                  </Button>
                 </Col>
-
               </Row>
-              <Row style={{marginTop:10}}>
-              <Col span={2}>
 
-<label>Filtes:</label>
-</Col>
-            <Col span={20} >
+              <Row style={{ marginTop: 10 }}>
+                <Col xs={24} lg={2}>
 
-              <Radio.Group onChange={handleOrderTypeChange}>
-                <Radio.Button value="Web">Web</Radio.Button>
-                <Radio.Button value="MarketPlace">MarketPlace</Radio.Button>
-                <Radio.Button value="All">All</Radio.Button>
-              </Radio.Group>
+                  <label>Filtes:</label>
+                </Col>
+                <Col span={20} >
 
-              <Row style={{ marginTop: 10 }} >
-               
-                <Col span={20}>
-
-                  <Radio.Group  onChange={handleSizeChange} optionType="button" buttonStyle="solid" disabled={isSellerType === 'disabled' ? true : false}>
-
-                    {sellerType.map(val => (
-
-                      <Radio.Button value={val}>{val}</Radio.Button>
-                    ))}
+                  <Radio.Group onChange={handleOrderTypeChange}>
+                    <Radio.Button value="Web">Web</Radio.Button>
+                    <Radio.Button value="MarketPlace">MarketPlace</Radio.Button>
+                    <Radio.Button value="All">All</Radio.Button>
                   </Radio.Group>
+
+                  <Row style={{ marginTop: 10 }} >
+
+                    <Col span={20}>
+
+                      <Radio.Group onChange={handleTypeChange} optionType="button" buttonStyle="solid" disabled={isSellerType === 'disabled' ? true : false}>
+
+                        {sellerType.map(val => (
+
+                          <Radio.Button value={val}>{val}</Radio.Button>
+                        ))}
+                      </Radio.Group>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
-            </Col>
-          </Row>
 
 
             </Cards>
@@ -564,17 +554,17 @@ const ReportPNLView = () => {
         </Row>
 
         <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginRight: 20 }}>
-          
+
 
           {topMenu.map(item => (
             tabChildBar?.includes(item.tab) && (
-              
+
               <TabPane tab={item.tab} key={item.key}>
 
                 {item.tabName}
               </TabPane>
-              
-              )
+
+            )
 
           ))}
 
