@@ -459,7 +459,7 @@ const ReportPNLView = () => {
          setstate({ ...state, filterValue: e.target.value,dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem  });
 
          }
-         else if ('JLC' === e.target.value.toString()){
+         else if ('PU' === e.target.value.toString()){
           // cond for pu
            // filter(item => item.orderno.split('-')[0]!=='JLC)
            // filter(item => item.orderno.split('-')[0]==='JLC)
