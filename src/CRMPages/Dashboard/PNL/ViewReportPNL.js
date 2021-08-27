@@ -509,7 +509,7 @@ const ReportPNLView = () => {
 
               <Row>
                 <Col xs={24} style={{marginBottom:10}}>
-                  <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                  <Button type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
                   <Button type="success"
                     onClick={(event) => { activeTab === 'OrderPNL' ? downloadFile(dataOrderDownload) : downloadFile(dataItemDownload) }} >
