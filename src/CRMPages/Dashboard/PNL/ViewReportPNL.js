@@ -375,95 +375,123 @@ const ReportPNLView = () => {
 
   const handleOrderTypeChange = (e) => {
     let ordertype = []
-
+    let tempOrder=[];
+    let tempItem=[];
     if ('MarketPlace' === e.target.value.toString()) {
-      ordertype = ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay', 'MPALL']
+      ordertype = ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay','MPALL']
+      
+      tempOrder =[...tempOrder,...dataSourceOrder.filter(item => 
+        item.ORDERTYPE==='Amazon'||
+        item.ORDERTYPE==='AmazonRizno'||
+        item.ORDERTYPE==='Walmart'||     item.ORDERTYPE==='Sears'||     item.ORDERTYPE==='Ebay'
+        )]
+        console.log('MarketPlace',tempOrder)
+        tempItem =[...tempItem,...dataSourceItem.filter(item => 
+          item.ORDERTYPE==='Amazon'||
+          item.ORDERTYPE==='AmazonRizno'||
+          item.ORDERTYPE==='Walmart'||     item.ORDERTYPE==='Sears'||     item.ORDERTYPE==='Ebay' )]
+          console.log('MarketPlace',tempItem)
+      setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem , sellerType: ordertype, isSellerType: 'Enable'});
+   
     }
     else if ('Web' === e.target.value.toString()) {
-      ordertype = ['PU', 'JLC', 'WebALL']
-    }
-    else {
-      ordertype = []
-    }
-    console.log(ordertype)
+      ordertype = ['PU', 'JLC','WebALL']
+      
+      tempOrder =[...tempOrder,...dataSourceOrder.filter(item =>  item.ORDERTYPE==='PU'||item.ORDERTYPE==='JLC')]
 
-    setstate({ ...state, sellerType: ordertype, isSellerType: 'Enable' });
+        // console.log('Web',tempOrder)
+        
+        tempItem =[...tempItem,...dataSourceItem.filter(item =>  item.ORDERTYPE==='PU'|| item.ORDERTYPE==='JLC')]  
+
+          // console.log('Web',tempItem)
+
+          setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem , sellerType: ordertype, isSellerType: 'Enable' });
+    
+    }
+    else if ('All' === e.target.value.toString()) {
+      // console.log('All')
+      ordertype = []
+      setstate({ ...state, dataSourceOrderTempParent:[...dataSourceOrder],dataSourceItemTempParent:[...dataSourceItem] , sellerType: ordertype, isSellerType: 'Enable' });
+    }
+    // console.log(ordertype)    
+
+    // setstate({ ...state, sellerType: ordertype, isSellerType: 'Enable' });
 
 
   };
 
-
-  const handleSizeChange = e => {
-    let tempOrder = [];
-    let tempItem = [];
-    console.log('handleSizeChange', e.target.value.toString())
+  const handleTypeChange = e => {
+    let tempOrder=[];
+    let tempItem=[];
+    console.log('handleSizeChange',e.target.value.toString())
     if ('MPALL' === e.target.value.toString()) {
+     
+  
+      tempOrder =[...tempOrder,...dataSourceOrder.filter(item => 
+        item.ORDERTYPE==='Amazon'||
+        item.ORDERTYPE==='AmazonRizno'||
+        item.ORDERTYPE==='Walmart'||     item.ORDERTYPE==='Sears'||item.ORDERTYPE==='Ebay')]
 
-      // ordertype = ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay','ALL']
-      tempOrder = [...tempOrder, ...dataSourceOrder.filter(item =>
-        item.ORDERTYPE === 'Amazon' ||
-        item.ORDERTYPE === 'AmazonRizno' ||
-        item.ORDERTYPE === 'Walmart' || item.ORDERTYPE === 'Sears' || item.ORDERTYPE === 'Ebay'
-      )]
+        tempItem =[...tempItem,...dataSourceItem.filter(item => 
+          item.ORDERTYPE==='Amazon'||
+          item.ORDERTYPE==='AmazonRizno'||
+          item.ORDERTYPE==='Walmart'||item.ORDERTYPE==='Sears'||item.ORDERTYPE==='Ebay')]
+      setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem });
+              }
+    else if ('Amazon' === e.target.value.toString()||'AmazonRizno'=== e.target.value.toString() 
+    || 'Walmart'=== e.target.value.toString() 
+    ||'Sears' === e.target.value.toString() ||'Ebay' === e.target.value.toString() ){
+    
+    tempOrder =[...tempOrder,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase()))]
+    
+    tempItem =[...tempItem,...dataSourceItem.filter(item => item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase() ))]
 
-      tempItem = [...tempItem, ...dataSourceItem.filter(item =>
-        item.ORDERTYPE === 'Amazon' ||
-        item.ORDERTYPE === 'AmazonRizno' ||
-        item.ORDERTYPE === 'Walmart' || item.ORDERTYPE === 'Sears' || item.ORDERTYPE === 'Ebay'
-      )]
-      setstate({ ...state, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
-    }
-    else if(['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(e.target.value.toString())){
-      tempOrder = [...tempOrder, ...dataSourceOrder.filter(item =>
-        item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase())
-      )]
-        console.log('a2', tempOrder)
-      tempItem = [...tempItem, ...dataSourceItem.filter(item => item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase()))]
-
-      setstate({ ...state, filterValue: e.target.value, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
-    }
-    else if ('PU' === e.target.value.toString()) {
-      // cond for pu
-      // filter(item => item.orderno.split('-')[0]!=='JLC)
-      // filter(item => item.orderno.split('-')[0]==='JLC)
-      console.log('PU', ...dataSourceOrder)
-      tempOrder = [...tempOrder, ...dataSourceOrder.filter(item => item.orderno.split('-')[0] !== 'JLC')]
-      tempItem = [...tempItem, ...dataSourceItem.filter(item => item.orderno.split('-')[0] !== 'JLC')]
-
-
-
-      setstate({ ...state, filterValue: e.target.value, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
+    setstate({ ...state, filterValue: e.target.value,dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem  });
     }
     else if ('JLC' === e.target.value.toString()) {
       // cond for pu
-      // filter(item => item.orderno.split('-')[0]!=='JLC)
-      // filter(item => item.orderno.split('-')[0]==='JLC)
+       // filter(item => item.orderno.split('-')[0]!=='JLC)
+       // filter(item => item.orderno.split('-')[0]==='JLC)
+    //   console.log('PU',...dataSourceOrder)
+       tempOrder =[...tempOrder,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase()))]
+      tempItem =[...tempItem,...dataSourceItem.filter(item => item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase() ))]
 
-      tempOrder = [...tempOrder, ...dataSourceOrder.filter(item => item.orderno.split('-')[0] === 'JLC')]
-      console.log(tempOrder)
-      tempItem = [...tempItem, ...dataSourceItem.filter(item => item.orderno.split('-')[0] === 'JLC')]
+         setstate({ ...state, filterValue: e.target.value,dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem  });
 
+         }
+         else if ('JLC' === e.target.value.toString()){
+          // cond for pu
+           // filter(item => item.orderno.split('-')[0]!=='JLC)
+           // filter(item => item.orderno.split('-')[0]==='JLC)
 
+           tempOrder =[...tempOrder,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase()))]
+    
+           tempItem =[...tempItem,...dataSourceItem.filter(item => item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase() ))]
+    
+           
+         
+             setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem  });
+             }
 
-      setstate({ ...state, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
-    }
-
-    else if ('WebALL' === e.target.value.toString()) {
-
-      tempOrder = [...tempOrder, ...dataSourceOrder.filter(item => item.orderno.split('-')[0] === 'JLC' || item.orderno.split('-')[0] !== 'JLC')]
-
-      tempItem = [...tempItem, ...dataSourceItem.filter(item => item.orderno.split('-')[0] === 'JLC' || item.orderno.split('-')[0] !== 'JLC')]
-      setstate({ ...state, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
-    }
+             else if ('WebALL' === e.target.value.toString()){
+ 
+              tempOrder =[...tempOrder,...dataSourceOrder.filter(item => 
+                item.ORDERTYPE==='PU'||
+                item.ORDERTYPE==='JLC'
+                )]
+        
+                tempItem =[...tempItem,...dataSourceItem.filter(item => 
+                  item.ORDERTYPE==='PU'||
+                  item.ORDERTYPE==='JLC'
+                  )]
+              setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem  });
+             }
   };
 
   return (
     <>
       {/* <h1>test</h1> */}
       <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
-
-
-
 
         <Row style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
           <Col span={24}>
@@ -508,7 +536,7 @@ const ReportPNLView = () => {
 
                     <Col span={20}>
 
-                      <Radio.Group onChange={handleSizeChange} optionType="button" buttonStyle="solid" disabled={isSellerType === 'disabled' ? true : false}>
+                      <Radio.Group onChange={handleTypeChange} optionType="button" buttonStyle="solid" disabled={isSellerType === 'disabled' ? true : false}>
 
                         {sellerType.map(val => (
 

@@ -1,13 +1,14 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components'
-import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification,Radio   , Tabs, Spin } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Tabs, Spin } from 'antd';
+
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { apiSummaryReportOrderWise } from '../../../../redux/apis/DataAction';
 import './style.css';
+
 
 
 
@@ -34,8 +35,8 @@ const validateMessages = {
 
 const OrderPNL = (props) => {
 
-    const {dataSourceOrder,dataSourceOrderTempParent,dataOrderDownload,seller}= props
-     console.log('dataSourceOrder',dataSourceOrderTempParent)
+    const {dataSourceOrder,dataOrderDownload}= props
+    // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -44,17 +45,17 @@ const OrderPNL = (props) => {
     sortedInfo:[],
    
     isLoader:false,
-    dataSourceOrderTemp:[]
+    dataSourceOrderTemp:[],
     
   });
 
-  const {sortedInfo,isLoader,dataSourceOrderTemp,searchText,searchedColumn}=state
+  const {sortedInfo,isLoader,dataSourceOrderTemp}=state
  
   useEffect(() => {
     // Update the document title using the browser API
-    setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent });
+    setState({ ...state, dataSourceOrderTemp: dataSourceOrder });
 
-  },[dataSourceOrderTempParent]);
+  },[dataSourceOrder]);
   const dataSource = [];
   let temp =[];
 
@@ -67,7 +68,7 @@ const OrderPNL = (props) => {
     size='small'
     onChange={e => {        
  
-      temp =[...temp,...dataSourceOrder.filter(item => JSON.stringify(item[value].toUpperCase()).includes(e.target.value.toString().toUpperCase()))]
+      temp =[...temp,...dataSourceOrder.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
      
       setState({...state,dataSourceOrderTemp:temp}); 
 
@@ -77,8 +78,12 @@ const OrderPNL = (props) => {
 
 
 //  const getColumnSearchProps = (dataIndex) => ({
+
+  
 //     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+     
 //       <div style={{ padding: 8 }}>
+//             {console.log('dataIndex',dataIndex)}
 //         <Input
 //           ref={node => {
 //             searchInput = node;
@@ -99,7 +104,7 @@ const OrderPNL = (props) => {
 //           >
 //             Search
 //           </Button>
-//           <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+//           <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
 //             Reset
 //           </Button>
 //           <Button
@@ -107,7 +112,7 @@ const OrderPNL = (props) => {
 //             size="small"
 //             onClick={() => {
 //               confirm({ closeDropdown: false });
-//               this.setState({
+//               setState({
 //                 searchText: selectedKeys[0],
 //                 searchedColumn: dataIndex,
 //               });
@@ -143,18 +148,25 @@ const OrderPNL = (props) => {
 
   const columns = [
     {
-      
-      title: 
-      <>
+      title:     
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Order no</p>
-      </div>
+      </div>,
 
-      { filter('orderno')}
-      </> ,
-      dataIndex: 'orderno',
-      key: 'orderno' ,
+      children: [
+      {
+        title: <>
+        { filter('orderno')}
+        </>,
+         dataIndex: 'orderno',
+         key: 'orderno',
+      }
+
+        ]
     },
+    
+    
+  
     //   {
       
     //   title: 
@@ -168,216 +180,443 @@ const OrderPNL = (props) => {
     //   dataIndex: 'orderno',
     //   key: 'orderno' ,
     //   // ...this.getColumnSearchProps('orderno')
-    //   ...getColumnSearchProps('orderno')
+    //   ...this.getColumnSearchProps('orderno')
     // },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>FULL NAME</p>
-      </div>
-
-       { filter('FULLNAME')}
-      {/* {filterByFirstNameInput} */}
+      </div>,
+      children: [
+      {
+        title: <>
+        { filter('FULLNAME')}
       </> , 
       dataIndex: 'FULLNAME',
       key: 'FULLNAME',
+      }
+
+        ]
+
      
     },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Zip </p>
-      </div>
-
-      { filter('Zip')}
+      </div>,
+      children: [
+      {
+        title: <>
+        { filter('Zip')}
       </> , 
       dataIndex: 'Zip',
       key: 'Zip',
+      }
+
+        ]
+
+    
       
     },
     {
      
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>State </p>
-      </div>
+      </div>,
+      children: [
+      {
+        title: <>
+        { filter('State')}
+        </>,
+         dataIndex: 'State',
+         key: 'State',
+      }
 
-      { filter('State')}
-      </>,
-      dataIndex: 'State',
-      key: 'State',
+        ]
+
+      // {/* { filter('State')}
+      // </>,
+      // dataIndex: 'State',
+      // key: 'State', */}
         
     },
     {
-      title: <>
-      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>po shipping </p>
-      </div>
+      title:  <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>PO shipping</p>
+      </div> ,
+     children: [
+      {
+        title: <>
+        { filter('po_shipping')}
+        </>,
+         dataIndex: 'po_shipping',
+         key: 'po_shipping',
+      },
+      {
+    
+        key: 'po_shipping',
+        defaultSortOrder: 'descend',
+        sorter: (c, d) => c.po_shipping - d.po_shipping,
+        sortOrder: sortedInfo.columnKey === 'po_shipping' && sortedInfo.order,
+        width:30
+      }
 
-      { filter('po_shipping')}
-      </>,
-      dataIndex: 'po_shipping',
-      key: 'po_shipping',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.po_shipping - d.po_shipping,
-      sortOrder: sortedInfo.columnKey === 'po_shipping' && sortedInfo.order,
-    },
+        ]
+      },
+
+      
+     
+     
+    
     {
-      title: <>
-      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Customer Pay </p>
-      </div>
+      title:  <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Customer Pay</p>
+      </div> ,
+    children: [
+      {
+        title: <>
+        { filter('customerPay')}
+        </>,
+         dataIndex: 'customerPay',
+         key: 'customerPay'
+         },
+      {
+        key: 'customerPay',
+        defaultSortOrder: 'descend',
+        sorter: (c, d) => c.customerPay - d.customerPay,
+        sortOrder: sortedInfo.columnKey === 'customerPay' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('customerPay')}
-      </>,
-      dataIndex: 'customerPay',
-      key: 'customerPay',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.customerPay - d.customerPay,
-      sortOrder: sortedInfo.columnKey === 'customerPay' && sortedInfo.order,
+      // title: <>
+      // <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      // <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Customer Pay </p>
+      // </div>
+
+      // { filter('customerPay')}
+      // </>,
+      // dataIndex: 'customerPay',
+      // key: 'customerPay',
+      // defaultSortOrder: 'descend',
+      // sorter: (c, d) => c.customerPay - d.customerPay,
+      // sortOrder: sortedInfo.columnKey === 'customerPay' && sortedInfo.order,
     }
     ,
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Shipping Cost </p>
-      </div>
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('ShippingCost')}
+        </>,
+         dataIndex: 'ShippingCost',
+         key: 'ShippingCost'
+         },
+      {
+        key: 'ShippingCost',
+        defaultSortOrder: 'ShippingCost',
+        sorter: (c, d) => c.ShippingCost - d.ShippingCost,
+        sortOrder: sortedInfo.columnKey === 'ShippingCost' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('ShippingCost')}
+      /* { filter('ShippingCost')}
       </>,
       dataIndex: 'ShippingCost',
       key: 'ShippingCost',
       defaultSortOrder: 'descend',
-      sorter: (c, d) => c.ShippingCost - d.ShippingCost,
-      sortOrder: sortedInfo.columnKey === 'ShippingCost' && sortedInfo.order,
+      sorter: (c, d) => c.ShippingCost - d.ShippingCost
+      sortOrder: sortedInfo.columnKey === 'ShippingCost' && sortedInfo.order, */
     } ,
     
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Cost </p>
-      </div>
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('cost')}
+        </>,
+         dataIndex: 'cost',
+         key: 'cost'
+         },
+      {
+        key: 'cost',
+        defaultSortOrder: 'cost',
+        sorter: (c, d) => c.cost - d.cost,
+        sortOrder: sortedInfo.columnKey === 'cost' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('cost')}
+      /* { filter('cost')}
       </>,
       dataIndex: 'cost',
       key: 'cost',
       defaultSortOrder: 'descend',
       sorter: (c, d) => c.cost - d.cost,
-      sortOrder: sortedInfo.columnKey === 'cost' && sortedInfo.order,
+      sortOrder: sortedInfo.columnKey === 'cost' && sortedInfo.order, */
     },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>purchase Cost</p>
-      </div>
-
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('purchaseCost')}
+        </>,
+         dataIndex: 'purchaseCost',
+         key: 'purchaseCost'
+         },
+      {
+        key: 'purchaseCost',
+        defaultSortOrder: 'purchaseCost',
+        sorter: (c, d) => c.purchaseCost - d.purchaseCost,
+        sortOrder: sortedInfo.columnKey === 'purchaseCost' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
+/* 
       { filter('purchaseCost')}
       </>,
       dataIndex: 'purchaseCost',
       key: 'purchaseCost',
       defaultSortOrder: 'descend',
       sorter: (c, d) => c.purchaseCost - d.purchaseCost,
-      sortOrder: sortedInfo.columnKey === 'purchaseCost' && sortedInfo.order,
+      sortOrder: sortedInfo.columnKey === 'purchaseCost' && sortedInfo.order, */
     },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Order Total</p>
-      </div>
-
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('ordertotal')}
+        </>,
+         dataIndex: 'ordertotal',
+         key: 'ordertotal'
+         },
+      {
+        key: 'ordertotal',
+        defaultSortOrder: 'ordertotal',
+        sorter: (c, d) => c.ordertotal - d.ordertotal,
+        sortOrder: sortedInfo.columnKey === 'ordertotal' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
+/* 
       { filter('ordertotal')}
       </>,
       dataIndex: 'ordertotal',
       key: 'ordertotal',
       defaultSortOrder: 'descend',
       sorter: (c, d) => c.ordertotal - d.ordertotal,
-      sortOrder: sortedInfo.columnKey === 'ordertotal' && sortedInfo.order,
+      sortOrder: sortedInfo.columnKey === 'ordertotal' && sortedInfo.order, */
     },
     {
      
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Money Collected</p>
-      </div>
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('Moneycollected')}
+        </>,
+         dataIndex: 'Moneycollected',
+         key: 'Moneycollected'
+         },
+      {
+        key: 'Moneycollected',
+        defaultSortOrder: 'Moneycollected',
+        sorter: (c, d) => c.Moneycollected - d.Moneycollected,
+        sortOrder: sortedInfo.columnKey === 'Moneycollected' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('Moneycollected')}
-      </>,
-      dataIndex: 'Moneycollected',
-      key: 'Moneycollected',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.Moneycollected - d.Moneycollected,
-      sortOrder: sortedInfo.columnKey === 'Moneycollected' && sortedInfo.order,
+      // { filter('Moneycollected')}
+      // </>,
+      // dataIndex: 'Moneycollected',
+      // key: 'Moneycollected',
+      // defaultSortOrder: 'descend',
+      // sorter: (c, d) => c.Moneycollected - d.Moneycollected,
+      // sortOrder: sortedInfo.columnKey === 'Moneycollected' && sortedInfo.order,
     },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Commission</p>
-      </div>
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('commission')}
+        </>,
+         dataIndex: 'commission',
+         key: 'commission'
+         },
+      {
+        key: 'commission',
+        defaultSortOrder: 'commission',
+        sorter: (c, d) => c.commission - d.commission,
+        sortOrder: sortedInfo.columnKey === 'commission' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('commission')}
-      </>,
-      dataIndex: 'commission',
-      key: 'commission',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.commission - d.commission,
-      sortOrder: sortedInfo.columnKey === 'commission' && sortedInfo.order,
+      // { filter('commission')}
+      // </>,
+      // dataIndex: 'commission',
+      // key: 'commission',
+      // defaultSortOrder: 'descend',
+      // sorter: (c, d) => c.commission - d.commission,
+      // sortOrder: sortedInfo.columnKey === 'commission' && sortedInfo.order,
     },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Profit</p>
-      </div>
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('profit')}
+        </>,
+         dataIndex: 'profit',
+         key: 'profit'
+         },
+      {
+        key: 'profit',
+        defaultSortOrder: 'profit',
+        sorter: (c, d) => c.profit - d.profit,
+        sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('profit')}
-      </>,
-      dataIndex: 'profit',
-      key: 'profit',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.profit - d.profit,
-      sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
+      // { filter('profit')}
+      // </>,
+      // dataIndex: 'profit',
+      // key: 'profit',
+      // defaultSortOrder: 'descend',
+      // sorter: (c, d) => c.profit - d.profit,
+      // sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
     },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Is Dropship</p>
-      </div>
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('Isdropship')}
+        </>,
+         dataIndex: 'Isdropship',
+         key: 'Isdropship'
+         },
+      {
+        key: 'Isdropship',
+        defaultSortOrder: 'Isdropship',
+        sorter: (c, d) => c.Isdropship - d.Isdropship,
+        sortOrder: sortedInfo.columnKey === 'Isdropship' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('Isdropship')}
-      </>,
-      dataIndex: 'Isdropship',
-      key: 'Isdropship',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.Isdropship - d.Isdropship,
-      sortOrder: sortedInfo.columnKey === 'Isdropship' && sortedInfo.order,
+      // { filter('Isdropship')}
+      // </>,
+      // dataIndex: 'Isdropship',
+      // key: 'Isdropship',
+      // defaultSortOrder: 'descend',
+      // sorter: (c, d) => c.Isdropship - d.Isdropship,
+      // sortOrder: sortedInfo.columnKey === 'Isdropship' && sortedInfo.order,
     },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Is Replacement</p>
-      </div>
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('IsReplacement')}
+        </>,
+         dataIndex: 'IsReplacement',
+         key: 'IsReplacement'
+         },
+      {
+        key: 'IsReplacement',
+        defaultSortOrder: 'IsReplacement',
+        sorter: (c, d) => c.IsReplacement - d.IsReplacement,
+        sortOrder: sortedInfo.columnKey === 'IsReplacement' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('IsReplacement')}
-      </>,
-      dataIndex: 'IsReplacement',
-      key: 'IsReplacement',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.IsReplacement - d.IsReplacement,
-      sortOrder: sortedInfo.columnKey === 'IsReplacement' && sortedInfo.order,
+      // { filter('IsReplacement')}
+      // </>,
+      // dataIndex: 'IsReplacement',
+      // key: 'IsReplacement',
+      // defaultSortOrder: 'descend',
+      // sorter: (c, d) => c.IsReplacement - d.IsReplacement,
+      // sortOrder: sortedInfo.columnKey === 'IsReplacement' && sortedInfo.order,
     },
     {
-      title: <>
+      title: 
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
       <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Order Discount</p>
-      </div>
+      </div>,
+    children: [
+      {
+        title: <>
+        { filter('OrderDiscount')}
+        </>,
+         dataIndex: 'OrderDiscount',
+         key: 'OrderDiscount'
+         },
+      {
+        key: 'OrderDiscount',
+        defaultSortOrder: 'OrderDiscount',
+        sorter: (c, d) => c.OrderDiscount - d.OrderDiscount,
+        sortOrder: sortedInfo.columnKey === 'OrderDiscount' && sortedInfo.order,
+        width:30,
+      
+      }
+        ]
 
-      { filter('OrderDiscount')}
-      </>,
-      dataIndex: 'OrderDiscount',
-      key: 'OrderDiscount',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.OrderDiscount - d.OrderDiscount,
-      sortOrder: sortedInfo.columnKey === 'OrderDiscount' && sortedInfo.order,
+      // { filter('OrderDiscount')}
+      // </>,
+      // dataIndex: 'OrderDiscount',
+      // key: 'OrderDiscount',
+      // defaultSortOrder: 'descend',
+      // sorter: (c, d) => c.OrderDiscount - d.OrderDiscount,
+      // sortOrder: sortedInfo.columnKey === 'OrderDiscount' && sortedInfo.order,
     }
     
     
@@ -393,26 +632,26 @@ const OrderPNL = (props) => {
     });
   };
 
-  // const handleSearch = (searchText) => {
-  //  // temp  = [...temp, dataSourceDetails.filter(item => item['merchantsku']==null?[]:[...item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())])]
+  const handleSearch = (searchText) => {
+   // temp  = [...temp, dataSourceDetails.filter(item => item['merchantsku']==null?[]:[...item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())])]
 
-  //  // console.log(searchText.toUpperCase())
-  // //  temp  = [...temp,...dataSourceOrder.filter(item => item['merchantsku']!==null&&item['merchantsku'].toUpperCase().includes(searchText.toUpperCase()))]
+   // console.log(searchText.toUpperCase())
+  //  temp  = [...temp,...dataSourceOrder.filter(item => item['merchantsku']!==null&&item['merchantsku'].toUpperCase().includes(searchText.toUpperCase()))]
     
    
-  // //  // console.log('merchantsku',temp)
-  //   // // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
+  //  // console.log('merchantsku',temp)
+    // // console.log('merchantsku',dataSourceDetails.filter(item => item['merchantsku']==null?[]:item['merchantsku'].toUpperCase().includes(searchText.toUpperCase())))
    
-  //    temp =[...temp,...dataSourceOrder.filter(item => item['orderno'].toUpperCase().includes(searchText.toUpperCase()))]
-  //   // // console.log('orderno',temp)
+     temp =[...temp,...dataSourceOrder.filter(item => item['orderno'].toUpperCase().includes(searchText.toUpperCase()))]
+    // // console.log('orderno',temp)
 
 
-  //   //  temp = [...temp,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(searchText.toUpperCase()))]
-  //   // // console.log('ORDERTYPE',temp)
+    //  temp = [...temp,...dataSourceOrder.filter(item => item['ORDERTYPE'].toUpperCase().includes(searchText.toUpperCase()))]
+    // // console.log('ORDERTYPE',temp)
 
-  // //  // console.log('dataSourceDetails',temp)
-  //   setState({ ...state, dataSourceOrderTemp: temp });
-  // };
+  //  // console.log('dataSourceDetails',temp)
+    setState({ ...state, dataSourceOrderTemp: temp });
+  };
   const Download = ( data) =>  {
    
   downloadFile(data)
