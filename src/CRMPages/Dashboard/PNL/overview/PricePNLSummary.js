@@ -31,7 +31,7 @@ const validateMessages = {
 
 const PricePNLSummary = (props) => {
 
-    const {dataSourcePrice}= props
+    const {dataSourcePriceSummary}= props
     // // console.log('PricePNL',dataSourcePrice)
   const [form] = Form.useForm();
    
@@ -114,7 +114,7 @@ const PricePNLSummary = (props) => {
               {/* <ProjectList> */}
 
                 {/* <div className="table-responsive"> */}
-                  <Table pagination={false} dataSource={dataSourcePrice} columns={columns} onChange={handleChange}/>
+                  <Table pagination={false} dataSource={dataSourcePriceSummary} columns={columns} onChange={handleChange}/>
                 {/* </div> */}
 
               {/* </ProjectList> */}

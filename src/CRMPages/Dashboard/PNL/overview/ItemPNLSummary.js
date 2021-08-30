@@ -30,7 +30,7 @@ const validateMessages = {
 
 
 const ItemPNLSummary = (props) => {
-    const {dataSourceItem}= props
+    const {dataSourceItemsummary}= props
     // // console.log('ItemPNL',dataSourceItem)
   const [form] = Form.useForm();
    
@@ -111,7 +111,7 @@ const ItemPNLSummary = (props) => {
               {/* <ProjectList> */}
 
                 {/* <div className="table-responsive"> */}
-                  <Table pagination={false} dataSource={dataSourceItem} columns={columns} onChange={handleChange}/>
+                  <Table pagination={false} dataSource={dataSourceItemsummary} columns={columns} onChange={handleChange}/>
                 {/* </div> */}
 
               {/* </ProjectList> */}
