@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 import React, { Suspense, useEffect, useState } from 'react';
 
 import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Radio, Tabs, Spin } from 'antd';
@@ -59,15 +69,26 @@ const ReportPNLView = () => {
     isSellerType: 'disabled',
     filterValue: '',
     dataSourceOrderTempParent: [],
-    dataSourceItemTempParent: []
+    dataSourceItemTempParent: [],
+    dataSourceOrderSummaryTempParent:[],
+    dataOrderSummaryDownload:'',
+    dataSourceOrderSummary:[],
 
+    dataSourceItemSummaryTempParent:[],
+    dataItemSummaryDownload:'',
+    dataSourceItemSummary:[],
 
+    dataSourcePriceSummaryTempParent:[],
+    dataPriceSummaryDownload:'',
+    dataSourcePriceSummary:[],
   });
-
-  const { dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails } = state
+  
+  const {dataSourcePriceSummary,dataPriceSummaryDownload,dataSourcePriceSummaryTempParent,dataSourceItemsummary,dataItemsummaryDownload,dataSourceItemsummaryTempParent,dataSourceOrdersummary,dataOrdersummaryDownload, dataSourceOrdersummaryTempParent,dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails } = state
 
   let tempDataSource_summary_report_order_wise = [];
+  let tempDataSource_report_order_wise = [];
   let tempDataSource_summary_report_item_wise = [];
+  let tempDataSource_report_item_wise = [];  
   let tempDataSource_summary_report_Price_wise = [];
   let tempDataSource_summary_report_Detail_wise = [];
 
@@ -89,12 +110,13 @@ const ReportPNLView = () => {
   const getsummary_report_order_wise = () => {
     setstate({ ...state, isLoader: true })
     Promise.all([
-      //   dispatch(apiSummaryReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})), 
-      // dispatch(apiSummaryReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
-      //  dispatch(apiSummaryReportPriceWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
+      
       //  dispatch(apiSummaryReportDetailWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
       dispatch(apiReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
       dispatch(apiReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
+      dispatch(apiSummaryReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})), 
+      dispatch(apiSummaryReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
+      dispatch(apiSummaryReportPriceWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
     ]).then((data) => {
       console.log(data)
       //Order PNL
@@ -121,7 +143,7 @@ const ReportPNLView = () => {
         } = value;
 
 
-        tempDataSource_summary_report_order_wise.push({
+        tempDataSource_report_order_wise.push({
           ORDERTYPE: ORDERTYPE,
           orderno: orderno,
           FULLNAME: FULLNAME,
@@ -181,7 +203,7 @@ const ReportPNLView = () => {
         } = value;
 
 
-        tempDataSource_summary_report_item_wise.push({
+        tempDataSource_report_item_wise.push({
           vendorname: vendorname,
           merchantsku: merchantsku,
           vendorstylecode: vendorstylecode,
@@ -215,26 +237,71 @@ const ReportPNLView = () => {
         });
 
       });
-      //    downloadFile(data[1][0])
-      //Price PNL
-      // data[2][1].map(value => {
+      //Order summary    
+      data[2][1].map(value => {
 
-      //   const { vendorname
-      //       , TotalAmont
-      //       ,profit
-      //       ,loss
-      //       ,percentge
-      //        } = value;
+        const { vendorname,
+          order_count,
+          profit,
+          loss,
+          percentge
 
-      //   tempDataSource_summary_report_Price_wise.push({
-      //       vendorname: vendorname,
-      //       TotalAmont: Math.round(TotalAmont * 100) / 100 ,
-      //       profit:  Math.round(profit * 100) / 100 ,
-      //       loss:  Math.round(loss * 100) / 100 ,
-      //     percentge: Math.round(percentge * 100) / 100  
-      //   });
+        } = value;
 
-      // });
+
+        tempDataSource_summary_report_order_wise.push({
+          vendorname: vendorname,
+          order_count: order_count,
+          profit: Math.round(profit * 100) / 100,
+          loss: Math.round(loss * 100) / 100,
+          percentge: percentge
+
+
+        });
+
+      });
+      data[3][1].map(value => {
+
+        const { vendorname,
+          Item_count,
+          Total_item_profit,
+          Total_item_loss,
+          percentge
+
+        } = value;
+
+
+        tempDataSource_summary_report_item_wise.push({
+          vendorname: vendorname,
+          Item_count: Item_count,
+          Total_item_profit: Math.round(Total_item_profit * 100) / 100,
+          Total_item_loss: Math.round(Total_item_loss * 100) / 100,
+          percentge: percentge
+
+
+        });
+
+      });
+       //  downloadFile(data[2][0])
+    //  Price PNL
+      data[4][1].map(value => {
+
+        const { vendorname
+            , TotalAmont
+            ,profit
+            ,loss
+            ,percentge
+             } = value;
+
+        tempDataSource_summary_report_Price_wise.push({
+            vendorname: vendorname,
+            TotalAmont: Math.round(TotalAmont * 100) / 100 ,
+            profit:  Math.round(profit * 100) / 100 ,
+            loss:  Math.round(loss * 100) / 100 ,
+          percentge: Math.round(percentge * 100) / 100  
+        });
+
+      });
       // downloadFile(data[2][0])
       //        //Detail PNL
       //        data[3][1].map(value => {
@@ -315,11 +382,27 @@ const ReportPNLView = () => {
 
       setstate({
         ...state, dataOrderDownload: data[0][0],
-        dataSourceOrderTempParent: [...tempDataSource_summary_report_order_wise],
-        dataSourceOrder: [...tempDataSource_summary_report_order_wise],
-        dataItemDownload: data[1][0], dataSourceItem: [...tempDataSource_summary_report_item_wise],
-        dataSourceItemTempParent: [...tempDataSource_summary_report_item_wise],
-        //  dataSourcePrice: [...tempDataSource_summary_report_Price_wise],
+        dataSourceOrderTempParent: [...tempDataSource_report_order_wise],
+        dataSourceOrder: [...tempDataSource_report_order_wise],
+
+        dataItemDownload: data[1][0],
+        dataSourceItem: [...tempDataSource_report_item_wise],
+        dataSourceItemTempParent: [...tempDataSource_report_item_wise],
+
+        dataOrdersummaryDownload: data[2][0], 
+        dataSourceOrdersummary: [...tempDataSource_summary_report_order_wise],
+        dataSourceOrdersummaryTempParent: [...tempDataSource_summary_report_order_wise],
+
+        
+        
+        dataItemsummaryDownload: data[3][0], 
+        dataSourceItemsummary: [...tempDataSource_summary_report_item_wise],
+        dataSourceItemsummaryTempParent: [...tempDataSource_summary_report_item_wise],
+
+        dataPriceSummaryDownload: data[4][0], 
+        dataSourcePriceSummary: [...tempDataSource_summary_report_Price_wise],
+        dataSourcePriceSummaryTempParent: [...tempDataSource_summary_report_Price_wise],
+        
         // dataSourceDetails: [...tempDataSource_summary_report_Detail_wise],
         isLoader: false
       });
@@ -332,24 +415,24 @@ const ReportPNLView = () => {
   }
 
   const topMenu = [
-    // {
-    //     tab: 'PNL Order Summary',
-    //     key: 'OrderPNLSummary',
-    //     tabName: <OrderPNLSummary dataSourceOrder={dataSourceOrder}/>
-    // },
-    // {
-    //     tab: 'PNL Item Summary',
-    //     key: 'ItemPNLSummary',
-    //     tabName: <ItemPNLSummary dataSourceItem={dataSourceItem}/>
+    {
+        tab: 'PNL Order Summary',
+        key: 'OrderPNLSummary',
+        tabName: <OrderPNLSummary dataSourceOrdersummaryTempParent={dataSourceOrdersummaryTempParent} dataSourceOrdersummary={dataSourceOrdersummary}/>
+    },
+    {
+        tab: 'PNL Item Summary',
+        key: 'ItemPNLSummary',
+        tabName: <ItemPNLSummary dataSourceItemsummaryTempParent={dataSourceItemsummaryTempParent} dataSourceItemsummary={dataSourceItemsummary}/>
 
-    // },
-    // {
-    //     tab: 'PNL Price Summary',
-    //     key: 'PricePNLSummary',
-    //     tabName: <PricePNLSummary dataSourcePrice={dataSourcePrice} />
+    },
+    {
+        tab: 'PNL Price Summary',
+        key: 'PricePNLSummary',
+        tabName: <PricePNLSummary dataSourcePriceSummaryTempParent={dataSourcePriceSummaryTempParent} dataSourcePriceSummary={dataSourcePriceSummary} />
 
-    // }
-    // ,
+    }
+     ,
     // {
     //     tab: 'PNL Detail',
     //     key: 'Detail PNL',
@@ -372,9 +455,9 @@ const ReportPNLView = () => {
     }
   ];
 
-  let ordertype = []
+
   const handleOrderTypeChange = (e) => {
-    
+    let ordertype = []
     let tempOrder=[];
     let tempItem=[];
     if ('MarketPlace' === e.target.value.toString()) {
@@ -399,11 +482,11 @@ const ReportPNLView = () => {
       
       tempOrder =[...tempOrder,...dataSourceOrder.filter(item =>  item.ORDERTYPE==='PU'||item.ORDERTYPE==='JLC')]
 
-         console.log('Web',tempOrder)
+        // console.log('Web',tempOrder)
         
         tempItem =[...tempItem,...dataSourceItem.filter(item =>  item.ORDERTYPE==='PU'|| item.ORDERTYPE==='JLC')]  
 
-           console.log('Web',tempItem)
+          // console.log('Web',tempItem)
 
           setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem , sellerType: ordertype, isSellerType: 'Enable' });
     
@@ -487,6 +570,37 @@ const ReportPNLView = () => {
               setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem  });
              }
   };
+  const download =(event)=>
+  {
+
+    let activeTab =event
+
+    if (activeTab==='OrderPNL')
+    {
+      downloadFile(dataOrderDownload)
+    }
+    else if (activeTab==='ItemPNL')
+    {
+      downloadFile(dataItemDownload)
+    }
+    else if (activeTab==='OrderPNLSummary')
+    {
+      downloadFile(dataOrdersummaryDownload)
+    }
+    else if (activeTab==='ItemPNLSummary')
+    {
+      downloadFile(dataItemsummaryDownload)
+    }
+    else if (activeTab==='PricePNLSummary')
+    {
+      downloadFile(dataPriceSummaryDownload)
+    }
+
+
+    
+    
+
+  }
   return (
     <>
       {/* <h1>test</h1> */}
@@ -512,7 +626,7 @@ const ReportPNLView = () => {
                   <Button type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
                   <Button type="success"
-                    onClick={(event) => { activeTab === 'OrderPNL' ? downloadFile(dataOrderDownload) : downloadFile(dataItemDownload) }} >
+                    onClick={ (value) => { download(activeTab)} } >
                     Download
                   </Button>
                 </Col>
@@ -583,3 +697,4 @@ const ReportPNLView = () => {
 };
 
 export default ReportPNLView;
+
