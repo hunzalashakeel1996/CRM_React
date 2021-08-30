@@ -624,14 +624,14 @@ const ReportPNLMPView = () => {
                 <Col xs={24} style={{marginBottom:10}}>
                   <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
-                  {dataSourceOrderTempParent.length>0&&   <Button type="success"
+                  {dataSourceOrder.length>0&&   <Button type="success"
                     onClick={ (value) => { download(activeTab)} } >
                     Download
                   </Button>}
                 </Col>
               </Row>
 
-              {dataSourceOrderTempParent.length>0&&    <Row style={{ marginTop: 10 }}>
+              {dataSourceOrder.length>0&&    <Row style={{ marginTop: 10 }}>
                 <Col xs={24} lg={2}>
 
                   <label>Filtes:</label>
