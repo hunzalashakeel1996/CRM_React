@@ -1064,6 +1064,24 @@ export const apiReportItemWise = (data) => {
     return apiFetchDotNet('/report/PNL_Item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
+export const apiReportOrderWiseWeb = (data) => {
+    
+    return apiFetchDotNet('/report/PNL_Order_wiseWeb', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const apiReportItemWiseWeb = (data) => {
+    
+    return apiFetchDotNet('/report/PNL_Item_wiseWeb', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const apiReportOrderWiseMP = (data) => {
+    
+    return apiFetchDotNet('/report/PNL_Order_wiseMP', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const apiReportItemWiseMP = (data) => {
+    
+    return apiFetchDotNet('/report/PNL_Item_wiseMP', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 export const getGoogleMarketPlaceVerifyapi = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/newInventory/fetchGoogleMarketplaceVerifyapi', "POST", headerDotNetWithJwt, JSON.stringify(data));
