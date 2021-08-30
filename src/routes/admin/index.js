@@ -17,6 +17,8 @@ import UserManagement from './UserManagement'
 import CustomerSupport from './CustomerSupport'
 import Reporting from './Reporting'
 import ReportPNL from './ReportPNL'
+import ReportPNLWeb from './ReportPNLWeb'
+import ReportPNLMP from './ReportPNLMP'
 import ComparisonReportView from './../../CRMPages/Dashboard/ComparisonReport/ComparisonReportView';
 import NotFoundPage from '../../CRMPages/NotFoundPage/NotFoundPage';
 
@@ -50,6 +52,8 @@ const Admin = () => {
           <Route path={`${path}/customerSupport`} component={CustomerSupport} />
           <Route path={`${path}/reporting`} component={Reporting} />
           <Route path={`${path}/PNL`} component={ReportPNL} />
+          <Route path={`${path}/ReportPNLWeb`} component={ReportPNLWeb} />
+          <Route path={`${path}/ReportPNLMP`} component={ReportPNLMP} />
 
           {/* <Redirect to="/admin" /> */}
           {/* <Route path="*" >

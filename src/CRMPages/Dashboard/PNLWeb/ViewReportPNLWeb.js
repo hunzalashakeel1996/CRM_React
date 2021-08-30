@@ -13,16 +13,13 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Radio, Tabs, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../../components/buttons/buttons';
-import DetailPNL from './overview/DetailPNL';
-import ItemPNLSummary from './overview/ItemPNLSummary';
-import OrderPNLSummary from './overview/OrderPNLSummary';
-import PricePNLSummary from './overview/PricePNLSummary';
+
 import ItemPNL from './overview/ItemPNL';
 import OrderPNL from './overview/OrderPNL';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 
 import { downloadFile } from '../../../components/utilities/utilities'
-import { apiReportOrderWise, apiReportItemWise, apiSummaryReportOrderWise, apiSummaryReportItemWise, apiSummaryReportPriceWise, apiSummaryReportDetailWise } from '../../../redux/apis/DataAction';
+import { apiReportOrderWiseWeb,apiReportItemWiseWeb} from '../../../redux/apis/DataAction';
 // import { webURL, audioPlay, uploadUrl, getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi, getSearsPriceapi, getPriceWalmartapi } from '../../../redux/apis/DataAction';
 import './overview/style.css';
 
@@ -45,16 +42,16 @@ const validateMessages = {
 
 
 
-const ReportPNLView = () => {
+const ReportPNLWebView = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
-  const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL'];
+  const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL Web'];
 
   const [activeTab, setActiveTab] = useState('OrderPNL');
 
-
+ let  ordertype = ['PU', 'JLC','WebALL']
   const [state, setstate] = useState({
 
 
@@ -65,7 +62,7 @@ const ReportPNLView = () => {
     isLoader: false,
     dataOrderDownload: '',
     dataItemDownload: '',
-    sellerType: [],
+    sellerType: ['PU', 'JLC','WebALL'],
     isSellerType: 'disabled',
     filterValue: '',
     dataSourceOrderTempParent: [],
@@ -112,11 +109,11 @@ const ReportPNLView = () => {
     Promise.all([
       
       //  dispatch(apiSummaryReportDetailWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
-      dispatch(apiReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
-      dispatch(apiReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
-      dispatch(apiSummaryReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})), 
-      dispatch(apiSummaryReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
-      dispatch(apiSummaryReportPriceWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
+      dispatch(apiReportOrderWiseWeb({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
+      dispatch(apiReportItemWiseWeb({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
+    //   dispatch(apiSummaryReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})), 
+    //   dispatch(apiSummaryReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
+    //   dispatch(apiSummaryReportPriceWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
     ]).then((data) => {
       console.log(data)
       //Order PNL
@@ -239,148 +236,6 @@ const ReportPNLView = () => {
         });
 
       });
-      //Order summary    
-      data[2][1].map(value => {
-
-        const { vendorname,
-          order_count,
-          profit,
-          loss,
-          percentge
-
-        } = value;
-
-
-        tempDataSource_summary_report_order_wise.push({
-          vendorname: vendorname,
-          order_count: order_count,
-          profit: Math.round(profit * 100) / 100,
-          loss: Math.round(loss * 100) / 100,
-          percentge: percentge
-
-
-        });
-
-      });
-      data[3][1].map(value => {
-
-        const { vendorname,
-          Item_count,
-          Total_item_profit,
-          Total_item_loss,
-          percentge
-
-        } = value;
-
-
-        tempDataSource_summary_report_item_wise.push({
-          vendorname: vendorname,
-          Item_count: Item_count,
-          Total_item_profit: Math.round(Total_item_profit * 100) / 100,
-          Total_item_loss: Math.round(Total_item_loss * 100) / 100,
-          percentge: percentge
-
-
-        });
-
-      });
-       //  downloadFile(data[2][0])
-    //  Price PNL
-      data[4][1].map(value => {
-
-        const { vendorname
-            , TotalAmont
-            ,profit
-            ,loss
-            ,percentge
-             } = value;
-
-        tempDataSource_summary_report_Price_wise.push({
-            vendorname: vendorname,
-            TotalAmont: Math.round(TotalAmont * 100) / 100 ,
-            profit:  Math.round(profit * 100) / 100 ,
-            loss:  Math.round(loss * 100) / 100 ,
-          percentge: Math.round(percentge * 100) / 100  
-        });
-
-      });
-      // downloadFile(data[2][0])
-      //        //Detail PNL
-      //        data[3][1].map(value => {
-
-      //           const { vendorname,
-      //               merchantsku,
-      //               vendorstylecode,
-      //               colorcode,
-      //               sizename,
-      //               orderstatus,
-      //               itemstatus,
-      //               orderdate,
-      //               uspsdate,
-      //               ORDERTYPE,
-      //               orderno,
-      //               purchaseorderno,
-      //               itemqty,
-      //               cost,
-      //               purchaseCost,
-      //               commit_status,
-      //               commision,
-      //               SalePrice,
-      //               pu_price,
-      //               Weight,
-      //               shipping,
-      //               po_shipping,
-      //               ups_usps_item_shipping,
-      //               usps_order_shipping,
-      //               ups_order_shipping,
-      //               isRMA,
-      //               customer_pay_ship,
-      //               profit,
-      //               PPS,
-      //               final_profit,
-      //               Type
-
-      //                } = value;
-
-      //           tempDataSource_summary_report_Detail_wise.push({
-      //               vendorname:vendorname,
-      //               merchantsku:merchantsku,
-      //               vendorstylecode:vendorstylecode,
-      //               colorcode:colorcode,
-      //               sizename:sizename,
-      //               orderstatus:orderstatus,
-      //               itemstatus:itemstatus,
-      //               orderdate:orderdate,
-      //               uspsdate:uspsdate,
-      //               ORDERTYPE:ORDERTYPE,
-      //               orderno:orderno,
-      //               purchaseorderno:purchaseorderno,
-      //               itemqty:itemqty,
-      //               cost:Math.round(cost * 100) / 100   ,
-      //               purchaseCost: Math.round(purchaseCost * 100) / 100  ,
-      //               commit_status:commit_status,
-      //               commision: Math.round(commision * 100) / 100  ,
-      //               SalePrice:Math.round(SalePrice * 100) / 100  ,
-      //               pu_price:Math.round(pu_price * 100) / 100  ,
-      //               Weight: Math.round(Weight * 100) / 100  ,
-      //               shipping:Math.round(shipping * 100) / 100  ,
-      //               po_shipping: Math.round(po_shipping * 100) / 100   ,
-      //               ups_usps_item_shipping: Math.round(ups_usps_item_shipping * 100) / 100  ,
-      //               usps_order_shipping: Math.round(usps_order_shipping * 100) / 100  ,
-      //               ups_order_shipping: Math.round(ups_order_shipping * 100) / 100  ,
-      //               isRMA:isRMA,
-      //               customer_pay_ship:Math.round(customer_pay_ship * 100) / 100 ,
-      //               profit: Math.round(profit * 100) / 100 ,
-      //               PPS:PPS,
-      //               final_profit: Math.round(final_profit * 100) / 100 ,
-      //               Type:Type
-
-      //           });
-
-      //         });
-      //         downloadFile(data[3][0])
-      // let json = JSON.stringify(data[3][1])
-      // // console.log('json',json)
 
       setstate({
         ...state, dataOrderDownload: data[0][0],
@@ -391,19 +246,19 @@ const ReportPNLView = () => {
         dataSourceItem: [...tempDataSource_report_item_wise],
         dataSourceItemTempParent: [...tempDataSource_report_item_wise],
 
-        dataOrdersummaryDownload: data[2][0], 
-        dataSourceOrdersummary: [...tempDataSource_summary_report_order_wise],
-        dataSourceOrdersummaryTempParent: [...tempDataSource_summary_report_order_wise],
+        // dataOrdersummaryDownload: data[2][0], 
+        // dataSourceOrdersummary: [...tempDataSource_summary_report_order_wise],
+        // dataSourceOrdersummaryTempParent: [...tempDataSource_summary_report_order_wise],
 
         
         
-        dataItemsummaryDownload: data[3][0], 
-        dataSourceItemsummary: [...tempDataSource_summary_report_item_wise],
-        dataSourceItemsummaryTempParent: [...tempDataSource_summary_report_item_wise],
+        // dataItemsummaryDownload: data[3][0], 
+        // dataSourceItemsummary: [...tempDataSource_summary_report_item_wise],
+        // dataSourceItemsummaryTempParent: [...tempDataSource_summary_report_item_wise],
 
-        dataPriceSummaryDownload: data[4][0], 
-        dataSourcePriceSummary: [...tempDataSource_summary_report_Price_wise],
-        dataSourcePriceSummaryTempParent: [...tempDataSource_summary_report_Price_wise],
+        // dataPriceSummaryDownload: data[4][0], 
+        // dataSourcePriceSummary: [...tempDataSource_summary_report_Price_wise],
+        // dataSourcePriceSummaryTempParent: [...tempDataSource_summary_report_Price_wise],
         
         // dataSourceDetails: [...tempDataSource_summary_report_Detail_wise],
         isLoader: false
@@ -417,24 +272,24 @@ const ReportPNLView = () => {
   }
 
   const topMenu = [
-    {
-        tab: 'PNL Order Summary',
-        key: 'OrderPNLSummary',
-        tabName: <OrderPNLSummary dataSourceOrdersummaryTempParent={dataSourceOrdersummaryTempParent} dataSourceOrdersummary={dataSourceOrdersummary}/>
-    },
-    {
-        tab: 'PNL Item Summary',
-        key: 'ItemPNLSummary',
-        tabName: <ItemPNLSummary dataSourceItemsummaryTempParent={dataSourceItemsummaryTempParent} dataSourceItemsummary={dataSourceItemsummary}/>
+    // {
+    //     tab: 'PNL Order Summary',
+    //     key: 'OrderPNLSummary',
+    //     tabName: <OrderPNLSummary dataSourceOrdersummaryTempParent={dataSourceOrdersummaryTempParent} dataSourceOrdersummary={dataSourceOrdersummary}/>
+    // },
+    // {
+    //     tab: 'PNL Item Summary',
+    //     key: 'ItemPNLSummary',
+    //     tabName: <ItemPNLSummary dataSourceItemsummaryTempParent={dataSourceItemsummaryTempParent} dataSourceItemsummary={dataSourceItemsummary}/>
 
-    },
-    {
-        tab: 'PNL Price Summary',
-        key: 'PricePNLSummary',
-        tabName: <PricePNLSummary dataSourcePriceSummaryTempParent={dataSourcePriceSummaryTempParent} dataSourcePriceSummary={dataSourcePriceSummary} />
+    // },
+    // {
+    //     tab: 'PNL Price Summary',
+    //     key: 'PricePNLSummary',
+    //     tabName: <PricePNLSummary dataSourcePriceSummaryTempParent={dataSourcePriceSummaryTempParent} dataSourcePriceSummary={dataSourcePriceSummary} />
 
-    }
-     ,
+    // }
+    //  ,
     // {
     //     tab: 'PNL Detail',
     //     key: 'Detail PNL',
@@ -445,7 +300,7 @@ const ReportPNLView = () => {
     {
       tab: 'PNL Order',
       key: 'OrderPNL',
-      tabName: <OrderPNL dataSourceOrder={dataSourceOrder} dataSourceOrderTempParent={dataSourceOrderTempParent} />
+      tabName: <OrderPNL  dataSourceOrder={dataSourceOrder} dataSourceOrderTempParent={dataSourceOrderTempParent} />
 
     }
     ,
@@ -458,57 +313,58 @@ const ReportPNLView = () => {
   ];
 
 
-  const handleOrderTypeChange = (e) => {
-    let ordertype = []
-    let tempOrder=[];
-    let tempItem=[];
-    if ('MarketPlace' === e.target.value.toString()) {
-      ordertype = ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay','MPALL']
-      
-      tempOrder =[...tempOrder,...dataSourceOrder.filter(item => 
-        item.ORDERTYPE==='Amazon'||
-        item.ORDERTYPE==='AmazonRizno'||
-        item.ORDERTYPE==='Walmart'||     item.ORDERTYPE==='Sears'||     item.ORDERTYPE==='Ebay'
-        )]
-        console.log('MarketPlace',tempOrder)
-        tempItem =[...tempItem,...dataSourceItem.filter(item => 
-          item.ORDERTYPE==='Amazon'||
-          item.ORDERTYPE==='AmazonRizno'||
-          item.ORDERTYPE==='Walmart'||     item.ORDERTYPE==='Sears'||     item.ORDERTYPE==='Ebay' )]
-          console.log('MarketPlace',tempItem)
-      setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem , sellerType: ordertype, isSellerType: 'Enable'});
-   
-    }
-    else if ('Web' === e.target.value.toString()) {
-      ordertype = ['PU', 'JLC','WebALL']
-      
-      tempOrder =[...tempOrder,...dataSourceOrder.filter(item =>  item.ORDERTYPE==='PU'||item.ORDERTYPE==='JLC')]
-
-        // console.log('Web',tempOrder)
-        
-        tempItem =[...tempItem,...dataSourceItem.filter(item =>  item.ORDERTYPE==='PU'|| item.ORDERTYPE==='JLC')]  
-
-          // console.log('Web',tempItem)
-
-          setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem , sellerType: ordertype, isSellerType: 'Enable' });
+//   const handleOrderTypeChange = (e) => {
+//     let ordertype = []
+//     let tempOrder=[];
+//     let tempItem=[];
     
-    }
-    else if ('All' === e.target.value.toString()) {
-      // console.log('All')
-      ordertype = []
-      setstate({ ...state, dataSourceOrderTempParent:[...dataSourceOrder],dataSourceItemTempParent:[...dataSourceItem] , sellerType: ordertype, isSellerType: 'Enable' });
-    }
-    // console.log(ordertype)    
+//     // if ('MarketPlace' === e.target.value.toString()) {
+//     //   ordertype = ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay','MPALL']
+      
+//     //   tempOrder =[...tempOrder,...dataSourceOrder.filter(item => 
+//     //     item.ORDERTYPE==='Amazon'||
+//     //     item.ORDERTYPE==='AmazonRizno'||
+//     //     item.ORDERTYPE==='Walmart'||     item.ORDERTYPE==='Sears'||     item.ORDERTYPE==='Ebay'
+//     //     )]
+//     //     console.log('MarketPlace',tempOrder)
+//     //     tempItem =[...tempItem,...dataSourceItem.filter(item => 
+//     //       item.ORDERTYPE==='Amazon'||
+//     //       item.ORDERTYPE==='AmazonRizno'||
+//     //       item.ORDERTYPE==='Walmart'||     item.ORDERTYPE==='Sears'||     item.ORDERTYPE==='Ebay' )]
+//     //       console.log('MarketPlace',tempItem)
+//     //   setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem , sellerType: ordertype, isSellerType: 'Enable'});
+   
+//     // }
+//     //  if ('Web' === e.target.value.toString()) {
+//     //   ordertype = ['PU', 'JLC','WebALL']
+      
+//     //   tempOrder =[...tempOrder,...dataSourceOrder.filter(item =>  item.ORDERTYPE==='PU'||item.ORDERTYPE==='JLC')]
 
-    // setstate({ ...state, sellerType: ordertype, isSellerType: 'Enable' });
+//     //     // console.log('Web',tempOrder)
+        
+//     //     tempItem =[...tempItem,...dataSourceItem.filter(item =>  item.ORDERTYPE==='PU'|| item.ORDERTYPE==='JLC')]  
+
+//     //       // console.log('Web',tempItem)
+
+//     //       setstate({ ...state, dataSourceOrderTempParent:tempOrder,dataSourceItemTempParent:tempItem , sellerType: ordertype, isSellerType: 'Enable' });
+    
+//     // }
+//     // else if ('All' === e.target.value.toString()) {
+//     //   // console.log('All')
+//     //   ordertype = []
+//     //   setstate({ ...state, dataSourceOrderTempParent:[...dataSourceOrder],dataSourceItemTempParent:[...dataSourceItem] , sellerType: ordertype, isSellerType: 'Enable' });
+//     // }
+//     // console.log(ordertype)    
+
+//     // setstate({ ...state, sellerType: ordertype, isSellerType: 'Enable' });
 
 
-  };
+//   };
 
   const handleTypeChange = e => {
     let tempOrder=[];
     let tempItem=[];
-    // console.log('handleSizeChange',e.target.value.toString())
+    console.log('handleSizeChange',e.target.value.toString())
     if ('MPALL' === e.target.value.toString()) {
      
   
@@ -610,7 +466,7 @@ const ReportPNLView = () => {
 
         <Row style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
           <Col span={24}>
-            <Cards title="PNL Report">
+            <Cards title="PNL Report Web">
               <Row gutter={25}>
                 <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
                   <DatePicker style={{ padding: 10, width: '100%', }} placeholder="Start date" size='small' onChange={(date) => { onChange(date, 'startDate') }} />
@@ -625,33 +481,33 @@ const ReportPNLView = () => {
 
               <Row>
                 <Col xs={24} style={{marginBottom:10}}>
-                  <Button type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                  <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
-                  {dataSourceOrderTempParent.length>0&&<Button type="success"
+                  {dataSourceOrderTempParent.length>0&&  <Button type="success"
                     onClick={ (value) => { download(activeTab)} } >
                     Download
                   </Button>}
                 </Col>
               </Row>
 
-              {dataSourceOrderTempParent.length>0&&  <Row style={{ marginTop: 10 }}>
+              {dataSourceOrderTempParent.length>0&&   <Row style={{ marginTop: 10 }}>
                 <Col xs={24} lg={2}>
 
                   <label>Filtes:</label>
                 </Col>
                 <Col span={20} >
 
-                  <Radio.Group onChange={handleOrderTypeChange}>
-                    <Radio.Button value="Web">Web</Radio.Button>
-                    <Radio.Button value="MarketPlace">MarketPlace</Radio.Button>
-                    <Radio.Button value="All">All</Radio.Button>
+                  <Radio.Group  >
+                    <Radio.Button value="Web" >Web</Radio.Button>
+                    {/* <Radio.Button value="MarketPlace">MarketPlace</Radio.Button>
+                    <Radio.Button value="All">All</Radio.Button> */}
                   </Radio.Group>
 
                   <Row style={{ marginTop: 10 }} >
 
                     <Col span={20}>
-
-                      <Radio.Group onChange={handleTypeChange} optionType="button" buttonStyle="solid" disabled={isSellerType === 'disabled' ? true : false}>
+                    {/* disabled={isSellerType === 'disabled' ? true : false} */}
+                      <Radio.Group onChange={handleTypeChange} optionType="button" buttonStyle="solid" >
 
                         {sellerType.map(val => (
 
@@ -698,5 +554,5 @@ const ReportPNLView = () => {
   );
 };
 
-export default ReportPNLView;
+export default ReportPNLWebView;
 

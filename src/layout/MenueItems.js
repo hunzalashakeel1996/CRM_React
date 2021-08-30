@@ -40,7 +40,16 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'ViewReportPNL',
         title: 'Report PNL',
         path: `${path}/PNL/ViewReportPNL`
-      }]
+      }, {
+        key: 'ViewReportPNLWeb',
+        title: 'Report PNL Web',
+        path: `${path}/ReportPNLWeb/ViewReportPNLWeb`
+      }, {
+        key: 'ViewReportPNLMP',
+        title: 'Report PNL MarketPlace',
+        path: `${path}/ReportPNLMP/ViewReportPNLMP`
+      }
+    ]
     },
     {
       key: 'Tickets',
