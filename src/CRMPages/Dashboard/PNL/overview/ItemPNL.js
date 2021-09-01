@@ -32,8 +32,8 @@ const validateMessages = {
 
 const ItemPNL = (props) => {
 
-  const { dataSourceItem, dataSourceItemTempParent, dataItemDownload } = props
-  // console.log('dataSourceItem',dataSourceItem)
+  const { dataSourceItem, dataSourceItemTempParent, dataItemDownload,onAddItemCount,activeTab } = props
+  //console.log('dataSourceItem',dataSourceItem)
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -48,10 +48,28 @@ const ItemPNL = (props) => {
   const { sortedInfo, isLoader, dataSourceItemTemp } = state
 
   useEffect(() => {
+    if(activeTab==='ItemPNL'&&dataSourceItemTempParent.length>0){
+      let profit = []
+      for(let i=0; i<dataSourceItemTempParent.length; i++){
+    
+          if(profit.filter(value=>value.ORDERTYPE===dataSourceItemTempParent[i].ORDERTYPE).length<=0){
+            profit.push(dataSourceItemTempParent[i])
+            }
+            else{
+              let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceItemTempParent[i].ORDERTYPE)
+              profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceItemTempParent[i].profit}
+            }
+    
+          
+          }
+         
+          onAddItemCount({ order:dataSourceItemTempParent.length , profit: profit })
     // Update the document title using the browser API
     setState({ ...state, dataSourceItemTemp: dataSourceItemTempParent });
 
-  }, [dataSourceItemTempParent]);
+
+  }
+  }, [activeTab,dataSourceItemTempParent]);
   const dataSource = [];
   let temp = [];
 
@@ -638,11 +656,6 @@ const ItemPNL = (props) => {
        
 
     }
-
-
-
-
-
   ];
 
   const handleChange = (pagination, filters, sorter) => {
@@ -667,7 +680,10 @@ const ItemPNL = (props) => {
 
 
         <Row >
-
+        {/* <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+                  <p>Total Item:{dataSourceItemTemp.length}</p>
+               
+                </Col> */}
           <Col xs={24}>
             <Cards headless>
 

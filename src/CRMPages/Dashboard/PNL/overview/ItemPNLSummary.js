@@ -30,8 +30,8 @@ const validateMessages = {
 
 
 const ItemPNLSummary = (props) => {
-    const {dataSourceItemsummary}= props
-    // // console.log('ItemPNL',dataSourceItem)
+    const {dataSourceItemsummary,dataSourceItemsummaryTempParent,onAddItem, activeTab}= props
+   //  console.log('ItemPNL',dataSourceItemsummaryTempParent)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -39,11 +39,52 @@ const ItemPNLSummary = (props) => {
    
     sortedInfo:[],
     dataSource:[],
-    isLoader:false
+    isLoader:false,
+    dataSourceOrdersummaryTemp:[]
   });
 
-  const {sortedInfo,isLoader}=state
- 
+  const {sortedInfo,isLoader,dataSourceOrdersummaryTemp}=state
+  useEffect(() => {
+    if(activeTab==='ItemPNLSummary'&&dataSourceItemsummaryTempParent.length>0){
+
+    setstate({ ...state, dataSourceOrdersummaryTemp: dataSourceItemsummaryTempParent});
+    let order = []
+    let loss = []
+    let profit = []
+    for(let i=0; i<dataSourceItemsummaryTempParent.length; i++){
+  
+        if(order.filter(value=>value.ORDERTYPE===dataSourceItemsummaryTempParent[i].ORDERTYPE).length<=0){
+          order.push(dataSourceItemsummaryTempParent[i])
+        }
+        else{
+          let indexTemp = order.findIndex(item=>item.ORDERTYPE===dataSourceItemsummaryTempParent[i].ORDERTYPE)
+          order[indexTemp] = {...order[indexTemp], Item_count:order[indexTemp].Item_count+dataSourceItemsummaryTempParent[i].Item_count}
+        }
+  
+        if(loss.filter(value=>value.ORDERTYPE===dataSourceItemsummaryTempParent[i].ORDERTYPE).length<=0){
+          loss.push(dataSourceItemsummaryTempParent[i])
+          }
+          else{
+            let indexTemp = loss.findIndex(item=>item.ORDERTYPE===dataSourceItemsummaryTempParent[i].ORDERTYPE)
+            loss[indexTemp] = {...loss[indexTemp], Total_item_loss:loss[indexTemp].Total_item_loss+dataSourceItemsummaryTempParent[i].Total_item_loss}
+          }
+  
+        if(profit.filter(value=>value.ORDERTYPE===dataSourceItemsummaryTempParent[i].ORDERTYPE).length<=0){
+          profit.push(dataSourceItemsummaryTempParent[i])
+          }
+          else{
+            let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceItemsummaryTempParent[i].ORDERTYPE)
+            profit[indexTemp] = {...profit[indexTemp], Total_item_profit:profit[indexTemp].Total_item_profit+dataSourceItemsummaryTempParent[i].Total_item_profit}
+          }
+  
+        
+        }
+       
+        onAddItem({ order: order, loss: loss, profit: profit })
+      }
+    
+  },[activeTab,dataSourceItemsummaryTempParent]);
+
   const columns = [
     {
       title: 'Vendorname',
@@ -111,7 +152,7 @@ const ItemPNLSummary = (props) => {
               {/* <ProjectList> */}
 
                 {/* <div className="table-responsive"> */}
-                  <Table pagination={false} dataSource={dataSourceItemsummary} columns={columns} onChange={handleChange}/>
+                  <Table pagination={false} dataSource={dataSourceOrdersummaryTemp} columns={columns} onChange={handleChange}/>
                 {/* </div> */}
 
               {/* </ProjectList> */}
