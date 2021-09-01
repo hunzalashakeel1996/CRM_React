@@ -89,7 +89,7 @@ const OrderPNL = (props) => {
     size='small'
     onChange={e => {        
  
-      temp =[...temp,...dataSourceOrder.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
+      temp =[...temp,...dataSourceOrderTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
      
       setState({...state,dataSourceOrderTemp:temp}); 
 

@@ -82,7 +82,7 @@ const ItemPNL = (props) => {
       size='small'
       onChange={e => {
 
-        temp = [...temp, ...dataSourceItem.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
+        temp = [...temp, ...dataSourceItemTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
 
         setState({ ...state, dataSourceItemTemp: temp });
 
