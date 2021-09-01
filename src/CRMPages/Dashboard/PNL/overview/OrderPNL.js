@@ -53,7 +53,7 @@ const OrderPNL = (props) => {
   useEffect(() => {
     // Update the document title using the browser API
     let profitTotal=0
-    if(activeTab==='OrderPNL'&&dataSourceOrderTempParent.length>0){
+    if(activeTab==='OrderPNL'&&dataSourceOrderTempParent&&dataSourceOrderTempParent.length>0){
    
       let profit = []
       for(let i=0; i<dataSourceOrderTempParent.length; i++){

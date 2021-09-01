@@ -46,7 +46,7 @@ const PricePNLSummary = (props) => {
 
   const {sortedInfo,isLoader,dataSourcePricesummaryTemp}=state
   useEffect(() => { 
-    if(activeTab==='PricePNLSummary' && dataSourcePriceSummaryTempParent.length>0){
+    if(activeTab==='PricePNLSummary' && dataSourcePriceSummaryTempParent&& dataSourcePriceSummaryTempParent.length>0){
     let order = []
     let loss = []
     let profit = []
