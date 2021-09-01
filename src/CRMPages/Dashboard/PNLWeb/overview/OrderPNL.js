@@ -682,16 +682,11 @@ const OrderPNL = (props) => {
   
 
         <Row >
-        {/* <Col md={8} xs={24} style={{marginBottom:10 }}>
+        <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+                  <p>Total Orders:{dataSourceOrderTemp.length}</p>
                
-                  <Input onChange={(event) => { handleSearch(event.target.value) }} placeholder="Filter" patterns />
-                
-              </Col> */}
-              {/* <Col span={4} >
-               
-               <Button  style={{marginLeft:10 }}  size="default" type="primary" onClick={(event) => {  Download(dataOrderDownload)  }} > Download</Button>
-               
-               </Col> */}
+                </Col>
+            
             
           <Col xs={24}>
             <Cards headless>
