@@ -48,7 +48,7 @@ const ItemPNL = (props) => {
   const { sortedInfo, isLoader, dataSourceItemTemp } = state
 
   useEffect(() => {
-    if(activeTab==='ItemPNL'&&dataSourceItemTempParent.length>0){
+    if(activeTab==='ItemPNL'&&dataSourceItemTempParent&&dataSourceItemTempParent.length>0){
       let profit = []
       for(let i=0; i<dataSourceItemTempParent.length; i++){
     

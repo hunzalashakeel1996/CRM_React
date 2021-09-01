@@ -45,7 +45,7 @@ const ItemPNLSummary = (props) => {
 
   const {sortedInfo,isLoader,dataSourceOrdersummaryTemp}=state
   useEffect(() => {
-    if(activeTab==='ItemPNLSummary'&&dataSourceItemsummaryTempParent.length>0){
+    if(activeTab==='ItemPNLSummary'&&dataSourceItemsummaryTempParent&&dataSourceItemsummaryTempParent.length>0){
 
     setstate({ ...state, dataSourceOrdersummaryTemp: dataSourceItemsummaryTempParent});
     let order = []
