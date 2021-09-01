@@ -84,49 +84,178 @@ const PricePNLSummary = (props) => {
       }
   },[activeTab,dataSourcePriceSummaryTempParent]);
 
+  const filter = (value) => {
+    console.log(value)
+    var val = [];
+    let temp = []
+    let placeholder = ``;
+
+    return <Input
+      placeholder={placeholder}
+      size='small'
+      onChange={e => {
+
+        temp = [...temp, ...dataSourcePriceSummaryTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
+        console.log('temp', temp)
+        setstate({ ...state, dataSourcePricesummaryTemp: temp });
+
+      }}
+    />
+  }
 
   const columns = [
-    {
-      title: 'Vendorname',
-      dataIndex: 'vendorname',
-      key: 'vendorname',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.vendorname - d.vendorname,
-      sortOrder: sortedInfo.columnKey === 'vendorname' && sortedInfo.order,
-    },
-    {
-      title: 'Total Amont',
-      dataIndex: 'TotalAmont',
-      key: 'TotalAmont',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.TotalAmont - d.TotalAmont,
-      sortOrder: sortedInfo.columnKey === 'TotalAmont' && sortedInfo.order,
-    },
-    {
-      title: 'Profit',
-      dataIndex: 'profit',
-      key: 'profit',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.profit - d.profit,
-      sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
-    },
-    {
-      title: 'Loss',
-      dataIndex: 'loss',
-      key: 'loss',
-        
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.loss - d.loss,
-      sortOrder: sortedInfo.columnKey === 'loss' && sortedInfo.order,
-    },
-    {
-      title: 'Percentge',
-      dataIndex: 'percentge',
-      key: 'percentge',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.percentge - d.percentge,
-      sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
+    {  title:     
+      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Vendorname</p>
+      </div>,
+
+      children: [
+      {
+        title: <>
+        { filter('vendorname')}
+        </>,
+         dataIndex: 'vendorname',
+         key: 'vendorname',
+      },
+     
+
+        ]
+
+      
+    }, 
+    {  title:     
+      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>ORDERTYPE</p>
+      </div>,
+
+      children: [
+      {
+        title: <>
+        { filter('ORDERTYPE')}
+        </>,
+         dataIndex: 'ORDERTYPE',
+         key: 'ORDERTYPE',
+      },
+     
+
+        ]
+
+      
     }
+    ,
+    {
+      title:     
+      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>TotalAmont</p>
+      </div>,
+
+      children: [
+      {
+        title: <>
+        { filter('TotalAmont')}
+        </>,
+         dataIndex: 'TotalAmont',
+         key: 'TotalAmont',
+      },
+      {
+        
+          key: 'TotalAmont',
+          defaultSortOrder: 'descend',
+          sorter: (c, d) => c.TotalAmont - d.TotalAmont,
+          sortOrder: sortedInfo.columnKey === 'TotalAmont' && sortedInfo.order,
+          width:30,
+        
+        
+      }
+      ]
+
+
+    },
+    {
+      title:     
+      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Profit</p>
+      </div>,
+
+      children: [
+      {
+        title: <>
+        { filter('profit')}
+        </>,
+         dataIndex: 'profit',
+         key: 'profit',
+      },
+      {
+        
+          key: 'profit',
+          defaultSortOrder: 'descend',
+          sorter: (c, d) => c.profit - d.profit,
+          sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
+          width:30,
+        
+        
+      }
+      ]
+
+
+    }
+   ,
+   {
+    title:     
+    <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+    <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Loss</p>
+    </div>,
+
+    children: [
+    {
+      title: <>
+      { filter('loss')}
+      </>,
+       dataIndex: 'loss',
+       key: 'loss',
+    },
+    {
+      
+        key: 'loss',
+        defaultSortOrder: 'descend',
+        sorter: (c, d) => c.loss - d.loss,
+        sortOrder: sortedInfo.columnKey === 'loss' && sortedInfo.order,
+        width:30,
+      
+      
+    }
+    ]
+
+
+  },
+  {
+    title:     
+    <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+    <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Percentge</p>
+    </div>,
+
+    children: [
+    {
+      title: <>
+      { filter('percentge')}
+      </>,
+       dataIndex: 'percentge',
+       key: 'percentge',
+    },
+    {
+      
+        key: 'percentge',
+        defaultSortOrder: 'descend',
+        sorter: (c, d) => c.percentge - d.percentge,
+        sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
+        width:30,
+      
+      
+    }
+    ]
+
+
+  }
     
   ];
 

@@ -53,6 +53,8 @@ const OrderPNLSummary = (props) => {
     let order = []
   let loss = []
   let profit = []
+ 
+
   for(let i=0; i<dataSourceOrdersummaryTempParent.length; i++){
 
       if(order.filter(value=>value.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE).length<=0){
@@ -83,6 +85,7 @@ const OrderPNLSummary = (props) => {
       }
      
       onAddOrder({ order: order, loss: loss, profit: profit })
+      
  
     }
  
@@ -90,7 +93,9 @@ const OrderPNLSummary = (props) => {
   }, [activeTab,dataSourceOrdersummaryTempParent]);
 
   const filter = (value) => {
+    console.log(value)
     var val = [];
+    let temp = []
     let placeholder = ``;
 
     return <Input
@@ -98,56 +103,175 @@ const OrderPNLSummary = (props) => {
       size='small'
       onChange={e => {
 
-        temp = [...temp, ...dataSourceOrder.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
-
-        setState({ ...state, dataSourceOrderTemp: temp });
+        temp = [...temp, ...dataSourceOrdersummaryTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
+        console.log('temp',temp)
+        setstate({ ...state, dataSourceOrdersummaryTemp: temp });
 
       }}
     />
   }
 
   const columns = [
-    {
-      title: 'Vendorname',
-      dataIndex: 'vendorname',
-      key: 'vendorname',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.vendorname - d.vendorname,
-      sortOrder: sortedInfo.columnKey === 'vendorname' && sortedInfo.order,
-    },
-    {
-      title: 'Order count',
-      dataIndex: 'order_count',
-      key: 'order_count',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.order_count - d.order_count,
-      sortOrder: sortedInfo.columnKey === 'order_count' && sortedInfo.order,
-    },
-    {
-      title: 'Profit',
-      dataIndex: 'profit',
-      key: 'profit',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.profit - d.profit,
-      sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
-    },
-    {
-      title: 'Loss',
-      dataIndex: 'loss',
-      key: 'loss',
+    {  title:     
+      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Vendorname</p>
+      </div>,
 
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.loss - d.loss,
-      sortOrder: sortedInfo.columnKey === 'loss' && sortedInfo.order,
+      children: [
+      {
+        title: <>
+        { filter('vendorname')}
+        </>,
+         dataIndex: 'vendorname',
+         key: 'vendorname',
+      },
+     
+
+        ]
+
+      
+    }, 
+    {  title:     
+      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>ORDERTYPE</p>
+      </div>,
+
+      children: [
+      {
+        title: <>
+        { filter('ORDERTYPE')}
+        </>,
+         dataIndex: 'ORDERTYPE',
+         key: 'ORDERTYPE',
+      },
+     
+
+        ]
+
+      
+    }
+    ,
+    {
+      title:     
+      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Order count</p>
+      </div>,
+
+      children: [
+      {
+        title: <>
+        { filter('order_count')}
+        </>,
+         dataIndex: 'order_count',
+         key: 'order_count',
+      },
+      {
+        
+          key: 'order_count',
+          defaultSortOrder: 'descend',
+          sorter: (c, d) => c.order_count - d.order_count,
+          sortOrder: sortedInfo.columnKey === 'order_count' && sortedInfo.order,
+          width:30,
+        
+        
+      }
+      ]
+
+
     },
     {
-      title: 'Percentge',
-      dataIndex: 'percentge',
-      key: 'percentge',
-      defaultSortOrder: 'descend',
-      sorter: (c, d) => c.percentge - d.percentge,
-      sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
+      title:     
+      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Profit</p>
+      </div>,
+
+      children: [
+      {
+        title: <>
+        { filter('profit')}
+        </>,
+         dataIndex: 'profit',
+         key: 'profit',
+      },
+      {
+        
+          key: 'profit',
+          defaultSortOrder: 'descend',
+          sorter: (c, d) => c.profit - d.profit,
+          sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
+          width:30,
+        
+        
+      }
+      ]
+
+
     }
+   ,
+   {
+    title:     
+    <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+    <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Loss</p>
+    </div>,
+
+    children: [
+    {
+      title: <>
+      { filter('loss')}
+      </>,
+       dataIndex: 'loss',
+       key: 'loss',
+    },
+    {
+      
+        key: 'loss',
+        defaultSortOrder: 'descend',
+        sorter: (c, d) => c.loss - d.loss,
+        sortOrder: sortedInfo.columnKey === 'loss' && sortedInfo.order,
+        width:30,
+      
+      
+    }
+    ]
+
+
+  },
+  {
+    title:     
+    <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
+    <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Percentge</p>
+    </div>,
+
+    children: [
+    {
+      title: <>
+      { filter('percentge')}
+      </>,
+       dataIndex: 'percentge',
+       key: 'percentge',
+    },
+    {
+      
+        key: 'percentge',
+        defaultSortOrder: 'descend',
+        sorter: (c, d) => c.percentge - d.percentge,
+        sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
+        width:30,
+      
+      
+    }
+    ]
+
+
+  }
+    // {
+    //   title: 'Percentge',
+    //   dataIndex: 'percentge',
+    //   key: 'percentge',
+    //   defaultSortOrder: 'descend',
+    //   sorter: (c, d) => c.percentge - d.percentge,
+    //   sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
+    // }
 
   ];
 
