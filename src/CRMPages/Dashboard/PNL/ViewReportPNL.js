@@ -393,7 +393,7 @@ const ReportPNLView = () => {
       //         downloadFile(data[3][0])
       // let json = JSON.stringify(data[3][1])
       // // console.log('json',json)
-      
+
 
 
       setstate({
@@ -856,8 +856,8 @@ const ReportPNLView = () => {
               </Row>
 
               <Row>
-                <Col xs={24} style={{ marginBottom: 10 }}>
-                  <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                <Col xs={24} style={{marginBottom:10}}>
+                  <Button type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
                   {dataSourceOrder.length > 0 && <Button type="success"
                     onClick={(value) => { download(activeTab) }} >

@@ -37,7 +37,7 @@ const Admin = () => {
             </div>
           }
         >
-          <Route exact path={path} component={ReportChart} />
+          <Route path={path} component={ReportChart} />
           <Route path={`${path}/graph`} component={ReportChart} />
           <Route path={`${path}/ticket`} component={Tickets} />
           <Route path={`${path}/azab`} component={Azab} />
