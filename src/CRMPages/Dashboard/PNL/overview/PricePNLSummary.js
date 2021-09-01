@@ -31,8 +31,8 @@ const validateMessages = {
 
 const PricePNLSummary = (props) => {
 
-    const {dataSourcePriceSummary}= props
-    // // console.log('PricePNL',dataSourcePrice)
+    const {dataSourcePriceSummary,dataSourcePriceSummaryTempParent,onAddPrice, activeTab}= props
+  //  console.log('PricePNL',dataSourcePriceSummaryTempParent)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -40,11 +40,49 @@ const PricePNLSummary = (props) => {
    
     sortedInfo:[],
    
-    isLoader:false
+    isLoader:false,
+    dataSourceOrdersummaryTemp:[]
   });
 
-  const {sortedInfo,isLoader}=state
- 
+  const {sortedInfo,isLoader,dataSourcePricesummaryTemp}=state
+  useEffect(() => { 
+    if(activeTab==='PricePNLSummary' && dataSourcePriceSummaryTempParent.length>0){
+    let order = []
+    let loss = []
+    let profit = []
+    for(let i=0; i<dataSourcePriceSummaryTempParent.length; i++){
+  
+        if(order.filter(value=>value.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE).length<=0){
+          order.push(dataSourcePriceSummaryTempParent[i])
+        }
+        else{
+          let indexTemp = order.findIndex(item=>item.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE)
+          order[indexTemp] = {...order[indexTemp], TotalAmont:order[indexTemp].TotalAmont+dataSourcePriceSummaryTempParent[i].TotalAmont}
+        }
+  
+        if(loss.filter(value=>value.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE).length<=0){
+          loss.push(dataSourcePriceSummaryTempParent[i])
+          }
+          else{
+            let indexTemp = loss.findIndex(item=>item.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE)
+            loss[indexTemp] = {...loss[indexTemp], loss:loss[indexTemp].loss+dataSourcePriceSummaryTempParent[i].loss}
+          }
+  
+        if(profit.filter(value=>value.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE).length<=0){
+          profit.push(dataSourcePriceSummaryTempParent[i])
+          }
+          else{
+            let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE)
+            profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourcePriceSummaryTempParent[i].profit}
+          }
+  
+        
+        }
+       
+        onAddPrice({ order: order, loss: loss, profit: profit })
+    setstate({ ...state, dataSourcePricesummaryTemp: dataSourcePriceSummaryTempParent});
+      }
+  },[activeTab,dataSourcePriceSummaryTempParent]);
 
 
   const columns = [
@@ -114,7 +152,7 @@ const PricePNLSummary = (props) => {
               {/* <ProjectList> */}
 
                 {/* <div className="table-responsive"> */}
-                  <Table pagination={false} dataSource={dataSourcePriceSummary} columns={columns} onChange={handleChange}/>
+                  <Table pagination={false} dataSource={dataSourcePricesummaryTemp} columns={columns} onChange={handleChange}/>
                 {/* </div> */}
 
               {/* </ProjectList> */}

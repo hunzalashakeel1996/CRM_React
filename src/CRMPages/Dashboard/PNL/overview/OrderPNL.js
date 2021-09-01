@@ -31,12 +31,10 @@ const validateMessages = {
 };
 
 
-
-
 const OrderPNL = (props) => {
 
-    const {dataSourceOrderTempParent,dataSourceOrder,dataOrderDownload}= props
-    // // console.log('dataSourceOrder',dataSourceOrder)
+    const {dataSourceOrderTempParent,dataSourceOrder,dataOrderDownload,activeTab,onAddOrderCount}= props
+    // console.log('dataSourceOrder',dataSourceOrderTempParent)
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -46,18 +44,41 @@ const OrderPNL = (props) => {
    
     isLoader:false,
     dataSourceOrderTemp:[],
+    profitTotal:0
     
   });
-
-  const {sortedInfo,isLoader,dataSourceOrderTemp}=state
+ 
+  const {sortedInfo,isLoader,dataSourceOrderTemp,profitTotal}=state
  
   useEffect(() => {
     // Update the document title using the browser API
-    setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent });
+    let profitTotal=0
+    if(activeTab==='OrderPNL'&&dataSourceOrderTempParent.length>0){
+   
+      let profit = []
+      for(let i=0; i<dataSourceOrderTempParent.length; i++){
+    
+          if(profit.filter(value=>value.ORDERTYPE===dataSourceOrderTempParent[i].ORDERTYPE).length<=0){
+            profit.push(dataSourceOrderTempParent[i])
+            }
+            else{
+              let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceOrderTempParent[i].ORDERTYPE)
+              profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceOrderTempParent[i].profit}
+            }
+    
+          
+          }
+         
+          onAddOrderCount({ order:dataSourceOrderTempParent.length , profit: profit })
 
-  },[dataSourceOrderTempParent]);
+          setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent});
+    }
+  },[activeTab,dataSourceOrderTempParent]);
   const dataSource = [];
   let temp =[];
+
+
+
 
   const filter =(value)=>{
     var val =[];
@@ -682,16 +703,15 @@ const OrderPNL = (props) => {
   
 
         <Row >
-        {/* <Col md={8} xs={24} style={{marginBottom:10 }}>
+{/*        
+              <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+                  <p>Total Orders:{dataSourceOrderTemp.length}</p>
                
-                  <Input onChange={(event) => { handleSearch(event.target.value) }} placeholder="Filter" patterns />
-                
-              </Col> */}
-              {/* <Col span={4} >
+                </Col> */}
+                {/* <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+                  <p>Total Profit:{profitTotal}</p>
                
-               <Button  style={{marginLeft:10 }}  size="default" type="primary" onClick={(event) => {  Download(dataOrderDownload)  }} > Download</Button>
-               
-               </Col> */}
+                </Col> */}
             
           <Col xs={24}>
             <Cards headless>

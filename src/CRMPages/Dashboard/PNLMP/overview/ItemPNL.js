@@ -50,7 +50,7 @@ const ItemPNL = (props) => {
   useEffect(() => {
     // Update the document title using the browser API
     setState({ ...state, dataSourceItemTemp: dataSourceItemTempParent });
-
+   
   }, [dataSourceItemTempParent]);
   const dataSource = [];
   let temp = [];
@@ -667,7 +667,11 @@ const ItemPNL = (props) => {
 
 
         <Row >
-
+        <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+                  <p>Total Item:{dataSourceItemTemp.length}</p>
+               
+                </Col>
+            
           <Col xs={24}>
             <Cards headless>
 
