@@ -35,7 +35,7 @@ const validateMessages = {
 
 const OrderPNL = (props) => {
 
-    const {dataSourceOrderTempParent,dataSourceOrder,dataOrderDownload}= props
+    const {dataSourceOrderTempParent,dataSourceOrder,dataOrderDownload,activeTab,onAddOrderCount}= props
     // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
@@ -53,7 +53,31 @@ const OrderPNL = (props) => {
  
   useEffect(() => {
     // Update the document title using the browser API
-    setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent });
+    if(activeTab==='OrderPNL'&&dataSourceOrderTempParent.length>0){
+   
+      let profit = []
+      for(let i=0; i<dataSourceOrderTempParent.length; i++){
+    
+          if(profit.filter(value=>value.ORDERTYPE===dataSourceOrderTempParent[i].ORDERTYPE).length<=0){
+            let tempOrderSummary = {...dataSourceOrderTempParent[i], profit:JSON.parse(dataSourceOrderTempParent[i].profit.split('$')[1])}
+            profit.push(tempOrderSummary)
+            // profit.push(dataSourceOrderTempParent[i])
+            }
+            else{
+              let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceOrderTempParent[i].ORDERTYPE)
+              profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+JSON.parse(dataSourceOrderTempParent[i].profit.split('$')[1])}
+            
+            
+              // profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceOrderTempParent[i].profit}
+            }
+    
+          
+          }
+         
+          onAddOrderCount({ order:dataSourceOrderTempParent.length , profit: profit })
+
+          setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent});
+     }
 
   },[dataSourceOrderTempParent]);
   const dataSource = [];
@@ -682,10 +706,10 @@ const OrderPNL = (props) => {
   
 
         <Row >
-        <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+        {/* <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
                   <p>Total Orders:{dataSourceOrderTemp.length}</p>
                
-                </Col>
+                </Col> */}
             
             
           <Col xs={24}>

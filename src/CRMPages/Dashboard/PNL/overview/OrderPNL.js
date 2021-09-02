@@ -59,11 +59,16 @@ const OrderPNL = (props) => {
       for(let i=0; i<dataSourceOrderTempParent.length; i++){
     
           if(profit.filter(value=>value.ORDERTYPE===dataSourceOrderTempParent[i].ORDERTYPE).length<=0){
-            profit.push(dataSourceOrderTempParent[i])
+            let tempOrderSummary = {...dataSourceOrderTempParent[i], profit:JSON.parse(dataSourceOrderTempParent[i].profit.split('$')[1])}
+            profit.push(tempOrderSummary)
+            // profit.push(dataSourceOrderTempParent[i])
             }
             else{
               let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceOrderTempParent[i].ORDERTYPE)
-              profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceOrderTempParent[i].profit}
+              profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+JSON.parse(dataSourceOrderTempParent[i].profit.split('$')[1])}
+            
+            
+              // profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceOrderTempParent[i].profit}
             }
     
           

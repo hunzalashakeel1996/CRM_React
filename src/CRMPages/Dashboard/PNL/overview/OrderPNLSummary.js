@@ -66,19 +66,26 @@ const OrderPNLSummary = (props) => {
       }
 
       if(loss.filter(value=>value.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE).length<=0){
-        loss.push(dataSourceOrdersummaryTempParent[i])
+     
+        let tempOrderSummary = {...dataSourceOrdersummaryTempParent[i], loss:JSON.parse(dataSourceOrdersummaryTempParent[i].loss.split('$')[1])}
+        
+        loss.push(tempOrderSummary)
+        // loss.push(dataSourceOrdersummaryTempParent[i])
         }
         else{
           let indexTemp = loss.findIndex(item=>item.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE)
-          loss[indexTemp] = {...loss[indexTemp], loss:loss[indexTemp].loss+dataSourceOrdersummaryTempParent[i].loss}
+
+          loss[indexTemp] = {...loss[indexTemp], loss:loss[indexTemp].loss +JSON.parse(dataSourceOrdersummaryTempParent[i].loss.split('$')[1]) }
+      
         }
 
       if(profit.filter(value=>value.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE).length<=0){
-        profit.push(dataSourceOrdersummaryTempParent[i])
+        let tempOrderSummary = {...dataSourceOrdersummaryTempParent[i], profit:JSON.parse(dataSourceOrdersummaryTempParent[i].profit.split('$')[1])}
+        profit.push(tempOrderSummary)
         }
         else{
           let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE)
-          profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceOrdersummaryTempParent[i].profit}
+          profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+JSON.parse(dataSourceOrdersummaryTempParent[i].profit.split('$')[1])}
         }
 
       

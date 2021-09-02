@@ -11,7 +11,7 @@ import ItemPNL from './overview/ItemPNL';
 import OrderPNL from './overview/OrderPNL';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 
-import { downloadFile } from '../../../components/utilities/utilities'
+import { downloadFile,downloadFileTableData } from '../../../components/utilities/utilities'
 import { apiReportOrderWise, apiReportItemWise, apiSummaryReportOrderWise, apiSummaryReportItemWise, apiSummaryReportPriceWise, apiSummaryReportDetailWise } from '../../../redux/apis/DataAction';
 // import { webURL, audioPlay, uploadUrl, getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi, getSearsPriceapi, getPriceWalmartapi } from '../../../redux/apis/DataAction';
 import './overview/style.css';
@@ -76,7 +76,7 @@ const ReportPNLView = () => {
     totalOrdersLoss: 0,
     totalOrdersProfit: 0,
     dateFormat: 'USPS',
-    
+
   });
 
   const { dateFormat, totalOrdersProfit, totalOrdersLoss, totalOrdersSum, dataSourcetotalOrders, dataSourcePriceSummary, dataPriceSummaryDownload, dataSourcePriceSummaryTempParent, dataSourceItemsummary, dataItemsummaryDownload, dataSourceItemsummaryTempParent, dataSourceOrdersummary, dataOrdersummaryDownload, dataSourceOrdersummaryTempParent, dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails } = state
@@ -146,18 +146,18 @@ const ReportPNLView = () => {
           FULLNAME: FULLNAME,
           Zip: Zip,
           State: State,
-          po_shipping: Math.round(po_shipping * 100) / 100,
-          customerPay: Math.round(customerPay * 100) / 100,
-          ShippingCost: Math.round(ShippingCost * 100) / 100,
-          cost: Math.round(cost * 100) / 100,
-          purchaseCost: Math.round(purchaseCost * 100) / 100,
-          ordertotal: Math.round(ordertotal * 100) / 100,
-          Moneycollected: Math.round(Moneycollected * 100) / 100,
-          commission: Math.round(commission * 100) / 100,
-          profit: Math.round(profit * 100) / 100,
+          po_shipping: `$${Math.round(po_shipping * 100) / 100}`,
+          customerPay: `$${Math.round(customerPay * 100) / 100}`,
+          ShippingCost: `$${Math.round(ShippingCost * 100) / 100}`,
+          cost: `$${Math.round(cost * 100) / 100}`,
+          purchaseCost: `$${Math.round(purchaseCost * 100) / 100}`,
+          ordertotal: `$${Math.round(ordertotal * 100) / 100}`,
+          Moneycollected: `$${Math.round(Moneycollected * 100) / 100}`,
+          commission: `$${Math.round(commission * 100) / 100}`,
+          profit: `$${Math.round(profit * 100) / 100}`,
           Isdropship: Isdropship,
           IsReplacement: IsReplacement,
-          OrderDiscount: Math.round(OrderDiscount * 100) / 100,
+          OrderDiscount: `$${Math.round(OrderDiscount * 100) / 100}`,
           orderstatus: orderstatus
 
 
@@ -215,23 +215,23 @@ const ReportPNLView = () => {
           orderno: orderno,
           purchaseorderno: purchaseorderno,
           itemqty: itemqty,
-          cost: Math.round(cost * 100) / 100,
-          purchaseCost: Math.round(purchaseCost * 100) / 100,
+          cost: `$${Math.round(cost * 100) / 100}`,
+          purchaseCost: `$${Math.round(purchaseCost * 100) / 100}`,
           commit_status: commit_status,
-          commision: Math.round(commision * 100) / 100,
-          SalePrice: Math.round(SalePrice * 100) / 100,
-          pu_price: Math.round(pu_price * 100) / 100,
+          commision: `$${Math.round(commision * 100) / 100}`,
+          SalePrice: `$${Math.round(SalePrice * 100) / 100}`,
+          pu_price: `$${Math.round(pu_price * 100) / 100}`,
           Weight: Weight,
-          shipping: Math.round(shipping * 100) / 100,
-          po_shipping: Math.round(po_shipping * 100) / 100,
+          shipping: `$${Math.round(shipping * 100) / 100}`,
+          po_shipping: `$${Math.round(po_shipping * 100) / 100}`,
           isRMA: isRMA,
-          customer_pay_ship: Math.round(customer_pay_ship * 100) / 100,
-          profit: Math.round(profit * 100) / 100,
+          customer_pay_ship: `$${Math.round(customer_pay_ship * 100) / 100}`,
+          profit: `$${Math.round(profit * 100) / 100}`,
           PPS: PPS,
-          final_profit: Math.round(final_profit * 100) / 100,
+          final_profit: `$${Math.round(final_profit * 100) / 100}`,
           Type: Type,
           IsReplacement: IsReplacement,
-          Discount_amount: Math.round(Discount_amount * 100) / 100
+          Discount_amount: `$${Math.round(Discount_amount * 100) / 100}`
         });
 
       });
@@ -247,13 +247,13 @@ const ReportPNLView = () => {
 
         } = value;
 
-
+        // console.log('checking', `$${(Math.round(profit * 100) / 100)}`)
         tempDataSource_summary_report_order_wise.push({
           vendorname: vendorname,
           order_count: order_count,
-          profit: Math.round(profit * 100) / 100,
-          loss: Math.round(loss * 100) / 100,
-          percentge: percentge,
+          profit: `$${(Math.round(profit * 100) / 100)}`,
+          loss: `$${Math.round(loss * 100) / 100}`,
+          percentge: `${percentge} %`,
           ORDERTYPE: ORDERTYPE
 
 
@@ -278,12 +278,12 @@ const ReportPNLView = () => {
 
       //   let indexTemp3 = OrderPNL.findIndex(item=>item.vendorname===tempDataSource_summary_report_order_wise[i].vendorname)
       //   OrderPNL[indexTemp3] = {...OrderPNL[indexTemp3], percentge:Math.round(tempDataSource_summary_report_order_wise[i].loss*100/tempDataSource_summary_report_order_wise[i].order_count* 100) / 100}
-    
+
       // }
 
       // }
       // ,'Orderloss',Orderloss,'Orderprofit',Orderprofit
-      console.log('OrderPNL',OrderPNL)
+      console.log('OrderPNL', OrderPNL)
       // tempDataSource_summary_report_order_wise.push(OrderPNL)
       // let temp = []
       // for(let i=0; i<OrderPNL.length;i++){
@@ -306,9 +306,9 @@ const ReportPNLView = () => {
         tempDataSource_summary_report_item_wise.push({
           vendorname: vendorname,
           Item_count: Item_count,
-          Total_item_profit: Math.round(Total_item_profit * 100) / 100,
-          Total_item_loss: Math.round(Total_item_loss * 100) / 100,
-          percentge: percentge,
+          Total_item_profit: `$${Math.round(Total_item_profit * 100) / 100}`,
+          Total_item_loss: `$${Math.round(Total_item_loss * 100) / 100}`,
+          percentge: `${percentge}%`,
           ORDERTYPE: ORDERTYPE
 
 
@@ -329,10 +329,10 @@ const ReportPNLView = () => {
 
         tempDataSource_summary_report_Price_wise.push({
           vendorname: vendorname,
-          TotalAmont: Math.round(TotalAmont * 100) / 100,
-          profit: Math.round(profit * 100) / 100,
-          loss: Math.round(loss * 100) / 100,
-          percentge: Math.round(percentge * 100) / 100,
+          TotalAmont: `$${Math.round(TotalAmont * 100) / 100}`,
+          profit: `$${Math.round(profit * 100) / 100}`,
+          loss: `$${Math.round(loss * 100) / 100}`,
+          percentge: `${Math.round(percentge * 100) / 100}%`,
           ORDERTYPE: ORDERTYPE
         });
 
@@ -457,9 +457,17 @@ const ReportPNLView = () => {
     let order = 0;
     let Loss = 0;
     let profit = 0;
-
+    var sum = 0;
+    console.log('onSum', result)
     for (i = 0; i < result.order.length;) {
+      //strip out dollar signs and commas
+      console.log('split', result.profit[i].profit)
+      let v = JSON.parse(result.profit[i].profit);
 
+      //convert string to integer
+      var ct = parseFloat(v);
+      console.log('ct', ct)
+      sum += ct;
       console.log('ae', result.order[i].order_count ? 'result.order[i].order_count' : result.order[i].Item_count ? 'result.order[i].Item_count' : 'result.order[i].TotalAmount')
       order = order + result.order[i].order_count
 
@@ -467,7 +475,8 @@ const ReportPNLView = () => {
       Loss = Loss + result.loss[i].loss
       i++;
     }
-
+    console.log('profit', sum);
+    // console.log('profit', profit.replace('$', ''))
 
     setstate({
       ...state,
@@ -486,9 +495,10 @@ const ReportPNLView = () => {
     console.log('item', result)
     console.log('order1', order)
     for (i = 0; i < result.order.length;) {
-      console.log('ae', result.order[i].order_count ? 'result.order[i].order_count' : result.order[i].Item_count ? 'result.order[i].Item_count' : 'result.order[i].TotalAmount')
+      // let v = JSON.parse(result.profit[i].Total_item_profit);
+      console.log('avd3', result.profit[i].Total_item_profit)
       order = order + result.order[i].Item_count
-      console.log('order20', order)
+
       profit = profit + result.profit[i].Total_item_profit
       Loss = Loss + result.loss[i].Total_item_loss
       i++;
@@ -717,7 +727,7 @@ const ReportPNLView = () => {
       setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
     }
 
-    else if (['Amazon','AmazonRizno','Walmart','Sears','Ebay'].includes(e.target.value.toString())){
+    else if (['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(e.target.value.toString())) {
       tempOrder = [...tempOrder, ...dataSourceOrder.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase() === (e.target.value.toUpperCase()))]
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummary.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase() === (e.target.value.toUpperCase()))]
@@ -748,13 +758,13 @@ const ReportPNLView = () => {
 
     else if ('WebALL' === e.target.value.toString()) {
 
-      tempOrder = [...tempOrder, ...dataSourceOrder.filter(item =>item['ORDERTYPE'] && ['PU','JLC'].includes(item.ORDERTYPE))]
+      tempOrder = [...tempOrder, ...dataSourceOrder.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
 
-      tempItem = [...tempItem, ...dataSourceItem.filter(item =>item['ORDERTYPE'] && ['PU','JLC'].includes(item.ORDERTYPE))]
-       
-      tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummary.filter(item => item['ORDERTYPE'] && ['PU','JLC'].includes(item.ORDERTYPE))]
-      tempItemSummary = [...tempItemSummary, ...dataSourceItemsummary.filter(item => item['ORDERTYPE'] && ['PU','JLC'].includes(item.ORDERTYPE))]
-      tempPriceSummary = [...tempPriceSummary, ...dataSourcePriceSummary.filter(item => item['ORDERTYPE'] && ['PU','JLC'].includes(item.ORDERTYPE))]
+      tempItem = [...tempItem, ...dataSourceItem.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
+
+      tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummary.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
+      tempItemSummary = [...tempItemSummary, ...dataSourceItemsummary.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
+      tempPriceSummary = [...tempPriceSummary, ...dataSourcePriceSummary.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
       setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
     }
   };
@@ -763,55 +773,29 @@ const ReportPNLView = () => {
     let activeTab = event
 
     if (activeTab === 'OrderPNL') {
-      downloadFile(dataOrderDownload)
-      // ExportData(dataSourceOrderTempParent)
+      // downloadFile(dataOrderDownload)
+    
+       downloadFileTableData(dataSourceOrderTempParent,'OrderPNL')
     }
     else if (activeTab === 'ItemPNL') {
-      downloadFile(dataItemDownload)
+     // downloadFile(dataItemDownload)
+      downloadFileTableData(dataSourceItemTempParent,'ItemPNL')
     }
     else if (activeTab === 'OrderPNLSummary') {
-      downloadFile(dataOrdersummaryDownload)
+     // downloadFile(dataOrdersummaryDownload)
+      downloadFileTableData(dataSourceOrdersummaryTempParent,'OrderPNLSummary')
     }
     else if (activeTab === 'ItemPNLSummary') {
-      downloadFile(dataItemsummaryDownload)
+     // downloadFile(dataItemsummaryDownload)
+      downloadFileTableData(dataSourceItemsummaryTempParent,'ItemPNLSummary')
     }
     else if (activeTab === 'PricePNLSummary') {
-      downloadFile(dataPriceSummaryDownload)
+    //  downloadFile(dataPriceSummaryDownload)
+      downloadFileTableData(dataSourcePriceSummaryTempParent,'PricePNLSummary')
     }
   }
 
-  const ExportData = (objArray) => {
-    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-    var str = '';
-    var line = '';
-    for (var index in array[0]) {
-      line += '"' + index + '",';
-    }
-    line.slice(0, line.Length - 1);
-    str += line + '\r\n';
-    line = '';
-    for (var i = 0; i < array.length; i++) {
-      var line = '';
-      for (var index in array[i]) {
-        line += '"' + array[i][index] + '",';
-      }
-      line.slice(0, line.Length - 1);
-      str += line + '\r\n';
-    }
-    // chrome.runtime.sendMessage({
-    //   action: 'browseAndUpload',
-    //   csv: [str]
-    // });
-    var csvString = str;
-    var d = new Date();
-    var n = d.getTime();
-    var a = document.createElement('a');
-    a.href = 'data:attachment/csv,' + escape(csvString);
-    a.target = '_blank';
-    a.download = n + '.csv';
-    document.body.appendChild(a);
-    a.click();
-  }
+
   const handleChangeDateFormat = (value) => {
     console.log(`selected ${value}`);
 
@@ -861,7 +845,7 @@ const ReportPNLView = () => {
               </Row>
 
               {dataSourceOrder.length > 0 && <Row style={{ marginTop: 10 }}>
-                <Col xs={24} lg={2}>
+                <Col span={1}>
 
                   <label>Filtes:</label>
                 </Col>
@@ -875,7 +859,7 @@ const ReportPNLView = () => {
 
                   <Row style={{ marginTop: 10 }} >
 
-                    <Col span={20}>
+                    <Col span={15}>
 
                       <Radio.Group onChange={handleTypeChange} optionType="button" buttonStyle="solid" disabled={isSellerType === 'disabled' ? true : false}>
 
@@ -887,21 +871,30 @@ const ReportPNLView = () => {
                     </Col>
                   </Row>
                 </Col>
-                <Col xs={5} lg={3}>
+                <Col span={2}>
 
-                  <label>Total : </label>
-                  {Math.round(totalOrdersSum * 100) / 100}
+                  <label style={{ fontSize: 13, fontWeight: 'bold'}} >{activeTab === 'PricePNLSummary'?'Total Amount':'TotalOrders'}: </label>
+                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>{Math.round(totalOrdersSum * 100) / 100}</p> 
                 </Col>
-                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col xs={5} lg={3}>
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
 
-                  <label>Total Loss: </label>
-                  {Math.round(totalOrdersLoss * 100) / 100}
+                  <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Loss: </label>
+                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersLoss * 100) / 100}</p>  
                 </Col>}
-                <Col xs={5} lg={3}>
+                <Col span={2}>
 
-                  <label>Total Profit: </label>
-                  {Math.round(totalOrdersProfit * 100) / 100}
+                  <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Profit: </label>
+                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersProfit * 100) / 100}</p>   
                 </Col>
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
+
+                  <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Profit Average: </label>
+                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersProfit*100/totalOrdersSum * 100) / 100}</p>   
+                </Col>}
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
+                  <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Loss Average: </label>
+                  <p style={{ fontSize: 13, fontWeight: 'bold'}}> ${Math.round(totalOrdersLoss*100/totalOrdersSum * 100) / 100}</p>   
+                </Col>}
               </Row>}
 
 

@@ -48,16 +48,20 @@ const ItemPNL = (props) => {
   const { sortedInfo, isLoader, dataSourceItemTemp } = state
 
   useEffect(() => {
-    if(activeTab==='ItemPNL'&&dataSourceItemTempParent&&dataSourceItemTempParent.length>0){
+    setState({ ...state, dataSourceItemTemp: dataSourceItemTempParent });
+    if(activeTab==='ItemPNL'&&dataSourceItemTempParent.length>0){
       let profit = []
       for(let i=0; i<dataSourceItemTempParent.length; i++){
     
           if(profit.filter(value=>value.ORDERTYPE===dataSourceItemTempParent[i].ORDERTYPE).length<=0){
-            profit.push(dataSourceItemTempParent[i])
+            let tempOrderSummary = {...dataSourceItemTempParent[i], profit:JSON.parse(dataSourceItemTempParent[i].profit.split('$')[1])}
+            profit.push(tempOrderSummary)
+            // profit.push(dataSourceItemTempParent[i])
             }
             else{
               let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceItemTempParent[i].ORDERTYPE)
-              profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceItemTempParent[i].profit}
+              profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+JSON.parse(dataSourceItemTempParent[i].profit.split('$')[1])}
+              // profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceItemTempParent[i].profit}
             }
     
           
@@ -65,7 +69,7 @@ const ItemPNL = (props) => {
          
           onAddItemCount({ order:dataSourceItemTempParent.length , profit: profit })
     // Update the document title using the browser API
-    setState({ ...state, dataSourceItemTemp: dataSourceItemTempParent });
+    
 
 
   }

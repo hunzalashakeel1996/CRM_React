@@ -29,6 +29,39 @@ const downloadFile = (data) => {
   document.body.removeChild(a);
 
 }
+const downloadFileTableData = (objArray,Filename) => {
+  var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+  var str = '';
+  var line = '';
+  for (var index in array[0]) {
+    line += '"' + index + '",';
+  }
+  line.slice(0, line.Length - 1);
+  str += line + '\r\n';
+  line = '';
+  for (var i = 0; i < array.length; i++) {
+    var line = '';
+    for (var index in array[i]) {
+      line += '"' + array[i][index] + '",';
+    }
+    line.slice(0, line.Length - 1);
+    str += line + '\r\n';
+  }
+  // chrome.runtime.sendMessage({
+  //   action: 'browseAndUpload',
+  //   csv: [str]
+  // });
+  var csvString = str;
+  var d = new Date();
+  //  var n = d.getTime();
+   var n = Filename
+  var a = document.createElement('a');
+  a.href = 'data:attachment/csv,' + escape(csvString);
+  a.target = '_blank';
+  a.download = n + '.csv';
+  document.body.appendChild(a);
+  a.click();
+}
 
 const DownlaodWithReact = (objArray) => {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
@@ -160,4 +193,4 @@ const customTooltips = function (tooltip) {
   tooltipEl.style.padding = `${tooltip.yPadding}px ${tooltip.xPadding}px`;
 };
 
-export { textRefactor, chartLinearGradient, customTooltips, downloadFile,DownlaodWithReact, getTotals};
+export {downloadFileTableData, textRefactor, chartLinearGradient, customTooltips, downloadFile,DownlaodWithReact, getTotals};
