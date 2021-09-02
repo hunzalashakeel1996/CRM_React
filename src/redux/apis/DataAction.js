@@ -1050,6 +1050,10 @@ export const apiSummaryReportPriceWise = (data) => {
     
     return apiFetchDotNet('/report/summary_report_price_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+export const apistyleNotMatched = (data) => {
+    
+    return apiFetchDotNet('/report/styleNotMatched', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 export const apiSummaryReportDetailWise = (data) => {
     
     return apiFetchDotNet('/report/sale_reportUT', "POST", headerDotNetWithJwt, JSON.stringify(data));

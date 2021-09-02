@@ -7,6 +7,8 @@ import InStockOrders from './InStockOrders'
 import OrderSearch from './OrderSearch'
 import OrderConfirmationNumber from './OrderConfirmationNumber'
 import BackOrderItems from './BackOrderItems'
+import StyleNotMatched from './StyleNotMatched'
+
 
 const { TabPane } = Tabs;
 
@@ -49,10 +51,17 @@ const OrderReportsView = (props) => {
             tab: 'Order Confirmation Number',
             key: 'Order Confirmation Number',
             tabName: <OrderConfirmationNumber />
-        }, {
+        }, 
+        {
             tab: 'Back Order Items',
             key: 'Back Order Items',
             tabName: <BackOrderItems />
+        }
+        , 
+        {
+            tab: 'Style Not Matched',
+            key: 'Style Not Matched',
+            tabName: <StyleNotMatched />
         }
     ];
 
