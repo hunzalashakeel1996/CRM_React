@@ -62,19 +62,29 @@ const ItemPNLSummary = (props) => {
         }
 
         if (loss.filter(value => value.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE).length <= 0) {
-          loss.push(dataSourceItemsummaryTempParent[i])
+          // console.log(JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_loss.split('$')[1]))
+          
+          let tempItemSummary = {...dataSourceItemsummaryTempParent[i], Total_item_loss:JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_loss.split('$')[1])}
+          loss.push(tempItemSummary)
+        //  loss.push(dataSourceItemsummaryTempParent[i])
         }
         else {
           let indexTemp = loss.findIndex(item => item.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE)
-          loss[indexTemp] = { ...loss[indexTemp], Total_item_loss: loss[indexTemp].Total_item_loss + dataSourceItemsummaryTempParent[i].Total_item_loss }
+            // console.log(dataSourceItemsummaryTempParent[i].Total_item_loss)
+
+          loss[indexTemp] = { ...loss[indexTemp], Total_item_loss: loss[indexTemp].Total_item_loss + JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_loss.split('$')[1]) }
+
         }
 
         if (profit.filter(value => value.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE).length <= 0) {
-          profit.push(dataSourceItemsummaryTempParent[i])
+          
+          let tempItemSummary = {...dataSourceItemsummaryTempParent[i], Total_item_profit:JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_profit.split('$')[1])}
+          profit.push(tempItemSummary)
+          // profit.push(dataSourceItemsummaryTempParent[i])
         }
         else {
           let indexTemp = profit.findIndex(item => item.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE)
-          profit[indexTemp] = { ...profit[indexTemp], Total_item_profit: profit[indexTemp].Total_item_profit + dataSourceItemsummaryTempParent[i].Total_item_profit }
+          profit[indexTemp] = { ...profit[indexTemp], Total_item_profit: profit[indexTemp].Total_item_profit +  JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_profit.split('$')[1])  }
         }
 
 
