@@ -56,11 +56,11 @@ const onChange = (event) => {
             </Col>
             <Col lg={24} xs={24}  >
               
-              <Button style={{marginRight:8}} type="success" onClick={(val)=>{checkDuplicateTracking(val,'POnumber')} }>Po number</Button>
+               <Button size="large"  style={{marginRight:8}} type="success" onClick={(val)=>{checkDuplicateTracking(val,'POnumber')} }>Po number</Button>
               
             
              
-              <Button type="success" onClick={ (val)=>{checkDuplicateTracking(val,'orderno')}  }>Orderno</Button>
+               <Button size="large"  type="success" onClick={ (val)=>{checkDuplicateTracking(val,'orderno')}  }>Orderno</Button>
              
             </Col>
           </Row>

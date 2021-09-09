@@ -161,7 +161,7 @@ const PolyBagsAndThermalLabelsView = (props) => {
                       <div className="atbd-drawer" style={{ marginLeft: 20 }}>
               
 
-                          <Button size="large" type="success" htmlType="Update" style={{backgroundColor: '#42ba96', marginTop: 8, color:'white'}}>
+                           <Button size="large"  size="large" type="success" htmlType="Update" style={{backgroundColor: '#42ba96', marginTop: 8, color:'white'}}>
                             Update
                         </Button>
                      

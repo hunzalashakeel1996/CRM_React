@@ -126,7 +126,7 @@ const{Regularvendor,loader,updateVendor}=props
         </Col>
 
         <Col span={9} >
-        <Button className='pull-right' type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
+         <Button size="large"  className='pull-right' type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
         </Col>
 
         

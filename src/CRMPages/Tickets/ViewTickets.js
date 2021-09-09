@@ -160,7 +160,7 @@ const ViewTickets = (props) => {
           title="Tickets"
           // subTitle={<>{tickets.length} Running Tickets</>}
           buttons={[
-            <Button onClick={showModal} key="1" type="primary" size="default">
+             <Button size="large"  onClick={showModal} key="1" type="primary"  >
               <FeatherIcon icon="plus" size={16} /> Create Ticket
             </Button>,
           ]}
@@ -189,8 +189,8 @@ const ViewTickets = (props) => {
               </Col>
 
               <Col xs={24} style={{ marginTop: 10 }} >
-                <Button variant="danger" onClick={(val) => onStatusChange('Open')} style={{ borderWidth: 1, borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
-                <Button variant="primary" onClick={(val) => onStatusChange('Closed')} style={{ borderWidth: 1, borderColor: StatusSort == "Closed" ? '#5F63F2' : null }} >Closed</Button>
+                 <Button size="large"  variant="danger" onClick={(val) => onStatusChange('Open')} style={{ borderWidth: 1, borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
+                 <Button size="large"  variant="primary" onClick={(val) => onStatusChange('Closed')} style={{ borderWidth: 1, borderColor: StatusSort == "Closed" ? '#5F63F2' : null }} >Closed</Button>
               </Col>
             </Row>
 

@@ -80,10 +80,10 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
             visible={state.visible === 'createComment'}
             // footer={[
             //   <div key="1" className="project-modal-footer">
-            //     <Button size="default" type="primary" key="submit" onClick={onFinish}>
+            //      <Button size="large"    type="primary" key="submit" onClick={onFinish}>
             //       Add New Ticket
             //     </Button>
-            //     <Button size="default" type="white" key="back" outlined onClick={handleCancel}>
+            //      <Button size="large"    type="white" key="back" outlined onClick={handleCancel}>
             //       Cancel
             //     </Button>
             //   </div>,
@@ -146,12 +146,12 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
 
                             <Row style={{ marginTop: 10 }}>
                                 <Upload beforeUpload={() => false} onChange={(pic) => { setState({ ...state, picturePath: pic }) }} onRemove={() => { setState({ ...state, picturePath: null }) }}>
-                                    <Button style={{ borderWidth: 0.5, borderColor: '#ebebeb' }} icon={<UploadOutlined />}>Click to Upload</Button>
+                                     <Button size="large"  style={{ borderWidth: 0.5, borderColor: '#ebebeb' }} icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload>
                             </Row>
 
                             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
-                                <Button type="primary" htmlType="submit">
+                                 <Button size="large"  type="primary" htmlType="submit">
                                     Submit
                                     </Button>
                             </Form.Item>

@@ -230,12 +230,12 @@ const ReportView = (props) => {
                             </Col>
                             <Col xs={24} lg={9}>
                                 <Form.Item >
-                                    <Button style={{marginRight:'15px',}} type="success" size="default"  htmlType="submit" >
+                                     <Button size="large"  style={{marginRight:'15px',}} type="success"    htmlType="submit" >
                                         <Icon type="left" />
                                         Search
                                     </Button>
                                 
-                                    <Button type="primary" size="default" icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
+                                     <Button size="large"  type="primary"   icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
                                         <Icon type="left" />
                                         Download
                                     </Button>

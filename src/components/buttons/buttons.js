@@ -30,7 +30,7 @@ const Button = props => {
   };
 
   return (
-    <ButtonStyled
+     <ButtonStyled
       squared={squared}
       outlined={outlined ? 1 : 0}
       ghost={ghost}
@@ -88,7 +88,7 @@ Button.propTypes = {
 };
 
 const BtnGroup = ({ children }) => {
-  return <ButtonStyledGroup>{children}</ButtonStyledGroup>;
+  return  <ButtonStyledGroup>{children}</ButtonStyledGroup>;
 };
 
 BtnGroup.propTypes = {

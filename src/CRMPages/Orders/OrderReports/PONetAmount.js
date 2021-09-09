@@ -117,7 +117,7 @@ const {isLoader}=state
                             <Col lg={6} xs={24}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                                 <Form.Item >
-                                    <Button  size="default" type="success" htmlType="Submit">
+                                     <Button size="large"     type="success" htmlType="Submit">
                                         Download
                                     </Button>
 

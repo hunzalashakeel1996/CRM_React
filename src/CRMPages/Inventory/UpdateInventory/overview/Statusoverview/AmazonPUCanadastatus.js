@@ -35,7 +35,7 @@ const AmazonPUCanadastatus = (props) => {
         <>
             <Row gutter={5}>
                             <Col span={6}>
-                                <Button style={{ width: 150 }} type="primary" onClick={uploadFile} disabled={buttonStatus === 'disabled' ? true : false}>Update</Button>
+                                 <Button size="large"  style={{ width: 150 }} type="primary" onClick={uploadFile} disabled={buttonStatus === 'disabled' ? true : false}>Update</Button>
                             </Col>
 
                             <Col span={5}>
@@ -54,7 +54,7 @@ const AmazonPUCanadastatus = (props) => {
                         <Row style={{ marginTop: 20 }}>
                             <Col span={6}>
                                {/* <Upload {...fileDetails}>
-                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                     <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload> */}
                                  <input  type="file" onChange={changeHandler} />
 

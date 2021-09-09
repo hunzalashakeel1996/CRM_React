@@ -117,7 +117,7 @@ const Ebay = (props) => {
                                     <Row >
 
                                         <Col span={20}>
-                                            <Button type="primary" onClick={uploadFileEbayUpdateInventory}>Ebay Update Inventory</Button>
+                                             <Button size="large"  type="primary" onClick={uploadFileEbayUpdateInventory}>Ebay Update Inventory</Button>
 
                                         </Col>
                                     </Row>
@@ -136,7 +136,7 @@ const Ebay = (props) => {
                                     <Row >
                                         <Col span={5} >
 
-                                            <Button type="primary" onClick={()=>getHtmlData()}>Report Data</Button>
+                                             <Button size="large"  type="primary" onClick={()=>getHtmlData()}>Report Data</Button>
 
                                         </Col>
                                         <Col span={10}>

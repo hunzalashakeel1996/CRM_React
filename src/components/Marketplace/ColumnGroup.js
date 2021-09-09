@@ -91,8 +91,8 @@ const Column = (props) => {
 
                 <Col xs={24} md={12} className='pull-right' style={{ marginLeft: 'auto', width:'auto', textAlign:'right'}}>
 
-                <Button style={{marginRight:15}} size="default" type="default" value={!column?"Show Column":"Hide Column"} onClick={() => { setViewColumn(!column) }} >{!column?"Show Column":"Hide Column"}</Button>
-                    <Button size="default" type="success" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
+                 <Button size="large"  style={{marginRight:15}}   type="default" value={!column?"Show Column":"Hide Column"} onClick={() => { setViewColumn(!column) }} >{!column?"Show Column":"Hide Column"}</Button>
+                     <Button size="large"    type="success" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
 
 
                 </Col>
@@ -129,7 +129,7 @@ const Column = (props) => {
 
                 {/* <Row>
                 <Col style={{ marginTop: 10, marginRight: 10 }}>
-                    <Button type="primary" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
+                     <Button size="large"  type="primary" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
 
 
                 </Col>

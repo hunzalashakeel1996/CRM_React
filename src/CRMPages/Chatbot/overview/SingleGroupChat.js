@@ -466,7 +466,7 @@ const SingleGroupChat = ({ match }) => {
                     <FeatherIcon icon="paperclip" size={18} />
                   </Link>
                 </Upload>
-                <Button onClick={handleSubmit} type="primary">
+                 <Button size="large"  onClick={handleSubmit} type="primary">
                   <FeatherIcon icon="send" size={18} />
                 </Button>
               </div>

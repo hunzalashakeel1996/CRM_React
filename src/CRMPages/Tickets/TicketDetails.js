@@ -226,11 +226,11 @@ const TicketDetails = ({ match, location}) => {
                             />
                         </div>
 
-                        <Button onClick={() => { showModal('createReminder') }} size="small" type="primary">
+                         <Button size="large"  onClick={() => { showModal('createReminder') }} size="small" type="primary">
                             <FeatherIcon icon="bell" size={14} />
                             Set Reminder
                         </Button>
-                        <Button onClick={() => { showModal('createComment') }} size="small" type="primary">
+                         <Button size="large"  onClick={() => { showModal('createComment') }} size="small" type="primary">
                             <FeatherIcon icon="plus" size={14} />
                             Add Comment
                         </Button>

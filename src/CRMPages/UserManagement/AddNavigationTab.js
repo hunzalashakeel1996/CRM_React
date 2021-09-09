@@ -236,7 +236,7 @@ const AddNavigationTab = (props) => {
                         <Row style={{ marginTop: 20 }}>
 
                             <Col span={8} >
-                                <Button type="primary" onClick={InsertSideNavandTop} >Create</Button>
+                                 <Button size="large"  type="primary" onClick={InsertSideNavandTop} >Create</Button>
                             </Col>
                         </Row>
                     </Cards>

@@ -22,7 +22,7 @@ const GroupChat = ({ match }) => {
   return (
     <ChatWrapper>
       <div className="create-action">
-        <Button className="btn-add" size="default" type="default" shape="circle" block>
+         <Button size="large"  className="btn-add"   type="default" shape="circle" block>
           <FeatherIcon icon="edit" size={14} />
           Create New Group
         </Button>

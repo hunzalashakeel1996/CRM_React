@@ -27,7 +27,7 @@ const Performance = () => {
             <CalendarButtonPageHeader />
             <ExportButtonPageHeader />
             <ShareButtonPageHeader />
-            <Button size="small" type="primary">
+             <Button size="large"  size="small" type="primary">
               <FeatherIcon icon="plus" size={14} />
               Add New
             </Button>

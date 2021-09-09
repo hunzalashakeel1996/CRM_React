@@ -26,7 +26,7 @@ const ReasonAutoComplete = ({ darkMode, dataSource, onReasonSelect, selectedReas
         searchData.map((group, i) => {
            return (
             i < 4 &&
-            <Button onClick={()=>{onReasonSelect(group)}} key={group} to="#">
+             <Button size="large"  onClick={()=>{onReasonSelect(group)}} key={group} to="#">
               {group}
             </Button>
           );

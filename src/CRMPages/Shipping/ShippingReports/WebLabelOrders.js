@@ -92,7 +92,7 @@ const ShippingReportsView = (props) => {
                               
                                
                                <Form.Item>
-                                        <Button type="success" htmlType="Submit"  > Download</Button>
+                                         <Button size="large"  type="success" htmlType="Submit"  > Download</Button>
                                     </Form.Item>
                                
                             </Col>

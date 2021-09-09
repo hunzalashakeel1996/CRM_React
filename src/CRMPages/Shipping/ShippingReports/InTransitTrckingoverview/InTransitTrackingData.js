@@ -183,7 +183,7 @@ const InTransitTrackingData = (props) => {
                             <Row style={{ marginTop: 20 }}>
                                 <Col span={6}>
                                     <Form.Item>
-                                        <Button type="success" htmlType="Submit"  > Report Data</Button>
+                                         <Button size="large"  type="success" htmlType="Submit"  > Report Data</Button>
                                     </Form.Item>
                                 </Col>
                             </Row>

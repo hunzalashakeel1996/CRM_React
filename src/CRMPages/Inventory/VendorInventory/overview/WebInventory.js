@@ -120,7 +120,7 @@ const{webVendor,loader,updateVendor}=props
  
   <Col span={4} >
 
-  <Button type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
+   <Button size="large"  type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
  
   </Col>
   <Col span={4} offset={5} >

@@ -260,7 +260,7 @@ const SKUstatus = () => {
                     <Cards headless>
                         <Row >
                             <Col span={10}>
-                                <Button type="primary" onClick={MarketPlaceuploadFile}>MarketPlace Price Weight</Button>
+                                 <Button size="large"  type="primary" onClick={MarketPlaceuploadFile}>MarketPlace Price Weight</Button>
 
                             </Col>
                         </Row>
@@ -281,13 +281,13 @@ const SKUstatus = () => {
                             <Col span={3}  >
 
 
-                                <Button type="primary" onClick={sanmarSalesUpdatestart} >Sanmar Sale Start</Button>
+                                 <Button size="large"  type="primary" onClick={sanmarSalesUpdatestart} >Sanmar Sale Start</Button>
 
                             </Col>
 
                             <Col span={3} offset={8}>
 
-                                <Button type="danger" onClick={sanmarSalesUpdateend}>Sanmar Sale End </Button>
+                                 <Button size="large"  type="danger" onClick={sanmarSalesUpdateend}>Sanmar Sale End </Button>
 
 
                             </Col>
@@ -306,7 +306,7 @@ const SKUstatus = () => {
                     <Cards headless>
                         <Row>
                             <Col span={10} >
-                                <Button type="primary" onClick={automateSKU}>Automate SKU</Button>
+                                 <Button size="large"  type="primary" onClick={automateSKU}>Automate SKU</Button>
                             </Col>
 
                             <Col span={8}>
@@ -334,7 +334,7 @@ const SKUstatus = () => {
                         <Row style={{ marginTop: 20 }}>
                             <Col span={10} style={{ width: 300, }}>
                                 {/* <Upload {...fileDetails}>
-                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                     <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload> */}
                                 <input type="file" onChange={changeHandler} />
                             </Col>
@@ -349,7 +349,7 @@ const SKUstatus = () => {
                         <Row>
 
                             <Col span={8}>
-                                <Button type="primary" onClick={reportData}>Report Data</Button>
+                                 <Button size="large"  type="primary" onClick={reportData}>Report Data</Button>
                             </Col>
 
                             <Col span={8}>

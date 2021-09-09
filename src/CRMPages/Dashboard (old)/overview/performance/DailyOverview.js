@@ -20,7 +20,7 @@ const DailyOverview = () => {
       <div className="d-flex align-items-center justify-content-between overview-head">
         <Heading as="h4">Daily Overview</Heading>
         <Dropdown>
-          <Button>
+           <Button size="large" >
             Export <FeatherIcon icon="chevron-down" size={14} />
           </Button>
         </Dropdown>

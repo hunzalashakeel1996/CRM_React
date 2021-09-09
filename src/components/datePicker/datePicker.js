@@ -46,12 +46,12 @@ const DateRangePickerOne = () => {
         direction="horizontal"
       />
 
-      <ButtonGroup>
+       <ButtonGroup>
         <p>{`${start[1]} ${start[2]} ${start[3]} - ${end[1]} ${end[2]} ${end[3]}`}</p>
-        <Button size="small" type="primary">
+         <Button size="large"  size="small" type="primary">
           Apply
         </Button>
-        <Button size="small" type="white" outlined>
+         <Button size="large"  size="small" type="white" outlined>
           Cancel
         </Button>
       </ButtonGroup>

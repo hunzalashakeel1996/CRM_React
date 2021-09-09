@@ -22,7 +22,7 @@ const Dashboard = () => {
             <CalendarButtonPageHeader key="1" />
             <ExportButtonPageHeader key="2" />
             <ShareButtonPageHeader key="3" />
-            <Button size="small" key="4" type="primary">
+             <Button size="large"  size="small" key="4" type="primary">
               <FeatherIcon icon="plus" size={14} />
               Add New
             </Button>

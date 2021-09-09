@@ -57,20 +57,20 @@ const ShippingWeightView = (props) => {
             </Col>
             <Col lg={4} xs={24}  >
              
-              <Button type="success" onClick={ (val)=>{weightReport('order_no')} }>OrderNo</Button>
+               <Button size="large"  type="success" onClick={ (val)=>{weightReport('order_no')} }>OrderNo</Button>
               
             
             </Col>
             <Col lg={4} xs={24}  >
              
-              <Button type="success" onClick={ (val)=>{weightReport('POnumber')} }> PO Number</Button>
+               <Button size="large"  type="success" onClick={ (val)=>{weightReport('POnumber')} }> PO Number</Button>
        
               
             
             </Col>
             <Col lg={4} xs={24}  >
             
-              <Button type="success" onClick={ (val)=>{weightReport('SKU') } }>SKU</Button>
+               <Button size="large"  type="success" onClick={ (val)=>{weightReport('SKU') } }>SKU</Button>
              
               
             

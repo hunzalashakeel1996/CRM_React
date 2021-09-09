@@ -221,14 +221,14 @@ const Groupstatus = () => {
                     <Cards headless>
                         <Row >
                             <Col span={10}>
-                                <Button type="primary" onClick={GropAsinuploadFile}>Group Asin Setup</Button>
+                                 <Button size="large"  type="primary" onClick={GropAsinuploadFile}>Group Asin Setup</Button>
 
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 20 }}>
                             <Col span={8} style={{ width: 300, marginRight: 20 }}>
                                 {/* <Upload {...fileDetails}>
-                                    <Button icon={<UploadOutlined />} >Click to Upload</Button>
+                                     <Button size="large"  icon={<UploadOutlined />} >Click to Upload</Button>
                                 </Upload> */}
 
                                 <input type="file" onChange={changeHandler} />
@@ -243,14 +243,14 @@ const Groupstatus = () => {
                     <Cards headless>
                     <Row >
                             <Col span={10}>
-                                <Button type="primary" onClick={ScrubsetAsinuploadFile}>Scrub set Asin</Button>
+                                 <Button size="large"  type="primary" onClick={ScrubsetAsinuploadFile}>Scrub set Asin</Button>
 
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 20 }}>
                             <Col span={8} style={{ width: 300, marginRight: 20 }}>
                                 {/* <Upload {...fileDetails}>
-                                    <Button icon={<UploadOutlined />} >Click to Upload</Button>
+                                     <Button size="large"  icon={<UploadOutlined />} >Click to Upload</Button>
                                 </Upload> */}
 
                                 <input type="file" onChange={changeHandler} />
@@ -266,7 +266,7 @@ const Groupstatus = () => {
                     <Cards headless>
                         <Row>
                             <Col span={10} >
-                                <Button type="primary" onClick={automateSKU}>Automate SKU</Button>
+                                 <Button size="large"  type="primary" onClick={automateSKU}>Automate SKU</Button>
                             </Col>
 
                             <Col span={8}>

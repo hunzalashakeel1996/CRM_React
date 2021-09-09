@@ -49,7 +49,7 @@ const OrderReportsView = (props) => {
     const {isLoader}= state
 
     const btn = (
-        <Button type="primary" size="small" onClick={() => notification.close(key)}>
+         <Button size="large"  type="primary" size="small" onClick={() => notification.close(key)}>
             Confirm
         </Button>
     );
@@ -149,7 +149,7 @@ const OrderReportsView = (props) => {
                         </Col>
                         <Col lg={5} md={6} xs={24}  >
                         <Form.Item >
-                                <Button  size="default" type="success" htmlType="Submit">
+                                 <Button size="large"     type="success" htmlType="Submit">
                                     Download
                         </Button>
 
