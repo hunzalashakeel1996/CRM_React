@@ -167,7 +167,7 @@ const OrderReportsView = (props) => {
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row style={{  }}>
                 <Cards title="Order Search" caption="The simplest use of Drawer" >
-                <Form layout="inline" initialValue="" label="" form={form} id="Order Search" name="nest-messages" onFinish={getOrderSearchReporting} validateMessages={validateMessages}>
+                <Form  initialValue="" label="" form={form} id="Order Search" name="nest-messages" onFinish={getOrderSearchReporting} validateMessages={validateMessages}>
                     <Row gutter={25}>
                         <Col lg={8} xs={24}  >
                           
@@ -200,7 +200,7 @@ const OrderReportsView = (props) => {
                             </Col>
                         </Row>
 
-                        <Row style={{ marginTop: 20 }}>
+                        <Row style={{ marginTop: 10 }}>
                             <Col lg={6} xs={24}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                                 <Form.Item >

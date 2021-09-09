@@ -76,7 +76,7 @@ const {isLoader}=state
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
                 <Row style={{}}>
                     <Cards title="PO's Net Amount" caption="The simplest use of Drawer" >
-                    <Form layout="inline" initialValue="" label="" form={form} id="Profit & Loss Report (PNL)" name="nest-messages" onFinish={getPONetAmountReporting} validateMessages={validateMessages}>
+                    <Form  initialValue="" label="" form={form} id="Profit & Loss Report (PNL)" name="nest-messages" onFinish={getPONetAmountReporting} validateMessages={validateMessages}>
                         <Row gutter={25}>
                             <Col lg={8} xs={24}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
@@ -113,7 +113,7 @@ const {isLoader}=state
 
 
                         </Row>
-                        <Row style={{marginTop: 20}}>
+                        <Row style={{marginTop: 10}}>
                             <Col lg={6} xs={24}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                                 <Form.Item >
