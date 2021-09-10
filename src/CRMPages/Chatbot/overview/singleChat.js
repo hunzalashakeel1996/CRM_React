@@ -444,7 +444,7 @@ const SingleChat = ({ match }) => {
                     <FeatherIcon icon="paperclip" size={18} />
                   </Upload>
                 </Link>
-                <Button onClick={handleSubmit} type="primary" className="btn-send">
+                 <Button size="large"  onClick={handleSubmit} type="primary" className="btn-send">
                   <FeatherIcon icon="send" size={18} />
                 </Button>
               </div>

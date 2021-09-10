@@ -379,17 +379,17 @@ const AmazonUpdateInventory = () => {
                             <Row>
                             <Col xs={12} sm={8} style={{ paddingRight:10 }}>
 
-                                <Button size="default" type="primary" onClick={getMerchantskuDetail} style={{width:'100%', borderRadius:0, marginBottom:8}}>Search</Button>
+                                 <Button size="large"    type="primary" onClick={getMerchantskuDetail} style={{width:'100%', borderRadius:0, marginBottom:8}}>Search</Button>
                             </Col>
 
 
                             <Col xs={12} sm={8} style={{  paddingRight:10  }}>
-                                <Button size="default" type="success" onClick={MerchantskuyDownload} style={{width:'100%', borderRadius:0, marginBottom:8}}>Download</Button>
+                                 <Button size="large"    type="success" onClick={MerchantskuyDownload} style={{width:'100%', borderRadius:0, marginBottom:8}}>Download</Button>
                             </Col>
 
                             <Col xs={24} sm={8} style={{ paddingRight:10  }}>
 
-                                <Button size="default" type="primary" onClick={ModalOpen} style={{width:'100%', borderRadius:0, marginBottom:8}}>Update</Button>
+                                 <Button size="large"    type="primary" onClick={ModalOpen} style={{width:'100%', borderRadius:0, marginBottom:8}}>Update</Button>
                             </Col>
 
                             </Row>

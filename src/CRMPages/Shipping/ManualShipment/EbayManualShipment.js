@@ -64,7 +64,7 @@ const ManualShipmentView = (props) => {
                         </Col>
                         <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Button type="success" htmlType="Manual Tick">
+                                 <Button size="large"  type="success" htmlType="Manual Tick">
                                     Manual Tick
                         </Button>
                             </div>

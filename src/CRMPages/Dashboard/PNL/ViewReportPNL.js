@@ -895,9 +895,9 @@ const ReportPNLView = () => {
 
               <Row>
                 <Col xs={24} style={{ marginBottom: 10 }}>
-                  <Button type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                   <Button size="large"   type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
-                  {dataSourceOrder.length > 0 && <Button type="success"
+                  {dataSourceOrder.length > 0 &&  <Button size="large"  type="success"
                     onClick={(value) => { download(activeTab) }} >
                     Download
                   </Button>}
@@ -905,11 +905,10 @@ const ReportPNLView = () => {
               </Row>
 
               {dataSourceOrder.length > 0 && <Row style={{ marginTop: 10 }}>
-                <Col span={1}>
+                <Col lg={8}>
 
-                  <label>Filtes:</label>
-                </Col>
-                <Col span={10} >
+                  <label style={{ marginBottom: 15 }}>Filtes:</label>
+                <br></br>
 
                   <Radio.Group onChange={handleOrderTypeChange}>
                     <Radio.Button value="Web">Web</Radio.Button>
@@ -930,31 +929,43 @@ const ReportPNLView = () => {
                       </Radio.Group>
                     </Col>
                   </Row>
-                </Col>
-                <Col span={2}>
+
+                  </Col>
+
+                  
+                
+              
+                 <Col lg={16}>
+
+                 <Row gutter={25}>
+                <Col>
 
                   <label style={{ fontSize: 13, fontWeight: 'bold'}} >{activeTab === 'PricePNLSummary'?'Total Amount':'TotalOrders'}: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>{Math.round(totalOrdersSum * 100) / 100}</p> 
+                  <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft:2,}}>{Math.round(totalOrdersSum * 100) / 100}</p> 
                 </Col>
-                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
 
                   <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Loss: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersLoss * 100) / 100}</p>  
+                  <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft:2,}}>${Math.round(totalOrdersLoss * 100) / 100}</p>  
                 </Col>}
-                <Col span={2}>
+                <Col >
 
                   <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Profit: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersProfit * 100) / 100}</p>   
+                  <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft:2,}}>${Math.round(totalOrdersProfit * 100) / 100}</p>   
                 </Col>
-                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
 
                   <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Profit Average: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersProfit*100/totalOrdersSum * 100) / 100}</p>   
+                  <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft:2,}}>${Math.round(totalOrdersProfit*100/totalOrdersSum * 100) / 100}</p>   
                 </Col>}
-                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
                   <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Loss Average: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}> ${Math.round(totalOrdersLoss*100/totalOrdersSum * 100) / 100}</p>   
+                  <p style={{ fontSize: 13, fontWeight: '600',  color: '#5f63f2', paddingLeft:2,}}> ${Math.round(totalOrdersLoss*100/totalOrdersSum * 100) / 100}</p>   
                 </Col>}
+                </Row>
+                </Col>
+               
+
               </Row>}
 
 

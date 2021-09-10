@@ -44,9 +44,9 @@ const RMA_All = () => {
               </div>
             </Col>
             <Col xs={24}  >
-            <Button type="success" >Update</Button>
+             <Button size="large"  type="success" >Update</Button>
               {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Button type="success" htmlType="Submit">
+                 <Button size="large"  type="success" htmlType="Submit">
                   Update
                         </Button>
               </div> */}

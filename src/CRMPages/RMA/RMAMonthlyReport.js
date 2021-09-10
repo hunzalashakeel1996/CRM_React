@@ -104,7 +104,7 @@ const RMAView = (props) => {
 
                 <br/>
 
-                <Button onClick={getRmaMonthlyReport} size="default" type="success" htmlType="download" style={{ marginLeft: 0, marginTop:8, }}>
+                 <Button size="large"  onClick={getRmaMonthlyReport}   type="success" htmlType="download" style={{ marginLeft: 0, marginTop:8, }}>
                   Download
                 </Button>
               </div>

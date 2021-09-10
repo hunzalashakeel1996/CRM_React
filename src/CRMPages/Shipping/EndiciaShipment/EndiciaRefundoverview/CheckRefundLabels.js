@@ -122,14 +122,14 @@ const EndiciaShipmentView = (props) => {
                         <Form.Item>
                            
                              
-                           <Button type="primary" size="default" type="success" htmlType="Submit" > Search</Button>
+                            <Button size="large"  type="primary"   type="success" htmlType="Submit" > Search</Button>
                            </Form.Item>
                         </Col>
                         <Col lg={6} xs={24}  >
                         <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                            
                              
-                           <Button type="primary" onClick={refreshPage}> Refresh</Button>
+                            <Button size="large"  type="primary" onClick={refreshPage}> Refresh</Button>
                            </div>
                         </Col>
                     </Row>

@@ -31,7 +31,7 @@ const ShareButtonPageHeader = () => {
   );
   return (
     <Popover placement="bottomLeft" content={content} trigger="click">
-      <Button size="small" type="white" key="3">
+       <Button size="large"  size="small" type="white" key="3">
         <FeatherIcon icon="share-2" size={14} />
         Share
       </Button>

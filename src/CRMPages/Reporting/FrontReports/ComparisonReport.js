@@ -395,16 +395,16 @@ const ReportView = (props) => {
       <Row>
 
       {/* <Col span={6}>
-                  <Button onClick={getCRMOrderReporting} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary" size="default" htmlType="submit">
+                   <Button size="large"  onClick={getCRMOrderReporting} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary"   htmlType="submit">
                     Amazon
                   </Button>
-                  <Button onClick={getCRMOrderPUReportingPU} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary" size="default" htmlType="submit">
+                   <Button size="large"  onClick={getCRMOrderPUReportingPU} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary"   htmlType="submit">
                     PU
                   </Button>
-                  <Button onClick={getCRMOrderPUReportingJLC} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary" size="default" htmlType="submit">
+                   <Button size="large"  onClick={getCRMOrderPUReportingJLC} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary"   htmlType="submit">
                     JLC
                   </Button>
-                  <Button onClick={getCRMOrderPUReportingWM} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary" size="default" htmlType="submit">
+                   <Button size="large"  onClick={getCRMOrderPUReportingWM} style={{ marginTop: 7, marginLeft:5, marginBottom:15 }} key="1" type="primary"   htmlType="submit">
                     Walmart
                   </Button>
                

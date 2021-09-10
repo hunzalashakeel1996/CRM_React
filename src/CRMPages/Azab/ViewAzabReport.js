@@ -99,7 +99,7 @@ const ViewAzabReport = (props) => {
           </Col>
 
           <Col >
-            <Button type="primary" onClick={(value) => getmonth(state.value)}> Azab Report   </Button>
+             <Button size="large"  type="primary" onClick={(value) => getmonth(state.value)}> Azab Report   </Button>
             {/* OrderCount:{state.filterAzabReport.length} */}
           </Col>
         </Row>

@@ -337,16 +337,16 @@ const AmazonUpdatesubinventory = () => {
                             </Col>
                             <Col span={2} style={{ marginLeft: 20 }}>
 
-                                <Button size="default" type="primary" onClick={getMerchantskuDetail} >Search</Button>
+                                 <Button size="large"    type="primary" onClick={getMerchantskuDetail} >Search</Button>
                             </Col>
 
 
                             <Col span={3} style={{ marginLeft: 20 }}>
-                                <Button size="default" type="success" onClick={MerchantskuyDownload}  >Download</Button>
+                                 <Button size="large"    type="success" onClick={MerchantskuyDownload}  >Download</Button>
                             </Col>
                             <Col span={2} style={{ marginLeft: 20 }}>
 
-                                <Button size="default" type="success" onClick={ModalOpen} >Update</Button>
+                                 <Button size="large"    type="success" onClick={ModalOpen} >Update</Button>
                             </Col>
 
                         </Row>

@@ -63,7 +63,7 @@ const ItemPNL = (props) => {
               profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+JSON.parse(dataSourceItemTempParent[i].profit.split('$')[1])}
               // profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceItemTempParent[i].profit}
             }
-    
+
           
           }
          

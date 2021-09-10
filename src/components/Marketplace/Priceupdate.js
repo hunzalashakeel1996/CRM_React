@@ -61,7 +61,7 @@ const Priceupdate = () => {
                                 <Col span={12} >
 
                                     <Upload >
-                                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                         <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                                     </Upload>
 
 
@@ -82,7 +82,7 @@ const Priceupdate = () => {
                         </Col>
                         <Col span={12} >
 
-                            <Button type="primary">Submit</Button>
+                             <Button size="large"  type="primary">Submit</Button>
 
 
                         </Col>

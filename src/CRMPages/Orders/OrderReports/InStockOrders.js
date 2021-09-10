@@ -127,7 +127,7 @@ const OrderReportsView = (props) => {
                             <Col span={4}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                                 <Form.Item >
-                                    <Button  size="default" type="success" htmlType="Submit">
+                                     <Button size="large"     type="success" htmlType="Submit">
                                         Download
                                   </Button>
                                   </Form.Item>
@@ -158,7 +158,7 @@ const OrderReportsView = (props) => {
                             <Col lg={8} xs={24}  >
                                
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                    <Button onClick={getInstockSoldReporting} size="default" type="success" htmlType="Submit">
+                                     <Button size="large"  onClick={getInstockSoldReporting}   type="success" htmlType="Submit">
                                         GetReport
                         </Button>
                                 </div>

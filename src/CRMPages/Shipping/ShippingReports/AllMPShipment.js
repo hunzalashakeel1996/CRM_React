@@ -68,7 +68,7 @@ const ShippingReportsView = (props) => {
                             <Col lg={24} xs={24}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                    <Button onClick={getAllMPShipmentsReporting} size="default" type="success" htmlType="download" style={{ marginLeft: 0 }}>
+                                     <Button size="large"  onClick={getAllMPShipmentsReporting}   type="success" htmlType="download" style={{ marginLeft: 0 }}>
                                         Download
                         </Button>
 

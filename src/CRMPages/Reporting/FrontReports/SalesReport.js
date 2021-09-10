@@ -250,7 +250,7 @@ const ReportView = (props) => {
 
                 <Col span={4}>
                   <Form.Item >
-                    <Button  style={{ margintTop: 15 }} key="1" type="primary" size="default" htmlType="submit">
+                     <Button size="large"   style={{ margintTop: 15 }} key="1" type="primary"   htmlType="submit">
                       Search
                    </Button>
                   </Form.Item>

@@ -102,7 +102,7 @@ const GoogleMarketPlace = (props) => {
             <Cards title="GoogleMarketPlace Not Approve">
                             <Col span={20} >
                 
-                                <Button type="primary" onClick={googleMarketplaceNotVerify}>GoogleMarketPlace Not Approve</Button>
+                                 <Button size="large"  type="primary" onClick={googleMarketplaceNotVerify}>GoogleMarketPlace Not Approve</Button>
                               
                                 </Col>
                    
@@ -131,7 +131,7 @@ const GoogleMarketPlace = (props) => {
                               
                     </Col>
                     <Col span ={6} style={{ marginTop: 10 }}>
-                    <Button size="default" type="success" onClick={getGoogleVerifyReport} >Generate</Button>
+                     <Button size="large"    type="success" onClick={getGoogleVerifyReport} >Generate</Button>
 
 
                 </Col>

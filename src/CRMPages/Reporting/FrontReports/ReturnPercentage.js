@@ -222,11 +222,11 @@ const ReturnPercentage = (props) => {
                
                 <Col span={24} >
                 <Form.Item >
-                  <Button  style={{ margintTop: 7, marginRight:10, }}  key="1" type="primary" size="default" htmlType="submit">
+                   <Button size="large"   style={{ margintTop: 7, marginRight:10, }}  key="1" type="primary"   htmlType="submit">
                     Search
                            </Button>
                           
-                  <Button   style={{ margintTop: 7 }} key="1" type="success" size="default" htmlType="submit">
+                   <Button size="large"    style={{ margintTop: 7 }} key="1" type="success"   htmlType="submit">
                     Download
                            </Button>
                            </Form.Item>

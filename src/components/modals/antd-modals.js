@@ -19,10 +19,10 @@ const Modal = props => {
         footer || footer === null
           ? footer
           : [
-              <Button type="secondary" key="back" onClick={onCancel}>
+               <Button size="large"  type="secondary" key="back" onClick={onCancel}>
                 Cancel
               </Button>,
-              <Button type={type} key="submit" onClick={onOk}>
+               <Button size="large"  type={type} key="submit" onClick={onOk}>
                 Save Change
               </Button>,
             ]

@@ -172,7 +172,7 @@ const MarketplaceOrdersView = (props) => {
                         <Col lg={8} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
                             <Form.Item >
-                                <Button size="default" type="success" htmlType="Submit">
+                                 <Button size="large"    type="success" htmlType="Submit">
                                     GetOrders
                         </Button>
 
@@ -194,12 +194,12 @@ const MarketplaceOrdersView = (props) => {
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                 {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                <Button size="default" type="success" htmlType="submit">
+                                 <Button size="large"    type="success" htmlType="submit">
                                     Upload Sheet
                         </Button>
                                 <br></br>
                                 <Upload >
-                                    <Button style={{ marginTop: 10 }} className="btn-outlined" size="large" type="light" outlined>
+                                     <Button size="large"  style={{ marginTop: 10 }} className="btn-outlined" size="large" type="light" outlined>
                                         <UploadOutlined /> Click to Upload
                 </Button>
                                 </Upload>
@@ -210,7 +210,7 @@ const MarketplaceOrdersView = (props) => {
                         <Col lg={8} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                <Button size="default" type="success" htmlType="Submit">
+                                 <Button size="large"    type="success" htmlType="Submit">
                                     GetOrders
                         </Button>
 
@@ -232,12 +232,12 @@ const MarketplaceOrdersView = (props) => {
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                 {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                <Button size="default" type="success" htmlType="submit">
+                                 <Button size="large"    type="success" htmlType="submit">
                                     Upload Sheet
                         </Button>
                                 <br></br>
                                 <Upload >
-                                    <Button style={{ marginTop: 10 }} className="btn-outlined" size="large" type="light" outlined>
+                                     <Button size="large"  style={{ marginTop: 10 }} className="btn-outlined" size="large" type="light" outlined>
                                         <UploadOutlined /> Click to Upload
                 </Button>
                                 </Upload>
@@ -248,7 +248,7 @@ const MarketplaceOrdersView = (props) => {
                         <Col lg={8} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                <Button size="default" type="success" htmlType="Submit">
+                                 <Button size="large"    type="success" htmlType="Submit">
                                     GetOrders
                         </Button>
 
@@ -270,7 +270,7 @@ const MarketplaceOrdersView = (props) => {
                         </Col>
                         <Col lg={6} xs={24}  >
                         <Form.Item>
-                                <Button size="default" type="success" htmlType="submit">
+                                 <Button size="large"    type="success" htmlType="submit">
                                     Downlaod
                               </Button>
                                 

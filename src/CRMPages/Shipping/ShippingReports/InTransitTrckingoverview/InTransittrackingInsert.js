@@ -128,7 +128,7 @@ const InTransittrackingInsert = (props) => {
                             {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
                             <Form.Item>
 
-                                <Button icon={<UploadOutlined />}  htmlType="Submit"  > </Button>
+                                 <Button size="large"  icon={<UploadOutlined />}  htmlType="Submit"  > </Button>
 
 
                             </Form.Item>

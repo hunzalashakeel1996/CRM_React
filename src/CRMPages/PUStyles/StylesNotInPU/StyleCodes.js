@@ -129,10 +129,10 @@ const StylesNotInPUView = (props) => {
               
               <Col xs={24} >
 
-                <Button style={{marginRight:10, marginBottom:5, backgroundColor: 'rgb(66, 186, 150)', color: 'white'}} size="default" type="success" onClick={getStyleCodes} >Download</Button>
+                 <Button size="large"  style={{marginRight:10, marginBottom:5, backgroundColor: 'rgb(66, 186, 150)', color: 'white'}}   type="success" onClick={getStyleCodes} >Download</Button>
 
-                <Button style={{marginRight:10,  marginBottom:5,}} size="default" type="success" onClick={getExcludedStyleCodes} >Downlaod (Excluded Styles)</Button>
-               <Button style={{marginRight:10,  marginBottom:5, backgroundColor: 'rgb(66, 186, 150)', color: 'white'}} size="default" type="info" onClick={info} >For More Info</Button>
+                 <Button size="large"  style={{marginRight:10,  marginBottom:5,}}   type="success" onClick={getExcludedStyleCodes} >Downlaod (Excluded Styles)</Button>
+                <Button size="large"  style={{marginRight:10,  marginBottom:5, backgroundColor: 'rgb(66, 186, 150)', color: 'white'}}   type="info" onClick={info} >For More Info</Button>
 
 
 

@@ -326,13 +326,13 @@ const SummaryReport = (props) => {
 
                             <Col xs={24}>
 
-                            <Button key="1" type="primary" size="default" htmlType="submit" style={{marginRight:15,}}>
+                             <Button size="large"  key="1" type="primary"   htmlType="submit" style={{marginRight:15,}}>
                                 Search
                            </Button>
         
                            
 
-                            <Button key="1" type="success" size="default" onClick={() => { downloadFiles() }}>
+                             <Button size="large"  key="1" type="success"   onClick={() => { downloadFiles() }}>
                                 Download
                            </Button>
         

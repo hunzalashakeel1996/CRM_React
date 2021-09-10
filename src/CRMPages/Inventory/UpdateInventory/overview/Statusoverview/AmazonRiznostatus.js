@@ -35,7 +35,7 @@ const AmazonRiznostatus = (props) => {
         <>
             <Row gutter={5}>
                             <Col span={6}>
-                                <Button style={{ width: 150 }} type="primary" onClick={uploadFile} disabled={buttonStatus === 'disabled' ? true : false}>Update</Button>
+                                 <Button size="large"  style={{ width: 150 }} type="primary" onClick={uploadFile} disabled={buttonStatus === 'disabled' ? true : false}>Update</Button>
                             </Col>
 
                             <Col span={5}>

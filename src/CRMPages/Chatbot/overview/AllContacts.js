@@ -28,7 +28,7 @@ const AllContacts = ({ match }) => {
   return (
     <ChatWrapper>
       <div className="create-action">
-        <Button className="btn-add" size="default" type="default" shape="circle" block>
+         <Button size="large"  className="btn-add"   type="default" shape="circle" block>
           <FeatherIcon icon="user-plus" size={14} />
           Add New Contact
         </Button>
