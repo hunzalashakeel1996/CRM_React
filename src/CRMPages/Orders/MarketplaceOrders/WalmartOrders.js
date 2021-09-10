@@ -1,12 +1,16 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs,Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select } from 'antd';
+import { Input, Tabs,Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select,notification } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 // import { Checkbox } from '../../../components/checkbox/checkbox';
 import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
+
+import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
+import { apiWalmartCustomerEmail } from '../../../redux/apis/DataAction';
+
 import './MarketplaceOrders.css';
 
 
@@ -46,6 +50,7 @@ const validateMessages = {
     },
   };
 const MarketplaceOrdersView = (props) => {
+    const dispatch = useDispatch();
     const [form] = Form.useForm();
 
     const [state, setstate] = useState({
@@ -57,7 +62,9 @@ const MarketplaceOrdersView = (props) => {
         checkData: [],
         checked: null,
         values: {},
+        Pono:[]
     });
+    const {Pono }= state
     const multipleChange = childData => {
         setState({ ...state, checkData: childData });
     };
@@ -119,11 +126,35 @@ const MarketplaceOrdersView = (props) => {
             key: 'address',
         },
     ];
+    
+    const getWalmartCustomerEmail = () => {
+        
+        setstate({ ...state, isLoader: true })
+        dispatch(apiWalmartCustomerEmail({  pono_: Pono })).then(data => {
+            // console.log(data)
+            setstate({ ...state, isLoader: false })
+         
+            downloadFile(data);
+            notification.success({
+                message: 'Successfull Dowload',
+                description: `Successfully Download  WalmartCustomerEmail `,
+                onClose: close,
+            });
+
+
+        })
+
+    };
+    const getPOno = (value) =>
+    {
+        console.log('getPOno',value)
+        setstate({ ...state, Pono: value })
+    }
     return (
         <>
             <Row>
                 <Cards title="Get Walmart Orders (API) - USA" caption="The simplest use of Drawer" >
-                <Form layout="inline" initialValue="" label="" form={form} id="Get Walmart Orders (API) - USA" name="nest-messages"  validateMessages={validateMessages}>
+                {/* <Form layout="inline" initialValue="" label="" form={form} id="Get Walmart Orders (API) - USA" name="nest-messages"  validateMessages={validateMessages}> */}
                     <Row gutter={15}>
                         <Col lg={8} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>StartDate</h3></div>
@@ -151,7 +182,7 @@ const MarketplaceOrdersView = (props) => {
 
 
                     </Row>
-                     </Form>
+                     {/* </Form> */}
 
                 </Cards>
             </Row>
@@ -229,12 +260,12 @@ const MarketplaceOrdersView = (props) => {
             {/* WALMART EMAILS */}
             {/* Check Labels Here Div  */}
             <Row style={{  }}>
-                <Cards title="Download Customer Emails" caption="The simplest use of Drawer" >
-                <Form layout="inline" initialValue="" label="" form={form} id="Download Customer Emails" name="nest-messages"  validateMessages={validateMessages}>
+                <Cards title="Download  Customer Emails" caption="The simplest use of Drawer" >
+                <Form layout="inline" initialValue="" label="" form={form} id="Download Customer Emails" name="nest-messages"  onFinish={getWalmartCustomerEmail}  validateMessages={validateMessages}>
                     <Row gutter={50}>
                         <Col lg={15} xs={24}  >
                         <Form.Item name="Customer Emails" rules={[{ required: true }]}>
-                                <TextArea style={{ padding: 10 }} />
+                                <TextArea style={{ padding: 10 }} onChange={(e)=>{getPOno(e.target.value)}}/>
                                 </Form.Item>
                         </Col>
                         <Col lg={6} xs={24}  >

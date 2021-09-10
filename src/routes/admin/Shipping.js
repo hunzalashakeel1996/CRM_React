@@ -8,6 +8,7 @@ const ManualShipmentView = lazy(() => import('../../CRMPages/Shipping/ManualShip
 const ShippingReportsView = lazy(() => import('../../CRMPages/Shipping/ShippingReports/ShippingReportsView'));
 const ShippingWeightView = lazy(() => import('../../CRMPages/Shipping/ShippingWeight/ShippingWeightView'));
 const ShippingNotesView = lazy(() => import('../../CRMPages/Shipping/ShippingNotes/ShippingNotesView'));
+const ShippingUpdateView = lazy(() => import('../../CRMPages/Shipping/ShippingUpdate/ShippingUpdateView'));
 
 const ProjectRoutes = () => {
   const { path } = useRouteMatch();
@@ -21,6 +22,7 @@ const ProjectRoutes = () => {
       <Route exact path={`${path}/shippingReports`} component={ShippingReportsView} />
       <Route exact path={`${path}/shippingWeight`} component={ShippingWeightView} />
       <Route exact path={`${path}/shippingNotes`} component={ShippingNotesView} />
+      <Route exact path={`${path}/shippingUpdate`} component={ShippingUpdateView} />
     </Switch>
   );
 };

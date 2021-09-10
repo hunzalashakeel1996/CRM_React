@@ -21,10 +21,10 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
- // export const urlDotNet ="http://localhost:47463/api"
+ export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-export const urlDotNet = "https://crm.rizno.com/api"
+//export const urlDotNet = "https://crm.rizno.com/api"
 
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -760,6 +760,11 @@ export const getUploadmarketplace_weightapi = (data) => {
  
     return apiFetchDotNet('newInventory/Uploadmarketplace_weight', "POST", multipartHeader, data );
 };
+//Marketplace place Weight Update
+export const apiWalmartCustomerEmail = (data) => {
+ 
+    return apiFetchDotNet('Walmart/EmailsGet', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 //sanmar sales Update 
 export const getSanmarSalesUpdateapi = (data) => {
  
@@ -775,6 +780,18 @@ export const getAutoMateSKUapi = (data) => {
  
     return apiFetchDotNet('newInventory/UploadAutoSKU', "POST", multipartHeader, data );
 };
+// SKU status update 
+export const getSkuStatusUpdateapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/skuStatusUpload', "POST", multipartHeader, data );
+};
+// sub sku status update 
+export const getSubSkuStatusUpdateapi = (data) => {
+ 
+    return apiFetchDotNet('newInventory/SubskuStatusUpload', "POST", multipartHeader, data );
+};
+
+
 //Report Data
 export const getReportDataapi = (data) => {
  
@@ -1067,7 +1084,10 @@ export const apiReportItemWise = (data) => {
     
     return apiFetchDotNet('/report/PNL_Item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
-
+export const apiSummaryPNLItemwise = (data) => {
+    
+    return apiFetchDotNet('/report/Summary_PNL_Item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 export const apiReportOrderWiseWeb = (data) => {
     
     return apiFetchDotNet('/report/PNL_Order_wiseWeb', "POST", headerDotNetWithJwt, JSON.stringify(data));

@@ -182,7 +182,13 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'Shipping Notes',
         title: 'Shipping Notes',
         path: `${path}/shipping/shippingNotes`
-      }]
+      },
+      {
+        key: 'Shipping Update',
+        title: 'Shipping Update',
+        path: `${path}/shipping/shippingUpdate`
+      }
+    ]
     },
     {
       key: 'PUStyles',

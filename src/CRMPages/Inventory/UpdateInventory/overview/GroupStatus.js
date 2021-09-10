@@ -12,7 +12,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl,getGroupAsinSetupapi,getGroupScrubsetSetupapi,getAutoMateGroupapi,getUploadFileUpdateGroupapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl,getSubSkuStatusUpdateapi,getGroupAsinSetupapi,getGroupScrubsetSetupapi,getAutoMateGroupapi,getUploadFileUpdateGroupapi } from '../../../../redux/apis/DataAction';
 import Promotions from '../../../../components/Marketplace/Promotions'
 import AmazonPUstatus from './Statusoverview/AmazonPUstatus';
 import AmazonRiznostatus from './Statusoverview/AmazonRiznostatus';
@@ -36,6 +36,7 @@ const Report = [
 
 const Groupstatus = () => {
 
+     const Seller =['Amazon','AmazonRizno','AmazonUae','AmazonCanada','Walmart','WalmartCanada','Sears']
     const [activeTab, setActiveTab] = useState('');
     const dispatch = useDispatch()
 
@@ -46,9 +47,10 @@ const Groupstatus = () => {
         file: '',
         buttonStatus: 'able',
         textAreaStatus: 'disabled',
-        radioButtonValue: true
+        radioButtonValue: true,
+        status:''
     })
-    const { dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue } = state
+    const { status,dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue } = state
     const [selectedRow, selectedRowsset] = useState([])
 
     const onChangeForceCheck = (e) => {
@@ -211,12 +213,43 @@ const Groupstatus = () => {
       
 
     }
+
+
+    const statushandleChange = (value) => {
+        setstate({ ...state, status: value })
+    }
+    
+    const subSkuStatusUpdate = () => {
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+
+        const formData = new FormData();
+
+        formData.append('user', username.LoginName);
+        formData.append('File', file);
+        formData.append('datato', dataTo);
+        formData.append('status', status);
+
+        dispatch(getSubSkuStatusUpdateapi(formData)).then(data => {
+
+            //   message.success(`file uploaded Update ${data}`);
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+
+        })
+
+
+
+    }
     return (
         <>
 
 
             <Row gutter={16} style={{ marginTop: 20 }}>
-                <Col span={10} style={{ marginLeft: 20 }}>
+                <Col span={10} >
 
                     <Cards headless>
                         <Row >
@@ -262,7 +295,7 @@ const Groupstatus = () => {
             </Row>
 
             <Row style={{ marginTop: 20 }} gutter={16}>
-                <Col span={10} style={{ marginLeft: 20 }} >
+                <Col span={10} >
                     <Cards headless>
                         <Row>
                             <Col span={10} >
@@ -307,11 +340,42 @@ const Groupstatus = () => {
 
 
                 <Col span={10} >
-                  
+                <Cards headless>
+                        <Row gutter={25}>
+                            <Col span={8} >
+                                <Button type="primary" onClick={subSkuStatusUpdate}>SKU Status</Button>
+                            </Col>
+                            <Col span={10}>
+                              
+                                       <Select style={{ width:  '100%'}}defaultValue="select" onChange={dataTohandleChange}  >
+                                       {Seller.map(item =>(
+                                       <Option value={item}>{item}</Option> ))}
+                                       </Select>
+                             
+                              
+
+
+                            </Col>
+                           {dataTo&&
+                            <Col span={5}>
+                                <Select defaultValue="select" onChange={statushandleChange}  >
+                                    <Option value="Active">Active</Option>
+                                    <Option value="InActive">InActive</Option>
+                              </Select>
+                            </Col>}
+                        </Row>
+
+                        <Row style={{ marginTop: 50 }}>
+                            <Col span={10} style={{ width: 300, }}>
+                               
+                                <input type="file" onChange={changeHandler} />
+                            </Col>
+                        </Row>
+                    </Cards>
                 </Col>
             </Row>
             <Row style={{ marginTop: 20 }}>
-                <Col span={20} style={{ marginLeft: 20 }}>
+                <Col span={20} >
                     <Cards headless>
 
                         <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>

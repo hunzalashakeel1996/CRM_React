@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Input, Tabs, Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, notification } from 'antd';
 import { Button, BtnGroup } from '../../../../components/buttons/buttons';
-import {  inTransitsTrackingData } from '../../../../redux/apis/DataAction';
+import { inTransitsTrackingData } from '../../../../redux/apis/DataAction';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,8 +17,9 @@ const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
-let sellerList = []
+
 const InTransitTrackingData = (props) => {
+    let sellerList = []
     const validateMessages = {
         required: '${name} is required!',
         types: {
@@ -44,11 +45,13 @@ const InTransitTrackingData = (props) => {
         marketplace: [],
         startDate: '',
         endDate: '',
+        checkAll: false,
+        isSellerCheckedList: []
     });
 
     const sellerName = ['Amazon', 'Walmart', 'sears', 'Ebay', 'NewEgg', 'PU', 'JLC']
     const dispatch = useDispatch()
-    const { states, file, marketplace, startDate, endDate } = state
+    const { states, file, marketplace, startDate, endDate, checkAll, isSellerCheckedList } = state
     const multipleChange = childData => {
         setState({ ...state, checkData: childData });
     };
@@ -85,7 +88,24 @@ const InTransitTrackingData = (props) => {
             location.reload();
         })
     };
+
+    const onCheckAllChange = e => {
+
+        //     console.log('onCheckAllChange',e.target.checked)
+        //    console.log([...sellerName])
+        if (e.target.checked) {
+            sellerList = [...sellerName]
+        }
+        else {
+            sellerList = []
+
+        }
+        // console.log(sellerList)
+        setState({ ...state, marketplace: sellerList, isSellerCheckedList: e.target.checked ? [...sellerName] : [], checkAll: e.target.checked ? true : false })
+
+    };
     let username = [];
+
     const onListCheckChange = (val, i, isChecked) => {
         // // console.log(isChecked)
 
@@ -100,10 +120,17 @@ const InTransitTrackingData = (props) => {
 
             let index = sellerList.indexOf(val)
             sellerList.splice(index, 1)
+        }
+        let temp = [...isSellerCheckedList]
+        if (isChecked) {
+            temp.push(val)
+        } else {
+            let index = temp.indexOf(val)
+            temp.splice(index, 1)
 
         }
 
-        setState({ ...state, marketplace: sellerList });
+        setState({ ...state, marketplace: sellerList, isSellerCheckedList: temp, checkAll: sellerName.length === sellerList.length ? true : false });
 
     }
     const onChangeStartDate = (value) => {
@@ -117,8 +144,9 @@ const InTransitTrackingData = (props) => {
     const insertTransitsData = () => {
         // console.log('seller',sellerList)
 
-        if (sellerList.length > 0) {
+        if (marketplace.length > 0) {
             dispatch(inTransitsTrackingData({ state: states, orderdatefrom: startDate, orderdateto: endDate, marketplace: marketplace })).then(data => {
+               console.log(data)
                 downloadFile(data)
                 //   message.success(`file uploaded Update ${data}`);
                 notification.success({
@@ -126,74 +154,80 @@ const InTransitTrackingData = (props) => {
                     description: `Successfully Report`,
                     onClose: close,
                 });
-                location.reload();
+              //  location.reload();
             })
         }
         else
             alert('Select Seller')
-        
+
     };
     return (
         <>
-         <Form layout="inline" initialValue="" label="" form={form} id="InTransit" name="nest-messages" onFinish={insertTransitsData} validateMessages={validateMessages}>
-           
+            <Form layout="inline" initialValue="" label="" form={form} id="InTransit" name="nest-messages" onFinish={insertTransitsData} validateMessages={validateMessages}>
+
                 <Cards title="InTransit Tracking Report" caption="The simplest use of Drawer" >
-                   
-                     
-                            <Row gutter={50}>
 
-                                {sellerName.map((val, i) => (
+                    <Row >
+                        <Col span={24} style={{ marginBottom: 15 }}>
+                            <Checkbox checked={checkAll} onChange={onCheckAllChange} >
+                                <strong>Check All</strong>
+                            </Checkbox>
+                        </Col>
+                    </Row>
+                    <Row gutter={50}>
 
-                                    <Col span={5} style={{ marginLeft: 10, marginTop: 10 }}>
+                        {sellerName.map((val, i) => (
 
-                                        {/* <Cards headless > */}
+                            <Col span={5} style={{ marginLeft: 10, marginTop: 10 }}>
 
-                                        <Checkbox onChange={(e) => { onListCheckChange(val, i, e.target.checked) }}>
+                                {/* <Cards headless > */}
 
-                                            {val}
+                                <Checkbox checked={isSellerCheckedList.includes(val)} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }}>
 
-                                            {/* <img src={`/img/icons/${val}.png`} width="70" height="70" style={{marginLeft:10}}/>  */}
+                                    {val}
 
-                                        </Checkbox>
+                                    {/* <img src={`/img/icons/${val}.png`} width="70" height="70" style={{marginLeft:10}}/>  */}
 
-                                        {/* </Cards> */}
+                                </Checkbox>
 
-                                    </Col>
+                                {/* </Cards> */}
 
-                                ))}
+                            </Col>
 
-                            </Row>
-                            <Row gutter={25} style={{ marginTop: 20 }}>
-                                <Col Span={8} >
-                                    <Form.Item name="StartDate" rules={[{ required: true }]}>
-                                        <DatePicker placeholder="StartDate" style={{ padding: 10 }} onChange={(date) => { onChangeStartDate(date) }} />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}  >
-                                    <Form.Item name="EndDate" rules={[{ required: true }]}>
-                                        <DatePicker placeholder="EndDate" style={{ padding: 10 }} onChange={(date) => { onChangeEndDate(date) }} />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item name="State input here" rules={[{ required: true }]}>
-                                        <TextArea placeholder="State input here" style={{ padding: 10 }} className="custom" value={states} onChange={onChangeTextArea} style={{ height: 50 }} />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row style={{ marginTop: 20 }}>
-                                <Col span={6}>
-                                    <Form.Item>
-                                        <Button type="success" htmlType="Submit"  > Report Data</Button>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                   
-                   
+                        ))}
+
+                    </Row>
+                    <Row gutter={50} style={{ marginTop: 20 }}>
+                        <Col span={8} >
+                            <Form.Item name="StartDate" rules={[{ required: true }]}>
+                                <DatePicker placeholder="StartDate" style={{ padding: 10 }} onChange={(date) => { onChangeStartDate(date) }} />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}  >
+                            <Form.Item name="EndDate" rules={[{ required: true }]}>
+                                <DatePicker placeholder="EndDate" style={{ padding: 10 }} onChange={(date) => { onChangeEndDate(date) }} />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item name="State input here" rules={[{ required: true }]}>
+                                <TextArea placeholder="State input here" style={{ padding: 10 }} className="custom" value={states} onChange={onChangeTextArea} style={{ height: 50 }} />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row style={{ marginTop: 20 }}>
+                        <Col span={6}>
+                            <Form.Item>
+                                <Button type="success" htmlType="Submit"> Report Data</Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+
                 </Cards>
 
-          
-            {/* MARKETPLACE CHECKBOXES  */}
-           
+
+                {/* MARKETPLACE CHECKBOXES  */}
+
             </Form>
 
 

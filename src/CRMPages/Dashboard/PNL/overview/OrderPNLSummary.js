@@ -100,7 +100,7 @@ const OrderPNLSummary = (props) => {
   }, [activeTab,dataSourceOrdersummaryTempParent]);
 
   const filter = (value) => {
-    console.log(value)
+    // console.log(value)
     var val = [];
     let temp = []
     let placeholder = ``;
@@ -111,7 +111,7 @@ const OrderPNLSummary = (props) => {
       onChange={e => {
 
         temp = [...temp, ...dataSourceOrdersummaryTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
-        console.log('temp',temp)
+        // console.log('temp',temp)
         setstate({ ...state, dataSourceOrdersummaryTemp: temp });
 
       }}
@@ -197,7 +197,7 @@ const OrderPNLSummary = (props) => {
         title: <>
         { filter('profit')}
         </>,
-         dataIndex: 'profit',
+         dataIndex: 'profitLink',
          key: 'profit',
       },
       {
@@ -226,7 +226,7 @@ const OrderPNLSummary = (props) => {
       title: <>
       { filter('loss')}
       </>,
-       dataIndex: 'loss',
+       dataIndex: 'lossLink',
        key: 'loss',
     },
     {

@@ -144,7 +144,7 @@ const MarketplaceGroupInventoryView = (props) => {
 
         if (isAmazon == true) {
             dispatch(getSubInventoryapi(requestObjInventroy)).then(data => {
-                // console.log(data)
+                 console.log(data)
                 setState({ ...state, summaryDataState: data[0], downloadDataState: data[1], loaderState: false })
 
                 if (data[3] === 'Amazon') {
@@ -179,7 +179,7 @@ const MarketplaceGroupInventoryView = (props) => {
         }
         else if (isAmazon == false) {
 
-            dispatch(requestObjInventroy.addOrOtherinventory === 'ADD AMAZON INVENTORY' ? getWallMartasinqtyapi(requestObjInventroy) : getwalmart_asin_all_otherapi(requestObjInventroy)).then(data => {
+            dispatch(requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY' ? getWallMartasinqtyapi(requestObjInventroy) : getwalmart_asin_all_otherapi(requestObjInventroy)).then(data => {
 
                 setState({ ...state, loaderState: false })
                 var link = data

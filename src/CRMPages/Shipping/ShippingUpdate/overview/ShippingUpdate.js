@@ -1,9 +1,9 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Input, Tabs, Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select, Spin, notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, BtnGroup } from '../../../components/buttons/buttons';
-import { Drawer } from '../../../components/drawer/drawer';
-import { Cards } from '../../../components/cards/frame/cards-frame';
+import { Button, BtnGroup } from '../../../../components/buttons/buttons';
+import { Drawer } from '../../../../components/drawer/drawer';
+import { Cards } from '../../../../components/cards/frame/cards-frame';
 // import DatePicker from 'react-datetime';
 import moment from 'moment';
 
@@ -11,9 +11,9 @@ import 'react-datetime/css/react-datetime.css';
 // import { Checkbox } from '../../../components/checkbox/checkbox';
 import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
-import { apistyleNotMatched } from '../../../redux/apis/DataAction';
-import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
+import { DateRangePickerOne, CustomDateRange } from '../../../../components/datePicker/datePicker';
+import { apistyleNotMatched } from '../../../../redux/apis/DataAction';
+import { downloadFile, DownlaodWithReact } from '../../../../components/utilities/utilities'
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -35,7 +35,7 @@ const validateMessages = {
     },
 };
 
-const StyleNotMatched = (props) => {
+const ShippingUpdate = (props) => {
 
     
     const dispatch = useDispatch();
@@ -138,4 +138,4 @@ const StyleNotMatched = (props) => {
     );
 };
 
-export default StyleNotMatched;
+export default ShippingUpdate;
