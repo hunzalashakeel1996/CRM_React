@@ -186,7 +186,7 @@ const ReportView = (props) => {
                             </Row>
                             <Row>
                                 <Form.Item >
-                                    <Button key="1" type="success" size="default" htmlType="submit">
+                                     <Button size="large"  key="1" type="success"   htmlType="submit">
                                         Download
                            </Button>
                                 </Form.Item>
@@ -213,7 +213,7 @@ const ReportView = (props) => {
 
                                     <Col xs={24} lg={24}>
                                         {/* two */}
-                                        <Button type="primary" shape="round" icon={<VerticalAlignBottomOutlined />} htmlType="submit"  >
+                                         <Button size="large"  type="primary" shape="round" icon={<VerticalAlignBottomOutlined />} htmlType="submit"  >
                                             <Icon type="left" />
                                         Download
                                     </Button>
@@ -289,7 +289,7 @@ export default ReportView;
 //                             <Row style={{ flex: 1 }}>
 //                                 <Col span={2}>
 //                                     <Form.Item >
-//                                         <Button type="primary" htmlType="submit">
+//                                          <Button size="large"  type="primary" htmlType="submit">
 //                                             Submit
 //                                             </Button>
 //                                     </Form.Item>

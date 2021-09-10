@@ -676,9 +676,9 @@ const ReportPNLMPView = () => {
               
               <Row>
                 <Col xs={24} style={{ marginBottom: 10 }}>
-                  <Button size="default" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                   <Button size="large"    type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
-                  {dataSourceOrder.length > 0 && <Button type="success"
+                  {dataSourceOrder.length > 0 &&  <Button size="large"  type="success"
                     onClick={(value) => { download(activeTab) }} >
                     Download
                   </Button>}

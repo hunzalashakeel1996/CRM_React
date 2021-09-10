@@ -2,6 +2,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 
 import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Radio, Tabs, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button } from '../../../components/buttons/buttons';
 import DetailPNL from './overview/DetailPNL';
 import ItemPNLSummary from './overview/ItemPNLSummary';
@@ -249,14 +250,16 @@ const ReportPNLView = () => {
 
         // console.log('checking', `$${(Math.round(profit * 100) / 100)}`)
         tempDataSource_summary_report_order_wise.push({
+          // vendorname: <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}-crm-${state.startDate.format('MM/DD/YYYY')}-crm-${state.endDate.format('MM/DD/YYYY')}-crm-${dateFormat}-crm-${ORDERTYPE}`}}><span style={{color: 'black'}} className="date-started">{vendorname}</span></Link>,
           vendorname: vendorname,
           order_count: order_count,
-          profit: `$${(Math.round(profit * 100) / 100)}`,
-          loss: `$${Math.round(loss * 100) / 100}`,
+          profit:`$${(Math.round(profit * 100) / 100)}`,
+          loss:  `$${(Math.round(loss * 100) / 100)}` ,
           percentge: `${percentge} %`,
-          ORDERTYPE: ORDERTYPE
-
-
+          ORDERTYPE: ORDERTYPE,
+          profitLink: <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Profit`}}><span style={{color: '#42ba96', textDecoration:'underline'}} className="date-started">{(Math.round(profit * 100) / 100)}</span></Link>,
+          lossLink:  <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Loss`}}><span style={{color: '#42ba96', textDecoration:'underline'}} className="date-started">{Math.round(loss * 100) / 100}</span></Link> ,
+          
         });
 
       });
@@ -309,7 +312,10 @@ const ReportPNLView = () => {
           Total_item_profit: `$${Math.round(Total_item_profit * 100) / 100}`,
           Total_item_loss: `$${Math.round(Total_item_loss * 100) / 100}`,
           percentge: `${percentge}%`,
-          ORDERTYPE: ORDERTYPE
+          ORDERTYPE: ORDERTYPE,
+          profitLink: <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Profit`}}><span style={{color: '#42ba96', textDecoration:'underline'}} className="date-started">{(Math.round(Total_item_profit * 100) / 100)}</span></Link>,
+          lossLink:  <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Loss`}}><span style={{color: '#42ba96', textDecoration:'underline'}} className="date-started">{Math.round(Total_item_loss * 100) / 100}</span></Link> ,
+          
 
 
         });
@@ -333,7 +339,10 @@ const ReportPNLView = () => {
           profit: `$${Math.round(profit * 100) / 100}`,
           loss: `$${Math.round(loss * 100) / 100}`,
           percentge: `${Math.round(percentge * 100) / 100}%`,
-          ORDERTYPE: ORDERTYPE
+          ORDERTYPE: ORDERTYPE,
+          profitLink: <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Profit`}}><span style={{color: '#42ba96', textDecoration:'underline'}} className="date-started">{(Math.round(profit * 100) / 100)}</span></Link>,
+          lossLink:  <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Loss`}}><span style={{color: '#42ba96', textDecoration:'underline'}} className="date-started">{Math.round(loss * 100) / 100}</span></Link> ,
+          
         });
 
       });
@@ -450,6 +459,36 @@ const ReportPNLView = () => {
 
     });
 
+  }
+
+  const onGetOrderSummary = () => {
+    dispatch(apiSummaryReportOrderWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })).then(data => {
+      //Order summary    
+      data.map(value => {
+
+        const { vendorname,
+          order_count,
+          profit,
+          loss,
+          percentge,
+          ORDERTYPE
+
+        } = value;
+
+        // console.log('checking', `$${(Math.round(profit * 100) / 100)}`)
+        tempDataSource_summary_report_order_wise.push({
+          vendorname: vendorname,
+          order_count: order_count,
+          profit: `$${(Math.round(profit * 100) / 100)}`,
+          loss: `$${Math.round(loss * 100) / 100}`,
+          percentge: `${percentge} %`,
+          ORDERTYPE: ORDERTYPE
+
+
+        });
+
+      });
+    })
   }
 
   const onSum = (result) => {
@@ -774,7 +813,7 @@ const ReportPNLView = () => {
 
     if (activeTab === 'OrderPNL') {
       // downloadFile(dataOrderDownload)
-    
+     
        downloadFileTableData(dataSourceOrderTempParent,'OrderPNL')
     }
     else if (activeTab === 'ItemPNL') {
@@ -782,16 +821,32 @@ const ReportPNLView = () => {
       downloadFileTableData(dataSourceItemTempParent,'ItemPNL')
     }
     else if (activeTab === 'OrderPNLSummary') {
+      let temp = [...dataSourceOrdersummaryTempParent]
      // downloadFile(dataOrdersummaryDownload)
-      downloadFileTableData(dataSourceOrdersummaryTempParent,'OrderPNLSummary')
+     for(let i=0; i<temp.length;i++){
+       delete temp[i]['profitLink']
+       delete temp[i]['lossLink']
+       delete temp[i]['ORDERTYPE']
+     }
+      downloadFileTableData(temp,'OrderPNLSummary')
     }
     else if (activeTab === 'ItemPNLSummary') {
-     // downloadFile(dataItemsummaryDownload)
-      downloadFileTableData(dataSourceItemsummaryTempParent,'ItemPNLSummary')
+      let temp = [...dataSourceItemsummaryTempParent]
+      for(let i=0; i<temp.length;i++){
+        delete temp[i]['profitLink']
+        delete temp[i]['lossLink']
+        delete temp[i]['ORDERTYPE']
+      }
+      downloadFileTableData(temp,'ItemPNLSummary')
     }
     else if (activeTab === 'PricePNLSummary') {
-    //  downloadFile(dataPriceSummaryDownload)
-      downloadFileTableData(dataSourcePriceSummaryTempParent,'PricePNLSummary')
+      let temp = [...dataSourcePriceSummaryTempParent]
+      for(let i=0; i<temp.length;i++){
+        delete temp[i]['profitLink']
+        delete temp[i]['lossLink']
+        delete temp[i]['ORDERTYPE']
+      }
+      downloadFileTableData(temp,'PricePNLSummary')
     }
   }
 
@@ -801,6 +856,11 @@ const ReportPNLView = () => {
 
     setstate({ ...state, dateFormat: value })
   }
+
+  const onSetActivetab = (key) => {
+    setActiveTab(key)
+  }
+
   return (
     <>
       {/* <h1>test</h1> */}
@@ -835,9 +895,9 @@ const ReportPNLView = () => {
 
               <Row>
                 <Col xs={24} style={{ marginBottom: 10 }}>
-                  <Button type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                   <Button size="large"   type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
-                  {dataSourceOrder.length > 0 && <Button type="success"
+                  {dataSourceOrder.length > 0 &&  <Button size="large"  type="success"
                     onClick={(value) => { download(activeTab) }} >
                     Download
                   </Button>}
@@ -845,11 +905,10 @@ const ReportPNLView = () => {
               </Row>
 
               {dataSourceOrder.length > 0 && <Row style={{ marginTop: 10 }}>
-                <Col span={1}>
+                <Col lg={8}>
 
-                  <label>Filtes:</label>
-                </Col>
-                <Col span={10} >
+                  <label style={{ marginBottom: 15 }}>Filtes:</label>
+                <br></br>
 
                   <Radio.Group onChange={handleOrderTypeChange}>
                     <Radio.Button value="Web">Web</Radio.Button>
@@ -870,31 +929,43 @@ const ReportPNLView = () => {
                       </Radio.Group>
                     </Col>
                   </Row>
-                </Col>
-                <Col span={2}>
+
+                  </Col>
+
+                  
+                
+              
+                 <Col lg={16}>
+
+                 <Row gutter={25}>
+                <Col>
 
                   <label style={{ fontSize: 13, fontWeight: 'bold'}} >{activeTab === 'PricePNLSummary'?'Total Amount':'TotalOrders'}: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>{Math.round(totalOrdersSum * 100) / 100}</p> 
+                  <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft:2,}}>{Math.round(totalOrdersSum * 100) / 100}</p> 
                 </Col>
-                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
 
                   <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Loss: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersLoss * 100) / 100}</p>  
+                  <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft:2,}}>${Math.round(totalOrdersLoss * 100) / 100}</p>  
                 </Col>}
-                <Col span={2}>
+                <Col >
 
                   <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Profit: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersProfit * 100) / 100}</p>   
+                  <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft:2,}}>${Math.round(totalOrdersProfit * 100) / 100}</p>   
                 </Col>
-                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
 
                   <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Profit Average: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}>${Math.round(totalOrdersProfit*100/totalOrdersSum * 100) / 100}</p>   
+                  <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft:2,}}>${Math.round(totalOrdersProfit*100/totalOrdersSum * 100) / 100}</p>   
                 </Col>}
-                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
+                {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
                   <label style={{ fontSize: 13, fontWeight: 'bold'}}>Total Loss Average: </label>
-                  <p style={{ fontSize: 13, fontWeight: 'bold'}}> ${Math.round(totalOrdersLoss*100/totalOrdersSum * 100) / 100}</p>   
+                  <p style={{ fontSize: 13, fontWeight: '600',  color: '#5f63f2', paddingLeft:2,}}> ${Math.round(totalOrdersLoss*100/totalOrdersSum * 100) / 100}</p>   
                 </Col>}
+                </Row>
+                </Col>
+               
+
               </Row>}
 
 
@@ -903,7 +974,7 @@ const ReportPNLView = () => {
 
         </Row>
 
-        <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginRight: 20 }}>
+        <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { onSetActivetab(key) }} style={{ marginLeft: 20, marginRight: 20 }}>
 
 
           {topMenu.map(item => (

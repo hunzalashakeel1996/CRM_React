@@ -195,7 +195,7 @@ const OrderReportsView = (props) => {
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                 <Form.Item >
-                                    <Button  size="default" type="success" htmlType="Submit">
+                                     <Button size="large"     type="success" htmlType="Submit">
                                         Download
                                       </Button>
                                       </Form.Item>

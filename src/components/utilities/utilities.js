@@ -15,18 +15,19 @@ const chartLinearGradient = (canvas, height, color) => {
 
 //Download files
 const downloadFile = (data) => {
+  console.log('utilities',data)
   var d = new Date();
   var n = d.getTime();
   var a = document.createElement('a');
   //Live Downlaod Link
   a.href = `https://crm.rizno.com/admin/${data}`;
   //Local Download Link
- // a.href = `http://localhost:47463/admin/${data}`;
+  //a.href = `http://localhost:47463/admin/${data}`;
   a.target = '_blank';
-  //a.download = `https://crm.rizno.com/admin/${data}`;
+  a.download = n + '.txt';
   document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
+  // document.body.removeChild(a);
 
 }
 const downloadFileTableData = (objArray,Filename) => {
@@ -54,7 +55,7 @@ const downloadFileTableData = (objArray,Filename) => {
   var csvString = str;
   var d = new Date();
   //  var n = d.getTime();
-   var n = Filename
+  var n = Filename
   var a = document.createElement('a');
   a.href = 'data:attachment/csv,' + escape(csvString);
   a.target = '_blank';

@@ -251,14 +251,14 @@ const TopSelling = (props) => {
 
                                 <Col span={12}>
 
-                                    <Button key="1" type="primary" size="default" htmlType="submit">
+                                     <Button size="large"  key="1" type="primary"   htmlType="submit">
                                         Search
                            </Button>
 
                                 </Col>
                                 <Col span={12}>
 
-                                    <Button key="1" type="success" size="default" onClick={() => { downloadFiles() }}>
+                                     <Button size="large"  key="1" type="success"   onClick={() => { downloadFiles() }}>
                                         Download
                            </Button>
 

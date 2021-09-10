@@ -185,10 +185,10 @@ const RemindersList = (props) => {
               visible={visible}
               // footer={[
               //   <div key="1" className="project-modal-footer">
-              //     <Button size="default" type="primary" key="submit" onClick={onFinish}>
+              //      <Button size="large"    type="primary" key="submit" onClick={onFinish}>
               //       Add New Ticket
               //     </Button>
-              //     <Button size="default" type="white" key="back" outlined onClick={handleCancel}>
+              //      <Button size="large"    type="white" key="back" outlined onClick={handleCancel}>
               //       Cancel
               //     </Button>
               //   </div>,
@@ -221,7 +221,7 @@ const RemindersList = (props) => {
 
 
               <div style={{marginTop: 10, textAlign: 'end'}}>
-                  <Button type="primary" size="default" onClick={handleCancel}>Save</Button>
+                   <Button size="large"  type="primary"   onClick={handleCancel}>Save</Button>
               </div>
           </Modal>}
 

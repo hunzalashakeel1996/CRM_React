@@ -1,9 +1,9 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Input, Tabs, Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select, Spin, notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, BtnGroup } from '../../../components/buttons/buttons';
-import { Drawer } from '../../../components/drawer/drawer';
-import { Cards } from '../../../components/cards/frame/cards-frame';
+import { Button, BtnGroup } from '../../../../components/buttons/buttons';
+import { Drawer } from '../../../../components/drawer/drawer';
+import { Cards } from '../../../../components/cards/frame/cards-frame';
 // import DatePicker from 'react-datetime';
 import moment from 'moment';
 
@@ -11,9 +11,9 @@ import 'react-datetime/css/react-datetime.css';
 // import { Checkbox } from '../../../components/checkbox/checkbox';
 import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
-import { apistyleNotMatched } from '../../../redux/apis/DataAction';
-import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
+import { DateRangePickerOne, CustomDateRange } from '../../../../components/datePicker/datePicker';
+import { apistyleNotMatched } from '../../../../redux/apis/DataAction';
+import { downloadFile, DownlaodWithReact } from '../../../../components/utilities/utilities'
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -35,7 +35,7 @@ const validateMessages = {
     },
 };
 
-const StyleNotMatched = (props) => {
+const ShippingUpdate = (props) => {
 
     
     const dispatch = useDispatch();
@@ -92,34 +92,34 @@ const StyleNotMatched = (props) => {
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
                 <Row >
                     <Cards title="Style Not Matched Reporting" caption="The simplest use of Drawer" >
-                    <Form layout="inline" initialValue="" label="" form={form} id="StyleNotMatchedReporting" name="nest-messages" onFinish={getStyleNotMatchedReporting} validateMessages={validateMessages}>
-                        <Row gutter={50}>
-                            
-                            <Col span={8}   >
-                            <Form.Item name="startDate" rules={[{ required: true }]}>
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
-                              
-                                    <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
-                               
-                                </Form.Item>
-                            </Col>
-                            <Col span={8}  >
-                            <Form.Item name="endDate" rules={[{ required: true }]}>
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
-                                
-                                    <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'endDate') }} />
-                                
-                                </Form.Item>
-                            </Col>
+                                   <Form layout="inline" initialValue="" label="" form={form} id="StyleNotMatchedReporting" name="nest-messages" onFinish={getStyleNotMatchedReporting} validateMessages={validateMessages}>
+                            <Row gutter={50}>
+
+                                <Col span={8}   >
+                                    <Form.Item name="startDate" rules={[{ required: true }]}>
+                                        {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
+
+                                        <DatePicker  disabledDate={disabledDate} style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+
+                                    </Form.Item>
+                                </Col>
+                                <Col span={8}  >
+                                    <Form.Item name="endDate" rules={[{ required: true }]}>
+                                        {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
+
+                                        <DatePicker  disabledDate={disabledDate} style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'endDate') }} />
+
+                                    </Form.Item>
+                                </Col>
 
 
-                      
-                            <Col span={8}  >
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
-                                <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Form.Item >
-                                     <Button size="large"     type="success" htmlType="Submit">
-                                        Download
+
+                                <Col span={8}  >
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                        <Form.Item >
+                                            <Button size="default" type="success" htmlType="Submit">
+                                                Download
                                       </Button>
                                         </Form.Item>
                                     </div>
@@ -138,4 +138,4 @@ const StyleNotMatched = (props) => {
     );
 };
 
-export default StyleNotMatched;
+export default ShippingUpdate;

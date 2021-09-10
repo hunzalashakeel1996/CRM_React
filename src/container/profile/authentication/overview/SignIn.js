@@ -98,7 +98,7 @@ const SignIn = () => {
               <Input.Password placeholder="Password" />
             </Form.Item>
             <Form.Item>
-              <Button className="btn-signin" htmlType="submit" type="primary" size="large">
+               <Button size="large"  className="btn-signin" htmlType="submit" type="primary" size="large">
                 {isLoading ? 'Loading...' : 'Sign In'}
               </Button>
             </Form.Item>

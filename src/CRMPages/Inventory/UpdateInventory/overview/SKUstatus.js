@@ -1,4 +1,4 @@
-import { Table, Input, Upload, message, Popconfirm, Tabs, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider, Modal,notification  } from 'antd';
+import { Table, Input, Upload, message, Popconfirm, Tabs, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider, Modal, notification } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl,getSkuStatusUpdateapi, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
 import Promotions from '../../../../components/Marketplace/Promotions'
 import AmazonPUstatus from './Statusoverview/AmazonPUstatus';
 import AmazonRiznostatus from './Statusoverview/AmazonRiznostatus';
@@ -37,6 +37,7 @@ const Report = [
 
 const SKUstatus = () => {
 
+    const Seller = ['Amazon', 'AmazonRizno', 'AmazonUae', 'AmazonCanada', 'Walmart', 'WalmartCanada', 'Sears', 'Ebay']
     const [activeTab, setActiveTab] = useState('');
     const dispatch = useDispatch()
 
@@ -47,9 +48,10 @@ const SKUstatus = () => {
         file: '',
         buttonStatus: 'able',
         textAreaStatus: 'disabled',
-        radioButtonValue: true
+        radioButtonValue: true,
+        status: ''
     })
-    const { dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue } = state
+    const { status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue } = state
     const [selectedRow, selectedRowsset] = useState([])
 
     const onChangeForceCheck = (e) => {
@@ -101,6 +103,9 @@ const SKUstatus = () => {
         setstate({ ...state, dataTo: value })
     }
 
+    const statushandleChange = (value) => {
+        setstate({ ...state, status: value })
+    }
 
     const uploadFile = () => {
         let username = [];
@@ -139,7 +144,7 @@ const SKUstatus = () => {
 
         dispatch(getUploadmarketplace_weightapi(formData)).then(data => {
 
-           
+
             notification.success({
                 message: `Successfull marketplace weight Update ${data}`,
                 description: `Successfully Report`,
@@ -171,7 +176,7 @@ const SKUstatus = () => {
             });
 
         })
-       
+
     };
     const sanmarSalesUpdateend = () => {
         let username = [];
@@ -191,7 +196,7 @@ const SKUstatus = () => {
             });
 
         })
-      
+
     }
 
 
@@ -212,7 +217,7 @@ const SKUstatus = () => {
 
         dispatch(getAutoMateSKUapi(formData)).then(data => {
 
-         //   message.success(`file uploaded Update ${data}`);
+            //   message.success(`file uploaded Update ${data}`);
             notification.success({
                 message: `Successfull  ${data}`,
                 description: `Successfully Report`,
@@ -220,7 +225,7 @@ const SKUstatus = () => {
             });
 
         })
-      
+
 
 
     }
@@ -250,23 +255,49 @@ const SKUstatus = () => {
         });
 
     }
+    
+    const skuStatusUpdate = () => {
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+
+        const formData = new FormData();
+
+        formData.append('user', username.LoginName);
+        formData.append('File', file);
+        formData.append('datato', dataTo);
+        formData.append('status', status);
+
+        dispatch(getSkuStatusUpdateapi(formData)).then(data => {
+
+            //   message.success(`file uploaded Update ${data}`);
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+
+        })
+
+
+
+    }
     return (
         <>
 
 
-            <Row gutter={16} style={{ marginTop: 20 }}>
-                <Col span={10} style={{ marginLeft: 20 }}>
+            <Row gutter={16} style={{ marginTop: 10 }}>
+                <Col span={10} >
 
                     <Cards headless>
                         <Row >
                             <Col span={10}>
-                                <Button type="primary" onClick={MarketPlaceuploadFile}>MarketPlace Price Weight</Button>
+                                 <Button size="large"  type="primary" onClick={MarketPlaceuploadFile}>MarketPlace Price Weight</Button>
 
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 20 }}>
                             <Col span={8} style={{ width: 300, marginRight: 20 }}>
-                            
+
                                 <input type="file" onChange={changeHandler} />
 
                             </Col>
@@ -281,13 +312,13 @@ const SKUstatus = () => {
                             <Col span={3}  >
 
 
-                                <Button type="primary" onClick={sanmarSalesUpdatestart} >Sanmar Sale Start</Button>
+                                 <Button size="large"  type="primary" onClick={sanmarSalesUpdatestart} >Sanmar Sale Start</Button>
 
                             </Col>
 
                             <Col span={3} offset={8}>
 
-                                <Button type="danger" onClick={sanmarSalesUpdateend}>Sanmar Sale End </Button>
+                                 <Button size="large"  type="danger" onClick={sanmarSalesUpdateend}>Sanmar Sale End </Button>
 
 
                             </Col>
@@ -301,12 +332,12 @@ const SKUstatus = () => {
                 </Col>
             </Row>
 
-            <Row style={{ marginTop: 20 }} gutter={16}>
-                <Col span={10} style={{ marginLeft: 20 }} >
+            <Row style={{ marginTop: 10 }} gutter={16}>
+                <Col span={10}>
                     <Cards headless>
                         <Row>
                             <Col span={10} >
-                                <Button type="primary" onClick={automateSKU}>Automate SKU</Button>
+                                 <Button size="large"  type="primary" onClick={automateSKU}>Automate SKU</Button>
                             </Col>
 
                             <Col span={8}>
@@ -314,7 +345,7 @@ const SKUstatus = () => {
                                 <Radio.Group
                                     options={options}
                                     onChange={onChangeRadioButton}
-                                  //  value={automateSKU}
+                                    //  value={automateSKU}
                                     optionType="button"
                                     buttonStyle="solid"
                                 />
@@ -326,15 +357,15 @@ const SKUstatus = () => {
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 100 }}>
                                     <Option value="PU">PU</Option>
                                     <Option value="Rizno">Rizno</Option>
-                                     </Select>
-                                     
-                                </Col>
+                                </Select>
+
+                            </Col>
                         </Row>
 
                         <Row style={{ marginTop: 20 }}>
                             <Col span={10} style={{ width: 300, }}>
                                 {/* <Upload {...fileDetails}>
-                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                     <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload> */}
                                 <input type="file" onChange={changeHandler} />
                             </Col>
@@ -349,7 +380,7 @@ const SKUstatus = () => {
                         <Row>
 
                             <Col span={8}>
-                                <Button type="primary" onClick={reportData}>Report Data</Button>
+                                 <Button size="large"  type="primary" onClick={reportData}>Report Data</Button>
                             </Col>
 
                             <Col span={8}>
@@ -372,9 +403,42 @@ const SKUstatus = () => {
                         </Row>
                     </Cards>
                 </Col>
+
+            </Row>
+            <Row style={{ marginTop: 10 }} gutter={16} >
+                <Col span={10} >
+                    <Cards headless>
+                        <Row gutter={25}>
+                            <Col span={8} >
+                                <Button type="primary" onClick={skuStatusUpdate}>SKU Status</Button>
+                            </Col>
+                            <Col span={10}>
+
+                                <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChange}  >
+                                    {Seller.map(item => (
+                                        <Option value={item}>{item}</Option>))}
+                                </Select>
+                            </Col>
+                            {dataTo &&
+                                <Col span={5}>
+                                    <Select defaultValue="select" onChange={statushandleChange}  >
+                                        <Option value="Active">Active</Option>
+                                        <Option value="InActive">InActive</Option>
+                                    </Select>
+                                </Col>}
+                        </Row>
+
+                        <Row style={{ marginTop: 50 }}>
+                            <Col span={10} style={{ width: 300, }}>
+
+                                <input type="file" onChange={changeHandler} />
+                            </Col>
+                        </Row>
+                    </Cards>
+                </Col>
             </Row>
             <Row style={{ marginTop: 20 }}>
-                <Col span={20} style={{ marginLeft: 20 }}>
+                <Col span={20}>
                     <Cards headless>
 
                         <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>
@@ -382,13 +446,13 @@ const SKUstatus = () => {
                                 <AmazonPUstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
                             </TabPane>
                             <TabPane tab="Amazon Rizno" key="Amazon Rizno">
-                                <AmazonRiznostatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
+                                <AmazonRiznostatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
                             </TabPane>
                             <TabPane tab="Amazon Canada" key="Amazon Canada">
-                                <AmazonPUCanadastatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
+                                <AmazonPUCanadastatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
                             </TabPane>
                             <TabPane tab="Amazon UAE" key="Amazon UAE">
-                                <AmazonPUUAEstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea}  state={state} />
+                                <AmazonPUUAEstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
                             </TabPane>
 
                         </Tabs>

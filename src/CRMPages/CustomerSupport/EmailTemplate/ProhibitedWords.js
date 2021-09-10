@@ -94,7 +94,7 @@ const ProhibitedWords = (props) => {
                             </Form.Item>
                             <Form.Item name="button" >
                                 <Col >
-                                    <Button size="default" type="primary" htmlType="submit" >
+                                     <Button size="large"    type="primary" htmlType="submit" >
                                         Insert
                                 </Button>
                                 </Col>

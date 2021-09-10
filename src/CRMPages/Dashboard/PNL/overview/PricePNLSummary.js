@@ -193,7 +193,7 @@ const PricePNLSummary = (props) => {
         title: <>
         { filter('profit')}
         </>,
-         dataIndex: 'profit',
+         dataIndex: 'profitLink',
          key: 'profit',
       },
       {
@@ -222,7 +222,7 @@ const PricePNLSummary = (props) => {
       title: <>
       { filter('loss')}
       </>,
-       dataIndex: 'loss',
+       dataIndex: 'lossLink',
        key: 'loss',
     },
     {

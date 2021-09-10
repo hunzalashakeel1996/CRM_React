@@ -66,7 +66,7 @@ const AutoComplete = props => {
       <Input
         suffix={
           patternButtons ? (
-            <Button className="search-btn" style={{ [rtl ? 'marginLeft' : 'marginRight']: -20 }} type="primary">
+             <Button size="large"  className="search-btn" style={{ [rtl ? 'marginLeft' : 'marginRight']: -20 }} type="primary">
               <SearchOutlined />
             </Button>
           ) : (

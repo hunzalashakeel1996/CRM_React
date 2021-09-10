@@ -64,7 +64,7 @@ const ShippingWeightView = (props) => {
             </Col>
             <Col xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                <Button type="success" htmlType="PO Number">
+                 <Button size="large"  type="success" htmlType="PO Number">
                   Insert
                         </Button>
               </div>

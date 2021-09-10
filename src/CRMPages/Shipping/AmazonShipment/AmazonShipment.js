@@ -194,7 +194,7 @@ const insertAmazonShipingSheet =()=>{
                             <div className="atbd-drawer" style={{ marginLeft: 5 }}>
 
                        
-                        <Button type="primary" onClick={insertAmazonAsinSheet} disabled={asinSheet}>Automate  Insert Asins</Button>
+                         <Button size="large"  type="primary" onClick={insertAmazonAsinSheet} disabled={asinSheet}>Automate  Insert Asins</Button>
                         {/* <Checkbox style={{marginLeft:5}} value="Amazon"></Checkbox> */}
                         <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />  
 
@@ -202,13 +202,13 @@ const insertAmazonShipingSheet =()=>{
                         </Col>
                         <Col xs={24} sm={12} md={10} lg={7} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" ><h3>Step 2</h3></div>
-                            <Button type="primary" onClick={insertAmazonShipingSheet} disabled={ordersSheet}>Insert Amazon Shiping Sheet</Button>
+                             <Button size="large"  type="primary" onClick={insertAmazonShipingSheet} disabled={ordersSheet}>Insert Amazon Shiping Sheet</Button>
                             <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />  
                         </Col>
                         <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" ><h3>Step 3</h3></div>
                             <div className="atbd-drawer" >
-                            <Button type="primary" onClick={startAmazonShipping} disabled={createLabels}>Insert Amazon Shiping Sheet</Button>
+                             <Button size="large"  type="primary" onClick={startAmazonShipping} disabled={createLabels}>Insert Amazon Shiping Sheet</Button>
                                 {/* </Cards> */}
                             </div>
                         </Col>
@@ -216,7 +216,7 @@ const insertAmazonShipingSheet =()=>{
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 4</h3></div>
                             <div className="atbd-drawer" >
                                 {/* <Cards title="Total Count" caption="The simplest use of Drawer"> */}
-                                <Button type="primary" onClick={ModalOpen} >Generate Feed</Button>
+                                 <Button size="large"  type="primary" onClick={ModalOpen} >Generate Feed</Button>
 
                           
                                 {/* </Cards> */}
@@ -236,10 +236,10 @@ const insertAmazonShipingSheet =()=>{
                         </Col>
                         <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Button type="success" htmlType="submit">
+                                 <Button size="large"  type="success" htmlType="submit">
                                     Search
                         </Button>
-                                <Button type="primary" htmlType="submit" style={{ marginLeft: 10 }}>
+                                 <Button size="large"  type="primary" htmlType="submit" style={{ marginLeft: 10 }}>
                                     Refresh
                         </Button>
                             </div>

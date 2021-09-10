@@ -19,7 +19,7 @@ import Priceupdate from '../../../../components/Marketplace/Priceupdate'
 
 const Walmart = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState, itemType } = props
-
+    const columnDropdown = ['ADD WALMART INVENTORY',  'ALL', 'OTHER']
     const WalmartColumn = ['WALLMARTSTATUS', 'WALLMARTPRICE']
 
     const isAmazonProcedure = false
@@ -34,7 +34,7 @@ const Walmart = (props) => {
                         <FilterReport title={'Walmart'} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} itemType={itemType} />
                       </Col>
                     <Col span={24} style={{ marginTop: 20 }}>
-                        <Column genrateFeed={(col, val) => { genrateFeed(WalmartPU, col, isAmazonProcedure, val) }} additionalColumns={WalmartColumn} />
+                        <Column genrateFeed={(col, val) => { genrateFeed(WalmartPU, col, isAmazonProcedure, val) }} additionalColumns={WalmartColumn} columnDropdown={columnDropdown}/>
                     </Col>
 
                 </Row>

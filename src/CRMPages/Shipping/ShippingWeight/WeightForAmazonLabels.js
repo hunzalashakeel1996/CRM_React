@@ -66,7 +66,7 @@ const WeightCalculationDown =()=>{
             <Col lg={6} xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div>
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                <Button type="success" onClick={insertWeightCalculationSheet}> Shipping Weight</Button>
+                 <Button size="large"  type="success" onClick={insertWeightCalculationSheet}> Shipping Weight</Button>
 
                 <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />
 
@@ -77,7 +77,7 @@ const WeightCalculationDown =()=>{
               <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 2</h3></div>
               <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                 {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                <Button type="success" onClick={WeightCalculationDown}> Download Shippping Tracking</Button>
+                 <Button size="large"  type="success" onClick={WeightCalculationDown}> Download Shippping Tracking</Button>
               
                 {/* </Cards> */}
               </div>

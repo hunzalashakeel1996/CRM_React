@@ -61,7 +61,7 @@ const Drawer = props => {
       )}
 
       {render && <p>Render in this</p>}
-      <Button type="primary" size="default" onClick={showDrawer} raised>
+       <Button size="large"  type="primary"   onClick={showDrawer} raised>
         {btnText}
       </Button>
       <DrawerStyle
@@ -78,7 +78,7 @@ const Drawer = props => {
           children
         ) : (
           <>
-            <Button type="primary" onClick={showChildrenDrawer}>
+             <Button size="large"  type="primary" onClick={showChildrenDrawer}>
               Two-level drawer
             </Button>
 
@@ -106,7 +106,7 @@ const Drawer = props => {
                 borderRadius: '0 0 4px 4px',
               }}
             >
-              <Button
+               <Button size="large" 
                 style={{
                   marginRight: 8,
                 }}
@@ -114,7 +114,7 @@ const Drawer = props => {
               >
                 Cancel
               </Button>
-              <Button onClick={onClose} type="primary">
+               <Button size="large"  onClick={onClose} type="primary">
                 Submit
               </Button>
             </div>

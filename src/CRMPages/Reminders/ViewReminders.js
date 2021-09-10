@@ -90,7 +90,7 @@ const ViewReminders = (props) => {
           title="Reminders"
           // subTitle={<>{reminders.length} Running Reminders</>}
           buttons={[
-            // <Button onClick={showModal} key="1" type="primary" size="default">
+            //  <Button size="large"  onClick={showModal} key="1" type="primary"  >
             //   <FeatherIcon icon="plus" size={16} /> Create Ticket
             // </Button>,
           ]}
@@ -127,8 +127,8 @@ const ViewReminders = (props) => {
               
               <Row>
               <Col md={24} xs={24} style={{ marginBottom: 10 }} >
-                <Button variant="danger" onClick={(val) => { setState({ ...state, StatusSort: 'Open' }); }} style={{ borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
-                <Button variant="primary" onClick={(val) => { setState({ ...state, StatusSort: 'Closed' }); }} style={{ borderColor: StatusSort == "Closed" ? '#5F63F2' : null }}>Closed</Button>
+                 <Button size="large"  variant="danger" onClick={(val) => { setState({ ...state, StatusSort: 'Open' }); }} style={{ borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
+                 <Button size="large"  variant="primary" onClick={(val) => { setState({ ...state, StatusSort: 'Closed' }); }} style={{ borderColor: StatusSort == "Closed" ? '#5F63F2' : null }}>Closed</Button>
               </Col>
             </Row>
 

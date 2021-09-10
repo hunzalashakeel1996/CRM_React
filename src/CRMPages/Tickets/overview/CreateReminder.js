@@ -94,10 +94,10 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
             visible={state.visible === 'createReminder'}
             // footer={[
             //   <div key="1" className="project-modal-footer">
-            //     <Button size="default" type="primary" key="submit" onClick={onFinish}>
+            //      <Button size="large"    type="primary" key="submit" onClick={onFinish}>
             //       Add New Ticket
             //     </Button>
-            //     <Button size="default" type="white" key="back" outlined onClick={handleCancel}>
+            //      <Button size="large"    type="white" key="back" outlined onClick={handleCancel}>
             //       Cancel
             //     </Button>
             //   </div>,
@@ -202,7 +202,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                             </Form.Item>
 
                             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
-                                <Button type="primary" htmlType="submit">
+                                 <Button size="large"  type="primary" htmlType="submit">
                                     Submit
                                     </Button>
                             </Form.Item>

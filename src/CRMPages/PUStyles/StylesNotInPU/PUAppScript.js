@@ -81,7 +81,7 @@ const PUAppScriptView = (props) => {
              
               <Col span={3} >
 
-                <Button size="default" type="success" onClick={getPUAppscript} >Download</Button>
+                 <Button size="large"    type="success" onClick={getPUAppscript} >Download</Button>
 
               </Col>
              

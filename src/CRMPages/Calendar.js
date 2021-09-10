@@ -18,7 +18,7 @@ const Calendar = () => {
       <Main>
         <Row gutter={15}>
           <Col md={6}>
-            <Button type="secondary">+ Create New Event</Button>
+             <Button size="large"  type="secondary">+ Create New Event</Button>
             <br />
             <br />
             {/* <DatePicker onChange={onChange} open inputReadOnly /> */}

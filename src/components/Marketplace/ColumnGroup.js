@@ -23,7 +23,7 @@ let selectedcol = ['MERCHANTSKU'];
 const defaultCheckedList = ['Cherokee'];
 const Column = (props) => {
  
-    const {additionalColumns}=props
+    const {additionalColumns,columnDropdown}=props
     const Column = ['su.SKU', 'su.merchantsku', 'ai.merchantsku', 'ai.STYLECODE', 'STYLENAME', 'ai.CATEGORYNAME', 'ai.BRANDNAME', 'su.VENDORNAME', 'ai.COLORCODE', 'ai.COLORNAME', 'ai.SIZENAME', 'su.EAN', 'su.UPC', 'su.ASIN', 'su.rizno_asin', 'su.COST', 'ai.maincost', 'su.maincost', 'su.rizno_price', 'STYLEDESCRIPTION', 'su.description', 'ai.FABRIC_NAME', 'ai.vendorqty', 'su.stock', 'ai.INHOUSEQTY', 'ai.INHOUSEQTYOLD', 'ai.WEIGHT', 'ai.ISMAP', 'su.MAPPRICE', 'ai.MSRP', 'ai.WAREHOUSE_CUSTOMER_COST', 'ai.ISPU', 'ai.ISAMAZON', 'su.STATUS', 'su.rizno_STATUS', 'su.PRICE', 'ai.Actual_Weight', 'ai.Actual_Shipping', 'ai.IsAutomated_PU', 'ai.Suggested_Shipping', 'ai.VendorStatus', 'ai.IsAutomated_Rizno', 'ai.CreatedDate', 'ai.UpdatedDate', 'ai.Sale_Cost', 'ai.BULLET1', 'ai.BULLET2', 'ai.BULLET3', 'ai.BULLET4', 'ai.Zone0', 'ai.Zone1', 'ai.Zone2', 'ai.Zone3', 'ai.Zone4', 'ai.Zone5', 'ai.Zone6', 'ai.Zone7', 'ai.Zone8', 'ai.Zone9', 'ai.min_weight', 'ai.max_weight', 'ai.SALE_COST_DATE', 'ai.marketplace_mapprice', 'ai.vendorstylecode', 'ai.image_url', 'ai.marketplace_weight', 'ai.deliveryinfo', 'ai.sale_status', 'ai.sale_map', 'su.type', 'su.image_url', 'su.image_url_top', 'su.image_url_pant',...additionalColumns];
     const [column, setViewColumn] = useState(true);
     const [Allcolumn, setAllcolumn] = useState({
@@ -78,21 +78,29 @@ const Column = (props) => {
 
                 <Col xs={24} md={8} lg={6} style={{ marginBottom:8 }}>
 
-                    <Select onChange={handleChange} defaultValue="Select " style={{ width: '100%' }} >
+                    {/* <Select onChange={handleChange} defaultValue="Select " style={{ width: '100%' }} >
 
                         <Option value="ADD AMAZON INVENTORY" >ADD AMAZON INVENTORY</Option>
                         <Option value="ALL">ALL</Option>
                         <Option value="OTHER" >OTHER</Option>
 
-                    </Select>
+                    </Select> */}
+
+                    <Select onChange={(val) => {handleChange(val)}} defaultValue="Select " style={{ width: '100%' }} >
+                                {columnDropdown.map((val, i) => (
+                                    <Option value={`${val}`} key={val}>{val}</Option>
+
+                                ))}
+
+                            </Select>
 
                 </Col>
 
 
                 <Col xs={24} md={12} className='pull-right' style={{ marginLeft: 'auto', width:'auto', textAlign:'right'}}>
 
-                <Button style={{marginRight:15}} size="default" type="default" value={!column?"Show Column":"Hide Column"} onClick={() => { setViewColumn(!column) }} >{!column?"Show Column":"Hide Column"}</Button>
-                    <Button size="default" type="success" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
+                 <Button size="large"  style={{marginRight:15}}   type="default" value={!column?"Show Column":"Hide Column"} onClick={() => { setViewColumn(!column) }} >{!column?"Show Column":"Hide Column"}</Button>
+                     <Button size="large"    type="success" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
 
 
                 </Col>
@@ -129,7 +137,7 @@ const Column = (props) => {
 
                 {/* <Row>
                 <Col style={{ marginTop: 10, marginRight: 10 }}>
-                    <Button type="primary" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
+                     <Button size="large"  type="primary" onClick={() => { props.genrateFeed(Allcolumn.column, Allcolumn.addOrOtherinventory) }} >Generate</Button>
 
 
                 </Col>

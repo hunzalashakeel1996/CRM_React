@@ -193,7 +193,7 @@ const ItemPNLSummary = (props) => {
     {
       title:     
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Total Item Profit</p>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Total Item Profit Count</p>
       </div>,
 
       children: [
@@ -201,7 +201,7 @@ const ItemPNLSummary = (props) => {
         title: <>
         { filter('Total_item_profit')}
         </>,
-         dataIndex: 'Total_item_profit',
+         dataIndex: 'profitLink',
          key: 'Total_item_profit',
       },
       {
@@ -231,7 +231,7 @@ const ItemPNLSummary = (props) => {
     {
       title:     
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Total Item Loss</p>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Total Item Loss Count</p>
       </div>,
 
       children: [
@@ -239,7 +239,7 @@ const ItemPNLSummary = (props) => {
         title: <>
         { filter('Total_item_loss')}
         </>,
-         dataIndex: 'Total_item_loss',
+         dataIndex: 'lossLink',
          key: 'Total_item_loss',
       },
       {

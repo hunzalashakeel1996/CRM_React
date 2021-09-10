@@ -50,7 +50,8 @@ const{Regularvendor,loader,updateVendor}=props
   };
 
   const onCheckAllChange = e => {
-    if(e.target.checked){
+    if(e.target.checked)
+    {
       updateVendorList = [...Regularvendor]
     }else{
       updateVendorList = []
@@ -126,7 +127,7 @@ const{Regularvendor,loader,updateVendor}=props
         </Col>
 
         <Col span={9} >
-        <Button className='pull-right' type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
+         <Button size="large"  className='pull-right' type="primary" onClick={()=>{updateVendor(updateVendorList)}}>Update</Button>
         </Col>
 
         

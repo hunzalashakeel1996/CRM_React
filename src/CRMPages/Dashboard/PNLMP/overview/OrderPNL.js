@@ -119,7 +119,7 @@ const OrderPNL = (props) => {
 //           style={{ marginBottom: 8, display: 'block' }}
 //         />
 //         <Space>
-//           <Button
+//            <Button size="large" 
 //             type="primary"
 //             onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
 //             icon={<SearchOutlined />}
@@ -128,10 +128,10 @@ const OrderPNL = (props) => {
 //           >
 //             Search
 //           </Button>
-//           <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+//            <Button size="large"  onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
 //             Reset
 //           </Button>
-//           <Button
+//            <Button size="large" 
 //             type="link"
 //             size="small"
 //             onClick={() => {

@@ -184,7 +184,7 @@ const UsersView = (props) => {
           buttons={[
             <div key="1" className="page-header-actions">
 
-              <Button variant=  "outlined" size="small" type="primary" onClick={() => { saveUserRights() }}>
+               <Button size="large"  variant=  "outlined" size="small" type="primary" onClick={() => { saveUserRights() }}>
                 {/* <FeatherIcon size={14}  /> */}
              Save User
             </Button>

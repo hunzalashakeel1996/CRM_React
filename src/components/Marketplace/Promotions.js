@@ -53,13 +53,13 @@ const filterReport = () => {
                                 <Col span={1}  >
 
 
-                                    <Button type="primary">AB Sale Upload</Button>
+                                     <Button size="large"  type="primary">AB Sale Upload</Button>
 
                                 </Col>
 
                                 <Col span={4} offset={19}>
 
-                                    <Button type="danger">AB Sale End</Button>
+                                     <Button size="large"  type="danger">AB Sale End</Button>
 
 
                                 </Col>
@@ -71,7 +71,7 @@ const filterReport = () => {
                     <Row span={10} style={{ marginTop: 20 }}>
                         <Col span={10} style={{ width: 300, marginRight: 20 }}>
                             <Upload >
-                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                 <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
                         </Col>
                     </Row>
@@ -84,12 +84,12 @@ const filterReport = () => {
                         <Col span={12}  >
 
 
-                            <Button type="primary">Sanmar Sale End </Button>
+                             <Button size="large"  type="primary">Sanmar Sale End </Button>
 
                         </Col>
                         <Col span={12} >
 
-                            <Button type="danger">Sanmar Sale End</Button>
+                             <Button size="large"  type="danger">Sanmar Sale End</Button>
 
 
                         </Col>
@@ -98,7 +98,7 @@ const filterReport = () => {
                     <Row span={10} style={{ marginTop: 20 }}>
                         <Col span={10} >
                             <Upload >
-                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                 <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
                         </Col>
                     </Row>
@@ -114,7 +114,7 @@ const filterReport = () => {
                         <Col span={10} >
 
 
-                            <Button type="primary">Automate SKU</Button>
+                             <Button size="large"  type="primary">Automate SKU</Button>
 
                         </Col>
 
@@ -135,7 +135,7 @@ const filterReport = () => {
                     <Row span={10} style={{ marginTop: 20 }}>
                         <Col span={10} style={{ width: 300, marginLeft: 20, marginRight: 20 }}>
                             <Upload >
-                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                 <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
                         </Col>
                     </Row>
@@ -151,7 +151,7 @@ const filterReport = () => {
                         <Col span={12}  >
 
 
-                            <Button type="primary">Report Data</Button>
+                             <Button size="large"  type="primary">Report Data</Button>
 
                         </Col>
 
@@ -172,7 +172,7 @@ const filterReport = () => {
                     <Row span={10} style={{ marginTop: 20 }}>
                         <Col span={10}>
                             <Upload >
-                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                 <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
                         </Col>
                     </Row>
@@ -189,7 +189,7 @@ const filterReport = () => {
                                 <Col span={1}  >
 
 
-                                    <Button type="primary">MarketPlace Price Weight</Button>
+                                     <Button size="large"  type="primary">MarketPlace Price Weight</Button>
 
                                 </Col>
 
@@ -202,7 +202,7 @@ const filterReport = () => {
                     <Row span={10} style={{ marginTop: 20 }}>
                         <Col span={10} style={{ width: 300, marginLeft: 20, marginRight: 20 }}>
                             <Upload >
-                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                 <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
                         </Col>
                     </Row>

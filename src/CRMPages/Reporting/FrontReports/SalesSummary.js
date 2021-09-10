@@ -195,14 +195,14 @@ const SalesSummary = () => {
                 <Col span={1}></Col>
                 <Col span={3}  >
 
-                  <Button onClick={getSalesSummaryReporting} style={{ margintTop: 7 }}  key="1" type="primary" size="default" htmlType="submit">
+                   <Button size="large"  onClick={getSalesSummaryReporting} style={{ margintTop: 7 }}  key="1" type="primary"   htmlType="submit">
                     Search
                            </Button>
 
                 </Col>
                 <Col span={3}  >
 
-                  <Button onClick={getSalesSummaryReportingDownlaod}   style={{ margintTop: 7 }} key="1" type="success" size="default" >
+                   <Button size="large"  onClick={getSalesSummaryReportingDownlaod}   style={{ margintTop: 7 }} key="1" type="success"   >
                     Download
                            </Button>
 

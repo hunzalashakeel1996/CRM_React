@@ -191,7 +191,7 @@ const SalesByLocation = () => {
               </ComposableMap>
 
               <div className="controls">
-                <button type="button" onClick={handleZoomIn}>
+                 <Button size="large"  type="button" onClick={handleZoomIn}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -204,7 +204,7 @@ const SalesByLocation = () => {
                     <line x1="5" y1="12" x2="19" y2="12" />
                   </svg>
                 </button>
-                <button type="button" onClick={handleZoomOut}>
+                 <Button size="large"  type="button" onClick={handleZoomOut}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

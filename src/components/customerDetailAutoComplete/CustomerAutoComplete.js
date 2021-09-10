@@ -29,7 +29,7 @@ const CustomerAutoComplete = ({ darkMode, dataSource, onOptionSelect, selectedOp
             let tempTargetKey = targetKey
            return (
             i < 4 &&
-            <Button onClick={()=>{onOptionSelect(group[tempTargetKey])}} key={group[tempTargetKey]} to="#">
+             <Button size="large"  onClick={()=>{onOptionSelect(group[tempTargetKey])}} key={group[tempTargetKey]} to="#">
               {group[tempTargetKey]}
             </Button>
           );

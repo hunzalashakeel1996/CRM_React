@@ -22,7 +22,7 @@ const AmazonPU = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState,itemType } = props
   //  // console.log('vendornameState',vendornameState)
     const amazonPUcolumn = ['su.PRICE', 'su.deliveryinfo', 'STATUS', 'ISPU', 'su.ASIN', 'SU.IsAutomated_PU']
-
+    const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']
     const amazonPU = "PU"
     const isAmazonProcedure = true
     return (
@@ -44,7 +44,7 @@ const AmazonPU = (props) => {
                     </Col>
                     <Col span={24} style={{ marginTop:20 }}>
 
-                        <ColumnGroup genrateFeed={(col, val) => { genrateFeed(amazonPU, col, isAmazonProcedure, val) }} additionalColumns={amazonPUcolumn} />
+                        <ColumnGroup genrateFeed={(col, val) => { genrateFeed(amazonPU, col, isAmazonProcedure, val) }} additionalColumns={amazonPUcolumn} columnDropdown={columnDropdown} />
                     </Col>
 
                 </Row>

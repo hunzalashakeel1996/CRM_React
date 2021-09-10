@@ -224,7 +224,7 @@ const verifyLabel = () => {
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 1</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
 
-                                <Button type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertEndiciaSheet}> Insert Shipping</Button>
+                                 <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertEndiciaSheet}> Insert Shipping</Button>
 
                                 <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
 
@@ -233,7 +233,7 @@ const verifyLabel = () => {
                         <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 2</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                <Button type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={startEndiciaShipping}> Start Endicia Shipping</Button>
+                                 <Button size="large"  type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={startEndiciaShipping}> Start Endicia Shipping</Button>
 
                                 {/* </Cards> */}
                             </div>
@@ -241,7 +241,7 @@ const verifyLabel = () => {
                         <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 3</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                            <Button type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={checkEndiciaLabel}>Check Endicia Label</Button>
+                             <Button size="large"  type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={checkEndiciaLabel}>Check Endicia Label</Button>
                            
                                 {/* </Cards> */}
                             </div>
@@ -249,7 +249,7 @@ const verifyLabel = () => {
                         <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Total Count</h3></div>
                             <div className="atbd-drawer" style={{ marginRight: 0 }}>
-                            <Button type="primary" onClick={checkEndiciaLabelCount}> Today Count</Button>:{checkCount}
+                             <Button size="large"  type="primary" onClick={checkEndiciaLabelCount}> Today Count</Button>:{checkCount}
                             
                                 {/* </Cards> */}
                             </div>
@@ -271,7 +271,7 @@ const verifyLabel = () => {
 
                         <Col  xs={24} >
                         <Form.Item style={{float:'left',}}>
-                            <Button type="success"  size="default" type="success" htmlType="Submit"> Search</Button>
+                             <Button size="large"  type="success"    type="success" htmlType="Submit"> Search</Button>
                    
                             </Form.Item>
 
@@ -281,7 +281,7 @@ const verifyLabel = () => {
                             <div className="atbd-drawer" style={{ marginLeft: 0,  }}>
                            
                              
-                            <Button type="primary" onClick={refreshPage}> Refresh</Button>
+                             <Button size="large"  type="primary" onClick={refreshPage}> Refresh</Button>
                             </div>
                             </Form.Item>
                         </Col>
