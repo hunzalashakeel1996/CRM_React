@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { Button } from '../../components/buttons/buttons';
 import { Cards } from '../../components/cards/frame/cards-frame';
+import { checkPageAccess } from '../../components/utilities/utilities';
 import { getSideAndTopNavBar, insertSideNavandTop } from '../../redux/apis/DataAction';
 
 const { TabPane } = Tabs;
@@ -49,7 +50,7 @@ const AddNavigationTab = (props) => {
     })
     const { type, selectParentBar, selectTopBar, selectChildBar, parentbar, childBar, topBar, dataSource, parentBarList, statusParent, statusChild, statusTop, childBarList, tempNavigationObject, status, selectedId } = state
     useEffect(() => {
-
+            
         dispatch(getSideAndTopNavBar()).then(data => {
             data.map(value => {
                 const { parent_bar, child_bar, top_navigation } = value;

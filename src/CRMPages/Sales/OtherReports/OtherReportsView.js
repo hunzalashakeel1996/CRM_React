@@ -4,6 +4,7 @@ import SummaryReport from './SummaryReport'
 import ComparisonReport from './ComparisonReport'
 import TopSelling from "./TopSelling";
 import PurchaseReport from "./PurchaseReport";
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
@@ -12,6 +13,9 @@ const OtherReportsView = (props) => {
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Other Reports'];
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Sales', "Other Reports", props.history)
+    })
 
 
     const topManu = [

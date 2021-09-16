@@ -7,7 +7,7 @@ import Walmart from './overview/Walmart';
 
 
 //import { ExportData } from '../../../components/downloadtxt/exportTxt'
-import { downloadFile } from '../../../components/utilities/utilities'
+import { checkPageAccess, downloadFile } from '../../../components/utilities/utilities'
 
 import { webURL, audioPlay, uploadUrl, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getSubInventoryapi, getWallMartasinqtyapi, getwalmart_asin_all_otherapi } from '../../../redux/apis/DataAction';
 
@@ -68,7 +68,9 @@ const MarketplaceGroupInventoryView = (props) => {
     const { downloadDataState, summaryDataState, brandnameState, collectionState, categorynameState, puStatusState, loaderState } = state;
 
     useEffect(() => {
-
+        
+            checkPageAccess(userAccess, 'Inventory', "Marketplace Group Inventory", props.history)
+        
 
         Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => {
 

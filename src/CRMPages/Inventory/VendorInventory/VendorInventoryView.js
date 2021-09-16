@@ -1,6 +1,7 @@
 import { Modal, notification, Spin, Table, Tabs } from 'antd';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 import { getUpdateVendorInventoryapi, getvendor, getUpdateWebVendorInventoryapi, getWebvendor } from '../../../redux/apis/DataAction';
 import Regularsku from './overview/Regularsku';
@@ -36,6 +37,9 @@ const VendorInventoryView = (props) => {
     const { Regularvendorstate, isLoader, webVendorstate } = state;
 
     useEffect(() => {
+        checkPageAccess(userAccess, 'Inventory', "Vendor Inventory", props.history)
+
+
         Promise.all([dispatch(getvendor()), dispatch(getWebvendor())]).then(data => {
             setstate({ ...state, Regularvendorstate: data[0], webVendorstate: data[1], isLoader: false })
         })
@@ -174,7 +178,7 @@ const VendorInventoryView = (props) => {
     }
 
 
-    
+
 
     const topManu = [
         {

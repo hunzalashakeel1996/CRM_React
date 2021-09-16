@@ -4,6 +4,7 @@ import EbayManualShipment from './EbayManualShipment';
 import AmazonManualShipment from './AmazonManualShipment';
 const { TabPane } = Tabs;
 import FeatherIcon from 'feather-icons-react';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const ManualShipmentView = (props) => {
     const [activeTab, setActiveTab] = useState('');
@@ -13,6 +14,9 @@ const ManualShipmentView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Manual Shipment'];
 
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Shipping', "Manual Shipment", props.history)
+    })
 
     const topManu = [
         {

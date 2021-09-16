@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import AmazonShipment from './AmazonShipment';
 import NonAmazonShipment from './NonAmazonShipment';
 import FeatherIcon from 'feather-icons-react';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
@@ -15,7 +16,9 @@ const AmazonShipmentView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Amazon Shipment'];
 
-
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Shipping', "Amazon Shipment", props.history)
+    })
     const topManu = [
         {
             tab: 'Amazon Orders',

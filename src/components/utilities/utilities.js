@@ -194,4 +194,10 @@ const customTooltips = function (tooltip) {
   tooltipEl.style.padding = `${tooltip.yPadding}px ${tooltip.xPadding}px`;
 };
 
-export {downloadFileTableData, textRefactor, chartLinearGradient, customTooltips, downloadFile,DownlaodWithReact, getTotals};
+
+const checkPageAccess = (userAccess, parentBarName, childBarName, history) => {
+  if(!Object.keys(JSON.parse(userAccess.child_bar)).includes(parentBarName) || !JSON.parse(userAccess.child_bar)[parentBarName].includes(childBarName))
+    history.push('/admin/NotFoundPage')
+}
+
+export {downloadFileTableData, textRefactor, chartLinearGradient, customTooltips, downloadFile,DownlaodWithReact, getTotals, checkPageAccess};

@@ -28,7 +28,7 @@ const Column = (props) => {
     const [column, setViewColumn] = useState(true);
     const [Allcolumn, setAllcolumn] = useState({
         column: [],
-        addOrOtherinventory: ""
+        addOrOtherinventory: columnDropdown.includes('OTHER')?"OTHER":""
     });
     const [Toggelcolumn, setToggelcolumn] = useState({});
 
@@ -85,7 +85,7 @@ const Column = (props) => {
 
                     </Select> */}
                         {/* onChange={(val) => { props.genrateFilter('vendorFilter', val, true) }} */}
-                    <Select onChange={(val) => {handleChange(val)}} defaultValue="Select " style={{ width: '100%' }} >
+                    <Select onChange={(val) => {handleChange(val)}} defaultValue={columnDropdown.includes('OTHER')?"OTHER":"Select"} style={{ width: '100%' }} >
                                 {columnDropdown.map((val, i) => (
                                     <Option value={`${val}`} key={val}>{val}</Option>
 

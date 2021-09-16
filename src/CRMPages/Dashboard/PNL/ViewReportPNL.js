@@ -89,6 +89,7 @@ const ReportPNLView = () => {
   let tempDataSource_summary_report_Price_wise = [];
   let tempDataSource_summary_report_Detail_wise = [];
 
+  
   const handleChange = (pagination, filters, sorter) => {
     // console.log('Various parameters', pagination, filters, sorter);
     setstate({

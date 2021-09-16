@@ -4,7 +4,7 @@ import { Cards } from '../../../components/cards/frame/cards-frame';
 import { Button } from '../../../components/buttons/buttons';
 import { useDispatch,useSelector } from 'react-redux';
 import { getGoogleMarketPlaceVerifyapi,getGoogleMarketplaceNotVerifyUploadapi} from '../../../redux/apis/DataAction';
-import { downloadFile } from '../../../components/utilities/utilities';
+import { checkPageAccess, downloadFile } from '../../../components/utilities/utilities';
 const { TabPane } = Tabs;
 let requestObjInventroy = {
     vendorFilter: ""
@@ -22,6 +22,12 @@ const GoogleMarketPlace = (props) => {
           })
     
      const {file,dataTo,loaderState}=state;
+
+     useEffect(() => {
+        const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+
+        checkPageAccess(userAccess, 'Inventory', "Google MarketPlace", props.history)
+    })
      
     const dispatch = useDispatch();
 

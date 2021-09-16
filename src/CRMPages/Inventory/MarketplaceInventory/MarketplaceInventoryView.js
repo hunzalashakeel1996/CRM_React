@@ -11,7 +11,7 @@ import Walmart from './overview/Walmart';
 import Sears from './overview/Sears';
 import Ebay from './overview/Ebay';
 
-import { downloadFile } from '../../../components/utilities/utilities'
+import { checkPageAccess, downloadFile } from '../../../components/utilities/utilities'
 
 import { webURL, audioPlay, uploadUrl,getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi,getSearsPriceapi,getPriceWalmartapi } from '../../../redux/apis/DataAction';
 
@@ -73,7 +73,9 @@ const MarketplaceInventoryView = (props) => {
     const { downloadDataState, summaryDataState, brandnameState, collectionState, categorynameState, puStatusState, loaderState } = state;
 
     useEffect(() => {
-
+    
+            checkPageAccess(userAccess, 'Inventory', "Marketplace Inventory", props.history)
+        
 
         Promise.all([dispatch(getAllbrandapi()), dispatch(getAllcollectionapi()), dispatch(getAllcategorynameapi()), dispatch(getAllpustatusapi())]).then((data) => { 
              //   // console.log('promise All',data)

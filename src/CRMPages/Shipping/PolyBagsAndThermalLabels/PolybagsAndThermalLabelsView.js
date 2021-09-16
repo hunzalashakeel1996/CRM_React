@@ -4,6 +4,7 @@ import PolyBags from './PolyBags'
 import ThermalBags from './ThermalBags'
 import FeatherIcon from 'feather-icons-react';
 import { BasicFormWrapper } from '../../styled';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
@@ -14,7 +15,9 @@ const PolyBagsAndThermalLabelsView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['PolyBags and Thermal Labels'];
 
-
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Shipping', "PolyBags and Thermal Labels", props.history)
+    })
     const topManu = [
         {
             tab: 'Poly Bag',

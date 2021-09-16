@@ -55,6 +55,7 @@ const Admin = () => {
           <Route path={`${path}/ReportPNLWeb`} component={ReportPNLWeb} />
           <Route path={`${path}/ReportPNLMP`} component={ReportPNLMP} />
           <Route path={`${path}/ReportPNLMP`} component={ReportPNLMP} />
+          <Route path={`${path}/NotFoundPage`} component={NotFoundPage} />
       
 
           {/* <Redirect to="/admin" /> */}

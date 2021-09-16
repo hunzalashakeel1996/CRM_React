@@ -8,7 +8,7 @@ import { getFeedBackRecordOnClick, getReturnRecordOnClick, orderDownloadReport,g
 import { ProjectHeader } from '../../Tickets/style';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { PageHeader } from '../../../components/page-headers/page-headers';
-import { downloadFile } from '../../../components/utilities/utilities';
+import { checkPageAccess, downloadFile } from '../../../components/utilities/utilities';
 import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { Button } from '../../../components/buttons/buttons';
 import './saleReport.css';
@@ -69,7 +69,11 @@ const ReportView = (props) => {
     const { path } = props.match;
     const dispatch = useDispatch();
     // const [Bags, setBags] = useState([]);
+    useEffect(() => {
+        const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
+        checkPageAccess(userAccess, 'Sales', "Reports", props.history)
+    })
 
     const onSubmit = (values) => {
         let obj = {

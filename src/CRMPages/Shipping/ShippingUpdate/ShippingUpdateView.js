@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 
 import ShippingUpdate from './overview/ShippingUpdate';
 import FeatherIcon from 'feather-icons-react';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
@@ -12,7 +13,9 @@ const ShippingRUpdateView = (props) => {
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Shipping Update'];
-
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Shipping', "Shipping Update", props.history)
+    })
 
     const topManu = [
         {

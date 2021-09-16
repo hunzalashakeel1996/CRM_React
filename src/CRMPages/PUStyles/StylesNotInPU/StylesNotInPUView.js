@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import StyleCodes from './StyleCodes';
 import Variations from './Variations';
 import PUAppScript from './PUAppScript';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
@@ -11,7 +12,9 @@ const StylesNotInPUView = (props) => {
     
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Styles Not in PU'];
-
+    useEffect(() => {
+        checkPageAccess(userAccess, 'PUStyles', "Styles Not in PU", props.history)
+    })
 
     const topManu = [
         {
