@@ -31,7 +31,14 @@ const validateMessages = {
 
 const ItemPNLSummary = (props) => {
   const { dataSourceItemsummary, dataSourceItemsummaryTempParent, onAddItem, activeTab } = props
-  //  console.log('ItemPNL',dataSourceItemsummaryTempParent)
+
+    //  console.log('ItemPNLSummary',dataSourceItemsummaryTempParent)
+  // let isOrderTypeShow = dataSourceItemsummaryTempParent[0].ORDERTYPE==undefined?true:false
+ 
+
+  let isOrderTypeShow = dataSourceItemsummaryTempParent[0]&&dataSourceItemsummaryTempParent[0].ORDERTYPE==undefined?true:false
+
+  // console.log(isOrderTypeShow)
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -48,54 +55,60 @@ const ItemPNLSummary = (props) => {
     if (activeTab === 'ItemPNLSummary' && dataSourceItemsummaryTempParent && dataSourceItemsummaryTempParent.length > 0) {
 
       setstate({ ...state, dataSourceOrdersummaryTemp: dataSourceItemsummaryTempParent });
-      let order = []
-      let loss = []
-      let profit = []
-      for (let i = 0; i < dataSourceItemsummaryTempParent.length; i++) {
-
-        if (order.filter(value => value.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE).length <= 0) {
-          order.push(dataSourceItemsummaryTempParent[i])
-        }
-        else {
-          let indexTemp = order.findIndex(item => item.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE)
-          order[indexTemp] = { ...order[indexTemp], Item_count: order[indexTemp].Item_count + dataSourceItemsummaryTempParent[i].Item_count }
-        }
-
-        if (loss.filter(value => value.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE).length <= 0) {
-          // console.log(JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_loss.split('$')[1]))
-          
-          let tempItemSummary = {...dataSourceItemsummaryTempParent[i], Total_item_loss:JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_loss.split('$')[1])}
-          loss.push(tempItemSummary)
-        //  loss.push(dataSourceItemsummaryTempParent[i])
-        }
-        else {
-          let indexTemp = loss.findIndex(item => item.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE)
-            // console.log(dataSourceItemsummaryTempParent[i].Total_item_loss)
-
-          loss[indexTemp] = { ...loss[indexTemp], Total_item_loss: loss[indexTemp].Total_item_loss + JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_loss.split('$')[1]) }
-
-        }
-
-        if (profit.filter(value => value.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE).length <= 0) {
-          
-          let tempItemSummary = {...dataSourceItemsummaryTempParent[i], Total_item_profit:JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_profit.split('$')[1])}
-          profit.push(tempItemSummary)
-          // profit.push(dataSourceItemsummaryTempParent[i])
-        }
-        else {
-          let indexTemp = profit.findIndex(item => item.ORDERTYPE === dataSourceItemsummaryTempParent[i].ORDERTYPE)
-          profit[indexTemp] = { ...profit[indexTemp], Total_item_profit: profit[indexTemp].Total_item_profit +  JSON.parse(dataSourceItemsummaryTempParent[i].Total_item_profit.split('$')[1])  }
-        }
-
-
-      }
-
-      onAddItem({ order: order, loss: loss, profit: profit })
+    
+      filterTotalValue(dataSourceItemsummaryTempParent)
+   
     }
 
   }, [activeTab, dataSourceItemsummaryTempParent]);
+
+  const filterTotalValue =(data)=>{
+    let order = []
+    let loss = []
+    let profit = []
+    for (let i = 0; i < data.length; i++) {
+
+      if (order.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+        order.push(data[i])
+      }
+      else {
+        let indexTemp = order.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+        order[indexTemp] = { ...order[indexTemp], Item_count: order[indexTemp].Item_count + data[i].Item_count }
+      }
+
+      if (loss.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+        // console.log(JSON.parse(data[i].Total_item_loss)
+        
+        let tempItemSummary = {...data[i], Total_item_loss:data[i].Total_item_loss}
+        loss.push(tempItemSummary)
+      //  loss.push(data[i])
+      }
+      else {
+        let indexTemp = loss.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+          // console.log(data[i].Total_item_loss)
+
+        loss[indexTemp] = { ...loss[indexTemp], Total_item_loss: loss[indexTemp].Total_item_loss + data[i].Total_item_loss }
+
+      }
+
+      if (profit.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+        
+        let tempItemSummary = {...data[i], Total_item_profit:data[i].Total_item_profit}
+        profit.push(tempItemSummary)
+        // profit.push(data[i])
+      }
+      else {
+        let indexTemp = profit.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+        profit[indexTemp] = { ...profit[indexTemp], Total_item_profit: profit[indexTemp].Total_item_profit +  data[i].Total_item_profit  }
+      }
+
+
+    }
+
+    onAddItem({ order, loss, profit,data })
+  }
   const filter = (value) => {
-    console.log(value)
+
     var val = [];
     let temp = []
     let placeholder = ``;
@@ -106,9 +119,10 @@ const ItemPNLSummary = (props) => {
       onChange={e => {
 
         temp = [...temp, ...dataSourceItemsummaryTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
-        console.log('temp', temp)
+      
+      
         setstate({ ...state, dataSourceOrdersummaryTemp: temp });
-
+        filterTotalValue(temp)
       }}
     />
   }
@@ -283,7 +297,7 @@ const ItemPNLSummary = (props) => {
         
           key: 'percentge',
           defaultSortOrder: 'descend',
-          sorter: (c, d) => c.percentge - d.percentge,
+          sorter: (c, d) => c.percentge.split('%')[0] - d.percentge.split('%')[0],
           sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
           width:30,
         
@@ -303,6 +317,7 @@ const ItemPNLSummary = (props) => {
     // }
 
   ];
+  isOrderTypeShow&&columns.splice(1, 1)
 
   const handleChange = (pagination, filters, sorter) => {
     // console.log('Various parameters', pagination, filters, sorter);

@@ -36,8 +36,8 @@ const validateMessages = {
 };
 
 const ShippingUpdate = (props) => {
+    const Shipping = ['Endicia', 'EndiciaRizno', 'DHL', 'UPS','Fedex']
 
-    
     const dispatch = useDispatch();
     const [form] = Form.useForm();
 
@@ -55,77 +55,78 @@ const ShippingUpdate = (props) => {
         VendorName: null,
         values: {},
         isLoader: false,
+        file:'',
+        dataTo:''
     });
-    const { isLoader } = state
+    const { isLoader,file,dataTo } = state
+
     const onChange = (value, key) => {
         // // console.log('aaa', date, dateString)
         setstate({ ...state, [key]: value });
 
     };
 
-    const getStyleNotMatchedReporting = () => {
+    const shippingUpdate = () => {
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+        const formData = new FormData();
+        formData.append('user', username.LoginName);
+        formData.append('File', file);
+        formData.append('datato', dataTo);
+     
 
-        setstate({ ...state, isLoader: true })
-        dispatch(apistyleNotMatched({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), vendor: state.VendorName })).then(data => {
-            setstate({ ...state, isLoader: false })
-            console.log('My Data: ', data)
-            // DownlaodWithReact(data);
-            downloadFile(data);
+        dispatch(getSkuStatusUpdateapi(formData)).then(data => {
+
+            //   message.success(`file uploaded Update ${data}`);
             notification.success({
-                message: 'Successfull Dowload',
-                description: `Successfully Download & Rendered BackOrderItems of ${state.VendorName}  From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
                 onClose: close,
             });
 
-
         })
+    }
+
+   
+    const dataTohandleChange = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataTo: value })
+    }
+    const changeHandler = (event) => {
+
+        setstate({ ...state, file: event.target.files[0] })
 
     };
- 
-    const disabledDate = (current) => {
-        // Can not select days before today and today
-        return current > moment().endOf('day');
-      }
-
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
                 <Row >
-                    <Cards title="Style Not Matched Reporting" caption="The simplest use of Drawer" >
-                                   <Form layout="inline" initialValue="" label="" form={form} id="StyleNotMatchedReporting" name="nest-messages" onFinish={getStyleNotMatchedReporting} validateMessages={validateMessages}>
+                    <Cards title="Shipping Update" caption="The simplest use of Drawer" >
+                      
                             <Row gutter={50}>
 
-                                <Col span={8}   >
-                                    <Form.Item name="startDate" rules={[{ required: true }]}>
-                                        {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
-
-                                        <DatePicker  disabledDate={disabledDate} style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
-
-                                    </Form.Item>
+                                <Col span={10}>
+                                     <Select style={{ width: 150}} defaultValue="select" onChange={dataTohandleChange}  >
+                                        {Shipping.map(item => (
+                                            <Option value={item}>{item}</Option>))}
+                                    </Select>
                                 </Col>
-                                <Col span={8}  >
-                                    <Form.Item name="endDate" rules={[{ required: true }]}>
-                                        {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
-
-                                        <DatePicker  disabledDate={disabledDate} style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'endDate') }} />
-
-                                    </Form.Item>
-                                </Col>
-
-
-
-                                <Col span={8}  >
-                                    {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
-                                    <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                        <Form.Item >
-                                            <Button size="default" type="success" htmlType="Submit">
-                                                Download
-                                      </Button>
-                                        </Form.Item>
-                                    </div>
-                                </Col>
+                                
+                                <Col span={8}>
+                                   
+                                   <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                   
+                                           <Button size="default" type="success" onClick={shippingUpdate} > Download </Button>
+                                    
+                                   </div>
+                               </Col>
                             </Row>
-                        </Form>
+                            <Row style={{ marginTop: 50 }}>
+                            <Col span={10} style={{ width: 300, }}>
+
+                                <input type="file" onChange={changeHandler} />
+                            </Col>
+                        </Row>
 
                     </Cards>
                 </Row>
