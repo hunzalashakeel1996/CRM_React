@@ -54,7 +54,6 @@ const Admin = () => {
           <Route path={`${path}/PNL`} component={ReportPNL} />
           <Route path={`${path}/ReportPNLWeb`} component={ReportPNLWeb} />
           <Route path={`${path}/ReportPNLMP`} component={ReportPNLMP} />
-          <Route path={`${path}/ReportPNLMP`} component={ReportPNLMP} />
           <Route path={`${path}/NotFoundPage`} component={NotFoundPage} />
       
 

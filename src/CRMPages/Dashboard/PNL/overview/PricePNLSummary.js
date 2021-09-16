@@ -32,7 +32,9 @@ const validateMessages = {
 const PricePNLSummary = (props) => {
 
     const {dataSourcePriceSummary,dataSourcePriceSummaryTempParent,onAddPrice, activeTab}= props
-  //  console.log('PricePNL',dataSourcePriceSummaryTempParent)
+    
+   // console.log('PricePNL',dataSourcePriceSummaryTempParent)
+  let isOrderTypeShow = dataSourcePriceSummaryTempParent[0]&&dataSourcePriceSummaryTempParent[0].ORDERTYPE==undefined?true:false
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
@@ -45,58 +47,66 @@ const PricePNLSummary = (props) => {
   });
 
   const {sortedInfo,isLoader,dataSourcePricesummaryTemp}=state
+
   useEffect(() => { 
     if(activeTab==='PricePNLSummary' && dataSourcePriceSummaryTempParent&& dataSourcePriceSummaryTempParent.length>0){
+   
+
+    setstate({ ...state, dataSourcePricesummaryTemp: dataSourcePriceSummaryTempParent});
+
+    filterTotalValue(dataSourcePriceSummaryTempParent)
+      }
+  },[activeTab,dataSourcePriceSummaryTempParent]);
+
+  const filterTotalValue =(data)=>{
+
     let order = []
     let loss = []
     let profit = []
-    for(let i=0; i<dataSourcePriceSummaryTempParent.length; i++){
+    for(let i=0; i<data.length; i++){
   
-        if(order.filter(value=>value.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE).length<=0){
-          let tempPriceSummary = {...dataSourcePriceSummaryTempParent[i], TotalAmont:JSON.parse(dataSourcePriceSummaryTempParent[i].TotalAmont.split('$')[1])}
+        if(order.filter(value=>value.ORDERTYPE===data[i].ORDERTYPE).length<=0){
+          let tempPriceSummary = {...data[i], TotalAmont:JSON.parse(data[i].TotalAmont.split('$')[1])}
           order.push(tempPriceSummary)
-          // order.push(dataSourcePriceSummaryTempParent[i])
+          // order.push(data[i])
         }
         else{
-          let indexTemp = order.findIndex(item=>item.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE)
-          order[indexTemp] = {...order[indexTemp], TotalAmont:order[indexTemp].TotalAmont +JSON.parse(dataSourcePriceSummaryTempParent[i].TotalAmont.split('$')[1]) }
-          // order[indexTemp] = {...order[indexTemp], TotalAmont:order[indexTemp].TotalAmont+dataSourcePriceSummaryTempParent[i].TotalAmont}
+          let indexTemp = order.findIndex(item=>item.ORDERTYPE===data[i].ORDERTYPE)
+          order[indexTemp] = {...order[indexTemp], TotalAmont:order[indexTemp].TotalAmont +JSON.parse(data[i].TotalAmont.split('$')[1]) }
+          // order[indexTemp] = {...order[indexTemp], TotalAmont:order[indexTemp].TotalAmont+data[i].TotalAmont}
         }
   
-        if(loss.filter(value=>value.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE).length<=0){
-          let tempPriceSummary = {...dataSourcePriceSummaryTempParent[i], loss:JSON.parse(dataSourcePriceSummaryTempParent[i].loss.split('$')[1])}
+        if(loss.filter(value=>value.ORDERTYPE===data[i].ORDERTYPE).length<=0){
+          let tempPriceSummary = {...data[i], loss:data[i].loss}
           loss.push(tempPriceSummary)
 
-          // loss.push(dataSourcePriceSummaryTempParent[i])
+          // loss.push(data[i])
           }
           else{
-            let indexTemp = loss.findIndex(item=>item.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE)
-            loss[indexTemp] = {...loss[indexTemp], loss:loss[indexTemp].loss +JSON.parse(dataSourcePriceSummaryTempParent[i].loss.split('$')[1]) }
-            // loss[indexTemp] = {...loss[indexTemp], loss:loss[indexTemp].loss+dataSourcePriceSummaryTempParent[i].loss}
+            let indexTemp = loss.findIndex(item=>item.ORDERTYPE===data[i].ORDERTYPE)
+            loss[indexTemp] = {...loss[indexTemp], loss:loss[indexTemp].loss +data[i].loss }
+            // loss[indexTemp] = {...loss[indexTemp], loss:loss[indexTemp].loss+data[i].loss}
           }
   
-        if(profit.filter(value=>value.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE).length<=0){
-          let tempPriceSummary = {...dataSourcePriceSummaryTempParent[i], profit:JSON.parse(dataSourcePriceSummaryTempParent[i].profit.split('$')[1])}
+        if(profit.filter(value=>value.ORDERTYPE===data[i].ORDERTYPE).length<=0){
+          let tempPriceSummary = {...data[i], profit:data[i].profit}
           profit.push(tempPriceSummary)
 
-          // profit.push(dataSourcePriceSummaryTempParent[i])
+          // profit.push(data[i])
           }
           else{
-            let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourcePriceSummaryTempParent[i].ORDERTYPE)
-            profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit +JSON.parse(dataSourcePriceSummaryTempParent[i].profit.split('$')[1]) }
-            // profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourcePriceSummaryTempParent[i].profit}
+            let indexTemp = profit.findIndex(item=>item.ORDERTYPE===data[i].ORDERTYPE)
+            profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit +data[i].profit }
+            // profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+data[i].profit}
           }
   
         
         }
        
-        onAddPrice({ order: order, loss: loss, profit: profit })
-    setstate({ ...state, dataSourcePricesummaryTemp: dataSourcePriceSummaryTempParent});
-      }
-  },[activeTab,dataSourcePriceSummaryTempParent]);
-
+        onAddPrice({ order, loss, profit,data  })
+  }
   const filter = (value) => {
-    console.log(value)
+   
     var val = [];
     let temp = []
     let placeholder = ``;
@@ -107,7 +117,8 @@ const PricePNLSummary = (props) => {
       onChange={e => {
 
         temp = [...temp, ...dataSourcePriceSummaryTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
-        console.log('temp', temp)
+       
+        filterTotalValue(temp)
         setstate({ ...state, dataSourcePricesummaryTemp: temp });
 
       }}
@@ -172,7 +183,8 @@ const PricePNLSummary = (props) => {
         
           key: 'TotalAmont',
           defaultSortOrder: 'descend',
-          sorter: (c, d) => c.TotalAmont - d.TotalAmont,
+        
+          sorter: (c, d) => c.TotalAmont.split('$')[1] - d.TotalAmont.split('$')[1],
           sortOrder: sortedInfo.columnKey === 'TotalAmont' && sortedInfo.order,
           width:30,
         
@@ -185,7 +197,7 @@ const PricePNLSummary = (props) => {
     {
       title:     
       <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Profit</p>
+      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Profit Amount</p>
       </div>,
 
       children: [
@@ -214,7 +226,7 @@ const PricePNLSummary = (props) => {
    {
     title:     
     <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-    <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Loss</p>
+    <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Loss Amount</p>
     </div>,
 
     children: [
@@ -257,7 +269,7 @@ const PricePNLSummary = (props) => {
       
         key: 'percentge',
         defaultSortOrder: 'descend',
-        sorter: (c, d) => c.percentge - d.percentge,
+        sorter: (c, d) => c.percentge.split('%')[0] - d.percentge.split('%')[0],
         sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
         width:30,
       
@@ -269,7 +281,7 @@ const PricePNLSummary = (props) => {
   }
     
   ];
-
+  isOrderTypeShow&&columns.splice(1, 1)
   const handleChange = (pagination, filters, sorter) =>  {
     // console.log('Various parameters', pagination, filters, sorter);
     setstate({...state,

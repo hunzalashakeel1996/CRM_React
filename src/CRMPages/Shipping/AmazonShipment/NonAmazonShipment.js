@@ -148,7 +148,7 @@ const insertNonAmazonSheet =()=>{
                         <Col lg={8} xs={24}>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                         <Button size="large"  type="primary" onClick={insertNonAmazonSheet}>Automate  Insert Asins</Button>
+                         <Button  type="primary" onClick={insertNonAmazonSheet}>Automate  Insert Asins</Button>
                         <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />  
                         <br></br>
                               
@@ -159,7 +159,7 @@ const insertNonAmazonSheet =()=>{
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 2</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                             
-                              <Button size="large"  type="primary" onClick={startNonAmazonShipping}>  Start Non Amazon Shipping</Button>
+                              <Button  type="primary" onClick={startNonAmazonShipping}>  Start Non Amazon Shipping</Button>
                         
                                 {/* </Cards> */}
                             </div>
@@ -168,7 +168,7 @@ const insertNonAmazonSheet =()=>{
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 3</h3></div>
                             <div className="atbd-drawer" style={{ marginRight: 20 }}>
                                 {/* <Cards title="Total Count" caption="The simplest use of Drawer"> */}
-                                 <Button size="large"  type="primary" onClick={generateNonAmazonShipinglabel}>Generate Feed</Button>
+                                 <Button  type="primary" onClick={generateNonAmazonShipinglabel}>Generate Feed</Button>
                                 {/* </Cards> */}
                             </div>
                         </Col>
