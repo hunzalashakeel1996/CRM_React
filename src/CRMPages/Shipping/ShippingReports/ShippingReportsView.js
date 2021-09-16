@@ -5,6 +5,7 @@ import InTransitTracking from './InTransitTracking';
 import WebLabelOrders from './WebLabelOrders';
 import AllMpShipment from './AllMPShipment';
 import FeatherIcon from 'feather-icons-react';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
@@ -15,7 +16,9 @@ const ShippingReportsView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Shipping Reports'];
 
-
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Shipping', "Shipping Reports", props.history)
+    })
     const topManu = [
         {
             tab: 'Delivered Tracking Status',

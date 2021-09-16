@@ -5,6 +5,7 @@ import EndiciaRizno from './EndiciaRizno';
 import EndiciaRefund from './EndiciaRefund';
 const { TabPane } = Tabs;
 import FeatherIcon from 'feather-icons-react';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const EndiciaShipmentView = (props) => {
     const [activeTab, setActiveTab] = useState('');
@@ -15,7 +16,9 @@ const EndiciaShipmentView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Endicia Shipment'];
 
-
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Shipping', "Endicia Shipment", props.history)
+    })
     const topManu = [
         {
             tab: 'Endicia PU',

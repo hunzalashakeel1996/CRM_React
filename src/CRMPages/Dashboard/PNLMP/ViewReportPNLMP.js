@@ -18,7 +18,7 @@ import ItemPNL from './overview/ItemPNL';
 import OrderPNL from './overview/OrderPNL';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 
-import { downloadFile,downloadFileTableData  } from '../../../components/utilities/utilities'
+import { downloadFile, downloadFileTableData } from '../../../components/utilities/utilities'
 import { apiReportItemWiseMP, apiReportOrderWiseMP } from '../../../redux/apis/DataAction';
 // import { webURL, audioPlay, uploadUrl, getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi, getSearsPriceapi, getPriceWalmartapi } from '../../../redux/apis/DataAction';
 import './overview/style.css';
@@ -48,7 +48,7 @@ const ReportPNLMPView = () => {
   const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL MarketPlace'];
-
+  console.log(tabChildBar)
   const [activeTab, setActiveTab] = useState('OrderPNL');
 
 
@@ -79,12 +79,12 @@ const ReportPNLMPView = () => {
     dataPriceSummaryDownload: '',
     dataSourcePriceSummary: [],
     totalOrdersSum: 0,
-   
+
     totalOrdersProfit: 0,
-    dateFormat:'USPS'
+    dateFormat: 'USPS'
   });
 
-  const {dateFormat,totalOrdersSum,totalOrdersProfit, dataSourcePriceSummary, dataPriceSummaryDownload, dataSourcePriceSummaryTempParent, dataSourceItemsummary, dataItemsummaryDownload, dataSourceItemsummaryTempParent, dataSourceOrdersummary, dataOrdersummaryDownload, dataSourceOrdersummaryTempParent, dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails } = state
+  const { dateFormat, totalOrdersSum, totalOrdersProfit, dataSourcePriceSummary, dataPriceSummaryDownload, dataSourcePriceSummaryTempParent, dataSourceItemsummary, dataItemsummaryDownload, dataSourceItemsummaryTempParent, dataSourceOrdersummary, dataOrdersummaryDownload, dataSourceOrdersummaryTempParent, dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails } = state
 
   let tempDataSource_summary_report_order_wise = [];
   let tempDataSource_report_order_wise = [];
@@ -113,8 +113,8 @@ const ReportPNLMPView = () => {
     Promise.all([
 
       //  dispatch(apiSummaryReportDetailWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
-      dispatch(apiReportOrderWiseMP({ dateFormat: dateFormat,orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
-      dispatch(apiReportItemWiseMP({ dateFormat: dateFormat,orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
+      dispatch(apiReportOrderWiseMP({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
+      dispatch(apiReportItemWiseMP({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
       //   dispatch(apiSummaryReportOrderWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})), 
       //   dispatch(apiSummaryReportItemWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
       //   dispatch(apiSummaryReportPriceWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
@@ -619,7 +619,7 @@ const ReportPNLMPView = () => {
       setstate({ ...state, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
     }
   };
-  
+
   const handleChangeDateFormat = (value) => {
     console.log(`selected ${value}`);
 
@@ -631,12 +631,12 @@ const ReportPNLMPView = () => {
 
     if (activeTab === 'OrderPNL') {
       // downloadFile(dataOrderDownload)
-    
-       downloadFileTableData(dataSourceOrderTempParent,'OrderPNL')
+
+      downloadFileTableData(dataSourceOrderTempParent, 'OrderPNL')
     }
     else if (activeTab === 'ItemPNL') {
-     // downloadFile(dataItemDownload)
-      downloadFileTableData(dataSourceItemTempParent,'ItemPNL')
+      // downloadFile(dataItemDownload)
+      downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
     }
 
 
@@ -661,7 +661,7 @@ const ReportPNLMPView = () => {
                   <DatePicker style={{ padding: 10, width: '100%', }}
                     placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                 </Col>
-                
+
                 <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
 
                   <Select defaultValue={dateFormat} style={{ width: 180 }} onChange={handleChangeDateFormat}>
@@ -673,12 +673,12 @@ const ReportPNLMPView = () => {
                 </Col>
               </Row>
 
-              
+
               <Row>
                 <Col xs={24} style={{ marginBottom: 10 }}>
-                   <Button size="large"    type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
+                  <Button size="large" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
 
-                  {dataSourceOrder.length > 0 &&  <Button size="large"  type="success"
+                  {dataSourceOrder.length > 0 && <Button size="large" type="success"
                     onClick={(value) => { download(activeTab) }} >
                     Download
                   </Button>}
@@ -714,14 +714,10 @@ const ReportPNLMPView = () => {
                 </Col>
                 <Col span={5}>
 
-                  <label style={{ fontSize: 13, fontWeight: 'bold' }} >{activeTab === 'OrderPNL'?'Total orders':'Total Items'} </label>
+                  <label style={{ fontSize: 13, fontWeight: 'bold' }} >{activeTab === 'OrderPNL' ? 'Total orders' : 'Total Items'} </label>
                   <p style={{ fontSize: 13, fontWeight: 'bold' }}>{Math.round(totalOrdersSum * 100) / 100}</p>
                 </Col>
-                {/* {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col span={2}>
-
-<label style={{ fontSize: 13, fontWeight: 'bold' }}>Total Loss: </label>
-<p style={{ fontSize: 13, fontWeight: 'bold' }}>${Math.round(totalOrdersLoss * 100) / 100}</p>
-</Col>} */}
+                
                 <Col span={5}>
 
                   <label style={{ fontSize: 13, fontWeight: 'bold' }}>Total Profit </label>

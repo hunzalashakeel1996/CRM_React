@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import UpdateOrderNotes from './UpdateOrderNotes';
 import FeatherIcon from 'feather-icons-react';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
@@ -13,6 +14,9 @@ const ShippingNotesView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Shipping Notes'];
 
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Shipping', "Shipping Notes", props.history)
+    })
 
     const topManu = [
         {

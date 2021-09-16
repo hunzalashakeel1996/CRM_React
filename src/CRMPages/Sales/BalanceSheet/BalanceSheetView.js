@@ -5,14 +5,14 @@ import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Sp
 import { useDispatch, useSelector } from 'react-redux';
 import ReasonAutoComplete from '../../../components/ReasonAutoComplete/ReasonAutoComplete';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { getBalanceSheetRecordOnClick,getBalanceSheetRecord } from '../../../redux/apis/DataAction';
+import { getBalanceSheetRecordOnClick, getBalanceSheetRecord } from '../../../redux/apis/DataAction';
 import { ProjectHeader, ProjectList } from '../../Tickets/style';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { PageHeader } from '../../../components/page-headers/page-headers';
 // import { Main } from '../../styled';
 import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { Button } from '../../../components/buttons/buttons';
-import { downloadFile } from '../../../components/utilities/utilities';
+import { checkPageAccess, downloadFile } from '../../../components/utilities/utilities';
 import './saleBalanceSheet.css';
 // import { getDate } from 'date-fns';
 
@@ -73,47 +73,52 @@ const ReportView = (props) => {
         controls: { ...formInit },
         dataSource: [],
         isLoading: false,
-        downLoadLink : '',
-       
+        downLoadLink: '',
+
     });
 
 
-   
+
 
     const { controls } = state
 
-    
 
-  
+
+
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+
+        checkPageAccess(userAccess, 'Sales', "Balance Sheet", props.history)
+
+
         setState({ ...state, loader: true })
         let tempDataSource = [];
         // get balance sheet record
         dispatch(getBalanceSheetRecord()).then(data => {
             // // console.log('12310', data[1])
-            
-                
+
+
             let tempLinkDownload = data[0];
             // // console.log(tempLinkDownload);
             data[1].map(value => {
-                const { vendorname, past_due, date} = value;
+                const { vendorname, past_due, date } = value;
                 return tempDataSource.push({
                     vendorname: vendorname,
                     past_due: past_due,
                     date: date,
 
                 });
-              });
+            });
 
-    setState({ ...state, dataSource: [...tempDataSource],downLoadLink : tempLinkDownload,  loader: false });
-        }) 
+            setState({ ...state, dataSource: [...tempDataSource], downLoadLink: tempLinkDownload, loader: false });
+        })
     }, []);
 
 
 
-    
+
     // user: JSON.parse(localStorage.getItem('user')).LoginName,
     // date: moment().format('MM-DD-YYYY'),
 
@@ -122,34 +127,34 @@ const ReportView = (props) => {
         setState({ ...state, loader: true })
 
         // get balance sheet record
-        dispatch(getBalanceSheetRecordOnClick({ user : JSON.parse(localStorage.getItem('user')).LoginName, vendor: controls.VendorName, date: values['startDate'].format('YYYY-MM-DD'), payamount : values['payCount']})).then(data => {
+        dispatch(getBalanceSheetRecordOnClick({ user: JSON.parse(localStorage.getItem('user')).LoginName, vendor: controls.VendorName, date: values['startDate'].format('YYYY-MM-DD'), payamount: values['payCount'] })).then(data => {
             // console.log('buttonResult', data)
-            
+
             let tempDataSource = []
             data.map(value => {
-                const { vendorname, past_due, date} = value;
+                const { vendorname, past_due, date } = value;
                 return tempDataSource.push({
                     vendorname: vendorname,
                     past_due: past_due,
                     date: date,
-                    
-                  
+
+
                 });
-              });
-            setState({ ...state, dataSource: [...tempDataSource],  loader: false });
+            });
+            setState({ ...state, dataSource: [...tempDataSource], loader: false });
 
         })
         // // console.log(objValues)
 
     };
 
-    
+
     const downloadF = () => {
         setState({ ...state })
         // // console.log("Button 2 clicked!");
         // console.log(state.downLoadLink);
         downloadFile(state.downLoadLink)
-      }
+    }
 
     const onSubmitFailed = (errorInfo) => {
         // console.log('Failed:', errorInfo);
@@ -205,7 +210,7 @@ const ReportView = (props) => {
                         <Row gutter={25}>
 
                             {vendorNames && <Col xs={24} md={12} lg={6}  >
-                            <Form.Item name="Vendorname"  rules={[{ required: true }]} >
+                                <Form.Item name="Vendorname" rules={[{ required: true }]} >
                                     <ReasonAutoComplete
                                         //   style={{ marginRight: 5 }}
                                         placeholder='Search Vendorname'
@@ -215,27 +220,27 @@ const ReportView = (props) => {
                                         onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
                                 </Form.Item>
                             </Col>}
-                            
-                            <Col  xs={24} md={8} lg={6}>
-                                <Form.Item name="startDate"  rules={[{ required: true }]} >
+
+                            <Col xs={24} md={8} lg={6}>
+                                <Form.Item name="startDate" rules={[{ required: true }]} >
                                     {/* <Space label="" {...rangeConfig}> */}
                                     <DatePicker style={{ padding: 10 }} renderExtraFooter={() => 'extra footer'} placeholder="Enter date" />
                                     {/* </Space > */}
                                 </Form.Item>
                             </Col>
                             <Col lg={3}>
-                              <Form.Item name="payCount" rules={[{ required: true }]} >
-                                <InputNumber style={{ height: 42 }} min={1} max={10} />
+                                <Form.Item name="payCount" rules={[{ required: true }]} >
+                                    <InputNumber style={{ height: 42 }} min={1} max={10} />
                                 </Form.Item>
                             </Col>
                             <Col xs={24} lg={9}>
                                 <Form.Item >
-                                     <Button size="large"  style={{marginRight:'15px',}} type="success"    htmlType="submit" >
+                                    <Button size="large" style={{ marginRight: '15px', }} type="success" htmlType="submit" >
                                         <Icon type="left" />
                                         Search
                                     </Button>
-                                
-                                     <Button size="large"  type="primary"   icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
+
+                                    <Button size="large" type="primary" icon={<VerticalAlignBottomOutlined />} onClick={() => { downloadF() }}  >
                                         <Icon type="left" />
                                         Download
                                     </Button>
@@ -252,7 +257,7 @@ const ReportView = (props) => {
                 <Col xs={24}>
                     <Cards headless>
                         <ProjectList>
-                     
+
                             <div className="table-responsive">
                                 <Table pagination={true} dataSource={state.dataSource} columns={columns} />
                             </div>

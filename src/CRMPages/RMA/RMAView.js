@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import RMANotes from './RMANotes';
 import RMAMonthlyReport from './RMAMonthlyReport';
+import { checkPageAccess } from '../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
@@ -9,7 +10,6 @@ const { TabPane } = Tabs;
     
 const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 const tabChildBar = JSON.parse(userAccess.top_navigation)['RMA Updates'];
-
 
 const topManu = [
     {
@@ -26,6 +26,10 @@ const topManu = [
 ];
 
 const RMAView = (props) => {
+    useEffect(() => {
+        checkPageAccess(userAccess, 'RMA', "RMA Updates", props.history)
+    })
+    
     return (
         <>
             <Tabs type="card" defaultActiveKey="RMA Notes" style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>

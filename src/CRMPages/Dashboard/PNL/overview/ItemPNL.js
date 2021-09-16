@@ -48,34 +48,38 @@ const ItemPNL = (props) => {
   const { sortedInfo, isLoader, dataSourceItemTemp } = state
 
   useEffect(() => {
-    setState({ ...state, dataSourceItemTemp: dataSourceItemTempParent });
+
     if(activeTab==='ItemPNL'&&dataSourceItemTempParent.length>0){
-      let profit = []
-      for(let i=0; i<dataSourceItemTempParent.length; i++){
-    
-          if(profit.filter(value=>value.ORDERTYPE===dataSourceItemTempParent[i].ORDERTYPE).length<=0){
-            let tempOrderSummary = {...dataSourceItemTempParent[i], profit:JSON.parse(dataSourceItemTempParent[i].profit.split('$')[1])}
-            profit.push(tempOrderSummary)
-            // profit.push(dataSourceItemTempParent[i])
-            }
-            else{
-              let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceItemTempParent[i].ORDERTYPE)
-              profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+JSON.parse(dataSourceItemTempParent[i].profit.split('$')[1])}
-              // profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+dataSourceItemTempParent[i].profit}
-            }
-
-          
-          }
-         
-          onAddItemCount({ order:dataSourceItemTempParent.length , profit: profit })
+   
     // Update the document title using the browser API
-    
-
+    setState({ ...state, dataSourceItemTemp: dataSourceItemTempParent });
+    filterTotalValue(dataSourceItemTempParent)
 
   }
   }, [activeTab,dataSourceItemTempParent]);
   const dataSource = [];
   let temp = [];
+
+  const filterTotalValue =(data)=>{
+    let profit = []
+    for(let i=0; i<data.length; i++){
+  
+        if(profit.filter(value=>value.ORDERTYPE===data[i].ORDERTYPE).length<=0){
+          let tempOrderSummary = {...data[i], profit:JSON.parse(data[i].profit.split('$')[1])}
+          profit.push(tempOrderSummary)
+          // profit.push(data[i])
+          }
+          else{
+            let indexTemp = profit.findIndex(item=>item.ORDERTYPE===data[i].ORDERTYPE)
+            profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+JSON.parse(data[i].profit.split('$')[1])}
+            // profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+data[i].profit}
+          }
+
+        
+        }
+       
+        onAddItemCount({ order:data.length ,  profit,data })
+  }
 
   const filter = (value) => {
     var val = [];
@@ -87,7 +91,7 @@ const ItemPNL = (props) => {
       onChange={e => {
 
         temp = [...temp, ...dataSourceItemTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
-
+        filterTotalValue(temp)
         setState({ ...state, dataSourceItemTemp: temp });
 
       }}

@@ -6,6 +6,7 @@ import AmazonUAEUpdateInventory from './overview/AmazonUAEUpdateInventory';
 import AmazonUpdateSubinventory from './overview/AmazonUpdateSubinventory';
 import SKUstatus from './overview/SKUstatus';
 import GroupStatus from './overview/GroupStatus';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 const { TabPane } = Tabs;
 
 const UpdateInventoryView = (props) => {
@@ -21,6 +22,9 @@ const UpdateInventoryView = (props) => {
     //     loaderState: true
     // });
 
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Inventory', "Update Inventory", props.history)
+    })
 
     const topManu = [
         {

@@ -8,6 +8,7 @@ import OrderSearch from './OrderSearch'
 import OrderConfirmationNumber from './OrderConfirmationNumber'
 import BackOrderItems from './BackOrderItems'
 import StyleNotMatched from './StyleNotMatched'
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 
 const { TabPane } = Tabs;
@@ -18,6 +19,11 @@ const OrderReportsView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Order Reports'];
 
+
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Orders', 'Order Reports', props.history)
+       
+      }, []);
     // console.log(tabChildBar);
   
 

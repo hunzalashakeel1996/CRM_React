@@ -6,11 +6,17 @@ import VendorSales from './overview/VendorSales'
 import SaleSummary from './overview/SaleSummary'
 import TargetSummary from './overview/TargetSummary'
 import { Row, Col, Tabs } from 'antd';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 
-const ComparisonReportView = () => {
+const ComparisonReportView = (props) => {
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Dashboard', 'Comparison Report', props.history)
+       
+      }, []);
     return (
         <>
             <Tabs type={'card'} defaultActiveKey="ComparisonReport" style={{ marginTop: 20, marginLeft: 20, marginRight: 20 }} >

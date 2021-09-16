@@ -13,6 +13,7 @@ import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons
 import { ShareButtonPageHeader } from '../../components/buttons/share-button/share-button';
 import { ExportButtonPageHeader } from '../../components/buttons/export-button/export-button';
 import { CalendarButtonPageHeader } from '../../components/buttons/calendar-button/calendar-button';
+import { checkPageAccess } from '../../components/utilities/utilities';
 
 const { Option } = Select;
 // const { TextArea } = Input;
@@ -35,6 +36,12 @@ const UsersView = (props) => {
     values: {},
     cascaderItem: [],
   });
+
+  const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
+
+  useEffect(() => {
+    checkPageAccess(userAccess, 'User Management', "Add New Users", props.history)
+})
 
 
   const dispatch = useDispatch();

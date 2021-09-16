@@ -86,7 +86,7 @@ const {isLoader}=state
                             </Col>
                             <Col lg={8} xs={24}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
-                                <Form.Item name="startDate" rules={[{ required: true }]}>
+                                <Form.Item name="endDate" rules={[{ required: true }]}>
                                     <DatePicker style={{ padding: 10 }} onChange={(date) => { onChange(date, 'endDate') }} />
                                     </Form.Item>
                             </Col>

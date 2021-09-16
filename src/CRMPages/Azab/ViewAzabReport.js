@@ -11,6 +11,7 @@ import { Button } from '../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { addCommentAPI, addTicketAPI, getTicketsAPI, webURL, audioPlay, uploadUrl, getAzabAPI } from '../../redux/apis/DataAction';
 import './DasboardAzab.css';
+import { checkPageAccess } from '../../components/utilities/utilities';
 const AzabReportList = lazy(() => import('./overview/AzabReportList'));
 
 const ViewAzabReport = (props) => {
@@ -43,7 +44,12 @@ const ViewAzabReport = (props) => {
 
   //   }, [state.monthvalue]);
 
+  useEffect(() => {
+    const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
+    checkPageAccess(userAccess, 'Dashboard', 'AzabReport', props.history)
+   
+  }, []);
 
 
 

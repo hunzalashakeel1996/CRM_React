@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import DeleteNavigationTab from './DeleteNavigationTab'
 import AddNavigationTab from './AddNavigationTab'
+import { checkPageAccess } from '../../components/utilities/utilities';
 
 
 const { TabPane } = Tabs;
@@ -13,6 +14,9 @@ const NavigationTabView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Add Navigation Tab'];
 
+    useEffect(() => {
+        checkPageAccess(userAccess, 'User Management', "Add Navigation Tab", props.history)
+    })
 
     const topManu = [
         {

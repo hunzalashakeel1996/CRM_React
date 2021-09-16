@@ -32,7 +32,13 @@ const validateMessages = {
 const OrderPNLSummary = (props) => {
 
   const { dataSourceOrdersummary, dataSourceOrdersummaryTempParent, onAddOrder, activeTab } = props
- // console.log('orderPNLSumamry', dataSourceOrdersummaryTempParent)
+
+  //console.log('OrderPNLSummary',dataSourceOrdersummaryTempParent)
+
+  let isOrderTypeShow = dataSourceOrdersummaryTempParent[0]&&dataSourceOrdersummaryTempParent[0].ORDERTYPE==undefined?true:false
+
+  // // console.log('orderPNLSumamry', dataSourceOrdersummaryTempParent)
+  // console.log('orderPNLSumamry', isOrderTypeShow)
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -45,59 +51,62 @@ const OrderPNLSummary = (props) => {
   });
 
   const { sortedInfo, isLoader, dataSourceOrdersummaryTemp } = state
-  
+
   useEffect(() => {
-    console.log('asdasasd', dataSourceOrdersummaryTempParent)
-    if(activeTab==='OrderPNLSummary'&&dataSourceOrdersummaryTempParent&&dataSourceOrdersummaryTempParent.length>0){
-    setstate({ ...state, dataSourceOrdersummaryTemp: dataSourceOrdersummaryTempParent });
-    let order = []
-  let loss = []
-  let profit = []
- 
+  
+    if (activeTab === 'OrderPNLSummary' && dataSourceOrdersummaryTempParent && dataSourceOrdersummaryTempParent.length > 0) {
+   
+      setstate({ ...state, dataSourceOrdersummaryTemp: dataSourceOrdersummaryTempParent });
+      findTotalValues(dataSourceOrdersummaryTempParent)
 
-  for(let i=0; i<dataSourceOrdersummaryTempParent.length; i++){
-
-      if(order.filter(value=>value.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE).length<=0){
-        order.push(dataSourceOrdersummaryTempParent[i])
-      }
-      else{
-        let indexTemp = order.findIndex(item=>item.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE)
-        order[indexTemp] = {...order[indexTemp], order_count:order[indexTemp].order_count+dataSourceOrdersummaryTempParent[i].order_count}
-      }
-
-      if(loss.filter(value=>value.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE).length<=0){
-     
-        let tempOrderSummary = {...dataSourceOrdersummaryTempParent[i], loss:JSON.parse(dataSourceOrdersummaryTempParent[i].loss.split('$')[1])}
-        
-        loss.push(tempOrderSummary)
-        // loss.push(dataSourceOrdersummaryTempParent[i])
-        }
-        else{
-          let indexTemp = loss.findIndex(item=>item.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE)
-
-          loss[indexTemp] = {...loss[indexTemp], loss:loss[indexTemp].loss +JSON.parse(dataSourceOrdersummaryTempParent[i].loss.split('$')[1]) }
-      
-        }
-
-      if(profit.filter(value=>value.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE).length<=0){
-        let tempOrderSummary = {...dataSourceOrdersummaryTempParent[i], profit:JSON.parse(dataSourceOrdersummaryTempParent[i].profit.split('$')[1])}
-        profit.push(tempOrderSummary)
-        }
-        else{
-          let indexTemp = profit.findIndex(item=>item.ORDERTYPE===dataSourceOrdersummaryTempParent[i].ORDERTYPE)
-          profit[indexTemp] = {...profit[indexTemp], profit:profit[indexTemp].profit+JSON.parse(dataSourceOrdersummaryTempParent[i].profit.split('$')[1])}
-        }
-
-      
-      }
-     
-      onAddOrder({ order: order, loss: loss, profit: profit })
-      
- 
     }
- 
 
-  }, [activeTab,dataSourceOrdersummaryTempParent]);
+
+  }, [activeTab, dataSourceOrdersummaryTempParent]);
+
+  const findTotalValues = (data) => {
+    let order = []
+      let loss = []
+      let profit = []
+
+    for (let i = 0; i < data.length; i++) {
+
+      if (order.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+        order.push(data[i])
+      }
+      else {
+        let indexTemp = order.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+        order[indexTemp] = { ...order[indexTemp], order_count: order[indexTemp].order_count + data[i].order_count }
+      }
+
+      if (loss.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+
+        let tempItemSummary = {...data[i], Total_item_loss:data[i].Total_item_loss}
+        loss.push(tempItemSummary)
+        // loss.push(data[i])
+      }
+      else {
+        let indexTemp = loss.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+
+        loss[indexTemp] = { ...loss[indexTemp], loss: loss[indexTemp].loss + data[i].loss }
+
+      }
+
+      if (profit.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+     
+        let tempItemSummary = {...data[i], Total_item_profit:data[i].Total_item_profit}
+        profit.push(tempItemSummary)
+      }
+      else {
+        let indexTemp = profit.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+        profit[indexTemp] = { ...profit[indexTemp], profit: profit[indexTemp].profit + data[i].profit }
+      }
+
+
+    }
+
+    onAddOrder({ order, loss, profit,data })
+  }
 
   const filter = (value) => {
     // console.log(value)
@@ -109,168 +118,172 @@ const OrderPNLSummary = (props) => {
       placeholder={placeholder}
       size='small'
       onChange={e => {
-
         temp = [...temp, ...dataSourceOrdersummaryTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
         // console.log('temp',temp)
-        setstate({ ...state, dataSourceOrdersummaryTemp: temp });
+        setstate({ ...state, dataSourceOrdersummaryTemp: [...temp] });
+        findTotalValues(temp)
 
       }}
     />
   }
 
-  const columns = [
-    {  title:     
-      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Vendorname</p>
-      </div>,
+  let columns = [
+    {
+      title:
+        <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>Vendorname</p>
+        </div>,
 
       children: [
-      {
-        title: <>
-        { filter('vendorname')}
-        </>,
-         dataIndex: 'vendorname',
-         key: 'vendorname',
-      },
+        {
+          title: <>
+            { filter('vendorname')}
+          </>,
+          dataIndex: 'vendorname',
+          key: 'vendorname',
+        },
+
+
+      ]
+
+    },
+    
      
-
-        ]
-
-      
-    }, 
-    {  title:     
-      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>ORDERTYPE</p>
-      </div>,
+      {
+      title:
+        <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>ORDERTYPE</p>
+        </div>,
 
       children: [
-      {
-        title: <>
-        { filter('ORDERTYPE')}
-        </>,
-         dataIndex: 'ORDERTYPE',
-         key: 'ORDERTYPE',
-      },
-     
+        {
+          title: <>
+            { filter('ORDERTYPE')}
+          </>,
+          dataIndex: 'ORDERTYPE',
+          key: 'ORDERTYPE',
+        },
 
-        ]
 
-      
+      ]
+
+
     }
+  
     ,
     {
-      title:     
-      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Order count</p>
-      </div>,
+      title:
+        <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>Order count</p>
+        </div>,
 
       children: [
-      {
-        title: <>
-        { filter('order_count')}
-        </>,
-         dataIndex: 'order_count',
-         key: 'order_count',
-      },
-      {
-        
+        {
+          title: <>
+            { filter('order_count')}
+          </>,
+          dataIndex: 'order_count',
+          key: 'order_count',
+        },
+        {
+
           key: 'order_count',
           defaultSortOrder: 'descend',
           sorter: (c, d) => c.order_count - d.order_count,
           sortOrder: sortedInfo.columnKey === 'order_count' && sortedInfo.order,
-          width:30,
-        
-        
-      }
+          width: 30,
+
+
+        }
       ]
 
 
     },
     {
-      title:     
-      <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-      <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Profit</p>
-      </div>,
+      title:
+        <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>Profit Count</p>
+        </div>,
 
       children: [
-      {
-        title: <>
-        { filter('profit')}
-        </>,
-         dataIndex: 'profitLink',
-         key: 'profit',
-      },
-      {
-        
+        {
+          title: <>
+            { filter('profit')}
+          </>,
+          dataIndex: 'profitLink',
+          key: 'profit',
+        },
+        {
+
           key: 'profit',
           defaultSortOrder: 'descend',
           sorter: (c, d) => c.profit - d.profit,
           sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
-          width:30,
-        
-        
-      }
+          width: 30,
+
+
+        }
       ]
 
 
     }
-   ,
-   {
-    title:     
-    <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-    <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Loss</p>
-    </div>,
-
-    children: [
+    ,
     {
-      title: <>
-      { filter('loss')}
-      </>,
-       dataIndex: 'lossLink',
-       key: 'loss',
+      title:
+        <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>Loss Count</p>
+        </div>,
+
+      children: [
+        {
+          title: <>
+            { filter('loss')}
+          </>,
+          dataIndex: 'lossLink',
+          key: 'loss',
+        },
+        {
+
+          key: 'loss',
+          defaultSortOrder: 'descend',
+          sorter: (c, d) => c.loss - d.loss,
+          sortOrder: sortedInfo.columnKey === 'loss' && sortedInfo.order,
+          width: 30,
+
+
+        }
+      ]
+
+
     },
     {
-      
-        key: 'loss',
-        defaultSortOrder: 'descend',
-        sorter: (c, d) => c.loss - d.loss,
-        sortOrder: sortedInfo.columnKey === 'loss' && sortedInfo.order,
-        width:30,
-      
-      
+      title:
+        <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>Percentge</p>
+        </div>,
+
+      children: [
+        {
+          title: <>
+            { filter('percentge')}
+          </>,
+          dataIndex: 'percentge',
+          key: 'percentge',
+        },
+        {
+
+          key: 'percentge',
+          defaultSortOrder: 'descend',
+          sorter: (c, d) => c.percentge.split('%')[0] - d.percentge.split('%')[0],
+          sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
+          width: 30,
+
+
+        }
+      ]
+
+
     }
-    ]
-
-
-  },
-  {
-    title:     
-    <div style={{height: 63, display:'flex', justifyContent: 'space-around', alignItems: 'flex-end'}}>
-    <p style={{fontSize: 13, fontWeight: 'bold', textAlign: 'center'}}>Percentge</p>
-    </div>,
-
-    children: [
-    {
-      title: <>
-      { filter('percentge')}
-      </>,
-       dataIndex: 'percentge',
-       key: 'percentge',
-    },
-    {
-      
-        key: 'percentge',
-        defaultSortOrder: 'descend',
-        sorter: (c, d) => c.percentge - d.percentge,
-        sortOrder: sortedInfo.columnKey === 'percentge' && sortedInfo.order,
-        width:30,
-      
-      
-    }
-    ]
-
-
-  }
     // {
     //   title: 'Percentge',
     //   dataIndex: 'percentge',
@@ -282,6 +295,7 @@ const OrderPNLSummary = (props) => {
 
   ];
 
+  isOrderTypeShow&&columns.splice(1, 1)
   const handleChange = (pagination, filters, sorter) => {
     // console.log('Various parameters', pagination, filters, sorter);
     setstate({

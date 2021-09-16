@@ -13,6 +13,7 @@ import { ExportButtonPageHeader } from '../../components/buttons/export-button/e
 import { CalendarButtonPageHeader } from '../../components/buttons/calendar-button/calendar-button';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import { checkPageAccess } from '../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -30,8 +31,10 @@ const UsersView = (props) => {
 
   const history = useHistory();
   const dispatch = useDispatch();
+  const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
   useEffect(() => {
+      checkPageAccess(userAccess, 'User Management', "Manage Users", props.history)
     setState({ ...state, isLoading: true })
     let tempDataSource = [];
     // get balance sheet record

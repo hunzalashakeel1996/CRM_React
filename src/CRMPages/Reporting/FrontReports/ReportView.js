@@ -11,6 +11,7 @@ import SalesSummary from './SalesSummary';
 import TargetSummaryReport from './TargetSummaryReport';
 import ReturnPercentage from './ReturnPercentage';
 import FeatherIcon from 'feather-icons-react';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const { TabPane } = Tabs;
 const ReportView = (props) => {
@@ -19,7 +20,9 @@ const ReportView = (props) => {
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['FrontReports'];
-
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Reporting', "FrontReports", props.history)
+    })
 
     const topManu = [
         {

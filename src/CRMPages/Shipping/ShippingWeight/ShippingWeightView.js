@@ -4,6 +4,7 @@ import PONumberWeight from './PONumberWeight';
 import DuplicateTracking from './DuplicateTracking';
 import WeightForAmazonLabels from './WeightForAmazonLabels';
 import FeatherIcon from 'feather-icons-react';
+import { checkPageAccess } from '../../../components/utilities/utilities';
 
 
 const { TabPane } = Tabs;
@@ -15,7 +16,9 @@ const ShippingWeightView = (props) => {
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Shipping Weight'];
 
-
+    useEffect(() => {
+        checkPageAccess(userAccess, 'Shipping', "Shipping Weight", props.history)
+    })
 
     const topManu = [
         {
