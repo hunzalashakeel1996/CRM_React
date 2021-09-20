@@ -9,6 +9,7 @@ const ShippingReportsView = lazy(() => import('../../CRMPages/Shipping/ShippingR
 const ShippingWeightView = lazy(() => import('../../CRMPages/Shipping/ShippingWeight/ShippingWeightView'));
 const ShippingNotesView = lazy(() => import('../../CRMPages/Shipping/ShippingNotes/ShippingNotesView'));
 const ShippingUpdateView = lazy(() => import('../../CRMPages/Shipping/ShippingUpdate/ShippingUpdateView'));
+// const ShippingUpdateView = lazy(() => import('../../CRMPages/Shipping/WalmartCanada/WalmartCanadaShipView'));
 
 const ProjectRoutes = () => {
   const { path } = useRouteMatch();

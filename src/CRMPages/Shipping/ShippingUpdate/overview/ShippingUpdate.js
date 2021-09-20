@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../../components/buttons/buttons';
 import { Drawer } from '../../../../components/drawer/drawer';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
+import { getShippingUpdateapi } from '../../../../redux/apis/DataAction';
 // import DatePicker from 'react-datetime';
 import moment from 'moment';
 
@@ -66,7 +67,7 @@ const ShippingUpdate = (props) => {
 
     };
 
-    const shippingUpdate = () => {
+    const shippingUpdateFile = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
         const formData = new FormData();
@@ -75,7 +76,7 @@ const ShippingUpdate = (props) => {
         formData.append('datato', dataTo);
      
 
-        dispatch(getSkuStatusUpdateapi(formData)).then(data => {
+        dispatch(getShippingUpdateapi(formData)).then(data => {
 
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
@@ -116,7 +117,7 @@ const ShippingUpdate = (props) => {
                                    
                                    <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                    
-                                           <Button size="default" type="success" onClick={shippingUpdate} > Download </Button>
+                                           <Button size="default" type="success" onClick={shippingUpdateFile} > Download </Button>
                                     
                                    </div>
                                </Col>
