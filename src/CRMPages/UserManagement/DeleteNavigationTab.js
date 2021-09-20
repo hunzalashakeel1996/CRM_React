@@ -51,17 +51,13 @@ const DeleteNavigationTab = (props) => {
         if(selectedChild===''){
             let data = {id:dataSource[index].id, isRemoveRow: true}
         }else{
+            let tempChilds = [...JSON.parse(dataSource[index].child_bar)]
+            let tempTopNav = {...JSON.parse(dataSource[index].top_navigation)}
+
             if(selectedTopNav===''){
-                let tempChilds = [...JSON.parse(dataSource[index].child_bar)]
-                let childIndex = tempChilds.indexOf(selectedChild)
                 tempChilds.splice(tempChilds.indexOf(selectedChild), 1)
-
-                let tempTopNav = {...JSON.parse(dataSource[index].top_navigation)}
                 delete tempTopNav[selectedChild]
-
-                
             }else{
-                let tempTopNav = {...JSON.parse(dataSource[index].top_navigation)}
                 tempTopNav[selectedChild].splice(tempTopNav[selectedChild].indexOf(selectedTopNav),1)
                 console.log('top', tempTopNav)
             }
