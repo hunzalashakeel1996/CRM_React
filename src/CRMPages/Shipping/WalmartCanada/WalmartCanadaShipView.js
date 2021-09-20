@@ -8,22 +8,18 @@ import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const WalmartCanadaShipView = (props) => {
     const [activeTab, setActiveTab] = useState('');
-
-
-
-
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
-    const tabChildBar = JSON.parse(userAccess.top_navigation)['Walmart Canada Ship'];
-
+    const tabChildBar = JSON.parse(userAccess.top_navigation)['Walmart Canada Shipping'];
+    console.log(tabChildBar)
     useEffect(() => {
-        checkPageAccess(userAccess, 'Shipping', "Walmart Canada Ship", props.history)
+        checkPageAccess(userAccess, 'Shipping', "Walmart Canada Shipping", props.history)
     })
     const topManu = [
        
         ,
         {
-            tab: 'Walmart Canada Ship',
-            key: 'Walmart Canada Ship',
+            tab: 'Walmart Canada Shipping',
+            key: 'Walmart Canada Shipping',
             tabName: <WalmartCanadaShip />
         }
     ];

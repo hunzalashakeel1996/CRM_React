@@ -1,12 +1,12 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Input,Form, Tabs, Table, Upload, Row, Col, notification, Modal } from 'antd';
-import { Button, BtnGroup } from '../../../components/buttons/buttons';
-import { Drawer } from '../../../components/drawer/drawer';
-import { Cards } from '../../../components/cards/frame/cards-frame';
+import { Button, BtnGroup } from '../../../../components/buttons/buttons';
+import { Drawer } from '../../../../components/drawer/drawer';
+import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { useDispatch, useSelector } from 'react-redux';
-import { downloadFile } from '../../../components/utilities/utilities'
+import { downloadFile } from '../../../../components/utilities/utilities'
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { insertEndiciaShipingSheet, endiciaShipingValidation,endiciaShipingCreateShiping,multipleCreateLabel,endiciaShipingcheckcount,endiciaVerifyLabel } from '../../../redux/apis/DataAction';
+import { insertEndiciaShipingSheet, endiciaShipingValidation,endiciaShipingCreateShiping,multipleCreateLabel,endiciaShipingcheckcount,endiciaVerifyLabel } from '../../../../redux/apis/DataAction';
 // import Form from 'antd/lib/form/Form';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
