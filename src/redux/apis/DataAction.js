@@ -1003,7 +1003,7 @@ export const getUserRights = (data) => {
 export const getSideAndTopNavBar = (data) => {
     return apiFetchDotNet('/Users/SideAndTopNavBar', "POST", headerDotNetWithJwt, JSON.stringify(data));
 }
-export const insertSideNavandTop = (data) => {
+export const insertSideNavandTopApi = (data) => {
     return apiFetchDotNet('/Users/AddTopandNav', "POST", headerDotNetWithJwt, JSON.stringify(data));
 }
 

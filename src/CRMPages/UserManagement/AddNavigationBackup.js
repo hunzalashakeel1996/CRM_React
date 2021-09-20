@@ -1,20 +1,21 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Select, Tabs, Table, Upload, Row, Col, Switch, Checkbox, Collapse, Spin,notification } from 'antd';
+import { Input, Select, Tabs, Table, Upload, Row, Col, Switch, Checkbox, Collapse, Spin, notification } from 'antd';
 import { Button, BtnGroup } from '../../components/buttons/buttons';
 import FeatherIcon from 'feather-icons-react';
 import { PageHeader } from '../../components/page-headers/page-headers';
 import { Drawer } from '../../components/drawer/drawer';
 import { Cards } from '../../components/cards/frame/cards-frame';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSideAndTopNavBar,insertSideNavandTop } from '../../redux/apis/DataAction';
+import { getSideAndTopNavBar, insertSideNavandTop } from '../../redux/apis/DataAction';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import startOfYesterday from 'date-fns/startOfYesterday';
+import e from 'cors';
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 const { TextArea } = Input;
 
-const AddNavigationView = (props) => {
+const AddNavigationTab = (props) => {
     const dispatch = useDispatch();
     let parent = [];
     let child = [];
@@ -38,159 +39,138 @@ const AddNavigationView = (props) => {
         childBarList: [],
         parentBarList: [],
         dataSource: [],
-        selectParentBar: [''],
-        selectChildBar: [''],
-        selectTopBar: [],
+        selectParentBar: '',
+        selectChildBar: '',
+        selectTopBar: '',
         statusParent: 'Enabled',
         statusChild: 'disabled',
         statusTop: 'disabled',
-        type:'',
-        status: ''
-
+        type: '',
+        status: '',
+        selectedId: null,
+        onChecked: false,
+        isLoader: true,
     })
-    const { type,selectParentBar,selectTopBar,selectChildBar, parentbar, childBar, topBar, dataSource, parentBarList, statusParent, statusChild, statusTop, childBarList, tempNavigationObject, status } = state
+    const { type, selectParentBar, selectTopBar, selectChildBar, parentbar, childBar, topBar, dataSource, parentBarList, statusParent, statusChild, statusTop, childBarList, tempNavigationObject, status, selectedId } = state
     useEffect(() => {
 
         dispatch(getSideAndTopNavBar()).then(data => {
-            // console.log(data)
-
-            // // console.log(JSON.parse(data.top_navigation))
-            //JSON.stringify(data)
             data.map(value => {
-
                 const { parent_bar, child_bar, top_navigation } = value;
                 parent.push(
                     parent_bar
-                    //   Parent: <span style={{ color: 'black' }} className="date-started">{parent_bar}</span>,
                 )
-
-                // JSON.parse(child_bar).map(child=>{
-                //     //  // console.log('child',value)
-                //     temp.push({
-                //      //   Parent: <span style={{ color: 'black' }} className="date-started">{value}</span>,
-                //      parent_bar: <span style={{ color: 'black' }} className="date-started">{child}</span>,
-                //         // 'childBar':child
-                //     })
-
-                //     JSON.parse(top_navigation)[child].map(top=>{
-                //         //  // console.log('child',value)
-                //         temp.push({
-                //         //     'topBar':top
-                //      //   Parent: <span style={{ color: 'black' }} className="date-started">{value}</span>,
-                //     //    Child: <span style={{ color: 'black' }} className="date-started">{child}</span>,
-                //     child: <span style={{ color: 'black' }} className="date-started">{top}</span>,
-                //         })
-
-                //     })   
-                // })   
-
-
-                // // console.log('child',child)
             })
 
-            // // console.log(temp.da)   
-            setState({ ...state, parentbar: parent, dataSource: data })
+            setState({ ...state, parentbar: parent, dataSource: data, isLoader: false })
         })
 
 
     }, []);
 
-
-    //  const columns = [
-    //       {
-    //         title: 'Parent',
-    //         dataIndex: 'Parent',
-    //         key: 'Parent',
-    //       },
-    //       {
-    //         title: 'Child',
-    //         dataIndex: 'parent_bar',
-    //         key: 'parent_bar',
-    //       },
-    //       {
-    //         title: 'Top',
-    //         dataIndex: 'child',
-    //         key: 'child',
-    //       }
-
-    //     ];
-    const selectParent = (data) => {
-        var filter = dataSource.filter(val => val.parent_bar === data)
-        setState({ ...state, statusParent: 'disabled', statusChild: 'Enabled', parentBarList: filter[0].parent_bar, childBar: JSON.parse(filter[0].child_bar), childBarList: data })
-    }
-    const selectChild = (data) => {
-
-        var filterParent = dataSource.filter(val => val.parent_bar === parentBarList)
-
-        setState({ ...state, statusChild: 'disabled', statusTop: 'Enabled', topBar: JSON.parse(filterParent[0].top_navigation)[data], selectChildBar: data })
-    }
-    // const createParent = (data) => {
-       
-    //     setState({ ...state, selectParentBar: [data],type:'Parent'  ,statusChild: 'Enabled' })     
-    //     NavigationObject.parent_bar =[data]    
-    //     NavigationObject.child_bar = [...selectChildBar]
-    //     NavigationObject.top_navigation = [...selectTopBar]
-    //     NavigationObject.type = type
-    //     // console.log(NavigationObject)
-  
-    // }
-    // const createChild = (data) => {
-    //     setState({ ...state, selectChildBar:[data],type:'Child'  , statusTop: 'Enabled' })
-    //     NavigationObject.parent_bar = [...selectParentBar]
-    //     NavigationObject.child_bar = [data]
-    //     NavigationObject.top_navigation = [...selectTopBar]
-    //     NavigationObject.type = 'Child'
-    //     // console.log(NavigationObject)
-  
-    // }
-    // const createTop= (data) => {
-    //     setState({ ...state, selectTopBar:[data],type:'Top'  })
-    //     NavigationObject.parent_bar = [...selectParentBar]
-    //     NavigationObject.child_bar = [...selectChildBar]
-    //     NavigationObject.top_navigation = [data]
-      
-    //     NavigationObject.type = 'Top'
-    //     // console.log(NavigationObject)
-  
-    // }
-
-    const insertData = (value, name, selectedObjectName, enableName)=> {
-        let temp = {...tempNavigationObject}
-        temp[name] = [value]
-        setState({...state, tempNavigationObject: temp, selectedObjectName: [value], status: enableName})
+    const selectParent = (val) => {
+        let tempChilds = dataSource.filter(value => value.parent_bar === val)
+        console.log('aaaa', tempChilds)
+        setState({ ...state, selectParentBar: val ? val : '', childBar: tempChilds.length > 0 ? JSON.parse(tempChilds[0].child_bar) : [], selectChildBar: '', selectTopBar: '', selectedId: tempChilds.length > 0 ? tempChilds[0].id : null })
     }
 
+    const onParentEdit = (event) => {
+        let tempDataSource = [...dataSource]
+        // edit a existing
+        if (selectedId !== null) {
+            let tempIndex = tempDataSource.findIndex(value => value.id === selectedId)
+            tempDataSource[tempIndex].parent_bar = event.target.value
+            setState({ ...state, dataSource: [...tempDataSource], selectParentBar: event.target.value })
 
-    // const createChildParentexists = (data) => {
+        }
+        // create new 
+        else {
+            tempDataSource.push({ id: tempDataSource[tempDataSource.length - 1].id + 1, parent_bar: event.target.value, child_bar: JSON.stringify([]), top_navigation: JSON.stringify({}) })
+            setState({ ...state, dataSource: [...tempDataSource], selectedId: tempDataSource[tempDataSource.length - 1].id, selectParentBar: event.target.value })
+        }
+    }
+
+    const selectChild = (val) => {
+        let tempChilds = dataSource.filter(value => value.id === selectedId)
+        tempChilds = JSON.parse(tempChilds[0].top_navigation)[val]
+        setState({ ...state, selectChildBar: val ? val : '', selectTopBar: '', topBar: val ? tempChilds : [] })
+    }
+
+    const onEditChildBar = (e) => {
+        let singleRow = dataSource.filter(value => value.id === selectedId) // compete object of selected id 
        
-    //     var filter = dataSource.filter(val => val.parent_bar === parentBarList)
-    //     var childArray = [] = JSON.parse(filter[0].child_bar)
-    //     childArray.push(data)
-    //     NavigationObject.type = 'Child'
-    //     NavigationObject.parent_bar = parentBarList
-    //     NavigationObject.top_navigation = JSON.parse(filter[0].top_navigation)
-    //     NavigationObject.child_bar = childArray
-    //     // console.log(NavigationObject)
-    
-    // }
-    // const createTopParentandNavexists = (data) => {
-    //     var filter = dataSource.filter(val => val.parent_bar === parentBarList)
-    //     var childArray = [] = JSON.parse(filter[0].child_bar)
-    //     var topobject = JSON.parse(filter[0].top_navigation);
+        let tempChilds = JSON.parse(singleRow[0].child_bar) // child bars of selected id 
+        // console.log('5', tempChilds)
+        let tempTopNav = JSON.parse(singleRow[0].top_navigation)    // top navigation object of selected id
+        let tempIndex = tempChilds.findIndex(value => value === selectChildBar) // index of edited object inside child bar array
+        // if add new child bar 
+        if (tempIndex === -1) {
+            tempChilds.push(e.target.value)
+            tempTopNav[e.target.value] = [] // create empty top navigation child for the new child bar
+        }
+        // if edit existing 
+        else {
+            tempTopNav[e.target.value] = [...tempTopNav[tempChilds[tempIndex]]] // copy top navigation of old name of child bar and set top navigation value to the new name
+           
+            // console.log('5', [...tempTopNav[tempChilds[tempIndex]]])
+            delete tempTopNav[tempChilds[tempIndex]]    // delete old name child bar object from top navigation
+            tempChilds[tempIndex] = e.target.value
+            console.log(tempChilds[tempIndex])
+            // if(tempChilds[tempIndex] == "")
+            // {
+            //    console.log('coming')
+            //    console.log(tempTopNav[e.target.value])
+            // }
+            // console.log(tempChilds[tempIndex])
+        }
+        let tempDataSource = [...dataSource]
+        let tempParetIndex = tempDataSource.findIndex(value => value.parent_bar === selectParentBar)    // index of edit row from complete data source
+        tempDataSource[tempParetIndex].child_bar = JSON.stringify(tempChilds)   // edit child bar value inside data source
+        tempDataSource[tempParetIndex].top_navigation = JSON.stringify(tempTopNav)  // set top navigation of child bar inside data source
+        // console.log('4567, ', tempDataSource[tempParetIndex])
+        setState({ ...state, selectChildBar: e.target.value, dataSource: [...tempDataSource], topBar: tempTopNav[e.target.value] })
+    }
 
-    //     topobject[selectChildBar].push(data)
+    const onEditTopBar = (val) => {
+        let singleRow = dataSource.filter(value => value.id === selectedId) // complete object of selected id 
+        // console.log('134', dataSource)
+
+        let tempTopNav = JSON.parse(singleRow[0].top_navigation)   // top navigation object of selected id
+        let tempIndex = tempTopNav[selectChildBar].findIndex(value => value === selectTopBar) // index of edited object inside child bar array
+        console.log('2', tempTopNav[selectChildBar])
+        // if add new child bar 
+        if (tempIndex === -1) {
+            tempTopNav[selectChildBar].push(val)
+        }
+        // if edit existing 
+        else {
+            tempTopNav[selectChildBar][tempIndex] = val
+        }
+        let tempDataSource = [...dataSource]
+        let tempParetIndex = tempDataSource.findIndex(value => value.parent_bar === selectParentBar)    // index of edit row from complete data source
+        tempDataSource[tempParetIndex].top_navigation = JSON.stringify(tempTopNav)  // set top navigation of child bar inside data source
+        console.log('1', tempDataSource[tempParetIndex])
+        setState({ ...state, dataSource: tempDataSource, selectTopBar: val })
+    }
 
 
-    //     NavigationObject.type = 'Top'
-    //     NavigationObject.parent_bar = parentBarList
-    //     NavigationObject.child_bar = childArray
-    //     NavigationObject.top_navigation = topobject
-    //     // console.log(NavigationObject)
-    // }
-    const InsertSideNavandTop =()=>{
-       
-        // console.log('asdsdfzdf', tempNavigationObject)
-        dispatch(insertSideNavandTop(tempNavigationObject)).then(data => {
+    const onCheckboxClick = (data) => {
+        console.log(data.target.checked);
+        if (data.target.checked == true) {
+            console.log('OK bye')
+            setState({ ...state, onChecked: true })
+        }
+        else {
+            setState({ ...state, onChecked: false })
+        }
+    }
+
+    const InsertSideNavandTop = () => {
+        let result = dataSource.filter(val => val.id === selectedId)
+
+        result[0]['isNew'] = state.onChecked;
+        console.log('asdsdfzdf', result[0])
+        dispatch(insertSideNavandTop(result[0])).then(data => {
 
             notification.success({
                 message: `Successfull Start ${data}`,
@@ -202,70 +182,85 @@ const AddNavigationView = (props) => {
     }
 
     return (
-        // <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoading} >
+        <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
 
-        <>
-            <PageHeader title="Add navigation" />
-            <Row>
-                <Cards title="Add navigation"  >
-                    <Row style={{ marginTop: 20 }}>
+            <>
+                {/* <PageHeader title="Add navigation" /> */}
+                <Row>
+                    <Cards title="Add/Update navigation"  >
+                        <Row>
+                            <Col span={3}>
+                                <text>New parent tab..?</text>
+                            </Col>
+                            <Col span={21}>
 
-                        <Col span={8} >
-                            <Select allowClear style={{ width: 300 }} onChange={(val) => { selectParent(val) }} >
-                                {parentbar.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
+                                <Checkbox
+                                    type="checkbox"
+                                    //     label={label}
+                                    onChange={(val) => { onCheckboxClick(val) }}
+                                //     key={label}
+                                />
+                            </Col>
+                        </Row>
+                        <Row style={{ marginTop: 10 }}>
 
-                                ))}
+                            <Col span={8} >
+                                <Select disabled={state.onChecked} allowClear style={{ width: 300 }} onChange={(val) => { selectParent(val) }} value={selectParentBar}>
+                                    {parentbar.map((val, i) => (
+                                        <Option value={val} key={val}>{val}</Option>
 
-                            </Select>
-                        </Col>
-                        <Col span={8} >
-                            <Select style={{ width: 300 }} onChange={(val) => { selectChild(val) }} >
-                                {childBar.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
+                                    ))}
 
-                                ))}
+                                </Select>
+                            </Col>
+                            <Col span={8} >
+                                {/* <Select style={{ width: 300 }} onChange={(val) => { selectChild(val) }} > */}
+                                <Select disabled={state.onChecked} allowClear style={{ width: 300 }} onChange={(val) => { selectChild(val) }} value={selectChildBar}>
+                                    {childBar.map((val, i) => (
+                                        <Option value={val} key={val}>{val}</Option>
 
-                            </Select>
-                        </Col>
+                                    ))}
 
-                        <Col span={8} >
-                            <Select style={{ width: 300 }} >
-                                {topBar.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
-                                ))}
+                                </Select>
+                            </Col>
 
-                            </Select>
-                        </Col>
+                            <Col span={8} >
+                                <Select disabled={state.onChecked} allowClear style={{ width: 300 }} onChange={val => { setState({ ...state, selectTopBar: val ? val : '' }) }} value={selectTopBar}>
+                                    {topBar.map((val, i) => (
+                                        <Option value={val} key={val}>{val}</Option>
+                                    ))}
 
-                    </Row>
-                    <Row style={{ marginTop: 20 }}>
+                                </Select>
+                            </Col>
 
-                        <Col span={8} >
-                            <Input onChange={(event) => { insertData(event.target.value, 'parent_bar', 'selectParentBar', 'parent') }} style={{ width: 300 }} placeholder="Parent name" />
-                        </Col>
+                        </Row>
+                        <Row style={{ marginTop: 20 }}>
 
-                        <Col span={8} >
-                            <Input disabled={(selectParentBar[0].length<0) ? true : false} onChange={(event) => { insertData(event.target.value, 'child_bar', 'selectChildBar', 'child') }} style={{ width: 300 }} placeholder="Child name" />
-                        </Col>
+                            <Col span={8} >
+                                <Input onChange={(event) => { onParentEdit(event) }} style={{ width: 300 }} placeholder="Parent name" value={selectParentBar} />
+                            </Col>
 
-                        <Col span={8} >
-                            <Input disabled={(selectChildBar[0].length < 0) ? true : false} onChange={(event) => { insertData(event.target.value, 'top_navigation', 'selectTopBar', 'top') }} style={{ width: 300 }} placeholder="Top bar" />
-                        </Col>
+                            {selectParentBar !== '' && <Col span={8} >
+                                <Input onChange={(event) => { onEditChildBar(event) }} style={{ width: 300 }} placeholder="Child name" value={selectChildBar} />
+                            </Col>}
 
-                    </Row>
-                    <Row style={{ marginTop: 20 }}>
+                            {selectChildBar !== '' && <Col span={8} >
+                                <Input onChange={(event) => { onEditTopBar(event.target.value) }} style={{ width: 300 }} placeholder="Top bar" value={selectTopBar} />
+                            </Col>}
 
-                        <Col span={8} >
-                             <Button size="large"  type="primary" onClick={InsertSideNavandTop} >Create</Button>
-                        </Col>
-                    </Row>
-                </Cards>
-            </Row>
-        </>
-        // </Spin>
+                        </Row>
+                        <Row style={{ marginTop: 20 }}>
+
+                            <Col span={8} >
+                                <Button type="primary" onClick={InsertSideNavandTop} >Create</Button>
+                            </Col>
+                        </Row>
+                    </Cards>
+                </Row>
+            </>
+        </Spin>
     );
 };
 
-export default AddNavigationView;
+export default AddNavigationTab;
 
