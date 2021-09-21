@@ -117,7 +117,7 @@ const ShippingUpdate = (props) => {
                                    
                                    <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                    
-                                           <Button size="default" type="success" onClick={shippingUpdateFile} > Download </Button>
+                                           <Button size="default" type="success" onClick={shippingUpdateFile} > Insert </Button>
                                     
                                    </div>
                                </Col>
