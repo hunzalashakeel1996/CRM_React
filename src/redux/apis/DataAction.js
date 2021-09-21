@@ -366,6 +366,11 @@ export const getDupicateTracking= (data) => {
 export const GetWeightforAmazonLabelUpoadFile = (data) => {
     return apiFetchDotNet('/Edit/AmazonWeightDownload', "POST", multipartHeader, data);
 };
+
+export const Getshipping_insertUpoadFile = (data) => {
+    return apiFetchDotNet('/Edit/shipping_insert', "POST", multipartHeader, data);
+};
+
 //Label calculation Download 
 
 export const GetWeightforAmazonLabelDownload = (data) => {
