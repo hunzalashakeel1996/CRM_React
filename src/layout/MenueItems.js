@@ -187,6 +187,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'Shipping Update',
         title: 'Shipping Update',
         path: `${path}/shipping/shippingUpdate`
+      } ,
+      {
+        key: 'Walmart Canada Shipping',
+        title: 'Walmart Canada Shipping',
+        path: `${path}/shipping/WalmartCanadaShipping`
       }
     ]
     },
