@@ -1,25 +1,25 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input,Form, Tabs, Table, Upload, Row, Col, notification, Modal } from 'antd';
+import { Input,Form, Tabs, Table, Upload, Row, Col, notification, Modal,Spin } from 'antd';
 import { Button, BtnGroup } from '../../../../components/buttons/buttons';
 import { Drawer } from '../../../../components/drawer/drawer';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { useDispatch, useSelector } from 'react-redux';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { insertEndiciaShipingSheet, endiciaShipingValidation,endiciaShipingCreateShiping,multipleCreateLabel,endiciaShipingcheckcount,endiciaVerifyLabel } from '../../../../redux/apis/DataAction';
+import { insertFedexShipingSheet,insertFedexShipingSheetvalidation,createShipingFedex, endiciaShipingValidation,endiciaShipingCreateShiping,multipleCreateLabel,endiciaShipingcheckcount,endiciaVerifyLabel } from '../../../../redux/apis/DataAction';
 // import Form from 'antd/lib/form/Form';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 const validateMessages = {
     required: '${name} is required!',
     types: {
-      email: '${name} is not validate email!',
-      number: '${name} is not a validate number!',
+        email: '${name} is not validate email!',
+        number: '${name} is not a validate number!',
     },
     number: {
-      range: '${name} must be between ${min} and ${max}',
+        range: '${name} must be between ${min} and ${max}',
     },
-  };
+};
 const WalmartCanadaShip = (props) => {
     const [form] = Form.useForm();
     const [state, setState] = useState({
@@ -31,10 +31,11 @@ const WalmartCanadaShip = (props) => {
         dataSource: [],
         checkCount:'',
         orderno: [],
+        isLoader: false,
     });
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch()
-    const { file,dataSource,checkCount,orderno } = state
+    const { file,dataSource,checkCount,orderno,isLoader } = state
     let counter = 0;
   
     const columns = [
@@ -98,7 +99,8 @@ const WalmartCanadaShip = (props) => {
 
     };
 
-    const insertEndiciaSheet = () => {
+    const insertFedexSheet = () => {
+        setState({ ...state, isLoader: true});
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
 
@@ -106,27 +108,28 @@ const WalmartCanadaShip = (props) => {
 
         formData.append('user', username.LoginName);
         formData.append('File', file);
-        dispatch(insertEndiciaShipingSheet(formData)).then(data => {
-
+        dispatch(insertFedexShipingSheet(formData)).then(data => {
+            // console.log(data)
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
-                message: `Successfull  ${data}`,
+                message: `Successfull file uploaded  ${data}`,
                 description: `Successfully Report`,
                 onClose: close,
             });
-            location.reload();
+            // location.reload();
+            setState({ ...state, isLoader: false});
         })
     };
-    const startEndiciaShipping = () => {
-
-        dispatch(endiciaShipingValidation()).then(data => {
-            // console.log(data)
+    const startFedexShipping = () => {
+        setState({ ...state, isLoader: true});
+        dispatch(insertFedexShipingSheetvalidation()).then(data => {
+       
             let datasources = []
 
             if (data.length)
                 data.map(value => {
 
-                    const { orderno, MailClass, Label_Weight_float } = value;
+                    const { orderno, Dimension } = value;
 
                     datasources.push({
                         key: counter++,
@@ -134,22 +137,22 @@ const WalmartCanadaShip = (props) => {
                         orderno: <span style={{ color: 'black' }} className="date-started">{orderno}</span>,
                       
                         description: <span style={{ color: 'black' }} className="date-started">
-                            {MailClass == "" || null ? "Mailclass Not Valid " : ""}
-                            {Label_Weight_float == "" || null ? "Label Weight . Error" : ""}
-                        </span>
+                            {Dimension == "" || null ? "Dimension Not Valid " : ""}
+                          
+                                     </span>
                           });
                 });
-
-            setState({ ...state, dataSource: datasources })
+           
+            setState({ ...state, dataSource: datasources, isLoader: false })
         })
         setVisible(true)
     };
-    const createEndiciaShipinglabel = () => {
+    const createFedexShipinglabel = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
 
-   
-        dispatch(endiciaShipingCreateShiping({ user: username.LoginName })).then(data => {
+        setState({ ...state, isLoader: true});
+        dispatch(createShipingFedex({ user: username.LoginName })).then(data => {
 
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
@@ -157,7 +160,7 @@ const WalmartCanadaShip = (props) => {
                 description: `Successfully Report`,
                 onClose: close,
             });
-            location.reload();
+            setState({ ...state, isLoader: false});
         })
     };
     const checkEndiciaLabel =()=>{
@@ -216,15 +219,16 @@ const verifyLabel = () => {
 };
     return (
         <>
+          <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row style={{}}>
-                <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
+                <Cards title="Walmart Canada Shiping Label" caption="The simplest use of Drawer" >
                 
                     <Row gutter={25}>
                         <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 1</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
 
-                                 <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertEndiciaSheet}> Insert Shipping</Button>
+                                 <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertFedexSheet}> Insert Shipping</Button>
 
                                 <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
 
@@ -233,17 +237,17 @@ const verifyLabel = () => {
                         <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 2</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                 <Button size="large"  type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={startEndiciaShipping}> Start Endicia Shipping</Button>
+                                 <Button size="large"  type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={startFedexShipping}> Start Walmart Canada Shipping</Button>
 
-                                {/* </Cards> */}
+                          
                             </div>
                         </Col>
-                        <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
+                        {/* <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Step 3</h3></div>
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                              <Button size="large"  type="success"  style={{backgroundColor: '#42ba96',  color:'white'}} onClick={checkEndiciaLabel}>Check Endicia Label</Button>
                            
-                                {/* </Cards> */}
+                               
                             </div>
                         </Col>
                         <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
@@ -251,12 +255,13 @@ const verifyLabel = () => {
                             <div className="atbd-drawer" style={{ marginRight: 0 }}>
                              <Button size="large"  type="primary" onClick={checkEndiciaLabelCount}> Today Count</Button>:{checkCount}
                             
-                                {/* </Cards> */}
+                             
                             </div>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Cards>
             </Row>
+          
             {/* Check Labels Here Div  */}
             <Row style={{}}>
                 <Cards title="Check Labels Here" caption="The simplest use of Drawer" >
@@ -296,12 +301,12 @@ const verifyLabel = () => {
                     </Row>
                 </Cards>
             </Row>
-
+            </Spin>
             <Modal
-                title="Endicia Create Label Validation"
+                title="Walamrt Canada Create Label Validation"
                 centered
                 visible={visible}
-                onOk={createEndiciaShipinglabel}
+                onOk={createFedexShipinglabel}
 
                 onCancel={() => setVisible(false)}
                 width={1000} >
