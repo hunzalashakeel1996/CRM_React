@@ -300,6 +300,10 @@ export const multipleCreateLabel = (data) => {
 export const endiciaVerifyLabel = (data) => {
     return apiFetchDotNet('/Endicia_shiping/verify_label', "POST", headerDotNetWithJwt,  JSON.stringify(data));
 };
+//Fedex Verify Label
+export const fedexVerifyLabel = (data) => {
+    return apiFetchDotNet('/walmart/verify_label', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+};
 //Endicia Rizno shiping sheet 
 export const insertRiznoEndiciaShipingSheet  = (data) => {
     return apiFetchDotNet('/Newshipping/rizno_shipping_File', "POST", multipartHeader, data);

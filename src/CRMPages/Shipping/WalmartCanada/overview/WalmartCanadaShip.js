@@ -6,7 +6,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { useDispatch, useSelector } from 'react-redux';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { insertFedexShipingSheet,insertFedexShipingSheetvalidation,createShipingFedex, endiciaShipingValidation,endiciaShipingCreateShiping,multipleCreateLabel,endiciaShipingcheckcount,endiciaVerifyLabel } from '../../../../redux/apis/DataAction';
+import { fedexVerifyLabel,insertFedexShipingSheet,insertFedexShipingSheetvalidation,createShipingFedex, endiciaShipingValidation,endiciaShipingCreateShiping,multipleCreateLabel,endiciaShipingcheckcount,endiciaVerifyLabel } from '../../../../redux/apis/DataAction';
 // import Form from 'antd/lib/form/Form';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -189,7 +189,7 @@ const refreshPage =()=>{
 }
 const verifyLabel = () => {
 
-    dispatch(endiciaVerifyLabel({ms:orderno})).then(data => {
+    dispatch(fedexVerifyLabel({ms:orderno})).then(data => {
         // console.log(data)
         let datasources = []
 
