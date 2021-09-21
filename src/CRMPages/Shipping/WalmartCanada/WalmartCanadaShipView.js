@@ -10,7 +10,7 @@ const WalmartCanadaShipView = (props) => {
     const [activeTab, setActiveTab] = useState('');
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Walmart Canada Shipping'];
-    console.log(tabChildBar)
+    // console.log(tabChildBar)
     useEffect(() => {
         checkPageAccess(userAccess, 'Shipping', "Walmart Canada Shipping", props.history)
     })

@@ -21,10 +21,10 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
- // export const urlDotNet ="http://localhost:47463/api"
+  export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-export const urlDotNet = "https://crm.rizno.com/api"
+//export const urlDotNet = "https://crm.rizno.com/api"
 
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -264,6 +264,19 @@ export const nonAmazongenerateFeed  = (data) => {
 export const insertEndiciaShipingSheet  = (data) => {
     return apiFetchDotNet('/Newshipping/InsertEndiciaWeight', "POST", multipartHeader, data);
 };
+//Fedex shiping sheet 
+export const insertFedexShipingSheet  = (data) => {
+    return apiFetchDotNet('/Walmart/InserCAWeight', "POST", multipartHeader, data);
+};
+//Fedex shiping validation
+export const insertFedexShipingSheetvalidation  = (data) => {
+    return apiFetchDotNet('/Walmart/label_validation', "POST", multipartHeader, data);
+};
+//Creat Fedex shiping 
+export const createShipingFedex  = (data) => {
+    return apiFetchDotNet('/Walmart/WalamrtCA_shipping', "POST", headerDotNetWithJwt, data);
+};
+
 //Endicia Shiping Validation 
 export const endiciaShipingValidation = (data) => {
     return apiFetchDotNet('/Endicia_shiping/endicia_shiping_validation', "POST", headerDotNetWithJwt,  JSON.stringify(data));
@@ -286,6 +299,10 @@ export const multipleCreateLabel = (data) => {
 //Endicia Verify Label
 export const endiciaVerifyLabel = (data) => {
     return apiFetchDotNet('/Endicia_shiping/verify_label', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+};
+//Fedex Verify Label
+export const fedexVerifyLabel = (data) => {
+    return apiFetchDotNet('/walmart/verify_label', "POST", headerDotNetWithJwt,  JSON.stringify(data));
 };
 //Endicia Rizno shiping sheet 
 export const insertRiznoEndiciaShipingSheet  = (data) => {
@@ -366,6 +383,9 @@ export const getDupicateTracking= (data) => {
 export const GetWeightforAmazonLabelUpoadFile = (data) => {
     return apiFetchDotNet('/Edit/AmazonWeightDownload', "POST", multipartHeader, data);
 };
+
+
+
 //Label calculation Download 
 
 export const GetWeightforAmazonLabelDownload = (data) => {
