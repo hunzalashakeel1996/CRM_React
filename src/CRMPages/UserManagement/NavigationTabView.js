@@ -8,7 +8,7 @@ import { checkPageAccess } from '../../components/utilities/utilities';
 const { TabPane } = Tabs;
 
 const NavigationTabView = (props) => {
-    const [activeTab, setActiveTab] = useState('');
+    const [activeTab, setActiveTab] = useState('Delete Navigation');
 
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];

@@ -21,7 +21,7 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
-//  export const urlDotNet ="http://localhost:47463/api"
+ // export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
 export const urlDotNet = "https://crm.rizno.com/api"
@@ -760,6 +760,12 @@ export const getUploadmarketplace_weightapi = (data) => {
  
     return apiFetchDotNet('newInventory/Uploadmarketplace_weight', "POST", multipartHeader, data );
 };
+//Shipping Update Update void
+export const getShippingUpdateapi = (data) => {
+ console.log()
+    return apiFetchDotNet('Edit/shipping_insert', "POST", multipartHeader, data );
+};
+
 //Marketplace place Weight Update
 export const apiWalmartCustomerEmail = (data) => {
  
@@ -1003,7 +1009,7 @@ export const getUserRights = (data) => {
 export const getSideAndTopNavBar = (data) => {
     return apiFetchDotNet('/Users/SideAndTopNavBar', "POST", headerDotNetWithJwt, JSON.stringify(data));
 }
-export const insertSideNavandTop = (data) => {
+export const insertSideNavandTopApi = (data) => {
     return apiFetchDotNet('/Users/AddTopandNav', "POST", headerDotNetWithJwt, JSON.stringify(data));
 }
 
