@@ -136,7 +136,7 @@ const ReportPNLView = () => {
       dispatch(apiSummaryReportItemWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
       dispatch(apiSummaryReportPriceWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
     ]).then((data) => {
-      //console.log('data', data)
+      console.log('data', data)
       //Order PNL
       data[0][1].map(value => {
 
