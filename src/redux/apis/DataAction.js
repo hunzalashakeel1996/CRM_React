@@ -274,7 +274,7 @@ export const insertFedexShipingSheetvalidation  = (data) => {
 };
 //Creat Fedex shiping 
 export const createShipingFedex  = (data) => {
-    return apiFetchDotNet('/Walmart/WalamrtCA_shipping', "POST", headerDotNetWithJwt, JSON.stringify(data));
+    return apiFetchDotNet('/Walmart/WalmartCA_shipping', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Endicia Shiping Validation 
