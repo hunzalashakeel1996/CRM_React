@@ -150,18 +150,33 @@ const WalmartCanadaShip = (props) => {
     const createFedexShipinglabel = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
-
+        setVisible(false)
         setState({ ...state, isLoader: true});
         dispatch(createShipingFedex({ user: username.LoginName })).then(data => {
+            console.log(data)
+          
+            let datasources = []
 
-            //   message.success(`file uploaded Update ${data}`);
-            notification.success({
-                message: `Successfull  ${data}`,
-                description: `Successfully Report`,
-                onClose: close,
-            });
-            setState({ ...state, isLoader: false});
-        })
+            if (data.length>0){
+                data.map(value => {
+
+                    const { orderno } = value;
+
+                    datasources.push({
+                        key: counter++,
+                        orderno: <span style={{ color: 'black' }} className="date-started">{Key}</span>,
+                        description: <span style={{ color: 'black' }} className="date-started">{Value}</span>
+                     
+                });
+            
+            setState({ ...state, dataSource: datasources, isLoader: false })
+                })
+                setVisible(true)
+            }
+            setVisible(false)
+    
+    })
+   
     };
     const checkEndiciaLabel =()=>{
         dispatch(multipleCreateLabel()).then(data => {
