@@ -114,7 +114,7 @@ const EndiciaShipmentView = (props) => {
                 description: `Successfully Report`,
                 onClose: close,
             });
-            location.reload();
+            // location.reload();
         })
     };
     const startEndiciaShipping = () => {

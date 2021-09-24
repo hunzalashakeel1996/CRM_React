@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs,Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select,notification } from 'antd';
+import { Input, Tabs,Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select,notification,Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
@@ -9,7 +9,7 @@ import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
-import { apiWalmartCustomerEmail } from '../../../redux/apis/DataAction';
+import { apiWalmartCustomerEmail ,apiWalmartGetOrder} from '../../../redux/apis/DataAction';
 
 import './MarketplaceOrders.css';
 
@@ -62,11 +62,12 @@ const MarketplaceOrdersView = (props) => {
         checkData: [],
         checked: null,
         values: {},
-        Pono:[]
+        Pono:[],
+        isLoader: false,
     });
-    const {Pono }= state
+    const {Pono,isLoader }= state
     const multipleChange = childData => {
-        setState({ ...state, checkData: childData });
+        setstate({ ...state, checkData: childData });
     };
 
 
@@ -132,16 +133,13 @@ const MarketplaceOrdersView = (props) => {
         setstate({ ...state, isLoader: true })
         dispatch(apiWalmartCustomerEmail({  pono_: Pono })).then(data => {
             // console.log(data)
-            setstate({ ...state, isLoader: false })
-         
+            setstate({ ...state, isLoader: false })         
             downloadFile(data);
             notification.success({
                 message: 'Successfull Dowload',
                 description: `Successfully Download  WalmartCustomerEmail `,
                 onClose: close,
             });
-
-
         })
 
     };
@@ -150,35 +148,57 @@ const MarketplaceOrdersView = (props) => {
         console.log('getPOno',value)
         setstate({ ...state, Pono: value })
     }
+    const getWalmartOrderApi =()=> {
+
+        setstate({ ...state, isLoader: true});
+        dispatch(apiWalmartGetOrder()).then(data=>{
+                console.log('apiWalmartGetOrder',data)
+            notification.success({
+                message: 'Successfull Get Order ',
+                description: `Successfully Walmart Get order`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false});
+        })
+    }
     return (
         <>
+         <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row>
                 <Cards title="Get Walmart Orders (API) - USA" caption="The simplest use of Drawer" >
                 {/* <Form layout="inline" initialValue="" label="" form={form} id="Get Walmart Orders (API) - USA" name="nest-messages"  validateMessages={validateMessages}> */}
                     <Row gutter={15}>
-                        <Col lg={8} xs={24}  >
+                        <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>StartDate</h3></div>
-                            <Form.Item name="startDate" rules={[{ required: true }]}>
+                           
                                 <DatePicker style={{ padding: 10, width:'100%', }} onChange={onChange} />
-                                </Form.Item>
+                           
                         </Col>
-                        <Col lg={8} xs={24}  >
+                        <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>EndDate</h3></div>
-                            <Form.Item name="endDate" rules={[{ required: true }]}>
+                         
                                 <DatePicker style={{ padding: 10 }} onChange={onChange} />
-                                </Form.Item>
+                           
                         </Col>
 
-                        <Col lg={8} xs={24}  >
+                        <Col lg={6} xs={24}  >
                             <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
-                            <Form.Item >
-                                 <Button size="large"    type="success" htmlType="Submit">
+                        
+                                 <Button size="large"    type="success" >
                                     GetOrders
+                        </Button> 
+                        </Col>
+                        <Col lg={6} xs={24}  >
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders Api</h3></div>
+                         
+                                 <Button size="large"   type="success" onClick={getWalmartOrderApi}>
+                                    GetOrders Api
                         </Button>
 
-                        </Form.Item>
-                        </Col>
+                     
 
+                        
+                        </Col>
 
 
                     </Row>
@@ -280,7 +300,7 @@ const MarketplaceOrdersView = (props) => {
                     </Form>
                 </Cards>
             </Row>
-
+            </Spin>
 
 
 
