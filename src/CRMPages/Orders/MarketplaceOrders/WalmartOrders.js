@@ -9,7 +9,7 @@ import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
-import { apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
+import {apiWalmartGetCanadaOrderSheetMethod,apiWalmartGetCanadaOrderSheetUpload,apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
 
 import './MarketplaceOrders.css';
 
@@ -64,9 +64,10 @@ const MarketplaceOrdersView = (props) => {
         values: {},
         Pono: [],
         isLoader: false,
-        singlePonumber: []
+        singlePonumber: [],
+        file: ''
     });
-    const { Pono, isLoader, singlePonumber } = state
+    const { Pono, isLoader, singlePonumber, file } = state
     const multipleChange = childData => {
         setstate({ ...state, checkData: childData });
     };
@@ -178,6 +179,74 @@ const MarketplaceOrdersView = (props) => {
             setstate({ ...state, isLoader: false });
         })
     }
+
+    const insertWalmartUSAOrderSheet = () => {
+
+        setstate({ ...state, isLoader: true })
+        let username: []
+        username = JSON.parse(localStorage.getItem('user'))
+        const formData = new FormData();
+        formData.append('user', username.LoginName)
+        formData.append('file', file)
+
+        dispatch(apiWalmartGetUSAOrderSheetUpload(formData)).then(data => {
+
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false })
+        })
+    }
+      const getWalmartUSAOrdersheet = () => {
+        setstate({ ...state, isLoader: true })
+        dispatch(apiWalmartGetUSAOrderSheetMethod()).then(data => {
+
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false })
+        });
+    }
+    const changeHandler = (event) => {
+
+        setstate({ ...state, file: event.target.files[0] })
+
+    };
+    const insertWalmartCanadaOrderSheet = () => {
+        
+        setstate({ ...state, isLoader: true })
+        let username: []
+        username = JSON.parse(localStorage.getItem('user'))
+        const formData = new FormData();
+        formData.append('user', username.LoginName)
+        formData.append('file', file)
+
+        dispatch(apiWalmartGetOrderSheetUpload(formData)).then(data => {
+
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false })
+        })
+    }
+    const getWalmartCanadaOrdersheet = () => {
+        setstate({ ...state, isLoader: true })
+        dispatch(apiWalmartGetCanadaOrderSheetMethod()).then(data => {
+
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false })
+        });
+    }
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
@@ -259,28 +328,21 @@ const MarketplaceOrdersView = (props) => {
                     <Cards title="Get Walmart Orders (Sheet Method) - USA" caption="The simplest use of Drawer" >
                         <Row gutter={25}>
                             <Col lg={8} xs={24}>
-                                <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div>
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                     {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                    <Button size="large" type="success" htmlType="submit">
-                                        Upload Sheet
-                        </Button>
+                                    <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={insertWalmartUSAOrderSheet}> Insert Shipping</Button>
                                     <br></br>
-                                    <Upload >
-                                        <Button size="large" style={{ marginTop: 10 }} className="btn-outlined" size="large" type="light" outlined>
-                                            <UploadOutlined /> Click to Upload
-                </Button>
-                                    </Upload>
+                                    <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
                                     {/* </Cards> */}
                                 </div>
                             </Col>
 
                             <Col lg={8} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                    <Button size="large" type="success" htmlType="Submit">
-                                        GetOrders
-                        </Button>
+                                    <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={getWalmartUSAOrdersheet}> GetOrders</Button>
+
 
                                 </div>
                             </Col>
@@ -295,34 +357,31 @@ const MarketplaceOrdersView = (props) => {
                 {/* CANADA WALMART SHEET METHOD */}
                 <Row style={{}}>
                     <Cards title="Get Walmart Orders (Sheet Method) - Canada" caption="The simplest use of Drawer" >
-                        <Row gutter={25}>
+                    <Row gutter={25}>
                             <Col lg={8} xs={24}>
-                                <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div>
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                     {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                    <Button size="large" type="success" htmlType="submit">
-                                        Upload Sheet
-                        </Button>
+                                    <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertWalmartCanadaOrderSheet}> Insert Shipping</Button>
                                     <br></br>
-                                    <Upload >
-                                        <Button size="large" style={{ marginTop: 10 }} className="btn-outlined" size="large" type="light" outlined>
-                                            <UploadOutlined /> Click to Upload
-                </Button>
-                                    </Upload>
+                                    <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
                                     {/* </Cards> */}
                                 </div>
                             </Col>
 
                             <Col lg={8} xs={24}  >
-                                <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div>
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                    <Button size="large" type="success" htmlType="Submit">
-                                        GetOrders
-                        </Button>
+                                <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={getWalmartCanadaOrdersheet}> GetOrders</Button>
+                           
 
                                 </div>
                             </Col>
+
+
+
                         </Row>
+
                     </Cards>
                 </Row>
                 {/* WALMART EMAILS */}

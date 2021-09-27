@@ -106,6 +106,7 @@ const EndiciaShipmentView = (props) => {
 
         formData.append('user', username.LoginName);
         formData.append('File', file);
+        
         dispatch(insertEndiciaShipingSheet(formData)).then(data => {
 
             //   message.success(`file uploaded Update ${data}`);
