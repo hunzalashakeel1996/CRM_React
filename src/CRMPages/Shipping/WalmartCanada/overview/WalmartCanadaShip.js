@@ -126,22 +126,22 @@ const WalmartCanadaShip = (props) => {
        
             let datasources = []
 
-            // if (data.length)
-            //     data.map(value => {
+            if (data.length)
+                data.map(value => {
 
-            //         const { orderno, Dimension } = value;
+                    const { orderno, Dimension } = value;
 
-            //         datasources.push({
-            //             key: counter++,
+                    datasources.push({
+                        key: counter++,
 
-            //             orderno: <span style={{ color: 'black' }} className="date-started">{orderno}</span>,
+                        orderno: <span style={{ color: 'black' }} className="date-started">{orderno}</span>,
                       
-            //             description: <span style={{ color: 'black' }} className="date-started">
-            //                 {Dimension == "" || null ? "Dimension Not Valid " : ""}
+                        description: <span style={{ color: 'black' }} className="date-started">
+                            {Dimension == "" || null ? "Dimension Not Valid " : ""}
                           
-            //                          </span>
-            //               });
-            //     });
+                                     </span>
+                          });
+                });
            
             setState({ ...state, dataSource: datasources, isLoader: false })
         })
