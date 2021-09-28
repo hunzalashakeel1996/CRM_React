@@ -48,11 +48,12 @@ const OrderReportsView = (props) => {
         VendorName: null,
         values: {},
         isLoader: false,
+        values:''
     });
-    const {isLoader}= state
+    const {isLoader,values}= state
     const onChange = (value, key) => {
-        // // console.log('aaa', date, dateString)
-        setstate({ ...state, [key]: value });
+       console.log('aaa', value)
+        setstate({ ...state, [key]: value,values:value });
 
     };
 
@@ -154,10 +155,10 @@ const OrderReportsView = (props) => {
                         <Row gutter={50}>
                             <Col span={8} >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Select a Vendor</h3></div> */}
-                                <Form.Item name="Vendor Name" rules={[{ required: true }]}>
+                                {/* <Form.Item name="Vendor Name" > */}
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                   
-                                    <Select style={{ padding: 10 }} placeholder='Vendor Name'  allowClear  onChange={(VendorName) => { onChange(VendorName, 'VendorName') }}
+                                   {console.log(values)}
+                                    <Select value={values} style={{ padding: 10 }} placeholder='Vendor Name'  allowClear  onChange={(VendorName) => { onChange(VendorName, 'VendorName') }}
                                         filterOption={(input, option) =>
                                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                         } style={{ width: 300 }}  >
@@ -168,23 +169,23 @@ const OrderReportsView = (props) => {
 
                                 </Select>
                                 </div>
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
                             <Col span={8}   >
-                            <Form.Item name="startDate" rules={[{ required: true }]}>
+                            {/* <Form.Item name="startDate" rules={[{ required: true }]}> */}
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
                               
                                     <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
                                
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
                             <Col span={8}  >
-                            <Form.Item name="endDate" rules={[{ required: true }]}>
+                            {/* <Form.Item name="endDate" rules={[{ required: true }]}> */}
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
                                 
                                     <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'endDate') }} />
                                 
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
 
@@ -194,11 +195,11 @@ const OrderReportsView = (props) => {
                             <Col span={8}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                <Form.Item >
-                                     <Button size="large"     type="success" htmlType="Submit">
+                                {/* <Form.Item > */}
+                                     <Button size="large"     type="success" onClick={getBackOrderItemsReporting}>
                                         Download
                                       </Button>
-                                      </Form.Item>
+                                      {/* </Form.Item> */}
                                 </div>
                             </Col>
                         </Row>
