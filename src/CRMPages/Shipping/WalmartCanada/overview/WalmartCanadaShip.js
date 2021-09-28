@@ -157,22 +157,22 @@ const WalmartCanadaShip = (props) => {
           
             let datasources = []
 
-            if (data.length>0){
-                data.map(value => {
+            // if (data.length>0){
+            //     data.map(value => {
 
-                    const { orderno } = value;
+            //         const { orderno } = value;
 
-                    datasources.push({
-                        key: counter++,
-                        orderno: <span style={{ color: 'black' }} className="date-started">{Key}</span>,
-                        description: <span style={{ color: 'black' }} className="date-started">{Value}</span>
+            //         datasources.push({
+            //             key: counter++,
+            //             orderno: <span style={{ color: 'black' }} className="date-started">{Key}</span>,
+            //             description: <span style={{ color: 'black' }} className="date-started">{Value}</span>
                      
-                });
+            //     });
             
-            setState({ ...state, dataSource: datasources, isLoader: false })
-                })
-                setVisible(true)
-            }
+            // setState({ ...state, dataSource: datasources, isLoader: false })
+            //     })
+            //     setVisible(true)
+            // }
             setVisible(false)
     
     })
