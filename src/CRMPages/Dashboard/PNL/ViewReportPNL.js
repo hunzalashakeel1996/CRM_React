@@ -510,14 +510,16 @@ const ReportPNLView = () => {
       i++;
     }
 
-     //console.log('onSumAll',DataSource_summary_report_order_wise_All)
+    //  console.log('onSumAll',DataSource_summary_report_order_wise_All)
+     
+    //  console.log('onSumAll',[...DataSource_summary_report_order_wise_All])
     setstate({
       ...state,
       totalOrdersProfit: profit,
       totalOrdersLoss: Loss,
       totalOrdersSum: order,
       dataSourceOrdersummaryTempParentDownload: result.data,
-      dataSourceOrdersummaryTempParent: [...DataSource_summary_report_order_wise_All],
+      dataSourceOrdersummaryTempParent: DataSource_summary_report_order_wise_All,
       selectedFilter: 'All'
     })
 
@@ -824,7 +826,16 @@ const ReportPNLView = () => {
    
       priceSummarySumAll([...dataSourcePriceSummaryTempParentAll])
     }
-      // setstate({ ...state, dataSourcePriceSummaryTempParent: [...dataSourcePriceSummary], dataSourceItemsummaryTempParent: [...dataSourceItemsummary], dataSourceOrdersummaryTempParent: [...dataSourceOrdersummary], dataSourceOrderTempParent: [...dataSourceOrder], dataSourceItemTempParent: [...dataSourceItem], sellerType: ordertype, isSellerType: 'Enable' });
+  //  [...DataSource_summary_report_order_wise_All]
+  //dataSourceOrdersummaryTempParent
+  //[...dataSourceOrdersummary]
+  if (activeTab === 'OrderPNL') {
+    setstate({ ...state,dataSourceOrdersummaryTempParent: [...dataSourceOrdersummary], dataSourcePriceSummaryTempParent: [...dataSourcePriceSummary], dataSourceItemsummaryTempParent: [...dataSourceItemsummary],  dataSourceOrderTempParent: [...dataSourceOrder], dataSourceItemTempParent: [...dataSourceItem], sellerType: ordertype, isSellerType: 'Enable' });
+  }
+  if (activeTab === 'ItemPNL') {
+    setstate({ ...state,dataSourceOrdersummaryTempParent: [...dataSourceOrdersummary], dataSourcePriceSummaryTempParent: [...dataSourcePriceSummary], dataSourceItemsummaryTempParent: [...dataSourceItemsummary],  dataSourceOrderTempParent: [...dataSourceOrder], dataSourceItemTempParent: [...dataSourceItem], sellerType: ordertype, isSellerType: 'Enable' });
+  }
+     
       // setstate({ ...state, dataSourcePriceSummaryTempParent: [...dataSourcePriceSummary], dataSourceItemsummaryTempParent: [...dataSourceItemsummary],  dataSourceOrderTempParent: [...dataSourceOrder], dataSourceItemTempParent: [...dataSourceItem], sellerType: ordertype, isSellerType: 'Enable' });
 
     }
@@ -840,7 +851,7 @@ const ReportPNLView = () => {
     let loss_link = []
     let profit_link = []
     let ORDERTYPE = []
-     //console.log(data)
+     console.log('orderSummarySumAll',data)
     for (let i = 0; i < data.length; i++) {
 
 
@@ -1358,13 +1369,13 @@ const ReportPNLView = () => {
                     </Col>
                     {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
 
-                      <label style={{ fontSize: 13, fontWeight: 'bold' }}>Total Loss: </label>
-                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{Math.round(totalOrdersLoss * 100) / 100}</p>
+                      <label style={{ fontSize: 13, fontWeight: 'bold' }}>{(activeTab === 'OrderPNL'||activeTab === 'ItemPNL'||activeTab === 'PricePNLSummary') ? 'Total Loss': (activeTab === 'ItemPNLSummary')?'Total Loss Items' : 'Total Loss Orders'}: </label>
+                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{activeTab === 'PricePNLSummary' ? '$' : ''}{Math.round(totalOrdersLoss * 100) / 100}</p>
                     </Col>}
                     <Col >
 
-                      <label style={{ fontSize: 13, fontWeight: 'bold' }}>Total Profit: </label>
-                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>${Math.round(totalOrdersProfit * 100) / 100}</p>
+                      <label style={{ fontSize: 13, fontWeight: 'bold' }}>{(activeTab === 'OrderPNL'||activeTab === 'ItemPNL'||activeTab === 'PricePNLSummary') ? 'Total Profit' : (activeTab === 'ItemPNLSummary')?'Total Profit Items':'Total Profit Orders'}: </label>
+                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{activeTab === 'PricePNLSummary' ? '$' : ''}{Math.round(totalOrdersProfit * 100) / 100}</p>
                     </Col>
                     {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
 

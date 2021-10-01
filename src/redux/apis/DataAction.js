@@ -21,10 +21,10 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
-// export const urlDotNet ="http://localhost:47463/api"
+ export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-export const urlDotNet = "https://crm.rizno.com/api"
+//export const urlDotNet = "https://crm.rizno.com/api"
 
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -1169,6 +1169,11 @@ export const apiWalmartGetCanadaOrderSheetUpload = (data) => {
 export const apiWalmartGetCanadaOrderSheetMethod = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/walmart/ordersGet_canada', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const getOrderSearsApi = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/update/Ordersears', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 
