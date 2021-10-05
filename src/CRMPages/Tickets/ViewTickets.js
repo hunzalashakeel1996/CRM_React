@@ -15,7 +15,7 @@ import { Main } from '../styled';
 import CreateTicket from './overview/CreateTicket';
 import { ProjectHeader, ProjectSorting } from './style';
 import { useHistory } from "react-router-dom";
-
+import firebase from './../../firebase';
 const Grid = lazy(() => import('./overview/Grid'));
 const TicketsList = lazy(() => import('./overview/TicketsList'));
 import { Tabs } from 'antd';
@@ -44,11 +44,24 @@ const ViewTickets = (props) => {
 
   useEffect(() => {
     setState({ ...state, loader: true })
-    // dispatch(connectSocket(user.LoginID))
-    Notification.requestPermission().then(granted => {
-      console.log('grad', granted)
+    Notification.requestPermission().then(permission => {
+      console.log('grad', permission)
+      if(permission == 'denied'){
+        alert('Please give permission for notification from (i) icon')
+      }
      
+      if (permission == 'granted') {
+          firebase.messaging().getToken()
+            .then(token => {
+              // save token in data base api
+              console.log('token', token)
+            })
+            .catch(e => {
+              // console.log('check error')
+            })
+      }
     });
+
     // get tickets 
     dispatch(getTicketsAPI({ LoginName: user.LoginName })).then(data => {
       dispatch(addAllTickets(data))
