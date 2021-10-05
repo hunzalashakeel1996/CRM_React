@@ -75,7 +75,7 @@ const ItemPNL = (props) => {
    }
     setState({ ...state, dataSourceItemTemp: dataSourceItemTempParent });
 
-  }, [dataSourceItemTempParent]);
+  }, [activeTab,dataSourceItemTempParent]);
   const dataSource = [];
   let temp = [];
 
@@ -691,10 +691,10 @@ const ItemPNL = (props) => {
 
 
         <Row >
-        <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+        {/* <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
                   <p>Total Item:{dataSourceItemTemp.length}</p>
                
-                </Col>
+                </Col> */}
           <Col xs={24}>
             <Cards headless>
 

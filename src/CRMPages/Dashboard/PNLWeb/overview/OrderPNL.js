@@ -52,6 +52,7 @@ const OrderPNL = (props) => {
   const {sortedInfo,isLoader,dataSourceOrderTemp}=state
  
   useEffect(() => {
+    // console.log('web',dataSourceOrderTempParent)
      if(activeTab==='OrderPNL'&&dataSourceOrderTempParent.length>0){
    
       let profit = []
@@ -78,7 +79,7 @@ const OrderPNL = (props) => {
           setState({ ...state, dataSourceOrderTemp: dataSourceOrderTempParent});
      }
 
-  },[dataSourceOrderTempParent]);
+  },[activeTab,dataSourceOrderTempParent]);
   const dataSource = [];
   let temp =[];
 
