@@ -13,9 +13,11 @@ import ImageUploader from 'react-images-upload';
 import InputMask from 'react-input-mask';
 import { getCustomerDetailAPI } from '../../../redux/apis/DataAction';
 import CustomerAutoComplete from '../../../components/customerDetailAutoComplete/CustomerAutoComplete';
+import Cookies from 'js-cookie';
 
 const { Option } = Select;
 const dateFormat = 'MM/DD/YYYY';
+const assignedToDefault={'CSR': 'Kristy', 'Processing': 'Pat', 'Shipping': 'Adnan'}
 
 const formInit = {
   TicketGroup: '',
@@ -57,6 +59,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     checked: [],
     controls:{...formInit},
     customerDetails: [],
+    assignedUsers: ['Kristy', 'Pat', 'Adnan'],
     isLoading: false
   });
 
@@ -64,17 +67,25 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
 
   const [departmentName, setDepartmentName] = useState('');
 
+
   useEffect(() => {
-    let unmounted = false;
-    if (!unmounted) {
+    let tempControls = {...controls}
+      tempControls.Assigned = assignedToDefault[controls.TicketGroup]
+      tempControls.TicketGroup = Cookies.get('TicketGroup')?Cookies.get('TicketGroup'):'CSR'
+      console.log('asasdas')
       setState({
         ...state,
-        visible,
+        controls: {...tempControls},
       });
+      
+    if(visible){
+      
+
+      setTimeout(() => {
+      document.getElementById('Ticketgroup').focus()
+        
+      }, 500);
     }
-    return () => {
-      unmounted = true;
-    };
   }, [visible]);
 
   const onFinish = values => {
@@ -93,7 +104,14 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   const onValueChange = (name, value) => {
     let temp = {...controls}
     temp[name] = value
-    setState({ ...state, controls: temp })
+
+    if('TicketGroup'===name){
+      Cookies.set(name, value)
+      temp['Assigned'] = assignedToDefault[value]
+    }
+    setState({ ...state, controls: {...temp} })
+
+    
   }
 
   const onCustomerDetailSelected = (name, value) => {
@@ -118,6 +136,16 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
           setState({ ...state, customerDetails: res})
         }
       })
+    }
+  }
+
+  const handleEnter =(event) => {
+    if (event.keyCode === 13) {
+      const form = event.target.form;
+      console.log('aaa', event.target.form.elements)
+      const index = Array.prototype.indexOf.call(form, event.target);
+      form.elements[index + 1]?form.elements[index + 1].focus():form.elements[index].focus();
+      event.preventDefault();
     }
   }
 
@@ -166,7 +194,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
        <Spin spinning={loader||isLoading}>
       <div className="project-modal">
         <BasicFormWrapper>
-          <Form {...layout} form={form} id="new_ticket" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+          <Form {...layout} form={form} onKeyDown={(value) => {handleEnter(value)}} id="new_ticket" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
             {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
@@ -180,24 +208,22 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 <Option value="SHIPPING">SHIPPING</Option>
               </Select>
             </Form.Item> */}
-            <Row gutter={20}>
-              <Col span={12}>
-                <Form.Item name="TicketGroup" initialValue="" label="">
-                  <Select style={{ width: '100%' }} onChange={(val) => {onValueChange('TicketGroup', val) }}>
-                    <Option value="">To</Option>
-                      <Option value="CSR">CSR</Option>
-                      <Option value="Processing">Processing</Option>
-                      <Option value="Shipping">Shipping</Option>
+              <Row gutter={20}>
+                <Col xs={24} sm={12} lg={12}>
+                  <Form.Item  name="TicketGroup" label="" >
+                    <Select  id='Ticketgroup' showSearch style={{ width: '100%' }} autoFocus={true} defaultValue={controls.TicketGroup} onChange={(val) => { onValueChange('TicketGroup', val) }}>
+                      <Option key="CSR">CSR</Option>
+                      <Option key="Processing">Processing</Option>
+                      <Option key="Shipping">Shipping</Option>
                     </Select>
                   </Form.Item>
                 </Col>
-                <Col span={12}>
-                  <Form.Item name="Assigned" initialValue="" label="" rules={[{ required: true }]}>
+                <Col xs={24} sm={12} lg={12}>
+                  <Form.Item name="Assigned" label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
-                      <Select style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
-                        <Option value="">Assigned</Option>
-                        {depart.filter((val) => val.GroupName === controls.TicketGroup).map(member => (
-                          <Option value={member.Username}>{member.Username}</Option>
+                      <Select showSearch value='check'style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
+                        {depart.filter((val) => val.GroupName === controls.TicketGroup).map(({ Username }) => (
+                          <Option key={Username}>{Username}</Option>
                         ))}
                       </Select>
                       :
@@ -208,8 +234,8 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               </Row>
 
               <Row gutter={20}>
-                <Col span={12}>
-                  <Form.Item name="TicketTitle" initialValue="" label="">
+                <Col xs={24} sm={12} lg={12}>
+                  <Form.Item name="TicketTitle" label="">
                     {(false) ?
                       <Select style={{ width: '100%' }}>
                         <Option value="">Reason</Option>
@@ -221,7 +247,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       <ReasonAutoComplete placeholder='Search Reason' onInputChange={(reason) => { onValueChange('TicketTitle', reason) }} selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons} onReasonSelect={(reason)=>{onValueChange('TicketTitle', reason)}}/>}
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name='Subject' label="" rules={[{ required: true }]}>
                     <Input placeholder="Work Notes" onChange={(val) => { onValueChange('Subject', val.target.value) }}/>
                   </Form.Item>
@@ -233,12 +259,12 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               </Form.Item>
 
               <Row gutter={20}>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="OrderNo" initialValue='' label="" >
                     <Input onChange={(val) => { onValueChange('OrderNo', val.target.value) }} onBlur={(e) => { getCustomerDetail('orderno', e.target.value) }} placeholder="Order Number" />
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item autoComplete="new-password" name="CustomerName" initialValue='' label="" >
                     <CustomerAutoComplete placeholder='Customer Name' style={{ width: '100%' }}
                       onInputChange={(option) => { onValueChange('CustomerName', option) }}
@@ -253,14 +279,14 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               </Row>
 
               <Row gutter={20}>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="CustomerContact" initialValue='' label="" >
                     <InputMask style={{}} mask="(999) 999-9999" maskChar="" onChange={(val) => { onValueChange('CustomerContact', val.target.value) }}>
                       {(props) => <Input {...props}  placeholder="Phone"/>}
                     </InputMask>
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="ZipCode"  initialValue='' label="" >
                     <Input onBlur={(e) => { getCustomerDetail('zipcode', e.target.value) }} onChange={(val) => { onValueChange('ZipCode', val.target.value) }} placeholder="Zip Code" />
                   </Form.Item>
@@ -273,7 +299,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 </Upload>
               </Row>
 
-              <Form.Item style={{ marginTop: 10 }} wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
+              <Form.Item style={{ marginTop: 10, textAlign: 'center', }} wrapperCol={{ ...layout.wrapperCol,  }} >
                  <Button size="large"  type="primary" htmlType="submit">
                   Submit
               </Button>

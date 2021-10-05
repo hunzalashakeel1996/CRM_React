@@ -34,7 +34,6 @@ const AddReminder = (props) => {
             Status: 'Open'
         }
         dispatch(addReminderAPI(form)).then(data => {
-            // console.log('res123', data)
             form = {...form, ReminderID: data.reminderID}
             socket && socket.send(JSON.stringify({type: 'broadcastMessage', reason: 'newReminder', data: form}))
             dispatch(addReminder(form))

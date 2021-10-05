@@ -8,11 +8,11 @@ export const connectSocket = (userId, dispatchFunc) => {
   return (dispatch, getState) => {
     // !getState().socket.socket.connected
     let ws = getState().socket.socket
-
     if (getState().socket.socket == null) {
       // ws = new WebSocket("wss://pu-crm-backend-develop.herokuapp.com")
       // ws = new WebSocket("wss://crm.rizno.com")
       ws = new WebSocket(socketUrl)
+      dispatch(initializeConnectSocket(ws))
       // console.log('websocket obejct', ws)
     }
 
@@ -89,6 +89,7 @@ export const connectSocket = (userId, dispatchFunc) => {
 };
 
 export const initializeConnectSocket = (socket) => {
+  console.log('123123', socket)
   return {
     type: 'CONNECT_SOCKET',
     socket

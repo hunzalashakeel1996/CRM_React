@@ -5,6 +5,7 @@ export const initialState = {
 }
 
 const socketReducer = (state = initialState, action) => {
+
   switch (action.type) {
     case 'CONNECT_SOCKET':
       return {
