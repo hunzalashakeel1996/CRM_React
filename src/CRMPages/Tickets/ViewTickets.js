@@ -65,11 +65,14 @@ const ViewTickets = (props) => {
     let message = JSON.parse(data.data)
     console.log('check12', message)
     console.log('check12', message.data)
-    if (message.reason === 'newTicket' && message.data.CreateBy !== user.LoginName) {
-      audioPlay()
-      let temp = [...filterTickets]
-      temp.unshift(message.data)
-      setState({ ...state, filterTickets: [...temp] });
+    if (message.reason === 'newTicket' ) {
+      let descData = message.data.data
+      if(descData.CreateBy !== user.LoginName){
+        audioPlay()
+        let temp = [...filterTickets]
+        temp.unshift(descData)
+        setState({ ...state, filterTickets: [...temp] });
+      }
     }
   } : null
 

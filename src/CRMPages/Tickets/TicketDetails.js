@@ -77,15 +77,21 @@ const TicketDetails = ({ match, location}) => {
 
     socket ? socket.onmessage = (data) => {
         let message = JSON.parse(data.data)
+        console.log('check12', message)
+        console.log('check12', message.data)
         // when recieve roomMessage socket 
-        if (message.reason === 'newComment' && message.data.TicketNo === ticketDetail.TicketNo) {
-            audioPlay()
-            dispatch(addComment(message.data))
+        if(['newComment', 'newReminder'].includes(message.reason)){
+            let descData = message.data.data
+            if (message.reason === 'newComment' && descData.TicketNo === ticketDetail.TicketNo) {
+                audioPlay()
+                dispatch(addComment(descData))
+            }
+            else if (message.reason === 'newReminder' && descData.TicketNo === ticketDetail.TicketNo) {
+                audioPlay()
+                dispatch(addReminder(descData))
+            }
         }
-        else if (message.reason === 'newReminder' && message.data.TicketNo === ticketDetail.TicketNo) {
-            audioPlay()
-            dispatch(addReminder(message.data))
-        }
+        
     } : null
 
     const cardContent = (title, value) => {

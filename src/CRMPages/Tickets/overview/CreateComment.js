@@ -53,7 +53,7 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
-        values = { ...values, picturePath: state.picturePath }
+        values = { ...values, picturePath: state.picturePath, TicketGroup: departmentName}
         document.getElementById("new_comment").reset();
         onAdd(values)
     };

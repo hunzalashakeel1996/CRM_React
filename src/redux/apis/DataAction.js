@@ -7,8 +7,8 @@ import { Button, notification, Space } from 'antd';
 export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
-export const socketUrl = "ws://192.168.1.103:3005"
-// export const socketUrl = "wss://crm.rizno.com:3001"
+// export const socketUrl = "ws://192.168.1.103:3005"
+export const socketUrl = "ws://crm.rizno.com:3001"
 // export const socketUrl = "wss://crm.rizno.com"
 
 //##################### Node Server Live ########################
