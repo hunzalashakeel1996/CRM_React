@@ -68,6 +68,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
     }, [visible]);
 
     const onFinish = values => {
+        values = {...values, TicketGroup: departmentName, 'range-time-picker':values['range-time-picker']? values['range-time-picker']:[moment(), moment().add(2,'days')]}
         onAdd(values)
     };
 
@@ -98,7 +99,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
         if (event.keyCode === 13) {
           const form = event.target.form;
           const index = Array.prototype.indexOf.call(form, event.target);
-          form.elements[index + 1].focus();
+          form.elements[index + 1]&&form.elements[index + 1].focus();
           event.preventDefault();
         }
       }
@@ -140,7 +141,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
             </Form.Item> */}
                             <Row gutter={20}>
                                 <Col span={16}>
-                                    <Form.Item name="range-time-picker" label="" {...rangeConfig}>
+                                    <Form.Item name="range-time-picker" label="">
                                         <RangePicker defaultValue={[moment(), moment().add(2,'days')]} showTime format="YYYY-MM-DD HH:mm:ss" />
                                     </Form.Item>
                                 </Col>
@@ -158,8 +159,8 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
                             <Row gutter={10} style={{ marginBottom: 20 }}>
 
                                 <Col span={12}>
-                                    <Form.Item autoFocus={true} name="TicketGroup" initialValue="" label="">
-                                        <Select defaultValue={departmentName} disabled={isSelfAssigned} style={{ width: '100%' }} onChange={(val) => { setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}>
+                                    <Form.Item  name="TicketGroup" initialValue="" label="">
+                                        <Select autoFocus={true} defaultValue={departmentName} disabled={isSelfAssigned} style={{ width: '100%' }} onChange={(val) => { setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}>
                                             <Option value="CSR">CSR</Option>
                                             <Option value="Processing">Processing</Option>
                                             <Option value="Shipping">Shipping</Option>
@@ -171,7 +172,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
                                 <Col span={12}>
                                     <Form.Item name="Assigned" initialValue="" label=""  rules={[{ required: true }]}>
                                         {(depart.length > 0 && departmentName !== '') ?
-                                            <Select showSearch defaultValue={assignedTo} onChange={(val) => {form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
+                                            <Select showSearch  onChange={(val) => {form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>
                                                 {depart.filter((val) => val.GroupName === departmentName).map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>

@@ -7,6 +7,7 @@ import { Button } from '../../../components/buttons/buttons';
 import { Modal } from '../../../components/modals/antd-modals';
 import { BasicFormWrapper } from '../../styled';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 
 const { Option } = Select;
 const dateFormat = 'MM/DD/YYYY';
@@ -37,7 +38,7 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
         picturePath: null
     });
 
-    const [departmentName, setDepartmentName] = useState('');
+    const [departmentName, setDepartmentName] = useState(Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR');
 
     useEffect(() => {
         let unmounted = false;
@@ -61,17 +62,14 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
         onCancel();
     };
 
-    const reasons = {
-        'SHIPPING': ['Rush Free', 'Shipping Charges', 'Bad Address Correction', 'Upgrade Shipping To 2nd or NDA'],
-        'EMBROIDERY': ['Sew Out', 'Stitch Out', 'Price', 'Thread Details', 'How Long Will It Take To Ship', 'Rush Fee'],
-        'MTO': ['Rush Free', 'How long will it take to ship', 'Alteration', 'General Question', 'Product Related Question']
-    }
-
-    const members = {
-        'SHIPPING': ['William', 'Judy', 'James'],
-        'EMBROIDERY': ['Harper', 'Mason', 'Ella'],
-        'MTO': ['Jackson', 'David', 'Jack']
-    }
+    const handleEnter =(event) => {
+        if (event.keyCode === 13) {
+          const form = event.target.form;
+          const index = Array.prototype.indexOf.call(form, event.target);
+          form.elements[index + 1]&&form.elements[index + 1].focus();
+          event.preventDefault();
+        }
+      }
 
     return (
         <Modal
@@ -94,7 +92,7 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
             <Spin spinning={loader}>
                 <div className="project-modal">
                     <BasicFormWrapper>
-                        <Form {...layout} id="new_comment" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+                        <Form {...layout} id="new_comment" onKeyDown={(value) => {handleEnter(value)}} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                             {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
@@ -109,7 +107,7 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
               </Select>
             </Form.Item> */}
                             <Form.Item name={'Description'} label="" rules={[{ required: true }]}>
-                                <Input placeholder="Short Description" />
+                                <Input autoFocus={true} placeholder="Short Description" />
                             </Form.Item>
                             <Form.Item name={'Subject'} label="" rules={[{ required: true }]}>
                                 <Input placeholder="Work Notes" />
@@ -118,9 +116,8 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
                             <Row gutter={10} style={{ marginBottom: 20 }}>
 
                                 <Col span={12}>
-                                    <Form.Item name="TicketGroup" initialValue="" label="">
-                                        <Select style={{ width: '100%' }} onChange={(val) => { setDepartmentName(val) }}>
-                                            <Option value="">To</Option>
+                                    <Form.Item name="TicketGroup" label="">
+                                        <Select  defaultValue={Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR'} style={{ width: '100%' }} onChange={(val) => { setDepartmentName(val); Cookies.set('commentTicketGroup', val) }}>
                                             <Option value="CSR">CSR</Option>
                                             <Option value="Processing">Processing</Option>
                                             <Option value="Shipping">Shipping</Option>
@@ -131,7 +128,7 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
                                 <Col span={12}>
                                     <Form.Item name="Assigned" initialValue="" label="" rules={[{ required: true }]}>
                                         {(depart.length > 0 && departmentName !== '') ?
-                                            <Select style={{ width: '100%' }}>
+                                            <Select showSearch style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>
                                                 {depart.filter((val) => val.GroupName === departmentName).map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>

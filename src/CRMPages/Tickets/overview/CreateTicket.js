@@ -57,7 +57,6 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     visible,
     modalType: 'primary',
     checked: [],
-    check: 'Kristy',
     controls:{...formInit},
     customerDetails: [],
     assignedUsers: ['Kristy', 'Pat', 'Adnan'],
@@ -146,7 +145,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     if (event.keyCode === 13) {
       const form = event.target.form;
       const index = Array.prototype.indexOf.call(form, event.target);
-      form.elements[index + 1].focus();
+      form.elements[index + 1]&&form.elements[index + 1].focus();
       event.preventDefault();
     }
   }
@@ -223,7 +222,8 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 <Col span={12}>
                   <Form.Item name="Assigned" label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
-                      <Select showSearch defaultValue={controls.Assigned} style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
+                      <Select showSearch style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
+                        <Option key=''>Assigned</Option>
                         {depart.filter((val) => val.GroupName === controls.TicketGroup).map(({ Username }) => (
                           <Option key={Username}>{Username}</Option>
                         ))}
