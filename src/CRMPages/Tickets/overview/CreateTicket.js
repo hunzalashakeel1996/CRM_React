@@ -57,7 +57,6 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     visible,
     modalType: 'primary',
     checked: [],
-    check: 'Kristy',
     controls:{...formInit},
     customerDetails: [],
     assignedUsers: ['Kristy', 'Pat', 'Adnan'],
@@ -68,27 +67,25 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
 
   const [departmentName, setDepartmentName] = useState('');
 
+
   useEffect(() => {
-    let unmounted = false;
     let tempControls = {...controls}
-    tempControls.Assigned = assignedToDefault[controls.TicketGroup]
-    tempControls.TicketGroup = Cookies.get('TicketGroup')?Cookies.get('TicketGroup'):'CSR'
-    if (!unmounted) {
-      setState({
-        ...state,
-        controls: {...tempControls},
-        visible,
-      });
-    }
-    else{
+      tempControls.Assigned = assignedToDefault[controls.TicketGroup]
+      tempControls.TicketGroup = Cookies.get('TicketGroup')?Cookies.get('TicketGroup'):'CSR'
+      console.log('asasdas')
       setState({
         ...state,
         controls: {...tempControls},
       });
+      
+    if(visible){
+      
+
+      setTimeout(() => {
+      document.getElementById('Ticketgroup').focus()
+        
+      }, 500);
     }
-    return () => {
-      unmounted = true;
-    };
   }, [visible]);
 
   const onFinish = values => {
@@ -145,8 +142,9 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   const handleEnter =(event) => {
     if (event.keyCode === 13) {
       const form = event.target.form;
+      console.log('aaa', event.target.form.elements)
       const index = Array.prototype.indexOf.call(form, event.target);
-      form.elements[index + 1].focus();
+      form.elements[index + 1]?form.elements[index + 1].focus():form.elements[index].focus();
       event.preventDefault();
     }
   }
@@ -212,8 +210,8 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
             </Form.Item> */}
               <Row gutter={20}>
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="TicketGroup" >
-                    <Select showSearch style={{ width: '100%' }} autoFocus={true} defaultValue={controls.TicketGroup} onChange={(val) => { onValueChange('TicketGroup', val) }}>
+                  <Form.Item  name="TicketGroup" label="" >
+                    <Select  id='Ticketgroup' showSearch style={{ width: '100%' }} autoFocus={true} defaultValue={controls.TicketGroup} onChange={(val) => { onValueChange('TicketGroup', val) }}>
                       <Option key="CSR">CSR</Option>
                       <Option key="Processing">Processing</Option>
                       <Option key="Shipping">Shipping</Option>
@@ -223,7 +221,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="Assigned" label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
-                      <Select showSearch defaultValue={controls.Assigned} style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
+                      <Select showSearch value='check'style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
                         {depart.filter((val) => val.GroupName === controls.TicketGroup).map(({ Username }) => (
                           <Option key={Username}>{Username}</Option>
                         ))}
@@ -237,7 +235,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
 
               <Row gutter={20}>
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="TicketTitle" initialValue="" label="">
+                  <Form.Item name="TicketTitle" label="">
                     {(false) ?
                       <Select style={{ width: '100%' }}>
                         <Option value="">Reason</Option>

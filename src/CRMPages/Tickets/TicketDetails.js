@@ -58,7 +58,6 @@ const TicketDetails = ({ match, location}) => {
         // if props is undefined then get ticket details from API
         if (location.ticket === undefined && location.state === undefined) {
             dispatch(getTicketDetailAPI({ TicketNo: match.params.id })).then(ticketDetail => {
-                console.log('adasdas', ticketDetail)
                 setTicketDetail(ticketDetail)
                 dispatch(getCommentsAPI({ TicketNo: match.params.id })).then(data => {
                     dispatch(addAllComments(data))
@@ -78,15 +77,21 @@ const TicketDetails = ({ match, location}) => {
 
     socket ? socket.onmessage = (data) => {
         let message = JSON.parse(data.data)
+        console.log('check12', message)
+        console.log('check12', message.data)
         // when recieve roomMessage socket 
-        if (message.reason === 'newComment' && message.data.TicketNo === ticketDetail.TicketNo) {
-            audioPlay()
-            dispatch(addComment(message.data))
+        if(['newComment', 'newReminder'].includes(message.reason)){
+            let descData = message.data.data
+            if (message.reason === 'newComment' && descData.TicketNo === ticketDetail.TicketNo) {
+                audioPlay()
+                dispatch(addComment(descData))
+            }
+            else if (message.reason === 'newReminder' && descData.TicketNo === ticketDetail.TicketNo) {
+                audioPlay()
+                dispatch(addReminder(descData))
+            }
         }
-        else if (message.reason === 'newReminder' && message.data.TicketNo === ticketDetail.TicketNo) {
-            audioPlay()
-            dispatch(addReminder(message.data))
-        }
+        
     } : null
 
     const cardContent = (title, value) => {
@@ -111,7 +116,7 @@ const TicketDetails = ({ match, location}) => {
     const onAddComment = (form) => {
         setState({ ...state, loader: true, });
         form = {
-            ...form, TicketNo: ticketDetail.TicketNo, CreateBy: user.LoginName, FromTicketGroup: user.GroupName,
+            ...form, TicketNo: ticketDetail.TicketNo, CreateBy: user.LoginName, FromTicketGroup: user.GroupName?user.GroupName:'undefined',
             TicketTitle: ticketDetail.TicketTitle, OrderNo: ticketDetail.OrderNo, CustomerName: ticketDetail.CustomerName, CustomerContact: ticketDetail.CustomerContact,
             ZipCode: ticketDetail.ZipCode, Status: ticketDetail.Status
         }
@@ -119,7 +124,6 @@ const TicketDetails = ({ match, location}) => {
             // save image in server
             const data = new FormData()
             data.append('CRMImage', form.picturePath.file)
-            // console.log('inside image')
             fetch(`${uploadUrl}/api/images/crmImageUpload`, {
                 method: 'POST',
                 body: data
@@ -129,11 +133,9 @@ const TicketDetails = ({ match, location}) => {
                 form = { ...form, Attachment: res }
                 onAddCommentProcess(form)
             }).catch((err) => {
-                // console.log(err)
             })
 
         } else {
-            // console.log('insde not image')
             // image not attached in ticket
             form = { ...form, Attachment: null }
             onAddCommentProcess(form)
@@ -155,14 +157,13 @@ const TicketDetails = ({ match, location}) => {
             ...form,
             TicketNo: ticketDetail.TicketNo,
             RefrenceId: ticketDetail.TicketNo,
-            FromTicketGroup: user.GroupName,
+            FromTicketGroup: user.GroupName?user.GroupName:'undefined',
             StartTime: form['range-time-picker'][0].format('YYYY-MM-DDTHH:mm:ss.000'),
             EndTime: form['range-time-picker'][1].format('YYYY-MM-DDTHH:mm:ss.000'),
             CreateBy: user.LoginName,
             Status: 'Open'
         }
         dispatch(addReminderAPI(form)).then(data => {
-            // console.log('res123', data)
             form = {...form, ReminderID: data.reminderID}
             socket && socket.send(JSON.stringify({type: 'broadcastMessage', reason: 'newReminder', data: form}))
             dispatch(addReminder(form))

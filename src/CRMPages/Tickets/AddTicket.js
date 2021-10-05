@@ -35,11 +35,10 @@ const AddTicket = (props) => {
     const onAddTicket = (form) => {
         setState({ ...state, loader: true })
         form = { ...form, LoginName: `${user.LoginName}`, FromTicketGroup: `${user.GroupName}` }
-        if (form.picturePath !== undefined) {
+        if (![undefined, null].includes(form.Attachment)) {
             // save image in server
             const data = new FormData()
-            data.append('CRMImage', form.picturePath.file)
-            // console.log('inside image')
+            data.append('CRMImage', form.Attachment.file)
             fetch(`${uploadUrl}/api/images/crmImageUpload`, {
                 method: 'POST',
                 body: data
@@ -49,11 +48,9 @@ const AddTicket = (props) => {
                 form = { ...form, Attachment: res }
                 onAddTicketProcess(form)
             }).catch((err) => {
-                // console.log(err)
             })
 
         } else {
-            // console.log('insde not image')
             // image not attached in ticket
             form = { ...form, Attachment: null }
             onAddTicketProcess(form)
@@ -62,7 +59,6 @@ const AddTicket = (props) => {
 
     const onAddTicketProcess = (form) => {
         dispatch(addTicketAPI(form)).then(data => {
-            // console.log('data', data)
             form = { ...form, TicketNo: data.TicketNo, CreateDate: data.CreateDate, CreateBy: user.LoginName, Status: 'Open' }
             dispatch(addTicket(form))       // add ticket in redux list
             socket && socket.send(JSON.stringify({ type: 'broadcastMessage', reason: 'newTicket', data: form }))

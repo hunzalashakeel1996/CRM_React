@@ -70,7 +70,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
-        // console.log('values', values)
+        values = {...values, TicketGroup: departmentName, 'range-time-picker':values['range-time-picker']? values['range-time-picker']:[moment(), moment().add(2,'days')]}
         onAdd(values)
     };
 
@@ -101,7 +101,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
         if (event.keyCode === 13) {
           const form = event.target.form;
           const index = Array.prototype.indexOf.call(form, event.target);
-          form.elements[index + 1].focus();
+          form.elements[index + 1]&&form.elements[index + 1].focus();
           event.preventDefault();
         }
       }
@@ -169,7 +169,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
             </Form.Item> */}
                             <Row gutter={20}>
                                 <Col xs={24} md={16}>
-                                    <Form.Item name="range-time-picker" label="" {...rangeConfig}>
+                                    <Form.Item name="range-time-picker" rules={[{ required: false }]} label="" >
                                         <RangePicker defaultValue={[moment(), moment().add(2,'days')]} showTime format="YYYY-MM-DD HH:mm:ss" />
                                     </Form.Item>
                                 </Col>

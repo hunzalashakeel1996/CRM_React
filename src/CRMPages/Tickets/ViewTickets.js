@@ -36,7 +36,6 @@ const ViewTickets = (props) => {
 
   // get items from redux
   let tickets = useSelector(state => state.tickets.tickets);
-  // console.log(tickets);
   let depart = useSelector(state => state.tickets.depart);
   let socket = useSelector(state => state.socket.socket);
   let user = useSelector(state => state.auth.login);
@@ -46,10 +45,11 @@ const ViewTickets = (props) => {
   useEffect(() => {
     setState({ ...state, loader: true })
     // dispatch(connectSocket(user.LoginID))
-
+    Notification.requestPermission().then(granted => {
+      console.log('grad', granted)
+    });
     // get tickets 
     dispatch(getTicketsAPI({ LoginName: user.LoginName })).then(data => {
-      console.log('12310', data)
       dispatch(addAllTickets(data))
       setState({ ...state, filterTickets: data, loader: false });
     })
@@ -65,11 +65,15 @@ const ViewTickets = (props) => {
   // sockets
   socket ? socket.onmessage = (data) => {
     let message = JSON.parse(data.data)
-    if (message.reason === 'newTicket' && message.data.CreateBy !== user.LoginName) {
-      audioPlay()
-      let temp = [...filterTickets]
-      temp.unshift(message.data)
-      setState({ ...state, filterTickets: [...temp] });
+    
+    if (message.reason === 'newTicket' ) {
+      let descData = message.data.data
+      if(descData.CreateBy !== user.LoginName){
+        audioPlay()
+        let temp = [...filterTickets]
+        temp.unshift(descData)
+        setState({ ...state, filterTickets: [...temp] });
+      }
     }
   } : null
 
@@ -102,12 +106,10 @@ const ViewTickets = (props) => {
   const onAddTicket = (form) => {
     setState({ ...state, loader: true })
     form = { ...form, LoginName: `${user.LoginName}`, FromTicketGroup: `${user.GroupName}` }
-    // console.log('aaaa', form)
     if (form.Attachment !== null) {
       // save image in server
       const data = new FormData()
       data.append('CRMImage', form.Attachment.file)
-      // console.log('inside image')
       fetch(`${uploadUrl}/api/images/crmImageUpload`, {
         method: 'POST',
         body: data
@@ -117,11 +119,9 @@ const ViewTickets = (props) => {
         form = { ...form, Attachment: res }
         onAddTicketProcess(form)
       }).catch((err) => {
-        // console.log(err)
       })
 
     } else {
-      // console.log('insde not image')
       // image not attached in ticket
       form = { ...form }
       onAddTicketProcess(form)
@@ -131,7 +131,6 @@ const ViewTickets = (props) => {
 
   const onAddTicketProcess = (form) => {
     dispatch(addTicketAPI(form)).then(data => {
-      // console.log('data', data)
       form = { ...form, TicketNo: data.TicketNo, CreateDate: data.CreateDate, CreateBy: user.LoginName, Status: 'Open' }
       dispatch(addTicket(form))       // add ticket in redux list
       socket && socket.send(JSON.stringify({ type: 'broadcastMessage', reason: 'newTicket', data: form }))
@@ -145,9 +144,7 @@ const ViewTickets = (props) => {
   const onStatusChange = (val) => {
     setState({ ...state, loader: true, StatusSort: val })
     let data = { StatusSort: val, LoginName: `${user.LoginName}` }
-    // // console.log(data)
     dispatch(TicketStatusChangeAPI(data)).then(res => {
-      // console.log('abc', res)
       setState({ ...state, filterTickets: res, loader: false, StatusSort: val });
     })
   }
@@ -160,7 +157,7 @@ const ViewTickets = (props) => {
           title="Tickets"
           // subTitle={<>{tickets.length} Running Tickets</>}
           buttons={[
-             <Button size="large"  onClick={showModal} key="1" type="primary"  >
+             <Button disbaled={loader} size="large"  onClick={showModal} key="1" type="primary"  >
               <FeatherIcon icon="plus" size={16} /> Create Ticket
             </Button>,
           ]}
@@ -218,7 +215,7 @@ const ViewTickets = (props) => {
             </div>
           </Col>
         </Row>
-        <CreateTicket onAdd={(form) => { onAddTicket(form) }} onCancel={onCancel} visible={visible} loader={loader} />
+       <CreateTicket onAdd={(form) => { onAddTicket(form) }} onCancel={onCancel} visible={visible} loader={loader} />
       </Main>
     </>
   );
