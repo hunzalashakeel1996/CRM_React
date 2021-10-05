@@ -45,7 +45,9 @@ const ViewTickets = (props) => {
   useEffect(() => {
     setState({ ...state, loader: true })
     // dispatch(connectSocket(user.LoginID))
-
+    Notification.requestPermission().then(granted => {
+      console.log('grad', granted)
+    });
     // get tickets 
     dispatch(getTicketsAPI({ LoginName: user.LoginName })).then(data => {
       dispatch(addAllTickets(data))
@@ -63,8 +65,7 @@ const ViewTickets = (props) => {
   // sockets
   socket ? socket.onmessage = (data) => {
     let message = JSON.parse(data.data)
-    console.log('check12', message)
-    console.log('check12', message.data)
+    
     if (message.reason === 'newTicket' ) {
       let descData = message.data.data
       if(descData.CreateBy !== user.LoginName){
@@ -156,7 +157,7 @@ const ViewTickets = (props) => {
           title="Tickets"
           // subTitle={<>{tickets.length} Running Tickets</>}
           buttons={[
-             <Button size="large"  onClick={showModal} key="1" type="primary"  >
+             <Button disbaled={loader} size="large"  onClick={showModal} key="1" type="primary"  >
               <FeatherIcon icon="plus" size={16} /> Create Ticket
             </Button>,
           ]}
@@ -214,7 +215,7 @@ const ViewTickets = (props) => {
             </div>
           </Col>
         </Row>
-        <CreateTicket onAdd={(form) => { onAddTicket(form) }} onCancel={onCancel} visible={visible} loader={loader} />
+       <CreateTicket onAdd={(form) => { onAddTicket(form) }} onCancel={onCancel} visible={visible} loader={loader} />
       </Main>
     </>
   );
