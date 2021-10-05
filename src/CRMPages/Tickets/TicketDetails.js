@@ -213,6 +213,7 @@ const TicketDetails = ({ match, location}) => {
                         {/* <CalendarButtonPageHeader />
                         <ExportButtonPageHeader />
                         <ShareButtonPageHeader /> */}
+                       
                         <div style={{marginRight: 10}}>
                             <Radio.Group
                                 options={[
@@ -226,7 +227,8 @@ const TicketDetails = ({ match, location}) => {
                                 optionType="button"
                             />
                         </div>
-
+                        
+                        <div>
                          <Button size="large"  onClick={() => { showModal('createReminder') }} size="small" type="primary">
                             <FeatherIcon icon="bell" size={14} />
                             Set Reminder
@@ -235,6 +237,8 @@ const TicketDetails = ({ match, location}) => {
                             <FeatherIcon icon="plus" size={14} />
                             Add Comment
                         </Button>
+                        </div>
+
                     </div>,
                 ]}
             />
@@ -268,8 +272,9 @@ const TicketDetails = ({ match, location}) => {
                   </UL>
                 </nav> */}
                                 <Content>
+                                    
                                     {ticketDetail !== null &&
-                                        <Card bordered={true} title={`${ticketDetail.TicketTitle}`} style={{ width: 450, marginLeft: 15 }}>
+                                        <Card bordered={true} title={`${ticketDetail.TicketTitle}`} style={{ padding:0, marginLeft: 15 }}>
                                             {/* <Row >
                                             <Col span={24} >
                                                 <Row className={'center'}>

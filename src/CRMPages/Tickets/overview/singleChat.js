@@ -101,7 +101,7 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
                       <Heading as="h5" className="atbd-chatbox__name">
                         {comment.CreateBy} {!['null', 'undefined'].includes(comment.FromTicketGroup)? `(${comment.FromTicketGroup})`: ''}
                         <span>{formatDate(comment.UpdateDate)}</span>
-                        <span className={'right'} style={{ fontWeight: 'bold', color: 'black' }}>Assigned To: {comment.Assigned} {comment.TicketGroup ? `(${comment.TicketGroup})`: ''}</span>
+                        <span className={'left'} style={{ fontWeight: 'bold', color: 'black', display:'block', margin: 0, }}>Assigned To: {comment.Assigned} {comment.TicketGroup ? `(${comment.TicketGroup})`: ''}</span>
                       </Heading>
 
                       <div className="atbd-chatbox__contentInner d-flex">
@@ -112,7 +112,7 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
                               {`${comment.Description}`}
                               {/* <span>{comment.Attachment !== null ? <a style={{color: '#f0f0f0',  fontStyle:'italic', marginLeft: 10}} target='_blank' href={`${uploadUrl}/${comment.Attachment}`}> View Attachment</a> : ''}</span> */}
                             </p>
-                            {comment.Attachment !== null &&<Image height={200} width={200} style={{borderRadius: 0, maxWidth: 200}} src={`${uploadUrl}/${comment.Attachment}`}/>}
+                            {comment.Attachment !== null &&<Image height={200} width={200} style={{borderRadius: 0, maxWidth: 200, width:'100%', height:'auto',}} src={`${uploadUrl}/${comment.Attachment}`}/>}
                           </MessageList>
                         </div>
                       </div>

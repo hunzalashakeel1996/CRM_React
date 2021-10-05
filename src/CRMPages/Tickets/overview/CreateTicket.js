@@ -211,7 +211,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               </Select>
             </Form.Item> */}
               <Row gutter={20}>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="TicketGroup" >
                     <Select showSearch style={{ width: '100%' }} autoFocus={true} defaultValue={controls.TicketGroup} onChange={(val) => { onValueChange('TicketGroup', val) }}>
                       <Option key="CSR">CSR</Option>
@@ -220,7 +220,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                     </Select>
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="Assigned" label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
                       <Select showSearch defaultValue={controls.Assigned} style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
@@ -236,7 +236,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               </Row>
 
               <Row gutter={20}>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="TicketTitle" initialValue="" label="">
                     {(false) ?
                       <Select style={{ width: '100%' }}>
@@ -249,7 +249,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       <ReasonAutoComplete placeholder='Search Reason' onInputChange={(reason) => { onValueChange('TicketTitle', reason) }} selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons} onReasonSelect={(reason)=>{onValueChange('TicketTitle', reason)}}/>}
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name='Subject' label="" rules={[{ required: true }]}>
                     <Input placeholder="Work Notes" onChange={(val) => { onValueChange('Subject', val.target.value) }}/>
                   </Form.Item>
@@ -261,12 +261,12 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               </Form.Item>
 
               <Row gutter={20}>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="OrderNo" initialValue='' label="" >
                     <Input onChange={(val) => { onValueChange('OrderNo', val.target.value) }} onBlur={(e) => { getCustomerDetail('orderno', e.target.value) }} placeholder="Order Number" />
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item autoComplete="new-password" name="CustomerName" initialValue='' label="" >
                     <CustomerAutoComplete placeholder='Customer Name' style={{ width: '100%' }}
                       onInputChange={(option) => { onValueChange('CustomerName', option) }}
@@ -281,14 +281,14 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               </Row>
 
               <Row gutter={20}>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="CustomerContact" initialValue='' label="" >
                     <InputMask style={{}} mask="(999) 999-9999" maskChar="" onChange={(val) => { onValueChange('CustomerContact', val.target.value) }}>
                       {(props) => <Input {...props}  placeholder="Phone"/>}
                     </InputMask>
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="ZipCode"  initialValue='' label="" >
                     <Input onBlur={(e) => { getCustomerDetail('zipcode', e.target.value) }} onChange={(val) => { onValueChange('ZipCode', val.target.value) }} placeholder="Zip Code" />
                   </Form.Item>
@@ -301,7 +301,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 </Upload>
               </Row>
 
-              <Form.Item style={{ marginTop: 10 }} wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
+              <Form.Item style={{ marginTop: 10, textAlign: 'center', }} wrapperCol={{ ...layout.wrapperCol,  }} >
                  <Button size="large"  type="primary" htmlType="submit">
                   Submit
               </Button>
