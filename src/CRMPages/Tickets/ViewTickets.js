@@ -47,6 +47,7 @@ const ViewTickets = (props) => {
     // dispatch(connectSocket(user.LoginID))
     Notification.requestPermission().then(granted => {
       console.log('grad', granted)
+     
     });
     // get tickets 
     dispatch(getTicketsAPI({ LoginName: user.LoginName })).then(data => {
