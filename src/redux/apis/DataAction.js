@@ -12,7 +12,7 @@ export const socketUrl = "ws://crm.rizno.com:9000"
 // export const socketUrl = "wss://crm.rizno.com"
 
 //##################### Node Server Live ########################
-export const url = "https://crm.rizno.com:9000";
+export const url = "https://crm.rizno.com:3001";
 //##################### Node Server Local ########################
 //  export const url = "http://192.168.1.103:3005";
 
