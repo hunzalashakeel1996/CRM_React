@@ -58,6 +58,7 @@ const TicketDetails = ({ match, location}) => {
         // if props is undefined then get ticket details from API
         if (location.ticket === undefined && location.state === undefined) {
             dispatch(getTicketDetailAPI({ TicketNo: match.params.id })).then(ticketDetail => {
+                console.log('adasdas', ticketDetail)
                 setTicketDetail(ticketDetail)
                 dispatch(getCommentsAPI({ TicketNo: match.params.id })).then(data => {
                     dispatch(addAllComments(data))
@@ -91,13 +92,13 @@ const TicketDetails = ({ match, location}) => {
     const cardContent = (title, value) => {
         return (
             <Row >
-                {(value[0] && value[0]!=='null') && <Col span={24} >
+                {(value[0] && !['null', 'undefined'].includes(value[0])) && <Col span={24} >
                     <Row>
                         <Col span={7}><p style={{ fontWeight: 'bold', marginRight: 3 }}>{title[0]} </p></Col>
-                        <p> {title[0]=='Phone:' ? `(${value[0].substr(0,3)}) ${value[0].substr(3,3)}-${value[0].substr(6,4)}`: value[0]}</p>
+                        <p> {title[0]=='Phone:' ? `${value[0]}`: value[0]}</p>
                     </Row>
                 </Col>}
-                {(value[1] && value[1]!=='null') && <Col span={24}>
+                {(value[1] && !['null', 'undefined'].includes(value[1])) && <Col span={24}>
                     <Row>
                         <Col span={7}><p style={{ fontWeight: 'bold', marginRight: 3 }}>{title[1]} </p></Col>
                         <p> {` ${value[1]}`}</p>

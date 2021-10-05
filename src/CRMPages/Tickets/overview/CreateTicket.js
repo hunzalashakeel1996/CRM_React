@@ -13,9 +13,11 @@ import ImageUploader from 'react-images-upload';
 import InputMask from 'react-input-mask';
 import { getCustomerDetailAPI } from '../../../redux/apis/DataAction';
 import CustomerAutoComplete from '../../../components/customerDetailAutoComplete/CustomerAutoComplete';
+import Cookies from 'js-cookie';
 
 const { Option } = Select;
 const dateFormat = 'MM/DD/YYYY';
+const assignedToDefault={'CSR': 'Kristy', 'Processing': 'Pat', 'Shipping': 'Adnan'}
 
 const formInit = {
   TicketGroup: '',
@@ -55,8 +57,10 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     visible,
     modalType: 'primary',
     checked: [],
+    check: 'Kristy',
     controls:{...formInit},
     customerDetails: [],
+    assignedUsers: ['Kristy', 'Pat', 'Adnan'],
     isLoading: false
   });
 
@@ -66,10 +70,20 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
 
   useEffect(() => {
     let unmounted = false;
+    let tempControls = {...controls}
+    tempControls.Assigned = assignedToDefault[controls.TicketGroup]
+    tempControls.TicketGroup = Cookies.get('TicketGroup')?Cookies.get('TicketGroup'):'CSR'
     if (!unmounted) {
       setState({
         ...state,
+        controls: {...tempControls},
         visible,
+      });
+    }
+    else{
+      setState({
+        ...state,
+        controls: {...tempControls},
       });
     }
     return () => {
@@ -93,7 +107,14 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   const onValueChange = (name, value) => {
     let temp = {...controls}
     temp[name] = value
-    setState({ ...state, controls: temp })
+
+    if('TicketGroup'===name){
+      Cookies.set(name, value)
+      temp['Assigned'] = assignedToDefault[value]
+    }
+    setState({ ...state, controls: {...temp} })
+
+    
   }
 
   const onCustomerDetailSelected = (name, value) => {
@@ -118,6 +139,15 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
           setState({ ...state, customerDetails: res})
         }
       })
+    }
+  }
+
+  const handleEnter =(event) => {
+    if (event.keyCode === 13) {
+      const form = event.target.form;
+      const index = Array.prototype.indexOf.call(form, event.target);
+      form.elements[index + 1].focus();
+      event.preventDefault();
     }
   }
 
@@ -166,7 +196,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
        <Spin spinning={loader||isLoading}>
       <div className="project-modal">
         <BasicFormWrapper>
-          <Form {...layout} form={form} id="new_ticket" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+          <Form {...layout} form={form} onKeyDown={(value) => {handleEnter(value)}} id="new_ticket" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
             {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
@@ -180,24 +210,22 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 <Option value="SHIPPING">SHIPPING</Option>
               </Select>
             </Form.Item> */}
-            <Row gutter={20}>
-              <Col span={12}>
-                <Form.Item name="TicketGroup" initialValue="" label="">
-                  <Select style={{ width: '100%' }} onChange={(val) => {onValueChange('TicketGroup', val) }}>
-                    <Option value="">To</Option>
-                      <Option value="CSR">CSR</Option>
-                      <Option value="Processing">Processing</Option>
-                      <Option value="Shipping">Shipping</Option>
+              <Row gutter={20}>
+                <Col span={12}>
+                  <Form.Item name="TicketGroup" >
+                    <Select showSearch style={{ width: '100%' }} autoFocus={true} defaultValue={controls.TicketGroup} onChange={(val) => { onValueChange('TicketGroup', val) }}>
+                      <Option key="CSR">CSR</Option>
+                      <Option key="Processing">Processing</Option>
+                      <Option key="Shipping">Shipping</Option>
                     </Select>
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item name="Assigned" initialValue="" label="" rules={[{ required: true }]}>
+                  <Form.Item name="Assigned" label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
-                      <Select style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
-                        <Option value="">Assigned</Option>
-                        {depart.filter((val) => val.GroupName === controls.TicketGroup).map(member => (
-                          <Option value={member.Username}>{member.Username}</Option>
+                      <Select showSearch defaultValue={controls.Assigned} style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
+                        {depart.filter((val) => val.GroupName === controls.TicketGroup).map(({ Username }) => (
+                          <Option key={Username}>{Username}</Option>
                         ))}
                       </Select>
                       :

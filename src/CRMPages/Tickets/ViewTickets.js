@@ -49,7 +49,7 @@ const ViewTickets = (props) => {
 
     // get tickets 
     dispatch(getTicketsAPI({ LoginName: user.LoginName })).then(data => {
-      // console.log('12310', data)
+      console.log('12310', data)
       dispatch(addAllTickets(data))
       setState({ ...state, filterTickets: data, loader: false });
     })
@@ -187,9 +187,16 @@ const ViewTickets = (props) => {
                   <AutoComplete onSearch={(e) => { handleSearch(e, 'CustomerName') }} placeholder="Customer Name" patterns />
                 </div>
               </Col>
+              <Col sm={12} md={8} lg={5} xs={24}>
+                <div className="project-sort-search" style={{marginBottom:10, }}>
+                  <AutoComplete onSearch={(e) => { handleSearch(e, 'TicketTitle') }} placeholder="Reason" patterns />
+                </div>
+              </Col>
 
               <Col xs={24} style={{ marginTop: 10 }} >
                  <Button size="large"  variant="danger" onClick={(val) => onStatusChange('Open')} style={{ borderWidth: 1, borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
+                 <Button size="large"  variant="danger" onClick={(val) => onStatusChange('Waiting')} style={{ borderWidth: 1, borderColor: StatusSort == "Waiting" ? '#5F63F2' : null }}>Waiting</Button>
+                 <Button size="large"  variant="danger" onClick={(val) => onStatusChange('FollowUp')} style={{ borderWidth: 1, borderColor: StatusSort == "FollowUp" ? '#5F63F2' : null }}>FollowUp</Button>
                  <Button size="large"  variant="primary" onClick={(val) => onStatusChange('Closed')} style={{ borderWidth: 1, borderColor: StatusSort == "Closed" ? '#5F63F2' : null }} >Closed</Button>
               </Col>
             </Row>

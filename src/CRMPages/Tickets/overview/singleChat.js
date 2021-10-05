@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import { Tabs, Spin } from 'antd';
+import { Tabs, Spin, Image } from 'antd';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
@@ -99,7 +99,7 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
 
                     <div>
                       <Heading as="h5" className="atbd-chatbox__name">
-                        {comment.CreateBy} {comment.FromTicketGroup!==null? `(${comment.FromTicketGroup})`: ''}
+                        {comment.CreateBy} {!['null', 'undefined'].includes(comment.FromTicketGroup)? `(${comment.FromTicketGroup})`: ''}
                         <span>{formatDate(comment.UpdateDate)}</span>
                         <span className={'right'} style={{ fontWeight: 'bold', color: 'black' }}>Assigned To: {comment.Assigned} {comment.TicketGroup ? `(${comment.TicketGroup})`: ''}</span>
                       </Heading>
@@ -110,8 +110,9 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
                             <span style={{ fontWeight: 'bold' }}>{comment.Subject}</span>
                             <p style={{ fontSize: 12 }}>
                               {`${comment.Description}`}
-                              <span>{comment.Attachment !== null ? <a style={{color: '#f0f0f0',  fontStyle:'italic', marginLeft: 10}} target='_blank' href={`${uploadUrl}/${comment.Attachment}`}> View Attachment</a> : ''}</span>
+                              {/* <span>{comment.Attachment !== null ? <a style={{color: '#f0f0f0',  fontStyle:'italic', marginLeft: 10}} target='_blank' href={`${uploadUrl}/${comment.Attachment}`}> View Attachment</a> : ''}</span> */}
                             </p>
+                            {comment.Attachment !== null &&<Image height={200} width={200} style={{borderRadius: 0, maxWidth: 200}} src={`${uploadUrl}/${comment.Attachment}`}/>}
                           </MessageList>
                         </div>
                       </div>
