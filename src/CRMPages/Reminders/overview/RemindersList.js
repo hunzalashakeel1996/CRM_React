@@ -36,7 +36,6 @@ const RemindersList = (props) => {
       });
     }
     // when page open through notification press
-    // console.log('asda',props.match.params)
     if (props.match.params.ReminderID && props.filterReminders.length > 0) {
       setTimeout(() => {
         setState({

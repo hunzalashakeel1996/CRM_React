@@ -77,27 +77,33 @@ const TicketDetails = ({ match, location}) => {
 
     socket ? socket.onmessage = (data) => {
         let message = JSON.parse(data.data)
+        console.log('check12', message)
+        console.log('check12', message.data)
         // when recieve roomMessage socket 
-        if (message.reason === 'newComment' && message.data.TicketNo === ticketDetail.TicketNo) {
-            audioPlay()
-            dispatch(addComment(message.data))
+        if(['newComment', 'newReminder'].includes(message.reason)){
+            let descData = message.data.data
+            if (message.reason === 'newComment' && descData.TicketNo === ticketDetail.TicketNo) {
+                audioPlay()
+                dispatch(addComment(descData))
+            }
+            else if (message.reason === 'newReminder' && descData.TicketNo === ticketDetail.TicketNo) {
+                audioPlay()
+                dispatch(addReminder(descData))
+            }
         }
-        else if (message.reason === 'newReminder' && message.data.TicketNo === ticketDetail.TicketNo) {
-            audioPlay()
-            dispatch(addReminder(message.data))
-        }
+        
     } : null
 
     const cardContent = (title, value) => {
         return (
             <Row >
-                {(value[0] && value[0]!=='null') && <Col span={24} >
+                {(value[0] && !['null', 'undefined'].includes(value[0])) && <Col span={24} >
                     <Row>
                         <Col span={7}><p style={{ fontWeight: 'bold', marginRight: 3 }}>{title[0]} </p></Col>
-                        <p> {title[0]=='Phone:' ? `(${value[0].substr(0,3)}) ${value[0].substr(3,3)}-${value[0].substr(6,4)}`: value[0]}</p>
+                        <p> {title[0]=='Phone:' ? `${value[0]}`: value[0]}</p>
                     </Row>
                 </Col>}
-                {(value[1] && value[1]!=='null') && <Col span={24}>
+                {(value[1] && !['null', 'undefined'].includes(value[1])) && <Col span={24}>
                     <Row>
                         <Col span={7}><p style={{ fontWeight: 'bold', marginRight: 3 }}>{title[1]} </p></Col>
                         <p> {` ${value[1]}`}</p>
@@ -110,7 +116,7 @@ const TicketDetails = ({ match, location}) => {
     const onAddComment = (form) => {
         setState({ ...state, loader: true, });
         form = {
-            ...form, TicketNo: ticketDetail.TicketNo, CreateBy: user.LoginName, FromTicketGroup: user.GroupName,
+            ...form, TicketNo: ticketDetail.TicketNo, CreateBy: user.LoginName, FromTicketGroup: user.GroupName?user.GroupName:'undefined',
             TicketTitle: ticketDetail.TicketTitle, OrderNo: ticketDetail.OrderNo, CustomerName: ticketDetail.CustomerName, CustomerContact: ticketDetail.CustomerContact,
             ZipCode: ticketDetail.ZipCode, Status: ticketDetail.Status
         }
@@ -118,7 +124,6 @@ const TicketDetails = ({ match, location}) => {
             // save image in server
             const data = new FormData()
             data.append('CRMImage', form.picturePath.file)
-            // console.log('inside image')
             fetch(`${uploadUrl}/api/images/crmImageUpload`, {
                 method: 'POST',
                 body: data
@@ -128,11 +133,9 @@ const TicketDetails = ({ match, location}) => {
                 form = { ...form, Attachment: res }
                 onAddCommentProcess(form)
             }).catch((err) => {
-                // console.log(err)
             })
 
         } else {
-            // console.log('insde not image')
             // image not attached in ticket
             form = { ...form, Attachment: null }
             onAddCommentProcess(form)
@@ -154,14 +157,13 @@ const TicketDetails = ({ match, location}) => {
             ...form,
             TicketNo: ticketDetail.TicketNo,
             RefrenceId: ticketDetail.TicketNo,
-            FromTicketGroup: user.GroupName,
+            FromTicketGroup: user.GroupName?user.GroupName:'undefined',
             StartTime: form['range-time-picker'][0].format('YYYY-MM-DDTHH:mm:ss.000'),
             EndTime: form['range-time-picker'][1].format('YYYY-MM-DDTHH:mm:ss.000'),
             CreateBy: user.LoginName,
             Status: 'Open'
         }
         dispatch(addReminderAPI(form)).then(data => {
-            // console.log('res123', data)
             form = {...form, ReminderID: data.reminderID}
             socket && socket.send(JSON.stringify({type: 'broadcastMessage', reason: 'newReminder', data: form}))
             dispatch(addReminder(form))
@@ -212,6 +214,7 @@ const TicketDetails = ({ match, location}) => {
                         {/* <CalendarButtonPageHeader />
                         <ExportButtonPageHeader />
                         <ShareButtonPageHeader /> */}
+                       
                         <div style={{marginRight: 10}}>
                             <Radio.Group
                                 options={[
@@ -225,7 +228,8 @@ const TicketDetails = ({ match, location}) => {
                                 optionType="button"
                             />
                         </div>
-
+                        
+                        <div>
                          <Button size="large"  onClick={() => { showModal('createReminder') }} size="small" type="primary">
                             <FeatherIcon icon="bell" size={14} />
                             Set Reminder
@@ -234,6 +238,8 @@ const TicketDetails = ({ match, location}) => {
                             <FeatherIcon icon="plus" size={14} />
                             Add Comment
                         </Button>
+                        </div>
+
                     </div>,
                 ]}
             />
@@ -267,8 +273,9 @@ const TicketDetails = ({ match, location}) => {
                   </UL>
                 </nav> */}
                                 <Content>
+                                    
                                     {ticketDetail !== null &&
-                                        <Card bordered={true} title={`${ticketDetail.TicketTitle}`} style={{ width: 450, marginLeft: 15 }}>
+                                        <Card bordered={true} title={`${ticketDetail.TicketTitle}`} style={{ padding:0, marginLeft: 15 }}>
                                             {/* <Row >
                                             <Col span={24} >
                                                 <Row className={'center'}>
