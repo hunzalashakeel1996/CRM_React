@@ -11,14 +11,10 @@ const AuthLayout = WraperContent => {
           <Aside>
             <div className="auth-side-content">
               <Content>
-                <br />
-                <br />
-                <br />
-                <br />
                 <img
                   className="auth-content-figure"
                   src={require('../../../static/img/auth/nolin-logo.png')}
-                  style={{width: 400, height: 350}}
+                  style={{width: '100%'}}
                 />
               </Content>
             </div>
