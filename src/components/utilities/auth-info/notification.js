@@ -183,9 +183,13 @@ const NotificationBox = () => {
 };
 
 export const askNotification = () => {
-  return Notification.requestPermission().then(permission => {
-    return permission
-  })
+  if (window.navigator.platform === 'Win32') {
+    return Notification.requestPermission().then(permission => {
+      return permission
+    })
+  }
+  else
+    return 'not granted'
 }
 
 export default NotificationBox;

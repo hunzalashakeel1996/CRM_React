@@ -44,24 +44,26 @@ const ViewTickets = (props) => {
 
   useEffect(() => {
     setState({ ...state, loader: true })
-    Notification.requestPermission().then(permission => {
-      console.log('grad', permission)
-      if(permission == 'denied'){
-        alert('Please give permission for notification from (i) icon')
-      }
-     
-      if (permission == 'granted') {
+    if (window.navigator.platform === 'Win32') {
+      Notification.requestPermission().then(permission => {
+        console.log('grad', permission)
+        if (permission == 'denied') {
+          alert('Please give permission for notification from (i) icon')
+        }
+
+        if (permission == 'granted') {
           firebase.messaging().getToken()
             .then(token => {
               // save token in data base api
-              let data = {deviceToken: token, jwtToken: user.jwtToken, loginName: user.LoginName}
+              let data = { deviceToken: token, jwtToken: user.jwtToken, loginName: user.LoginName }
               dispatch(insertDeviceToken(data))
             })
             .catch(e => {
               // console.log('check error')
             })
-      }
-    });
+        }
+      });
+    }
 
     // get tickets 
     dispatch(TicketStatusChangeAPI({ LoginName: user.LoginName, StatusSort: "Open"})).then(data => {

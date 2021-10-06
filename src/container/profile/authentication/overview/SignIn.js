@@ -22,25 +22,30 @@ const SignIn = () => {
     checked: null,
     loader: false
   });
-  const handleSubmit =  (value) => {
-    Notification.requestPermission().then(permission => {
-      setState({ ...state, loader: true })
-      if (permission == 'granted') {
-        navigator.serviceWorker.getRegistration().then(async (reg) => {
-          firebase.messaging().getToken()
-            .then(token => {
-              loginUser({ ...value, Token: token })
-            })
-            .catch(e => {
-              // console.log('check error')
-            })
-        });
-      }
-      else {
-        loginUser({ ...value, Token: 'not provided' })
-      }
-    });
-
+  
+  const handleSubmit = (value) => {
+    if (window.navigator.platform === 'Win32') {
+      Notification.requestPermission().then(permission => {
+        setState({ ...state, loader: true })
+        if (permission == 'granted') {
+          navigator.serviceWorker.getRegistration().then(async (reg) => {
+            firebase.messaging().getToken()
+              .then(token => {
+                loginUser({ ...value, Token: token })
+              })
+              .catch(e => {
+                // console.log('check error')
+              })
+          });
+        }
+        else {
+          loginUser({ ...value, Token: 'not provided' })
+        }
+      });
+    }
+    else {
+      loginUser({ ...value, Token: 'not provided' })
+    }
   };
 
   const loginUser = (value) => {
