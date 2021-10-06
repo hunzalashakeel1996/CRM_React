@@ -44,6 +44,7 @@ const SignIn = () => {
   };
 
   const loginUser = (value) => {
+    console.log('tryyuuo',{ username: value.username, password: value.password, Token: value.Token })
     dispatch(loginAPI({ username: value.username, password: value.password, Token: value.Token }))
       .then(data => {
         // console.log('cehck23343', data)

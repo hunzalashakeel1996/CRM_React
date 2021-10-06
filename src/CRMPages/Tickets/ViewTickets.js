@@ -7,7 +7,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import { AutoComplete } from '../../components/autoComplete/autoComplete';
 import { Button } from '../../components/buttons/buttons';
 import { PageHeader } from '../../components/page-headers/page-headers';
-import { addCommentAPI, addTicketAPI, getTicketsAPI, webURL, audioPlay, uploadUrl, TicketStatusChangeAPI } from '../../redux/apis/DataAction';
+import { addCommentAPI, addTicketAPI, getTicketsAPI, webURL, audioPlay, uploadUrl, TicketStatusChangeAPI, insertDeviceToken } from '../../redux/apis/DataAction';
 import { filterProjectByStatus, sortingProjectByCategory } from '../../redux/project/actionCreator';
 import { connectSocket } from '../../redux/socket/socketAction';
 import { addAllTickets, addTicket, addDepart } from '../../redux/ticket/actionCreator';
@@ -54,7 +54,8 @@ const ViewTickets = (props) => {
           firebase.messaging().getToken()
             .then(token => {
               // save token in data base api
-              console.log('token', token)
+              let data = {deviceToken: token, jwtToken: user.jwtToken, loginName: user.LoginName}
+              dispatch(insertDeviceToken(data))
             })
             .catch(e => {
               // console.log('check error')
@@ -63,7 +64,7 @@ const ViewTickets = (props) => {
     });
 
     // get tickets 
-    dispatch(getTicketsAPI({ LoginName: user.LoginName })).then(data => {
+    dispatch(TicketStatusChangeAPI({ LoginName: user.LoginName, StatusSort: "Open"})).then(data => {
       dispatch(addAllTickets(data))
       setState({ ...state, filterTickets: data, loader: false });
     })
