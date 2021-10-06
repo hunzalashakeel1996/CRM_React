@@ -182,4 +182,10 @@ const NotificationBox = () => {
   );
 };
 
+export const askNotification = () => {
+  return Notification.requestPermission().then(permission => {
+    return permission
+  })
+}
+
 export default NotificationBox;

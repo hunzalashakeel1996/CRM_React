@@ -941,6 +941,10 @@ export const TicketStatusChangeAPI = (data) => {
     return apiFetch('api/ticket/TicketStatusChange', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
+export const insertDeviceToken = (data) => {
+    return apiFetch('api/ticket/insertDeviceToken', "POST", headerWithWebToken, JSON.stringify({ data }));
+};
+
 export const getAzabAPI = (data) => {
     // console.log(JSON.stringify({ data }))
     return apiFetch('api/azab/azabReport', "POST", headerWithWebToken, JSON.stringify({ data }));

@@ -159,7 +159,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
                             <Row gutter={10} style={{ marginBottom: 20 }}>
 
                                 <Col span={12}>
-                                    <Form.Item  name="TicketGroup" initialValue="" label="">
+                                    <Form.Item  name="TicketGroup"  label="">
                                         <Select autoFocus={true} defaultValue={departmentName} disabled={isSelfAssigned} style={{ width: '100%' }} onChange={(val) => { setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}>
                                             <Option value="CSR">CSR</Option>
                                             <Option value="Processing">Processing</Option>
