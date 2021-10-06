@@ -99,7 +99,7 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
 
                     <div>
                       <Heading as="h5" className="atbd-chatbox__name">
-                        {comment.CreateBy} {!['null', 'undefined'].includes(comment.FromTicketGroup)? `(${comment.FromTicketGroup})`: ''}
+                        {comment.CreateBy} {!['null', 'undefined', undefined].includes(comment.FromTicketGroup)? `(${comment.FromTicketGroup})`: ''}
                         <span>{formatDate(comment.UpdateDate)}</span>
                         <span className={'left'} style={{ fontWeight: 'bold', color: 'black', display:'block', margin: 0, }}>Assigned To: {comment.Assigned} {comment.TicketGroup ? `(${comment.TicketGroup})`: ''}</span>
                       </Heading>

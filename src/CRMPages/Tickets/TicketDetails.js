@@ -100,7 +100,7 @@ const TicketDetails = ({ match, location}) => {
                 {(value[0] && !['null', 'undefined'].includes(value[0])) && <Col span={24} >
                     <Row>
                         <Col span={7}><p style={{ fontWeight: 'bold', marginRight: 3 }}>{title[0]} </p></Col>
-                        <p> {title[0]=='Phone:' ? `${value[0]}`: value[0]}</p>
+                        <p> {title[0]=='Phone:' ? `(${value[0].substr(0,3)}) ${value[0].substr(3,3)}-${value[0].substr(6,4)}`: value[0]}</p>
                     </Row>
                 </Col>}
                 {(value[1] && !['null', 'undefined'].includes(value[1])) && <Col span={24}>
