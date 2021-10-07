@@ -892,6 +892,10 @@ export const getTicketsAPI = (data) => {
     return apiFetch('api/ticket/getTickets', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
 
+export const userRemindersOnStatus = (data) => {
+    return apiFetch('api/ticket/userRemindersOnStatus', "POST", headerWithWebToken, JSON.stringify({ data }));
+};
+
 export const getBagsAPI = (data) => {
     return apiFetch('api/shipping/getBags', "POST", headerWithWebToken, JSON.stringify({ data }));
 };
