@@ -67,7 +67,7 @@ const ViewTickets = (props) => {
 
     // get tickets 
     dispatch(TicketStatusChangeAPI({ LoginName: user.LoginName, StatusSort: "Open"})).then(data => {
-      dispatch(addAllTickets(data))
+      // dispatch(addAllTickets(data))
       setState({ ...state, filterTickets: data, loader: false });
     })
 
