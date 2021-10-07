@@ -8,8 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AtbdTopDropdwon } from './auth-info-style';
 import { Popover } from '../../popup/popup';
 import Heading from '../../heading/heading';
-import { getUserRemindersAPI } from '../../../redux/apis/DataAction';
-import { addAllReminders } from '../../../redux/ticket/actionCreator';
+import { getUserRemindersAPI, TicketStatusChangeAPI, userRemindersOnStatus } from '../../../redux/apis/DataAction';
+import { addAllReminders, addAllTickets } from '../../../redux/ticket/actionCreator';
 
 const NotificationBox = () => {
   const history = useHistory();
@@ -30,9 +30,12 @@ const NotificationBox = () => {
   });
 
   useEffect(() => {
-    dispatch(getUserRemindersAPI({ LoginName: user.LoginName })).then(data => {
+    dispatch(userRemindersOnStatus({ LoginName: user.LoginName, status: "Open" })).then(data => {
       // let openReminder = data.filter(val => val.Status === 'Open')
       dispatch(addAllReminders(data))
+      dispatch(TicketStatusChangeAPI({ LoginName: user.LoginName, StatusSort: "Open"})).then(data => {
+        dispatch(addAllTickets(data))
+      })
     })
   }, []);
 
