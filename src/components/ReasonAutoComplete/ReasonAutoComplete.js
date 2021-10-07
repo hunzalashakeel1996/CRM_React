@@ -48,7 +48,7 @@ const ReasonAutoComplete = ({ darkMode, dataSource, onReasonSelect, selectedReas
               // title="Reason"
               action="focus"
             >
-              <Input style={{borderWidth: 1}} placeholder={placeholder} onInput={search} value={selectedReason} onChange={(e) => {onInputChange(e.target.value)}}/>
+              <Input id='Reason' style={{borderWidth: 1}} placeholder={placeholder} onInput={search} value={selectedReason} onChange={(e) => {onInputChange(e.target.value)}}/>
             </Popover>
           </Col>
         </Row>

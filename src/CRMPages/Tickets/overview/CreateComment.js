@@ -117,7 +117,7 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
 
                                 <Col span={12}>
                                     <Form.Item name="TicketGroup" label="">
-                                        <Select  defaultValue={Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR'} style={{ width: '100%' }} onChange={(val) => { setDepartmentName(val); Cookies.set('commentTicketGroup', val) }}>
+                                        <Select  defaultValue={Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR'} style={{ width: '100%' }} onChange={(val) => { document.getElementById('Assigned').focus();setDepartmentName(val); Cookies.set('commentTicketGroup', val) }}>
                                             <Option value="CSR">CSR</Option>
                                             <Option value="Processing">Processing</Option>
                                             <Option value="Shipping">Shipping</Option>
@@ -128,7 +128,7 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
                                 <Col span={12}>
                                     <Form.Item name="Assigned" initialValue="" label="" rules={[{ required: true }]}>
                                         {(depart.length > 0 && departmentName !== '') ?
-                                            <Select showSearch style={{ width: '100%' }}>
+                                            <Select onChange={() => {document.getElementById('uploadPhoto').focus();}} id='Assigned' showSearch style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>
                                                 {depart.filter((val) => val.GroupName === departmentName).map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>
@@ -143,12 +143,12 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
 
                             <Row style={{ marginTop: 10 }}>
                                 <Upload beforeUpload={() => false} onChange={(pic) => { setState({ ...state, picturePath: pic }) }} onRemove={() => { setState({ ...state, picturePath: null }) }}>
-                                     <Button size="large"  style={{ borderWidth: 0.5, borderColor: '#ebebeb' }} icon={<UploadOutlined />}>Click to Upload</Button>
+                                     <Button id='uploadPhoto' size="large"  style={{ borderWidth: 0.5, borderColor: '#ebebeb' }} icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload>
                             </Row>
 
                             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
-                                 <Button size="large"  type="primary" htmlType="submit">
+                                 <Button  size="large"  type="primary" htmlType="submit">
                                     Submit
                                     </Button>
                             </Form.Item>

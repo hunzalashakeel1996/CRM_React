@@ -160,7 +160,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
 
                                 <Col span={12}>
                                     <Form.Item  name="TicketGroup"  label="">
-                                        <Select autoFocus={true} defaultValue={departmentName} disabled={isSelfAssigned} style={{ width: '100%' }} onChange={(val) => { setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}>
+                                        <Select  defaultValue={departmentName} disabled={isSelfAssigned} style={{ width: '100%' }} onChange={(val) => { document.getElementById('Assigned').focus();setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}>
                                             <Option value="CSR">CSR</Option>
                                             <Option value="Processing">Processing</Option>
                                             <Option value="Shipping">Shipping</Option>
@@ -172,7 +172,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
                                 <Col span={12}>
                                     <Form.Item name="Assigned" initialValue="" label=""  rules={[{ required: true }]}>
                                         {(depart.length > 0 && departmentName !== '') ?
-                                            <Select showSearch  onChange={(val) => {form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
+                                            <Select id='Assigned' autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>
                                                 {depart.filter((val) => val.GroupName === departmentName).map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>
@@ -186,8 +186,8 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
                                 </Col>
                             </Row>
 
-                            <Form.Item name='Message' label="" rules={[{ required: true }]}>
-                                <Input.TextArea placeholder="Message" />
+                            <Form.Item  name='Message' label="" rules={[{ required: true }]}>
+                                <Input.TextArea id='Message' placeholder="Message" />
                             </Form.Item>
 
                             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>

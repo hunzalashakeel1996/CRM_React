@@ -82,7 +82,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
       
 
       setTimeout(() => {
-      document.getElementById('Ticketgroup').focus()
+      document.getElementById('Assigned').focus()
         
       }, 500);
     }
@@ -211,7 +211,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               <Row gutter={20}>
                 <Col xs={24} sm={12} lg={12}>
                   <Form.Item  name="TicketGroup" label="" >
-                    <Select  id='Ticketgroup' showSearch style={{ width: '100%' }} autoFocus={true} defaultValue={controls.TicketGroup} onChange={(val) => { onValueChange('TicketGroup', val) }}>
+                    <Select  id='Ticketgroup' showSearch style={{ width: '100%' }}  defaultValue={controls.TicketGroup} onChange={(val) => { document.getElementById('Assigned').focus();onValueChange('TicketGroup', val) }}>
                       <Option key="CSR">CSR</Option>
                       <Option key="Processing">Processing</Option>
                       <Option key="Shipping">Shipping</Option>
@@ -221,7 +221,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="Assigned" label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
-                      <Select showSearch value='check'style={{ width: '100%' }} onChange={(val) => { onValueChange('Assigned', val) }}>
+                      <Select id='Assigned' autoFocus={true} showSearch value='check'style={{ width: '100%' }} onChange={(val) => { document.getElementById('Reason').focus();onValueChange('Assigned', val) }}>
                         {depart.filter((val) => val.GroupName === controls.TicketGroup).map(({ Username }) => (
                           <Option key={Username}>{Username}</Option>
                         ))}
@@ -237,19 +237,22 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="TicketTitle" label="">
                     {(false) ?
-                      <Select style={{ width: '100%' }}>
+                      <Select id='Reason' style={{ width: '100%' }}>
                         <Option value="">Reason</Option>
                         {/* {reasons[departmentName] && reasons[departmentName].map(reason => (
                         <Option value={reason}>{reason}</Option>
                       ))} */}
                       </Select>
                       :
-                      <ReasonAutoComplete placeholder='Search Reason' onInputChange={(reason) => { onValueChange('TicketTitle', reason) }} selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons} onReasonSelect={(reason)=>{onValueChange('TicketTitle', reason)}}/>}
+                      <ReasonAutoComplete id='Reason' placeholder='Search Reason'
+                        onInputChange={(reason) => { document.getElementById('WorkNotes').focus(); onValueChange('TicketTitle', reason) }}
+                        selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons}
+                        onReasonSelect={(reason) => { document.getElementById('WorkNotes').focus(); onValueChange('TicketTitle', reason) }} />}
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} lg={12}>
                   <Form.Item name='Subject' label="" rules={[{ required: true }]}>
-                    <Input placeholder="Work Notes" onChange={(val) => { onValueChange('Subject', val.target.value) }}/>
+                    <Input id='WorkNotes' placeholder="Work Notes" onChange={(val) => { onValueChange('Subject', val.target.value) }}/>
                   </Form.Item>
                 </Col>
               </Row>

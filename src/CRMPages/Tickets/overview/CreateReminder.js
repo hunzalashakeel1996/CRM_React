@@ -188,9 +188,9 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
 
                                 <Col xs={12} md={12}>
                                     <Form.Item name="TicketGroup" label="">
-                                        <Select autoFocus={true} disabled={isSelfAssigned}
+                                        <Select  disabled={isSelfAssigned}
                                             defaultValue={departmentName} style={{ width: '100%' }}
-                                            onChange={(val) => { setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}
+                                            onChange={(val) => { document.getElementById('Assigned').focus();setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}
                                         >
                                             <Option value="CSR">CSR</Option>
                                             <Option value="Processing">Processing</Option>
@@ -203,7 +203,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                                 <Col xs={12} md={12}>
                                     <Form.Item name="Assigned" initialValue="" label=""  rules={[{ required: true }]}>
                                         {(depart.length > 0 && departmentName !== '') ?
-                                            <Select showSearch defaultValue={assignedTo} onChange={(val) => {form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
+                                            <Select id='Assigned' autoFocus={true} showSearch defaultValue={assignedTo} onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>
                                                 {depart.filter((val) => val.GroupName === departmentName).map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>
@@ -218,7 +218,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                             </Row>
 
                             <Form.Item name='Message' label="">
-                                <Input.TextArea placeholder="Message" />
+                                <Input.TextArea id='Message' placeholder="Message" />
                             </Form.Item>
 
                             <Form.Item wrapperCol={{ ...layout.wrapperCol,  }}  style={{textAlign:'center'}} >
