@@ -178,11 +178,11 @@ export const apiFetch = (apiUrl, apiMethod, apiHeader, apiBody, isImage = false)
 
 const saveErrorLog = (error, apiURL) => {
     console.warn('ERRR', error)
-    notification['error']({
-        message: 'Sorry',
-        description:
-            'Error from server side',
-    });
+    // notification['error']({
+    //     message: 'Sorry',
+    //     description:
+    //         'Error from server side',
+    // });
 
     // alert('sorrt')
     // fetch(`${url}/api/common/logError`, {

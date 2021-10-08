@@ -60,6 +60,8 @@ const TicketDetails = ({ match, location}) => {
             dispatch(getTicketDetailAPI({ TicketNo: match.params.id })).then(ticketDetail => {
                 setTicketDetail(ticketDetail)
                 dispatch(getCommentsAPI({ TicketNo: match.params.id })).then(data => {
+                console.log('dsadasa', data)
+
                     dispatch(addAllComments(data))
                     setState({ ...state, loader: false, selectedStatus: ticketDetail.Status });
                 })

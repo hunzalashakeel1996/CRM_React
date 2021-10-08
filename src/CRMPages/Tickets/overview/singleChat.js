@@ -34,9 +34,11 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
 
   
   useEffect(() => {
-    setTimeout(() => {
-    window.scrollTo(0, 1000000);
-    }, 1000);
+    // setTimeout(() => {
+    //   // let myDiv = document.getElementById("scrollTo");
+    //   // myDiv.scrollTop = myDiv.scrollHeight;
+    //   document.getElementById('scrollTo').scrollIntoView({behavior: "smooth"});
+    // }, 3000);
   }, [comments,reminders]);
   
   const renderView = ({ style, ...props }) => {
@@ -80,7 +82,6 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
   };
 
   function onTabChange(key) {
-    window.scrollTo(0, 1000000);
     setTabName(key)
   }
 
@@ -101,16 +102,16 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
 
           const same = moment(id).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY');
           return (
-            <Fragment key={id}>
+            <Fragment  key={id}>
               <li className="atbd-chatbox__single" key={id} style={{ overflow: 'hidden' }}>
                 <div className={'left'}>
                   <div className="atbd-chatbox__content">
 
                     <div>
                       <Heading as="h5" className="atbd-chatbox__name">
-                        {comment.CreateBy} {!['null', 'undefined', undefined].includes(comment.FromTicketGroup)? `(${comment.FromTicketGroup})`: ''}
+                        {comment.CreateBy} have assigned to {comment.Assigned}
                         <span>{formatDate(comment.UpdateDate)}</span>
-                        <span className={'left'} style={{ fontWeight: 'bold', color: 'black', display:'block', margin: 0, }}>Assigned To: {comment.Assigned}</span>
+                        {/* <span className={'left'} style={{ fontWeight: 'bold', color: 'black', display:'block', margin: 0, }}>Assigned To: {comment.Assigned}</span> */}
                       </Heading>
 
                       <div className="atbd-chatbox__contentInner d-flex">

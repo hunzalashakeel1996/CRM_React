@@ -44,7 +44,7 @@ const ticketReducer = (state = ticketState, action) => {
       };
     case ADD_COMMENT:
       temp = [...state.comments]
-      temp.push(data)
+      temp.unshift(data)
       return {
         ...state,
         comments: temp,
@@ -52,7 +52,7 @@ const ticketReducer = (state = ticketState, action) => {
       };
     case ADD_REMINDER:
       temp = [...state.reminders]
-      temp.push(data)
+      temp.unshift(data)
       return {
         ...state,
         reminders: temp,
