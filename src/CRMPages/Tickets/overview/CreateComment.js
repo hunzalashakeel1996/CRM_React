@@ -28,8 +28,9 @@ const layout = {
     wrapperCol: { span: 25 },
 };
 
-const createComment = ({ visible, onCancel, onAdd, loader }) => {
+const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
     let depart = useSelector(state => state.tickets.depart);
+    let user = useSelector(state => state.auth.login);
 
     const [state, setState] = useState({
         visible,
@@ -38,9 +39,10 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
         picturePath: null
     });
 
-    const [departmentName, setDepartmentName] = useState(Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR');
+    // const [departmentName, setDepartmentName] = useState(Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR');
 
     useEffect(() => {
+        console.log('detail', ticketDetail)
         let unmounted = false;
         if (!unmounted) {
             setState({
@@ -53,7 +55,11 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
-        values = { ...values, picturePath: state.picturePath, TicketGroup: departmentName}
+        values = {
+            ...values,
+            Assigned: values.Assigned|| (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy),
+            picturePath: state.picturePath, TicketGroup: 'undefined', Subject: ''
+        }
         document.getElementById("new_comment").reset();
         onAdd(values)
     };
@@ -92,7 +98,7 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
             <Spin spinning={loader}>
                 <div className="project-modal">
                     <BasicFormWrapper>
-                        <Form {...layout} id="new_comment" onKeyDown={(value) => {handleEnter(value)}} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+                        <Form {...layout} autocomplete="off" id="new_comment" onKeyDown={(value) => {handleEnter(value)}} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                             {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
@@ -109,13 +115,13 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
                             <Form.Item name={'Description'} label="" rules={[{ required: true }]}>
                                 <Input autoFocus={true} placeholder="Short Description" />
                             </Form.Item>
-                            <Form.Item name={'Subject'} label="" rules={[{ required: true }]}>
+                            {/* <Form.Item name={'Subject'} label="" rules={[{ required: true }]}>
                                 <Input placeholder="Work Notes" />
-                            </Form.Item>
+                            </Form.Item> */}
 
                             <Row gutter={10} style={{ marginBottom: 20 }}>
 
-                                <Col span={12}>
+                                {/* <Col span={12}>
                                     <Form.Item name="TicketGroup" label="">
                                         <Select  defaultValue={Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR'} style={{ width: '100%' }} onChange={(val) => { document.getElementById('Assigned').focus();setDepartmentName(val); Cookies.set('commentTicketGroup', val) }}>
                                             <Option value="CSR">CSR</Option>
@@ -123,20 +129,20 @@ const createComment = ({ visible, onCancel, onAdd, loader }) => {
                                             <Option value="Shipping">Shipping</Option>
                                         </Select>
                                     </Form.Item>
-                                </Col>
+                                </Col> */}
 
                                 <Col span={12}>
-                                    <Form.Item name="Assigned" initialValue="" label="" rules={[{ required: true }]}>
-                                        {(depart.length > 0 && departmentName !== '') ?
-                                            <Select onChange={() => {document.getElementById('uploadPhoto').focus();}} id='Assigned' showSearch style={{ width: '100%' }}>
-                                                <Option value="">Assigned</Option>
-                                                {depart.filter((val) => val.GroupName === departmentName).map(member => (
+                                    <Form.Item name="Assigned" label="">
+                                        {/* {(depart.length > 0 && departmentName !== '') ? */}
+                                            <Select defaultValue={user.LoginName===ticketDetail.Assigned? ticketDetail.Assigned:ticketDetail.CreateBy} onChange={() => {document.getElementById('uploadPhoto').focus();}} id='Assigned' showSearch style={{ width: '100%' }}>
+                                                {/* <Option value="">Assigned</Option> */}
+                                                {depart.map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>
                                                 ))}
                                             </Select>
-                                            :
-                                            <Input placeholder="Assigned To" />
-                                        }
+                                            {/* :
+                                            <Input placeholder="Assigned To" /> */}
+                                        {/* } */}
                                     </Form.Item>
                                 </Col>
                             </Row>

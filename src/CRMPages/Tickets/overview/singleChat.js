@@ -101,13 +101,13 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
                       <Heading as="h5" className="atbd-chatbox__name">
                         {comment.CreateBy} {!['null', 'undefined', undefined].includes(comment.FromTicketGroup)? `(${comment.FromTicketGroup})`: ''}
                         <span>{formatDate(comment.UpdateDate)}</span>
-                        <span className={'left'} style={{ fontWeight: 'bold', color: 'black', display:'block', margin: 0, }}>Assigned To: {comment.Assigned} {comment.TicketGroup ? `(${comment.TicketGroup})`: ''}</span>
+                        <span className={'left'} style={{ fontWeight: 'bold', color: 'black', display:'block', margin: 0, }}>Assigned To: {comment.Assigned}</span>
                       </Heading>
 
                       <div className="atbd-chatbox__contentInner d-flex">
                         <div className="atbd-chatbox__message" >
                           <MessageList className="message-box">
-                            <span style={{ fontWeight: 'bold' }}>{comment.Subject}</span>
+                            {/* <span style={{ fontWeight: 'bold' }}>{comment.Subject}</span> */}
                             <p style={{ fontSize: 12 }}>
                               {`${comment.Description}`}
                               {/* <span>{comment.Attachment !== null ? <a style={{color: '#f0f0f0',  fontStyle:'italic', marginLeft: 10}} target='_blank' href={`${uploadUrl}/${comment.Attachment}`}> View Attachment</a> : ''}</span> */}
@@ -154,7 +154,7 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
                 <div className={'left'}>
                   <div className="atbd-chatbox__content">
                     <Heading as="h5" className="atbd-chatbox__name">
-                      Assigned To: {reminder.Assigned} {reminder.TicketGroup ? `(${reminder.TicketGroup})` : ''}
+                      Assigned To: {reminder.Assigned}
                       {/* <span>{reminder.reminderAt}</span> */}
                       <span className={'right'} style={{ fontWeight: 'bold', color: 'black' }}>Reminder Type: {reminder.ReminderType}</span>
                     </Heading>

@@ -77,8 +77,6 @@ const TicketDetails = ({ match, location}) => {
 
     socket ? socket.onmessage = (data) => {
         let message = JSON.parse(data.data)
-        console.log('check12', message)
-        console.log('check12', message.data)
         // when recieve roomMessage socket 
         if(['newComment', 'newReminder'].includes(message.reason)){
             let descData = message.data.data
@@ -100,7 +98,7 @@ const TicketDetails = ({ match, location}) => {
                 {(value[0] && !['null', 'undefined'].includes(value[0])) && <Col span={24} >
                     <Row>
                         <Col span={7}><p style={{ fontWeight: 'bold', marginRight: 3 }}>{title[0]} </p></Col>
-                        <p> {title[0]=='Phone:' ? `(${value[0].substr(0,3)}) ${value[0].substr(3,3)}-${value[0].substr(6,4)}`: value[0]}</p>
+                        <p> {(title[0]=='Phone:'&&value[0].split('-').length<=1) ? `(${value[0].substr(0,3)}) ${value[0].substr(3,3)}-${value[0].substr(6,4)}`: value[0]}</p>
                     </Row>
                 </Col>}
                 {(value[1] && !['null', 'undefined'].includes(value[1])) && <Col span={24}>
@@ -315,7 +313,7 @@ const TicketDetails = ({ match, location}) => {
                     </Col>
                 </Row>
 
-                    {state.visible === 'createComment' && <CreateComment onAdd={(form) => { onAddComment(form) }} onCancel={onCancel} visible={state.visible} loader={state.loader}/>}
+                    {state.visible === 'createComment' && <CreateComment ticketDetail={ticketDetail} onAdd={(form) => { onAddComment(form) }} onCancel={onCancel} visible={state.visible} loader={state.loader}/>}
                     {state.visible === 'createReminder' && <CreateReminder ticketDetail={ticketDetail} onAdd={(form) => { onAddReminder(form) }} onCancel={onCancel} visible={state.visible} loader={state.loader}/>}
 
                 </Main>

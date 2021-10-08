@@ -89,7 +89,6 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   }, [visible]);
 
   const onFinish = values => {
-    // values = { ...values, TicketTitle: state.selectedReason, picturePath: state.picturePath }
     form.resetFields();
     onAdd(controls)
     setState({ ...state, controls: formInit })
@@ -194,7 +193,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
        <Spin spinning={loader||isLoading}>
       <div className="project-modal">
         <BasicFormWrapper>
-          <Form {...layout} form={form} onKeyDown={(value) => {handleEnter(value)}} id="new_ticket" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+          <Form {...layout} autocomplete="off"  form={form} onKeyDown={(value) => {handleEnter(value)}} id="new_ticket" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
             {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
@@ -209,7 +208,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
               </Select>
             </Form.Item> */}
               <Row gutter={20}>
-                <Col xs={24} sm={12} lg={12}>
+                {/* <Col xs={24} sm={12} lg={12}>
                   <Form.Item  name="TicketGroup" label="" >
                     <Select  id='Ticketgroup' showSearch style={{ width: '100%' }}  defaultValue={controls.TicketGroup} onChange={(val) => { document.getElementById('Assigned').focus();onValueChange('TicketGroup', val) }}>
                       <Option key="CSR">CSR</Option>
@@ -217,12 +216,13 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       <Option key="Shipping">Shipping</Option>
                     </Select>
                   </Form.Item>
-                </Col>
+                </Col> */}
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="Assigned" label="" rules={[{ required: true }]}>
+                  <Form.Item name="Assigned" initialValue='' label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
                       <Select id='Assigned' autoFocus={true} showSearch value='check'style={{ width: '100%' }} onChange={(val) => { document.getElementById('Reason').focus();onValueChange('Assigned', val) }}>
-                        {depart.filter((val) => val.GroupName === controls.TicketGroup).map(({ Username }) => (
+                          <Option key=''>Assigned</Option>
+                        {depart.map(({ Username }) => (
                           <Option key={Username}>{Username}</Option>
                         ))}
                       </Select>
@@ -231,9 +231,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                     }
                   </Form.Item>
                 </Col>
-              </Row>
 
-              <Row gutter={20}>
                 <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="TicketTitle" label="">
                     {(false) ?
@@ -245,20 +243,24 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       </Select>
                       :
                       <ReasonAutoComplete id='Reason' placeholder='Search Reason'
-                        onInputChange={(reason) => { document.getElementById('WorkNotes').focus(); onValueChange('TicketTitle', reason) }}
+                        onInputChange={(reason) => { document.getElementById('Description').focus(); onValueChange('TicketTitle', reason) }}
                         selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons}
-                        onReasonSelect={(reason) => { document.getElementById('WorkNotes').focus(); onValueChange('TicketTitle', reason) }} />}
+                        onReasonSelect={(reason) => { document.getElementById('Description').focus(); onValueChange('TicketTitle', reason) }} />}
                   </Form.Item>
                 </Col>
+              </Row>
+
+              {/* <Row gutter={20}>
+                
                 <Col xs={24} sm={12} lg={12}>
                   <Form.Item name='Subject' label="" rules={[{ required: true }]}>
                     <Input id='WorkNotes' placeholder="Work Notes" onChange={(val) => { onValueChange('Subject', val.target.value) }}/>
                   </Form.Item>
                 </Col>
-              </Row>
+              </Row> */}
 
               <Form.Item name='Description' label="" rules={[{ required: true }]}>
-                <Input placeholder="Short Description" onChange={(val) => { onValueChange('Description', val.target.value) }} />
+                <Input id='Description' placeholder="Short Description" onChange={(val) => { onValueChange('Description', val.target.value) }} />
               </Form.Item>
 
               <Row gutter={20}>
