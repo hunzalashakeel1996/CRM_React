@@ -57,9 +57,9 @@ const TicketsList = (props) => {
         ),
         TicketNo: <Link  to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{TicketNo}</span></Link>,
         Status: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{Status}</span></Link>,
-        orderNumber: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{OrderNo===null ? '-': OrderNo}</span></Link>,
+        orderNumber: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[null,'null'].includes(OrderNo) ? '-': OrderNo}</span></Link>,
         Assigned: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{Assigned} </span></Link>,
-        CustomerName: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{CustomerName===null?'-':CustomerName}</span></Link>,
+        CustomerName: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[null,'null'].includes(CustomerName)?'-':CustomerName}</span></Link>,
         createdAt: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{CreateDate ? formatDate(CreateDate) : null}</span></Link>,
         
       });
