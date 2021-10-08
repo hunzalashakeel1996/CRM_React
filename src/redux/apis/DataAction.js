@@ -44,6 +44,11 @@ let headerDotNetWithJwt = {
     "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
 }
 
+let multipartHeader = {
+    Accept: 'application/json',
+    "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
+    // "Content-Type": "multipart/form-data",
+}
 
 export const setHeader = () => {
     headerWithWebToken = {
@@ -67,6 +72,11 @@ export const setHeaderWithWebToken = () => {
             "Content-Type": "application/json",
             "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
         }
+        multipartHeader = {
+            Accept: 'application/json',
+            "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
+            // "Content-Type": "multipart/form-data",
+        }
     // })
 }
 
@@ -84,11 +94,7 @@ export const header = {
     "Content-Type": "application/json",
 }
 
-const multipartHeader = {
-    Accept: 'application/json',
-    "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
-    // "Content-Type": "multipart/form-data",
-}
+
 const headerDotNet = {
     "Content-Type": "application/json"
 }
@@ -262,6 +268,7 @@ export const nonAmazongenerateFeed  = (data) => {
 };
 //Endicia shiping sheet 
 export const insertEndiciaShipingSheet  = (data) => {
+    console.log('multipartHeader',multipartHeader)
     return apiFetchDotNet('/Newshipping/InsertEndiciaWeight', "POST", multipartHeader, data);
 };
 //Fedex shiping sheet 

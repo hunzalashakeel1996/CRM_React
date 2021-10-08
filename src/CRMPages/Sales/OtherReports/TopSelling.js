@@ -235,7 +235,17 @@ const TopSelling = (props) => {
                            
 
                                 {vendorNames && <Col span={8} >
-                                    <Form.Item name="vendorName" rules={[{ required: true }]} >
+                                <Form.Item name="vendorName" value={state.VendorName} label="">
+                                            <ReasonAutoComplete
+                                                //   style={{ marginRight: 5 }}
+                                                placeholder='Search Vendorname'
+                                                onInputChange={(vendorName) => { onValueChange('VendorName', vendorName) }}
+                                                selectedReason={controls.VendorName} style={{ width: '100%' }}
+                                                dataSource={vendorNames}
+                                                onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
+                                        </Form.Item>
+
+                                    {/* <Form.Item name="vendorName" rules={[{ required: true }]} >
                                         <ReasonAutoComplete
                                             //   style={{ marginRight: 5 }}
                                             placeholder='Search Vendorname'
@@ -243,7 +253,8 @@ const TopSelling = (props) => {
                                             selectedReason={controls.VendorName} style={{ width: '100%' }}
                                             dataSource={vendorNames}
                                             onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
-                                    </Form.Item>
+                                    </Form.Item> */}
+
                                 </Col>}
                             </Row>
                             <Row style={{marginTop:10}} gutter={50}>
