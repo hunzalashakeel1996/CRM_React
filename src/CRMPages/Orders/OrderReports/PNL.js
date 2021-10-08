@@ -69,6 +69,7 @@ const OrderReportsView = (props) => {
         //  // console.log('bbb', state.endDate.format('MM/DD/YYYY'))
         dispatch(getPNLReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), })).then(data => {
             setstate({ ...state, isLoader: false });
+          console.log()
             downloadFile(data);
             notification.success({
                 message: 'Successfull Dowload',

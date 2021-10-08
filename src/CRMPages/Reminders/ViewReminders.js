@@ -5,7 +5,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { AutoComplete } from '../../components/autoComplete/autoComplete';
 import { PageHeader } from '../../components/page-headers/page-headers';
-import { audioPlay, getUserRemindersAPI } from '../../redux/apis/DataAction';
+import { audioPlay, getUserRemindersAPI, userRemindersOnStatus } from '../../redux/apis/DataAction';
 import { filterProjectByStatus, sortingProjectByCategory } from '../../redux/project/actionCreator';
 import { Main } from '../styled';
 import { ProjectHeader } from './style';
@@ -39,20 +39,31 @@ const ViewReminders = (props) => {
   const { visible, loader, filterReminders, StatusSort } = state;
 
   useEffect(() => {
-    setState({ ...state, filterReminders: reminders })
-  }, [reminders])
+    setState({...state, loader: true})
+    dispatch(userRemindersOnStatus({ LoginName: user.LoginName, status: "Open" })).then(data => {
+      setState({ ...state, filterReminders: data, loader: false })
+
+    })
+  }, [])
 
   // sockets
   socket ? socket.onmessage = (data) => {
     let message = JSON.parse(data.data)
+    if (message.reason === 'newReminder') {
+      let descData = message.data.data
+      if (descData.Assigned.toLowerCase() === user.LoginName.toLowerCase()) {
+        audioPlay()
+        if(StatusSort == 'Open'){
+          let temp = [...filterReminders]
+          temp.unshift(descData)
+          setState({ ...state, filterReminders: [...temp] });
+          dispatch(addSingleReminder(descData))
 
-    if (message.reason === 'newReminder' && message.data.Assigned.toLowerCase() === user.LoginName.toLowerCase()) {
-      // console.log('socekt', message.data)
-      audioPlay()
-      dispatch(addSingleReminder(message.data))
-      // let temp = [...reminders]
-      // temp.unshift(message.data)
-      // setState({ ...state, filterReminders: temp, reminders: temp });
+        }
+       
+      }
+
+      
     }
   } : null
 
@@ -61,26 +72,13 @@ const ViewReminders = (props) => {
     setState({ ...state, filterReminders: temp, });
   };
 
-  const onSorting = selectedItems => {
-    dispatch(sortingProjectByCategory(selectedItems));
-  };
+  const onStatusChange = (status) => {
+    setState({...state, loader: true})
+    dispatch(userRemindersOnStatus({ LoginName: user.LoginName, status })).then(data => {
+      setState({ ...state, filterReminders: data, StatusSort: status, loader: false})
 
-  const onChangeCategory = value => {
-    setState({
-      ...state,
-      categoryActive: value,
-    });
-    dispatch(filterProjectByStatus(value));
-  };
-
-  const showModal = () => {
-    // socket.send(JSON.stringify({ type: 'roomMessage', roomId: 123, message: 'hello' }))
-    setState({ ...state, visible: true });
-  };
-
-  const onCancel = () => {
-    setState({ ...state, visible: false });
-  };
+    })
+  }
 
   return (
     <>
@@ -127,8 +125,8 @@ const ViewReminders = (props) => {
               
               <Row>
               <Col md={24} xs={24} style={{ marginBottom: 10 }} >
-                 <Button size="large"  variant="danger" onClick={(val) => { setState({ ...state, StatusSort: 'Open' }); }} style={{ borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
-                 <Button size="large"  variant="primary" onClick={(val) => { setState({ ...state, StatusSort: 'Closed' }); }} style={{ borderColor: StatusSort == "Closed" ? '#5F63F2' : null }}>Closed</Button>
+                 <Button size="large"  variant="danger" onClick={(val) => { onStatusChange('Open') }} style={{ borderColor: StatusSort == "Open" ? '#5F63F2' : null }}>Open</Button>
+                 <Button size="large"  variant="primary" onClick={(val) => { onStatusChange('Closed') }} style={{ borderColor: StatusSort == "Closed" ? '#5F63F2' : null }}>Closed</Button>
               </Col>
             </Row>
 

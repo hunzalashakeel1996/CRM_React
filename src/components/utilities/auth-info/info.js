@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FeatherIcon from 'feather-icons-react';
 import { InfoWraper, NavAuth, UserDropDwon } from './auth-info-style';
 import Message from './message';
-import Notification from './notification';
+import Notification, {askNotification} from './notification';
 import Settings from './settings';
 import Support from './support';
 import { Popover } from '../../popup/popup';
@@ -27,16 +27,19 @@ const AuthInfo = ({ rtl }) => {
   });
   const { flag } = state;
 
-  const SignOut = e => {
+  const SignOut = async e => {
     // Notification.requestPermission().then(permission => {
     //   setState({ ...state, loader: true })
-      if (Notification.permission == 'granted') {
+        // logoutUser(data)
+      if (await askNotification() == 'granted') {
+        console.log('inse1')
         firebase.messaging().getToken().then(token => {
           let data = {token, LoginName: user.LoginName}
           logoutUser(data)
         })
       }
       else{
+        console.log('inse2')
           let data = {token: 'not provided', LoginName: user.LoginName}
           logoutUser(data)
       }
@@ -62,7 +65,7 @@ const AuthInfo = ({ rtl }) => {
             <Heading as="h5">{`${user.FirstName} ${user.LastName}`}</Heading>
           </figcaption>
         </figure>
-        <ul className="user-dropdwon__links">
+        {/* <ul className="user-dropdwon__links">
           <li>
             <Link to="#">
               <FeatherIcon icon="user" /> Profile
@@ -88,7 +91,7 @@ const AuthInfo = ({ rtl }) => {
               <FeatherIcon icon="bell" /> Help
             </Link>
           </li>
-        </ul>
+        </ul> */}
         <Link className="user-dropdwon__bottomAction" onClick={SignOut} to="#">
           <FeatherIcon icon="log-out" /> Sign Out
         </Link>
@@ -126,18 +129,18 @@ const AuthInfo = ({ rtl }) => {
 
   return (
     <InfoWraper>
-      <Message />
+      {/* <Message /> */}
       <Notification />
 
-      <Settings />
-      <Support />
-      <div className="nav-author">
+      {/* <Settings /> */}
+      {/* <Support /> */}
+      {/* <div className="nav-author">
         <Dropdown placement="bottomRight" content={country} trigger="click">
           <Link to="#" className="head-example">
             <img src={require(`../../../static/img/flag/${flag}.png`)} alt="" />
           </Link>
         </Dropdown>
-      </div>
+      </div> */}
 
       <div className="nav-author" >
         <Popover  placement="bottomRight" content={userContent} action="click">

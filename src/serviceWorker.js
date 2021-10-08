@@ -48,18 +48,20 @@ export function register(config) {
         // service worker/PWA documentation.
       } else {
         // Is not localhost. Just register service worker
-        Notification.requestPermission(result => {
-          if (Notification.permission == 'granted') {
-            navigator.serviceWorker.getRegistration().then(async (reg) => {
-              // let a = await messaging.getToken({vapidKey: "BJ6G0B9lW13RHZhpALupcHOBMybQTKiflLxRAle4bxQNUYrP8mQfY5poWNBfP7mrMMxkzU5stnUizBp9LkC-CjY"})
-              // // console.log('aaadsfd', a)
-              let title = 'Reminder from CRM';
-              let body = 'Provide details to Paul on skype';
-              if (reg)
-                reg.showNotification(title, { body: body });
-            });
-          }
-        });
+        if (window.navigator.platform === 'Win32') {
+          Notification.requestPermission(result => {
+            if (Notification.permission == 'granted') {
+              navigator.serviceWorker.getRegistration().then(async (reg) => {
+                // let a = await messaging.getToken({vapidKey: "BJ6G0B9lW13RHZhpALupcHOBMybQTKiflLxRAle4bxQNUYrP8mQfY5poWNBfP7mrMMxkzU5stnUizBp9LkC-CjY"})
+                // // console.log('aaadsfd', a)
+                let title = 'Reminder from CRM';
+                let body = 'Provide details to Paul on skype';
+                if (reg)
+                  reg.showNotification(title, { body: body });
+              });
+            }
+          });
+        }
         registerValidSW(swUrl, config);
       }
     });

@@ -6,6 +6,8 @@ import { Button } from '../../../components/buttons/buttons';
 import { Modal } from '../../../components/modals/antd-modals';
 import { BasicFormWrapper } from '../../styled';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment'
+import Cookies from 'js-cookie';
 
 const { Option } = Select;
 const dateFormat = 'MM/DD/YYYY';
@@ -23,6 +25,8 @@ const validateMessages = {
         range: '${name} must be between ${min} and ${max}',
     },
 };
+const assignedToDefault={'CSR': 'Kristy', 'Processing': 'Pat', 'Shipping': 'Adnan'}
+
 
 const layout = {
     labelCol: { span: 8 },
@@ -39,7 +43,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
         modalType: 'primary',
         checked: [],
         isSelfAssigned: false,
-        departmentName: '',
+        departmentName: Cookies.get('reminderTicketGroup')?Cookies.get('reminderTicketGroup'):'CSR',
         assignedTo: ''
     });
     const {modalType, checked, isSelfAssigned, departmentName, assignedTo} = state
@@ -51,7 +55,13 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
         if (!unmounted) {
             setState({
                 ...state,
+                assignedTo: assignedToDefault[departmentName],
                 visible,
+            });
+        }else{
+            setState({
+                ...state,
+                assignedTo: assignedToDefault[departmentName],
             });
         }
         return () => {
@@ -60,7 +70,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
-        // console.log('values', values)
+        values = {...values, TicketGroup: departmentName, 'range-time-picker':values['range-time-picker']? values['range-time-picker']:[moment(), moment().add(2,'days')]}
         onAdd(values)
     };
 
@@ -87,6 +97,15 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
         setState({ ...state, isSelfAssigned: !isSelfAssigned, departmentName: '', assignedTo: !isSelfAssigned ? user.LoginName : '' })
     }
 
+    const handleEnter =(event) => {
+        if (event.keyCode === 13) {
+          const form = event.target.form;
+          const index = Array.prototype.indexOf.call(form, event.target);
+          form.elements[index + 1]&&form.elements[index + 1].focus();
+          event.preventDefault();
+        }
+      }
+
     return (
         <Modal
             type={modalType}
@@ -107,8 +126,8 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
         >
             <Spin spinning={loader}>
                 <div className="project-modal">
-                    <Row style={{ marginBottom: 20 }}>
-                        <Col span={12}>
+                    <Row style={{ marginBottom: 0 }}>
+                        <Col span={24}>
                             <Row>
                                 <p style={{ color: 'black', fontWeight: 'bold', marginRight: 3 }}>{`Name: `}</p>
                                 <p style={{ color: 'black' }}>{` ${ticketDetail.CustomerName}`}</p>
@@ -121,8 +140,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                                 <p style={{ color: 'black', fontWeight: 'bold', marginRight: 3 }}>{`ZipCode: `}</p>
                                 <p style={{ color: 'black' }}>{`${ticketDetail.ZipCode}`}</p>
                             </Row>
-                        </Col>
-                        <Col span={12}>
+                       
                             {ticketDetail.CustomerEmail && <Row>
                                 <p style={{ color: 'black', fontWeight: 'bold', marginRight: 3 }}>{`Email: `}</p>
                                 <p style={{ color: 'black' }}>{``}</p>
@@ -135,7 +153,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
 
                     </Row>
                     <BasicFormWrapper>
-                        <Form {...layout} name="nest-messages" form={form} onFinish={onFinish} validateMessages={validateMessages}>
+                        <Form {...layout} onKeyDown={(value) => {handleEnter(value)}} name="nest-messages" form={form} onFinish={onFinish} validateMessages={validateMessages}>
                             {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
@@ -150,12 +168,12 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
               </Select>
             </Form.Item> */}
                             <Row gutter={20}>
-                                <Col span={16}>
-                                    <Form.Item name="range-time-picker" label="" {...rangeConfig}>
-                                        <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                                <Col xs={24} md={16}>
+                                    <Form.Item name="range-time-picker" rules={[{ required: false }]} label="" >
+                                        <RangePicker defaultValue={[moment(), moment().add(2,'days')]} showTime format="YYYY-MM-DD HH:mm:ss" />
                                     </Form.Item>
                                 </Col>
-                                <Col span={8}>
+                                <Col xs={24} md={8}>
                                     <Form.Item name="ReminderType" initialValue="Open" label="" rules={[{ required: true }]}>
                                         <Select style={{ width: '100%' }} >
                                             <Option value="">Reminder Type</Option>
@@ -168,10 +186,12 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
 
                             <Row gutter={10} style={{ marginBottom: 20 }}>
 
-                                <Col span={12}>
-                                    <Form.Item name="TicketGroup" initialValue="" label="">
-                                        <Select disabled={isSelfAssigned} style={{ width: '100%' }} onChange={(val) => {setState({...state, departmentName: val})}}>
-                                            <Option value="">To</Option>
+                                <Col xs={12} md={12}>
+                                    <Form.Item name="TicketGroup" label="">
+                                        <Select  disabled={isSelfAssigned}
+                                            defaultValue={departmentName} style={{ width: '100%' }}
+                                            onChange={(val) => { document.getElementById('Assigned').focus();setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}
+                                        >
                                             <Option value="CSR">CSR</Option>
                                             <Option value="Processing">Processing</Option>
                                             <Option value="Shipping">Shipping</Option>
@@ -180,10 +200,10 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
 
                                 </Col>
 
-                                <Col span={12}>
+                                <Col xs={12} md={12}>
                                     <Form.Item name="Assigned" initialValue="" label=""  rules={[{ required: true }]}>
                                         {(depart.length > 0 && departmentName !== '') ?
-                                            <Select onChange={(val) => {form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
+                                            <Select id='Assigned' autoFocus={true} showSearch defaultValue={assignedTo} onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>
                                                 {depart.filter((val) => val.GroupName === departmentName).map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>
@@ -198,10 +218,10 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                             </Row>
 
                             <Form.Item name='Message' label="">
-                                <Input.TextArea placeholder="Message" />
+                                <Input.TextArea id='Message' placeholder="Message" />
                             </Form.Item>
 
-                            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
+                            <Form.Item wrapperCol={{ ...layout.wrapperCol,  }}  style={{textAlign:'center'}} >
                                  <Button size="large"  type="primary" htmlType="submit">
                                     Submit
                                     </Button>

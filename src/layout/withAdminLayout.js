@@ -177,7 +177,7 @@ const ThemeLayout = WrappedComponent => {
                 </Col>
 
                 <Col lg={!topMenu ? 14 : 15} md={8} sm={0} xs={0}>
-                  {topMenu && window.innerWidth > 991 ? <TopMenu /> : <HeaderSearch rtl={rtl} darkMode={darkMode} />}
+                  {/* {topMenu && window.innerWidth > 991 ? <TopMenu /> : <HeaderSearch rtl={rtl} darkMode={darkMode} />} */}
                 </Col>
 
                 <Col lg={6} md={10} sm={0} xs={0}>
@@ -269,7 +269,7 @@ const ThemeLayout = WrappedComponent => {
                   <Footer className="admin-footer" style={footerStyle}>
                     <Row>
                       <Col md={12} xs={24}>
-                        <span className="admin-footer__copyright">2020 © Rizno Inc</span>
+                        <span className="admin-footer__copyright">{new Date().getFullYear()} © CRM Application - Rizno Inc</span>
                       </Col>
                       <Col md={12} xs={24}>
                         <div className="admin-footer__links">

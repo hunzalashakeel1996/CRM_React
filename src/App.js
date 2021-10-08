@@ -48,25 +48,27 @@ const ProviderConfig = () => {
   }, [setPath]);
 
   useEffect(() => {
-    Notification.requestPermission(result => {
-      if (Notification.permission == 'granted') {
-        navigator.serviceWorker.getRegistration().then(async (reg) => {
-          // let a = await messaging.getToken({vapidKey: "BJ6G0B9lW13RHZhpALupcHOBMybQTKiflLxRAle4bxQNUYrP8mQfY5poWNBfP7mrMMxkzU5stnUizBp9LkC-CjY"})
-          // // console.log('aaadsfd', a)
-          let title = 'Reminder from CRM';
-          let body = 'Provide details to Paul on skype';
-          if (reg)
-            // reg.showNotification(title, { body: body });
-            // const msg = firebase.messaging();
-            firebase.messaging().getToken()
-            .then(token => {
-              // console.log('token', token)
-            })
-        });
-      }
-    });
+    if (window.navigator.platform === 'Win32') {
+      Notification.requestPermission(result => {
+        if (Notification.permission == 'granted') {
+          navigator.serviceWorker.getRegistration().then(async (reg) => {
+            // let a = await messaging.getToken({vapidKey: "BJ6G0B9lW13RHZhpALupcHOBMybQTKiflLxRAle4bxQNUYrP8mQfY5poWNBfP7mrMMxkzU5stnUizBp9LkC-CjY"})
+            // // console.log('aaadsfd', a)
+            let title = 'Reminder from CRM';
+            let body = 'Provide details to Paul on skype';
+            if (reg)
+              // reg.showNotification(title, { body: body });
+              // const msg = firebase.messaging();
+              firebase.messaging().getToken()
+                .then(token => {
+                  // console.log('token', token)
+                })
+          });
+        }
+      });
+    }
 
-    // timeout logic so taht multiple sockets not created 
+    // timeout logic so taht multiple sockets not created
     setTimeout(() => {
       (socket === null && user !== null) &&dispatch(connectSocket(user.LoginID))
     }, 4000);
