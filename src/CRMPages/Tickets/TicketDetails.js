@@ -217,8 +217,8 @@ const TicketDetails = ({ match, location}) => {
                             <Radio.Group
                                 options={[
                                     { label: 'Open', value: 'Open' },
-                                    { label: 'Waiting', value: 'Waiting' },
-                                    { label: 'FollowUp', value: 'FollowUp' },
+                                    // { label: 'Waiting', value: 'Waiting' },
+                                    // { label: 'FollowUp', value: 'FollowUp' },
                                     { label: 'Closed', value: 'Closed' },
                                 ]}
                                 onChange={(val) => {onStatusChange(val.target.value)}}

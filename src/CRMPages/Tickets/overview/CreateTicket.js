@@ -104,9 +104,8 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     let temp = {...controls}
     temp[name] = value
 
-    if('TicketGroup'===name){
-      Cookies.set(name, value)
-      temp['Assigned'] = assignedToDefault[value]
+    if('Assigned'===name){
+      Cookies.set('ticketAssigned', value)
     }
     setState({ ...state, controls: {...temp} })
 
@@ -218,7 +217,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                   </Form.Item>
                 </Col> */}
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="Assigned" initialValue='' label="" rules={[{ required: true }]}>
+                  <Form.Item name="Assigned" initialValue={Cookies.get('ticketAssigned')?Cookies.get('ticketAssigned'):''} label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
                       <Select id='Assigned' autoFocus={true} showSearch value='check'style={{ width: '100%' }} onChange={(val) => { document.getElementById('Reason').focus();onValueChange('Assigned', val) }}>
                           <Option key=''>Assigned</Option>
