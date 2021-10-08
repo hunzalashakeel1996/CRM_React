@@ -18,6 +18,7 @@ const { TabPane } = Tabs;import { uploadUrl } from './../../../redux/apis/DataAc
 const SingleChat = ({ match, ticketDetail, loader }) => {
   const dispatch = useDispatch();
 
+
   let comments = useSelector(state => state.tickets.comments);
   let reminders = useSelector(state => state.tickets.reminders);
 
@@ -31,6 +32,13 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
   const [pickerShow, setPickerShow] = useState(false);
   const [tabName, setTabName] = useState('tickets');
 
+  
+  useEffect(() => {
+    setTimeout(() => {
+    window.scrollTo(0, 1000000);
+    }, 1000);
+  }, [comments,reminders]);
+  
   const renderView = ({ style, ...props }) => {
     const customStyle = {
       marginRight: 'auto',
@@ -72,6 +80,7 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
   };
 
   function onTabChange(key) {
+    window.scrollTo(0, 1000000);
     setTabName(key)
   }
 
