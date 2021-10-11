@@ -242,7 +242,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       </Select>
                       :
                       <ReasonAutoComplete id='Reason' placeholder='Search Reason'
-                        onInputChange={(reason) => { document.getElementById('Description').focus(); onValueChange('TicketTitle', reason) }}
+                        onInputChange={(reason,x) => { onValueChange('TicketTitle', reason) }}
                         selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons}
                         onReasonSelect={(reason) => { document.getElementById('Description').focus(); onValueChange('TicketTitle', reason) }} />}
                   </Form.Item>

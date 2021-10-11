@@ -64,9 +64,18 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                 assignedTo: assignedToDefault[departmentName],
             });
         }
+        if(visible){
+      
+
+            setTimeout(() => {
+            document.getElementById('Message').focus()
+              
+            }, 500);
+          }
         return () => {
             unmounted = true;
         };
+        
     }, [visible]);
 
     const onFinish = values => {
@@ -101,7 +110,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     return (
         <Modal
             type={modalType}
-            title="Create Reminder"
+            title="Create Reminder--"
             visible={state.visible === 'createReminder'}
             // footer={[
             //   <div key="1" className="project-modal-footer">
@@ -120,19 +129,22 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                 <div className="project-modal">
                     <Row style={{ marginBottom: 0 }}>
                         <Col span={24}>
+                            {(ticketDetail.CustomerName && ticketDetail.CustomerName!="null") &&
                             <Row>
                                 <p style={{ color: 'black', fontWeight: 'bold', marginRight: 3 }}>{`Name: `}</p>
                                 <p style={{ color: 'black' }}>{` ${ticketDetail.CustomerName}`}</p>
-                            </Row>
+                            </Row>}
+                            {(ticketDetail.CustomerContact && ticketDetail.CustomerContact!="null") &&
                             <Row>
                                 <p style={{ color: 'black', fontWeight: 'bold', marginRight: 3 }}>{`Phone: `}</p>
                                 <p style={{ color: 'black' }}>{` ${ticketDetail.CustomerContact}`}</p>
-                            </Row>
+                            </Row>}
+                            {(ticketDetail.ZipCode && ticketDetail.ZipCode!="null") &&
                             <Row>
                                 <p style={{ color: 'black', fontWeight: 'bold', marginRight: 3 }}>{`ZipCode: `}</p>
                                 <p style={{ color: 'black' }}>{`${ticketDetail.ZipCode}`}</p>
-                            </Row>
-                       
+                            </Row>}
+                    
                             {ticketDetail.CustomerEmail && <Row>
                                 <p style={{ color: 'black', fontWeight: 'bold', marginRight: 3 }}>{`Email: `}</p>
                                 <p style={{ color: 'black' }}>{``}</p>
