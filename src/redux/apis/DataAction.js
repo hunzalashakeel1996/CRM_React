@@ -14,7 +14,7 @@ export const socketUrl = "wss://crm.rizno.com:3001"
 //##################### Node Server Live ########################
 export const url = "https://crm.rizno.com:3001";
 //##################### Node Server Local ########################
-//  export const url = "http://192.168.0.179:3005";
+//  export const url = "http://192.168.5.105:3005";
 
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";

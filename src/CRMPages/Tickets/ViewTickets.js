@@ -46,7 +46,6 @@ const ViewTickets = (props) => {
     setState({ ...state, loader: true })
     if (window.navigator.platform === 'Win32') {
       Notification.requestPermission().then(permission => {
-        console.log('grad', permission)
         if (permission == 'denied') {
           alert('Please give permission for notification from (i) icon')
         }
@@ -55,6 +54,7 @@ const ViewTickets = (props) => {
           firebase.messaging().getToken()
             .then(token => {
               // save token in data base api
+              console.log('token',token)
               let data = { deviceToken: token, jwtToken: user.jwtToken, loginName: user.LoginName }
               dispatch(insertDeviceToken(data))
             })
