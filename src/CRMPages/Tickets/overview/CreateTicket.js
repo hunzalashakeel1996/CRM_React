@@ -224,8 +224,8 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
                       <Select id='Assigned' autoFocus={true} showSearch value='check'style={{ width: '100%' }} onChange={(val) => { document.getElementById('Reason').focus();onValueChange('Assigned', val) }}>
                           <Option key=''>Assigned</Option>
-                        {depart.map(({ Username }) => (
-                          <Option key={Username}>{Username}</Option>
+                        {depart.map(({ Username, LoginName}) => (
+                          <Option key={LoginName}>{Username}</Option>
                         ))}
                       </Select>
                       :

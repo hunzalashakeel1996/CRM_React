@@ -39,7 +39,7 @@ const ViewTickets = (props) => {
   let depart = useSelector(state => state.tickets.depart);
   let socket = useSelector(state => state.socket.socket);
   let user = useSelector(state => state.auth.login);
-
+  console.log('departs', depart)
   let mount = false
 
   useEffect(() => {
