@@ -216,7 +216,7 @@ const TicketDetails = ({ match, location}) => {
                         <ShareButtonPageHeader /> */}
                        
                         <div style={{marginRight: 10}}>
-                            <Radio.Group
+                            {(ticketDetail !== null&&ticketDetail.CreateBy===user.LoginName) && <Radio.Group
                                 options={[
                                     { label: 'Open', value: 'Open' },
                                     // { label: 'Waiting', value: 'Waiting' },
@@ -226,7 +226,7 @@ const TicketDetails = ({ match, location}) => {
                                 onChange={(val) => {onStatusChange(val.target.value)}}
                                 value={state.selectedStatus}
                                 optionType="button"
-                            />
+                            />}
                         </div>
                         
                         <div>
