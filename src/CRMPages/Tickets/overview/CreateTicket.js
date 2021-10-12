@@ -244,7 +244,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       ))} */}
                       </Select>
                       :
-                      <Select id='Assigned' showSearch id='Reason' style={{ width: '100%' }}  onChange={(val) => { document.getElementById('Description').focus();onValueChange('TicketTitle', val) }}>
+                      <Select showSearch id='Reason' style={{ width: '100%' }}  onChange={(val) => { document.getElementById('Description').focus();onValueChange('TicketTitle', val) }}>
                           <Option key=''>Reason</Option>
                           {reasons.map((reason) => (
                           <Option key={reason}>{reason}</Option>
