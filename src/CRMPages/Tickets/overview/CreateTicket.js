@@ -70,9 +70,8 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
 
   useEffect(() => {
     let tempControls = {...controls}
-      tempControls.Assigned = assignedToDefault[controls.TicketGroup]
+      // tempControls.Assigned = assignedToDefault[controls.TicketGroup]
       tempControls.TicketGroup = Cookies.get('TicketGroup')?Cookies.get('TicketGroup'):'CSR'
-      console.log('asasdas')
       setState({
         ...state,
         controls: {...tempControls},
@@ -90,7 +89,11 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
 
   const onFinish = values => {
     form.resetFields();
-    onAdd(controls)
+    let tempValue = {
+      ...controls, TicketGroup: 'undefined',
+      Assigned: controls.Assigned || (Cookies.get('ticketAssigned')),
+  }
+    onAdd(tempValue)
     setState({ ...state, controls: formInit })
   };
 
@@ -232,16 +235,16 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 </Col>
 
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="TicketTitle" label="">
+                  <Form.Item name="TicketTitle" label="" initialValue="" rules={[{ required: true }]} >
                     {(false) ?
-                      <Select id='Reason' style={{ width: '100%' }}>
+                      <Select id='Reason' style={{ width: '100%' }} >
                         <Option value="">Reason</Option>
                         {/* {reasons[departmentName] && reasons[departmentName].map(reason => (
                         <Option value={reason}>{reason}</Option>
                       ))} */}
                       </Select>
                       :
-                      <Select id='Assigned' showSearch id='Reason' style={{ width: '100%' }} onChange={(val) => { document.getElementById('Description').focus();onValueChange('TicketTitle', val) }}>
+                      <Select id='Assigned' showSearch id='Reason' style={{ width: '100%' }}  onChange={(val) => { document.getElementById('Description').focus();onValueChange('TicketTitle', val) }}>
                           <Option key=''>Reason</Option>
                           {reasons.map((reason) => (
                           <Option key={reason}>{reason}</Option>
