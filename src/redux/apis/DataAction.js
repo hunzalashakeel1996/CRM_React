@@ -7,14 +7,14 @@ import { Button, notification, Space } from 'antd';
 export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
-export const socketUrl = "ws://192.168.1.103:3005"
-// export const socketUrl = "wss://crm.rizno.com:3001"
+// export const socketUrl = "ws://192.168.0.179:3005"
+export const socketUrl = "wss://crm.rizno.com:3001"
 // export const socketUrl = "wss://crm.rizno.com"
 
 //##################### Node Server Live ########################
 export const url = "https://crm.rizno.com:3001";
 //##################### Node Server Local ########################
-//  export const url = "http://192.168.1.103:3005";
+//  export const url = "http://192.168.0.179:3005";
 
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
