@@ -81,7 +81,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
       
 
       setTimeout(() => {
-      document.getElementById('Assigned').focus()
+      document.getElementById('Reason').focus()
         
       }, 500);
     }
@@ -220,9 +220,9 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                   </Form.Item>
                 </Col> */}
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="Assigned" initialValue={Cookies.get('ticketAssigned')?Cookies.get('ticketAssigned'):''} label="" rules={[{ required: true }]}>
+                  <Form.Item name="Assigned" initialValue={Cookies.get('ticketAssigned')?Cookies.get('ticketAssigned'):'kristy'} label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
-                      <Select id='Assigned' autoFocus={true} showSearch value='check'style={{ width: '100%' }} onChange={(val) => { document.getElementById('Reason').focus();onValueChange('Assigned', val) }}>
+                      <Select id='Assigned'  showSearch value='check'style={{ width: '100%' }} onChange={(val) => { document.getElementById('Reason').focus();onValueChange('Assigned', val) }}>
                           <Option key=''>Assigned</Option>
                         {depart.map(({ Username, LoginName}) => (
                           <Option key={LoginName}>{Username}</Option>
@@ -235,16 +235,16 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 </Col>
 
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="TicketTitle" label="" initialValue="" rules={[{ required: true }]} >
+                  <Form.Item name="TicketTitle"  label="" initialValue="" rules={[{ required: true }]} >
                     {(false) ?
-                      <Select id='Reason' style={{ width: '100%' }} >
+                      <Select autoFocus={true} id='Reason' style={{ width: '100%' }} >
                         <Option value="">Reason</Option>
                         {/* {reasons[departmentName] && reasons[departmentName].map(reason => (
                         <Option value={reason}>{reason}</Option>
                       ))} */}
                       </Select>
                       :
-                      <Select showSearch id='Reason' style={{ width: '100%' }}  onChange={(val) => { document.getElementById('Description').focus();onValueChange('TicketTitle', val) }}>
+                      <Select autoFocus={true}  showSearch id='Reason' style={{ width: '100%' }}  onChange={(val) => { document.getElementById('Description').focus();onValueChange('TicketTitle', val) }}>
                           <Option key=''>Reason</Option>
                           {reasons.map((reason) => (
                           <Option key={reason}>{reason}</Option>
