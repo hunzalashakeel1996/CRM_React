@@ -82,10 +82,11 @@ const ViewTickets = (props) => {
   // sockets
   socket ? socket.onmessage = (data) => {
     let message = JSON.parse(data.data)
-    
+    console.log('socket', message)
     if (message.reason === 'newTicket' ) {
       let descData = message.data.data
-      if(descData.CreateBy !== user.LoginName){
+      console.log(descData)
+      if(descData.CreateBy !== user.LoginName && descData.Assigned === user.LoginName ){
         audioPlay()
         let temp = [...filterTickets]
         temp.unshift(descData)
