@@ -137,7 +137,7 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
                                             <Select defaultValue={user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned} onChange={() => {document.getElementById('uploadPhoto').focus();}} id='Assigned' showSearch style={{ width: '100%' }}>
                                                 {/* <Option value="">Assigned</Option> */}
                                                 {depart.map(member => (
-                                                    <Option value={member.Username}>{member.Username}</Option>
+                                                    <Option value={member.LoginName}>{member.Username}</Option>
                                                 ))}
                                             </Select>
                                             {/* :
