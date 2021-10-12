@@ -134,7 +134,7 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
                                 <Col span={12}>
                                     <Form.Item name="Assigned" label="">
                                         {/* {(depart.length > 0 && departmentName !== '') ? */}
-                                            <Select defaultValue={user.LoginName===ticketDetail.Assigned? ticketDetail.Assigned:ticketDetail.CreateBy} onChange={() => {document.getElementById('uploadPhoto').focus();}} id='Assigned' showSearch style={{ width: '100%' }}>
+                                            <Select defaultValue={user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned} onChange={() => {document.getElementById('uploadPhoto').focus();}} id='Assigned' showSearch style={{ width: '100%' }}>
                                                 {/* <Option value="">Assigned</Option> */}
                                                 {depart.map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>
