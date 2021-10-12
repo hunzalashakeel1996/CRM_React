@@ -68,6 +68,7 @@ const ShippingUpdate = (props) => {
     };
 
     const shippingUpdateFile = () => {
+        setstate({ ...state, isLoader: true })
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
         const formData = new FormData();
@@ -77,7 +78,7 @@ const ShippingUpdate = (props) => {
      
 
         dispatch(getShippingUpdateapi(formData)).then(data => {
-
+            setstate({ ...state, isLoader: false })
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
                 message: `Successfull  ${data}`,
@@ -86,6 +87,7 @@ const ShippingUpdate = (props) => {
             });
 
         })
+      
     }
 
    

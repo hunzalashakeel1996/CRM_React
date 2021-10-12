@@ -61,15 +61,14 @@ const OrderReportsView = (props) => {
         setstate({ ...state, values: value });
 
     };
-    const getBackOrderItemsReporting = (event) => {
-        // alert('Your favorite flavor is: ' + values);
-        event.preventDefault();
+    const getBackOrderItemsReporting = () => {
+     
         setstate({ ...state, isLoader: true })
         dispatch(getBackOrderItems({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), vendor: state.VendorName })).then(data => {
             setstate({ ...state, isLoader: false })
-            // // console.log('My Data: ', data)
+           console.log('My Data: ', data)
             // DownlaodWithReact(data);
-            // downloadFile(data);
+             downloadFile(data);
             notification.success({
                 message: 'Successfull Dowload',
                 description: `Successfully Download & Rendered BackOrderItems of ${state.VendorName}  From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
@@ -161,12 +160,13 @@ const OrderReportsView = (props) => {
                             <Row gutter={50}>
                                 <Col span={8} >
 
-                                    <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                    <Form.Item name="VendorName" initialValue="" label="">
-                                        <Select value={values} style={{ padding: 10 }} placeholder='Vendor Name' allowClear onChange={(VendorName) => { onChangeSelect(VendorName, 'VendorName') }}
+                                  
+                                    <Form.Item name="VendorName" initialValue="" label="" rules={[{ required: true }]} >
+                                        <Select  style={{ padding: 10 }}  placeholder='Vendor Name' allowClear onChange={(VendorName) => { onChangeSelect(VendorName, 'VendorName') }}
                                             filterOption={(input, option) =>
                                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                            } style={{ width: 300 }}  >
+                                            }  >
+                                            <Option value='' key=''>Vendor Name</Option>
                                             {vendornameState.map((val, i) => (
                                                 <Option value={val} key={val}>{val}</Option>
 
@@ -174,40 +174,38 @@ const OrderReportsView = (props) => {
 
                                         </Select>
                                         </Form.Item>
-                                    </div>
+                                 
                                     {/* </Form.Item> */}
                                 </Col>
-                                <Col span={8}   >
+                                <Col span={6}   >
                                     <Form.Item name="startDate" rules={[{ required: true }]}>
                                     {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
 
-                                    <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+                                    <DatePicker style={{ padding: 10 }}   size='small' onChange={(date) => { onChange(date, 'startDate') }} />
 
                                     </Form.Item>
                                 </Col>
-                                <Col span={8}  >
+                                <Col span={6}  >
                                     <Form.Item name="endDate" rules={[{ required: true }]}>
                                     {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
 
-                                    <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'endDate') }} />
+                                    <DatePicker  style={{ padding: 10 }}  size='small' onChange={(date) => { onChange(date, 'endDate') }} />
 
                                     </Form.Item>
                                 </Col>
 
 
-                            </Row>
-
-                            <Row style={{ marginTop: 20 }}>
-                                <Col span={8}  >
+                 
+                                <Col span={4}  >
                                     {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
-                                    <div className="atbd-drawer" style={{ marginLeft: 20 }}>
+                                 
                                         <Form.Item >
-                                        <Button size="large"  type="success" htmlType="submit">
+                                        <Button  size="large"  type="success" htmlType="submit">
                                         Download
                                       </Button>
                                         </Form.Item>
                                      
-                                    </div>
+                                
                                 </Col>
                             </Row>
                         </Form>

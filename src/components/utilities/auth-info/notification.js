@@ -34,6 +34,7 @@ const NotificationBox = () => {
       // let openReminder = data.filter(val => val.Status === 'Open')
       dispatch(addAllReminders(data))
       dispatch(TicketStatusChangeAPI({ LoginName: user.LoginName, StatusSort: "Open"})).then(data => {
+        console.log('ticket', data)
         dispatch(addAllTickets(data))
       })
     })

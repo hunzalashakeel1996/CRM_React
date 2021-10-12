@@ -68,25 +68,17 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
     }, [visible]);
 
     const onFinish = values => {
-        values = {...values, TicketGroup: departmentName, 'range-time-picker':values['range-time-picker']? values['range-time-picker']:[moment(), moment().add(2,'days')]}
+        values = {
+            ...values, TicketGroup: 'undefined',
+            Assigned: values.Assigned || (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy),
+            'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],values['range-time-picker'].add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')]
+        }
         onAdd(values)
     };
 
     const handleCancel = () => {
         onCancel();
     };
-
-    const reasons = {
-        'SHIPPING': ['Rush Free', 'Shipping Charges', 'Bad Address Correction'],
-        'EMBROIDERY': ['Sew Out', 'Stitch Out', 'Price'],
-        'MTO': ['Rush Free', 'How long will it take to ship', 'Alteration']
-    }
-
-    const members = {
-        'SHIPPING': ['William', 'Judy', 'James'],
-        'EMBROIDERY': ['Harper', 'Mason', 'Ella'],
-        'MTO': ['Jackson', 'David', 'Jack']
-    }
 
     const onSelfAssignCheckboxChange = () => {
         if (!isSelfAssigned)
@@ -125,7 +117,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
             <Spin spinning={loader}>
                 <div className="project-modal">
                     <BasicFormWrapper>
-                        <Form {...layout} onKeyDown={(value) => {handleEnter(value)}} name="nest-messages" form={form} onFinish={onFinish} validateMessages={validateMessages}>
+                        <Form {...layout} autocomplete="off" onKeyDown={(value) => {handleEnter(value)}} name="nest-messages" form={form} onFinish={onFinish} validateMessages={validateMessages}>
                             {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
@@ -142,7 +134,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
                             <Row gutter={20}>
                                 <Col span={16}>
                                     <Form.Item name="range-time-picker" label="">
-                                        <RangePicker defaultValue={[moment(), moment().add(2,'days')]} showTime format="YYYY-MM-DD HH:mm:ss" />
+                                        <DatePicker defaultValue={moment()} showTime format="YYYY-MM-DD hh:mm:ss A" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={8}>
@@ -158,7 +150,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
 
                             <Row gutter={10} style={{ marginBottom: 20 }}>
 
-                                <Col span={12}>
+                                {/* <Col span={12}>
                                     <Form.Item  name="TicketGroup"  label="">
                                         <Select  defaultValue={departmentName} disabled={isSelfAssigned} style={{ width: '100%' }} onChange={(val) => { document.getElementById('Assigned').focus();setState({ ...state, departmentName: val, assignedTo:  assignedToDefault[val]}); Cookies.set('reminderTicketGroup', val) }}>
                                             <Option value="CSR">CSR</Option>
@@ -167,20 +159,20 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
                                         </Select>
                                     </Form.Item>
 
-                                </Col>
+                                </Col> */}
 
                                 <Col span={12}>
-                                    <Form.Item name="Assigned" initialValue="" label=""  rules={[{ required: true }]}>
-                                        {(depart.length > 0 && departmentName !== '') ?
+                                    <Form.Item name="Assigned" label=""  rules={[{ required: true }]}>
+                                        {/* {(depart.length > 0 && departmentName !== '') ? */}
                                             <Select id='Assigned' autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>
-                                                {depart.filter((val) => val.GroupName === departmentName).map(member => (
+                                                {depart.map(member => (
                                                     <Option value={member.Username}>{member.Username}</Option>
                                                 ))}
                                             </Select>
-                                            :
-                                            <Input value={assignedTo} onChange={(e) => {setState({...state, assignedTo: e.target.value}); form.setFieldsValue({Assigned: e.target.value})}} disabled={isSelfAssigned} placeholder="Assigned To" />
-                                        }
+                                        {/* //     :
+                                        //     <Input value={assignedTo} onChange={(e) => {setState({...state, assignedTo: e.target.value}); form.setFieldsValue({Assigned: e.target.value})}} disabled={isSelfAssigned} placeholder="Assigned To" />
+                                        // } */}
                                         <Checkbox checked={isSelfAssigned} onChange={onSelfAssignCheckboxChange}>Self Assign</Checkbox>
                                     </Form.Item>
                                 </Col>

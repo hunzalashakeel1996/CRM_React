@@ -11,6 +11,7 @@ import {formatDate} from '../../../components/time/formatDate'
 const TicketsList = (props) => {
   
   let ticket = useSelector(state => state.tickets.tickets );
+  let user = useSelector(state => state.auth.login);
   
 
   const [state, setState] = useState({
@@ -42,24 +43,24 @@ const TicketsList = (props) => {
 
   if (tickets.length)
   tickets.map(value => {
-      const { TicketNo, CreateDate, CustomerName, TicketTitle, TicketGroup, OrderNo, Assigned, Status } = value;
+      const { TicketNo, CreateDate, CustomerName, TicketTitle, TicketGroup, OrderNo, Assigned, Status, UpdateDate } = value;
       return dataSource.push({
         key: counter++,
         TicketTitle: (
           <ProjectListTitle>
             <Heading as="h4">
-              <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}>{TicketTitle}</Link>
+              <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }}>{TicketTitle}</span></Link>
             </Heading>
             {/* <p>{ticketNumber}</p> */}
             {/* <p>{comments.length>0? comments[comments.length-1].shortDesc: 'No comments at this ticket yet'}</p> */}
           </ProjectListTitle>
         ),
-        TicketNo: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: 'black'}} className="date-started">{TicketNo}</span></Link>,
-        Status: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: 'black'}} className="date-started">{Status}</span></Link>,
-        orderNumber: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: 'black'}} className="date-started">{OrderNo===null ? '-': OrderNo}</span></Link>,
-        Assigned: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: 'black'}} className="date-started">{Assigned} {!['null','undefined', undefined].includes(TicketGroup) ? `(${TicketGroup})` : ''}</span></Link>,
-        CustomerName: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: 'black'}} className="date-started">{CustomerName===null?'-':CustomerName}</span></Link>,
-        createdAt: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: 'black'}} className="date-started">{CreateDate ? formatDate(CreateDate) : null}</span></Link>,
+        TicketNo: <Link  to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{TicketNo}</span></Link>,
+        Status: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{Status}</span></Link>,
+        orderNumber: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[null,'null'].includes(OrderNo) ? '-': OrderNo}</span></Link>,
+        Assigned: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{Assigned} </span></Link>,
+        CustomerName: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[null,'null'].includes(CustomerName)?'-':CustomerName}</span></Link>,
+        createdAt: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{UpdateDate ? formatDate(UpdateDate) : null}</span></Link>,
         
       });
     });
@@ -75,10 +76,15 @@ const TicketsList = (props) => {
       dataIndex: 'TicketNo',
       key: 'TicketNo',
     },
+    // {
+    //   title: 'Status',
+    //   dataIndex: 'Status',
+    //   key: 'Status',
+    // },
     {
-      title: 'Status',
-      dataIndex: 'Status',
-      key: 'Status',
+      title: 'Assigned To',
+      dataIndex: 'Assigned',
+      key: 'Assigned',
     },
     {
       title: 'Order Number',
@@ -86,17 +92,12 @@ const TicketsList = (props) => {
       key: 'orderNumber',
     },
     {
-      title: 'Assigned',
-      dataIndex: 'Assigned',
-      key: 'Assigned',
-    },
-    {
       title: 'Customer Name',
       dataIndex: 'CustomerName',
       key: 'CustomerName',
     },
     {
-      title: 'Create At',
+      title: 'Last Update',
       dataIndex: 'createdAt',
       key: 'createdAt',
     },

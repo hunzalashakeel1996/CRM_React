@@ -178,11 +178,11 @@ export const apiFetch = (apiUrl, apiMethod, apiHeader, apiBody, isImage = false)
 
 const saveErrorLog = (error, apiURL) => {
     console.warn('ERRR', error)
-    notification['error']({
-        message: 'Sorry',
-        description:
-            'Error from server side',
-    });
+    // notification['error']({
+    //     message: 'Sorry',
+    //     description:
+    //         'Error from server side',
+    // });
 
     // alert('sorrt')
     // fetch(`${url}/api/common/logError`, {
@@ -268,6 +268,7 @@ export const nonAmazongenerateFeed  = (data) => {
 };
 //Endicia shiping sheet 
 export const insertEndiciaShipingSheet  = (data) => {
+    console.log('multipartHeader',multipartHeader)
     return apiFetchDotNet('/Newshipping/InsertEndiciaWeight', "POST", multipartHeader, data);
 };
 //Fedex shiping sheet 
