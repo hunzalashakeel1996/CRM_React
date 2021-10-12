@@ -241,10 +241,17 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       ))} */}
                       </Select>
                       :
-                      <ReasonAutoComplete id='Reason' placeholder='Search Reason'
-                        onInputChange={(reason,x) => { onValueChange('TicketTitle', reason) }}
-                        selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons}
-                        onReasonSelect={(reason) => { document.getElementById('Description').focus(); onValueChange('TicketTitle', reason) }} />}
+                      <Select id='Assigned' showSearch id='Reason' style={{ width: '100%' }} onChange={(val) => { document.getElementById('Description').focus();onValueChange('TicketTitle', val) }}>
+                          <Option key=''>Reason</Option>
+                          {reasons.map((reason) => (
+                          <Option key={reason}>{reason}</Option>
+                        ))}
+                      </Select>
+                      // <ReasonAutoComplete id='Reason' placeholder='Search Reason'
+                      //   onInputChange={(reason,x) => { onValueChange('TicketTitle', reason) }}
+                      //   selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons}
+                      //   onReasonSelect={(reason) => { document.getElementById('Description').focus(); onValueChange('TicketTitle', reason) }} />
+                        }
                   </Form.Item>
                 </Col>
               </Row>
