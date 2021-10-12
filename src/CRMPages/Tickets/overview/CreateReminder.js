@@ -79,9 +79,10 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
+
         values = {
             ...values, TicketGroup: 'undefined',
-            Assigned: values.Assigned || (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy),
+            Assigned: values.Assigned || (user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned),
             'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],values['range-time-picker'].add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')]
         }
         onAdd(values)
