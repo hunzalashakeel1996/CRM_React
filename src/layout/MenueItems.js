@@ -265,6 +265,16 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         title: 'FrontReports',
         path: `${path}/reporting/`
       }]
+    },
+    {
+      key: 'Style Chart',
+      title: 'Style Chart',
+      icon: 'users',
+      items: [{
+        key: 'Add Size Chart',
+        title: 'Add Size Chart',
+        path: `${path}/styleChart`
+      }]
     }
   ]
 
