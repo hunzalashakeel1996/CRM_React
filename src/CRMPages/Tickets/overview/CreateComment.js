@@ -57,7 +57,7 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
     const onFinish = values => {
         values = {
             ...values,
-            Assigned: values.Assigned|| (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy),
+            Assigned: values.Assigned|| (user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned),
             picturePath: state.picturePath, TicketGroup: 'undefined', Subject: ''
         }
         document.getElementById("new_comment").reset();
