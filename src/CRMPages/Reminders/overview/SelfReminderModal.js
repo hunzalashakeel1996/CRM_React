@@ -73,9 +73,7 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
             Assigned: isSelfAssigned? user.LoginName : (values.Assigned || (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy)),
             'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],moment(values['range-time-picker']).add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')]
         }
-        console.log('firest', values)
-
-        // onAdd(values)
+        onAdd(values)
     };
 
     const handleCancel = () => {
