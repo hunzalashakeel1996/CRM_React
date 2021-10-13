@@ -12,6 +12,7 @@ import Heading from '../../../../components/heading/heading';
 import firebase from './../../../../firebase';
 import { Spin, notification } from 'antd';
 import { addDepart, addVendorName } from '../../../../redux/ticket/actionCreator';
+import { connectSocket } from '../../../../redux/socket/socketAction';
 
 const SignIn = () => {
   const history = useHistory();
@@ -58,6 +59,7 @@ const SignIn = () => {
         }
         else {
           data = { ...data[0][0], jwtToken: data[1] }
+          dispatch(connectSocket(data.LoginID))
           dispatch(getUserRole({ loginid: data.LoginID })).then(dataOne => {
             localStorage.setItem('userRole', JSON.stringify(dataOne))
             localStorage.setItem('user', JSON.stringify(data))

@@ -91,9 +91,10 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     form.resetFields();
     let tempValue = {
       ...controls, TicketGroup: 'undefined',
-      Assigned: controls.Assigned || (Cookies.get('ticketAssigned')),
+      Assigned: controls.Assigned || (Cookies.get('ticketAssigned') || 'kristy'),
   }
-    onAdd(tempValue)
+  console.log('aaaa', tempValue)
+    // onAdd(tempValue)
     setState({ ...state, controls: formInit })
   };
 
