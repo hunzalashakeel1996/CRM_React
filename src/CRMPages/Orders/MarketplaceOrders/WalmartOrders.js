@@ -331,7 +331,7 @@ const MarketplaceOrdersView = (props) => {
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                     {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                    <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={insertWalmartUSAOrderSheet}> Insert Shipping</Button>
+                                    <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={insertWalmartUSAOrderSheet}> Insert Sheet</Button>
                                     <br></br>
                                     <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
                                     {/* </Cards> */}
@@ -362,7 +362,7 @@ const MarketplaceOrdersView = (props) => {
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
                                 <div className="atbd-drawer" style={{ marginLeft: 0 }}>
                                     {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                    <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertWalmartCanadaOrderSheet}> Insert Shipping</Button>
+                                    <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertWalmartCanadaOrderSheet}> Insert Sheet</Button>
                                     <br></br>
                                     <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
                                     {/* </Cards> */}

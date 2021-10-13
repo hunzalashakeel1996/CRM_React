@@ -120,7 +120,8 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'Order Reports',
         title: 'Order Reports',
         path: `${path}/orders/orderReports`
-      }, {
+      }, 
+      {
         key: 'Marketplace Orders',
         title: 'Marketplace Orders',
         path: `${path}/orders/marketplaceOrders`

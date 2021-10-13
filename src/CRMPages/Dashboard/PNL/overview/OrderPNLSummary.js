@@ -31,14 +31,14 @@ const validateMessages = {
 
 const OrderPNLSummary = (props) => {
 
-  const { dataSourceOrdersummary, dataSourceOrdersummaryTempParent, onAddOrder, activeTab } = props
+  const { dataSourceOrdersummary, dataSourceOrdersummaryTempParent, onAddOrder, activeTab, selectedFilter} = props
 
-  //console.log('OrderPNLSummary',dataSourceOrdersummaryTempParent)
+  console.log('OrderPNLSummary',dataSourceOrdersummaryTempParent)
 
-  let isOrderTypeShow = dataSourceOrdersummaryTempParent[0]&&dataSourceOrdersummaryTempParent[0].ORDERTYPE==undefined?true:false
+  let isOrderTypeShow = selectedFilter=='All'?true:false
 
   // // console.log('orderPNLSumamry', dataSourceOrdersummaryTempParent)
-  // console.log('orderPNLSumamry', isOrderTypeShow)
+  console.log('orderPNLSumamry', isOrderTypeShow)
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ const OrderPNLSummary = (props) => {
     }
 
 
-  }, [activeTab, dataSourceOrdersummaryTempParent]);
+  }, [activeTab, dataSourceOrdersummaryTempParent,selectedFilter]);
 
   const findTotalValues = (data) => {
     let order = []
