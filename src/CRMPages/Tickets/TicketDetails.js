@@ -82,19 +82,16 @@ const TicketDetails = ({ match, location}) => {
         // when recieve roomMessage socket 
         if(['newComment', 'newReminder'].includes(message.reason)){
             let descData = message.data.data
-            if (message.reason === 'newComment' && descData.TicketNo === ticketDetail.TicketNo) {
+            if (descData.TicketNo === ticketDetail.TicketNo && descData.Assigned === user.LoginName) {
                 audioPlay()
-                dispatch(addComment(descData))
-            }
-            else if (message.reason === 'newReminder' && descData.TicketNo === ticketDetail.TicketNo) {
-                audioPlay()
-                dispatch(addReminder(descData))
+                dispatch(message.reason==='newComment' ? addComment(descData) : addReminder(descData))
             }
         }
         
     } : null
 
     const cardContent = (title, value) => {
+        console.log('onetwo', title, value)
         return (
             <Row >
                 {(value[0] && !['null', 'undefined'].includes(value[0])) && <Col span={24} >

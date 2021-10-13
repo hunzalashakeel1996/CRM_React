@@ -85,7 +85,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
             Assigned: isSelfAssigned? user.LoginName : (values.Assigned || (user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned)),
             'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],moment(values['range-time-picker']).add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')]
         }
-        // onAdd(values)
+        onAdd(values)
     };
 
     const handleCancel = () => {
@@ -112,7 +112,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     return (
         <Modal
             type={modalType}
-            title="Create Reminder--"
+            title="Create Reminder"
             visible={state.visible === 'createReminder'}
             // footer={[
             //   <div key="1" className="project-modal-footer">

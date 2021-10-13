@@ -1,6 +1,6 @@
 import './static/css/style.css';
 
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Notification as antNotification } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Provider, useSelector, useDispatch } from 'react-redux';
@@ -9,7 +9,7 @@ import { ThemeProvider } from 'styled-components';
 
 import ProtectedRoute from './components/utilities/protectedRoute';
 import config from './config/config';
-import firebase from './firebase';
+import firebase from './firebase'
 import store from './redux/store';
 import Admin from './routes/admin';
 import Auth from './routes/auth';
@@ -56,17 +56,30 @@ const ProviderConfig = () => {
             // // console.log('aaadsfd', a)
             let title = 'Reminder from CRM';
             let body = 'Provide details to Paul on skype';
-            if (reg)
+            if (reg){
+              firebase.messaging().getToken()
+              .then(token => {
+                // console.log('token', token)
+              })
+              firebase.messaging().onMessage((payload) => {
+                console.log('aaaa', payload)
+                antNotification.info(
+                  {
+                    message: payload.notification.title, 
+                    description: payload.notification.body, 
+                    duration: 10,
+                  onClick: () => {window.open(payload.data.url, "_blank")}})
+              });
+            }
               // reg.showNotification(title, { body: body });
               // const msg = firebase.messaging();
-              firebase.messaging().getToken()
-                .then(token => {
-                  // console.log('token', token)
-                })
+             
           });
         }
       });
     }
+
+    
 
     // timeout logic so taht multiple sockets not created
     setTimeout(() => {
