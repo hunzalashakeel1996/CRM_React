@@ -93,8 +93,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
       ...controls, TicketGroup: 'undefined',
       Assigned: controls.Assigned || (Cookies.get('ticketAssigned') || 'kristy'),
   }
-  console.log('aaaa', tempValue)
-    // onAdd(tempValue)
+    onAdd(tempValue)
     setState({ ...state, controls: formInit })
   };
 
