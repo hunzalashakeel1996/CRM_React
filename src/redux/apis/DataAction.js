@@ -12,7 +12,7 @@ export const webURL = `http://localhost:3001`
 export const socketUrl = "wss://pu-crm-backend.herokuapp.com/"
 
 //##################### Node Server Live ########################
-export const url = "https://crm.rizno.com:3001";
+export const url = "https://pu-crm-backend.herokuapp.com";
 //##################### Node Server Local ########################
 //  export const url = "http://192.168.1.101:3005";
 
