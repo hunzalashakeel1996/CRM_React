@@ -43,7 +43,7 @@ const ViewTickets = (props) => {
 
   useEffect(() => {
     setState({ ...state, loader: true })
-    if (window.navigator.platform === 'Win32') {
+    if (!window.navigator.platform.match(/^Mac/)) {
       Notification.requestPermission().then(permission => {
         if (permission == 'denied') {
           alert('Please give permission for notification from (i) icon')

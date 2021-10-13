@@ -24,7 +24,7 @@ const SignIn = () => {
   });
   
   const handleSubmit = (value) => {
-    if (window.navigator.platform === 'Win32') {
+    if (!window.navigator.platform.match(/^Mac/)) {
       Notification.requestPermission().then(permission => {
         setState({ ...state, loader: true })
         if (permission == 'granted') {

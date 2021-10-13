@@ -187,7 +187,7 @@ const NotificationBox = () => {
 };
 
 export const askNotification = () => {
-  if (window.navigator.platform === 'Win32') {
+  if (!window.navigator.platform.match(/^Mac/)) {
     return Notification.requestPermission().then(permission => {
       return permission
     })

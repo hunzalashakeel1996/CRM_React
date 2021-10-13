@@ -79,13 +79,13 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
-
+        
         values = {
             ...values, TicketGroup: 'undefined',
             Assigned: isSelfAssigned? user.LoginName : (values.Assigned || (user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned)),
             'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],moment(values['range-time-picker']).add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')]
         }
-        onAdd(values)
+        // onAdd(values)
     };
 
     const handleCancel = () => {
@@ -100,6 +100,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }
 
     const handleEnter =(event) => {
+        console.log(moment().utc())
         if (event.keyCode === 13) {
           const form = event.target.form;
           const index = Array.prototype.indexOf.call(form, event.target);

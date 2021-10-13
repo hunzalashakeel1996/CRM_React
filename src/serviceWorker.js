@@ -48,7 +48,7 @@ export function register(config) {
         // service worker/PWA documentation.
       } else {
         // Is not localhost. Just register service worker
-        if (window.navigator.platform === 'Win32') {
+        if (!window.navigator.platform.match(/^Mac/)) {
           Notification.requestPermission(result => {
             if (Notification.permission == 'granted') {
               navigator.serviceWorker.getRegistration().then(async (reg) => {

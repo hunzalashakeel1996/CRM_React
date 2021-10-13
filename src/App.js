@@ -48,7 +48,7 @@ const ProviderConfig = () => {
   }, [setPath]);
 
   useEffect(() => {
-    if (window.navigator.platform === 'Win32') {
+    if (!window.navigator.platform.match(/^Mac/)) {
       Notification.requestPermission(result => {
         if (Notification.permission == 'granted') {
           navigator.serviceWorker.getRegistration().then(async (reg) => {
