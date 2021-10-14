@@ -8,6 +8,7 @@ import { AutoComplete } from '../../../components/autoComplete/autoComplete';
 import { Button } from '../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { Cards } from '../../../components/cards/frame/cards-frame';
+import { apiAddSizeChart } from '../../../redux/apis/DataAction';
 
 const numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 const AddSizeChart = (props) => {
@@ -17,14 +18,14 @@ const AddSizeChart = (props) => {
     const [state, setState] = useState({
         loader: true,
         title: '',
-        vendro: '',
+        vendor: '',
         description: '',
         numberOfRows: 0,
         numberOfColumns: 0,
         sizeChartValues: [],
         isShowChart: false
     });
-    const { loader, title, styleCode, numberOfRows, numberOfColumns, sizeChartValues, isShowChart } = state;
+    const {description,vendor, loader, title, styleCode, numberOfRows, numberOfColumns, sizeChartValues, isShowChart } = state;
 
     const onChangeRowColumn = (value, isRow) => {
         let tempSizeChartValues = [...sizeChartValues]
@@ -45,6 +46,27 @@ const AddSizeChart = (props) => {
         console.log('asdas', tempSizeChartValues)
     }
 
+    const addSizeChart = () => {
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+        // console.log('aaaaa')
+        setState({ ...state, isLoader: true })
+    
+        dispatch(apiAddSizeChart({username:username.LoginName,values:sizeChartValues,title:title,description:description,vendorname:vendor})).then(data => {
+            setState({ ...state, isLoader: false })
+          // console.log('My Data: ', data)
+        
+          let tempDataSource = [];
+          // console.log(data[0]);
+        
+        //   setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+    
+    
+    
+    
+        })
+    
+      };
     return (
         <>
             <div style={{ backgroundColor: 'white', padding: 20, borderRadius: 20 }}>
@@ -110,7 +132,7 @@ const AddSizeChart = (props) => {
                     </Col>
                 </Row>}
 
-
+                <Button size="large" type="primary" onClick={addSizeChart} style={{ marginRight: 10, }} > Add Size</Button>
             </div>
         </>
     );
