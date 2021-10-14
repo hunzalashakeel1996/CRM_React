@@ -92,7 +92,6 @@ const TicketDetails = ({ match, location}) => {
     } : null
 
     const cardContent = (title, value) => {
-        console.log('onetwo', title, value)
         return (
             <Row >
                 {(value[0] && !['null', 'undefined'].includes(value[0])) && <Col span={24} >

@@ -48,7 +48,7 @@ const ProviderConfig = () => {
   }, [setPath]);
 
   useEffect(() => {
-    if (!window.navigator.platform.match(/^Mac/)) {
+    if (!(['iPad Simulator','iPhone Simulator','iPod Simulator','iPad','iPhone','iPod'].includes(window.navigator.platform) && window.navigator.platform.match(/^Mac/))) {
       Notification.requestPermission(result => {
         if (Notification.permission == 'granted') {
           navigator.serviceWorker.getRegistration().then(async (reg) => {

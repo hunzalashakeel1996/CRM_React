@@ -25,7 +25,7 @@ const SignIn = () => {
   });
   
   const handleSubmit = (value) => {
-    if (!window.navigator.platform.match(/^Mac/)) {
+    if (!(['iPad Simulator','iPhone Simulator','iPod Simulator','iPad','iPhone','iPod'].includes(window.navigator.platform) && window.navigator.platform.match(/^Mac/))) {
       Notification.requestPermission().then(permission => {
         setState({ ...state, loader: true })
         if (permission == 'granted') {
