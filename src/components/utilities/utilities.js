@@ -64,6 +64,10 @@ const downloadFileTableData = (objArray,Filename) => {
   a.click();
 }
 
+const downloadFiles = async (url) => {
+    
+  };
+
 const DownlaodWithReact = (objArray) => {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
   var str = '';

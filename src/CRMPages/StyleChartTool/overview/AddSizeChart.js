@@ -17,7 +17,8 @@ const AddSizeChart = (props) => {
     const [state, setState] = useState({
         loader: true,
         title: '',
-        styleCode: '',
+        vendro: '',
+        description: '',
         numberOfRows: 0,
         numberOfColumns: 0,
         sizeChartValues: [],
@@ -48,17 +49,22 @@ const AddSizeChart = (props) => {
         <>
             <div style={{ backgroundColor: 'white', padding: 20, borderRadius: 20 }}>
                 <Row gutter={20}>
-                    <Col span={12}>
+                    <Col span={8}>
                         <Input placeholder="Title" onChange={(val) => { setState({...state, title: val.target.value}) }} />
                     </Col>
 
-                    <Col span={12}>
-                        <Input placeholder="Style Code" onChange={(val) => { setState({...state, styleCode: val.target.value}) }} />
+                    <Col span={8}>
+                        <Input placeholder="Vendor Name" onChange={(val) => { setState({...state, vendor: val.target.value}) }} />
+                    </Col>
+
+                    <Col span={8}>
+                        <Input placeholder="Description" onChange={(val) => { setState({...state, description: val.target.value}) }} />
                     </Col>
                 </Row>
 
                 <Row gutter={20} style={{marginTop: 20}}>
-                    <Col span={12}>
+                    
+                    <Col span={8}>
                         <Select  showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, true) }}>
                             <Option key=''>Number of Rows</Option>
                             {numbers.map((number) => (
@@ -67,7 +73,7 @@ const AddSizeChart = (props) => {
                         </Select>
                     </Col>
 
-                    <Col span={12}>
+                    <Col span={8}>
                         <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, false) }}>
                             <Option key=''>Number of Columns</Option>
                             {numbers.map((number) => (
@@ -75,6 +81,8 @@ const AddSizeChart = (props) => {
                             ))}
                         </Select>
                     </Col>
+
+                    <Col span={8}></Col>
                 </Row>
 
                 <Row style={{ marginTop: 20 }}>
