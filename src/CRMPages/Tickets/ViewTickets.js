@@ -43,7 +43,7 @@ const ViewTickets = (props) => {
 
   useEffect(() => {
     setState({ ...state, loader: true })
-    if (!(['iPad Simulator','iPhone Simulator','iPod Simulator','iPad','iPhone','iPod'].includes(window.navigator.platform) && window.navigator.platform.match(/^Mac/))) {
+    if (!(['iPad Simulator','iPhone Simulator','iPod Simulator','iPad','iPhone','iPod'].includes(window.navigator.platform) || window.navigator.platform.match(/^Mac/))) {
       Notification.requestPermission().then(permission => {
         if (permission == 'denied') {
           alert('Please give permission for notification from (i) icon')
