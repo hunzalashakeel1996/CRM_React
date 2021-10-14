@@ -82,7 +82,8 @@ const TicketDetails = ({ match, location}) => {
         // when recieve roomMessage socket 
         if(['newComment', 'newReminder'].includes(message.reason)){
             let descData = message.data.data
-            if (descData.TicketNo === ticketDetail.TicketNo && descData.Assigned === user.LoginName) {
+            console.log('data', descData)
+            if (descData.TicketNo === ticketDetail.TicketNo && descData.Assigned === user.LoginName && !descData.isSelfAssigned) {
                 audioPlay()
                 dispatch(message.reason==='newComment' ? addComment(descData) : addReminder(descData))
             }
