@@ -83,7 +83,7 @@ const ShippingReportsView = (props) => {
                                     </Form.Item>
                             </Col>
                             <Col span={8} >
-                            <Form.Item name="StartDate" rules={[{ required: true }]}>
+                            <Form.Item name="endDate" rules={[{ required: true }]}>
                                     <DatePicker placeholder="EndDate" style={{padding:10}} onChange={(date) => { onChange(date, 'endDate') }} />
                                     </Form.Item>
                             </Col>
