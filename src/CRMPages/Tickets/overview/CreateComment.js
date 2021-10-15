@@ -58,7 +58,7 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail }) => {
     const onFinish = values => {
         values = {
             ...values,
-            Assigned: values.Assigned || (user.LoginName === comments[0].Assigned ? ticketDetail.CreateBy : comments[0].Assigned),
+            Assigned: values.Assigned || (user.LoginName === comments[0].Assigned ? ticketDetail.CreateBy : comments[0].CreateBy),
             picturePath: state.picturePath, TicketGroup: 'undefined', Subject: ''
         }
         document.getElementById("new_comment").reset();
@@ -128,7 +128,7 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail }) => {
                                 <Col span={12}>
                                     <Form.Item name="Assigned" label="">
                                         {/* {(depart.length > 0 && departmentName !== '') ? */}
-                                        <Select defaultValue={user.LoginName === comments[0].Assigned ? ticketDetail.CreateBy : comments[0].Assigned} onChange={() => { document.getElementById('uploadPhoto').focus(); }} id='Assigned' showSearch style={{ width: '100%' }}>
+                                        <Select defaultValue={user.LoginName === comments[0].Assigned ? ticketDetail.CreateBy : comments[0].CreateBy} onChange={() => { document.getElementById('uploadPhoto').focus(); }} id='Assigned' showSearch style={{ width: '100%' }}>
                                             {/* <Option value="">Assigned</Option> */}
                                             {depart.map(member => (
                                                 <Option value={member.LoginName}>{member.Username}</Option>

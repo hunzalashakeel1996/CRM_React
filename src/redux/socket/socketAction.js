@@ -12,7 +12,7 @@ export const connectSocket = (userId, dispatchFunc) => {
     if (getState().socket.socket == null) {
       // ws = new WebSocket("wss://pu-crm-backend-develop.herokuapp.com")
       // ws = new WebSocket("wss://crm.rizno.com")
-      ws = new WebSocket(socketUrl,(user.LoginName, Math.random()))
+      ws = new WebSocket(socketUrl,(Math.random()))
       dispatch(initializeConnectSocket(ws))
       // console.log('websocket obejct', ws)
     }
