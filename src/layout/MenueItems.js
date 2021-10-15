@@ -49,6 +49,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         title: 'Report PNL MarketPlace',
         path: `${path}/ReportPNLMP/ViewReportPNLMP`
       }
+      , {
+        key: 'ViewPNLRMA',
+        title: 'Report RMA PNL',
+        path: `${path}/ReportPNLRMA/ViewPNLRMA`
+      }
     ]
     },
     {
