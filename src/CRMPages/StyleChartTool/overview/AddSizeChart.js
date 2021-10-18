@@ -16,7 +16,7 @@ const AddSizeChart = (props) => {
     const dispatch = useDispatch();
 
     const [state, setState] = useState({
-        loader: true,
+        loader: false,
         title: '',
         vendor: '',
         description: '',
@@ -40,100 +40,93 @@ const AddSizeChart = (props) => {
     }
 
     const onValueChange = (val, row, col) => {
-        console.log(val, row, col)
         let tempSizeChartValues = [...sizeChartValues]
         tempSizeChartValues[row][col] = val.target.value
-        console.log('asdas', tempSizeChartValues)
     }
 
-    const addSizeChart = () => {
+    const onAddSizeChart = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
-        // console.log('aaaaa')
-        setState({ ...state, isLoader: true })
+        setState({ ...state, loader: true })
     
         dispatch(apiAddSizeChart({username:username.LoginName,values:sizeChartValues,title:title,description:description,vendorname:vendor})).then(data => {
-            setState({ ...state, isLoader: false })
-          // console.log('My Data: ', data)
-        
-          let tempDataSource = [];
-          // console.log(data[0]);
-        
-        //   setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
-    
-    
-    
-    
+            setState({ ...state, loader: false })
         })
     
-      };
+    };
     return (
         <>
-            <div style={{ backgroundColor: 'white', padding: 20, borderRadius: 20 }}>
-                <Row gutter={20}>
-                    <Col span={8}>
-                        <Input placeholder="Title" onChange={(val) => { setState({...state, title: val.target.value}) }} />
-                    </Col>
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loader} >
+                <div style={{ backgroundColor: 'white', padding: 20, borderRadius: 20 }}>
+                    <Row gutter={20}>
+                        <Col span={8}>
+                            <Input placeholder="Title" onChange={(val) => { setState({ ...state, title: val.target.value }) }} />
+                        </Col>
 
-                    <Col span={8}>
-                        <Input placeholder="Vendor Name" onChange={(val) => { setState({...state, vendor: val.target.value}) }} />
-                    </Col>
+                        <Col span={8}>
+                            <Input placeholder="Vendor Name" onChange={(val) => { setState({ ...state, vendor: val.target.value }) }} />
+                        </Col>
 
-                    <Col span={8}>
-                        <Input placeholder="Description" onChange={(val) => { setState({...state, description: val.target.value}) }} />
-                    </Col>
-                </Row>
+                        <Col span={8}>
+                            <Input placeholder="Description" onChange={(val) => { setState({ ...state, description: val.target.value }) }} />
+                        </Col>
+                    </Row>
 
-                <Row gutter={20} style={{marginTop: 20}}>
-                    
-                    <Col span={8}>
-                        <Select  showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, true) }}>
-                            <Option key=''>Number of Rows</Option>
-                            {numbers.map((number) => (
-                                <Option key={number}>{number}</Option>
-                            ))}
-                        </Select>
-                    </Col>
+                    <Row gutter={20} style={{ marginTop: 20 }}>
 
-                    <Col span={8}>
-                        <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, false) }}>
-                            <Option key=''>Number of Columns</Option>
-                            {numbers.map((number) => (
-                                <Option key={number}>{number}</Option>
-                            ))}
-                        </Select>
-                    </Col>
+                        <Col span={8}>
+                            <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, true) }}>
+                                <Option key=''>Number of Rows</Option>
+                                {numbers.map((number) => (
+                                    <Option key={number}>{number}</Option>
+                                ))}
+                            </Select>
+                        </Col>
 
-                    <Col span={8}></Col>
-                </Row>
+                        <Col span={8}>
+                            <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, false) }}>
+                                <Option key=''>Number of Columns</Option>
+                                {numbers.map((number) => (
+                                    <Option key={number}>{number}</Option>
+                                ))}
+                            </Select>
+                        </Col>
 
-                <Row style={{ marginTop: 20 }}>
-                    <Button size="large" type="primary" onClick={() => {setState({...state, isShowChart: true})}}>
-                        Create Chart
-                    </Button>
-                </Row>
+                        <Col span={8}></Col>
+                    </Row>
+
+                    <Row style={{ marginTop: 20 }}>
+                        {isShowChart ?
+                            <Button size="large" type="primary" onClick={onAddSizeChart} style={{ marginRight: 10, }} > Add Size</Button>
+                            :
+                            <Button size="large" type="primary" onClick={() => { setState({ ...state, isShowChart: true }) }}>
+                                Create Chart
+                            </Button>}
+                    </Row>
 
 
-                {isShowChart && <Row style={{  marginTop: 20 }}>
-                    <Col style={{ overflow: 'auto' }}>
-                        <div style={{ maxWidth: 1920, borderLeft: 'solid 1px grey' }}>
-                            {numbers.map((number, indexRow) => (
-                                numberOfRows >= indexRow + 1 &&
-                                <Row gutter={20} style={{ flexWrap: 'nowrap', width: '100%', margin: 0}}>
-                                    {numbers.map((number, indexColumn) => (
-                                        (numberOfColumns >= indexColumn + 1 ) &&
-                                        <Col style={{ padding: 10, maxWidth: indexColumn===0?150:100, minWidth: indexColumn===0?150:100, borderRight: 'solid 1px grey', borderBottom: 'solid 1px grey', borderTop: 'solid 1px grey' }} span={4}>
-                                            {<Input style={{maxHeight: 10, minHeight: 10, fontSize: 12, fontWeight:indexRow===0?'bold':'' }}  onChange={(val) => { onValueChange(val, indexRow, indexColumn) }} />}
-                                        </Col>
-                                    ))}
-                                </Row>
-                            ))}
-                        </div>
-                    </Col>
-                </Row>}
 
-                <Button size="large" type="primary" onClick={addSizeChart} style={{ marginRight: 10, }} > Add Size</Button>
-            </div>
+
+                    {isShowChart && <Row style={{ marginTop: 20 }}>
+                        <Col style={{ overflow: 'auto' }}>
+                            <div style={{ maxWidth: 1920, borderLeft: 'solid 1px grey' }}>
+                                {numbers.map((number, indexRow) => (
+                                    numberOfRows >= indexRow + 1 &&
+                                    <Row gutter={20} style={{ flexWrap: 'nowrap', width: '100%', margin: 0 }}>
+                                        {numbers.map((number, indexColumn) => (
+                                            (numberOfColumns >= indexColumn + 1) &&
+                                            <Col style={{ padding: 10, maxWidth: indexColumn === 0 ? 150 : 100, minWidth: indexColumn === 0 ? 150 : 100, borderRight: 'solid 1px grey', borderBottom: 'solid 1px grey', borderTop: 'solid 1px grey' }} span={4}>
+                                                {<Input style={{ maxHeight: 10, minHeight: 10, fontSize: 12, fontWeight: indexRow === 0 ? 'bold' : '' }} onChange={(val) => { onValueChange(val, indexRow, indexColumn) }} />}
+                                            </Col>
+                                        ))}
+                                    </Row>
+                                ))}
+                            </div>
+                        </Col>
+                    </Row>}
+
+                </div>
+            </Spin>
         </>
     );
 };

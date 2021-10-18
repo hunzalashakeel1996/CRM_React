@@ -1192,7 +1192,6 @@ export const getOrderSearsApi = (data) => {
 };
 //Add Size Chart
 export const apiAddSizeChart = (data) => {
-    // console.log("Hello World!")
     return apiFetchDotNet('/Report/sizechart', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Rma qty 
