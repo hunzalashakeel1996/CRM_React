@@ -11,6 +11,15 @@ const firebaseConfig = {
     measurementId: "G-NQZSCEBQET"
 };
 let app = firebase.initializeApp(firebaseConfig);
+
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    firebase.messaging.onMessage((payload) => {
+        console.log('payload2', payload)
+      resolve(payload);
+    });
+});
+
 // const installations = app.installations();
 // installations.getToken(/* forceRefresh= */ true);
 // console.warn('123455', installations.getToken(/* forceRefresh= */ true))

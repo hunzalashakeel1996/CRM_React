@@ -8,10 +8,11 @@ export const connectSocket = (userId, dispatchFunc) => {
   return (dispatch, getState) => {
     // !getState().socket.socket.connected
     let ws = getState().socket.socket
+    let user = getState().auth.login
     if (getState().socket.socket == null) {
       // ws = new WebSocket("wss://pu-crm-backend-develop.herokuapp.com")
       // ws = new WebSocket("wss://crm.rizno.com")
-      ws = new WebSocket(socketUrl)
+      ws = new WebSocket(socketUrl,(Math.random()))
       dispatch(initializeConnectSocket(ws))
       // console.log('websocket obejct', ws)
     }

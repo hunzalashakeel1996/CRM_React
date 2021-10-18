@@ -28,10 +28,11 @@ const layout = {
     wrapperCol: { span: 25 },
 };
 
-const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
+const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail }) => {
     let depart = useSelector(state => state.tickets.depart);
     let user = useSelector(state => state.auth.login);
-
+    let comments = useSelector(state => state.tickets.comments);
+    console.log('aaaa', comments)
     const [state, setState] = useState({
         visible,
         modalType: 'primary',
@@ -57,7 +58,7 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
     const onFinish = values => {
         values = {
             ...values,
-            Assigned: values.Assigned|| (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy),
+            Assigned: values.Assigned || (user.LoginName === comments[0].Assigned ? ticketDetail.CreateBy : comments[0].CreateBy),
             picturePath: state.picturePath, TicketGroup: 'undefined', Subject: ''
         }
         document.getElementById("new_comment").reset();
@@ -68,14 +69,14 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
         onCancel();
     };
 
-    const handleEnter =(event) => {
+    const handleEnter = (event) => {
         if (event.keyCode === 13) {
-          const form = event.target.form;
-          const index = Array.prototype.indexOf.call(form, event.target);
-          form.elements[index + 1]&&form.elements[index + 1].focus();
-          event.preventDefault();
+            const form = event.target.form;
+            const index = Array.prototype.indexOf.call(form, event.target);
+            form.elements[index + 1] && form.elements[index + 1].focus();
+            event.preventDefault();
         }
-      }
+    }
 
     return (
         <Modal
@@ -98,7 +99,7 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
             <Spin spinning={loader}>
                 <div className="project-modal">
                     <BasicFormWrapper>
-                        <Form {...layout} autocomplete="off" id="new_comment" onKeyDown={(value) => {handleEnter(value)}} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+                        <Form {...layout} autocomplete="off" id="new_comment" onKeyDown={(value) => { handleEnter(value) }} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                             {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
@@ -112,6 +113,34 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
                 <Option value="SHIPPING">SHIPPING</Option>
               </Select>
             </Form.Item> */}
+                            <Row gutter={10} style={{ marginBottom: 20 }}>
+
+                                {/* <Col span={12}>
+    <Form.Item name="TicketGroup" label="">
+        <Select  defaultValue={Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR'} style={{ width: '100%' }} onChange={(val) => { document.getElementById('Assigned').focus();setDepartmentName(val); Cookies.set('commentTicketGroup', val) }}>
+            <Option value="CSR">CSR</Option>
+            <Option value="Processing">Processing</Option>
+            <Option value="Shipping">Shipping</Option>
+        </Select>
+    </Form.Item>
+</Col> */}
+
+                                <Col span={12}>
+                                    <Form.Item name="Assigned" label="">
+                                        {/* {(depart.length > 0 && departmentName !== '') ? */}
+                                        <Select defaultValue={user.LoginName === comments[0].Assigned ? ticketDetail.CreateBy : comments[0].CreateBy} onChange={() => { document.getElementById('uploadPhoto').focus(); }} id='Assigned' showSearch style={{ width: '100%' }}>
+                                            {/* <Option value="">Assigned</Option> */}
+                                            {depart.map(member => (
+                                                <Option value={member.LoginName}>{member.Username}</Option>
+                                            ))}
+                                        </Select>
+                                        {/* :
+            <Input placeholder="Assigned To" /> */}
+                                        {/* } */}
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+
                             <Form.Item name={'Description'} label="" rules={[{ required: true }]}>
                                 <Input autoFocus={true} placeholder="Short Description" />
                             </Form.Item>
@@ -119,44 +148,18 @@ const createComment = ({ visible, onCancel, onAdd, loader, ticketDetail}) => {
                                 <Input placeholder="Work Notes" />
                             </Form.Item> */}
 
-                            <Row gutter={10} style={{ marginBottom: 20 }}>
 
-                                {/* <Col span={12}>
-                                    <Form.Item name="TicketGroup" label="">
-                                        <Select  defaultValue={Cookies.get('commentTicketGroup')?Cookies.get('commentTicketGroup'):'CSR'} style={{ width: '100%' }} onChange={(val) => { document.getElementById('Assigned').focus();setDepartmentName(val); Cookies.set('commentTicketGroup', val) }}>
-                                            <Option value="CSR">CSR</Option>
-                                            <Option value="Processing">Processing</Option>
-                                            <Option value="Shipping">Shipping</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col> */}
-
-                                <Col span={12}>
-                                    <Form.Item name="Assigned" label="">
-                                        {/* {(depart.length > 0 && departmentName !== '') ? */}
-                                            <Select defaultValue={user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned} onChange={() => {document.getElementById('uploadPhoto').focus();}} id='Assigned' showSearch style={{ width: '100%' }}>
-                                                {/* <Option value="">Assigned</Option> */}
-                                                {depart.map(member => (
-                                                    <Option value={member.Username}>{member.Username}</Option>
-                                                ))}
-                                            </Select>
-                                            {/* :
-                                            <Input placeholder="Assigned To" /> */}
-                                        {/* } */}
-                                    </Form.Item>
-                                </Col>
-                            </Row>
 
                             <Row style={{ marginTop: 10 }}>
                                 <Upload beforeUpload={() => false} onChange={(pic) => { setState({ ...state, picturePath: pic }) }} onRemove={() => { setState({ ...state, picturePath: null }) }}>
-                                     <Button id='uploadPhoto' size="large"  style={{ borderWidth: 0.5, borderColor: '#ebebeb' }} icon={<UploadOutlined />}>Click to Upload</Button>
+                                    <Button id='uploadPhoto' size="large" style={{ borderWidth: 0.5, borderColor: '#ebebeb' }} icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload>
                             </Row>
 
                             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
-                                 <Button  size="large"  type="primary" htmlType="submit">
+                                <Button size="large" type="primary" htmlType="submit">
                                     Submit
-                                    </Button>
+                                </Button>
                             </Form.Item>
                         </Form>
                     </BasicFormWrapper>

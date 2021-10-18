@@ -108,8 +108,8 @@ const ShippingUpdate = (props) => {
                       
                             <Row gutter={50}>
 
-                                <Col span={10}>
-                                     <Select style={{ width: 150}} defaultValue="select" onChange={dataTohandleChange}  >
+                                <Col span={8}>
+                                     <Select style={{ width: '100%'}} defaultValue="select" onChange={dataTohandleChange}  >
                                         {Shipping.map(item => (
                                             <Option value={item}>{item}</Option>))}
                                     </Select>
@@ -119,10 +119,11 @@ const ShippingUpdate = (props) => {
                                    
                                    <div className="atbd-drawer" style={{ marginLeft: 20 }}>
                                    
-                                           <Button size="default" type="success" onClick={shippingUpdateFile} > Insert </Button>
+                                           <Button size="large" type="success" onClick={shippingUpdateFile} > Insert </Button>
                                     
                                    </div>
                                </Col>
+                               <Col span={8}></Col>
                             </Row>
                             <Row style={{ marginTop: 50 }}>
                             <Col span={10} style={{ width: 300, }}>

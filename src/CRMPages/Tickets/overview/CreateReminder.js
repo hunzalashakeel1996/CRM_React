@@ -79,10 +79,12 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
+        
         values = {
             ...values, TicketGroup: 'undefined',
-            Assigned: values.Assigned || (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy),
-            'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],values['range-time-picker'].add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')]
+            Assigned: isSelfAssigned? user.LoginName : (values.Assigned || (user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned)),
+            'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],moment(values['range-time-picker']).add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')],
+            isSelfAssigned
         }
         onAdd(values)
     };
@@ -99,6 +101,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }
 
     const handleEnter =(event) => {
+        console.log(moment().utc())
         if (event.keyCode === 13) {
           const form = event.target.form;
           const index = Array.prototype.indexOf.call(form, event.target);
@@ -110,7 +113,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     return (
         <Modal
             type={modalType}
-            title="Create Reminder--"
+            title="Create Reminder"
             visible={state.visible === 'createReminder'}
             // footer={[
             //   <div key="1" className="project-modal-footer">
@@ -207,10 +210,10 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                                 <Col xs={12} md={12}>
                                     <Form.Item  name="Assigned" label="" >
                                         {/* {(depart.length > 0 && departmentName !== '') ? */}
-                                            <Select  id='Assigned' defaultValue={user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned} autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
+                                            <Select disabled={isSelfAssigned}  id='Assigned' defaultValue={user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned} autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 {/* <Option value="">Assigned</Option> */}
                                                 {depart.map(member => (
-                                                    <Option value={member.Username}>{member.Username}</Option>
+                                                    <Option value={member.LoginName}>{member.Username}</Option>
                                                 ))}
                                             </Select>
                                         {/* //     :

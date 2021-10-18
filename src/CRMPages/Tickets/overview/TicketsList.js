@@ -43,7 +43,7 @@ const TicketsList = (props) => {
 
   if (tickets.length)
   tickets.map(value => {
-      const { TicketNo, CreateDate, CustomerName, TicketTitle, TicketGroup, OrderNo, Assigned, Status, UpdateDate } = value;
+      const { TicketNo, CreateDate, CustomerName, TicketTitle, TicketGroup, OrderNo, Assigned, Status, UpdateDate, CreateBy } = value;
       return dataSource.push({
         key: counter++,
         TicketTitle: (
@@ -57,10 +57,11 @@ const TicketsList = (props) => {
         ),
         TicketNo: <Link  to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{TicketNo}</span></Link>,
         Status: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{Status}</span></Link>,
-        orderNumber: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[null,'null'].includes(OrderNo) ? '-': OrderNo}</span></Link>,
+        orderNumber: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[null,'null', ''].includes(OrderNo) ? '-': OrderNo}</span></Link>,
         Assigned: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{Assigned} </span></Link>,
-        CustomerName: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[null,'null'].includes(CustomerName)?'-':CustomerName}</span></Link>,
-        createdAt: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{UpdateDate ? formatDate(UpdateDate) : null}</span></Link>,
+        CustomerName: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[null,'null', ''].includes(CustomerName)?'-':CustomerName}</span></Link>,
+        createdBy: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{CreateBy}</span></Link>,
+        createdAt: <Link to={{pathname:`/admin/ticket/ticketDetails/${TicketNo}`, ticket:{value}}}><span style={{color: user.LoginName ===Assigned? 'blue':'black' }} className="date-started">{[undefined, null,'null', ''].includes(UpdateDate) ? '-': formatDate(UpdateDate)}</span></Link>,
         
       });
     });
@@ -101,11 +102,11 @@ const TicketsList = (props) => {
       dataIndex: 'createdAt',
       key: 'createdAt',
     },
-    // {
-    //   title: 'Deadline',
-    //   dataIndex: 'deadline',
-    //   key: 'deadline',
-    // },
+    {
+      title: 'Created By',
+      dataIndex: 'createdBy',
+      key: 'createdBy',
+    },
     // {
     //   title: 'Assigned To',
     //   dataIndex: 'Assigned',

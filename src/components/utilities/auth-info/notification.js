@@ -187,7 +187,7 @@ const NotificationBox = () => {
 };
 
 export const askNotification = () => {
-  if (window.navigator.platform === 'Win32') {
+  if (!(['iPad Simulator','iPhone Simulator','iPod Simulator','iPad','iPhone','iPod'].includes(window.navigator.platform) || window.navigator.platform.match(/^Mac/))) {
     return Notification.requestPermission().then(permission => {
       return permission
     })
