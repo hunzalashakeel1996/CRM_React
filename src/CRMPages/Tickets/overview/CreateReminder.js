@@ -7,6 +7,7 @@ import { Modal } from '../../../components/modals/antd-modals';
 import { BasicFormWrapper } from '../../styled';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment'
+import 'moment-timezone'
 import Cookies from 'js-cookie';
 
 const { Option } = Select;
@@ -81,11 +82,14 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }, [visible]);
 
     const onFinish = values => {
-        
         values = {
             ...values, TicketGroup: 'undefined',
-            Assigned: isSelfAssigned? user.LoginName : (user.LoginName === comments[0].Assigned ? comments[0].CreateBy : comments[0].Assigned),
-            'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],moment(values['range-time-picker']).add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')],
+            Assigned: isSelfAssigned ? user.LoginName : (user.LoginName === comments[0].Assigned ? comments[0].CreateBy : comments[0].Assigned),
+            'range-time-picker':
+                values['range-time-picker'] ?
+                    [moment(values['range-time-picker']).utc(), moment(values['range-time-picker']).add(30, 'minutes').utc()]
+                    :
+                    [moment().utc(), moment().add(30, 'minutes').utc()],
             isSelfAssigned
         }
         onAdd(values)
@@ -103,7 +107,6 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     }
 
     const handleEnter =(event) => {
-        console.log(moment().utc())
         if (event.keyCode === 13) {
           const form = event.target.form;
           const index = Array.prototype.indexOf.call(form, event.target);

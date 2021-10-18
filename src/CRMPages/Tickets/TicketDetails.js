@@ -1,6 +1,7 @@
 import { Card, Col, Row, Skeleton, Radio, notification   } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import moment from 'moment';
+import 'moment-timezone'
 import PropTypes from 'prop-types';
 import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
@@ -149,7 +150,7 @@ const TicketDetails = ({ match, location}) => {
     }
 
     const onAddReminder = (form) => {
-        setState({ ...state, loader: true, });
+        // setState({ ...state, loader: true, });
         form = {
             ...form,
             TicketNo: ticketDetail.TicketNo,

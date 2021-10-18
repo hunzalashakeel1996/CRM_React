@@ -10,6 +10,7 @@ import { Cards } from '../../../components/cards/frame/cards-frame';
 import Heading from '../../../components/heading/heading';
 import { BackShadowEmoji, MessageList, SingleChatWrapper } from '../TicketDetailStyle';
 import {formatDate} from '../../../components/time/formatDate'
+import 'moment-timezone'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { TabPane } = Tabs;import { uploadUrl } from './../../../redux/apis/DataAction';
@@ -100,7 +101,6 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
         comments.map((comment, index) => {
           const id = index;
 
-          const same = moment(id).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY');
           return (
             <Fragment  key={id}>
               <li className="atbd-chatbox__single" key={id} style={{ overflow: 'hidden' }}>
@@ -173,7 +173,7 @@ const SingleChat = ({ match, ticketDetail, loader }) => {
                       <div className="atbd-chatbox__message" >
                         <MessageList className="message-box">
                           <p style={{ fontWeight: 'bold', fontSize: 14 }}>{reminder.Message}</p>
-                          <span style={{ fontSize: 12 }}>{formatDate(reminder.StartTime)} TO {formatDate(reminder.EndTime)}</span>
+                          <span style={{ fontSize: 12 }}>{formatDate(moment(reminder.StartTime).local().format('YYYY-MM-DDTHH:mm:ss'))} TO {formatDate(moment(reminder.EndTime).local().format('YYYY-MM-DDTHH:mm:ss'))}</span>
                         </MessageList>
                       </div>
                     </div>
