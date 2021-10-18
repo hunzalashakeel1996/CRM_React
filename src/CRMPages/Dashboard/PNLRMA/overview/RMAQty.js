@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
 import { downloadFile } from '../../../../components/utilities/utilities'
-import { apiSummaryReportOrderWise } from '../../../../redux/apis/DataAction';
+import { apiRMAQty } from '../../../../redux/apis/DataAction';
 import './style.css';
 
 
@@ -35,7 +35,7 @@ const validateMessages = {
 
 const RMAQty = (props) => {
 
-    const {dataSourceOrderTempParent,dataSourceOrder,dataOrderDownload,activeTab,onAddOrderCount}= props
+    const {orderdatefrom,orderdateto,dateFormat, isSearchPressed, activeTab, onDispatchComplete}= props
     // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
@@ -45,11 +45,30 @@ const RMAQty = (props) => {
     sortedInfo:[],
    
     isLoader:false,
-    dataSourceOrderTemp:[],
+    dataSourceOrderTemp:[]
     
   });
 
-  const {sortedInfo,isLoader,dataSourceOrderTemp}=state
+  const {dateFomat,sortedInfo,isLoader,dataSourceOrderTemp}=state
+
+  useEffect(() => {
+    console.log('aaaa', activeTab)
+    if(isSearchPressed && activeTab === 'ReportRMAQty'){
+      console.log(dateFormat,orderdateto,orderdatefrom)
+      setState({ ...state, isLoader: true })
+      dispatch(apiRMAQty({ dateFormat: dateFormat,orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
+           console.log(data)
+           setState({ ...state, isLoader: false })
+          onDispatchComplete()
+      })
+     
+    }
+  }, [isSearchPressed])
+
+  const getRMAQty = () => {
+  
+
+};
  
   return (
 

@@ -34,23 +34,22 @@ const ViewPNLRMA = () => {
 
   const [state, setstate] = useState({
 
-
+    isSearchPressed: false,
     isLoader: false,
+    dateFomat: 'Year',
+    startDate: '',
+    endDate: ''
 
   });
+  const onChange = (value, key) => {
+    // // console.log('aaa', date, dateString)
+    setstate({ ...state, [key]: value });
 
-  const {isLoader} = state
+  };
 
-  const getRMAQty = () => {
+  const {isLoader,dateFomat, isSearchPressed, startDate, endDate} = state
 
-    setstate({ ...state, isLoader: true })
-    dispatch(apiRMAQty({ pono_: formet })).then(data => {
-         console.log(data)
-        setstate({ ...state, isLoader: false })
-      
-    })
 
-};
   const topMenu = [
     
     {
@@ -63,12 +62,13 @@ const ViewPNLRMA = () => {
     {
       tab: 'Report RMA Qty',
       key: 'ReportRMAQty',
-      tabName: <RMAQty  />
+      tabName: <RMAQty onDispatchComplete={() => {setstate({...state, isSearchPressed: false})}} isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
 
     }
   ];
 
   const handleChangeDateFormat = (value) => {
+
     console.log(`selected ${value}`);
 
     setstate({ ...state, dateFormat: value })
@@ -89,6 +89,10 @@ const ViewPNLRMA = () => {
 
 
 
+
+  }
+
+  const onSearch = () => {
 
   }
   return (
@@ -124,7 +128,7 @@ const ViewPNLRMA = () => {
 
               <Row>
                 <Col xs={24} style={{ marginBottom: 10 }}>
-                  <Button size="large" type="primary" style={{ marginRight: 10, }} > Search</Button>
+                  <Button size="large" type="primary" style={{ marginRight: 10, }} onClick={() => {setstate({...state, isSearchPressed: true})}}> Search</Button>
 
                 <Button size="large" type="success"
                     onClick={(value) => { download(activeTab) }} >
