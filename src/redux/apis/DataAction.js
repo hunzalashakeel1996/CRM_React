@@ -7,23 +7,23 @@ import { Button, notification, Space } from 'antd';
 export const webURL = `http://localhost:3001`
 // export const webURL = "http://mergemtvw.herokuapp.com";
 
-// export const socketUrl = "ws://192.168.0.179:3005"
-export const socketUrl = "wss://crm.rizno.com:3001"
-// export const socketUrl = "wss://crm.rizno.com"
+// export const socketUrl = "ws://192.168.1.101:3005"
+// export const socketUrl = "wss://crm.rizno.com:3001"
+export const socketUrl = "wss://pu-crm-backend.herokuapp.com/"
 
 //##################### Node Server Live ########################
 export const url = "https://crm.rizno.com:3001";
 //##################### Node Server Local ########################
-//  export const url = "http://192.168.0.179:3005";
+//  export const url = "http://192.168.1.103:3005";
 
 // export const url = "http://192.168.4.104:3000";
 // export const url = "https://pu-crm-backend-develop.herokuapp.com";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
-  //export const urlDotNet ="http://localhost:47463/api"
+ //export const urlDotNet ="http://localhost:47463/api"
 
-//#################### Dot NET Live URL ####################
+//#################### Dot NET Live URL ####################//
 export const urlDotNet = "https://crm.rizno.com/api"
 
 
@@ -1198,6 +1198,16 @@ export const apiAddSizeChart = (data) => {
 export const apiRMAQty = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Report/sizechart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const apiAmazonFBAGetOrderSheetUpload = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Update/AmazonFBAUploadForOrders', "POST", multipartHeader, data);
+};
+
+export const apiAmazonFBAGetOrderSheet = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Update/AmazonFBAOrderbySheet', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 

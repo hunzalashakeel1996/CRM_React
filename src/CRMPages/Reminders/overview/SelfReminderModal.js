@@ -70,8 +70,8 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
     const onFinish = values => {
         values = {
             ...values, TicketGroup: 'undefined',
-            Assigned: values.Assigned || (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy),
-            'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],values['range-time-picker'].add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')]
+            Assigned: isSelfAssigned? user.LoginName : (values.Assigned || (user.LoginName === ticketDetail.Assigned ? ticketDetail.Assigned : ticketDetail.CreateBy)),
+            'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],moment(values['range-time-picker']).add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')]
         }
         onAdd(values)
     };
@@ -164,10 +164,10 @@ const SelfReminderModal = ({ visible, onCancel, onAdd, ticketDetail, loader }) =
                                 <Col span={12}>
                                     <Form.Item name="Assigned" label=""  rules={[{ required: true }]}>
                                         {/* {(depart.length > 0 && departmentName !== '') ? */}
-                                            <Select id='Assigned' autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
+                                            <Select disabled={isSelfAssigned} id='Assigned' name='Assigned' autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 <Option value="">Assigned</Option>
                                                 {depart.map(member => (
-                                                    <Option value={member.Username}>{member.Username}</Option>
+                                                    <Option value={member.LoginName}>{member.Username}</Option>
                                                 ))}
                                             </Select>
                                         {/* //     :

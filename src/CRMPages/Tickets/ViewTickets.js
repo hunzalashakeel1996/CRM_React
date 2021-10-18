@@ -39,14 +39,12 @@ const ViewTickets = (props) => {
   let depart = useSelector(state => state.tickets.depart);
   let socket = useSelector(state => state.socket.socket);
   let user = useSelector(state => state.auth.login);
-
   let mount = false
 
   useEffect(() => {
     setState({ ...state, loader: true })
-    if (window.navigator.platform === 'Win32') {
+    if (!(['iPad Simulator','iPhone Simulator','iPod Simulator','iPad','iPhone','iPod'].includes(window.navigator.platform) || window.navigator.platform.match(/^Mac/))) {
       Notification.requestPermission().then(permission => {
-        console.log('grad', permission)
         if (permission == 'denied') {
           alert('Please give permission for notification from (i) icon')
         }
@@ -55,6 +53,7 @@ const ViewTickets = (props) => {
           firebase.messaging().getToken()
             .then(token => {
               // save token in data base api
+              console.log('token',token)
               let data = { deviceToken: token, jwtToken: user.jwtToken, loginName: user.LoginName }
               dispatch(insertDeviceToken(data))
             })
@@ -82,10 +81,10 @@ const ViewTickets = (props) => {
   // sockets
   socket ? socket.onmessage = (data) => {
     let message = JSON.parse(data.data)
-    
+    console.log('socket', message)
     if (message.reason === 'newTicket' ) {
       let descData = message.data.data
-      if(descData.CreateBy !== user.LoginName){
+      if(descData.Assigned === user.LoginName ){
         audioPlay()
         let temp = [...filterTickets]
         temp.unshift(descData)

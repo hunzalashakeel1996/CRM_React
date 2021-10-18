@@ -15,19 +15,50 @@ const chartLinearGradient = (canvas, height, color) => {
 
 //Download files
 const downloadFile = (data) => {
-  console.log('utilities',data)
-  var d = new Date();
-  var n = d.getTime();
-  var a = document.createElement('a');
-  //Live Downlaod Link
-  a.href = `https://crm.rizno.com/admin/${data}`;
-  //Local Download Link
-  //a.href = `http://localhost:47463/admin/${data}`;
-  a.target = '_blank';
-  a.download = n + '.txt';
-  document.body.appendChild(a);
-  a.click();
+  // console.log('utilities',data)
+  // var d = new Date();
+  // var n = d.getTime();
+  // var a = document.createElement('a');
+  // //Live Downlaod Link
+  // a.href = `https://crm.rizno.com/admin/${data}`;
+  // //Local Download Link
+  // //a.href = `http://localhost:47463/admin/${data}`;
+  // a.target = '_blank';
+  // a.download = n + '.txt';
+  // document.body.appendChild(a);
+  // a.click();
   // document.body.removeChild(a);
+
+
+  let url = `https://crm.rizno.com/admin/${data}`
+    let filename = url.substring(url.lastIndexOf('/')+1);
+    fetch(
+      url,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/txt,application/csv, application/xlsx, application/xlsm"
+        }
+      }
+    )
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Create blob link to download
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement("a");
+        link.href = url;
+
+        link.setAttribute("download", filename);
+
+        // Append to html link element page
+        document.body.appendChild(link);
+
+        // Start download
+        link.click();
+
+        // Clean up and remove the link
+        link.parentNode.removeChild(link);
+      });
 
 }
 const downloadFileTableData = (objArray,Filename) => {
