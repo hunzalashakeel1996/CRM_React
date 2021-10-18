@@ -10,6 +10,8 @@ import {formatDate} from '../../../components/time/formatDate'
 import { Modal } from '../../../components/modals/antd-modals';
 import {reminderStatusChangeAPI} from '../../../redux/apis/DataAction'
 import { editReminderStatus } from '../../../redux/ticket/actionCreator';
+import 'moment-timezone'
+import moment from 'moment';
 
 const { Option } = Select;
 
@@ -204,10 +206,11 @@ const RemindersList = (props) => {
                   <Descriptions.Item label="Reminder Type">{selectedReminderDetail.ReminderType}</Descriptions.Item>
               </Descriptions>,
               <Descriptions bordered size={'center'}>
-                  <Descriptions.Item label="Start Date">{formatDate(selectedReminderDetail.StartTime)}</Descriptions.Item>
+            
+                  <Descriptions.Item label="Start Date">{  formatDate(moment(selectedReminderDetail.StartTime).local().format('YYYY-MM-DDTHH:mm:ss'))}</Descriptions.Item>
               </Descriptions>,
               <Descriptions bordered size={'center'}>
-                  <Descriptions.Item label="End Date">{formatDate(selectedReminderDetail.EndTime)}</Descriptions.Item>
+                  <Descriptions.Item label="End Date">{  formatDate(moment(selectedReminderDetail.EndTime).local().format('YYYY-MM-DDTHH:mm:ss'))}</Descriptions.Item>
               </Descriptions>,
               <Descriptions bordered size={'center'}>
                   <Descriptions.Item label="Status">
