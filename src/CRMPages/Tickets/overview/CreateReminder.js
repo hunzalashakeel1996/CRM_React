@@ -229,11 +229,11 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                                 </Col>
                             </Row>
 
-                            <Form.Item name='Message' label="">
+                            <Form.Item name='Message' label="" rules={[{ required: true }]} > 
                                 <Input.TextArea id='Message' placeholder="Message" />
                             </Form.Item>
 
-                            <Form.Item wrapperCol={{ ...layout.wrapperCol,  }}  style={{textAlign:'center'}} >
+                            <Form.Item wrapperCol={{ ...layout.wrapperCol,  }} style={{textAlign:'center'}} >
                                  <Button size="large"  type="primary" htmlType="submit">
                                     Submit
                                     </Button>
