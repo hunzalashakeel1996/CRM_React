@@ -1,4 +1,4 @@
-import { Col, Row, Input, Spin, Select, Checkbox, Divider, List, Card, Popover } from 'antd';
+import { Col, Row, Input, Spin, Select, Checkbox, Divider, List, Card, Popover, Notification } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,14 +45,23 @@ const AddSizeChart = (props) => {
     }
 
     const onAddSizeChart = () => {
-        let username = [];
-        username = JSON.parse(localStorage.getItem('user'))
-        setState({ ...state, loader: true })
-    
-        dispatch(apiAddSizeChart({username:username.LoginName,values:sizeChartValues,title:title,description:description,vendorname:vendor})).then(data => {
-            setState({ ...state, loader: false })
-        })
-    
+        if(title==''||vendor==''||description==''){
+            Notification['error']({
+                message: 'Please fill out required fields',
+                description:
+                  '* marked fields are required',
+              });
+        }else{
+            let username = [];
+            username = JSON.parse(localStorage.getItem('user'))
+            setState({ ...state, loader: true })
+            dispatch(apiAddSizeChart({username:username.LoginName,values:sizeChartValues,title:title,description:description,vendorname:vendor})).then(data => {
+                setState({ ...state, loader: false })
+                Notification['success']({
+                    message: 'Size Chart insert successfully',
+                  });
+            })    
+        }
     };
     return (
         <>
@@ -60,15 +69,15 @@ const AddSizeChart = (props) => {
                 <div style={{ backgroundColor: 'white', padding: 20, borderRadius: 20 }}>
                     <Row gutter={20}>
                         <Col span={8}>
-                            <Input placeholder="Title" onChange={(val) => { setState({ ...state, title: val.target.value }) }} />
+                            <Input placeholder="* Title" onChange={(val) => { setState({ ...state, title: val.target.value }) }} />
                         </Col>
 
                         <Col span={8}>
-                            <Input placeholder="Vendor Name" onChange={(val) => { setState({ ...state, vendor: val.target.value }) }} />
+                            <Input placeholder="* Vendor Name" onChange={(val) => { setState({ ...state, vendor: val.target.value }) }} />
                         </Col>
 
                         <Col span={8}>
-                            <Input placeholder="Description" onChange={(val) => { setState({ ...state, description: val.target.value }) }} />
+                            <Input placeholder="* Description" onChange={(val) => { setState({ ...state, description: val.target.value }) }} />
                         </Col>
                     </Row>
 
