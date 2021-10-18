@@ -215,7 +215,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                                             <Select disabled={isSelfAssigned}  id='Assigned' defaultValue={(user.LoginName === comments[0].Assigned ? comments[0].CreateBy : comments[0].Assigned)} autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 {/* <Option value="">Assigned</Option> */}
                                                 {depart.map(member => (
-                                                    <Option value={member.LoginName}>{member.Username}</Option>
+                                                    user.LoginName!==member.LoginName&&<Option value={member.LoginName}>{member.Username}</Option>
                                                 ))}
                                             </Select>
                                         {/* //     :

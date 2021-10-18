@@ -50,6 +50,8 @@ const layout = {
 
 const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   let depart = useSelector(state => state.tickets.depart);
+  let user = useSelector(state => state.auth.login);
+
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();
@@ -220,12 +222,12 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                   </Form.Item>
                 </Col> */}
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="Assigned" initialValue={Cookies.get('ticketAssigned')?Cookies.get('ticketAssigned'):'kristy'} label="" rules={[{ required: true }]}>
+                  <Form.Item name="Assigned" initialValue={Cookies.get('ticketAssigned')?Cookies.get('ticketAssigned'):''} label="" rules={[{ required: true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
                       <Select id='Assigned'  showSearch value='check'style={{ width: '100%' }} onChange={(val) => { document.getElementById('Reason').focus();onValueChange('Assigned', val) }}>
                           <Option key=''>Assigned</Option>
                         {depart.map(({ Username, LoginName}) => (
-                          <Option key={LoginName}>{Username}</Option>
+                          user.LoginName !== LoginName && <Option key={LoginName}>{Username}</Option>
                         ))}
                       </Select>
                       :
