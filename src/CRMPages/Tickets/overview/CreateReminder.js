@@ -36,6 +36,8 @@ const layout = {
 const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
     let depart = useSelector(state => state.tickets.depart);
     let user = useSelector(state => state.auth.login);
+    let comments = useSelector(state => state.tickets.comments);
+
     const [form] = Form.useForm();
 
     const [state, setState] = useState({
@@ -82,7 +84,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
         
         values = {
             ...values, TicketGroup: 'undefined',
-            Assigned: isSelfAssigned? user.LoginName : (values.Assigned || (user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned)),
+            Assigned: isSelfAssigned? user.LoginName : (user.LoginName === comments[0].Assigned ? comments[0].CreateBy : comments[0].Assigned),
             'range-time-picker': values['range-time-picker'] ? [values['range-time-picker'],moment(values['range-time-picker']).add(30, 'minutes')] : [moment(), moment().add(30, 'minutes')],
             isSelfAssigned
         }
@@ -210,7 +212,7 @@ const createReminder = ({ visible, onCancel, onAdd, ticketDetail, loader }) => {
                                 <Col xs={12} md={12}>
                                     <Form.Item  name="Assigned" label="" >
                                         {/* {(depart.length > 0 && departmentName !== '') ? */}
-                                            <Select disabled={isSelfAssigned}  id='Assigned' defaultValue={user.LoginName===ticketDetail.Assigned? ticketDetail.CreateBy:ticketDetail.Assigned} autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
+                                            <Select disabled={isSelfAssigned}  id='Assigned' defaultValue={(user.LoginName === comments[0].Assigned ? comments[0].CreateBy : comments[0].Assigned)} autoFocus={true} showSearch onChange={(val) => {document.getElementById('Message').focus();form.setFieldsValue({Assigned: val})}} style={{ width: '100%' }}>
                                                 {/* <Option value="">Assigned</Option> */}
                                                 {depart.map(member => (
                                                     <Option value={member.LoginName}>{member.Username}</Option>
