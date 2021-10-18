@@ -163,6 +163,7 @@ const TicketDetails = ({ match, location}) => {
         }
         dispatch(addReminderAPI(form)).then(data => {
             form = {...form, ReminderID: data.reminderID}
+            form = {...form, StartTime:form['range-time-picker'][0].format('YYYY-MM-DDTHH:mm:ss.000Z'), EndTime: form['range-time-picker'][1].format('YYYY-MM-DDTHH:mm:ss.000Z')}
             socket && socket.send(JSON.stringify({type: 'broadcastMessage', reason: 'newReminder', data: form}))
             dispatch(addReminder(form))
             setState({...state, visible: false, loader:false });

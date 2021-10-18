@@ -68,7 +68,13 @@ const ProviderConfig = () => {
                     message: payload.notification.title, 
                     description: payload.notification.body, 
                     duration: 10,
-                  onClick: () => {window.open(payload.data.url, "_blank")}})
+                  onClick: () => {
+                    payload.notification.title === 'New Reminder' ?
+                    window.open(`${payload.data.url}/${payload.data.ReminderID}`, "_blank")
+                    :
+                    window.open(payload.data.url, "_blank")
+
+                  }})
               });
             }
               // reg.showNotification(title, { body: body });
