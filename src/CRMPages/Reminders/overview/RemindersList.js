@@ -113,7 +113,7 @@ const RemindersList = (props) => {
           ReminderType: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{ReminderType}</span></Link>,
           Assigned: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{Assigned}</span></Link>,
           StartTime: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{formatDate(StartTime)}</span></Link>,
-          EndTime: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{formatDate(EndTime)}</span></Link>,
+          // EndTime: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{formatDate(EndTime)}</span></Link>,
           Status: <Link to={'#'} onClick={() => {onOpenModal(value)}}><span style={{ color: 'black' }} className="date-started">{Status}</span></Link>,
       });
   });
@@ -149,11 +149,11 @@ const RemindersList = (props) => {
       dataIndex: 'StartTime',
       key: 'StartTime',
     },
-    {
-      title: 'EndTime',
-      dataIndex: 'EndTime',
-      key: 'EndTime',
-    },
+    // {
+    //   title: 'EndTime',
+    //   dataIndex: 'EndTime',
+    //   key: 'EndTime',
+    // },
     {
         title: 'Status',
         dataIndex: 'Status',
