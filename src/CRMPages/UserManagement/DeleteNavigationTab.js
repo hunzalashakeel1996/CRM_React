@@ -6,7 +6,7 @@ import { PageHeader } from '../../components/page-headers/page-headers';
 import { Drawer } from '../../components/drawer/drawer';
 import { Cards } from '../../components/cards/frame/cards-frame';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSideAndTopNavBar, insertSideNavandTop } from '../../redux/apis/DataAction';
+import { getSideAndTopNavBar, insertSideNavandTop ,apiDeleteNav} from '../../redux/apis/DataAction';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import startOfYesterday from 'date-fns/startOfYesterday';
 import e from 'cors';
@@ -46,21 +46,35 @@ const DeleteNavigationTab = (props) => {
     }, []);
 
     const onDelete = () => {
+        setState({ ...state,  isLoader: true })
         let index = dataSource.findIndex(val => val.parent_bar === selectedParent)
 
         if(selectedChild===''){
-            let data = {id:dataSource[index].id, isRemoveRow: true}
+            let data = {id:dataSource[index].id, isRemoveRow: true,child_bar:[],top_navigation:{},parent_bar:''}
+            console.log('2', data)
+            dispatch(apiDeleteNav(data)).then(data=>{
+                console,log()
+ 
+            })
         }else{
             let tempChilds = [...JSON.parse(dataSource[index].child_bar)]
             let tempTopNav = {...JSON.parse(dataSource[index].top_navigation)}
-
+          
             if(selectedTopNav===''){
                 tempChilds.splice(tempChilds.indexOf(selectedChild), 1)
                 delete tempTopNav[selectedChild]
-            }else{
+                console.log('1', tempChilds)
+
+            }else
+            {
                 tempTopNav[selectedChild].splice(tempTopNav[selectedChild].indexOf(selectedTopNav),1)
                 console.log('top', tempTopNav)
             }
+            let data = {id:dataSource[index].id, isRemoveRow: false,child_bar:tempChilds,top_navigation:tempTopNav,parent_bar:selectedParent}
+           dispatch(apiDeleteNav(data)).then(data=>{
+            setState({ ...state,  isLoader: false })
+
+           })
         }
     }
 
