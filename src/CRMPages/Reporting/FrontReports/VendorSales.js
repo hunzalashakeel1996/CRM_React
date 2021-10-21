@@ -80,8 +80,7 @@ const {dataReport,sortedInfo}=state
 
     dispatch(chartVendorSalesData({ FROMDATE: state.startDate.format('MM/DD/YYYY'), TODATE: state.endDate.format('MM/DD/YYYY') })).then(data => {
       setstate({ ...state, isLoader: false })
-      // console.log('My Data: ', data)
-      //downloadFile(data);
+     
       notification.success({
         message: 'Successfull Rendered',
         description: `Successfully Rendered Vendor Sales Reports From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,

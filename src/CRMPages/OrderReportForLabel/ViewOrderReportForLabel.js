@@ -23,14 +23,14 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 
 
-const ViewPNLRMA = () => {
+const ViewOrderReportForLabel = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
-  const tabChildBar = JSON.parse(userAccess.top_navigation)['Report RMA PNL'];
+  const tabChildBar = JSON.parse(userAccess.top_navigation)['All MP Shipment'];
   // console.log(tabChildBar)
-  const [activeTab, setActiveTab] = useState('ReplacmentOrder');
+  const [activeTab, setActiveTab] = useState('All MP Shipment');
   const [isSearchPressed, setIsSearchPressed] = useState(false);
 
   const [state, setstate] = useState({
@@ -174,4 +174,4 @@ const ViewPNLRMA = () => {
   );
 };
 
-export default ViewPNLRMA;
+export default ViewOrderReportForLabel;

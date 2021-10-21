@@ -21,6 +21,7 @@ import ReportPNLWeb from './ReportPNLWeb'
 import ReportPNLMP from './ReportPNLMP'
 import ReportPNLRMA from './ReportPNLRMA'
 import StyleChart from './StyleChart'
+import OrderReportForLabel from './OrderReportForLabel'
 
 import ComparisonReportView from './../../CRMPages/Dashboard/ComparisonReport/ComparisonReportView';
 import NotFoundPage from '../../CRMPages/NotFoundPage/NotFoundPage';
@@ -60,6 +61,7 @@ const Admin = () => {
           <Route path={`${path}/ReportPNLRMA`} component={ReportPNLRMA} />
           <Route path={`${path}/styleChart`} component={StyleChart} />
           <Route path={`${path}/NotFoundPage`} component={NotFoundPage} />
+          <Route path={`${path}/orderreportforlabel`} component={OrderReportForLabel} />
       
 
           {/* <Redirect to="/admin" /> */}

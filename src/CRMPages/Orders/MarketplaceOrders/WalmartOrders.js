@@ -183,7 +183,7 @@ const MarketplaceOrdersView = (props) => {
     const insertWalmartUSAOrderSheet = () => {
 
         setstate({ ...state, isLoader: true })
-        let username: []
+        let username= []
         username = JSON.parse(localStorage.getItem('user'))
         const formData = new FormData();
         formData.append('user', username.LoginName)
@@ -219,7 +219,7 @@ const MarketplaceOrdersView = (props) => {
     const insertWalmartCanadaOrderSheet = () => {
         
         setstate({ ...state, isLoader: true })
-        let username: []
+        let username =[]
         username = JSON.parse(localStorage.getItem('user'))
         const formData = new FormData();
         formData.append('user', username.LoginName)
