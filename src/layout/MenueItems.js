@@ -133,6 +133,20 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       }]
     },
     {
+      key: 'Order Report ForLabel',
+      title: 'Order Report For Label',
+      icon: 'list',
+      items: [{
+        key: 'All MP Shipment',
+        title: 'All MP Shipment',
+        path: `${path}/orderreportforlabel/AllMPShipment`
+      }, {
+        key: 'Web order',
+        title: 'Web order',
+        path: `${path}/orderreportforlabel/WebOrder`
+      }]
+    },
+    {
       key: 'Sales',
       title: 'Sales',
       icon: 'dollar-sign',

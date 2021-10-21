@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
 import { downloadFile } from '../../../../components/utilities/utilities'
-import { apiSummaryReportOrderWise } from '../../../../redux/apis/DataAction';
+import { apiRMAQtySingle,apiRMAQtyYear } from '../../../../redux/apis/DataAction';
 import './style.css';
 
 
@@ -35,7 +35,7 @@ const validateMessages = {
 
 const RMAQty = (props) => {
 
-    const {dataSourceOrderTempParent,dataSourceOrder,dataOrderDownload,activeTab,onAddOrderCount}= props
+    const {downloadFileDataLink,orderdatefrom,orderdateto,dateFormat, isSearchPressed, activeTab, onDispatchComplete}= props
     // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
@@ -46,15 +46,176 @@ const RMAQty = (props) => {
    
     isLoader:false,
     dataSourceOrderTemp:[],
+    dataSourceSingle:[],
+    dataSourceYear:[]
     
   });
 
-  const {sortedInfo,isLoader,dataSourceOrderTemp}=state
+  const {dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSourceSingle,dataSourceYear}=state
+
+  useEffect(() => {
+    console.log('aaaa', activeTab)
+
+    if(isSearchPressed && activeTab === 'ReportRMAQty'){
+     
+      setState({ ...state, isLoader: true })
+      if (dateFormat==='Single')
+      dispatch(apiRMAQtySingle({ orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
+       
+          
+          downloadFileDataLink(data[0])
+        
+           setState({ ...state, isLoader: false,dataSourceSingle:data[1] })
+           onDispatchComplete()
+      })
+     else {
+      dispatch(apiRMAQtyYear({ orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
+    
+     
+        downloadFileDataLink(data[0])
+        setState({ ...state, isLoader: false,dataSourceYear: data[1] })
+       onDispatchComplete()
+   })
+     }
+    }
+
+  }, [isSearchPressed])
+
+  const columnsYears = [
+    {
+      title: 'vendorstylecode',
+      dataIndex: 'vendorstylecode',
+      key: 'vendorstylecode'
+    },
+    {
+      title: 'stylecode',
+      dataIndex: 'stylecode',
+      key: 'stylecode'
  
+    },
+    {
+      title: 'colorname',
+      dataIndex: 'colorname',
+      key: 'colorname'
+    },
+    {
+      title: 'colorcode',
+      dataIndex: 'colorcode',
+      key: 'colorcode'
+    },
+    {
+      title: 'sizename',
+      dataIndex: 'sizename',
+      key: 'sizename'
+    },
+    {
+      title: 'ItemCount',
+      dataIndex: 'ItemCount',
+      key: 'ItemCount',
+       defaultSortOrder: 'descend',
+      sorter: (c, d) => c.ItemCount - d.ItemCount,
+      sortOrder: sortedInfo.columnKey === 'ItemCount' && sortedInfo.order,
+    },
+    {
+      title: 'RMACount',
+      dataIndex: 'RMACount',
+      key: 'RMACount',
+      defaultSortOrder: 'descend',
+      sorter: (c, d) => c.RMACount - d.RMACount,
+      sortOrder: sortedInfo.columnKey === 'RMACount' && sortedInfo.order,
+    }
+  ];
+ 
+  
+  const columnsSingle = [
+    {
+      title: 'orderno',
+      dataIndex: 'orderno',
+      key: 'orderno'
+    },
+    {
+      title: 'OrderID',
+      dataIndex: 'OrderID',
+      key: 'OrderID'
+ 
+    },
+    {
+      title: 'OrderDate',
+      dataIndex: 'OrderDate',
+      key: 'OrderDate'
+    },
+    {
+      title: 'RMADate',
+      dataIndex: 'RMADate',
+      key: 'RMADate'
+    },
+    {
+      title: 'merchantsku',
+      dataIndex: 'merchantsku',
+      key: 'merchantsku'
+    },
+    {
+      title: 'vendorstylecode',
+      dataIndex: 'vendorstylecode',
+      key: 'vendorstylecode'
+    },
+    {
+      title: 'stylecode',
+      dataIndex: 'stylecode',
+      key: 'stylecode'
+    }
+    ,
+    {
+      title: 'colorname',
+      dataIndex: 'colorname',
+      key: 'colorname'
+    },
+    {
+      title: 'colorcode',
+      dataIndex: 'colorcode',
+      key: 'colorcode'
+    },
+    {
+      title: 'sizename',
+      dataIndex: 'sizename',
+      key: 'sizename'
+    }
+    ,
+    {
+      title: 'rmareason',
+      dataIndex: 'rmareason',
+      key: 'rmareason'
+    },
+    {
+      title: 'rmanotes',
+      dataIndex: 'rmanotes',
+      key: 'rmanotes'
+    },
+    {
+      title: 'ordernote',
+      dataIndex: 'ordernote',
+      key: 'ordernote'
+    }
+  ];
+  const handleChange = (pagination, filters, sorter) =>  {
+    // console.log('Various parameters', pagination, filters, sorter);
+    setState({...state,
+     
+      sortedInfo: sorter,
+    });
+  };
+  
   return (
 
     <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+         <Cards headless>
+                      
 
+                            <div className="table-responsive">
+                                <Table pagination={true} dataSource={dateFormat==='Single'?dataSourceSingle:dataSourceYear} columns={dateFormat==='Single'?columnsSingle:columnsYears} onChange={handleChange} />
+                            </div>
+
+                    </Cards>
       
     </Spin>
   );
