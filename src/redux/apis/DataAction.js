@@ -1226,6 +1226,10 @@ export const apiAmazonFBAGetOrderSheet = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Update/AmazonFBAOrderbySheet', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+export const apiShipAll = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Edit/shipall', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 
 
 // UploadForOrders_Canada

@@ -1,57 +1,37 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Input, Tabs, Table, Upload, Row, Col } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { apiShipAll } from '../../../redux/apis/DataAction';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 
 const ShippingWeightView = (props) => {
+  const dispatch = useDispatch()
   const [state, setState] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
     selectedRows: null,
-    values: {},
+    orderno: {},
   });
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
-  const columns = [
-    {
-      title: 'Order NO',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'PO number',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Tracking NO',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'address',
-      key: 'address',
-    },
+const {orderno}=state
 
-  ];
+  const onChange =(event)=>{
+
+    setState({...state,orderno:event.target.value})
+
+  }
+
+  const ShipAll =()=>{
+
+    dispatch(apiShipAll({order:orderno})).then(data=>{
+
+    })
+  }
   return (
     <>
       <Row style={{  }}>
@@ -59,14 +39,12 @@ const ShippingWeightView = (props) => {
           <Row gutter={25}>
             <Col xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 0, marginBottom:10, width:'100%', maxWidth:400,  }}>
-                <TextArea />
+                <TextArea onChange={onChange}/>
               </div>
             </Col>
             <Col xs={24}  >
               <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                 <Button size="large"  type="success" htmlType="PO Number">
-                  Insert
-                        </Button>
+                 <Button size="large"  type="primary" onClick={ShipAll}> Insert</Button>
               </div>
             </Col>
           </Row>
