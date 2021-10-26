@@ -287,11 +287,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       }]
     },
     {
-      key: 'Style Chart',
+      key: 'Size Chart',
       title: 'Style Chart',
       icon: 'users',
       items: [{
-        key: 'Add Size Chart',
+        key: 'Manage Size Chart',
         title: 'Add Size Chart',
         path: `${path}/styleChart`
       }
@@ -326,12 +326,12 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       {/* ==================================== DASHBOARD ========================================================== */}
       {sideMenu.map(menu =>
       (Object.keys(userTopNavigation)?.includes(menu.title) &&
-        <SubMenu key={menu.key} icon={!topMenu && <FeatherIcon icon={menu.icon} />} title={menu.title}>
+        <SubMenu key={menu.key} icon={!topMenu && <FeatherIcon icon={menu.icon} />} title={menu.key}>
           {menu.items.map(item =>
             userTopNavigation[menu.title]?.includes(item.title) &&
             (<Menu.Item key={item.key}>
               <NavLink onClick={toggleCollapsed} to={item.path}>
-                {item.title}
+                {item.key}
               </NavLink>
             </Menu.Item>))}
         </SubMenu>))}
