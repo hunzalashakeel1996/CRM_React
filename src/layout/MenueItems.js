@@ -294,7 +294,8 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'Add Size Chart',
         title: 'Add Size Chart',
         path: `${path}/styleChart`
-      }]
+      }
+    ]
     }
   ]
 

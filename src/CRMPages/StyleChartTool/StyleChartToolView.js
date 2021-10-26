@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 const AddSizeChart = lazy(() => import('./overview/AddSizeChart'));
-
+const ViewSizeChart = lazy(() => import('./overview/ViewSizeChart'));
 const { TabPane } = Tabs;
 
 const StyleChartTool = (props) => {
@@ -30,10 +30,16 @@ const StyleChartTool = (props) => {
 
   const topMenu = [
     {
+        tab: 'view Size Chart',
+        key: 'Size Chart List',
+        tabName: <ViewSizeChart  />
+    },
+    {
         tab: 'Custom Size Chart',
-        key: 'Custom Size Chart',
+        key: 'Add Size Chart',
         tabName: <AddSizeChart  />
     },
+   
 ];
     return (
         <>
@@ -41,7 +47,7 @@ const StyleChartTool = (props) => {
                 <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
                     {topMenu.map(item => (
                         tabChildBar?.includes(item.tab) && (
-                            <TabPane tab={item.tab} key={item.key}>
+                            <TabPane tab={item.key} key={item.key}>
                                 {item.tabName}
                             </TabPane>)
 
