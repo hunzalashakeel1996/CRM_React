@@ -9,6 +9,7 @@ const ProjectRoutes = () => {
     <Switch>
       <Route exact path={`${path}`} component={StyleChartTool} />
       <Route exact path={`${path}/customStyleSheet`} component={StyleChartTool} />
+      
     </Switch>
   );
 };

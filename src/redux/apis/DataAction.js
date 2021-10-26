@@ -21,7 +21,7 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
-// export const urlDotNet ="http://localhost:47463/api"
+ //export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
 export const urlDotNet = "https://crm.rizno.com/api"
@@ -1198,6 +1198,18 @@ export const getOrderSearsApi = (data) => {
 //Add Size Chart
 export const apiAddSizeChart = (data) => {
     return apiFetchDotNet('/Report/sizechart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+//Update Size Chart
+export const apiUpdateSizeChart = (data) => {
+    return apiFetchDotNet('/Report/UpdateSizeChart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+//view Size Chart List
+export const apiViewSizeChart = (data) => {
+    return apiFetchDotNet('/Report/ViewSizechart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+//view Size Chart Update
+export const apiViewSizeChartUpdate = (data) => {
+    return apiFetchDotNet('/Report/ViewSizeChartUpdate', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Rma qty single
 export const apiRMAQtySingle = (data) => {

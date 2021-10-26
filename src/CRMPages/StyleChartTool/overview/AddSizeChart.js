@@ -10,10 +10,11 @@ import { useHistory } from "react-router-dom";
 import { Cards } from '../../../components/cards/frame/cards-frame';
 import { apiAddSizeChart } from '../../../redux/apis/DataAction';
 
-const numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 const AddSizeChart = (props) => {
 
     const dispatch = useDispatch();
+    let vendornameState = useSelector(state => state.tickets.vendornames);
 
     const [state, setState] = useState({
         loader: false,
@@ -25,16 +26,16 @@ const AddSizeChart = (props) => {
         sizeChartValues: [],
         isShowChart: false
     });
-    const {description,vendor, loader, title, styleCode, numberOfRows, numberOfColumns, sizeChartValues, isShowChart } = state;
+    const { description, vendor, loader, title, styleCode, numberOfRows, numberOfColumns, sizeChartValues, isShowChart } = state;
 
     const onChangeRowColumn = (value, isRow) => {
         let tempSizeChartValues = [...sizeChartValues]
-        if(isRow){
+        if (isRow) {
             tempSizeChartValues = [...new Array(parseInt(value))].map(e => new Array(numberOfColumns).fill(''));
-            setState({...state, isShowChart: false, sizeChartValues: [...tempSizeChartValues], numberOfRows: parseInt(value)})
-        }else{
+            setState({ ...state, isShowChart: false, sizeChartValues: [...tempSizeChartValues], numberOfRows: parseInt(value) })
+        } else {
             tempSizeChartValues = [...new Array(numberOfRows)].map(e => new Array(parseInt(value)).fill(''));
-            setState({...state, isShowChart: false, sizeChartValues: [...tempSizeChartValues], numberOfColumns: parseInt(value)})
+            setState({ ...state, isShowChart: false, sizeChartValues: [...tempSizeChartValues], numberOfColumns: parseInt(value) })
         }
 
     }
@@ -42,27 +43,35 @@ const AddSizeChart = (props) => {
     const onValueChange = (val, row, col) => {
         let tempSizeChartValues = [...sizeChartValues]
         tempSizeChartValues[row][col] = val.target.value
+        setState({ ...state, sizeChartValues: [...tempSizeChartValues] })
     }
 
     const onAddSizeChart = () => {
-        if(title==''||vendor==''||description==''){
+        if (title == '' || vendor == '' || description == '') {
             Notification['error']({
                 message: 'Please fill out required fields',
                 description:
-                  '* marked fields are required',
-              });
-        }else{
+                    '* marked fields are required',
+            });
+        } else {
             let username = [];
             username = JSON.parse(localStorage.getItem('user'))
             setState({ ...state, loader: true })
-            dispatch(apiAddSizeChart({username:username.LoginName,values:sizeChartValues,title:title,description:description,vendorname:vendor})).then(data => {
+            dispatch(apiAddSizeChart({ username: username.LoginName, values: sizeChartValues, title: title, description: description, vendorname: vendor })).then(data => {
                 setState({ ...state, loader: false })
                 Notification['success']({
                     message: 'Size Chart insert successfully',
-                  });
-            })    
+                });
+            })
         }
     };
+
+    const onOpenChart = () => {
+        let tempSizeChartValues = [...sizeChartValues]
+        tempSizeChartValues[0][0] = 'Sort'
+        tempSizeChartValues[1][0] = 'Size'
+        setState({ ...state, isShowChart: true, sizeChartValues: [...tempSizeChartValues] })
+    }
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loader} >
@@ -73,7 +82,12 @@ const AddSizeChart = (props) => {
                         </Col>
 
                         <Col span={8}>
-                            <Input placeholder="* Vendor Name" onChange={(val) => { setState({ ...state, vendor: val.target.value }) }} />
+                            <Select showSearch placeholder='Vendor Name' allowClear onChange={(val) => { setState({ ...state, vendor: val }) }} style={{ width: '100%', marginBottom: 10 }}  >                                {vendornameState.map((val, i) => (
+                                <Option value={val} key={val}>{val}</Option>
+
+                            ))}
+
+                            </Select>
                         </Col>
 
                         <Col span={8}>
@@ -108,7 +122,7 @@ const AddSizeChart = (props) => {
                         {isShowChart ?
                             <Button size="large" type="primary" onClick={onAddSizeChart} style={{ marginRight: 10, }} > Add Size</Button>
                             :
-                            <Button size="large" type="primary" onClick={() => { setState({ ...state, isShowChart: true }) }}>
+                            <Button size="large" type="primary" onClick={() => { onOpenChart() }}>
                                 Create Chart
                             </Button>}
                     </Row>
@@ -125,7 +139,14 @@ const AddSizeChart = (props) => {
                                         {numbers.map((number, indexColumn) => (
                                             (numberOfColumns >= indexColumn + 1) &&
                                             <Col style={{ padding: 10, maxWidth: indexColumn === 0 ? 150 : 100, minWidth: indexColumn === 0 ? 150 : 100, borderRight: 'solid 1px grey', borderBottom: 'solid 1px grey', borderTop: 'solid 1px grey' }} span={4}>
-                                                {<Input style={{ maxHeight: 10, minHeight: 10, fontSize: 12, fontWeight: indexRow === 0 ? 'bold' : '' }} onChange={(val) => { onValueChange(val, indexRow, indexColumn) }} />}
+                                                {
+                                                    <Input
+                                                        disabled={[1, 0].includes(indexRow) && indexColumn == 0}
+                                                        value={sizeChartValues[indexRow][indexColumn]}
+                                                        style={{ maxHeight: 10, minHeight: 10, fontSize: 12, fontWeight: [0, 1].includes(indexRow) ? 'bold' : '' }}
+                                                        onChange={(val) => { onValueChange(val, indexRow, indexColumn) }}
+                                                    />
+                                                }
                                             </Col>
                                         ))}
                                     </Row>
