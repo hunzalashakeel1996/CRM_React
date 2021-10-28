@@ -70,6 +70,8 @@ const AddSizeChart = (props) => {
                         return
                     }
                 }
+                setState({ ...state, loader: false })
+
             }
             
             dispatch(apiAddSizeChart({ username: username.LoginName, values: sizeChartValues, title: title, description: description, vendorname: vendor })).then(data => {
