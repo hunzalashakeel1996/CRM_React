@@ -57,6 +57,21 @@ const AddSizeChart = (props) => {
             let username = [];
             username = JSON.parse(localStorage.getItem('user'))
             setState({ ...state, loader: true })
+            
+            // validation check
+            for(let i=0; i<sizeChartValues.length; i++){
+                for(let j=0; j<sizeChartValues[0].length; j++){
+                    if(sizeChartValues[i][j]==''){
+                        Notification['error']({
+                            message: 'Please fill out required fields',
+                            description:
+                                'All field in the size table should be filled',
+                        });
+                        return
+                    }
+                }
+            }
+            
             dispatch(apiAddSizeChart({ username: username.LoginName, values: sizeChartValues, title: title, description: description, vendorname: vendor })).then(data => {
                 setState({ ...state, loader: false })
                 Notification['success']({

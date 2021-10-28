@@ -8,7 +8,8 @@ import { AutoComplete } from '../../../components/autoComplete/autoComplete';
 import { Button } from '../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { Cards } from '../../../components/cards/frame/cards-frame';
-import { apiViewSizeChart, apiViewSizeChartUpdate,apiUpdateSizeChart } from '../../../redux/apis/DataAction';
+import { apiViewSizeChart, apiViewSizeChartUpdate, apiUpdateSizeChart } from '../../../redux/apis/DataAction';
+import AddRowColumnModal from '../Modals/AddRowColumnModal';
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
@@ -19,38 +20,24 @@ const ViewSizeChart = (props) => {
 
     const [state, setState] = useState({
         loader: false,
-        id: '',
         title: '',
         vendor: '',
         description: '',
         numberOfRows: 0,
         numberOfColumns: 0,
         sizeChartValues: [],
-        isShowChart: false,
         dataSource: [],
         sizeChartDetails: [],
-        selectedId: ''
-
-
+        selectedId: '',
+        isModalOpen: '',
+        SelectedSizeChartDetails: {}
     });
-    const { selectedId, sizeChartDetails, dataSource, id, description, vendor, loader, title, styleCode, numberOfRows, numberOfColumns, sizeChartValues, isShowChart } = state;
-
-    const onChangeRowColumn = (value, isRow) => {
-        let tempSizeChartValues = [...sizeChartValues]
-        if (isRow) {
-            tempSizeChartValues = [...new Array(parseInt(value))].map(e => new Array(numberOfColumns).fill(''));
-            setState({ ...state, isShowChart: false, sizeChartValues: [...tempSizeChartValues], numberOfRows: parseInt(value) })
-        } else {
-            tempSizeChartValues = [...new Array(numberOfRows)].map(e => new Array(parseInt(value)).fill(''));
-            setState({ ...state, isShowChart: false, sizeChartValues: [...tempSizeChartValues], numberOfColumns: parseInt(value) })
-        }
-
-    }
+    const { selectedId, sizeChartDetails, dataSource, description, vendor, loader, title, numberOfRows, numberOfColumns, sizeChartValues, isModalOpen, SelectedSizeChartDetails } = state;
 
     const onValueChange = (val, row, col) => {
         let tempSizeChartValues = [...sizeChartValues]
         tempSizeChartValues[row][col] = val.target.value
-        setState({...state, sizeChartValues: [...tempSizeChartValues]})
+        setState({ ...state, sizeChartValues: [...tempSizeChartValues] })
     }
 
     const onViewSizeChart = () => {
@@ -66,24 +53,20 @@ const ViewSizeChart = (props) => {
         username = JSON.parse(localStorage.getItem('user'))
         setState({ ...state, loader: true })
         dispatch(apiViewSizeChart({ username: username.LoginName, values: sizeChartValues, title: title, description: description, vendorname: vendor })).then(data => {
-
-
             setState({ ...state, loader: false, dataSource: data })
-            Notification['success']({
-                message: 'Size Chart insert successfully',
-            });
+            // Notification['success']({
+            //     message: 'Size Chart insert successfully',
+            // });
         })
         // }
     };
+
     const UpdateSize = (id) => {
-
-
-
         setState({ ...state, loader: true })
 
         dispatch(apiViewSizeChartUpdate({ id: id })).then(data => {
             let tempSizeChartValues = [...new Array(parseInt(data[2].filter(val => val === '@').length + 2))].map(e => new Array(data[0].length).fill(''))
-
+            let tempSelectedSizeChartDetails = dataSource.filter(val => val.id == id)
 
             data.map((singleValue, index) => {
                 if (index < 2)
@@ -99,19 +82,20 @@ const ViewSizeChart = (props) => {
 
                 }
             })
-            console.log('2', tempSizeChartValues)
+
             setState({
-                ...state, loader: false, sizeChartDetails: data,
+                ...state, loader: false,
+                sizeChartDetails: data,
                 selectedId: id,
                 sizeChartValues: tempSizeChartValues,
                 numberOfRows: data[2].filter(val => val === '@').length + 2,
-                numberOfColumns: data[0].length
-
+                numberOfColumns: data[0].length,
+                SelectedSizeChartDetails: tempSelectedSizeChartDetails[0]
             })
 
-            Notification['success']({
-                message: 'Size Chart List insert successfully',
-            });
+            // Notification['success']({
+            //     message: 'Size Chart Update Successfully',
+            // });
         })
         // }
     };
@@ -124,17 +108,51 @@ const ViewSizeChart = (props) => {
         //           '* marked fields are required',
         //       });
         // }else{
-            let username = [];
-            username = JSON.parse(localStorage.getItem('user'))
-            setState({ ...state, loader: true })
-            dispatch(apiUpdateSizeChart({selectedId:selectedId,values:sizeChartValues})).then(data => {
-                setState({ ...state, loader: false, selectedId: '' })
-                Notification['success']({
-                    message: 'Size Update Chart successfully',
-                  });
-            })    
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+
+        // validation check
+        for (let i = 0; i < sizeChartValues.length; i++) {
+            for (let j = 0; j < sizeChartValues[0].length; j++) {
+                if (sizeChartValues[i][j] == '') {
+                    Notification['error']({
+                        message: 'Please fill out required fields',
+                        description:
+                            'All field in the size table should be filled',
+                    });
+                    return
+                }
+            }
+        }
+
+        setState({ ...state, loader: true })
+
+        dispatch(apiUpdateSizeChart({ selectedId: selectedId, values: sizeChartValues })).then(data => {
+            setState({ ...state, loader: false, selectedId: '' })
+            Notification['success']({
+                message: 'Size Chart Updated Successfully',
+            });
+        })
         // }
     };
+
+    const onDeleteRowColumn = (value, isRowDelete) => {
+        let tempSizeChartValues = JSON.parse(JSON.stringify(sizeChartValues))
+        let tempNumberOfRows = numberOfRows
+        let tempNumberOfColumns = numberOfColumns
+
+        if (isRowDelete) {
+            tempSizeChartValues.splice(value, 1)
+            tempNumberOfRows--
+        }
+        else {
+            for (let i = 0; i < tempSizeChartValues.length; i++) {
+                tempSizeChartValues[i].splice(value, 1)
+            }
+            tempNumberOfColumns--
+        }
+        setState({...state, sizeChartValues: JSON.parse(JSON.stringify(tempSizeChartValues)), numberOfRows: tempNumberOfRows, numberOfColumns:tempNumberOfColumns })
+    }
 
     const columns = [
         {
@@ -166,43 +184,62 @@ const ViewSizeChart = (props) => {
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loader} >
                 <div style={{ backgroundColor: 'white', padding: 20, borderRadius: 20 }}>
                     <Row gutter={20}>
-                        <Col span={8}>
-                            <Input placeholder="* Title" onChange={(val) => { setState({ ...state, title: val.target.value }) }} />
-                        </Col>
+                        {selectedId == '' ?
+                            <>
+                                <Col span={8}>
+                                    <Input placeholder="* Title" onChange={(val) => { setState({ ...state, title: val.target.value }) }} />
+                                </Col>
 
-                        <Col span={8}>
-                            <Select showSearch placeholder='Vendor Name'  allowClear onChange={(val) => { setState({...state, vendor: val}) }} style={{ width: '100%', marginBottom: 10 }}  >
-                                {vendornameState.map((val, i) => (
-                                    <Option value={val} key={val}>{val}</Option>
+                                <Col span={8}>
+                                    <Select showSearch placeholder='Vendor Name' allowClear onChange={(val) => { setState({ ...state, vendor: val }) }} style={{ width: '100%', marginBottom: 10 }}  >
+                                        {vendornameState.map((val, i) => (
+                                            <Option value={val} key={val}>{val}</Option>
 
-                                ))}
+                                        ))}
 
-                            </Select>
-                        </Col>
+                                    </Select>
+                                </Col>
 
-                        <Col span={8}>
-                            <Input placeholder="* Description" onChange={(val) => { setState({ ...state, description: val.target.value }) }} />
-                        </Col>
+                                <Col span={8}>
+                                    <Input placeholder="* Description" onChange={(val) => { setState({ ...state, description: val.target.value }) }} />
+                                </Col>
+                            </>
+                            :
+                            <>
+                                <Col span={4}>
+                                    <p style={{ fontWeight: 'bold' }}>Title:</p>
+                                    <p>{SelectedSizeChartDetails.title}</p>
+                                </Col>
+                                <Col span={4}>
+                                    <p style={{ fontWeight: 'bold' }}>Vendor Name:</p>
+                                    <p>{SelectedSizeChartDetails.vendor_name}</p>
+                                </Col>
+                                <Col span={4}>
+                                    <p style={{ fontWeight: 'bold' }}>Description:</p>
+                                    <p>{SelectedSizeChartDetails.description}</p>
+                                </Col>
+                            </>
+                        }
                     </Row>
 
 
                     <Row gutter={25} style={{ marginTop: 20 }}>
-                    {selectedId == '' ? <Col xs={3}>
+                        {selectedId == '' ? <Col xs={3}>
                             <Button size="large" type="primary" onClick={onViewSizeChart} > Search </Button>
                         </Col>
-                        :
-                        <Row>
-                        <Col span={12}>
-                            <Button size="large" type="primary" onClick={onUpdateSizeChart} >
-                                Update Chart
-                            </Button>
-                        </Col>
-                        <Col span={12}>
-                            <Button size="large" type="primary" onClick={() => {setState({...state, selectedId: ''})}} >
-                                Cancel Selection
-                            </Button>
-                        </Col>
-                        </Row>
+                            :
+                            <Row>
+                                <Col span={12}>
+                                    <Button size="large" type="primary" onClick={onUpdateSizeChart} >
+                                        Update Chart
+                                    </Button>
+                                </Col>
+                                <Col span={12}>
+                                    <Button size="large" type="primary" onClick={() => { setState({ ...state, selectedId: '' }) }} >
+                                        Cancel Selection
+                                    </Button>
+                                </Col>
+                            </Row>
                         }
                     </Row>
                 </div>
@@ -210,41 +247,65 @@ const ViewSizeChart = (props) => {
                     <Col xs={24}>
                         <Cards headless>
 
-                            {selectedId == '' ? <div className="table-responsive">
-                                <Table size='large' pagination={true} dataSource={dataSource} columns={columns} onClick={(id) => { UpdateSize(id) }} />
-                            </div>
-
+                            {selectedId == '' ?
+                                <div className="table-responsive">
+                                    <Table size='large' pagination={true} dataSource={dataSource} columns={columns} onClick={(id) => { UpdateSize(id) }} />
+                                </div>
                                 :
+                                <div>
+                                    <Row gutter={20} style={{ marginTop: 20 }}>
+                                        <Col span={8}>
+                                            <Button size="large" type="primary" onClick={() => { setState({ ...state, isModalOpen: 'AddRowColumn' }) }} >
+                                                Add Row/Column
+                                            </Button>
+                                        </Col>
 
-                                <Row style={{ marginTop: 20 }}>
-                                    <Col style={{ overflow: 'auto' }}>
-                                        <div style={{ maxWidth: 1920, borderLeft: 'solid 1px grey' }}>
-                                            {numbers.map((number, indexRow) => (
-                                                numberOfRows >= indexRow + 1 &&
-                                                <Row gutter={20} style={{ flexWrap: 'nowrap', width: '100%', margin: 0 }}>
-                                                    {numbers.map((number, indexColumn) => (
-                                                        (numberOfColumns >= indexColumn + 1) &&
-                                                        <Col style={{ padding: 10, maxWidth: indexColumn === 0 ? 150 : 100, minWidth: indexColumn === 0 ? 150 : 100, borderRight: 'solid 1px grey', borderBottom: 'solid 1px grey', borderTop: 'solid 1px grey' }} span={4}>
-                                                            {<Input
-                                                               disabled={[1, 0].includes(indexRow) && indexColumn == 0}
-                                                               style={{ maxHeight: 10, minHeight: 10, fontSize: 12, fontWeight: [0, 1].includes(indexRow) ? 'bold' : '' }}
-                                                                onChange={(val) => { onValueChange(val, indexRow, indexColumn) }}
-                                                                value={sizeChartValues[indexRow][indexColumn]}
-                                                            />}
-                                                        </Col>
-                                                    ))}
-                                                </Row>
-                                            ))}
-                                        </div>
-                                    </Col>
-                                </Row>
+                                    </Row>
 
+                                    <Row style={{ marginTop: 20 }}>
+                                        <Col style={{ overflow: 'auto' }}>
+                                            <div style={{ maxWidth: 1920 }}>
+                                                {numbers.map((number, indexRow) => (
+                                                    numberOfRows >= indexRow + 1 &&
+                                                    <Row gutter={20} style={{ flexWrap: 'nowrap', width: '100%', margin: 0 }}>
+                                                        <a role="button" tabindex="0" disabled={[0, 1].includes(indexRow)} style={{ alignSelf: 'center', marginRight: 20, color: 'red' }} onClick={() => { onDeleteRowColumn(indexRow, true) }}>Delete</a>
+
+                                                        {numbers.map((number, indexColumn) => (
+                                                            (numberOfColumns >= indexColumn + 1) &&
+                                                            <Col style={{ padding: 10, maxWidth: indexColumn === 0 ? 150 : 100, borderLeft: 'solid 1px grey', minWidth: indexColumn === 0 ? 150 : 100, borderRight: 'solid 1px grey', borderBottom: 'solid 1px grey', borderTop: 'solid 1px grey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end'}}
+                                                                span={4}>
+                                                                {(indexRow === 0 && indexColumn !== 0) &&
+                                                                    <a style={{ alignSelf: 'center', textAlign: 'center', color: 'red', paddingBottom: 5}} role="button" tabindex="0" onClick={() => { onDeleteRowColumn(indexColumn, false) }}>Delete</a>
+                                                                }
+
+                                                                {<Input
+                                                                    disabled={[1, 0].includes(indexRow) && indexColumn == 0}
+                                                                    style={{ maxHeight: 10, minHeight: 10, fontSize: 12, fontWeight: [0, 1].includes(indexRow) ? 'bold' : '' }}
+                                                                    onChange={(val) => { onValueChange(val, indexRow, indexColumn) }}
+                                                                    value={sizeChartValues[indexRow][indexColumn]}
+                                                                />}
+                                                            </Col>
+                                                        ))}
+                                                    </Row>
+                                                ))}
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </div>
                             }
 
                         </Cards>
                     </Col>
                 </Row>
 
+                {isModalOpen === 'AddRowColumn' && <AddRowColumnModal
+                    isModalOpen={isModalOpen}
+                    loader={loader}
+                    sizeChartValues={sizeChartValues}
+                    sizeChartDetails={sizeChartDetails}
+                    closeModal={() => { setState({ ...state, isModalOpen: '' }) }}
+                    onAddRowColumn={(value, newRowsCount, newColsCount) => { setState({ ...state, sizeChartValues: JSON.parse(JSON.stringify(value)), numberOfRows: newRowsCount, numberOfColumns: newColsCount, isModalOpen: '' }) }}
+                />}
             </Spin>
         </>
     );
