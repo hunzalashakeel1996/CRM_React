@@ -67,10 +67,10 @@ const AddSizeChart = (props) => {
                             description:
                                 'All field in the size table should be filled',
                         });
+                        setState({ ...state, loader: false })
                         return
                     }
                 }
-                setState({ ...state, loader: false })
 
             }
             
