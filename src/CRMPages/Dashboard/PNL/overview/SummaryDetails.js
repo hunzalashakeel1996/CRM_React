@@ -44,10 +44,10 @@ const SummaryDetails = ( props ) => {
     dataSourceItemTemp: [],
     dataSourceItemTempParent:[]
   });
-
+  // console.log('cehck123',match.params)
   const { sortedInfo, isLoader, dataSourceItemTemp,dataSourceItemTempParent } = state
   useEffect(() => {
-    console.log('cehck123',match.params)
+    // console.log('cehck123',match.params)
  
     // if props is undefined then get ticket details from API
     if (location.ticket === undefined && location.state === undefined) {
@@ -216,7 +216,7 @@ const SummaryDetails = ( props ) => {
     var val = [];
     let placeholder = `Search ${value}`;
     // console.log(...dataSourceItemTempParent)
-    console.log(value)
+  //  console.log(value)
     return <Input
       placeholder=''
       size='small'

@@ -47,16 +47,18 @@ const RMAQty = (props) => {
     isLoader:false,
     dataSourceOrderTemp:[],
     dataSourceSingle:[],
-    dataSourceYear:[]
+    dataSourceYear:[],
+    orderdatetoCheck:'todate',
+    orderdatefromCheck:'fromdate'
     
   });
 
-  const {dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSourceSingle,dataSourceYear}=state
+  const {orderdatetoCheck,orderdatefromCheck,dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSourceSingle,dataSourceYear}=state
 
   useEffect(() => {
     console.log('aaaa', activeTab)
 
-    if(isSearchPressed && activeTab === 'ReportRMAQty'){
+    if(isSearchPressed && activeTab === 'ReportRMAQty'&&(orderdatetoCheck!==orderdateto ||orderdatefromCheck!==orderdatefrom)){
      
       setState({ ...state, isLoader: true })
       if (dateFormat==='Single')
@@ -65,21 +67,21 @@ const RMAQty = (props) => {
           
           downloadFileDataLink(data[0])
         
-           setState({ ...state, isLoader: false,dataSourceSingle:data[1] })
-           onDispatchComplete()
+           setState({ ...state, isLoader: false,dataSourceSingle:data[1],orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom })
+         //  onDispatchComplete()
       })
      else {
       dispatch(apiRMAQtyYear({ orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
     
      
         downloadFileDataLink(data[0])
-        setState({ ...state, isLoader: false,dataSourceYear: data[1] })
-       onDispatchComplete()
+        setState({ ...state, isLoader: false,dataSourceYear: data[1] ,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom})
+    //   onDispatchComplete()
    })
      }
     }
 
-  }, [isSearchPressed])
+  }, [isSearchPressed,activeTab,orderdateto,orderdatefrom])
 
   const columnsYears = [
     {

@@ -21,10 +21,10 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
- //export const urlDotNet ="http://localhost:47463/api"
+export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-export const urlDotNet = "https://crm.rizno.com/api"
+//export const urlDotNet = "https://crm.rizno.com/api"
 
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -1228,7 +1228,6 @@ export const apiReplacmentQty = (data) => {
     return apiFetchDotNet('/Report/ReplacmentQty', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
-
 export const apiAmazonFBAGetOrderSheetUpload = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Update/AmazonFBAUploadForOrders', "POST", multipartHeader, data);
@@ -1242,7 +1241,32 @@ export const apiShipAll = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Edit/shipall', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+//RMA PNL 
 
+//Rma Order Summary
+export const apiOrderRMASummary = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Report/OrderRMASummary', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+//Rma Item Summary
+export const apiItemRMASummary= (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Report/ItemRMASummary', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+
+//Rma Order Detail
+export const apiOrderRMADetail = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Report/OrderRMADetail', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+//Rma Item Detail
+export const apiItemRMADetail= (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Report/ItemRMADetail', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 
 // UploadForOrders_Canada
 

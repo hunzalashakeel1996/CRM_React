@@ -45,26 +45,29 @@ const ReplacmentOrder = (props) => {
     sortedInfo:[],
    
     isLoader:false,
-    dataSource:[]
+    dataSource:[],
+    orderdatetoCheck:'todate',
+    orderdatefromCheck:'fromdate'
     
   });
 
-  const {sortedInfo,isLoader,dataSource}=state
+  const {orderdatetoCheck,orderdatefromCheck,sortedInfo,isLoader,dataSource}=state
 
 useEffect(()=>{
-  if(isSearchPressed && activeTab === 'ReplacmentOrder'){
+  console.log('aaaa',isSearchPressed,activeTab,orderdatetoCheck,orderdatefromCheck, orderdatefrom,orderdateto)
+  if(isSearchPressed && activeTab === 'ReplacmentOrder'&&(orderdatetoCheck!==orderdateto ||orderdatefromCheck!==orderdatefrom)){
 
     setState({ ...state, isLoader: true })
 dispatch(apiReplacmentQty({orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data=>{
    
   downloadFileDataLink(data[0])
         
-  setState({ ...state, isLoader: false,dataSource:data[1] })
+  setState({ ...state, isLoader: false,dataSource:data[1] ,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom })
 
-  onDispatchComplete()
+  //onDispatchComplete()
 })
   }
-},[isSearchPressed])
+},[isSearchPressed,activeTab,orderdateto,orderdatefrom])
 
 const handleChange = (pagination, filters, sorter) =>  {
   // console.log('Various parameters', pagination, filters, sorter);

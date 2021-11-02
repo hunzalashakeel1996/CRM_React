@@ -8,7 +8,7 @@ import { AutoComplete } from '../../../components/autoComplete/autoComplete';
 import { Button } from '../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
 import { Cards } from '../../../components/cards/frame/cards-frame';
-import { apiViewSizeChart, apiViewSizeChartUpdate,apiUpdateSizeChart } from '../../../redux/apis/DataAction';
+import { apiViewSizeChart, apiViewSizeChartUpdate, apiUpdateSizeChart } from '../../../redux/apis/DataAction';
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
@@ -50,7 +50,7 @@ const ViewSizeChart = (props) => {
     const onValueChange = (val, row, col) => {
         let tempSizeChartValues = [...sizeChartValues]
         tempSizeChartValues[row][col] = val.target.value
-        setState({...state, sizeChartValues: [...tempSizeChartValues]})
+        setState({ ...state, sizeChartValues: [...tempSizeChartValues] })
     }
 
     const onViewSizeChart = () => {
@@ -69,9 +69,9 @@ const ViewSizeChart = (props) => {
 
 
             setState({ ...state, loader: false, dataSource: data })
-            Notification['success']({
-                message: 'Size Chart insert successfully',
-            });
+            // Notification['success']({
+            //     message: 'Size Chart List successfully',
+            // });
         })
         // }
     };
@@ -109,9 +109,9 @@ const ViewSizeChart = (props) => {
 
             })
 
-            Notification['success']({
-                message: 'Size Chart List insert successfully',
-            });
+            // Notification['success']({
+            //     message: 'Size Chart List successfully',
+            // });
         })
         // }
     };
@@ -124,15 +124,15 @@ const ViewSizeChart = (props) => {
         //           '* marked fields are required',
         //       });
         // }else{
-            let username = [];
-            username = JSON.parse(localStorage.getItem('user'))
-            setState({ ...state, loader: true })
-            dispatch(apiUpdateSizeChart({selectedId:selectedId,values:sizeChartValues})).then(data => {
-                setState({ ...state, loader: false, selectedId: '' })
-                Notification['success']({
-                    message: 'Size Update Chart successfully',
-                  });
-            })    
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+        setState({ ...state, loader: true })
+        dispatch(apiUpdateSizeChart({ selectedId: selectedId, values: sizeChartValues })).then(data => {
+            setState({ ...state, loader: false, selectedId: '' })
+            Notification['success']({
+                message: 'Size Chart Update successfully',
+            });
+        })
         // }
     };
 
@@ -171,7 +171,7 @@ const ViewSizeChart = (props) => {
                         </Col>
 
                         <Col span={8}>
-                            <Select showSearch placeholder='Vendor Name'  allowClear onChange={(val) => { setState({...state, vendor: val}) }} style={{ width: '100%', marginBottom: 10 }}  >
+                            <Select showSearch placeholder='Vendor Name' allowClear onChange={(val) => { setState({ ...state, vendor: val }) }} style={{ width: '100%', marginBottom: 10 }}  >
                                 {vendornameState.map((val, i) => (
                                     <Option value={val} key={val}>{val}</Option>
 
@@ -184,25 +184,51 @@ const ViewSizeChart = (props) => {
                             <Input placeholder="* Description" onChange={(val) => { setState({ ...state, description: val.target.value }) }} />
                         </Col>
                     </Row>
+                    {selectedId &&
+                   <Row gutter={20} style={{ marginTop: 20 }}>
+                  
+                        <Col span={8}>
+                            <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, true) }}>
+                                <Option key=''>Number of Rows</Option>
+                                {numbers.map((number) => (
+                                    <Option key={number}>{number}</Option>
+                                ))}
+                            </Select>
+                        </Col>
 
+                        <Col span={8}>
+                            <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, false) }}>
+                                <Option key=''>Number of Columns</Option>
+                                {numbers.map((number) => (
+                                    <Option key={number}>{number}</Option>
+                                ))}
+                            </Select>
+                        </Col>
+                            
+                        <Col span={8}></Col>
+                    
+                    </Row>
+                    
 
+                              }
+                             
                     <Row gutter={25} style={{ marginTop: 20 }}>
-                    {selectedId == '' ? <Col xs={3}>
+                        {selectedId == '' ? <Col xs={3}>
                             <Button size="large" type="primary" onClick={onViewSizeChart} > Search </Button>
                         </Col>
-                        :
-                        <Row>
-                        <Col span={12}>
-                            <Button size="large" type="primary" onClick={onUpdateSizeChart} >
-                                Update Chart
+                            :
+                            <Row>
+                                <Col span={12}>
+                                    <Button size="large" type="primary" onClick={onUpdateSizeChart} >
+                                        Update Chart
                             </Button>
-                        </Col>
-                        <Col span={12}>
-                            <Button size="large" type="primary" onClick={() => {setState({...state, selectedId: ''})}} >
-                                Cancel Selection
+                                </Col>
+                                <Col span={12}>
+                                    <Button size="large" type="primary" onClick={() => { setState({ ...state, selectedId: '' }) }} >
+                                        Cancel Selection
                             </Button>
-                        </Col>
-                        </Row>
+                                </Col>
+                            </Row>
                         }
                     </Row>
                 </div>
@@ -226,8 +252,8 @@ const ViewSizeChart = (props) => {
                                                         (numberOfColumns >= indexColumn + 1) &&
                                                         <Col style={{ padding: 10, maxWidth: indexColumn === 0 ? 150 : 100, minWidth: indexColumn === 0 ? 150 : 100, borderRight: 'solid 1px grey', borderBottom: 'solid 1px grey', borderTop: 'solid 1px grey' }} span={4}>
                                                             {<Input
-                                                               disabled={[1, 0].includes(indexRow) && indexColumn == 0}
-                                                               style={{ maxHeight: 10, minHeight: 10, fontSize: 12, fontWeight: [0, 1].includes(indexRow) ? 'bold' : '' }}
+                                                                disabled={[1, 0].includes(indexRow) && indexColumn == 0}
+                                                                style={{ maxHeight: 10, minHeight: 10, fontSize: 12, fontWeight: [0, 1].includes(indexRow) ? 'bold' : '' }}
                                                                 onChange={(val) => { onValueChange(val, indexRow, indexColumn) }}
                                                                 value={sizeChartValues[indexRow][indexColumn]}
                                                             />}
