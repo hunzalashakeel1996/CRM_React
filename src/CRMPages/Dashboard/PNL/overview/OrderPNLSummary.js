@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Tabs, Spin } from 'antd';
-import { Link } from 'react-router-dom';
+
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
@@ -31,14 +31,14 @@ const validateMessages = {
 
 const OrderPNLSummary = (props) => {
 
-  const { onOrderPNLSummaryParent, downloadFileDataLink, isSearchPressed, orderdatefrom, orderdateto, dateFormat, dataSourceOrdersummary, dataSourceOrdersummaryTempParent, onAddOrder, activeTab, selectedFilter } = props
+  const { dataSourceOrdersummary, dataSourceOrdersummaryTempParent, onAddOrder, activeTab } = props
 
   //console.log('OrderPNLSummary',dataSourceOrdersummaryTempParent)
 
-  let isOrderTypeShow = selectedFilter == 'All' ? true : false
+  let isOrderTypeShow = dataSourceOrdersummaryTempParent[0]&&dataSourceOrdersummaryTempParent[0].ORDERTYPE==undefined?true:false
 
   // // console.log('orderPNLSumamry', dataSourceOrdersummaryTempParent)
-  //console.log('orderPNLSumamry', isOrderTypeShow)
+  // console.log('orderPNLSumamry', isOrderTypeShow)
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -48,86 +48,26 @@ const OrderPNLSummary = (props) => {
 
     isLoader: false,
     dataSourceOrdersummaryTemp: [],
-    orderdatetoCheck: 'todate',
-    orderdatefromCheck: 'fromdate',
-    dataSourceOrdersummaryParent:[]
   });
 
-  const {dataSourceOrdersummaryParent, startDate, endDate, orderdatefromLink, orderdatetoLink, sortedInfo, isLoader, dataSourceOrdersummaryTemp, orderdatetoCheck, orderdatefromCheck } = state
+  const { sortedInfo, isLoader, dataSourceOrdersummaryTemp } = state
 
   useEffect(() => {
-
-    // if (isSearchPressed && activeTab === 'OrderPNLSummary' && dataSourceOrdersummaryTempParent && dataSourceOrdersummaryTempParent.length > 0 &&(orderdatetoCheck!==orderdateto ||orderdatefromCheck!==orderdatefrom)) {
-    if (isSearchPressed && activeTab === 'OrderPNLSummary' && (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom)) {
-      let tempDataSource_summary_report_order_wise = [];
-      let tempDataSource_summary_report_order_wise_All = [];
-
-      setstate({ ...state, isLoader: true })
-
-      dispatch(apiSummaryReportOrderWise({ dateFormat: dateFormat, orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
-
-
-
-        //Order summary    
-        data[1].map(value => {
-
-          const { vendorname,
-            order_count,
-            profit,
-            loss,
-            percentge,
-            ORDERTYPE
-
-          } = value;
-
-          // //console.log('checking', `$${(Math.round(profit * 100) / 100)}`)
-          tempDataSource_summary_report_order_wise.push({
-            // vendorname: <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}-crm-${state.startDate.format('MM/DD/YYYY')}-crm-${state.endDate.format('MM/DD/YYYY')}-crm-${dateFormat}-crm-${ORDERTYPE}`}}><span style={{color: 'black'}} className="date-started">{vendorname}</span></Link>,
-            vendorname: vendorname,
-            order_count: order_count,
-            profit: (Math.round(profit * 100) / 100),
-            loss: (Math.round(loss * 100) / 100),
-            percentge: `${percentge}%`,
-            ORDERTYPE: ORDERTYPE,
-            profitLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${orderdatefrom.format('MM-DD-YYYY')}/${orderdateto.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Profit` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{(Math.round(profit * 100) / 100)}</span></Link>,
-            lossLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${orderdatefrom.format('MM-DD-YYYY')}/${orderdateto.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Loss` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{Math.round(loss * 100) / 100}</span></Link>,
-
-          });
-
-          tempDataSource_summary_report_order_wise_All.push({
-            vendorname: vendorname,
-            order_count: order_count,
-            profit: (Math.round(profit * 100) / 100),
-            loss: (Math.round(loss * 100) / 100),
-            percentge: percentge,
-            ORDERTYPE: ORDERTYPE,
-            profitLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${orderdatefrom.format('MM/DD/YYYY')}/${orderdateto.format('MM/DD/YYYY')}/${dateFormat}/${ORDERTYPE}/Profit` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{(Math.round(profit * 100) / 100)}</span></Link>,
-            lossLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${orderdatefrom.format('MM/DD/YYYY')}/${orderdateto.format('MM/DD/YYYY')}/${dateFormat}/${ORDERTYPE}/Loss` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{Math.round(loss * 100) / 100}</span></Link>,
-
-
-
-          });
-
-        });
-        console.log('Child', data[1], tempDataSource_summary_report_order_wise, tempDataSource_summary_report_order_wise_All)
-        onOrderPNLSummaryParent(data[1], tempDataSource_summary_report_order_wise, tempDataSource_summary_report_order_wise_All)
-        setstate({ ...state, isLoader: false, dataSourceOrdersummaryTemp: tempDataSource_summary_report_order_wise,dataSourceOrdersummaryParent:tempDataSource_summary_report_order_wise, orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom })
-        //  onDispatchComplete()
-        findTotalValues(data[1])
-      })
-
-      // setstate({ ...state, dataSourceOrdersummaryTemp: dataSourceOrdersummaryTempParent });
-      // findTotalValues(dataSourceOrdersummaryTempParent)
+  
+    if (activeTab === 'OrderPNLSummary' && dataSourceOrdersummaryTempParent && dataSourceOrdersummaryTempParent.length > 0) {
+   
+      setstate({ ...state, dataSourceOrdersummaryTemp: dataSourceOrdersummaryTempParent });
+      findTotalValues(dataSourceOrdersummaryTempParent)
 
     }
 
 
-  }, [isSearchPressed, orderdateto, orderdatefrom, activeTab, selectedFilter]);
+  }, [activeTab, dataSourceOrdersummaryTempParent]);
 
   const findTotalValues = (data) => {
     let order = []
-    let loss = []
-    let profit = []
+      let loss = []
+      let profit = []
 
     for (let i = 0; i < data.length; i++) {
 
@@ -141,7 +81,7 @@ const OrderPNLSummary = (props) => {
 
       if (loss.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
 
-        let tempItemSummary = { ...data[i], Total_item_loss: data[i].Total_item_loss }
+        let tempItemSummary = {...data[i], Total_item_loss:data[i].Total_item_loss}
         loss.push(tempItemSummary)
         // loss.push(data[i])
       }
@@ -153,8 +93,8 @@ const OrderPNLSummary = (props) => {
       }
 
       if (profit.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
-
-        let tempItemSummary = { ...data[i], Total_item_profit: data[i].Total_item_profit }
+     
+        let tempItemSummary = {...data[i], Total_item_profit:data[i].Total_item_profit}
         profit.push(tempItemSummary)
       }
       else {
@@ -165,11 +105,11 @@ const OrderPNLSummary = (props) => {
 
     }
 
-    onAddOrder({ order, loss, profit, data })
+    onAddOrder({ order, loss, profit,data })
   }
 
   const filter = (value) => {
-   //  console.log(value)
+    // console.log(value)
     var val = [];
     let temp = []
     let placeholder = ``;
@@ -178,7 +118,7 @@ const OrderPNLSummary = (props) => {
       placeholder={placeholder}
       size='small'
       onChange={e => {
-        temp = [...temp, ...dataSourceOrdersummaryParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
+        temp = [...temp, ...dataSourceOrdersummaryTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
         // console.log('temp',temp)
         setstate({ ...state, dataSourceOrdersummaryTemp: [...temp] });
         findTotalValues(temp)
@@ -207,9 +147,9 @@ const OrderPNLSummary = (props) => {
       ]
 
     },
-
-
-    {
+    
+     
+      {
       title:
         <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
           <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>ORDERTYPE</p>
@@ -229,7 +169,7 @@ const OrderPNLSummary = (props) => {
 
 
     }
-
+  
     ,
     {
       title:
@@ -355,7 +295,7 @@ const OrderPNLSummary = (props) => {
 
   ];
 
-  isOrderTypeShow && columns.splice(1, 1)
+  isOrderTypeShow&&columns.splice(1, 1)
   const handleChange = (pagination, filters, sorter) => {
     // console.log('Various parameters', pagination, filters, sorter);
     setstate({
