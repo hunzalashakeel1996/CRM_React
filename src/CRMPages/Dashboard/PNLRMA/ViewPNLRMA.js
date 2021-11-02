@@ -7,10 +7,14 @@ import { Button } from '../../../components/buttons/buttons';
 
 import ReplacmentOrder from './overview/ReplacmentOrder';
 import RMAQty from './overview/RMAQty';
+import OrderRMASummary from './overview/OrderRMASummary';
+import ItemRMASummary from './overview/ItemRMASummary';
+import OrderRMADetail from './overview/OrderRMADetail';
+import ItemRMADetail from './overview/ItemRMADetail';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 
 import { downloadFile, downloadFileTableData } from '../../../components/utilities/utilities'
-import {apiRMAQty} from '../../../redux/apis/DataAction';
+import {apiRMAQty, apiTrackingSummaryFetch} from '../../../redux/apis/DataAction';
 // import { webURL, audioPlay, uploadUrl, getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi, getSearsPriceapi, getPriceWalmartapi } from '../../../redux/apis/DataAction';
 
 
@@ -56,14 +60,41 @@ const ViewPNLRMA = () => {
     {
       tab: 'Replacement Order',
       key: 'ReplacmentOrder',
-      tabName: <ReplacmentOrder downloadFileDataLink={(value)=>downloadFileDataLink(value)} onDispatchComplete={() => { setIsSearchPressed(false)}} isSearchPressed={isSearchPressed} activeTab={activeTab} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
+      tabName: <ReplacmentOrder downloadFileDataLink={(value)=>downloadFileDataLink(value)} isSearchPressed={isSearchPressed} activeTab={activeTab} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
 
     }
     ,
     {
       tab: 'Report RMA Qty',
       key: 'ReportRMAQty',
-      tabName: <RMAQty downloadFileDataLink={(value)=>downloadFileDataLink(value)} onDispatchComplete={() => { setIsSearchPressed(false)}} isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
+      tabName: <RMAQty downloadFileDataLink={(value)=>downloadFileDataLink(value)}  isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
+
+    },
+    {
+      tab: 'Order RMA Summary',
+      key: 'OrderRMASummary',
+      tabName: <OrderRMASummary downloadFileDataLink={(value)=>downloadFileDataLink(value)} isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
+
+    }
+    ,
+    {
+      tab: 'Item RMA Summary',
+      key: 'ItemRMASummary',
+      tabName: <ItemRMASummary downloadFileDataLink={(value)=>downloadFileDataLink(value)}  isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
+
+    }
+    ,
+    {
+      tab: 'Order RMA Detail',
+      key: 'OrderRMADetail',
+      tabName: <OrderRMADetail downloadFileDataLink={(value)=>downloadFileDataLink(value)}  isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
+
+    }
+    ,
+    {
+      tab: 'Item RMA Detail',
+      key: 'ItemRMADetail',
+      tabName: <ItemRMADetail downloadFileDataLink={(value)=>downloadFileDataLink(value)}  isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate.format('MM/DD/YYYY')} orderdateto={endDate==''? '': endDate.format('MM/DD/YYYY')}/>
 
     }
   ];
@@ -90,8 +121,14 @@ const ViewPNLRMA = () => {
        downloadFile(dataItemDownload)
       //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
     }
-
-
+    else if (activeTab === 'ItemRMASummary') {
+      downloadFile(downloadDataLink)
+     //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
+   }
+   else if (activeTab === 'OrderRMASummary') {
+    downloadFile(downloadDataLink)
+   //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
+ }
 
 
   }

@@ -221,8 +221,34 @@ const ViewSizeChart = (props) => {
                             </>
                         }
                     </Row>
+                    {selectedId &&
+                   <Row gutter={20} style={{ marginTop: 20 }}>
+                  
+                        <Col span={8}>
+                            <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, true) }}>
+                                <Option key=''>Number of Rows</Option>
+                                {numbers.map((number) => (
+                                    <Option key={number}>{number}</Option>
+                                ))}
+                            </Select>
+                        </Col>
 
+                        <Col span={8}>
+                            <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, false) }}>
+                                <Option key=''>Number of Columns</Option>
+                                {numbers.map((number) => (
+                                    <Option key={number}>{number}</Option>
+                                ))}
+                            </Select>
+                        </Col>
+                            
+                        <Col span={8}></Col>
+                    
+                    </Row>
+                    
 
+                              }
+                             
                     <Row gutter={25} style={{ marginTop: 20 }}>
                         {selectedId == '' ? <Col xs={3}>
                             <Button size="large" type="primary" onClick={onViewSizeChart} > Search </Button>

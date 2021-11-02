@@ -44,12 +44,14 @@ const ReportPNLView = () => {
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL'];
   //console.log(tabChildBar)
   const [activeTab, setActiveTab] = useState('OrderPNL');
-
+  const [isSearchPressed, setIsSearchPressed] = useState(false);
 
   const [state, setstate] = useState({
 
 
-    dataSourceOrder: [],
+    dataSourceOrdersummary: [],
+    dataSourceItemsummary:[],
+    dataSourceOrder:[],
     dataSourceItem: [],
     dataSourcePrice: [],
     dataSourceDetails: [],
@@ -61,7 +63,7 @@ const ReportPNLView = () => {
     filterValue: '',
     selectedFilter: '',
 
-    dataSourceOrderTempParent: [],
+    dataOrdersummaryDownloadTempParent: [],
     dataSourceOrderTempParentDownload: [],
 
     dataSourceItemTempParent: [],
@@ -91,13 +93,15 @@ const ReportPNLView = () => {
     totalOrdersLoss: 0,
     totalOrdersProfit: 0,
     dateFormat: 'USPS',
+    startDate: '',
+    endDate: ''
  
 
 
 
   });
 
-  const {dataSourcePriceSummaryTempParentAll, dataSourceItemsummaryTempParentAll, dataSourceOrdersummaryTempParentAll, dataSourceOrderTempParentDownload, dataSourceItemTempParentDownload, dataSourceItemsummaryTempParentDownload, dataSourcePriceSummaryTempParentDownload, dataSourceItemsummaryTempParent, dataSourceOrdersummaryTempParentDownload, dateFormat, totalOrdersProfit, totalOrdersLoss, totalOrdersSum, dataSourcetotalOrders, dataSourcePriceSummary, dataPriceSummaryDownload, dataSourcePriceSummaryTempParent, dataSourceItemsummary, dataItemsummaryDownload, dataSourceOrdersummary, dataOrdersummaryDownload, dataSourceOrdersummaryTempParent, dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails, selectedFilter} = state
+  const {startDate,endDate,dataSourcePriceSummaryTempParentAll, dataSourceItemsummaryTempParentAll, dataSourceOrdersummaryTempParentAll, dataSourceOrderTempParentDownload, dataSourceItemTempParentDownload, dataSourceItemsummaryTempParentDownload, dataSourcePriceSummaryTempParentDownload, dataSourceItemsummaryTempParent, dataSourceOrdersummaryTempParentDownload, dateFormat, totalOrdersProfit, totalOrdersLoss, totalOrdersSum, dataSourcetotalOrders, dataSourcePriceSummary, dataPriceSummaryDownload, dataSourcePriceSummaryTempParent, dataSourceItemsummary, dataItemsummaryDownload, dataSourceOrdersummary, dataOrdersummaryDownload, dataSourceOrdersummaryTempParent, dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails, selectedFilter} = state
   let tempDataSource_report_order_wise = [];
   let tempDataSource_report_item_wise = [];
   let tempDataSource_summary_report_order_wise = [];
@@ -120,7 +124,7 @@ const ReportPNLView = () => {
   };
 
   const onChange = (value, key) => {
-    // // //console.log('aaa', date, dateString)
+//    console.log('aaa', key, value)
     setstate({ ...state, [key]: value });
 
   };
@@ -132,7 +136,8 @@ const ReportPNLView = () => {
       //  dispatch(apiSummaryReportDetailWise({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY')})),
       dispatch(apiReportOrderWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
       dispatch(apiReportItemWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
-      dispatch(apiSummaryReportOrderWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
+      // dispatch(apiSummaryReportOrderWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
+      dispatch(),
       dispatch(apiSummaryReportItemWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
       dispatch(apiSummaryReportPriceWise({ dateFormat: dateFormat, orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })),
     ]).then((data) => {
@@ -258,45 +263,45 @@ const ReportPNLView = () => {
 
       });
       //Order summary    
-      data[2][1].map(value => {
+      // data[2][1].map(value => {
 
-        const { vendorname,
-          order_count,
-          profit,
-          loss,
-          percentge,
-          ORDERTYPE
+      //   const { vendorname,
+      //     order_count,
+      //     profit,
+      //     loss,
+      //     percentge,
+      //     ORDERTYPE
 
-        } = value;
+      //   } = value;
 
-        // //console.log('checking', `$${(Math.round(profit * 100) / 100)}`)
-        tempDataSource_summary_report_order_wise.push({
-          // vendorname: <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}-crm-${state.startDate.format('MM/DD/YYYY')}-crm-${state.endDate.format('MM/DD/YYYY')}-crm-${dateFormat}-crm-${ORDERTYPE}`}}><span style={{color: 'black'}} className="date-started">{vendorname}</span></Link>,
-          vendorname: vendorname,
-          order_count: order_count,
-          profit: (Math.round(profit * 100) / 100),
-          loss: (Math.round(loss * 100) / 100),
-          percentge: `${percentge}%`,
-          ORDERTYPE: ORDERTYPE,
-          profitLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Profit` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{(Math.round(profit * 100) / 100)}</span></Link>,
-          lossLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Loss` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{Math.round(loss * 100) / 100}</span></Link>,
+      //   // //console.log('checking', `$${(Math.round(profit * 100) / 100)}`)
+      //   tempDataSource_summary_report_order_wise.push({
+      //     // vendorname: <Link target="_blank" to={{pathname:`/admin/PNL/SummaryDetails/${vendorname}-crm-${state.startDate.format('MM/DD/YYYY')}-crm-${state.endDate.format('MM/DD/YYYY')}-crm-${dateFormat}-crm-${ORDERTYPE}`}}><span style={{color: 'black'}} className="date-started">{vendorname}</span></Link>,
+      //     vendorname: vendorname,
+      //     order_count: order_count,
+      //     profit: (Math.round(profit * 100) / 100),
+      //     loss: (Math.round(loss * 100) / 100),
+      //     percentge: `${percentge}%`,
+      //     ORDERTYPE: ORDERTYPE,
+      //     profitLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Profit` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{(Math.round(profit * 100) / 100)}</span></Link>,
+      //     lossLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Loss` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{Math.round(loss * 100) / 100}</span></Link>,
 
-        });
+      //   });
 
-        tempDataSource_summary_report_order_wise_All.push({
-          vendorname: vendorname,
-          order_count: order_count,
-          profit: (Math.round(profit * 100) / 100),
-          loss: (Math.round(loss * 100) / 100),
-          percentge: percentge,
-          ORDERTYPE: ORDERTYPE,
-          profitLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Profit` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{(Math.round(profit * 100) / 100)}</span></Link>,
-          lossLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Loss` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{Math.round(loss * 100) / 100}</span></Link>,
+      //   tempDataSource_summary_report_order_wise_All.push({
+      //     vendorname: vendorname,
+      //     order_count: order_count,
+      //     profit: (Math.round(profit * 100) / 100),
+      //     loss: (Math.round(loss * 100) / 100),
+      //     percentge: percentge,
+      //     ORDERTYPE: ORDERTYPE,
+      //     profitLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Profit` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{(Math.round(profit * 100) / 100)}</span></Link>,
+      //     lossLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${vendorname}/${state.startDate.format('MM-DD-YYYY')}/${state.endDate.format('MM-DD-YYYY')}/${dateFormat}/${ORDERTYPE}/Loss` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{Math.round(loss * 100) / 100}</span></Link>,
 
 
 
-        });
-      });
+      //   });
+      // });
 
       data[3][1].map(value => {
 
@@ -380,17 +385,17 @@ const ReportPNLView = () => {
         ...state, dataOrderDownload: data[0][0],
         dataSourceOrderTempParent: [...tempDataSource_report_order_wise],
         dataSourceOrder: [...tempDataSource_report_order_wise],
-        // dataSourcetotalOrders:tempDataSource_report_order_wise.length,
+         dataSourcetotalOrders:tempDataSource_report_order_wise.length,
 
         dataItemDownload: data[1][0],
         dataSourceItem: [...tempDataSource_report_item_wise],
         dataSourceItemTempParent: [...tempDataSource_report_item_wise],
 
 
-        dataOrdersummaryDownload: data[2][0],
-        dataSourceOrdersummary: [...tempDataSource_summary_report_order_wise],
-        dataSourceOrdersummaryTempParent: [...tempDataSource_summary_report_order_wise],
-        dataSourceOrdersummaryTempParentAll: [...tempDataSource_summary_report_order_wise_All],
+        // dataOrdersummaryDownload: data[2][0],
+        // dataSourceOrdersummary: [...tempDataSource_summary_report_order_wise],
+        // dataSourceOrdersummaryTempParent: [...tempDataSource_summary_report_order_wise],
+        // dataSourceOrdersummaryTempParentAll: [...tempDataSource_summary_report_order_wise_All],
 
         dataItemsummaryDownload: data[3][0],
         dataSourceItemsummary: [...tempDataSource_summary_report_item_wise],
@@ -729,7 +734,8 @@ const ReportPNLView = () => {
     {
       tab: 'PNL Order Summary',
       key: 'OrderPNLSummary',
-      tabName: <OrderPNLSummary selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} dataSourceOrdersummaryTempParent={dataSourceOrdersummaryTempParent} dataSourceOrdersummary={dataSourceOrdersummary} />
+      //tabName: <OrderPNLSummary selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} dataSourceOrdersummaryTempParent={dataSourceOrdersummaryTempParent} dataSourceOrdersummary={dataSourceOrdersummary} />
+      tabName: <OrderPNLSummary dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} onOrderPNLSummaryParent={(data,dataParent,dataParentAll)=>{orderPNLSummaryParent(data,dataParent,dataParentAll)}} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
     },
     {
       tab: 'PNL Item Summary',
@@ -754,8 +760,8 @@ const ReportPNLView = () => {
     {
       tab: 'PNL Order',
       key: 'OrderPNL',
-      tabName: <OrderPNL activeTab={activeTab} onAddOrderCount={(value) => onSumOrderCount(value)} dataSourceOrder={dataSourceOrder} dataSourceOrderTempParent={dataSourceOrderTempParent} />
-
+      // tabName: <OrderPNL activeTab={activeTab} onAddOrderCount={(value) => onSumOrderCount(value)} dataSourceOrder={dataSourceOrder} dataSourceOrderTempParent={dataSourceOrderTempParent} />
+  tabName: <OrderPNL activeTab={activeTab} onAddOrderCount={(value) => onSumOrderCount(value)}  dataSourceOrderTempParent={dataSourceOrderTempParent} />
     }
     ,
     {
@@ -1216,6 +1222,23 @@ const ReportPNLView = () => {
       setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem });
     }
   };
+  const orderPNLSummaryParent =(data,dataParent,dataParentAll)=>
+  {
+    console.log('parent',data,dataParent,dataParentAll)
+    setstate({...state, 
+        dataOrdersummaryDownload: data,
+        dataSourceOrdersummary:dataParent,
+        dataSourceOrdersummaryTempParent:dataParent,
+        dataSourceOrdersummaryTempParentAll: dataParentAll
+      })
+  }
+  const  downloadFileDataLink =(data,dataSource)=>{
+  
+    console.log(data,dataSource)
+
+    setstate({...state, downloadDataLink: data})
+
+  }
   const download = (event) => {
 
     let activeTab = event
@@ -1310,16 +1333,17 @@ const ReportPNLView = () => {
 
               <Row>
                 <Col xs={24} style={{ marginBottom: 10 }}>
-                  <Button size="large" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
-
-                  {dataSourceOrder.length > 0 && <Button size="large" type="success"
+                  {/* <Button size="large" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button> */}
+                  <Button size="large" type="primary" onClick={() => {setIsSearchPressed(true) }} style={{ marginRight: 10, }} > Search</Button> 
+                  {/* {console.log('dataSourceOrdersummary.length',dataSourceOrdersummary.length)} */}
+                   <Button size="large" type="success"
                     onClick={(value) => { download(activeTab) }} >
                     Download
-                  </Button>}
+                  </Button>
                 </Col>
               </Row>
 
-              {(dataSourceOrder.length > 0 || dataSourceItem.length > 0) && <Row style={{ marginTop: 10 }}>
+              <Row style={{ marginTop: 10 }}>
                 <Col lg={8}>
 
                   <label style={{ marginBottom: 15 }}>Filtes:</label>
@@ -1381,7 +1405,7 @@ const ReportPNLView = () => {
                 </Col>
 
 
-              </Row>}
+              </Row>
 
 
             </Cards>
