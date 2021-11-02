@@ -24,6 +24,11 @@ const AddSizeChart = (props) => {
         numberOfRows: 0,
         numberOfColumns: 0,
         sizeChartValues: [],
+        disclaimer1: '',
+        disclaimer2: '',
+        disclaimer3: '',
+        disclaimer4: '',
+        disclaimer5: '',
         isShowChart: false
     });
     const { description, vendor, loader, title, styleCode, numberOfRows, numberOfColumns, sizeChartValues, isShowChart } = state;
@@ -78,6 +83,7 @@ const AddSizeChart = (props) => {
                 Notification['success']({
                     message: 'Size Chart insert successfully',
                 });
+                window.location.reload();
             })
         }
     };
@@ -146,7 +152,8 @@ const AddSizeChart = (props) => {
 
 
 
-                    {isShowChart && <Row style={{ marginTop: 20 }}>
+                    {isShowChart && 
+                    <Row style={{ marginTop: 20 }}>
                         <Col style={{ overflow: 'auto' }}>
                             <div style={{ maxWidth: 1920, borderLeft: 'solid 1px grey' }}>
                                 {numbers.map((number, indexRow) => (
@@ -167,9 +174,31 @@ const AddSizeChart = (props) => {
                                         ))}
                                     </Row>
                                 ))}
-                            </div>
-                        </Col>
-                    </Row>}
+                                </div>
+                            </Col>
+                        </Row>
+
+                    }
+
+                    {/* {isShowChart &&
+                        <Row style={{marginTop: 20}}>
+                            <Col span={7} style={{ marginRight: 10, marginBottom: 10}}>
+                                <Input.TextArea placeholder="Disclaimer 1" onChange={(val) => { setState({ ...state, disclaimer1: val.target.value }) }} />
+                            </Col>
+                            <Col span={7} style={{ marginRight: 10, marginBottom: 10}}>
+                                <Input.TextArea placeholder="Disclaimer 2" onChange={(val) => { setState({ ...state, disclaimer2: val.target.value }) }} />
+                            </Col>
+                            <Col span={7} style={{ marginRight: 10, marginBottom: 10}}>
+                                <Input.TextArea placeholder="Disclaimer 3" onChange={(val) => { setState({ ...state, disclaimer3: val.target.value }) }} />
+                            </Col>
+                            <Col span={7} style={{ marginRight: 10, marginBottom: 10}}>
+                                <Input.TextArea placeholder="Disclaimer 4" onChange={(val) => { setState({ ...state, disclaimer4: val.target.value }) }} />
+                            </Col>
+                            <Col span={7} style={{ marginRight: 10, marginBottom: 10}}>
+                                <Input.TextArea placeholder="Disclaimer 5" onChange={(val) => { setState({ ...state, disclaimer5: val.target.value }) }} />
+                            </Col>
+                        </Row>
+                    } */}
 
                 </div>
             </Spin>
