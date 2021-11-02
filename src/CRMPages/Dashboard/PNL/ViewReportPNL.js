@@ -817,6 +817,7 @@ const ReportPNLView = () => {
       ordertype = []
       //console.log(e.target.value.toString())
       if (activeTab === 'OrderPNLSummary') {
+        
         orderSummarySumAll([...dataSourceOrdersummaryTempParentAll])
       }
   else if (activeTab === 'ItemPNLSummary') {
@@ -826,19 +827,9 @@ const ReportPNLView = () => {
    
       priceSummarySumAll([...dataSourcePriceSummaryTempParentAll])
     }
-  //  [...DataSource_summary_report_order_wise_All]
-  //dataSourceOrdersummaryTempParent
-  //[...dataSourceOrdersummary]
-  if (activeTab === 'OrderPNL') {
-    setstate({ ...state,dataSourceOrdersummaryTempParent: [...dataSourceOrdersummary], dataSourcePriceSummaryTempParent: [...dataSourcePriceSummary], dataSourceItemsummaryTempParent: [...dataSourceItemsummary],  dataSourceOrderTempParent: [...dataSourceOrder], dataSourceItemTempParent: [...dataSourceItem], sellerType: ordertype, isSellerType: 'Enable' });
-  }
-  if (activeTab === 'ItemPNL') {
-    setstate({ ...state,dataSourceOrdersummaryTempParent: [...dataSourceOrdersummary], dataSourcePriceSummaryTempParent: [...dataSourcePriceSummary], dataSourceItemsummaryTempParent: [...dataSourceItemsummary],  dataSourceOrderTempParent: [...dataSourceOrder], dataSourceItemTempParent: [...dataSourceItem], sellerType: ordertype, isSellerType: 'Enable' });
-  }
-     
-      // setstate({ ...state, dataSourcePriceSummaryTempParent: [...dataSourcePriceSummary], dataSourceItemsummaryTempParent: [...dataSourceItemsummary],  dataSourceOrderTempParent: [...dataSourceOrder], dataSourceItemTempParent: [...dataSourceItem], sellerType: ordertype, isSellerType: 'Enable' });
 
     }
+    
   };
 
   const orderSummarySumAll = (data) => {
