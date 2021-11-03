@@ -7,7 +7,7 @@ import { CardBarChart } from './style';
 import { Bar } from 'react-chartjs-2';
 import ComparisonBarChart from '../ComparisonBarChart';
 //import { chartAmazonData } from '../../../redux/apis/DataAction';
-import { chartAmazonData, chartWalmartData, chartJLCData, chartPUData } from '../../../../redux/apis/DataAction';
+import { chartAmazonData, chartWalmartData, chartJLCData, chartPUData ,chartSearsData,chartEbayData} from '../../../../redux/apis/DataAction';
 const AmazonComparisonReports = () => {
   const dispatch = useDispatch()
   const [state, setState] = useState({
@@ -63,13 +63,15 @@ const AmazonComparisonReports = () => {
     let returnRep = { ...retrurnReport }
     let pending = { ...pendingReport }
 
-    Promise.all([dispatch(chartAmazonData()), dispatch(chartWalmartData()), dispatch(chartPUData()), dispatch(chartJLCData())]).then(data => {
-     
+    Promise.all([dispatch(chartAmazonData()), dispatch(chartWalmartData()), dispatch(chartPUData()), dispatch(chartJLCData()), dispatch(chartSearsData()), dispatch(chartEbayData())]).then(data => {
+     console.log(data[5])
       var AmazonData = JSON.parse(data[0])
       var WalmartData = JSON.parse(data[1])
       var PUData = JSON.parse(data[2])
       var JLCData = JSON.parse(data[3])
-      let dataTemp = [AmazonData, WalmartData, PUData, JLCData]
+      var SearsData = JSON.parse(data[4])
+      var EbayData = JSON.parse(data[5])
+      let dataTemp = [AmazonData, WalmartData, PUData, JLCData,SearsData,EbayData]
       // console.log(AmazonData)
       // condition to check if any marketplace does not contain today object
       dataTemp.map(value => {
@@ -98,6 +100,10 @@ const AmazonComparisonReports = () => {
           objects[i][categories[j]][1][2] = PUData.Table[j][objectsCountName[i][1]]
           objects[i][categories[j]][0][3] = JLCData.Table[j][objectsCountName[i][0]]
           objects[i][categories[j]][1][3] = JLCData.Table[j][objectsCountName[i][1]]
+          objects[i][categories[j]][0][4] = SearsData.Table[j][objectsCountName[i][0]]
+          objects[i][categories[j]][1][4] = SearsData.Table[j][objectsCountName[i][1]]
+          objects[i][categories[j]][0][5] = EbayData.Table[j][objectsCountName[i][0]]
+          objects[i][categories[j]][1][5] = EbayData.Table[j][objectsCountName[i][1]]
         }
       }
       // console.log('AmazonData',AmazonData.Table[2].TodayDate);

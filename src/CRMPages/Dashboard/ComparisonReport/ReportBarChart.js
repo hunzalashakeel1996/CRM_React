@@ -7,10 +7,10 @@ import { CardBarChart } from './overview/style';
 import { Bar,Line } from 'react-chartjs-2';
 
 const labels = {
-    overall:['Amazon','Walmart','PU', 'JLC'], 
-    week:['Amazon','Walmart','PU', 'JLC'], 
-    today:['Amazon','Walmart','PU', 'JLC','Amazon','Walmart','PU', 'JLC','Amazon','Walmart'], 
-    month:['Amazon','Walmart','PU', 'JLC']
+    overall:['Amazon','Walmart','PU', 'JLC','Sears','Ebay'], 
+    week:['Amazon','Walmart','PU', 'JLC','Sears','Ebay'], 
+    today:['Amazon','Walmart','PU', 'JLC','Amazon','Walmart','PU', 'JLC','Amazon','Walmart','Sears','Ebay'], 
+    month:['Amazon','Walmart','PU', 'JLC','Sears','Ebay']
 }
 
 const ReportBarChart = ({ isTimelineChange, dataset, title,orderType }) => {

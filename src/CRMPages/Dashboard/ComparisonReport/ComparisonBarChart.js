@@ -14,7 +14,8 @@ const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelin
     });
     const { selectedTimeline, isLoading } = state;
     // // console.log('typeofNumber',[dataset[1]])
-    // // console.log('aaaa', typeof(dataset[0])==='number')
+   //  console.log('aaaa', typeof(dataset[0])==='number')
+   console.log('aaaa', dataset[0])
     const chartOptions = {
         datasets: [
             {
@@ -111,7 +112,7 @@ const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelin
                 }
             >
                 <Bar
-                    data={{...chartOptions, labels: ['Amazon','Walmart','PU', 'JLC']}}
+                    data={{...chartOptions, labels: ['Amazon','Walmart','PU', 'JLC', 'Sears','Ebay']}}
                     options={options}
                 />
             </Cards>
