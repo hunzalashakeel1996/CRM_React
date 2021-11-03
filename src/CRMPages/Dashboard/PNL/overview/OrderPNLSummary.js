@@ -31,10 +31,10 @@ const validateMessages = {
 
 const OrderPNLSummary = (props) => {
 
-  const { onOrderPNLSummaryParent, downloadFileDataLink, isSearchPressed, orderdatefrom, orderdateto, dateFormat, dataSourceOrdersummary, dataSourceOrdersummaryTempParent, onAddOrder, activeTab, selectedFilter } = props
+  const {subOrderType,ordertypeParent, onOrderPNLSummaryParent, downloadFileDataLink, isSearchPressed, orderdatefrom, orderdateto, dateFormat, dataSourceOrdersummary, dataSourceOrdersummaryTempParent, onAddOrder, activeTab, selectedFilter } = props
 
-  //console.log('OrderPNLSummary',dataSourceOrdersummaryTempParent)
-
+  // console.log('ordertypeParent',ordertypeParent)
+  // console.log('subOrderType',subOrderType)
   let isOrderTypeShow = selectedFilter == 'All' ? true : false
 
   // // console.log('orderPNLSumamry', dataSourceOrdersummaryTempParent)
@@ -50,10 +50,11 @@ const OrderPNLSummary = (props) => {
     dataSourceOrdersummaryTemp: [],
     orderdatetoCheck: 'todate',
     orderdatefromCheck: 'fromdate',
-    dataSourceOrdersummaryParent:[]
+    dataSourceOrdersummaryParent:[],
+    dataSourceOrdersummaryParentAll:[]
   });
 
-  const {dataSourceOrdersummaryParent, startDate, endDate, orderdatefromLink, orderdatetoLink, sortedInfo, isLoader, dataSourceOrdersummaryTemp, orderdatetoCheck, orderdatefromCheck } = state
+  const {dataSourceOrdersummaryParentAll,dataSourceOrdersummaryParent, startDate, endDate, orderdatefromLink, orderdatetoLink, sortedInfo, isLoader, dataSourceOrdersummaryTemp, orderdatetoCheck, orderdatefromCheck } = state
 
   useEffect(() => {
 
@@ -109,9 +110,14 @@ const OrderPNLSummary = (props) => {
           });
 
         });
-        console.log('Child', data[1], tempDataSource_summary_report_order_wise, tempDataSource_summary_report_order_wise_All)
+        // console.log('Child', data[1], tempDataSource_summary_report_order_wise, tempDataSource_summary_report_order_wise_All)
+
         onOrderPNLSummaryParent(data[1], tempDataSource_summary_report_order_wise, tempDataSource_summary_report_order_wise_All)
-        setstate({ ...state, isLoader: false, dataSourceOrdersummaryTemp: tempDataSource_summary_report_order_wise,dataSourceOrdersummaryParent:tempDataSource_summary_report_order_wise, orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom })
+
+        setstate({ ...state, isLoader: false, dataSourceOrdersummaryTemp: tempDataSource_summary_report_order_wise
+          ,dataSourceOrdersummaryParent:tempDataSource_summary_report_order_wise,
+          dataSourceOrdersummaryParentAll:tempDataSource_summary_report_order_wise_All,
+           orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom })
         //  onDispatchComplete()
         findTotalValues(data[1])
       })
@@ -123,6 +129,106 @@ const OrderPNLSummary = (props) => {
 
 
   }, [isSearchPressed, orderdateto, orderdatefrom, activeTab, selectedFilter]);
+
+  useEffect(() => {    
+    // console.log(ordertypeParent)
+    let ordertype = []
+    let tempOrder = [];
+    let tempOrderSummary = [];
+    let tempItemSummary = [];
+    let tempPriceSummary = [];
+    let tempItem = [];
+
+    if ('MarketPlace' === ordertypeParent) {
+
+      ordertype = ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay', 'MPALL']
+   
+      //ordersummarywise filter
+      tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item => ordertype.includes(item.ORDERTYPE))]
+
+      setstate({ ...state,  dataSourceOrdersummaryTemp: tempOrderSummary,  isSellerType: 'Enable', selectedFilter: ordertypeParent});
+      findTotalValues(tempOrderSummary)
+    }
+    else if ('Web' === ordertypeParent) {
+      ordertype = ['PU', 'JLC', 'WebALL']
+
+      
+      //ordersummatywise filter
+      tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item => ordertype.includes(item.ORDERTYPE))]
+    
+      setstate({ ...state,  dataSourceOrdersummaryTemp: tempOrderSummary,  isSellerType: 'Enable', selectedFilter: ordertypeParent});
+      findTotalValues(tempOrderSummary)
+    }
+    else if ('All' === ordertypeParent) {
+      ordertype = []
+    //  console.log(dataSourceOrdersummaryParentAll)
+      if (activeTab === 'OrderPNLSummary') {
+        
+        orderSummarySumAll(dataSourceOrdersummaryParentAll)
+        findTotalValues(dataSourceOrdersummaryParentAll)
+      }
+
+    }
+
+  }, [ordertypeParent]);
+
+  useEffect(() => {    
+    let tempOrder = [];
+    let tempItem = [];
+    let tempOrderSummary = [];
+    let tempItemSummary = [];
+    let tempPriceSummary = [];
+  
+    if ('MPALL' === subOrderType) {
+   
+      //ordersummatywise filter
+      tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item =>
+        item.ORDERTYPE && item.ORDERTYPE === 'Amazon' ||
+        item.ORDERTYPE && item.ORDERTYPE === 'AmazonRizno' ||
+        item.ORDERTYPE && item.ORDERTYPE === 'Walmart' || item.ORDERTYPE && item.ORDERTYPE === 'Sears' || item.ORDERTYPE && item.ORDERTYPE === 'Ebay'
+      )]
+     
+
+      setstate({ ...state,dataSourceOrdersummaryTemp:tempOrderSummary});
+      findTotalValues(tempOrderSummary)
+    }
+
+    else if (['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
+  
+    
+
+      tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE']=== (subOrderType))]
+
+    
+      setstate({ ...state,dataSourceOrdersummaryTemp:tempOrderSummary});
+      findTotalValues(tempOrderSummary)
+    }
+    else if (['JLC', 'PU'].includes(subOrderType)) {
+      // cond for pu
+      // filter(item => item.orderno.split('-')[0]!=='JLC)
+      // filter(item => item.orderno.split('-')[0]==='JLC)
+      //   //console.log('PU',...dataSourceOrder)
+    
+      tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(subOrderType))]
+    
+    
+      setstate({ ...state,dataSourceOrdersummaryTemp:tempOrderSummary});
+      findTotalValues(tempOrderSummary)
+
+    }
+
+    else if ('WebALL' === subOrderType) {
+
+   //   console.log(subOrderType)
+      tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
+    
+      console.log(tempOrderSummary)
+      setstate({ ...state,dataSourceOrdersummaryTemp:tempOrderSummary});
+      findTotalValues(tempOrderSummary)
+    }
+
+  }, [subOrderType]);
+
 
   const findTotalValues = (data) => {
     let order = []
@@ -169,7 +275,7 @@ const OrderPNLSummary = (props) => {
   }
 
   const filter = (value) => {
-   //  console.log(value)
+  //   console.log(value)
     var val = [];
     let temp = []
     let placeholder = ``;
@@ -179,14 +285,163 @@ const OrderPNLSummary = (props) => {
       size='small'
       onChange={e => {
         temp = [...temp, ...dataSourceOrdersummaryParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
-        // console.log('temp',temp)
+         console.log('temp',temp)
         setstate({ ...state, dataSourceOrdersummaryTemp: [...temp] });
         findTotalValues(temp)
 
       }}
     />
   }
+  const onSumAll = (result) => {
+    let i = 0
+    let order = 0;
+    let Loss = 0;
+    let profit = 0;
+    let orderAll = 0;
+    let LossAll = 0;
+    let profitAll = 0;
+    var sum = 0;
+    let DataSource_summary_report_order_wise_All = []
+   //  console.log(result)
+    for (i = 0; i < result.order.length;) {
+      //strip out dollar signs and commas
+      let v = JSON.parse(result.profit[i].profit);
 
+      //convert string to integer
+      var ct = parseFloat(v);
+      sum += ct;
+      order = order + result.order[i].order_count
+
+      profit = profit + result.profit[i].profit
+      Loss = Loss + result.loss[i].loss
+
+      DataSource_summary_report_order_wise_All.push({
+        vendorname: result.vendorname[i].vendorname,
+        order_count: orderAll + result.order[i].order_count,
+        profit: (Math.round(profitAll + result.profit[i].profit * 100) / 100),
+        loss: (Math.round(LossAll + result.loss[i].loss * 100) / 100),
+        percentge: `${(Math.round(result.profit[i].loss * 100 / result.order[i].order_count * 100) / 100)}%`,
+        profitLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${result.vendorname[i].vendorname}/${orderdatefrom.format('MM-DD-YYYY')}/${orderdateto.format('MM-DD-YYYY')}/${dateFormat}/${result.ORDERTYPE[i].ORDERTYPE}/Profit` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{(Math.round(profitAll + result.profit[i].profit * 100) / 100)}</span></Link>,
+        lossLink: <Link target="_blank" to={{ pathname: `/admin/PNL/SummaryDetails/${result.vendorname[i].vendorname}/${orderdatefrom.format('MM-DD-YYYY')}/${orderdateto.format('MM-DD-YYYY')}/${dateFormat}/${result.ORDERTYPE[i].ORDERTYPE}/Loss` }}><span style={{ color: '#42ba96', textDecoration: 'underline' }} className="date-started">{(Math.round(LossAll + result.loss[i].loss * 100) / 100)}</span></Link>,
+
+
+
+      });
+
+      i++;
+    }
+
+    //  console.log('onSumAll',DataSource_summary_report_order_wise_All)
+     
+   //  console.log('onSumAll',DataSource_summary_report_order_wise_All)
+    setstate({
+      ...state,
+      totalOrdersProfit: profit,
+      totalOrdersLoss: Loss,
+      totalOrdersSum: order,
+      dataSourceOrdersummaryTempParentDownload: result.data,
+      dataSourceOrdersummaryTemp  : DataSource_summary_report_order_wise_All,
+      selectedFilter: 'All'
+    })
+
+  }
+
+  const orderSummarySumAll = (data) => {
+    console.log('1')
+    let order = []
+    let loss = []
+    let profit = []
+    let percentge = []
+    let vendorname = [];
+    let loss_link = []
+    let profit_link = []
+    let ORDERTYPE = []
+     console.log('orderSummarySumAll',data)
+    for (let i = 0; i < data.length; i++) {
+
+
+      if (vendorname.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+        // let tempOrderSummary = { ...data[i], vendorname: data[i].vendorname }
+        vendorname.push(data[i])
+      }
+      else {
+        let indexTemp = vendorname.findIndex(item => item.vendorname === data[i].vendorname)
+        vendorname[indexTemp] = { ...vendorname[indexTemp], vendorname: data[i].vendorname }
+      }
+      if (profit_link.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+        // let tempOrderSummary = { ...data[i], vendorname: data[i].vendorname }
+        profit_link.push(data[i])
+      }
+      else {
+        let indexTemp = profit_link.findIndex(item => item.vendorname === data[i].vendorname)
+        profit_link[indexTemp] = { ...profit_link[indexTemp], profit_link: data[i].profit_link }
+      }
+
+      if (ORDERTYPE.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+        // let tempOrderSummary = { ...data[i], vendorname: data[i].vendorname }
+        ORDERTYPE.push(data[i])
+      }
+      else {
+        let indexTemp = ORDERTYPE.findIndex(item => item.vendorname === data[i].vendorname)
+        ORDERTYPE[indexTemp] = { ...ORDERTYPE[indexTemp], ORDERTYPE: data[i].ORDERTYPE }
+      }
+
+      if (loss_link.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+        // let tempOrderSummary = { ...data[i], vendorname: data[i].vendorname }
+        loss_link.push(data[i])
+      }
+      else {
+        let indexTemp = loss_link.findIndex(item => item.vendorname === data[i].vendorname)
+        loss_link[indexTemp] = { ...loss_link[indexTemp], loss_link: data[i].loss_link }
+      }
+      if (order.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+        order.push(data[i])
+      }
+      else {
+        let indexTemp = order.findIndex(item => item.vendorname === data[i].vendorname)
+        order[indexTemp] = { ...order[indexTemp], order_count: order[indexTemp].order_count + data[i].order_count }
+      }
+      if (loss.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+
+        let tempOrderSummary = { ...data[i], loss: data[i].loss }
+
+        loss.push(tempOrderSummary)
+        // loss.push(data[i])
+      }
+      else {
+        let indexTemp = loss.findIndex(item => item.vendorname === data[i].vendorname)
+
+        loss[indexTemp] = { ...loss[indexTemp], loss: loss[indexTemp].loss + data[i].loss }
+
+      }
+
+      if (profit.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+        let tempOrderSummary = { ...data[i], profit: data[i].profit }
+        profit.push(tempOrderSummary)
+      }
+      else {
+        let indexTemp = profit.findIndex(item => item.vendorname === data[i].vendorname)
+        profit[indexTemp] = { ...profit[indexTemp], profit: profit[indexTemp].profit + data[i].profit }
+      }
+
+      if (percentge.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+        let tempOrderSummary = { ...data[i], percentge: data[i].percentge }
+        percentge.push(tempOrderSummary)
+      }
+      else {
+        let indexTemp = percentge.findIndex(item => item.vendorname === data[i].vendorname)
+        percentge[indexTemp] = { ...percentge[indexTemp], percentge: data[i].percentge }
+      }
+
+
+      //  //console.log(order[indexOrder].order_count + data[i].order_count)
+
+
+    }
+
+
+    onSumAll({ ORDERTYPE, vendorname, order, loss, profit, profit_link, loss_link, data })
+  }
   let columns = [
     {
       title:
