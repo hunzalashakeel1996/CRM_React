@@ -82,7 +82,7 @@ const ViewSizeChart = (props) => {
 
                 }
             })
-
+            console.log(tempSelectedSizeChartDetails[0])
             setState({
                 ...state, loader: false,
                 sizeChartDetails: data,
@@ -127,7 +127,7 @@ const ViewSizeChart = (props) => {
 
         setState({ ...state, loader: true })
 
-        dispatch(apiUpdateSizeChart({ selectedId: selectedId, values: sizeChartValues })).then(data => {
+        dispatch(apiUpdateSizeChart({ selectedId: selectedId, values: sizeChartValues, SelectedSizeChartDetails })).then(data => {
             setState({ ...state, loader: false, selectedId: '' })
             Notification['success']({
                 message: 'Size Chart Updated Successfully',
@@ -151,7 +151,13 @@ const ViewSizeChart = (props) => {
             }
             tempNumberOfColumns--
         }
-        setState({...state, sizeChartValues: JSON.parse(JSON.stringify(tempSizeChartValues)), numberOfRows: tempNumberOfRows, numberOfColumns:tempNumberOfColumns })
+        setState({ ...state, sizeChartValues: JSON.parse(JSON.stringify(tempSizeChartValues)), numberOfRows: tempNumberOfRows, numberOfColumns: tempNumberOfColumns })
+    }
+    
+    const onDisclaimerChange = (value, key) => {
+        let temp = SelectedSizeChartDetails
+        temp[key] = value
+        setState({...state, SelectedSizeChartDetails: temp})
     }
 
     const columns = [
@@ -222,33 +228,33 @@ const ViewSizeChart = (props) => {
                         }
                     </Row>
                     {selectedId &&
-                   <Row gutter={20} style={{ marginTop: 20 }}>
-                  
-                        <Col span={8}>
-                            <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, true) }}>
-                                <Option key=''>Number of Rows</Option>
-                                {numbers.map((number) => (
-                                    <Option key={number}>{number}</Option>
-                                ))}
-                            </Select>
-                        </Col>
+                        <Row gutter={20} style={{ marginTop: 20 }}>
 
-                        <Col span={8}>
-                            <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, false) }}>
-                                <Option key=''>Number of Columns</Option>
-                                {numbers.map((number) => (
-                                    <Option key={number}>{number}</Option>
-                                ))}
-                            </Select>
-                        </Col>
-                            
-                        <Col span={8}></Col>
-                    
-                    </Row>
-                    
+                            <Col span={8}>
+                                <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, true) }}>
+                                    <Option key=''>Number of Rows</Option>
+                                    {numbers.map((number) => (
+                                        <Option key={number}>{number}</Option>
+                                    ))}
+                                </Select>
+                            </Col>
 
-                              }
-                             
+                            <Col span={8}>
+                                <Select showSearch defaultValue='' style={{ width: '100%' }} onChange={(val) => { onChangeRowColumn(val, false) }}>
+                                    <Option key=''>Number of Columns</Option>
+                                    {numbers.map((number) => (
+                                        <Option key={number}>{number}</Option>
+                                    ))}
+                                </Select>
+                            </Col>
+
+                            <Col span={8}></Col>
+
+                        </Row>
+
+
+                    }
+
                     <Row gutter={25} style={{ marginTop: 20 }}>
                         {selectedId == '' ? <Col xs={3}>
                             <Button size="large" type="primary" onClick={onViewSizeChart} > Search </Button>
@@ -298,10 +304,10 @@ const ViewSizeChart = (props) => {
 
                                                         {numbers.map((number, indexColumn) => (
                                                             (numberOfColumns >= indexColumn + 1) &&
-                                                            <Col style={{ padding: 10, maxWidth: indexColumn === 0 ? 150 : 100, borderLeft: 'solid 1px grey', minWidth: indexColumn === 0 ? 150 : 100, borderRight: 'solid 1px grey', borderBottom: 'solid 1px grey', borderTop: 'solid 1px grey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end'}}
+                                                            <Col style={{ padding: 10, maxWidth: indexColumn === 0 ? 150 : 100, borderLeft: 'solid 1px grey', minWidth: indexColumn === 0 ? 150 : 100, borderRight: 'solid 1px grey', borderBottom: 'solid 1px grey', borderTop: 'solid 1px grey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end' }}
                                                                 span={4}>
                                                                 {(indexRow === 0 && indexColumn !== 0) &&
-                                                                    <a style={{ alignSelf: 'center', textAlign: 'center', color: 'red', paddingBottom: 5}} role="button" tabindex="0" onClick={() => { onDeleteRowColumn(indexColumn, false) }}>Delete</a>
+                                                                    <a style={{ alignSelf: 'center', textAlign: 'center', color: 'red', paddingBottom: 5 }} role="button" tabindex="0" onClick={() => { onDeleteRowColumn(indexColumn, false) }}>Delete</a>
                                                                 }
 
                                                                 {<Input
@@ -315,6 +321,24 @@ const ViewSizeChart = (props) => {
                                                     </Row>
                                                 ))}
                                             </div>
+                                        </Col>
+                                    </Row>
+
+                                    <Row style={{ marginTop: 20 }}>
+                                        <Col span={7} style={{ marginRight: 10, marginBottom: 10 }}>
+                                            <Input.TextArea value={SelectedSizeChartDetails.Disclaimer1} placeholder="Disclaimer 1" onChange={(val) => { onDisclaimerChange(val.target.value, 'Disclaimer1') }} />
+                                        </Col>
+                                        <Col span={7} style={{ marginRight: 10, marginBottom: 10 }}>
+                                            <Input.TextArea value={SelectedSizeChartDetails.Disclaimer2} placeholder="Disclaimer 2" onChange={(val) => { onDisclaimerChange(val.target.value, 'Disclaimer2') }} />
+                                        </Col>
+                                        <Col span={7} style={{ marginRight: 10, marginBottom: 10 }}>
+                                            <Input.TextArea  value={SelectedSizeChartDetails.Disclaimer3} placeholder="Disclaimer 3" onChange={(val) => { onDisclaimerChange(val.target.value, 'Disclaimer3') }} />
+                                        </Col>
+                                        <Col span={7} style={{ marginRight: 10, marginBottom: 10 }}>
+                                            <Input.TextArea value={SelectedSizeChartDetails.Disclaimer4} placeholder="Disclaimer 4" onChange={(val) => { onDisclaimerChange(val.target.value, 'Disclaimer4') }} />
+                                        </Col>
+                                        <Col span={7} style={{ marginRight: 10, marginBottom: 10 }}>
+                                            <Input.TextArea value={SelectedSizeChartDetails.Disclaimer5} placeholder="Disclaimer 5" onChange={(val) => { onDisclaimerChange(val.target.value, 'Disclaimer5') }} />
                                         </Col>
                                     </Row>
                                 </div>

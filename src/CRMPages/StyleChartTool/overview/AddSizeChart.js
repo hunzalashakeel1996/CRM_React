@@ -31,7 +31,7 @@ const AddSizeChart = (props) => {
         disclaimer5: '',
         isShowChart: false
     });
-    const { description, vendor, loader, title, styleCode, numberOfRows, numberOfColumns, sizeChartValues, isShowChart } = state;
+    const { description, vendor, loader, title, styleCode, numberOfRows, numberOfColumns, sizeChartValues, isShowChart, disclaimer1, disclaimer2,disclaimer3,disclaimer4,disclaimer5  } = state;
 
     const onChangeRowColumn = (value, isRow) => {
         let tempSizeChartValues = [...sizeChartValues]
@@ -78,7 +78,18 @@ const AddSizeChart = (props) => {
             }
 
             setState({ ...state, loader: true })
-            dispatch(apiAddSizeChart({ username: username.LoginName, values: sizeChartValues, title: title, description: description, vendorname: vendor })).then(data => {
+            let data = {
+                username: username.LoginName, 
+                values: sizeChartValues, 
+                title: title, description: description, 
+                vendorname: vendor,
+                disclaimer1,
+                disclaimer2,
+                disclaimer3,
+                disclaimer4,
+                disclaimer5,
+            }
+            dispatch(apiAddSizeChart(data)).then(data => {
                 setState({ ...state, loader: false })
                 Notification['success']({
                     message: 'Size Chart insert successfully',
@@ -180,7 +191,7 @@ const AddSizeChart = (props) => {
 
                     }
 
-                    {/* {isShowChart &&
+                    {isShowChart &&
                         <Row style={{marginTop: 20}}>
                             <Col span={7} style={{ marginRight: 10, marginBottom: 10}}>
                                 <Input.TextArea placeholder="Disclaimer 1" onChange={(val) => { setState({ ...state, disclaimer1: val.target.value }) }} />
@@ -198,7 +209,7 @@ const AddSizeChart = (props) => {
                                 <Input.TextArea placeholder="Disclaimer 5" onChange={(val) => { setState({ ...state, disclaimer5: val.target.value }) }} />
                             </Col>
                         </Row>
-                    } */}
+                    }
 
                 </div>
             </Spin>
