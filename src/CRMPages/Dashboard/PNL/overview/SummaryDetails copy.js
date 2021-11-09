@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
 import { downloadFile } from '../../../../components/utilities/utilities'
-import { apiReportItemWise } from '../../../../redux/apis/DataAction';
+import { apiSummaryPNLItemwise } from '../../../../redux/apis/DataAction';
 import './style.css';
 
 
@@ -30,10 +30,10 @@ const validateMessages = {
 
 
 
-const ItemPNL = (props) => {
+const SummaryDetails = ( props ) => {
+    const { dataSourceItem,  dataItemDownload,onAddItemCount,activeTab, match, location } = props
 
-  const {selectedFilter, subOrderType,ordertypeParent,  isSearchPressed, orderdatefrom, orderdateto, dateFormat, dataSourceItem, dataSourceItemTempParent, dataItemDownload,onAddItemCount,activeTab } = props
-  const [form] = Form.useForm();
+    const [form] = Form.useForm();
 
   const dispatch = useDispatch();
   const [state, setState] = useState({
@@ -41,232 +41,190 @@ const ItemPNL = (props) => {
     sortedInfo: [],
 
     isLoader: false,
-    dataOrderSource: [],
-    orderdatetoCheck: 'todate',
-    orderdatefromCheck: 'fromdate',
-    dataSourceParent: []
+    dataSourceItemTemp: [],
+    dataSourceItemTempParent:[]
   });
-  let isOrderTypeShow = selectedFilter == 'All' ? true : false
-  const {dataSourceParent,orderdatefromCheck,orderdatetoCheck, sortedInfo, isLoader, dataOrderSource } = state
-
+  // console.log('cehck123',match.params)
+  const { sortedInfo, isLoader, dataSourceItemTemp,dataSourceItemTempParent } = state
   useEffect(() => {
-
-    if(isSearchPressed && activeTab==='ItemPNL'&& (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom))
-    {
-   let tempDataSource_report_item_wise=[];
-
-
-      setState({...state,isLoader:true})
-      dispatch(apiReportItemWise({ dateFormat: dateFormat, orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
-
-      
-        data[1].map(value => {
-
-          const { vendorname,
-            merchantsku,
-            vendorstylecode,
-            colorcode,
-            sizename,
-            orderstatus,
-            itemstatus,
-            orderdate,
-            uspsdate,
-            ORDERTYPE,
-            orderno,
-            purchaseorderno,
-            itemqty,
-            cost,
-            purchaseCost,
-            commit_status,
-            commision,
-            SalePrice,
-            pu_price,
-            Weight,
-            shipping,
-            po_shipping,
-            isRMA,
-            customer_pay_ship,
-            profit,
-            PPS,
-            final_profit,
-            Type,
-            IsReplacement,
-            Discount_amount
-          } = value;
-  
-  
-          tempDataSource_report_item_wise.push({
-            vendorname: vendorname,
-            merchantsku: merchantsku,
-            vendorstylecode: vendorstylecode,
-            colorcode: colorcode,
-            sizename: sizename,
-            orderstatus: orderstatus,
-            itemstatus: itemstatus,
-            orderdate: orderdate,
-            uspsdate: uspsdate,
-            ORDERTYPE: ORDERTYPE,
-            orderno: orderno,
-            purchaseorderno: purchaseorderno,
-            itemqty: itemqty,
-            cost: `$${Math.round(cost * 100) / 100}`,
-            purchaseCost: `$${Math.round(purchaseCost * 100) / 100}`,
-            commit_status: commit_status,
-            commision: `$${Math.round(commision * 100) / 100}`,
-            SalePrice: `$${Math.round(SalePrice * 100) / 100}`,
-            pu_price: `$${Math.round(pu_price * 100) / 100}`,
-            Weight: Weight,
-            shipping: `$${Math.round(shipping * 100) / 100}`,
-            po_shipping: `$${Math.round(po_shipping * 100) / 100}`,
-            isRMA: isRMA,
-            customer_pay_ship: `$${Math.round(customer_pay_ship * 100) / 100}`,
-            profit: `$${Math.round(profit * 100) / 100}`,
-            PPS: PPS,
-            final_profit: `$${Math.round(final_profit * 100) / 100}`,
-            Type: Type,
-            IsReplacement: IsReplacement,
-            Discount_amount: `$${Math.round(Discount_amount * 100) / 100}`
-          });
-  
-        });
-       
-        setState({
-          ...state, dataOrderDownload: data[0],
-          dataOrderSource: tempDataSource_report_item_wise,
-          dataSourceParent: tempDataSource_report_item_wise,
-          orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom
-        })
-
-        filterTotalValue(data[1])
-      })
-
-  }
-  else if(activeTab === 'ItemPNL')
-  {
-
-    filterTotalValue(dataOrderSource)
-  }
-  }, [isSearchPressed, orderdateto, orderdatefrom, activeTab, selectedFilter]);
-  
- useEffect(() => {    
-    
-  let ordertype = []
-  let tempOrder = [];
-  let tempOrderSummary = [];
-  let tempItemSummary = [];
-  let tempPriceSummary = [];
-  let tempItem = [];
-
-  if (dataSourceParent.length>0&&['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'ItemPNL') {
-      
-    if ('All' === ordertypeParent) {
-      setState({ ...state,  dataOrderSource: [...dataSourceParent]});
-      filterTotalValue([...dataSourceParent])
-      return
-    }
-
-    ordertype = ordertypeParent === 'MarketPlace' ?
-      ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay', 'MPALL']
-      :
-      ['PU', 'JLC', 'WebALL']
-
-    tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item => ordertype.includes(item.ORDERTYPE))]
-
-    setState({ ...state,  dataOrderSource: tempOrderSummary,  isSellerType: 'Enable', selectedFilter: ordertypeParent});
-    filterTotalValue(tempOrderSummary)
-  }   
-  
-
-
-}, [ordertypeParent,dataSourceParent]);
-useEffect(() => {    
-  let tempOrder = [];
-  let tempItem = [];
-  let tempOrderSummary = [];
-  let tempItemSummary = [];
-  let tempPriceSummary = [];
-
-  if (dataSourceParent.length>0&&'MPALL' === subOrderType&&activeTab === 'ItemPNL') {
+    // console.log('cehck123',match.params)
  
-    tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item =>
-      item.ORDERTYPE && item.ORDERTYPE === 'Amazon' ||
-      item.ORDERTYPE && item.ORDERTYPE === 'AmazonRizno' ||
-      item.ORDERTYPE && item.ORDERTYPE === 'Walmart' || item.ORDERTYPE && item.ORDERTYPE === 'Sears' || item.ORDERTYPE && item.ORDERTYPE === 'Ebay'
-    )]
-   
+    // if props is undefined then get ticket details from API
+    if (location.ticket === undefined && location.state === undefined) {
+        let tempDataSource_report_item_wise=[]
+        console.log('1')
+        setState({ ...state, isLoader: true })
+        dispatch(apiSummaryPNLItemwise({ ORDERTYPE: match.params.ORDERTYPE,dateFormat: match.params.dateFormat,orderdateto: match.params.endDate,orderdatefrom: match.params.startDate,vendorname: match.params.vendorname,Value: match.params.Value   })).then( data=>{
+            console.log('data', data)
+            data[1].map(value => {
 
-    setState({ ...state,dataOrderSource:tempOrderSummary});
-    filterTotalValue(tempOrderSummary)
-  }
+                const { vendorname,
+                  merchantsku,
+                  vendorstylecode,
+                  colorcode,
+                  sizename,
+                  orderstatus,
+                  itemstatus,
+                  orderdate,
+                  uspsdate,
+                  ORDERTYPE,
+                  orderno,
+                  purchaseorderno,
+                  itemqty,
+                  cost,
+                  purchaseCost,
+                  commit_status,
+                  commision,
+                  SalePrice,
+                  pu_price,
+                  Weight,
+                  shipping,
+                  po_shipping,
+                  isRMA,
+                  customer_pay_ship,
+                  profit,
+                  PPS,
+                  final_profit,
+                  Type,
+                  IsReplacement,
+                  Discount_amount
+                } = value;
+        
+        
+                tempDataSource_report_item_wise.push({
+                  vendorname: vendorname,
+                  merchantsku: merchantsku,
+                  vendorstylecode: vendorstylecode,
+                  colorcode: colorcode,
+                  sizename: sizename,
+                  orderstatus: orderstatus,
+                  itemstatus: itemstatus,
+                  orderdate: orderdate,
+                  uspsdate: uspsdate,
+                  ORDERTYPE: ORDERTYPE,
+                  orderno: orderno,
+                  purchaseorderno: purchaseorderno,
+                  itemqty: itemqty,
+                  cost: `$${Math.round(cost * 100) / 100}`,
+                  purchaseCost: `$${Math.round(purchaseCost * 100) / 100}`,
+                  commit_status: commit_status,
+                  commision: `$${Math.round(commision * 100) / 100}`,
+                  SalePrice: `$${Math.round(SalePrice * 100) / 100}`,
+                  pu_price: `$${Math.round(pu_price * 100) / 100}`,
+                  Weight: Weight,
+                  shipping: `$${Math.round(shipping * 100) / 100}`,
+                  po_shipping: `$${Math.round(po_shipping * 100) / 100}`,
+                  isRMA: isRMA,
+                  customer_pay_ship: `$${Math.round(customer_pay_ship * 100) / 100}`,
+                  profit: `$${Math.round(profit * 100) / 100}`,
+                  PPS: PPS,
+                  final_profit: `$${Math.round(final_profit * 100) / 100}`,
+                  Type: Type,
+                  IsReplacement: IsReplacement,
+                  Discount_amount: `$${Math.round(Discount_amount * 100) / 100}`
+                });
+        
+              });
+            setState({ ...state, isLoader: false,dataSourceItemTemp:tempDataSource_report_item_wise,dataSourceItemTempParent:tempDataSource_report_item_wise})
+        })
+    }
+    else {
+        let tempDataSource_report_item_wise=[]
+        console.log('2')
+        setState({ ...state, isLoader: true })
+        dispatch(apiSummaryPNLItemwise({  ORDERTYPE: match.params.ORDERTYPE,dateFormat: match.params.dateFormat,orderdateto: match.params.endDate,orderdatefrom: match.params.startDate,vendorname: match.params.vendorname,Value: match.params.Value   })).then(data => {
+            console.log('data', data)
+            data[1].map(value => {
 
-  else if (dataSourceParent.length>0&&activeTab === 'ItemPNL'&&['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
+                const { vendorname,
+                  merchantsku,
+                  vendorstylecode,
+                  colorcode,
+                  sizename,
+                  orderstatus,
+                  itemstatus,
+                  orderdate,
+                  uspsdate,
+                  ORDERTYPE,
+                  orderno,
+                  purchaseorderno,
+                  itemqty,
+                  cost,
+                  purchaseCost,
+                  commit_status,
+                  commision,
+                  SalePrice,
+                  pu_price,
+                  Weight,
+                  shipping,
+                  po_shipping,
+                  isRMA,
+                  customer_pay_ship,
+                  profit,
+                  PPS,
+                  final_profit,
+                  Type,
+                  IsReplacement,
+                  Discount_amount
+                } = value;
+        
+        
+                tempDataSource_report_item_wise.push({
+                  vendorname: vendorname,
+                  merchantsku: merchantsku,
+                  vendorstylecode: vendorstylecode,
+                  colorcode: colorcode,
+                  sizename: sizename,
+                  orderstatus: orderstatus,
+                  itemstatus: itemstatus,
+                  orderdate: orderdate,
+                  uspsdate: uspsdate,
+                  ORDERTYPE: ORDERTYPE,
+                  orderno: orderno,
+                  purchaseorderno: purchaseorderno,
+                  itemqty: itemqty,
+                  cost: `$${Math.round(cost * 100) / 100}`,
+                  purchaseCost: `$${Math.round(purchaseCost * 100) / 100}`,
+                  commit_status: commit_status,
+                  commision: `$${Math.round(commision * 100) / 100}`,
+                  SalePrice: `$${Math.round(SalePrice * 100) / 100}`,
+                  pu_price: `$${Math.round(pu_price * 100) / 100}`,
+                  Weight: Weight,
+                  shipping: `$${Math.round(shipping * 100) / 100}`,
+                  po_shipping: `$${Math.round(po_shipping * 100) / 100}`,
+                  isRMA: isRMA,
+                  customer_pay_ship: `$${Math.round(customer_pay_ship * 100) / 100}`,
+                  profit: `$${Math.round(profit * 100) / 100}`,
+                  PPS: PPS,
+                  final_profit: `$${Math.round(final_profit * 100) / 100}`,
+                  Type: Type,
+                  IsReplacement: IsReplacement,
+                  Discount_amount: `$${Math.round(Discount_amount * 100) / 100}`
+                });
+        
+              });
+            setState({ ...state, isLoader: false,dataSourceItemTemp:tempDataSource_report_item_wise,dataSourceItemTempParent:tempDataSource_report_item_wise})
+        })
+    }
+}, []);
 
-  
-
-    tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE']=== (subOrderType))]
-
-  
-    setState({ ...state,dataOrderSource:tempOrderSummary});
-    filterTotalValue(tempOrderSummary)
-  }
-  else if (dataSourceParent.length>0&&activeTab === 'ItemPNL'&&['JLC', 'PU'].includes(subOrderType)) {
-  
-    tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(subOrderType))]
-  
-  
-    setState({ ...state,dataOrderSource:tempOrderSummary});
-    filterTotalValue(tempOrderSummary)
-
-  }
-
-  else if (dataSourceParent.length>0&&'WebALL' === subOrderType) {
-
-    tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
-  
-    setState({ ...state,dataOrderSource:tempOrderSummary});
-    filterTotalValue(tempOrderSummary)
-  }
-
-}, [subOrderType,dataSourceParent]);
 
   const dataSource = [];
   let temp = [];
 
-  const filterTotalValue = (data) => {
-    let profitTotal = 0
-    let profit = []
-    for (let i = 0; i < data.length; i++) {
-
-      if (profit.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
-        let tempOrderSummary = { ...data[i], profit: (typeof(data[i].profit) =='number' ? data[i].profit:typeof(data[i].profit)  =='object' ? 0 :JSON.parse(data[i].profit.split('$')[1])) }
-        profit.push(tempOrderSummary)
-      }
-      else {
-        let indexTemp = profit.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
-        profit[indexTemp] = { ...profit[indexTemp], profit: profit[indexTemp].profit + (typeof(data[i].profit) =='number' ? data[i].profit:typeof(data[i].profit)  =='object' ? 0 :JSON.parse(data[i].profit.split('$')[1])) }
-
-
-      }
-
-
-    }
-
-    onAddItemCount({ order: data.length, profit, data })
-  }
-
-
   const filter = (value) => {
     var val = [];
     let placeholder = `Search ${value}`;
-
+    // console.log(...dataSourceItemTempParent)
+  //  console.log(value)
     return <Input
       placeholder=''
       size='small'
       onChange={e => {
 
-        temp = [...temp, ...dataSourceParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
-        filterTotalValue(temp)
-        setState({ ...state, dataOrderSource: temp });
+        temp = [...temp, ...dataSourceItemTempParent.filter(item => JSON.stringify(item[value]).toUpperCase().includes(e.target.value.toString().toUpperCase()))]
+
+        setState({ ...state, dataSourceItemTemp: temp });
 
       }}
     />
@@ -288,6 +246,11 @@ useEffect(() => {
         }
 
       ]
+      // { filter('vendorname')}     
+      // </> ,
+      // dataIndex: 'vendorname',
+      // key: 'vendorname',
+      // defaultSortOrder: 'descend',
     },
     {
       title:
@@ -304,6 +267,10 @@ useEffect(() => {
         }
 
       ]
+      // { filter('merchantsku')}     
+      // </> ,
+      // dataIndex: 'merchantsku',
+      // key: 'merchantsku',
     },
     {
       title: 
@@ -320,6 +287,10 @@ useEffect(() => {
         }
 
       ]
+      //   { filter('vendorstylecode')}
+      // </>,
+      // dataIndex: 'vendorstylecode',
+      // key: 'vendorstylecode',
     },
     {
       title: 
@@ -372,6 +343,10 @@ useEffect(() => {
         }
 
       ]
+      //   { filter('orderstatus')}
+      // </>,
+      // dataIndex: 'orderstatus',
+      // key: 'orderstatus',
     }
     ,
     {
@@ -389,6 +364,10 @@ useEffect(() => {
         }
 
       ]
+      //   { filter('itemstatus')}
+      // </>,
+      // dataIndex: 'itemstatus',
+      // key: 'itemstatus',
     },
     {
       title: 
@@ -710,6 +689,10 @@ useEffect(() => {
           key: 'isRMA',
         }
       ]
+      //   { filter('isRMA')}
+      // </>,
+      // dataIndex: 'isRMA',
+      // key: 'isRMA',
     },
     {
       title: 
@@ -816,6 +799,7 @@ useEffect(() => {
   ];
 
   const handleChange = (pagination, filters, sorter) => {
+    // console.log('Various parameters', pagination, filters, sorter);
     setState({
       ...state,
       filteredInfo: filters,
@@ -837,14 +821,14 @@ useEffect(() => {
 
         <Row >
         {/* <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
-                  <p>Total Item:{dataOrderSource.length}</p>
+                  <p>Total Item:{dataSourceItemTemp.length}</p>
                
                 </Col> */}
           <Col xs={24}>
-            <Cards headless>
+            <Cards title={'Summary Detail'}>
 
               <div className="table-responsive">
-                <Table size='small' pagination={true} scroll={{ x: 4000, y: 1000 }} dataSource={dataOrderSource} columns={columns} onChange={handleChange} />
+                <Table size='small' pagination={true} scroll={{ x: 4000, y: 1000 }} dataSource={dataSourceItemTemp} columns={columns} onChange={handleChange} />
               </div>
 
             </Cards>
@@ -857,4 +841,4 @@ useEffect(() => {
 
 };
 
-export default ItemPNL
+export default SummaryDetails

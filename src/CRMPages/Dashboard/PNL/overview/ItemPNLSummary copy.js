@@ -61,7 +61,7 @@ const ItemPNLSummary = (props) => {
 
       dispatch(apiSummaryReportItemWise({ dateFormat: dateFormat, orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
 
-        // console.log(data[1])
+        console.log(data[1])
         data[1].map(value => {
 
           const { vendorname,
@@ -128,7 +128,7 @@ const ItemPNLSummary = (props) => {
     
     let tempOrderSummary = [];
    
-    if (dataSourcesummaryParent.length>0&&['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'ItemPNLSummary') {
+    if (['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'ItemPNLSummary') {
       
       if ('All' === ordertypeParent) {
         itemSummarySumAll(dataSourcesummaryParentAll)
@@ -149,7 +149,7 @@ const ItemPNLSummary = (props) => {
 
  
 
-  }, [ordertypeParent,dataSourcesummaryParent]);
+  }, [ordertypeParent]);
   useEffect(() => {    
     let tempOrder = [];
     let tempItem = [];
@@ -157,7 +157,7 @@ const ItemPNLSummary = (props) => {
     let tempItemSummary = [];
     let tempPriceSummary = [];
   
-    if (dataSourcesummaryParent.length>0&&activeTab === 'ItemPNLSummary' &&'MPALL' === subOrderType) {
+    if (activeTab === 'ItemPNLSummary' &&'MPALL' === subOrderType) {
    
       tempOrderSummary = [...tempOrderSummary, ...dataSourcesummaryParent.filter(item =>
         item.ORDERTYPE && item.ORDERTYPE === 'Amazon' ||
@@ -170,7 +170,7 @@ const ItemPNLSummary = (props) => {
       filterTotalValue(tempOrderSummary)
     }
 
-    else if (dataSourcesummaryParent.length>0&&activeTab === 'ItemPNLSummary' &&['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
+    else if (activeTab === 'ItemPNLSummary' &&['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
   
     
 
@@ -180,7 +180,7 @@ const ItemPNLSummary = (props) => {
       setstate({ ...state,dataSourcesummary:tempOrderSummary});
       filterTotalValue(tempOrderSummary)
     }
-    else if (dataSourcesummaryParent.length>0&&activeTab === 'ItemPNLSummary' &&['JLC', 'PU'].includes(subOrderType)) {
+    else if (activeTab === 'ItemPNLSummary' &&['JLC', 'PU'].includes(subOrderType)) {
     
       tempOrderSummary = [...tempOrderSummary, ...dataSourcesummaryParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(subOrderType))]
     
@@ -190,7 +190,7 @@ const ItemPNLSummary = (props) => {
 
     }
 
-    else if (dataSourcesummaryParent.length>0&&activeTab === 'ItemPNLSummary' &&'WebALL' === subOrderType) {
+    else if (activeTab === 'ItemPNLSummary' &&'WebALL' === subOrderType) {
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourcesummaryParent.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
     
@@ -199,7 +199,7 @@ const ItemPNLSummary = (props) => {
       filterTotalValue(tempOrderSummary)
     }
 
-  }, [subOrderType,dataSourcesummaryParent]);
+  }, [subOrderType]);
 
 
   const filterTotalValue =(data)=>{

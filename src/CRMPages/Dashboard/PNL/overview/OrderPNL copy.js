@@ -141,7 +141,7 @@ const OrderPNL = (props) => {
   
     let tempOrderSummary = [];
  
-    if (dataSourceParent.length>0&&['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'OrderPNL') {
+    if (['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'ItemPNL') {
       
       if ('All' === ordertypeParent) {
         setState({ ...state,  dataOrderSource: [...dataSourceParent]});
@@ -156,13 +156,18 @@ const OrderPNL = (props) => {
   
       tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item => ordertype.includes(item.ORDERTYPE))]
   
-      setState({ ...state,  dataOrderSource: tempOrderSummary,  isSellerType: 'Enable', selectedFilter: ordertypeParent});
+      setstate({ ...state,  dataOrderSource: tempOrderSummary,  isSellerType: 'Enable', selectedFilter: ordertypeParent});
       filterTotalValue(tempOrderSummary)
-    }   
+    }
+
+
+   
+
+      
     
 
 
-  }, [ordertypeParent,dataSourceParent]);
+  }, [ordertypeParent]);
   useEffect(() => {    
     let tempOrder = [];
     let tempItem = [];
@@ -170,7 +175,7 @@ const OrderPNL = (props) => {
     let tempItemSummary = [];
     let tempPriceSummary = [];
   
-    if (dataSourceParent.length>0&&activeTab === 'OrderPNL' &&'MPALL' === subOrderType) {
+    if (activeTab === 'OrderPNL' &&'MPALL' === subOrderType) {
    
       tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item =>
         item.ORDERTYPE && item.ORDERTYPE === 'Amazon' ||
@@ -183,7 +188,7 @@ const OrderPNL = (props) => {
       filterTotalValue(tempOrderSummary)
     }
 
-    else if (dataSourceParent.length>0&&activeTab === 'OrderPNL' &&['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
+    else if (activeTab === 'OrderPNL' &&['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
   
     
 
@@ -193,7 +198,7 @@ const OrderPNL = (props) => {
       setState({ ...state,dataOrderSource:tempOrderSummary});
       filterTotalValue(tempOrderSummary)
     }
-    else if (dataSourceParent.length>0&&activeTab === 'OrderPNL' &&['JLC', 'PU'].includes(subOrderType)) {
+    else if (activeTab === 'OrderPNL' &&['JLC', 'PU'].includes(subOrderType)) {
     
       tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(subOrderType))]
     
@@ -203,7 +208,7 @@ const OrderPNL = (props) => {
 
     }
 
-    else if (dataSourceParent.length>0&&activeTab === 'OrderPNL' &&'WebALL' === subOrderType) {
+    else if (activeTab === 'OrderPNL' &&'WebALL' === subOrderType) {
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
     
@@ -212,7 +217,7 @@ const OrderPNL = (props) => {
       filterTotalValue(tempOrderSummary)
     }
 
-  }, [subOrderType,dataSourceParent]);
+  }, [subOrderType]);
 
 
   const onSumOrderCount = (result) => {

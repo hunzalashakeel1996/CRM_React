@@ -53,7 +53,7 @@ const OrderPNLSummary = (props) => {
   const { dataSourceOrdersummaryParentAll, dataSourceOrdersummaryParent, startDate, endDate, orderdatefromLink, orderdatetoLink, sortedInfo, isLoader, dataSourceOrdersummaryTemp, orderdatetoCheck, orderdatefromCheck } = state
 
   useEffect(() => {
-   
+
     if (isSearchPressed && activeTab === 'OrderPNLSummary' && (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom)) {
       let tempDataSource_summary_report_order_wise = [];
       let tempDataSource_summary_report_order_wise_All = [];
@@ -106,21 +106,10 @@ const OrderPNLSummary = (props) => {
           dataSourceOrdersummaryParentAll: tempDataSource_summary_report_order_wise_All,
           orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom
         })
-
         findTotalValues(data[1])
-
       })
-      let ordertype = []
-      let tempOrderSummary = [];
-
-    
-      
     }
     else if (activeTab === 'OrderPNLSummary') {
-   
-
-      console.log('else',activeTab)
-
       findTotalValues(dataSourceOrdersummaryTemp)
     }
 
@@ -130,10 +119,9 @@ const OrderPNLSummary = (props) => {
   useEffect(() => {
     let ordertype = []
     let tempOrderSummary = [];
-    console.log('ordertypeParent',activeTab)
 
-    if (dataSourceOrdersummaryParent.length>0&&['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'OrderPNLSummary') {
-
+    if (['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'OrderPNLSummary') {
+      
       if ('All' === ordertypeParent) {
         orderSummarySumAll(dataSourceOrdersummaryParentAll)
         findTotalValues(dataSourceOrdersummaryParentAll)
@@ -146,11 +134,10 @@ const OrderPNLSummary = (props) => {
         ['PU', 'JLC', 'WebALL']
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item => ordertype.includes(item.ORDERTYPE))]
-
       setstate({ ...state, dataSourceOrdersummaryTemp: tempOrderSummary, isSellerType: 'Enable', selectedFilter: ordertypeParent });
       findTotalValues(tempOrderSummary)
     }
-  }, [ordertypeParent,dataSourceOrdersummaryParent]);
+  }, [ordertypeParent]);
 
   useEffect(() => {
     let tempOrder = [];
@@ -158,8 +145,8 @@ const OrderPNLSummary = (props) => {
     let tempOrderSummary = [];
     let tempItemSummary = [];
     let tempPriceSummary = [];
-    console.log('subOrderType',activeTab)
-    if (dataSourceOrdersummaryParent.length>0&&'MPALL' === subOrderType) {
+
+    if ('MPALL' === subOrderType) {
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item =>
         item.ORDERTYPE && item.ORDERTYPE === 'Amazon' ||
@@ -172,7 +159,7 @@ const OrderPNLSummary = (props) => {
       findTotalValues(tempOrderSummary)
     }
 
-    else if (dataSourceOrdersummaryParent.length>0&&['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
+    else if (['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
 
 
 
@@ -182,7 +169,7 @@ const OrderPNLSummary = (props) => {
       setstate({ ...state, dataSourceOrdersummaryTemp: tempOrderSummary });
       findTotalValues(tempOrderSummary)
     }
-    else if (dataSourceOrdersummaryParent.length>0&&['JLC', 'PU'].includes(subOrderType)) {
+    else if (['JLC', 'PU'].includes(subOrderType)) {
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(subOrderType))]
 
@@ -192,7 +179,7 @@ const OrderPNLSummary = (props) => {
 
     }
 
-    else if (dataSourceOrdersummaryParent.length>0&&'WebALL' === subOrderType) {
+    else if ('WebALL' === subOrderType) {
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummaryParent.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
 
@@ -201,7 +188,7 @@ const OrderPNLSummary = (props) => {
       findTotalValues(tempOrderSummary)
     }
 
-  }, [subOrderType,dataSourceOrdersummaryParent]);
+  }, [subOrderType]);
 
 
   const findTotalValues = (data) => {
