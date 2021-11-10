@@ -21,36 +21,36 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       title: 'Dashboard',
       icon: 'home',
       items: [{
-        key: 'reportGraph',
+        key: 'Report Graph',
         title: 'Comparison Report',
         path: `${path}/graph/comparisonGraph`
       }, {
-        key: 'viewTickets',
+        key: 'View Tickets',
         title: 'Tickets',
         path: `${path}/ticket/viewTickets`
       }, {
-        key: 'viewReminders',
+        key: 'View Reminders',
         title: 'Reminder',
         path: `${path}/ticket/viewReminders`
       }, {
-        key: 'ViewAzabReport',
+        key: 'View Azab Report',
         title: 'AzabReport',
         path: `${path}/azab/ViewAzabReport`
       }, {
-        key: 'ViewReportPNL',
+        key: 'View Report PNL',
         title: 'Report PNL',
         path: `${path}/PNL/ViewReportPNL`
       }, {
-        key: 'ViewReportPNLWeb',
+        key: 'View Report PNL Web',
         title: 'Report PNL Web',
         path: `${path}/ReportPNLWeb/ViewReportPNLWeb`
       }, {
-        key: 'ViewReportPNLMP',
+        key: 'View Report PNL MP',
         title: 'Report PNL MarketPlace',
         path: `${path}/ReportPNLMP/ViewReportPNLMP`
       }
       , {
-        key: 'ViewPNLRMA',
+        key: 'View PNL RMA',
         title: 'Report RMA PNL',
         path: `${path}/ReportPNLRMA/ViewPNLRMA`
       }
@@ -61,11 +61,11 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       title: 'Tickets',
       icon: 'list',
       items: [{
-        key: 'viewTickets',
+        key: 'View Tickets',
         title: 'Tickets',
         path: `${path}/ticket/viewTickets`
       }, {
-        key: 'addTicket',
+        key: 'Add Ticket',
         title: 'Add Ticket',
         path: `${path}/ticket/addTicket`
       }]

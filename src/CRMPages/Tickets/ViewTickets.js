@@ -81,7 +81,6 @@ const ViewTickets = (props) => {
   // sockets
   socket ? socket.onmessage = (data) => {
     let message = JSON.parse(data.data)
-    console.log('socket', message)
     if (message.reason === 'newTicket' ) {
       let descData = message.data.data
       if(descData.Assigned === user.LoginName ){

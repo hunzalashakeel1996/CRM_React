@@ -1,4 +1,4 @@
-import { Col, Form, Input, InputNumber, Row, Select, Spin, Upload  } from 'antd';
+import { Col, Form, Input, InputNumber, Row, Select, Spin, Upload, Checkbox } from 'antd';
 import propTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ import Cookies from 'js-cookie';
 
 const { Option } = Select;
 const dateFormat = 'MM/DD/YYYY';
-const assignedToDefault={'CSR': 'Kristy', 'Processing': 'Pat', 'Shipping': 'Adnan'}
+const assignedToDefault = { 'CSR': 'Kristy', 'Processing': 'Pat', 'Shipping': 'Adnan' }
 
 const formInit = {
   TicketGroup: '',
@@ -59,32 +59,33 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     visible,
     modalType: 'primary',
     checked: [],
-    controls:{...formInit},
+    controls: { ...formInit },
     customerDetails: [],
     assignedUsers: ['Kristy', 'Pat', 'Adnan'],
-    isLoading: false
+    isLoading: false,
+    isSelfAssigned: false
   });
 
-  const {modalType, checked, controls, isLoading, customerDetails} = state
+  const { modalType, checked, controls, isLoading, customerDetails, isSelfAssigned } = state
 
   const [departmentName, setDepartmentName] = useState('');
 
 
   useEffect(() => {
-    let tempControls = {...controls}
-      // tempControls.Assigned = assignedToDefault[controls.TicketGroup]
-      tempControls.TicketGroup = Cookies.get('TicketGroup')?Cookies.get('TicketGroup'):'CSR'
-      setState({
-        ...state,
-        controls: {...tempControls},
-      });
-      
-    if(visible){
-      
+    let tempControls = { ...controls }
+    // tempControls.Assigned = assignedToDefault[controls.TicketGroup]
+    tempControls.TicketGroup = Cookies.get('TicketGroup') ? Cookies.get('TicketGroup') : 'CSR'
+    setState({
+      ...state,
+      controls: { ...tempControls },
+    });
+
+    if (visible) {
+
 
       setTimeout(() => {
-      document.getElementById('Reason').focus()
-        
+        document.getElementById('Reason').focus()
+
       }, 500);
     }
   }, [visible]);
@@ -94,7 +95,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
     let tempValue = {
       ...controls, TicketGroup: 'undefined',
       Assigned: controls.Assigned || (Cookies.get('ticketAssigned') || 'kristy'),
-  }
+    }
     onAdd(tempValue)
     setState({ ...state, controls: formInit })
   };
@@ -106,50 +107,59 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   };
 
   const onValueChange = (name, value) => {
-    let temp = {...controls}
+    let temp = { ...controls }
     temp[name] = value
 
-    if('Assigned'===name){
+    if ('Assigned' === name) {
       Cookies.set('ticketAssigned', value)
     }
-    setState({ ...state, controls: {...temp} })
+    setState({ ...state, controls: { ...temp } })
 
-    
+
   }
 
   const onCustomerDetailSelected = (name, value) => {
-    let details = customerDetails.filter(val => val[name]===value)
-    form.setFieldsValue({ OrderNo:details[0].OrderNo, CustomerName: details[0].FullName, ZipCode: details[0].ZipCode, CustomerContact: details[0].PhoneNumber })
-    let temp = { ...controls, OrderNo:details[0].OrderNo,  CustomerName: details[0].FullName, ZipCode: details[0].ZipCode, CustomerContact: details[0].PhoneNumber }
-    setState({...state, controls: temp})
+    let details = customerDetails.filter(val => val[name] === value)
+    form.setFieldsValue({ OrderNo: details[0].OrderNo, CustomerName: details[0].FullName, ZipCode: details[0].ZipCode, CustomerContact: details[0].PhoneNumber })
+    let temp = { ...controls, OrderNo: details[0].OrderNo, CustomerName: details[0].FullName, ZipCode: details[0].ZipCode, CustomerContact: details[0].PhoneNumber }
+    setState({ ...state, controls: temp })
   }
 
   const getCustomerDetail = (name, value) => {
     if (value.length > 0) {
-      setState({...state, isLoading: true})
+      setState({ ...state, isLoading: true })
       dispatch(getCustomerDetailAPI({ name, value })).then(res => {
-        setState({...state, isLoading: false})
+        setState({ ...state, isLoading: false })
         // if only one customer detail fetched then auto fill fields
         if (res.length == 1) {
-          form.setFieldsValue({ OrderNo:res[0].OrderNo, CustomerName: res[0].FullName, ZipCode: res[0].ZipCode, CustomerContact: res[0].PhoneNumber })
-          let temp = { ...controls, OrderNo:res[0].OrderNo,  CustomerName: res[0].FullName, ZipCode: res[0].ZipCode, CustomerContact: res[0].PhoneNumber }
-          setState({ ...state, controls: temp, customerDetails: res})
+          form.setFieldsValue({ OrderNo: res[0].OrderNo, CustomerName: res[0].FullName, ZipCode: res[0].ZipCode, CustomerContact: res[0].PhoneNumber })
+          let temp = { ...controls, OrderNo: res[0].OrderNo, CustomerName: res[0].FullName, ZipCode: res[0].ZipCode, CustomerContact: res[0].PhoneNumber }
+          setState({ ...state, controls: temp, customerDetails: res })
 
         } else if (res.length > 1) {
-          setState({ ...state, customerDetails: res})
+          setState({ ...state, customerDetails: res })
         }
       })
     }
   }
 
-  const handleEnter =(event) => {
+  const handleEnter = (event) => {
     if (event.keyCode === 13) {
       const form = event.target.form;
-      console.log('aaa', event.target.form.elements)
       const index = Array.prototype.indexOf.call(form, event.target);
-      form.elements[index + 1]?form.elements[index + 1].focus():form.elements[index].focus();
+      form.elements[index + 1] ? form.elements[index + 1].focus() : form.elements[index].focus();
       event.preventDefault();
     }
+  }
+
+  const onSelfAssignCheckboxChange = () => {
+    if (!isSelfAssigned)
+      form.resetFields(['Assigned'])
+    form.setFieldsValue({ Assigned: !isSelfAssigned ? user.LoginName : '' })
+    // setState({ ...state, isSelfAssigned: !isSelfAssigned, departmentName: '', assignedTo: !isSelfAssigned ? user.LoginName : '' })
+    let tempControls = { ...controls }
+    tempControls.Assigned = isSelfAssigned ? '' : user.LoginName
+    setState({ ...state, isSelfAssigned: !isSelfAssigned, controls: tempControls })
   }
 
   // const onAction = () => {
@@ -174,7 +184,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   //   // }
   // }
 
-  let reasons = ['Rush Free', 'Shipping Charges', 'Bad Address Correction','Sew Out', 'Stitch Out', 'Price', 'Thread Details', 'How Long Will It Take To Ship', 'Rush Fee', 'Alteration', 'General Question', 'Product Related Question']
+  let reasons = ['Rush Free', 'Shipping Charges', 'Bad Address Correction', 'Sew Out', 'Stitch Out', 'Price', 'Thread Details', 'How Long Will It Take To Ship', 'Rush Fee', 'Alteration', 'General Question', 'Product Related Question']
 
   return (
     <Modal
@@ -194,11 +204,11 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
       footer={null}
       onCancel={handleCancel}
     >
-       <Spin spinning={loader||isLoading}>
-      <div className="project-modal">
-        <BasicFormWrapper>
-          <Form {...layout} autocomplete="off"  form={form} onKeyDown={(value) => {handleEnter(value)}} id="new_ticket" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-            {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
+      <Spin spinning={loader || isLoading}>
+        <div className="project-modal">
+          <BasicFormWrapper>
+            <Form {...layout} autocomplete="off" form={form} onKeyDown={(value) => { handleEnter(value) }} id="new_ticket" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+              {/* <Form.Item name={'reason'} label="" rules={[{ required: true }]}>
               <Input placeholder="Ticket Reason" />
             </Form.Item>
             <Form.Item name={'assigned'} label="" rules={[{ required: true }]}>
@@ -222,11 +232,11 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                   </Form.Item>
                 </Col> */}
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="Assigned" initialValue={Cookies.get('ticketAssigned')?Cookies.get('ticketAssigned'):''} label="" rules={[{ required: true }]}>
+                  <Form.Item style={{marginBottom: 5}} name="Assigned" initialValue={Cookies.get('ticketAssigned') ? Cookies.get('ticketAssigned') : ''} label="" rules={[{ required: isSelfAssigned ? false : true }]}>
                     {(depart.length > 0 && controls.TicketGroup !== '') ?
-                      <Select id='Assigned'  showSearch value='check'style={{ width: '100%' }} onChange={(val) => { document.getElementById('Reason').focus();onValueChange('Assigned', val) }}>
-                          <Option key=''>Assigned</Option>
-                        {depart.map(({ Username, LoginName}) => (
+                      <Select id='Assigned' disabled={isSelfAssigned} showSearch style={{ width: '100%'}} onChange={(val) => { document.getElementById('Reason').focus(); onValueChange('Assigned', val) }}>
+                        <Option key=''>Assigned</Option>
+                        {depart.map(({ Username, LoginName }) => (
                           user.LoginName !== LoginName && <Option key={LoginName}>{Username}</Option>
                         ))}
                       </Select>
@@ -234,10 +244,12 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       <Input placeholder="Assigned To" onChange={(val) => { onValueChange('Assigned', val.target.value) }} />
                     }
                   </Form.Item>
+                  <Checkbox checked={isSelfAssigned} onChange={onSelfAssignCheckboxChange}>Self Assign</Checkbox>
+
                 </Col>
 
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="TicketTitle"  label="" initialValue="" rules={[{ required: true }]} >
+                  <Form.Item name="TicketTitle" label="" initialValue="" rules={[{ required: true }]} >
                     {(false) ?
                       <Select autoFocus={true} id='Reason' style={{ width: '100%' }} >
                         <Option value="">Reason</Option>
@@ -246,9 +258,9 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       ))} */}
                       </Select>
                       :
-                      <Select autoFocus={true}  showSearch id='Reason' style={{ width: '100%' }}  onChange={(val) => { document.getElementById('Description').focus();onValueChange('TicketTitle', val) }}>
-                          <Option key=''>Reason</Option>
-                          {reasons.map((reason) => (
+                      <Select autoFocus={true} showSearch id='Reason' style={{ width: '100%' }} onChange={(val) => { document.getElementById('Description').focus(); onValueChange('TicketTitle', val) }}>
+                        <Option key=''>Reason</Option>
+                        {reasons.map((reason) => (
                           <Option key={reason}>{reason}</Option>
                         ))}
                       </Select>
@@ -256,7 +268,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                       //   onInputChange={(reason,x) => { onValueChange('TicketTitle', reason) }}
                       //   selectedReason={controls.TicketTitle} style={{ width: '100%' }} dataSource={reasons}
                       //   onReasonSelect={(reason) => { document.getElementById('Description').focus(); onValueChange('TicketTitle', reason) }} />
-                        }
+                    }
                   </Form.Item>
                 </Col>
               </Row>
@@ -298,31 +310,31 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
                 <Col xs={24} sm={12} lg={12}>
                   <Form.Item name="CustomerContact" initialValue='' label="" >
                     <InputMask style={{}} mask="(999) 999-9999" maskChar="" onChange={(val) => { onValueChange('CustomerContact', val.target.value) }}>
-                      {(props) => <Input {...props}  placeholder="Phone"/>}
+                      {(props) => <Input {...props} placeholder="Phone" />}
                     </InputMask>
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} lg={12}>
-                  <Form.Item name="ZipCode"  initialValue='' label="" >
+                  <Form.Item name="ZipCode" initialValue='' label="" >
                     <Input onBlur={(e) => { getCustomerDetail('zipcode', e.target.value) }} onChange={(val) => { onValueChange('ZipCode', val.target.value) }} placeholder="Zip Code" />
                   </Form.Item>
                 </Col>
               </Row>
 
-              <Row style={{marginTop: 10}}>
-                <Upload beforeUpload={() => false} onChange={(pic) => {onValueChange('Attachment', pic)}} onRemove={() => {onValueChange('Attachment', null)}}>
-                   <Button size="large"  style={{borderWidth: 0.5, borderColor: '#ebebeb'}} icon={<UploadOutlined />}>Click to Upload</Button>
+              <Row style={{ marginTop: 10 }}>
+                <Upload beforeUpload={() => false} onChange={(pic) => { onValueChange('Attachment', pic) }} onRemove={() => { onValueChange('Attachment', null) }}>
+                  <Button size="large" style={{ borderWidth: 0.5, borderColor: '#ebebeb' }} icon={<UploadOutlined />}>Click to Upload</Button>
                 </Upload>
               </Row>
 
-              <Form.Item style={{ marginTop: 10, textAlign: 'center', }} wrapperCol={{ ...layout.wrapperCol,  }} >
-                 <Button size="large"  type="primary" htmlType="submit">
+              <Form.Item style={{ marginTop: 10, textAlign: 'center', }} wrapperCol={{ ...layout.wrapperCol, }} >
+                <Button size="large" type="primary" htmlType="submit">
                   Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </BasicFormWrapper>
-      </div>
+                </Button>
+              </Form.Item>
+            </Form>
+          </BasicFormWrapper>
+        </div>
       </Spin>
     </Modal>
   );
