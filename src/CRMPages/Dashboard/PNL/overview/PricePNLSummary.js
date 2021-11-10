@@ -98,7 +98,7 @@ const PricePNLSummary = (props) => {
           });
         });
 
-
+        filterTotalValue(data[1])
 
         setstate({
           ...state, isLoader: false, dataSourcesummary: tempDataSource_summary_report_price_wise
@@ -106,7 +106,7 @@ const PricePNLSummary = (props) => {
           dataSourcesummaryParentAll: tempDataSource_summary_report_price_wise_All,
           orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom
         })
-        filterTotalValue(data[1])
+   
 
       })
 

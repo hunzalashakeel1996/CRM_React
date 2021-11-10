@@ -129,7 +129,7 @@ const ItemPNL = (props) => {
           });
   
         });
-       
+        filterTotalValue(data[1])
         setState({
           ...state, dataOrderDownload: data[0],
           dataOrderSource: tempDataSource_report_item_wise,
@@ -137,7 +137,7 @@ const ItemPNL = (props) => {
           orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom
         })
 
-        filterTotalValue(data[1])
+     
       })
 
   }

@@ -61,7 +61,6 @@ const ItemPNLSummary = (props) => {
 
       dispatch(apiSummaryReportItemWise({ dateFormat: dateFormat, orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
 
-        // console.log(data[1])
         data[1].map(value => {
 
           const { vendorname,
@@ -103,12 +102,12 @@ const ItemPNLSummary = (props) => {
           });
         });
 
-
+        filterTotalValue(data[1])
         setstate({ ...state, isLoader: false, dataSourcesummary: tempDataSource_summary_report_item_wise
           ,dataSourcesummaryParent:tempDataSource_summary_report_item_wise,
           dataSourcesummaryParentAll:tempDataSource_summary_report_item_wise_All,
            orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom })
-        filterTotalValue(data[1])
+       
       })
 
 
@@ -150,6 +149,7 @@ const ItemPNLSummary = (props) => {
  
 
   }, [ordertypeParent,dataSourcesummaryParent]);
+
   useEffect(() => {    
     let tempOrder = [];
     let tempItem = [];
@@ -194,7 +194,6 @@ const ItemPNLSummary = (props) => {
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourcesummaryParent.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
     
-      console.log(tempOrderSummary)
       setstate({ ...state,dataSourcesummary:tempOrderSummary});
       filterTotalValue(tempOrderSummary)
     }

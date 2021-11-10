@@ -113,7 +113,7 @@ const OrderPNL = (props) => {
           });
   
         });
-       
+        filterTotalValue(data[1])
         setState({
           ...state, dataOrderDownload: data[0],
           dataOrderSource: tempDataSource_report_order_wise,
@@ -121,7 +121,7 @@ const OrderPNL = (props) => {
           orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom
         })
 
-        filterTotalValue(data[1])
+ 
       })
       
     }
@@ -207,7 +207,6 @@ const OrderPNL = (props) => {
 
       tempOrderSummary = [...tempOrderSummary, ...dataSourceParent.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
     
-      console.log(tempOrderSummary)
       setState({ ...state,dataOrderSource:tempOrderSummary});
       filterTotalValue(tempOrderSummary)
     }
