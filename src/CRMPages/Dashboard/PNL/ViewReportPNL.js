@@ -172,7 +172,7 @@ const ReportPNLView = () => {
       Loss = Loss + result.loss[i].loss
       i++;
     }
-    console.log('onSum',result)
+    // console.log('onSum',result)
     setstate({
       ...state,
       totalOrdersProfit: profit,
