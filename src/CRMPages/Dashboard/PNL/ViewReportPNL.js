@@ -42,11 +42,13 @@ const ReportPNLView = () => {
 
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL'];
   const [activeTab, setActiveTab] = useState('OrderPNL');
-
+  const [isSearchPressed, setIsSearchPressed] = useState(false);
 
   const [state, setstate] = useState({
 
 
+    dataSourceOrdersummary: [],
+    dataSourceItemsummary: [],
     dataSourceOrder: [],
     dataSourceItem: [],
     dataSourcePrice: [],
@@ -59,7 +61,7 @@ const ReportPNLView = () => {
     filterValue: '',
     selectedFilter: '',
 
-    dataSourceOrderTempParent: [],
+    dataOrdersummaryDownloadTempParent: [],
     dataSourceOrderTempParentDownload: [],
 
     dataSourceItemTempParent: [],
@@ -73,16 +75,16 @@ const ReportPNLView = () => {
 
     dataSourceItemSummary: [],
     dataItemSummaryDownload: '',
-    dataSourceItemsummaryTempParent: [], 
+    dataSourceItemsummaryTempParent: [],
     dataSourceItemsummaryTempParentDownload: [],
     dataSourceItemsummaryTempParentAll: [],
 
     dataSourcePriceSummary: [],
     dataPriceSummaryDownload: '',
-    dataSourcePriceSummaryTempParent:[],
+    dataSourcePriceSummaryTempParent: [],
     dataSourcePriceSummaryTempParentDownload: [],
-    dataSourcePriceSummaryTempParentAll:[],
-  
+    dataSourcePriceSummaryTempParentAll: [],
+
 
     dataSourcetotalOrders: 0,
     totalOrdersSum: 0,
@@ -91,15 +93,15 @@ const ReportPNLView = () => {
     dateFormat: 'USPS',
     startDate: '',
     endDate: '',
-    ordertypeParent:'',
-    subOrderType:''
- 
+    ordertypeParent: '',
+    subOrderType: ''
+
 
 
 
   });
 
-  const {subOrderType,ordertypeParent,startDate,endDate,dataSourcePriceSummaryTempParentAll, dataSourceItemsummaryTempParentAll, dataSourceOrdersummaryTempParentAll, dataSourceOrderTempParentDownload, dataSourceItemTempParentDownload, dataSourceItemsummaryTempParentDownload, dataSourcePriceSummaryTempParentDownload, dataSourceItemsummaryTempParent, dataSourceOrdersummaryTempParentDownload, dateFormat, totalOrdersProfit, totalOrdersLoss, totalOrdersSum, dataSourcetotalOrders, dataSourcePriceSummary, dataPriceSummaryDownload, dataSourcePriceSummaryTempParent, dataSourceItemsummary, dataItemsummaryDownload, dataSourceOrdersummary, dataOrdersummaryDownload, dataSourceOrdersummaryTempParent, dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails, selectedFilter} = state
+  const { subOrderType, ordertypeParent, startDate, endDate, dataSourcePriceSummaryTempParentAll, dataSourceItemsummaryTempParentAll, dataSourceOrdersummaryTempParentAll, dataSourceOrderTempParentDownload, dataSourceItemTempParentDownload, dataSourceItemsummaryTempParentDownload, dataSourcePriceSummaryTempParentDownload, dataSourceItemsummaryTempParent, dataSourceOrdersummaryTempParentDownload, dateFormat, totalOrdersProfit, totalOrdersLoss, totalOrdersSum, dataSourcetotalOrders, dataSourcePriceSummary, dataPriceSummaryDownload, dataSourcePriceSummaryTempParent, dataSourceItemsummary, dataItemsummaryDownload, dataSourceOrdersummary, dataOrdersummaryDownload, dataSourceOrdersummaryTempParent, dataSourceOrderTempParent, dataSourceItemTempParent, filterValue, isSellerType, sellerType, dataOrderDownload, dataItemDownload, dataSourceOrder, isLoader, dataSourceItem, dataSourcePrice, dataSourceDetails, selectedFilter } = state
   let tempDataSource_report_order_wise = [];
   let tempDataSource_report_item_wise = [];
   let tempDataSource_summary_report_order_wise = [];
@@ -111,7 +113,7 @@ const ReportPNLView = () => {
   let tempDataSource_summary_report_item_wise_All = [];
   let tempDataSource_summary_report_price_wise_All = [];
 
-  
+
   const handleChange = (pagination, filters, sorter) => {
     setstate({
       ...state,
@@ -170,7 +172,7 @@ const ReportPNLView = () => {
       Loss = Loss + result.loss[i].loss
       i++;
     }
-    console.log('onSum',result)
+    console.log('onSum', result)
     setstate({
       ...state,
       totalOrdersProfit: profit,
@@ -216,8 +218,8 @@ const ReportPNLView = () => {
       i++;
     }
 
-     
-     console.log('onSumAll',DataSource_summary_report_order_wise_All)
+
+    console.log('onSumAll', DataSource_summary_report_order_wise_All)
     setstate({
       ...state,
       totalOrdersProfit: profit,
@@ -271,7 +273,7 @@ const ReportPNLView = () => {
       order = order + result.order[i].Item_count
       profit = profit + result.profit[i].Total_item_profit
       Loss = Loss + result.loss[i].Total_item_loss
-      
+
       DataSource_summary_report_item_wise_All.push({
         vendorname: result.vendorname[i].vendorname,
         Item_count: orderAll + result.order[i].Item_count,
@@ -360,7 +362,7 @@ const ReportPNLView = () => {
       i++;
     }
 
-   
+
     setstate({
       ...state,
       totalOrdersProfit: profit,
@@ -423,31 +425,31 @@ const ReportPNLView = () => {
     {
       tab: 'PNL Order Summary',
       key: 'OrderPNLSummary',
-      tabName: <OrderPNLSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
+      tabName: <OrderPNLSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(value, data) => downloadFileDataLink(value, data)} isSearchPressed={isSearchPressed} dateFormat={dateFormat} orderdatefrom={startDate == '' ? '' : startDate} orderdateto={endDate == '' ? '' : endDate} />
     },
- 
+
     {
       tab: 'PNL Item Summary',
       key: 'ItemPNLSummary',
-      tabName: <ItemPNLSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddItem={(value) => onSumItem(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
+      tabName: <ItemPNLSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddItem={(value) => onSumItem(value)} downloadFileDataLink={(value, data) => downloadFileDataLink(value, data)} isSearchPressed={isSearchPressed} dateFormat={dateFormat} orderdatefrom={startDate == '' ? '' : startDate} orderdateto={endDate == '' ? '' : endDate} />
     },
     {
       tab: 'PNL Price Summary',
       key: 'PricePNLSummary',
-     tabName: <PricePNLSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddPrice={(value) => onSumPrice(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
+      tabName: <PricePNLSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddPrice={(value) => onSumPrice(value)} downloadFileDataLink={(value, data) => downloadFileDataLink(value, data)} isSearchPressed={isSearchPressed} dateFormat={dateFormat} orderdatefrom={startDate == '' ? '' : startDate} orderdateto={endDate == '' ? '' : endDate} />
     }
     ,
 
     {
       tab: 'PNL Order',
       key: 'OrderPNL',
-     tabName: <OrderPNL subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrderCount={(value) => onSumOrderCount(value)}  dataSourceOrderTempParent={dataSourceOrderTempParent} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate} />
+      tabName: <OrderPNL subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrderCount={(value) => onSumOrderCount(value)} dataSourceOrderTempParent={dataSourceOrderTempParent} isSearchPressed={isSearchPressed} dateFormat={dateFormat} orderdatefrom={startDate == '' ? '' : startDate} orderdateto={endDate == '' ? '' : endDate} />
     }
     ,
     {
       tab: 'PNL Item',
       key: 'ItemPNL',
-   tabName: <ItemPNL subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddItemCount={(value) => onSumItemCount(value)}  dataSourceOrderTempParent={dataSourceOrderTempParent} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate} />
+      tabName: <ItemPNL subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddItemCount={(value) => onSumItemCount(value)} dataSourceOrderTempParent={dataSourceOrderTempParent} isSearchPressed={isSearchPressed} dateFormat={dateFormat} orderdatefrom={startDate == '' ? '' : startDate} orderdateto={endDate == '' ? '' : endDate} />
     }
   ];
 
@@ -459,13 +461,13 @@ const ReportPNLView = () => {
     let tempItemSummary = [];
     let tempPriceSummary = [];
     let tempItem = [];
-    
-  
-   
+
+
+
     if ('MarketPlace' === e.target.value.toString()) {
 
       ordertype = ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay', 'MPALL']
-      setstate({...state, isSellerType: 'Enable',  sellerType: ordertype, selectedFilter: e.target.value.toString()})
+      setstate({ ...state, isSellerType: 'Enable', sellerType: ordertype, selectedFilter: e.target.value.toString() })
 
 
 
@@ -476,7 +478,7 @@ const ReportPNLView = () => {
     else if ('Web' === e.target.value.toString()) {
       ordertype = ['PU', 'JLC', 'WebALL']
 
-      setstate({...state,  isSellerType: 'Enable', sellerType: ordertype, selectedFilter: e.target.value.toString()})
+      setstate({ ...state, isSellerType: 'Enable', sellerType: ordertype, selectedFilter: e.target.value.toString() })
 
 
 
@@ -485,12 +487,12 @@ const ReportPNLView = () => {
     }
     else if ('All' === e.target.value.toString()) {
       ordertype = []
-      setstate({...state,  isSellerType: 'Enable', sellerType: ordertype, selectedFilter: e.target.value.toString()})
-        
-   
+      setstate({ ...state, isSellerType: 'Enable', sellerType: ordertype, selectedFilter: e.target.value.toString() })
+
+
 
     }
-    
+
   };
 
   const orderSummarySumAll = (data) => {
@@ -503,7 +505,7 @@ const ReportPNLView = () => {
     let loss_link = []
     let profit_link = []
     let ORDERTYPE = []
-     console.log('orderSummarySumAll',data)
+    console.log('orderSummarySumAll', data)
     for (let i = 0; i < data.length; i++) {
 
 
@@ -609,7 +611,7 @@ const ReportPNLView = () => {
         let indexTemp = profit_link.findIndex(item => item.vendorname === data[i].vendorname)
         profit_link[indexTemp] = { ...profit_link[indexTemp], profit_link: data[i].profit_link }
       }
-     
+
 
       if (ORDERTYPE.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
         ORDERTYPE.push(data[i])
@@ -619,7 +621,7 @@ const ReportPNLView = () => {
         ORDERTYPE[indexTemp] = { ...ORDERTYPE[indexTemp], ORDERTYPE: data[i].ORDERTYPE }
       }
 
-    
+
 
       if (loss_link.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
         loss_link.push(data[i])
@@ -644,11 +646,11 @@ const ReportPNLView = () => {
         let indexTemp = percentge.findIndex(item => item.vendorname === data[i].vendorname)
         percentge[indexTemp] = { ...percentge[indexTemp], percentge: data[i].percentge }
       }
-      
+
 
       if (loss.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
-        
-        let tempItemSummary = {...data[i], Total_item_loss:data[i].Total_item_loss}
+
+        let tempItemSummary = { ...data[i], Total_item_loss: data[i].Total_item_loss }
         loss.push(tempItemSummary)
       }
       else {
@@ -659,13 +661,13 @@ const ReportPNLView = () => {
       }
 
       if (profit.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
-        
-        let tempItemSummary = {...data[i], Total_item_profit:data[i].Total_item_profit}
+
+        let tempItemSummary = { ...data[i], Total_item_profit: data[i].Total_item_profit }
         profit.push(tempItemSummary)
       }
       else {
         let indexTemp = profit.findIndex(item => item.vendorname === data[i].vendorname)
-        profit[indexTemp] = { ...profit[indexTemp], Total_item_profit: profit[indexTemp].Total_item_profit +  data[i].Total_item_profit  }
+        profit[indexTemp] = { ...profit[indexTemp], Total_item_profit: profit[indexTemp].Total_item_profit + data[i].Total_item_profit }
       }
 
     }
@@ -714,14 +716,14 @@ const ReportPNLView = () => {
         loss_link[indexTemp] = { ...loss_link[indexTemp], loss_link: data[i].loss_link }
       }
 
-     
-      if(order.filter(value=>value.vendorname===data[i].vendorname).length<=0){
-        let tempPriceSummary = {...data[i], TotalAmont:data[i].TotalAmont}
+
+      if (order.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
+        let tempPriceSummary = { ...data[i], TotalAmont: data[i].TotalAmont }
         order.push(tempPriceSummary)
       }
-      else{
-        let indexTemp = order.findIndex(item=>item.vendorname===data[i].vendorname)
-        order[indexTemp] = {...order[indexTemp], TotalAmont:order[indexTemp].TotalAmont +data[i].TotalAmont }
+      else {
+        let indexTemp = order.findIndex(item => item.vendorname === data[i].vendorname)
+        order[indexTemp] = { ...order[indexTemp], TotalAmont: order[indexTemp].TotalAmont + data[i].TotalAmont }
       }
 
 
@@ -802,7 +804,7 @@ const ReportPNLView = () => {
 
 
 
-      setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem,subOrderType:e.target.value.toString() });
+      setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem, subOrderType: e.target.value.toString() });
     }
 
     else if (['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(e.target.value.toString())) {
@@ -816,7 +818,7 @@ const ReportPNLView = () => {
 
       tempItem = [...tempItem, ...dataSourceItem.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase() === (e.target.value.toUpperCase()))]
 
-      setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, filterValue: e.target.value, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem,subOrderType:e.target.value.toString()  });
+      setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, filterValue: e.target.value, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem, subOrderType: e.target.value.toString() });
     }
     else if (['JLC', 'PU'].includes(e.target.value.toString())) {
       tempOrder = [...tempOrder, ...dataSourceOrder.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase()))]
@@ -826,7 +828,7 @@ const ReportPNLView = () => {
       tempItemSummary = [...tempItemSummary, ...dataSourceItemsummary.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase()))]
 
       tempPriceSummary = [...tempPriceSummary, ...dataSourcePriceSummary.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(e.target.value.toUpperCase()))]
-      setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, filterValue: e.target.value, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem ,subOrderType:e.target.value.toString() });
+      setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, filterValue: e.target.value, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem, subOrderType: e.target.value.toString() });
 
     }
 
@@ -839,23 +841,23 @@ const ReportPNLView = () => {
       tempOrderSummary = [...tempOrderSummary, ...dataSourceOrdersummary.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
       tempItemSummary = [...tempItemSummary, ...dataSourceItemsummary.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
       tempPriceSummary = [...tempPriceSummary, ...dataSourcePriceSummary.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))]
-      setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem ,subOrderType:e.target.value.toString() });
+      setstate({ ...state, dataSourcePriceSummaryTempParent: tempPriceSummary, dataSourceItemsummaryTempParent: tempItemSummary, dataSourceOrdersummaryTempParent: tempOrderSummary, dataSourceOrderTempParent: tempOrder, dataSourceItemTempParent: tempItem, subOrderType: e.target.value.toString() });
     }
   };
-  const orderPNLSummaryParent =(data,dataParent,dataParentAll)=>
-  {
-    setstate({...state, 
-        dataOrdersummaryDownload: data,
-        dataSourceOrdersummary:dataParent,
-        dataSourceOrdersummaryTempParent:dataParent,
-        dataSourceOrdersummaryTempParentAll: dataParentAll
-      })
+  const orderPNLSummaryParent = (data, dataParent, dataParentAll) => {
+    setstate({
+      ...state,
+      dataOrdersummaryDownload: data,
+      dataSourceOrdersummary: dataParent,
+      dataSourceOrdersummaryTempParent: dataParent,
+      dataSourceOrdersummaryTempParentAll: dataParentAll
+    })
   }
-  const  downloadFileDataLink =(data,dataSource)=>{
-  
-    console.log(data,dataSource)
+  const downloadFileDataLink = (data, dataSource) => {
 
-    setstate({...state, downloadDataLink: data})
+    console.log(data, dataSource)
+
+    setstate({ ...state, downloadDataLink: data })
 
   }
   const download = (event) => {
@@ -906,8 +908,8 @@ const ReportPNLView = () => {
 
   const onSetActivetab = (key) => {
     setActiveTab(key)
-    if(['OrderPNLSummary','ItemPNLSummary','PricePNLSummary'].includes(key) && selectedFilter==='All'){
-    let functionToCall = {'OrderPNLSummary':{name:orderSummarySumAll, value:[...dataSourceOrdersummaryTempParentAll]}, 'ItemPNLSummary':{name:itemSummarySumAll,value:[...dataSourceItemsummaryTempParentAll]}, 'PricePNLSummary':{name:priceSummarySumAll,value:[...dataSourcePriceSummaryTempParentAll]}}
+    if (['OrderPNLSummary', 'ItemPNLSummary', 'PricePNLSummary'].includes(key) && selectedFilter === 'All') {
+      let functionToCall = { 'OrderPNLSummary': { name: orderSummarySumAll, value: [...dataSourceOrdersummaryTempParentAll] }, 'ItemPNLSummary': { name: itemSummarySumAll, value: [...dataSourceItemsummaryTempParentAll] }, 'PricePNLSummary': { name: priceSummarySumAll, value: [...dataSourcePriceSummaryTempParentAll] } }
       functionToCall[key].name(functionToCall[key].value)
     }
   }
@@ -946,16 +948,17 @@ const ReportPNLView = () => {
 
               <Row>
                 <Col xs={24} style={{ marginBottom: 10 }}>
-                  <Button size="large" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button>
-
-                  {dataSourceOrder.length > 0 && <Button size="large" type="success"
+                  {/* <Button size="large" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button> */}
+                  <Button size="large" type="primary" onClick={() => { setIsSearchPressed(true) }} style={{ marginRight: 10, }} > Search</Button>
+                  {/* {console.log('dataSourceOrdersummary.length',dataSourceOrdersummary.length)} */}
+                  <Button size="large" type="success"
                     onClick={(value) => { download(activeTab) }} >
                     Download
-                  </Button>}
+                  </Button>
                 </Col>
               </Row>
 
-              {(dataSourceOrder.length > 0 || dataSourceItem.length > 0) && <Row style={{ marginTop: 10 }}>
+              <Row style={{ marginTop: 10 }}>
                 <Col lg={8}>
 
                   <label style={{ marginBottom: 15 }}>Filtes:</label>
@@ -996,28 +999,28 @@ const ReportPNLView = () => {
                     </Col>
                     {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
 
-                      <label style={{ fontSize: 13, fontWeight: 'bold' }}>{(activeTab === 'OrderPNL'||activeTab === 'ItemPNL'||activeTab === 'PricePNLSummary') ? 'Total Loss': (activeTab === 'ItemPNLSummary')?'Total Loss Items' : 'Total Loss Orders'}: </label>
+                      <label style={{ fontSize: 13, fontWeight: 'bold' }}>{(activeTab === 'OrderPNL' || activeTab === 'ItemPNL' || activeTab === 'PricePNLSummary') ? 'Total Loss' : (activeTab === 'ItemPNLSummary') ? 'Total Loss Items' : 'Total Loss Orders'}: </label>
                       <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{activeTab === 'PricePNLSummary' ? '$' : ''}{Math.round(totalOrdersLoss * 100) / 100}</p>
                     </Col>}
                     <Col >
 
-                      <label style={{ fontSize: 13, fontWeight: 'bold' }}>{(activeTab === 'OrderPNL'||activeTab === 'ItemPNL'||activeTab === 'PricePNLSummary') ? 'Total Profit' : (activeTab === 'ItemPNLSummary')?'Total Profit Items':'Total Profit Orders'}: </label>
-                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{activeTab === 'PricePNLSummary' ? '$' : ''}{totalOrdersProfit&&Math.round(totalOrdersProfit * 100) / 100}</p>
+                      <label style={{ fontSize: 13, fontWeight: 'bold' }}>{(activeTab === 'OrderPNL' || activeTab === 'ItemPNL' || activeTab === 'PricePNLSummary') ? 'Total Profit' : (activeTab === 'ItemPNLSummary') ? 'Total Profit Items' : 'Total Profit Orders'}: </label>
+                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{activeTab === 'PricePNLSummary' ? '$' : ''}{totalOrdersProfit && Math.round(totalOrdersProfit * 100) / 100}</p>
                     </Col>
                     {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
 
                       <label style={{ fontSize: 13, fontWeight: 'bold' }}>Total Profit Average: </label>
-                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{totalOrdersProfit&&Math.round(totalOrdersProfit * 100 / totalOrdersSum * 100) / 100}%</p>
+                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{totalOrdersProfit && Math.round(totalOrdersProfit * 100 / totalOrdersSum * 100) / 100}%</p>
                     </Col>}
                     {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col >
                       <label style={{ fontSize: 13, fontWeight: 'bold' }}>Total Loss Average: </label>
-                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{totalOrdersLoss&&Math.round(totalOrdersLoss * 100 / totalOrdersSum * 100) / 100}%</p>
+                      <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{totalOrdersLoss && Math.round(totalOrdersLoss * 100 / totalOrdersSum * 100) / 100}%</p>
                     </Col>}
                   </Row>
                 </Col>
 
 
-              </Row>}
+              </Row>
 
 
             </Cards>
