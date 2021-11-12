@@ -127,8 +127,73 @@ const OrderPNL = (props) => {
     }
     else if (activeTab === 'OrderPNL' )
     {
+      let ordertype = []
+      let tempOrderSummary = [];
+      if (dataSourceParent.length>0&&['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'OrderPNL') {
+      
+        if ('All' === ordertypeParent) {
+          setState({ ...state,  dataOrderSource: [...dataSourceParent]});
+          filterTotalValue([...dataSourceParent])
+          return
+        }
+    
+        ordertype = ordertypeParent === 'MarketPlace' ?
+          ['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay', 'MPALL']
+          :
+          ['PU', 'JLC', 'WebALL']
+    
+        tempOrderSummary = dataSourceParent.filter(item => ordertype.includes(item.ORDERTYPE))
+    
+        setState({ ...state,  dataOrderSource: tempOrderSummary,  isSellerType: 'Enable', selectedFilter: ordertypeParent});
+        filterTotalValue(tempOrderSummary)
+      }   
+     
+    
+     
+    
+      if (dataSourceParent.length>0&&activeTab === 'OrderPNL' &&'MPALL' === subOrderType) {
+     
+        tempOrderSummary = dataSourceParent.filter(item =>
+          item.ORDERTYPE && item.ORDERTYPE === 'Amazon' ||
+          item.ORDERTYPE && item.ORDERTYPE === 'AmazonRizno' ||
+          item.ORDERTYPE && item.ORDERTYPE === 'Walmart' || item.ORDERTYPE && item.ORDERTYPE === 'Sears' || item.ORDERTYPE && item.ORDERTYPE === 'Ebay'
+        )
+       
+  
+        setState({ ...state,dataOrderSource:tempOrderSummary});
+        filterTotalValue(tempOrderSummary)
+      }
+  
+       if (dataSourceParent.length>0&&activeTab === 'OrderPNL' &&['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
+    
+      
+  
+        tempOrderSummary = dataSourceParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE']=== (subOrderType))
+  
+      
+        setState({ ...state,dataOrderSource:tempOrderSummary});
+        filterTotalValue(tempOrderSummary)
+      }
+       if (dataSourceParent.length>0&&activeTab === 'OrderPNL' &&['JLC', 'PU'].includes(subOrderType)) {
+      
+        tempOrderSummary = dataSourceParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE'].toUpperCase().includes(subOrderType))
+      
+      
+        setState({ ...state,dataOrderSource:tempOrderSummary});
+        filterTotalValue(tempOrderSummary)
+  
+      }
+  
+       if (dataSourceParent.length>0&&activeTab === 'OrderPNL' &&'WebALL' === subOrderType) {
+  
+        tempOrderSummary = dataSourceParent.filter(item => item['ORDERTYPE'] && ['PU', 'JLC'].includes(item.ORDERTYPE))
+      
+        setState({ ...state,dataOrderSource:tempOrderSummary});
+        filterTotalValue(tempOrderSummary)
+      }
   
       filterTotalValue( dataOrderSource)
+
     }
    
 
