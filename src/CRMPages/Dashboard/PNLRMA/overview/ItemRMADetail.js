@@ -57,7 +57,7 @@ const ItemRMADetail = (props) => {
 
   useEffect(() => {
   
-     console.log('aaaa',isSearchPressed,activeTab,orderdatetoCheck,orderdatefromCheck, orderdatefrom,orderdateto)
+    //  console.log('aaaa',isSearchPressed,activeTab,orderdatetoCheck,orderdatefromCheck, orderdatefrom,orderdateto)
     //  setState({ ...state, isLoader: true,orderdatetoapi:orderdateto,orderdatefromapi:orderdatefrom })
 
     if(isSearchPressed&&activeTab === 'ItemRMADetail'&& (orderdatetoCheck!==orderdateto ||orderdatefromCheck!==orderdatefrom)){
