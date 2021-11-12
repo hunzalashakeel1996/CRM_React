@@ -111,7 +111,7 @@ const ViewPNLRMA = () => {
   }
   const download = (event) => {
     let activeTab = event
-    console.log(activeTab)
+    console.log(activeTab,downloadDataLink)
     if (activeTab === 'ReportRMAQty') {
        downloadFile(downloadDataLink)
 
@@ -129,6 +129,15 @@ const ViewPNLRMA = () => {
     downloadFile(downloadDataLink)
    //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
  }
+ else if (activeTab === 'OrderRMADetail') {
+  downloadFile(downloadDataLink)
+ //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
+}
+else if (activeTab === 'ItemRMADetail') {
+  downloadFile(downloadDataLink)
+ //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
+}
+
 
 
   }
