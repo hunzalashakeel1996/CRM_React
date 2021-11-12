@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Row, Col, Icon, Form, Input, Select, DatePicker, InputNumber, Table, Space, notification, Tabs, Spin } from 'antd';
-
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
@@ -33,7 +33,7 @@ const OrderPNLSummary = (props) => {
 
   const { subOrderType, ordertypeParent, onOrderPNLSummaryParent, downloadFileDataLink, isSearchPressed, orderdatefrom, orderdateto, dateFormat, dataSourceOrdersummary, dataSourceOrdersummaryTempParent, onAddOrder, activeTab, selectedFilter } = props
 
-  let isOrderTypeShow = dataSourceOrdersummaryTempParent[0]&&dataSourceOrdersummaryTempParent[0].ORDERTYPE==undefined?true:false
+  let isOrderTypeShow = selectedFilter == 'All' ? true : false
 
   const [form] = Form.useForm();
 
@@ -195,8 +195,8 @@ const OrderPNLSummary = (props) => {
 
   const findTotalValues = (data) => {
     let order = []
-      let loss = []
-      let profit = []
+    let loss = []
+    let profit = []
 
     for (let i = 0; i < data.length; i++) {
 
@@ -210,7 +210,7 @@ const OrderPNLSummary = (props) => {
 
       if (loss.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
 
-        let tempItemSummary = {...data[i], Total_item_loss:data[i].Total_item_loss}
+        let tempItemSummary = { ...data[i], Total_item_loss: data[i].Total_item_loss }
         loss.push(tempItemSummary)
       }
       else {
@@ -221,8 +221,8 @@ const OrderPNLSummary = (props) => {
       }
 
       if (profit.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
-     
-        let tempItemSummary = {...data[i], Total_item_profit:data[i].Total_item_profit}
+
+        let tempItemSummary = { ...data[i], Total_item_profit: data[i].Total_item_profit }
         profit.push(tempItemSummary)
       }
       else {
@@ -233,7 +233,7 @@ const OrderPNLSummary = (props) => {
 
     }
 
-    onAddOrder({ order, loss, profit,data })
+    onAddOrder({ order, loss, profit, data })
   }
 
   const filter = (value) => {
@@ -411,9 +411,9 @@ const OrderPNLSummary = (props) => {
       ]
 
     },
-    
-     
-      {
+
+
+    {
       title:
         <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
           <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>ORDERTYPE</p>
@@ -433,7 +433,7 @@ const OrderPNLSummary = (props) => {
 
 
     }
-  
+
     ,
     {
       title:
@@ -551,7 +551,7 @@ const OrderPNLSummary = (props) => {
 
   ];
 
-  isOrderTypeShow&&columns.splice(1, 1)
+  isOrderTypeShow && columns.splice(1, 1)
   const handleChange = (pagination, filters, sorter) => {
     setstate({
       ...state,
