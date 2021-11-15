@@ -184,7 +184,7 @@ const CreateTicket = ({ visible, onCancel, onAdd, loader }) => {
   //   // }
   // }
 
-  let reasons = ['Rush Free', 'Shipping Charges', 'Bad Address Correction', 'Sew Out', 'Stitch Out', 'Price', 'Thread Details', 'How Long Will It Take To Ship', 'Rush Fee', 'Alteration', 'General Question', 'Product Related Question']
+  let reasons = ['Rush Free', 'Shipping Charges', 'Bad Address Correction', 'Sew Out', 'Stitch Out', 'Price', 'Thread Details', 'How Long Will It Take To Ship', 'Rush Fee', 'Alteration', 'General Question', 'Product Related Question', 'Order Status', 'Price Quote', 'Inquiry', 'Order Changes', 'Refund', 'RMA', 'Logo', 'BO/Disc', 'Order Placing', 'Order Issue' ]
 
   return (
     <Modal
