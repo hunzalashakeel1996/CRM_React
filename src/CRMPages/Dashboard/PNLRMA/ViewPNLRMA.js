@@ -112,7 +112,12 @@ const ViewPNLRMA = () => {
   const download = (event) => {
     let activeTab = event
     console.log(activeTab,downloadDataLink)
-    if (activeTab === 'ReportRMAQty') {
+    if (activeTab === 'ReplacmentOrder') {
+      downloadFile(downloadDataLink)
+
+   //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
+   }
+    else if (activeTab === 'ReportRMAQty') {
        downloadFile(downloadDataLink)
 
     //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
