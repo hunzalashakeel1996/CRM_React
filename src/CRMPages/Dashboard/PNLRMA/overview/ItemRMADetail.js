@@ -40,6 +40,16 @@ const ItemRMADetail = (props) => {
   const [form] = Form.useForm();
    
   const dispatch = useDispatch();
+  const formatedate = (value) => {
+   
+    let a = 'avsdFasdas'
+    let formatedDate = value.split("T")
+    let Date =formatedDate[0];
+    let Time =formatedDate[1].split(".");
+     Time=Time[0]
+     let format=Date+' '+Time
+    return Date
+    }
   const [state, setState] = useState({
    
     sortedInfo:[],
@@ -66,10 +76,39 @@ const ItemRMADetail = (props) => {
     
       dispatch(apiItemRMADetail({ orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
        
-        // console.log(data)
+         console.log(data)
           downloadFileDataLink(data[0])
+          
+          let tempDataSource =[]
+         data[1].map(value=>{
+           const{COLORCODE,COLORNAME,merchantsku,VENDORSTYLECODE,sizename,orderno,orderdate,Rmadate,ordertype,ponumber,vendorname,orderstatus,RMASTATUS,pono,postatus,RMAAMOUNT,NOTES,reason,ordernotes}=value
+           
+            tempDataSource.push({
+              orderno:orderno,
+              orderdate:formatedate(orderdate),
+              Rmadate:formatedate(Rmadate),
+              ordertype:ordertype,
+              ponumber:ponumber,
+              vendorname:vendorname,
+              orderstatus:orderstatus,
+              RMASTATUS:RMASTATUS,
+              pono:pono,
+              postatus:postatus,
+              RMAAMOUNT:RMAAMOUNT,
+              NOTES:NOTES,
+              reason:reason,
+              ordernotes:ordernotes,
+              COLORCODE:COLORCODE,
+              COLORNAME:COLORNAME,
+              merchantsku:merchantsku,
+              VENDORSTYLECODE:VENDORSTYLECODE,
+              sizename:sizename,
+
+            })         
+
+          })
         
-           setState({ ...state, isLoader: false,dataSource:data[1],orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom})
+           setState({ ...state, isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom})
         //    onDispatchComplete()
       })
     
@@ -125,7 +164,7 @@ const ItemRMADetail = (props) => {
       key: 'merchantsku'
     },
     {
-      title: 'PoNumber',
+      title: 'OrderID',
       dataIndex: 'ponumber',
       key: 'ponumber'
     },
@@ -138,11 +177,6 @@ const ItemRMADetail = (props) => {
       title: 'RmaStatus',
       dataIndex: 'RMASTATUS',
       key: 'RMASTATUS'
-    },
-    {
-      title: 'OrderNotes',
-      dataIndex: 'ordernotes',
-      key: 'ordernotes'
     }
     ,
     {
@@ -155,16 +189,7 @@ const ItemRMADetail = (props) => {
       dataIndex: 'vendorname',
       key: 'vendorname'
     },
-    {
-      title: 'Notes',
-      dataIndex: 'NOTES',
-      key: 'NOTES'
-    },
-    {
-      title: 'Reason',
-      dataIndex: 'reason',
-      key: 'reason'
-    },
+    ,
     {
       title: 'Pono',
       dataIndex: 'pono',
@@ -174,6 +199,22 @@ const ItemRMADetail = (props) => {
       title: 'Postatus',
       dataIndex: 'postatus',
       key: 'postatus'
+    },
+    {
+      title: 'Notes',
+      dataIndex: 'NOTES',
+      key: 'NOTES'
+    },
+    {
+      title: 'Reason',
+      dataIndex: 'reason',
+      key: 'reason'
+    }
+    ,
+    {
+      title: 'OrderNotes',
+      dataIndex: 'ordernotes',
+      key: 'ordernotes'
     }
   ];
  
