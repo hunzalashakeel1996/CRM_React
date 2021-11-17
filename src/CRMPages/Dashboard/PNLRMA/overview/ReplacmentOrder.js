@@ -54,7 +54,7 @@ const ReplacmentOrder = (props) => {
   const {orderdatetoCheck,orderdatefromCheck,sortedInfo,isLoader,dataSource}=state
 
 useEffect(()=>{
-  console.log('aaaa',isSearchPressed,activeTab,orderdatetoCheck,orderdatefromCheck, orderdatefrom,orderdateto)
+ // console.log('aaaa',isSearchPressed,activeTab,orderdatetoCheck,orderdatefromCheck, orderdatefrom,orderdateto)
   if(isSearchPressed && activeTab === 'ReplacmentOrder'&&(orderdatetoCheck!==orderdateto ||orderdatefromCheck!==orderdatefrom)){
 
     setState({ ...state, isLoader: true })

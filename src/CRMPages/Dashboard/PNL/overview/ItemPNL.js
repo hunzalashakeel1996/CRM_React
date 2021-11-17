@@ -48,7 +48,16 @@ const ItemPNL = (props) => {
   });
   let isOrderTypeShow = selectedFilter == 'All' ? true : false
   const {dataSourceParent,orderdatefromCheck,orderdatetoCheck, sortedInfo, isLoader, dataOrderSource } = state
-
+  const formatedate = (value) => {
+   
+    let a = 'avsdFasdas'
+    let formatedDate = value.split("T")
+    let Date =formatedDate[0];
+    let Time =formatedDate[1].split(".");
+     Time=Time[0]
+     let format=Date+' '+Time
+    return Date
+    }
   useEffect(() => {
 
     if(isSearchPressed && activeTab==='ItemPNL'&& (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom))
@@ -103,8 +112,8 @@ const ItemPNL = (props) => {
             sizename: sizename,
             orderstatus: orderstatus,
             itemstatus: itemstatus,
-            orderdate: orderdate,
-            uspsdate: uspsdate,
+            orderdate: formatedate(orderdate),
+            uspsdate: formatedate(uspsdate),
             ORDERTYPE: ORDERTYPE,
             orderno: orderno,
             purchaseorderno: purchaseorderno,
