@@ -35,7 +35,7 @@ const validateMessages = {
 
 const ItemRMASummary = (props) => {
 
-    const {downloadFileDataLink,orderdatefrom,orderdateto,dateFormat, isSearchPressed, activeTab, onDispatchComplete}= props
+    const {onAddRMAItem,downloadFileDataLink,orderdatefrom,orderdateto,dateFormat, isSearchPressed, activeTab, onDispatchComplete}= props
     // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
@@ -63,13 +63,34 @@ const ItemRMASummary = (props) => {
      
       dispatch(apiItemRMASummary({ orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
        
-        // console.log(data)
+        console.log(data)
           downloadFileDataLink(data[0])
-        
-           setState({ ...state, isLoader: false,dataSource:data[1],orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom  })
+
+             let tempDataSource =[]
+            data[1].map(value=>{
+              const{ordertype,itemCount,RMA,Open,Process,Closed}=value
+
+              tempDataSource.push({
+                ordertype:ordertype,
+                itemCount:itemCount,              
+                RMA:RMA,
+                percentage:`${Math.round((RMA/itemCount*100)*100)/100}%`,
+                Open:Open,
+                Process:Process,
+                Closed:Closed,
+              })      
+
+            })
+
+           setState({ ...state, isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom  })
         //    onDispatchComplete()
+        onAddRMAItem(data[1])
       })
     
+    }
+    else if (activeTab === 'ItemRMASummary' )
+    {
+      onAddRMAItem(dataSource)
     }
 
   }, [isSearchPressed,activeTab,orderdateto,orderdatefrom])
@@ -81,9 +102,21 @@ const ItemRMASummary = (props) => {
       key: 'ordertype'
     },
     {
+      title: 'ItemCount',
+      dataIndex: 'itemCount',
+      key: 'itemCount'
+ 
+    },
+    {
       title: 'RMAItemCount',
       dataIndex: 'RMA',
       key: 'RMA'
+ 
+    },
+    {
+      title: 'Percentage',
+      dataIndex: 'percentage',
+      key: 'percentage'
  
     },
     {

@@ -35,7 +35,7 @@ const validateMessages = {
 
 const OrderRMASummary = (props) => {
 
-    const {downloadFileDataLink,orderdatefrom,orderdateto,dateFormat, isSearchPressed, activeTab, onDispatchComplete}= props
+    const {onAddRMAOrder,downloadFileDataLink,orderdatefrom,orderdateto,dateFormat, isSearchPressed, activeTab, onDispatchComplete}= props
     // // console.log('dataSourceOrder',dataSourceOrder)
   const [form] = Form.useForm();
    
@@ -65,11 +65,34 @@ const OrderRMASummary = (props) => {
        
          console.log(data)
           downloadFileDataLink(data[0])
-        
-           setState({ ...state, isLoader: false,dataSource:data[1],orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom  })
+            let tempDataSource =[]
+            data[1].map(value=>{
+              const{ordertype,orderCount,RMA,Open,Process,Closed}=value
+
+              tempDataSource.push({
+                ordertype:ordertype,
+                orderCount:orderCount,              
+                RMA:RMA,
+                percentage:`${Math.round((RMA/orderCount*100)*100)/100}%`,
+                Open:Open,
+                Process:Process,
+                Closed:Closed,
+               
+              
+  
+              })      
+
+            })
+
+           setState({ ...state, isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom  })
+           onAddRMAOrder(data[1])
          //  onDispatchComplete()
       })
     
+    }
+    else if (activeTab === 'OrderRMASummary')
+    {
+      onAddRMAOrder(dataSource)
     }
 
   }, [isSearchPressed,activeTab,orderdateto,orderdatefrom])
@@ -79,11 +102,21 @@ const OrderRMASummary = (props) => {
       title: 'Ordertype',
       dataIndex: 'ordertype',
       key: 'ordertype'
-    },
-    {
+    },{
+      title: 'OrderCount',
+      dataIndex: 'orderCount',
+      key: 'orderCount'
+ 
+    },{
       title: 'RMAOrderCount',
       dataIndex: 'RMA',
       key: 'RMA'
+ 
+    },
+    {
+      title: 'Percentage',
+      dataIndex: 'percentage',
+      key: 'percentage'
  
     },
     {
@@ -104,6 +137,59 @@ const OrderRMASummary = (props) => {
   ];
  
   
+  const findTotalValues = (data) => {
+    let Rmaorder = []
+    let Open = []
+    let Process = []
+    let Close = []
+    console.log(data)
+    for (let i = 0; i < data.length; i++) {
+
+      if (Rmaorder.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+        Rmaorder.push(data[i])
+      }
+      else {
+        let indexTemp = Rmaorder.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+        Rmaorder[indexTemp] = { ...Rmaorder[indexTemp], Rmaorder: Rmaorder[indexTemp].RMA + data[i].RMA }
+      }
+
+      if (Open.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+
+        let tempItemSummary = { ...data[i], Open: data[i].Open }
+        Open.push(tempItemSummary)
+      }
+      else {
+        let indexTemp = Open.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+
+        Open[indexTemp] = { ...Open[indexTemp], Open: Open[indexTemp].Open + data[i].Open }
+
+      }
+
+      if (Process.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+
+        let tempItemSummary = { ...data[i], Process: data[i].Process }
+        Process.push(tempItemSummary)
+      }
+      else {
+        let indexTemp = Process.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+        Process[indexTemp] = { ...Process[indexTemp], Process: Process[indexTemp].Process + data[i].Process }
+      }
+
+      if (Close.filter(value => value.ORDERTYPE === data[i].ORDERTYPE).length <= 0) {
+
+        let tempItemSummary = { ...data[i], Close: data[i].Close }
+        Close.push(tempItemSummary)
+      }
+      else {
+        let indexTemp = Close.findIndex(item => item.ORDERTYPE === data[i].ORDERTYPE)
+        Close[indexTemp] = { ...Close[indexTemp], Close: Close[indexTemp].Close + data[i].Close }
+      }
+
+    }
+
+    onAddRMAOrder({ Rmaorder, Open, Process,Close, data })
+  }
+
 
   const handleChange = (pagination, filters, sorter) =>  {
     // console.log('Various parameters', pagination, filters, sorter);
