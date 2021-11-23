@@ -13,7 +13,7 @@ import { Dropdown } from '../../dropdown/dropdown';
 
 import { logOut } from '../../../redux/authentication/actionCreator';
 import Heading from '../../heading/heading';
-import firebase from './../../../firebase';
+import firebase from '../../../firebase';
 import { useHistory } from "react-router-dom";
 import { logoutAPI } from '../../../redux/apis/DataAction';
 

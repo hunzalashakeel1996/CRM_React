@@ -1274,6 +1274,12 @@ export const apiItemRMADetail= (data) => {
     return apiFetchDotNet('/Report/ItemRMADetail', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
+//Line Chart
+export const apilineChartGraph = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Report/lineChartGraph', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
 // UploadForOrders_Canada
 
 // Verify vr = new Verify();

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { PageHeaderStyle } from './style';
 
 const PageHeader = props => {
-  const { title, subTitle, routes, buttons, ghost, bgColor } = props;
+  const { title, subTitle, Switch, buttons, ghost, bgColor } = props;
   return (
     <>
       <div
@@ -18,7 +18,7 @@ const PageHeader = props => {
           // onBack={() => window.history.back()}
           title={title}
           subTitle={subTitle}
-          breadcrumb={routes && { routes }}
+          breadcrumb={Switch && { Switch }}
           extra={buttons}
           ghost={ghost}
         />
@@ -31,7 +31,7 @@ PageHeader.propTypes = {
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   subTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   bgColor: PropTypes.string,
-  routes: PropTypes.arrayOf(PropTypes.object),
+  Switch: PropTypes.arrayOf(PropTypes.object),
   // eslint-disable-next-line react/forbid-prop-types
   buttons: PropTypes.array,
   ghost: PropTypes.bool,

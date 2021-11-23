@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar, HorizontalBar, Line, Pie, Doughnut } from 'react-chartjs-2';
+import { Bar, Line, Pie, Doughnut } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 import useChartData from '../../hooks/useChartData';
 import { customTooltips } from '../utilities/utilities';
@@ -82,7 +82,7 @@ const ChartjsHorizontalChart = props => {
     datasets,
     labels,
   };
-  return <HorizontalBar data={data} height={height} options={options} />;
+  return <Bar data={data} height={height} options={options} />;
 };
 
 ChartjsHorizontalChart.defaultProps = {

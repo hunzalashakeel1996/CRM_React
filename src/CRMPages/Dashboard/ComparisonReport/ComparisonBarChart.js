@@ -15,28 +15,28 @@ const ReportBarChart = ({ isTimelineChange, dataset, title,ordersSelectedTimelin
     const { selectedTimeline, isLoading } = state;
     // // console.log('typeofNumber',[dataset[1]])
    //  console.log('aaaa', typeof(dataset[0])==='number')
-   console.log('aaaa', dataset[0])
+//   console.log('aaaa', dataset[0])
     const chartOptions = {
         datasets: [
             {
                 label: `${new Date().getFullYear() - 1}`,
                 fill: true,
-                backgroundColor: "rgba(75,192,192,0.2)",
-                borderColor: "rgba(75,192,192,1)",
+                backgroundColor: "#0000FF",
+                borderColor: "#0000FF",
                 borderWidth: 1,
-                hoverBackgroundColor: '#1a2a3b',
-                hoverBorderColor: '#1a2a3b',
+                hoverBackgroundColor: '#0000FF',
+                hoverBorderColor: '#0000FF',
                 data: typeof(dataset[1])==='number' ? [dataset[1]]: [...dataset[1]],
                 // data: [140, 3135, 1753,140, 3135, 1753,140, 3135, 1753,140, 3135, 1753],
                 barPercentage: 0.6,
             },
             {
                 label: `${new Date().getFullYear()}`,
-                backgroundColor: "rgba(116, 39, 116, 0.2)",
-                borderColor: "rgba(116, 39, 116, 1)",
+                backgroundColor: "#FF0000",
+                borderColor: "#FF0000",
                 borderWidth: 1,
-                hoverBackgroundColor: '#1a2a3b',
-                hoverBorderColor: '#1a2a3b',
+                hoverBackgroundColor: '#FF0000',
+                hoverBorderColor: '#FF0000',
                 // data: [727, 2552, 17412],
                 data: typeof(dataset[0])==='number' ? [dataset[0]]: [...dataset[0]],
                 barPercentage: 0.6,

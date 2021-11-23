@@ -9,7 +9,7 @@ import { login } from '../../../../redux/authentication/actionCreator';
 import { loginAPI, setHeader, getUserRole, setHeaderWithWebToken, getVendorName } from '../../../../redux/apis/DataAction';
 import { Checkbox } from '../../../../components/checkbox/checkbox';
 import Heading from '../../../../components/heading/heading';
-import firebase from './../../../../firebase';
+import firebase from '../../../../firebase';
 import { Spin, notification } from 'antd';
 import { addDepart, addVendorName } from '../../../../redux/ticket/actionCreator';
 import { connectSocket } from '../../../../redux/socket/socketAction';

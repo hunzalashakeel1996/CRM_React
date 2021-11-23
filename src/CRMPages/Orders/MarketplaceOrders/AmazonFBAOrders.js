@@ -62,7 +62,7 @@ const AmazonFBAOrders = (props) => {
     const insertAmazonFBAOrderSheet = () => {
         
         setstate({ ...state, isLoader: true })
-        let username :[]
+        let username =[]
         username = JSON.parse(localStorage.getItem('user'))
         const formData = new FormData();
         formData.append('user', username.LoginName)
@@ -83,7 +83,7 @@ const AmazonFBAOrders = (props) => {
     const getAmazonFBAOrderSheet = () => {
         
         setstate({ ...state, isLoader: true })
-        let username :[]
+        let username =[]
         username = JSON.parse(localStorage.getItem('user'))
        
 

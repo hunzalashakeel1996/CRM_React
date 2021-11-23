@@ -64,7 +64,7 @@ const AmazonComparisonReports = () => {
     let pending = { ...pendingReport }
 
     Promise.all([dispatch(chartAmazonData()), dispatch(chartWalmartData()), dispatch(chartPUData()), dispatch(chartJLCData()), dispatch(chartSearsData()), dispatch(chartEbayData())]).then(data => {
-     console.log(data[5])
+    // console.log(data[5])
       var AmazonData = JSON.parse(data[0])
       var WalmartData = JSON.parse(data[1])
       var PUData = JSON.parse(data[2])

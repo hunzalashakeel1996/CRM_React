@@ -15,7 +15,7 @@ import { Main } from '../styled';
 import CreateTicket from './overview/CreateTicket';
 import { ProjectHeader, ProjectSorting } from './style';
 import { useHistory } from "react-router-dom";
-import firebase from './../../firebase';
+import firebase from '../../firebase';
 const Grid = lazy(() => import('./overview/Grid'));
 const TicketsList = lazy(() => import('./overview/TicketsList'));
 import { Tabs } from 'antd';

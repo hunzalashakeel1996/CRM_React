@@ -197,7 +197,7 @@ const customTooltips = function (tooltip) {
 
     bodyLines.forEach(function (body, i) {
       const colors = tooltip.labelColors[i];
-      let style = `background:${colors.backgroundColor}`;
+      let style = `background:${i==0?'blue':'red'}`;
       style += `; border-color:${colors.borderColor}`;
       style += '; border-width: 2px';
       style += '; border-radius: 30px';

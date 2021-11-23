@@ -1,5 +1,6 @@
 import firebase from 'firebase'
-
+import '@firebase/messaging'
+import 'firebase/messaging'
 const firebaseConfig = {
     apiKey: "AIzaSyAfp5-10jqkjkLSfA7MgJJE3NCQ7wu0zmg",
     authDomain: "crm-pu.firebaseapp.com",
@@ -19,7 +20,6 @@ export const onMessageListener = () =>
       resolve(payload);
     });
 });
-
 // const installations = app.installations();
 // installations.getToken(/* forceRefresh= */ true);
 // console.warn('123455', installations.getToken(/* forceRefresh= */ true))

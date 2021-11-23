@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ComparisonReports from './overview/ComparisonReports'
+import LineChart from './overview/LineChart'
 import SaleReport from './overview/SaleReport'
 import TeamReport from './overview/TeamReport'
 import VendorSales from './overview/VendorSales'
@@ -20,8 +21,11 @@ const ComparisonReportView = (props) => {
     return (
         <>
             <Tabs type={'card'} defaultActiveKey="ComparisonReport" style={{ marginTop: 20, marginLeft: 20, marginRight: 20 }} >
-                <TabPane tab="Comparison Report" key="ComparisonReport">
+                <TabPane tab="Bar Chart Report" key="ComparisonReport">
                     <ComparisonReports />
+                </TabPane>
+                <TabPane tab="Line Chart Report" key="LineChart">
+                    <LineChart />
                 </TabPane>
                 {/* <TabPane tab="Sale Report" key="SaleReport">
                     <SaleReport />
