@@ -13,7 +13,7 @@ const AuthLayout = WraperContent => {
               <Content>
                 <img
                   className="auth-content-figure"
-                  src={require('../../../static/img/auth/nolin-logo.png')}
+                  src={'/img/auth/nolin-logo.png'}
                   style={{width: '100%'}}
                 />
               </Content>

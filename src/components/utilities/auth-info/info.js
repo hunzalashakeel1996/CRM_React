@@ -109,19 +109,19 @@ const AuthInfo = ({ rtl }) => {
   const country = (
     <NavAuth>
       <Link onClick={() => onFlagChangeHandle('english')} to="#">
-        <img src={require('../../../static/img/flag/english.png')} alt="" />
+        <img src={'/static/img/flag/english.png'} alt="" />
         <span>English</span>
       </Link>
       <Link onClick={() => onFlagChangeHandle('germany')} to="#">
-        <img src={require('../../../static/img/flag/germany.png')} alt="" />
+        <img src={'/static/img/flag/germany.png'} alt="" />
         <span>Germany</span>
       </Link>
       <Link onClick={() => onFlagChangeHandle('spain')} to="#">
-        <img src={require('../../../static/img/flag/spain.png')} alt="" />
+        <img src={'/static/img/flag/spain.png'} alt="" />
         <span>Spain</span>
       </Link>
       <Link onClick={() => onFlagChangeHandle('turky')} to="#">
-        <img src={require('../../../static/img/flag/turky.png')} alt="" />
+        <img src={'/static/img/flag/turky.png'} alt="" />
         <span>Turky</span>
       </Link>
     </NavAuth>

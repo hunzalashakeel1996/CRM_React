@@ -144,9 +144,9 @@ const AmazonComparisonReports = () => {
             <ComparisonBarChart title='Return' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth}ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, returnSelectedTimeline: timeline }) }} dataset={retrurnReport[returnSelectedTimeline]} />
           </Col>
 
-          <Col lg={12} sm={24}>
+          {/* <Col lg={12} sm={24}>
             <ComparisonBarChart title='Pending' ordersSelectedTimelineThisMonth={ordersSelectedTimelineThisMonth} ordersSelectedTimelineLastMonth={ordersSelectedTimelineLastMonth} ordersSelectedTimelineLast2Month={ordersSelectedTimelineLast2Month} isTimelineChange={(timeline) => { setState({ ...state, pendingSelectedTimeline: timeline }) }} dataset={pendingReport[pendingSelectedTimeline]} />
-          </Col>
+          </Col> */}
         </Row>
       </Spin >
     </>

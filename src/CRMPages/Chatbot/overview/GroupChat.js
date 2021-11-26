@@ -42,7 +42,7 @@ const GroupChat = ({ match }) => {
                 <li key={id} className="chat-link-signle">
                   <NavLink onClick={() => dataFiltering(id)} to={`${match.path}/${id}`}>
                     <div className="author-figure">
-                      <img src={require(`../../../static/img/chat-author/${img}`)} alt="" />
+                      <img src={`/static/img/chat-author/${img}`} alt="" />
                     </div>
 
                     <div className="author-info">

@@ -26,13 +26,21 @@ let graphLine = [
         , "duration": ["2m 18s", [65, 35, 45, 42, 65, 60, 42, 45, 35, 55, 40, 65], [45, 20, 35, 32, 50, 45, 32, 35, 25, 40, 30, 55]]
         , "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         ,"sellerType":[[[],[]],[[],[]]]
+    },
+    {
+        "users": ["72.6K", [65, 35, 45, 42, 65, 60, 42, 45, 35, 55, 40, 65], [45, 20, 35, 32, 50, 45, 32, 35, 25, 40, 30, 55]]
+        , "sessions": ["87.2k", [65, 35, 45, 42, 65, 60, 42, 45, 35, 55, 40, 30], [45, 20, 35, 32, 50, 45, 32, 35, 25, 40, 30, 25]]
+        , "bounce": ["26.3%", [35, 35, 45, 42, 65, 60, 42, 45, 35, 55, 40, 30], [20, 20, 35, 32, 50, 45, 32, 35, 25, 40, 30, 25]]
+        , "duration": ["2m 18s", [65, 35, 45, 42, 65, 60, 42, 45, 35, 55, 40, 65], [45, 20, 35, 32, 50, 45, 32, 35, 25, 40, 30, 55]]
+        , "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        ,"sellerType":[[[],[]],[[],[]]]
     }
 ]
 
 const TotalRevenue = () => {
-    console.log(graphLine)
+  //  console.log(graphLine)
 
-console.log(graphLine[0].sellerType)
+    //console.log(graphLine[0].sellerType)
     var currentDate = new Date();
     var pastYear = currentDate.getFullYear() - 1;
     var currentYear = currentDate.getFullYear();
@@ -69,7 +77,7 @@ console.log(graphLine[0].sellerType)
     });
     const {revenue, orderStatusSelect, performanceDatasets, performanceState, lastYearDate, currentYearDate, dataCurrentYear, dataLastYear, orderTypeList, selectOrderType, isLoading } = state
 
-    const status = ['Order', 'Sales']
+    const status = ['Order', 'Sales','RMA']
 
     useEffect(() => {
 
@@ -78,28 +86,32 @@ console.log(graphLine[0].sellerType)
         dispatch(apilineChartGraph()).then(data => {
             console.log(data)
             const orderTypeList = [... new Set(data.map(item => item.OrderType))]
-            console.log(orderTypeList)
+         //   console.log(orderTypeList)
 
             status.map((value, i) => {
 
-                let dataGraphCurrent = []
-                let dataGraphLast = []
+                let dataGraphCurrent = [0,0,0,0,0,0,0,0,0,0,0,0]
+                let dataGraphLast = [0,0,0,0,0,0,0,0,0,0,0,0]
 
                 let resultCurrent = data.filter(item => item['OrderType'] === 'Amazon' && item['status'] === value && item['year'] === currentYearDate)
                 let resultLast = data.filter(item => item['OrderType'] === 'Amazon' && item['status'] === value && item['year'] === lastYearDate)
 
 
-                //   console.log(value, resultCurrent)
-
+                   console.log(value, resultCurrent)
+                   console.log(value, resultLast)
                 resultCurrent.map(value => {
-                    const { Ordercount } = value
-                    dataGraphCurrent.push(Ordercount)
+                    const { Ordercount, month } = value
+                  //  console.log('crrent', month)
+                    dataGraphCurrent.splice(month-1, 0, Ordercount)
+                    // dataGraphCurrent.push(Ordercount)
                 })
                 graphLine[i].users[1] = dataGraphCurrent
 
                 resultLast.map(value => {
-                    const { Ordercount } = value
-                    dataGraphLast.push(Ordercount)
+                    const { Ordercount,month } = value
+                  //  console.log('last', month)
+                    dataGraphLast.splice(month-1, 0, Ordercount)
+                    // dataGraphLast.push(Ordercount)
                 })
                 graphLine[i].users[2] = dataGraphLast
 
@@ -120,37 +132,39 @@ console.log(graphLine[0].sellerType)
 
         })
 
-        console.log(performanceState)
+      //  console.log(performanceState)
 
     }, []);
 
     const handleActiveChangeRevenue = (value, index) => {
         let tempdata = []
-        let orderStatus = ['Order', 'Sales']
+        let orderStatus = ['Order', 'Sales','RMA']
         //  console.log(marketplaces[index])
-        let dataGraphCurrent = []
-        let dataGraphLast = []
+        let dataGraphCurrent = [0,0,0,0,0,0,0,0,0,0,0,0]
+        let dataGraphLast = [0,0,0,0,0,0,0,0,0,0,0,0]
         let tempPerformanceDatasets = performanceDatasets
         let resultCurrent = dataCurrentYear.filter(item => item['status'] === orderStatus[index] && item['OrderType'] === value)
         let resultLast = dataLastYear.filter(item => item['status'] === orderStatus[index] && item['OrderType'] === value)
 
 
         resultCurrent.map(value => {
-            const { Ordercount } = value
-            dataGraphCurrent.push(Ordercount)
+            const { Ordercount, month } = value
+            // dataGraphCurrent.push(Ordercount)
+            dataGraphCurrent.splice(month-1, 0, Ordercount)
         })
         graphLine[index].users[1] = dataGraphCurrent
 
         resultLast.map(value => {
-            const { Ordercount } = value
-            dataGraphLast.push(Ordercount)
+            const { Ordercount, month } = value
+            // dataGraphLast.push(Ordercount)
+            dataGraphLast.splice(month-1, 0, Ordercount)
         })
         graphLine[index].users[2] = dataGraphLast
 
         tempdata.push([{
 
-            data: graphLine[index].users[1],
-            borderColor: '#0000FF',
+            data: graphLine[index].users[2],
+            borderColor: 'blue',
             borderWidth: 4,
             fill: true,
             backgroundColor: () =>
@@ -158,7 +172,7 @@ console.log(graphLine[0].sellerType)
                     start: '#5F63F230',
                     end: '#ffffff05',
                 }),
-            label: `${currentYearDate} period`,
+            label: `${lastYearDate}  period`,
             pointStyle: 'circle',
             pointRadius: '0',
             hoverRadius: '9',
@@ -166,22 +180,23 @@ console.log(graphLine[0].sellerType)
             pointBackgroundColor: '#5F63F2',
             hoverBorderWidth: 5,
             //   amount: '$7,596',
-            amountClass: 'current-amount',
+            amountClass: 'prev-amount',
             sellerType: status[index]
         }
             ,
         {
-            data: graphLine[index].users[2],
-            borderColor: '#FF0000',
+            data: graphLine[index].users[1],
+            borderColor: 'Red',
             borderWidth: 2,
             fill: false,
             backgroundColor: '#00173750',
-            label: `${lastYearDate} period`,
+            label: `${currentYearDate}period`,
+            
             // borderDash: [3, 3],
             pointRadius: '0',
             hoverRadius: '0',
             //   amount: '$3,258',
-            amountClass: 'prev-amount',
+            amountClass: 'current-amount',
             sellerType: status[index]
         }])
 
@@ -215,7 +230,7 @@ console.log(graphLine[0].sellerType)
             {
 
                 data: performanceState[val].users[2],
-                borderColor: '#0000FF',
+                borderColor: 'blue',
                 borderWidth: 4,
                 fill: true,
                 backgroundColor: () =>
@@ -223,7 +238,7 @@ console.log(graphLine[0].sellerType)
                         start: '#5F63F230',
                         end: '#ffffff05',
                     }),
-                label: `${currentYearDate} period`,
+                label: `${lastYearDate} period`,
                 pointStyle: 'circle',
                 pointRadius: '0',
                 hoverRadius: '9',
@@ -231,22 +246,22 @@ console.log(graphLine[0].sellerType)
                 pointBackgroundColor: '#5F63F2',
                 hoverBorderWidth: 5,
                 //   amount: '$7,596',
-                amountClass: 'current-amount',
+                amountClass: 'prev-amount',
                 sellerType: status[val]
             }
             ,
             {
                 data: performanceState[val].users[1],
-                borderColor: '#FF0000',
+                borderColor: 'red',
                 borderWidth: 2,
                 fill: false,
                 backgroundColor: '#00173750',
-                label: `${lastYearDate} period`,
+                label:  `${currentYearDate} period`,
                 // borderDash: [3, 3],
                 pointRadius: '0',
                 hoverRadius: '0',
                 //   amount: '$3,258',
-                amountClass: 'prev-amount',
+                amountClass: 'current-amount',
                 sellerType: status[val]
             }])
         setState({ ...state, performanceDatasets: [...tempdata] });
@@ -275,7 +290,7 @@ console.log(graphLine[0].sellerType)
                                                     {orderTypeList.map(item => (
 
                                                         < li className={selectOrderType=== item && performanceDatasets[index][0].sellerType === orderStatusSelect ? 'active' : 'deactivate'} >
-                                                            <Link onClick={() => handleActiveChangeRevenue(item, index)}>
+                                                            <Link to='#' onClick={() => handleActiveChangeRevenue(item, index)}>
                                                                 {item}
                                                             </Link>
                                                         </li>

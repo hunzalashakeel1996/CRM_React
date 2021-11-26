@@ -32,7 +32,7 @@ const PrivateChat = ({ match }) => {
               <li key={id} className="chat-link-signle">
                 <NavLink onClick={() => dataFiltering(email)} to={`${match.path}/${email}`}>
                   <div className="author-figure">
-                    <img src={require(`../../../static/img/chat-author/${img}`)} alt="" />
+                    <img src={`/static/img/chat-author/${img}`} alt="" />
                     <span className={active ? 'active' : 'inactive'} />
                   </div>
                   <div className="author-info">

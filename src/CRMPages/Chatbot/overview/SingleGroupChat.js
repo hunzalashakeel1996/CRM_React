@@ -202,22 +202,22 @@ const SingleGroupChat = ({ match }) => {
             <Heading as="h5">{name}</Heading>
             <div className="members">
               <Link to="#">
-                <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
+                <img src={'/static/img/avatar/chat-auth.png'} alt="" />
               </Link>
               <Link to="#">
-                <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
+                <img src={'/static/img/avatar/chat-auth.png'} alt="" />
               </Link>
               <Link to="#">
-                <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
+                <img src={'/static/img/avatar/chat-auth.png'} alt="" />
               </Link>
               <Link to="#">
-                <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
+                <img src={'/static/img/avatar/chat-auth.png'} alt="" />
               </Link>
               <Link to="#">
-                <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
+                <img src={'/static/img/avatar/chat-auth.png'} alt="" />
               </Link>
               <Link to="#">
-                <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
+                <img src={'/static/img/avatar/chat-auth.png'} alt="" />
               </Link>
               <Link to="#" className="show-more">
                 <span>20+</span>
@@ -251,7 +251,7 @@ const SingleGroupChat = ({ match }) => {
                   <li className="atbd-chatbox__single" key={id} style={{ overflow: 'hidden' }}>
                     <div className={mes.email !== me ? 'left' : 'right'}>
                       {mes.email !== me ? (
-                        <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
+                        <img src={'/static/img/avatar/chat-auth.png'} alt="" />
                       ) : null}
 
                       <div className="atbd-chatbox__content">
@@ -415,12 +415,12 @@ const SingleGroupChat = ({ match }) => {
                         )}
                         {singleContent.length === index + 1 ? (
                           <div className="group-seen">
-                            <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
-                            <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
-                            <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
-                            <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
-                            <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
-                            <img src={require('../../../static/img/avatar/chat-auth.png')} alt="" />
+                            <img src={'/static/img/avatar/chat-auth.png'} alt="" />
+                            <img src={'/static/img/avatar/chat-auth.png'} alt="" />
+                            <img src={'/static/img/avatar/chat-auth.png'} alt="" />
+                            <img src={'/static/img/avatar/chat-auth.png'} alt="" />
+                            <img src={'/static/img/avatar/chat-auth.png'} alt="" />
+                            <img src={'/static/img/avatar/chat-auth.png'} alt="" />
                           </div>
                         ) : null}
                       </div>

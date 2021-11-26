@@ -61,25 +61,25 @@ const GridCard = ({ value }) => {
             <p>Assigned To</p>
             <ul>
               <li>
-                <img src={require(`../../../static/img/users/1.png`)} alt="" />
+                <img src={`/static/img/users/1.png`} alt="" />
               </li>
               <li>
-                <img src={require(`../../../static/img/users/2.png`)} alt="" />
+                <img src={`/static/img/users/2.png`} alt="" />
               </li>
               <li>
-                <img src={require(`../../../static/img/users/3.png`)} alt="" />
+                <img src={`/static/img/users/3.png`} alt="" />
               </li>
               <li>
-                <img src={require(`../../../static/img/users/4.png`)} alt="" />
+                <img src={`/static/img/users/4.png`} alt="" />
               </li>
               <li>
-                <img src={require(`../../../static/img/users/5.png`)} alt="" />
+                <img src={`/static/img/users/5.png`} alt="" />
               </li>
               <li>
-                <img src={require(`../../../static/img/users/6.png`)} alt="" />
+                <img src={`/static/img/users/6.png`} alt="" />
               </li>
               <li>
-                <img src={require(`../../../static/img/users/7.png`)} alt="" />
+                <img src={`/static/img/users/7.png`} alt="" />
               </li>
             </ul>
           </div>
