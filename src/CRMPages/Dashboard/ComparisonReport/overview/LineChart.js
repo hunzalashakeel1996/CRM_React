@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import FeatherIcon from 'feather-icons-react';
-import { Spin, Row, Col } from 'antd';
+import { Spin, Row, Col,Card  } from 'antd';
 import { RevenueWrapper } from '../style';
 import { ChartjsAreaChart } from '../../../../components/charts/chartjs';
 import { customTooltips, chartLinearGradient } from '../../../../components/utilities/utilities';
@@ -275,21 +275,21 @@ const TotalRevenue = () => {
 
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoading} >
                 <Row gutter={20} style={{height:isLoading?2000:null}}>
-                    <Col span={18}>
+                    <Col  lg={20} sm={24} >
 
                         {/* {console.log(performanceDatasets)} */}
                         {performanceDatasets.map((val, index) => (
 
-                            <RevenueWrapper>
+                            <RevenueWrapper >
                                 { (
 
                                     <Cards
                                         isbutton={ 
-                                            <div className="card-nav" >
+                                            <div className="card-nav"  >
                                                 <ul>
                                                     {orderTypeList.map(item => (
 
-                                                        < li className={selectOrderType=== item && performanceDatasets[index][0].sellerType === orderStatusSelect ? 'active' : 'deactivate'} >
+                                                        < li className={state.selectOrderType[index]=== item ? 'active' : 'deactivate'} >
                                                             <Link to='#' onClick={() => handleActiveChangeRevenue(item, index)}>
                                                                 {item}
                                                             </Link>
@@ -300,10 +300,10 @@ const TotalRevenue = () => {
                                             </div>
                                         }
                                        
-                                        title={`${performanceDatasets.length > 0 &&performanceDatasets[index][0].sellerType}->${state.selectOrderType[index]}`}
-                                        size="large"
+                                        title={`${performanceDatasets.length > 0 &&performanceDatasets[index][0].sellerType}`}
+                                        
                                     > 
-                                       {console.log(performanceDatasets[index][0].sellerType)}
+                                       {/* {console.log(performanceDatasets[index][0].sellerType)} */}
                                         <div className="performance-lineChart">
                                             <ul>
 
