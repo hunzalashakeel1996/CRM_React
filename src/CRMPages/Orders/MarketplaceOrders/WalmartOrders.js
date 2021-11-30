@@ -9,7 +9,7 @@ import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
-import {apiWalmartGetCanadaOrderSheetMethod,apiWalmartGetCanadaOrderSheetUpload,apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
+import { apiDeleteSKUOnWalmart, apiDeleteSKUOnWalmartUpload, apiWalmartGetCanadaOrderSheetMethod, apiWalmartGetCanadaOrderSheetUpload, apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
 
 import './MarketplaceOrders.css';
 
@@ -78,57 +78,6 @@ const MarketplaceOrdersView = (props) => {
 
     };
 
-    const dataSource = [
-        {
-            key: '1',
-            name: 'Mike',
-            age: 32,
-            address: '10 Downing Street',
-        },
-        {
-            key: '2',
-            name: 'John',
-            age: 42,
-            address: '10 Downing Street',
-        },
-    ];
-    const columns = [
-        {
-            title: 'Order NO',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Full Name',
-            dataIndex: 'age',
-            key: 'age',
-        },
-        {
-            title: 'STREET ADDRESS 1',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'STREET ADDRESS 2',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'City',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'State',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'Country',
-            dataIndex: 'address',
-            key: 'address',
-        },
-    ];
 
     const getWalmartCustomerEmail = () => {
 
@@ -183,7 +132,7 @@ const MarketplaceOrdersView = (props) => {
     const insertWalmartUSAOrderSheet = () => {
 
         setstate({ ...state, isLoader: true })
-        let username= []
+        let username = []
         username = JSON.parse(localStorage.getItem('user'))
         const formData = new FormData();
         formData.append('user', username.LoginName)
@@ -199,7 +148,7 @@ const MarketplaceOrdersView = (props) => {
             setstate({ ...state, isLoader: false })
         })
     }
-      const getWalmartUSAOrdersheet = () => {
+    const getWalmartUSAOrdersheet = () => {
         setstate({ ...state, isLoader: true })
         dispatch(apiWalmartGetUSAOrderSheetMethod()).then(data => {
 
@@ -217,9 +166,9 @@ const MarketplaceOrdersView = (props) => {
 
     };
     const insertWalmartCanadaOrderSheet = () => {
-        
+
         setstate({ ...state, isLoader: true })
-        let username =[]
+        let username = []
         username = JSON.parse(localStorage.getItem('user'))
         const formData = new FormData();
         formData.append('user', username.LoginName)
@@ -247,6 +196,40 @@ const MarketplaceOrdersView = (props) => {
             setstate({ ...state, isLoader: false })
         });
     }
+
+    const insertSheetSkuDeleteOnWalmart = () => {
+
+        setstate({ ...state, isLoader: true })
+        let username = []
+        username = JSON.parse(localStorage.getItem('user'))
+        const formData = new FormData();
+        formData.append('user', username.LoginName)
+        formData.append('file', file)
+
+        dispatch(apiDeleteSKUOnWalmartUpload(formData)).then(data => {
+
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false })
+        })
+    }
+
+    const deleteSkuOnWalmart = () => {
+        setstate({ ...state, isLoader: true })
+        dispatch(apiDeleteSKUOnWalmart()).then(data => {
+
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false })
+        });
+    }
+
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
@@ -272,14 +255,14 @@ const MarketplaceOrdersView = (props) => {
 
                                 <Button size="large" type="success" >
                                     GetOrders
-                        </Button>
+                                </Button>
                             </Col>
                             <Col lg={6} xs={24}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders Api</h3></div> */}
 
                                 <Button size="large" type="success" onClick={getWalmartOrderApi}>
                                     GetOrders Api
-                        </Button>
+                                </Button>
 
 
 
@@ -310,7 +293,7 @@ const MarketplaceOrdersView = (props) => {
 
                                 <Button size="large" type="success" onClick={getWalmartSingleOrderApi}>
                                     GetSingleOrders Api
-                        </Button>
+                                </Button>
 
 
 
@@ -324,89 +307,114 @@ const MarketplaceOrdersView = (props) => {
                     </Cards>
                 </Row>
                 {/* USA WALMART SHEET METHOD */}
-                <Row style={{}}>
-                    <Cards title="Get Walmart Orders (Sheet Method) - USA" caption="The simplest use of Drawer" >
-                        <Row gutter={25}>
-                            <Col lg={8} xs={24}>
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
-                                <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                    {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                    <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={insertWalmartUSAOrderSheet}> Insert Sheet</Button>
-                                    <br></br>
-                                    <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
-                                    {/* </Cards> */}
-                                </div>
-                            </Col>
-
-                            <Col lg={8} xs={24}  >
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
-                                <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                    <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={getWalmartUSAOrdersheet}> GetOrders</Button>
-
-
-                                </div>
-                            </Col>
-
-
-
-                        </Row>
-
-
-                    </Cards>
-                </Row>
-                {/* CANADA WALMART SHEET METHOD */}
-                <Row style={{}}>
-                    <Cards title="Get Walmart Orders (Sheet Method) - Canada" caption="The simplest use of Drawer" >
-                    <Row gutter={25}>
-                            <Col lg={8} xs={24}>
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
-                                <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                    {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                    <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertWalmartCanadaOrderSheet}> Insert Sheet</Button>
-                                    <br></br>
-                                    <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
-                                    {/* </Cards> */}
-                                </div>
-                            </Col>
-
-                            <Col lg={8} xs={24}  >
-                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
-                                <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={getWalmartCanadaOrdersheet}> GetOrders</Button>
-                           
-
-                                </div>
-                            </Col>
-
-
-
-                        </Row>
-
-                    </Cards>
-                </Row>
-                {/* WALMART EMAILS */}
-                {/* Check Labels Here Div  */}
-                <Row style={{}}>
-                    <Cards title="Download  Customer Emails" caption="The simplest use of Drawer" >
-                        <Form layout="inline" initialValue="" label="" form={form} id="Download Customer Emails" name="nest-messages" onFinish={getWalmartCustomerEmail} validateMessages={validateMessages}>
-                            <Row gutter={50}>
-                                <Col lg={15} xs={24}  >
-                                    <Form.Item name="Customer Emails" rules={[{ required: true }]}>
-                                        <TextArea style={{ padding: 10 }} onChange={(e) => { getPOno(e.target.value) }} />
-                                    </Form.Item>
+                <Row gutter={25}>
+                    <Col span={12}>
+                        <Cards title="Get Walmart Orders (Sheet Method) - USA" caption="The simplest use of Drawer" >
+                            <Row gutter={25}>
+                                <Col lg={8} xs={24}>
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+                                        {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={insertWalmartUSAOrderSheet}> Insert Sheet</Button>
+                                        <br></br>
+                                        <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
+                                        {/* </Cards> */}
+                                    </div>
                                 </Col>
-                                <Col lg={6} xs={24}  >
-                                    <Form.Item>
-                                        <Button size="large" type="success" htmlType="submit">
-                                            Downlaod
-                              </Button>
 
-                                    </Form.Item>
+                                <Col lg={8} xs={24}  >
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={getWalmartUSAOrdersheet}> GetOrders</Button>
+
+
+                                    </div>
                                 </Col>
                             </Row>
-                        </Form>
-                    </Cards>
+                        </Cards>
+                    </Col>
+                    {/* CANADA WALMART SHEET METHOD */}
+                    <Col span={12}>
+                        <Cards title="Get Walmart Orders (Sheet Method) - Canada" caption="The simplest use of Drawer" >
+                            <Row gutter={25}>
+                                <Col lg={8} xs={24}>
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+                                        {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={insertWalmartCanadaOrderSheet}> Insert Sheet</Button>
+                                        <br></br>
+                                        <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
+                                        {/* </Cards> */}
+                                    </div>
+                                </Col>
+
+                                <Col lg={8} xs={24}  >
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={getWalmartCanadaOrdersheet}> GetOrders</Button>
+
+
+                                    </div>
+                                </Col>
+
+
+
+                            </Row>
+
+                        </Cards>
+                    </Col>
                 </Row>
+
+                {/* WALMART EMAILS */}
+                {/* Check Labels Here Div  */}
+                <Row gutter={25}>
+                    <Col span={12}>
+                        <Cards title="Download  Customer Emails" caption="The simplest use of Drawer" >
+                            <Form layout="inline" initialValue="" label="" form={form} id="Download Customer Emails" name="nest-messages" onFinish={getWalmartCustomerEmail} validateMessages={validateMessages}>
+                                <Row gutter={50}>
+                                    <Col lg={15} xs={24}  >
+                                        <Form.Item name="Customer Emails" rules={[{ required: true }]}>
+                                            <TextArea style={{ padding: 10 }} onChange={(e) => { getPOno(e.target.value) }} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col lg={6} xs={24}  >
+                                        <Form.Item>
+                                            <Button size="large" type="success" htmlType="submit">
+                                                Downlaod
+                                            </Button>
+
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </Cards>
+                    </Col>
+                    <Col span={12}>
+                        <Cards title="Delete Sku" caption="The simplest use of Drawer" >
+                            <Row gutter={25}>
+                                <Col lg={8} xs={24}>
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+                                        {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={insertSheetSkuDeleteOnWalmart}> Insert Sheet</Button>
+                                        <br></br>
+                                        <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
+                                        {/* </Cards> */}
+                                    </div>
+                                </Col>
+
+                                <Col lg={8} xs={24}  >
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={deleteSkuOnWalmart}> GetOrders</Button>
+
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Cards>
+                    </Col>
+                </Row>
+
             </Spin>
 
 

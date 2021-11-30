@@ -69,8 +69,8 @@ const OrderReportsView = (props) => {
         //  // console.log('bbb', state.endDate.format('MM/DD/YYYY'))
         dispatch(getPNLReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), })).then(data => {
             setstate({ ...state, isLoader: false });
-          console.log()
-            downloadFile(data);
+         console.log(data)
+            // downloadFile(data);
             notification.success({
                 message: 'Successfull Dowload',
                 description: `Successfully Download PNL Report From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,

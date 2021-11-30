@@ -1183,6 +1183,14 @@ export const apiWalmartGetUSAOrderSheetUpload = (data) => {
     return apiFetchDotNet('/walmart/UploadForOrders', "POST", multipartHeader, data);
 };
 
+export const apiDeleteSKUOnWalmartUpload = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/walmart/UploadForDeleteSKUOnWalmart', "POST", multipartHeader, data);
+};
+export const apiDeleteSKUOnWalmart = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/walmart/RemoveSku', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 export const apiWalmartGetUSAOrderSheetMethod = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/walmart/ordersGet', "POST", headerDotNetWithJwt, JSON.stringify(data));
