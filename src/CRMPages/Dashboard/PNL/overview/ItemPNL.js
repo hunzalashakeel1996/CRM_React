@@ -51,11 +51,11 @@ const ItemPNL = (props) => {
   const formatedate = (value) => {
    
     let a = 'avsdFasdas'
-    let formatedDate = value.split("T")
+   let formatedDate = value.split("T")
     let Date =formatedDate[0];
     let Time =formatedDate[1].split(".");
-     Time=Time[0]
-     let format=Date+' '+Time
+   Time=Time[0]
+    let format=Date+' '+Time
     return Date
     }
   useEffect(() => {
@@ -112,8 +112,8 @@ const ItemPNL = (props) => {
             sizename: sizename,
             orderstatus: orderstatus,
             itemstatus: itemstatus,
-            orderdate: formatedate(orderdate),
-            uspsdate: formatedate(uspsdate),
+            orderdate: orderdate?formatedate(orderdate):'',
+            uspsdate: uspsdate?formatedate(uspsdate):'',
             ORDERTYPE: ORDERTYPE,
             orderno: orderno,
             purchaseorderno: purchaseorderno,
