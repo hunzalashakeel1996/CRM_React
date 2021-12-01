@@ -17,7 +17,8 @@ const RefundlabelView = (props) => {
         values: {},
         trackingNo: '',
         trackingNoRefund: '',
-        dataSource:[]
+        dataSource:[],
+        isLoader: false,
     });
     const validateMessages = {
         required: '${name} is required!',
@@ -34,31 +35,32 @@ const RefundlabelView = (props) => {
     const dispatch = useDispatch()
     
     const [visible, setVisible] = useState(false);
-    const { trackingNo,trackingNoRefund,dataSource } = state
+    const { trackingNo,trackingNoRefund,dataSource,isLoader } = state
     let counter = 0;
   
    
     const endiciaRefund = () => {
+        setstate({ ...state, isLoader: true });
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
-
+     
 
         dispatch(endiciaRefundLabel({ trackingno: trackingNo, user: username.LoginName })).then(data => {
-
-            //   message.success(`file uploaded Update ${data}`);
+            setstate({ ...state, isLoader: false });
+    
             notification.success({
                 message: `Successfull  ${data}`,
                 description: `Successfully Report`,
                 onClose: close,
             });
-         //   location.reload();
+    
         })
     }
 
     const checkEndiciaRefund = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
-
+        setstate({ ...state, isLoader: true });
 
         dispatch(checkEndiciaRefundLabel({ ms: trackingNoRefund })).then(data => {
                 // console.log(data)
@@ -79,7 +81,8 @@ const RefundlabelView = (props) => {
                             status: <span style={{ color: 'black' }} className="date-started">{status}</span>,
                               });
                     });
-                    setState({ ...state, dataSource: datasources })
+                    setState({ ...state, dataSource: datasources, isLoader: false  })
+                 
         })
     }
     const onChange = (event) => {
@@ -98,6 +101,7 @@ const RefundlabelView = (props) => {
    
     return (
         <>
+         <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row style={{}}>
                 <Cards title="Endica Refund Label" caption="The simplest use of Drawer" >
                 <Form layout="inline" initialValue="" label="" form={form} id="Endica Refund Label" name="nest-messages" className="Endica-Refund-Label" onFinish={endiciaRefund} validateMessages={validateMessages}>
@@ -122,43 +126,9 @@ const RefundlabelView = (props) => {
                     </Form>
                 </Cards>
             </Row>
-            {/* Check Labels Here Div  */}
-            {/* <Row >
-                <Cards title="Check Refund Labels Here" caption="The simplest use of Drawer" >
-                <Form layout="inline" initialValue="" label="" form={form} id="Check Refund Labels Here" name="nest-messages" className="Check-Refund " onFinish={checkEndiciaRefund} validateMessages={validateMessages}>
-                    <Row gutter={25}>
-                        <Col lg={12} xs={24}  >
-                        <Form.Item name="Tracking Number" rules={[{ required: true }]}>
-                            <TextArea placeholder="input here" className="custom" value={trackingNoRefund} onChange={onChangeRefund} style={{ height: 50 }} />
-                            </Form.Item>
-                        </Col>
-                        <Col lg={6} xs={24}  >
-                        <Form.Item>
-                           
-                             
-                            <Button size="large"  type="primary"   type="success" htmlType="Submit" > Search</Button>
-                           </Form.Item>
-                        </Col>
-                        <Col lg={6} xs={24}  >
-                        <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                           
-                             
-                            <Button size="large"  type="primary" onClick={refreshPage}> Refresh</Button>
-                           </div>
-                        </Col>
-                    </Row>
-                    </Form>
-                    <Row style={{ marginTop: 20 }}>
-
-                        <Col xs={24}>
-                            <Table className="table-responsive" pagination={false} dataSource={dataSource} columns={columns} />
-                        </Col>
-
-                    </Row>
-                
-                </Cards>
-                
-            </Row> */}
+            </Spin>
+          
+         
             <Modal
 
                 centered
