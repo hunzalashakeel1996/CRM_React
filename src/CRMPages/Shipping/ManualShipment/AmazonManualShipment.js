@@ -29,6 +29,7 @@ const ManualShipmentView = (props) => {
     values: {},
     poNumber:[],
     file:'',
+    isLoader: false
   });
   const {poNumber,file,isLoader}=state;
 
