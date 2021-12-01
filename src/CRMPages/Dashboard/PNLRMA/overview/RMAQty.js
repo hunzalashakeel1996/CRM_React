@@ -83,7 +83,42 @@ const RMAQty = (props) => {
 
   }, [isSearchPressed,activeTab,orderdateto,orderdatefrom])
 
-  const columnsYears = [
+  const columnsYears = [{
+    title: 'PUstatus',
+    dataIndex: 'PUstatus',
+    key: 'PUstatus'
+
+  },
+  {
+    title: 'Walmartstatus',
+    dataIndex: 'wallmartstatus',
+    key: 'wallmartstatus'
+
+  },{
+    title: 'Cost',
+    dataIndex: 'cost',
+    key: 'cost'
+
+  },
+  {
+    title: 'Vendor Status',
+    dataIndex: 'vendorstatus',
+    key: 'vendorstatus'
+
+  },
+
+  {
+    title: 'Brandname',
+    dataIndex: 'brandname',
+    key: 'brandname'
+
+  },
+  {
+    title: 'Vendorname',
+    dataIndex: 'vendorname',
+    key: 'vendorname'
+
+  },
     {
       title: 'vendorstylecode',
       dataIndex: 'vendorstylecode',
@@ -139,6 +174,42 @@ const RMAQty = (props) => {
       title: 'OrderID',
       dataIndex: 'OrderID',
       key: 'OrderID'
+ 
+    },
+    {
+      title: 'PUstatus',
+      dataIndex: 'PUstatus',
+      key: 'PUstatus'
+ 
+    },
+    {
+      title: 'Walmartstatus',
+      dataIndex: 'wallmartstatus',
+      key: 'wallmartstatus'
+ 
+    },{
+      title: 'Cost',
+      dataIndex: 'cost',
+      key: 'cost'
+ 
+    },
+    {
+      title: 'Vendor Status',
+      dataIndex: 'vendorstatus',
+      key: 'vendorstatus'
+ 
+    },
+
+    {
+      title: 'Brandname',
+      dataIndex: 'brandname',
+      key: 'brandname'
+ 
+    },
+    {
+      title: 'Vendorname',
+      dataIndex: 'vendorname',
+      key: 'vendorname'
  
     },
     {
