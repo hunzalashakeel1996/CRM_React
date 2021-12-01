@@ -83,7 +83,12 @@ const RMAQty = (props) => {
 
   }, [isSearchPressed,activeTab,orderdateto,orderdatefrom])
 
-  const columnsYears = [{
+  const columnsYears = [ {
+    title: 'MerchantSku',
+    dataIndex: 'merchantsku',
+    key: 'merchantsku'
+  },
+  {
     title: 'PUstatus',
     dataIndex: 'PUstatus',
     key: 'PUstatus'
