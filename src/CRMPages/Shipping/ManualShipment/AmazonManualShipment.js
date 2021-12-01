@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input,Form, Tabs, Table, Upload, Row, Col,notification } from 'antd';
+import { Input,Form, Tabs, Table, Upload, Row, Col,notification ,Spin} from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
@@ -28,9 +28,10 @@ const ManualShipmentView = (props) => {
     selectedRows: null,
     values: {},
     poNumber:[],
-    file:''
+    file:'',
+    isLoader: false
   });
-  const {poNumber,file}=state;
+  const {poNumber,file,isLoader}=state;
 
 
   const onChange = (event) => {
@@ -39,11 +40,11 @@ const ManualShipmentView = (props) => {
 
 };
   const manualShipmentPonumberSubmit = () => {
-   
+ 
     if(poNumber.length>0)
-    {
+    {   setState({ ...state, isLoader: true });
       dispatch(manualShipmentPonumber({ Ponumber: poNumber })).then(data => {
-  
+        setState({ ...state, isLoader: false });
       
         downloadFile(data)
       })
@@ -51,15 +52,16 @@ const ManualShipmentView = (props) => {
     else{
     alert('insert Ponumber')
     }
-    
+   
 };
 const manualShipmentPonumberManualTick = () => {
 
-    
+
   if(poNumber.length>0)
   {
+    setState({ ...state, isLoader: true });
   dispatch(manualShipmentPonumber({ Ponumber: poNumber })).then(data => {
-  
+    setState({ ...state, isLoader: false });
     downloadFile(data)
   })
 }
@@ -68,9 +70,10 @@ alert('insert Ponumber')
 }
 };
 const AmazonManualShippingAmazonFileSheet =()=>{
+  setState({ ...state, isLoader: true });
   dispatch(manualShipmentAmazonManualShippingAmazonFileSheet()).then(data => {
        // downloadFile(data)
- 
+       setState({ ...state, isLoader: false });
      notification.success({
          message: `Successfull Done`,
          description: `Successfully Report`,
@@ -112,6 +115,7 @@ const AmazonManualShippingAmazonFileDownload = () => {
 };
   return (
     <>
+      <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
       <Row style={{}}>
         <Cards title="PO Numbers" caption="The simplest use of Drawer" >
        
@@ -165,7 +169,7 @@ const AmazonManualShippingAmazonFileDownload = () => {
         </Cards>
       </Row>
 
-
+      </Spin>
 
 
     </>
