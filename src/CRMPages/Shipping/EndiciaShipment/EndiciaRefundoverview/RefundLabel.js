@@ -51,7 +51,7 @@ const RefundlabelView = (props) => {
                 description: `Successfully Report`,
                 onClose: close,
             });
-            location.reload();
+         //   location.reload();
         })
     }
 
