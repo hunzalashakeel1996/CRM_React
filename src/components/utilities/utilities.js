@@ -231,6 +231,7 @@ const customTooltips = function (tooltip) {
 
 
 const checkPageAccess = (userAccess, parentBarName, childBarName, history) => {
+  
   if(!Object.keys(JSON.parse(userAccess.child_bar)).includes(parentBarName) || !JSON.parse(userAccess.child_bar)[parentBarName].includes(childBarName))
     history.push('/admin/NotFoundPage')
 }

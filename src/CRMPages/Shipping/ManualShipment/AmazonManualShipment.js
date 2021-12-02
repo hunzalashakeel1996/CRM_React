@@ -40,7 +40,7 @@ const ManualShipmentView = (props) => {
 
 };
   const manualShipmentPonumberSubmit = () => {
- 
+ console.log(poNumber)
     if(poNumber.length>0)
     {   setState({ ...state, isLoader: true });
       dispatch(manualShipmentPonumber({ Ponumber: poNumber })).then(data => {
@@ -54,13 +54,13 @@ const ManualShipmentView = (props) => {
     }
    
 };
-const manualShipmentPonumberManualTick = () => {
+const manualShipmentManualTick = () => {
 
 
   if(poNumber.length>0)
   {
     setState({ ...state, isLoader: true });
-  dispatch(manualShipmentPonumber({ Ponumber: poNumber })).then(data => {
+  dispatch(manualShipmentPonumberManualTick({ Ponumber: poNumber })).then(data => {
     setState({ ...state, isLoader: false });
     downloadFile(data)
   })
@@ -128,13 +128,7 @@ const AmazonManualShippingAmazonFileDownload = () => {
             <Col xs={24} >
         
                <Button size="large"  type="primary" htmlType="Submit" onClick={manualShipmentPonumberSubmit} style={{marginRight:10,}}>Submit</Button>
-             
-                
-             
-            
-         
-           
-               <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white'}} htmlType="Submit" onClick={manualShipmentPonumberManualTick}> Manual Tick</Button>
+              <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white'}} htmlType="Submit" onClick={manualShipmentManualTick}> Manual Tick</Button>
                 
               
             </Col>

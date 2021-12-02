@@ -8,17 +8,15 @@ import FeatherIcon from 'feather-icons-react';
 import { checkPageAccess } from '../../../components/utilities/utilities';
 
 const EndiciaShipmentView = (props) => {
+
     const [activeTab, setActiveTab] = useState('');
-
-
-
-
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Endicia Shipment'];
 
     useEffect(() => {
         checkPageAccess(userAccess, 'Shipping', "Endicia Shipment", props.history)
     })
+
     const topManu = [
         {
             tab: 'Endicia PU',
@@ -43,32 +41,17 @@ const EndiciaShipmentView = (props) => {
 
             <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
 
-                {topManu.map(item => (
+                {topManu.map((item,i) => (
                     tabChildBar?.includes(item.tab) && (
                         <TabPane tab={item.tab} key={item.key}>
+                            {console.log(i)}
                             {item.tabName}
                         </TabPane>)
 
                 ))}
 
             </Tabs>
-            {/* <Tabs type="card" defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
-                <TabPane 
-                    tab={<span> <FeatherIcon icon="underline" style={{ width: 15, height: 15, marginRight: 5 }} />Endica PU</span>}
-                    key="Endica PU">
-                    <EndiciaPU />
-                </TabPane>
-                <TabPane
-                    tab={<span> <FeatherIcon icon="box" style={{ width: 15, height: 15, marginRight: 5 }} />Endicia Rizno</span>}
-                    key="Endicia Rizno">
-                    <EndiciaRizno />
-                </TabPane>
-                <TabPane
-                    tab={<span> <FeatherIcon icon="rotate-ccw" style={{ width: 15, height: 15, marginRight: 5 }} />Endicia Refund</span>}
-                    key="Endicia Refund">
-                    <EndiciaRefund />
-                </TabPane>
-            </Tabs> */}
+       
         </>
     );
 };
