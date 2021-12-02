@@ -29,7 +29,7 @@ const downloadFile = (data) => {
   // a.click();
   // document.body.removeChild(a);
 
- // let url =`http://localhost:47463/admin/${data}`
+ //let url =`http://localhost:47463/admin/${data}`
   let url = `https://crm.rizno.com/admin/${data}`
     let filename = url.substring(url.lastIndexOf('/')+1);
     fetch(
