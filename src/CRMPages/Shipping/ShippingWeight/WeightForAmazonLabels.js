@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Table, Upload, Row, Col,notification } from 'antd';
+import { Input, Tabs, Table, Upload, Row, Col,notification,Spin } from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,9 +17,11 @@ const ShippingWeightView = (props) => {
     selectedRowKeys: null,
     selectedRows: null,
     values: {},
-    file:''
+    file:'',
+    isLoader:false
+
   });
-  const {file}=state
+  const {file,isLoader}=state
   const dispatch = useDispatch()
   const changeHandler = (event) => {
 
@@ -35,19 +37,22 @@ const insertWeightCalculationSheet = () => {
 
   formData.append('user', username.LoginName);
   formData.append('File', file);
+  setState({ ...state, isLoader: true })
   dispatch(GetWeightforAmazonLabelUpoadFile(formData)).then(data => {
-
+    setState({ ...state, isLoader: false })
       //   message.success(`file uploaded Update ${data}`);
       notification.success({
           message: `Successfull Upload Done`,
           description: `Successfully Report`,
           onClose: close,
       });
-      location.reload();
+     
   })
 };
 const WeightCalculationDown =()=>{
+  setState({ ...state, isLoader: true })
   dispatch(GetWeightforAmazonLabelDownload()).then(data => {
+    setState({ ...state, isLoader: false })
         downloadFile(data)
  
      notification.success({
@@ -60,6 +65,7 @@ const WeightCalculationDown =()=>{
 };
   return (
     <>
+    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
       <Row style={{}}>
         <Cards title="Weight Calculation" caption="The simplest use of Drawer" >
           <Row gutter={25}>
@@ -87,7 +93,7 @@ const WeightCalculationDown =()=>{
         </Cards>
       </Row>
 
-
+      </Spin>
 
 
 
