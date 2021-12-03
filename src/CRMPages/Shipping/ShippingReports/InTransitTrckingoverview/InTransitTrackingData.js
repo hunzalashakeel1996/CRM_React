@@ -145,8 +145,9 @@ const InTransitTrackingData = (props) => {
         // console.log('seller',sellerList)
 
         if (marketplace.length > 0) {
+            setstate({ ...state, isLoader: true })
             dispatch(inTransitsTrackingData({ state: states, orderdatefrom: startDate, orderdateto: endDate, marketplace: marketplace })).then(data => {
-               console.log(data)
+                setstate({ ...state, isLoader: false })
                 downloadFile(data)
                 //   message.success(`file uploaded Update ${data}`);
                 notification.success({
@@ -154,82 +155,85 @@ const InTransitTrackingData = (props) => {
                     description: `Successfully Report`,
                     onClose: close,
                 });
-              //  location.reload();
+                //  location.reload();
             })
         }
-        else
+        else {
             alert('Select Seller')
+        }
+
 
     };
     return (
         <>
-            <Form layout="inline" initialValue="" label="" form={form} id="InTransit" name="nest-messages" onFinish={insertTransitsData} validateMessages={validateMessages}>
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+                <Form layout="inline" initialValue="" label="" form={form} id="InTransit" name="nest-messages" onFinish={insertTransitsData} validateMessages={validateMessages}>
 
-                <Cards title="InTransit Tracking Report" caption="The simplest use of Drawer" >
+                    <Cards title="InTransit Tracking Report" caption="The simplest use of Drawer" >
 
-                    <Row >
-                        <Col span={24} style={{ marginBottom: 15 }}>
-                            <Checkbox checked={checkAll} onChange={onCheckAllChange} >
-                                <strong>Check All</strong>
-                            </Checkbox>
-                        </Col>
-                    </Row>
-                    <Row gutter={50}>
-
-                        {sellerName.map((val, i) => (
-
-                            <Col span={5} style={{ marginLeft: 10, marginTop: 10 }}>
-
-                                {/* <Cards headless > */}
-
-                                <Checkbox checked={isSellerCheckedList.includes(val)} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }}>
-
-                                    {val}
-
-                                    {/* <img src={`/img/icons/${val}.png`} width="70" height="70" style={{marginLeft:10}}/>  */}
-
+                        <Row >
+                            <Col span={24} style={{ marginBottom: 15 }}>
+                                <Checkbox checked={checkAll} onChange={onCheckAllChange} >
+                                    <strong>Check All</strong>
                                 </Checkbox>
-
-                                {/* </Cards> */}
-
                             </Col>
+                        </Row>
+                        <Row gutter={50}>
 
-                        ))}
+                            {sellerName.map((val, i) => (
 
-                    </Row>
-                    <Row gutter={50} style={{ marginTop: 20 }}>
-                        <Col span={8} >
-                            <Form.Item name="StartDate" rules={[{ required: true }]}>
-                                <DatePicker placeholder="StartDate" style={{ padding: 10 }} onChange={(date) => { onChangeStartDate(date) }} />
-                            </Form.Item>
-                        </Col>
-                        <Col span={8}  >
-                            <Form.Item name="EndDate" rules={[{ required: true }]}>
-                                <DatePicker placeholder="EndDate" style={{ padding: 10 }} onChange={(date) => { onChangeEndDate(date) }} />
-                            </Form.Item>
-                        </Col>
-                        <Col span={8}>
-                            <Form.Item name="State input here" rules={[{ required: true }]}>
-                                <TextArea placeholder="State input here" style={{ padding: 10 }} className="custom" value={states} onChange={onChangeTextArea} style={{ height: 50 }} />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row style={{ marginTop: 20 }}>
-                        <Col span={6}>
-                            <Form.Item>
-                                <Button size='large' type="success" htmlType="Submit"> Report Data</Button>
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                                <Col span={5} style={{ marginLeft: 10, marginTop: 10 }}>
+
+                                    {/* <Cards headless > */}
+
+                                    <Checkbox checked={isSellerCheckedList.includes(val)} onChange={(e) => { onListCheckChange(val, i, e.target.checked) }}>
+
+                                        {val}
+
+                                        {/* <img src={`/img/icons/${val}.png`} width="70" height="70" style={{marginLeft:10}}/>  */}
+
+                                    </Checkbox>
+
+                                    {/* </Cards> */}
+
+                                </Col>
+
+                            ))}
+
+                        </Row>
+                        <Row gutter={50} style={{ marginTop: 20 }}>
+                            <Col span={8} >
+                                <Form.Item name="StartDate" rules={[{ required: true }]}>
+                                    <DatePicker placeholder="StartDate" style={{ padding: 10 }} onChange={(date) => { onChangeStartDate(date) }} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}  >
+                                <Form.Item name="EndDate" rules={[{ required: true }]}>
+                                    <DatePicker placeholder="EndDate" style={{ padding: 10 }} onChange={(date) => { onChangeEndDate(date) }} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item name="State input here" rules={[{ required: true }]}>
+                                    <TextArea placeholder="State input here" style={{ padding: 10 }} className="custom" value={states} onChange={onChangeTextArea} style={{ height: 50 }} />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row style={{ marginTop: 20 }}>
+                            <Col span={6}>
+                                <Form.Item>
+                                    <Button size='large' type="success" htmlType="Submit"> Report Data</Button>
+                                </Form.Item>
+                            </Col>
+                        </Row>
 
 
-                </Cards>
+                    </Cards>
 
 
-                {/* MARKETPLACE CHECKBOXES  */}
+                    {/* MARKETPLACE CHECKBOXES  */}
 
-            </Form>
-
+                </Form>
+            </Spin>
 
 
         </>
