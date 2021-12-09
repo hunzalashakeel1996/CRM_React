@@ -43,8 +43,9 @@ const OrderReportsView = (props) => {
         checked: null,
         isLoader: false,
         values: {},
+        dataSource:[]
     });
-    const {isLoader}=state
+    const {dataSource,isLoader}=state
     const onChange = (value, key) => {
         // // console.log('aaa', date, dateString)
         setstate({ ...state, [key]: value });
@@ -75,71 +76,30 @@ const OrderReportsView = (props) => {
             key: 'orderno',
         },
         {
-            title: 'PONumber',
-            dataIndex: 'PONUMBER',
-            key: 'PONUMBER',
+            title: 'PurchaseOrderno',
+            dataIndex: 'purchaseorderno',
+            key: 'purchaseorderno',
         },
         {
-            title: 'OrderDate',
-            dataIndex: 'orderdate',
-            key: 'orderdate',
+            title: 'ConfirmationNo',
+            dataIndex: 'confirmationNo',
+            key: 'confirmationNo',
         },
         {
-            title: 'MerchantSKU',
-            dataIndex: 'merchantsku',
-            key: 'merchantsku',
+            title: 'TrackingCode',
+            dataIndex: 'trackingcode',
+            key: 'trackingcode',
         },
         {
-            title: 'VendorStyleCode',
-            dataIndex: 'vendorstylecode',
-            key: 'vendorstylecode',
+            title: 'ExpectedShipDate',
+            dataIndex: 'expectedshipdate',
+            key: 'expectedshipdate',
         },
         {
-            title: 'ColorName',
-            dataIndex: 'colorname',
-            key: 'colorname',
-        },
-        {
-            title: 'SizeName',
-            dataIndex: 'sizename',
-            key: 'sizename',
-        },
-        {
-            title: 'Cost',
-            dataIndex: 'cost',
-            key: 'cost',
-        },
-        {
-            title: 'ItemUnitPrice',
-            dataIndex: 'itemunitprice',
-            key: 'itemunitprice',
-        },
-        {
-            title: 'ItemQty',
-            dataIndex: 'itemqty',
-            key: 'itemqty',
-        },
-        {
-            title: 'VendorName',
-            dataIndex: 'vendorname',
-            key: 'vendorname',
-        },
-
-        {
-            title: 'OrderType',
-            dataIndex: 'ordertype',
-            key: 'ordertype',
-        },
-        {
-            title: 'IsMap',
-            dataIndex: 'ismap',
-            key: 'ismap',
-        },
-        {
-            title: 'MapPrice',
-            dataIndex: 'mapprice',
-            key: 'mapprice',
-        },
+            title: 'CreatedDate',
+            dataIndex: 'createddate',
+            key: 'createddate',
+        }
 
     ];
     const dowloadFile = () => {
@@ -174,9 +134,6 @@ const OrderReportsView = (props) => {
 
                                   </Form.Item>
                             </Col>
-
-
-
                         </Row>
                         </Form>
 

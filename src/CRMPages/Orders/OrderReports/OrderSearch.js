@@ -35,7 +35,7 @@ const OrderReportsView = (props) => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
 
-    const [state, setstate] = useState({
+    const [state, setState] = useState({
         selectionType: 'checkbox',
         selectedRowKeys: null,
         selectedRows: null,
@@ -53,15 +53,15 @@ const OrderReportsView = (props) => {
 
     const onChange = (value, key) => {
         console.log('aaa', value, key)
-        setstate({ ...state, [key]: value });
+        setState({ ...state, [key]: value });
 
     };
 
     const getOrderSearchReporting = () => {
 
-        setstate({ ...state, isLoader: true })
+        setState({ ...state, isLoader: true })
         dispatch(getOrderSearch({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), vendorname: state.VendorName })).then(data => {
-            setstate({ ...state, isLoader: false, dataSource: data[1], downloadFilePath: data[0] })
+            setState({ ...state, isLoader: false, dataSource: data[1], downloadFilePath: data[0] })
 
 
             notification.success({
