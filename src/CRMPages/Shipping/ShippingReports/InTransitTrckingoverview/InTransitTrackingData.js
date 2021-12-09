@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, notification } from 'antd';
+import { Input, Tabs, Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, notification,Spin } from 'antd';
 import { Button, BtnGroup } from '../../../../components/buttons/buttons';
 import { inTransitsTrackingData } from '../../../../redux/apis/DataAction';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
@@ -46,12 +46,13 @@ const InTransitTrackingData = (props) => {
         startDate: '',
         endDate: '',
         checkAll: false,
-        isSellerCheckedList: []
+        isSellerCheckedList: [],
+        isLoader:false
     });
 
     const sellerName = ['Amazon', 'Walmart', 'sears', 'Ebay', 'NewEgg', 'PU', 'JLC']
     const dispatch = useDispatch()
-    const { states, file, marketplace, startDate, endDate, checkAll, isSellerCheckedList } = state
+    const { states, file, marketplace, startDate, endDate, checkAll, isSellerCheckedList,isLoader } = state
     const multipleChange = childData => {
         setState({ ...state, checkData: childData });
     };
@@ -85,7 +86,7 @@ const InTransitTrackingData = (props) => {
                 description: `Successfully Report`,
                 onClose: close,
             });
-            location.reload();
+          
         })
     };
 
@@ -100,14 +101,14 @@ const InTransitTrackingData = (props) => {
             sellerList = []
 
         }
-        // console.log(sellerList)
+         console.log(sellerList)
         setState({ ...state, marketplace: sellerList, isSellerCheckedList: e.target.checked ? [...sellerName] : [], checkAll: e.target.checked ? true : false })
 
     };
     let username = [];
 
     const onListCheckChange = (val, i, isChecked) => {
-        // // console.log(isChecked)
+            console.log(val,i,isChecked)
 
         if (isChecked) {
             // console.log('if', val)
@@ -121,7 +122,9 @@ const InTransitTrackingData = (props) => {
             let index = sellerList.indexOf(val)
             sellerList.splice(index, 1)
         }
+
         let temp = [...isSellerCheckedList]
+
         if (isChecked) {
             temp.push(val)
         } else {
@@ -129,8 +132,8 @@ const InTransitTrackingData = (props) => {
             temp.splice(index, 1)
 
         }
-
-        setState({ ...state, marketplace: sellerList, isSellerCheckedList: temp, checkAll: sellerName.length === sellerList.length ? true : false });
+    
+        setState({ ...state, marketplace: temp, isSellerCheckedList: temp, checkAll: sellerName.length === sellerList.length ? true : false });
 
     }
     const onChangeStartDate = (value) => {
@@ -142,11 +145,12 @@ const InTransitTrackingData = (props) => {
         setState({ ...state, endDate: value.format('MM/DD/YYYY') });
     }
     const insertTransitsData = () => {
-        // console.log('seller',sellerList)
+         console.log('seller',marketplace.length )
 
         if (marketplace.length > 0) {
+            setState({ ...state, isLoader: true })
             dispatch(inTransitsTrackingData({ state: states, orderdatefrom: startDate, orderdateto: endDate, marketplace: marketplace })).then(data => {
-               console.log(data)
+                setState({ ...state, isLoader: false })
                 downloadFile(data)
                 //   message.success(`file uploaded Update ${data}`);
                 notification.success({
@@ -158,11 +162,15 @@ const InTransitTrackingData = (props) => {
             })
         }
         else
+        {
             alert('Select Seller')
+        }
+        
 
     };
     return (
         <>
+         <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Form layout="inline" initialValue="" label="" form={form} id="InTransit" name="nest-messages" onFinish={insertTransitsData} validateMessages={validateMessages}>
 
                 <Cards title="InTransit Tracking Report" caption="The simplest use of Drawer" >
@@ -230,6 +238,7 @@ const InTransitTrackingData = (props) => {
 
             </Form>
 
+            </Spin>
 
 
         </>
