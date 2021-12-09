@@ -148,9 +148,9 @@ const InTransitTrackingData = (props) => {
         console.log('seller', marketplace.length)
 
         if (marketplace.length > 0) {
-            setstate({ ...state, isLoader: true })
+            setState({ ...state, isLoader: true })
             dispatch(inTransitsTrackingData({ state: states, orderdatefrom: startDate, orderdateto: endDate, marketplace: marketplace })).then(data => {
-                setstate({ ...state, isLoader: false })
+                setState({ ...state, isLoader: false })
                 downloadFile(data)
           
                 notification.success({
