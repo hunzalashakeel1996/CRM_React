@@ -68,7 +68,84 @@ const OrderReportsView = (props) => {
 
     };
 
+    const columns = [
+        {
+            title: 'Orderno',
+            dataIndex: 'orderno',
+            key: 'orderno',
+        },
+        {
+            title: 'PONumber',
+            dataIndex: 'PONUMBER',
+            key: 'PONUMBER',
+        },
+        {
+            title: 'OrderDate',
+            dataIndex: 'orderdate',
+            key: 'orderdate',
+        },
+        {
+            title: 'MerchantSKU',
+            dataIndex: 'merchantsku',
+            key: 'merchantsku',
+        },
+        {
+            title: 'VendorStyleCode',
+            dataIndex: 'vendorstylecode',
+            key: 'vendorstylecode',
+        },
+        {
+            title: 'ColorName',
+            dataIndex: 'colorname',
+            key: 'colorname',
+        },
+        {
+            title: 'SizeName',
+            dataIndex: 'sizename',
+            key: 'sizename',
+        },
+        {
+            title: 'Cost',
+            dataIndex: 'cost',
+            key: 'cost',
+        },
+        {
+            title: 'ItemUnitPrice',
+            dataIndex: 'itemunitprice',
+            key: 'itemunitprice',
+        },
+        {
+            title: 'ItemQty',
+            dataIndex: 'itemqty',
+            key: 'itemqty',
+        },
+        {
+            title: 'VendorName',
+            dataIndex: 'vendorname',
+            key: 'vendorname',
+        },
 
+        {
+            title: 'OrderType',
+            dataIndex: 'ordertype',
+            key: 'ordertype',
+        },
+        {
+            title: 'IsMap',
+            dataIndex: 'ismap',
+            key: 'ismap',
+        },
+        {
+            title: 'MapPrice',
+            dataIndex: 'mapprice',
+            key: 'mapprice',
+        },
+
+    ];
+    const dowloadFile = () => {
+
+        downloadFile(downloadFilePath)
+    }
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
@@ -105,7 +182,21 @@ const OrderReportsView = (props) => {
 
                     </Cards>
                 </Row>
+                <Row>
+                    <Col xs={24}>
+                        <Cards headless>
+                            {/* <ProjectList> */}
 
+                            <div className="table-responsive">
+                                {/* <Styles> */}
+                                <Table size='small' pagination={true} dataSource={dataSource} columns={columns} />
+                                {/* </Styles> */}
+                            </div>
+
+                            {/* </ProjectList> */}
+                        </Cards>
+                    </Col>
+                </Row>
             </Spin>
 
 
