@@ -48,11 +48,12 @@ const OrderRMASummary = (props) => {
     dataSourceOrderTemp:[],
     dataSource:[],
     orderdatetoCheck:'todate',
-    orderdatefromCheck:'fromdate'
+    orderdatefromCheck:'fromdate',
+    dataDownloadLinkOrderRMASummary:''
     
   });
 
-  const {orderdatetoCheck,orderdatefromCheck,dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSource}=state
+  const {dataDownloadLinkOrderRMASummary,orderdatetoCheck,orderdatefromCheck,dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSource}=state
 
   useEffect(() => {
     console.log('aaaa', activeTab)
@@ -64,7 +65,16 @@ const OrderRMASummary = (props) => {
       dispatch(apiOrderRMASummary({ orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
        
          console.log(data)
-          downloadFileDataLink(data[0])
+         
+         setTimeout(
+          function() {
+            downloadFileDataLink(data[0])
+          }
+          .bind(this),
+          2000
+      );
+
+      
             let tempDataSource =[]
             data[1].map(value=>{
               const{ordertype,orderCount,RMA,Open,Process,Closed}=value
@@ -76,25 +86,26 @@ const OrderRMASummary = (props) => {
                 percentage:`${Math.round((RMA/orderCount*100)*100)/100}%`,
                 Open:Open,
                 Process:Process,
-                Closed:Closed,
-               
+                Closed:Closed,             
               
   
               })      
 
             })
 
-           setState({ ...state, isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom  })
+           setState({ ...state,dataDownloadLinkOrderRMASummary:data[0], isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom  })
            onAddRMAOrder(data[1])
          //  onDispatchComplete()
       })
     
     }
+  
     else if (activeTab === 'OrderRMASummary')
     {
       onAddRMAOrder(dataSource)
+      downloadFileDataLink(dataDownloadLinkOrderRMASummary)
     }
-
+   
   }, [isSearchPressed,activeTab,orderdateto,orderdatefrom])
 
   const columns = [

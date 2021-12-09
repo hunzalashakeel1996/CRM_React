@@ -59,11 +59,11 @@ const OrderRMADetail = (props) => {
     dataSourceOrderTemp:[],
     dataSource:[],
     orderdatetoCheck:'todate',
-    orderdatefromCheck:'fromdate'
-    
+    orderdatefromCheck:'fromdate',
+    dataDownloadLinkOrderRMADetail:''
   });
 
-  const {orderdatetoCheck,orderdatefromCheck,dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSource}=state
+  const {dataDownloadLinkOrderRMADetail,orderdatetoCheck,orderdatefromCheck,dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSource}=state
 
   useEffect(() => {
 
@@ -101,12 +101,16 @@ const OrderRMADetail = (props) => {
 
           })
        
-           setState({ ...state, isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom })
+           setState({ ...state,dataDownloadLinkOrderRMADetail:data[0], isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom })
           // onDispatchComplete()
       })
     
     }
-
+    else if (activeTab === 'OrderRMADetail')
+    {
+      downloadFileDataLink(dataDownloadLinkOrderRMADetail)
+    }
+ 
   }, [isSearchPressed,activeTab,orderdateto,orderdatefrom])
 
   const columns = [
