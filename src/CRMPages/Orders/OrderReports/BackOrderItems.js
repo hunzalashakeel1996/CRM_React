@@ -37,7 +37,7 @@ const OrderReportsView = (props) => {
     //  get vendors from redux 
     let vendornameState = useSelector(state => state.tickets.vendornames);
 
-    const [state, setstate] = useState({
+    const [state, setState] = useState({
         selectionType: 'checkbox',
         selectedRowKeys: null,
         selectedRows: null,
@@ -48,51 +48,35 @@ const OrderReportsView = (props) => {
         VendorName: null,
         value: '',
         isLoader: false,
-        values: []
+        values: [],
+        downloadFilePath:''
     });
-    const { isLoader, values } = state
+    const {downloadFilePath, isLoader, values } = state
     const onChange = (value, key) => {
         console.log('aaa', value)
-        setstate({ ...state, [key]: value });
+        setState({ ...state, [key]: value });
 
     };
     const onChangeSelect = (value, key) => {
         console.log('aaa', value)
-        setstate({ ...state, values: value });
+        setState({ ...state, values: value });
 
     };
     const getBackOrderItemsReporting = () => {
-     
-        setstate({ ...state, isLoader: true })
+
+        setState({ ...state, isLoader: true })
         dispatch(getBackOrderItems({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY'), vendor: state.VendorName })).then(data => {
-            setstate({ ...state, isLoader: false })
-           console.log('My Data: ', data)
-            // DownlaodWithReact(data);
-             downloadFile(data);
+            console.log('My Data: ', data)
+            setState({ ...state, isLoader: false, dataSource: data[1], downloadFilePath: data[0] })
+            //  console.log('My Data: ', data)
+          
             notification.success({
                 message: 'Successfull Dowload',
                 description: `Successfully Download & Rendered BackOrderItems of ${state.VendorName}  From ${state.startDate.format('MM/DD/YYYY')} to ${state.endDate.format('MM/DD/YYYY')}`,
                 onClose: close,
             });
-            let tempDataSource = [];
-            data.map(value => {
-                const { orderno, itemno, stylecode, stylename, vendorstylecode, colorcode, sizename, itemqty, backorderdate, ponumber, order_status, vendorname } = value;
-                return tempDataSource.push({
-                    orderno: orderno,
-                    itemno: itemno,
-                    stylecode: stylecode,
-                    stylename: stylename,
-                    vendorstylecode: vendorstylecode,
-                    colorcode: colorcode,
-                    sizename: sizename,
-                    itemqty: itemqty,
-                    backorderdate: backorderdate,
-                    ponumber: ponumber,
-                    order_status: order_status,
-                    vendorname: vendorname,
-                });
-            });
-            setstate({ ...state, dataSource: [...tempDataSource], isLoader: false });
+        
+      
         })
 
     };
@@ -149,7 +133,10 @@ const OrderReportsView = (props) => {
         },
     ];
 
+    const dowloadFile = () => {
 
+        downloadFile(downloadFilePath)
+    }
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
@@ -160,54 +147,57 @@ const OrderReportsView = (props) => {
                             <Row gutter={50}>
                                 <Col span={8} >
 
-                                  
-                                    <Form.Item name="VendorName" initialValue="" label="" rules={[{ required: true }]} >
-                                        <Select  style={{ padding: 10 }}  placeholder='Vendor Name' allowClear onChange={(VendorName) => { onChangeSelect(VendorName, 'VendorName') }}
+
+                                    <Form.Item name="VendorName"  rules={[{ required: true }]} >
+                                    <Select showSearch style={{ padding: 10 }} placeholder='Vendor Name' allowClear onChange={(VendorName) => { onChange(VendorName, 'VendorName') }}
                                             filterOption={(input, option) =>
                                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                            }  >
-                                            <Option value='' key=''>Vendor Name</Option>
+                                            } style={{ width: 300 }}  >
                                             {vendornameState.map((val, i) => (
                                                 <Option value={val} key={val}>{val}</Option>
 
                                             ))}
 
                                         </Select>
-                                        </Form.Item>
-                                 
+                                    </Form.Item>
+
                                     {/* </Form.Item> */}
                                 </Col>
-                                <Col span={6}   >
+                                <Col span={8}   >
                                     <Form.Item name="startDate" rules={[{ required: true }]}>
-                                    {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
+                                        {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>StartDate</h3></div> */}
 
-                                    <DatePicker style={{ padding: 10 }}   size='small' onChange={(date) => { onChange(date, 'startDate') }} />
+                                        <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'startDate') }} />
 
                                     </Form.Item>
                                 </Col>
-                                <Col span={6}  >
+                                <Col span={8}  >
                                     <Form.Item name="endDate" rules={[{ required: true }]}>
-                                    {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
+                                        {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>EndDate</h3></div> */}
 
-                                    <DatePicker  style={{ padding: 10 }}  size='small' onChange={(date) => { onChange(date, 'endDate') }} />
+                                        <DatePicker style={{ padding: 10 }} size='small' onChange={(date) => { onChange(date, 'endDate') }} />
 
                                     </Form.Item>
                                 </Col>
 
+                                </Row>
+                                <Row>
 
-                 
-                                <Col span={4}  >
+                                <Col span={12}  >
                                     {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
-                                 
-                                        <Form.Item >
-                                        <Button  size="large"  type="success" htmlType="submit">
-                                        Download
-                                      </Button>
+
+                                    <Form.Item >
+                                        <Button size="large" type="primary" htmlType="submit">
+                                            Search
+                                        </Button>
+                                    </Form.Item>
+                                    </Col>
+                                    <Col span={12}  >
+                                    <Form.Item >
+                                        <Button size="large" type="success" onClick={dowloadFile}>Download </Button>
                                         </Form.Item>
-                                     
-                                
                                 </Col>
-                            </Row>
+                                </Row>
                         </Form>
 
                     </Cards>

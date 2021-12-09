@@ -192,8 +192,8 @@ const OrderReportsView = (props) => {
                                 </Col>
                             </Row>
 
-                            <Row style={{ marginTop: 10 }}>
-                                <Col lg={6} xs={24}  >
+                            <Row  gutter={50} style={{ marginTop: 10 }}>
+                                <Col span={4}  >
                                     {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                                     <Form.Item >
                                         <Button size="large" type="primary" htmlType="Submit">
@@ -203,8 +203,9 @@ const OrderReportsView = (props) => {
                                     </Form.Item>
                                 </Col>
                                 <Col span={4}  >
-
+                                <Form.Item >
                                     <Button size="large" type="success" onClick={dowloadFile}>Download </Button>
+                                    </Form.Item>
                                 </Col>
                             </Row>
                         </Form>
