@@ -105,9 +105,11 @@ const ViewPNLRMA = () => {
     }
   ];
   const downloadFileDataLink = (data) => {
-
+  
     setstate({ ...state, downloadDataLink: data })
 
+
+   
   }
 
   const handleChangeDateFormat = (value) => {
@@ -117,7 +119,7 @@ const ViewPNLRMA = () => {
   }
   const download = (event) => {
     let activeTab = event
-    console.log(activeTab, downloadDataLink)
+   
     if (activeTab === 'ReplacmentOrder') {
       downloadFile(downloadDataLink)
 
@@ -161,7 +163,7 @@ const ViewPNLRMA = () => {
     let Process = 0;
     let Close = 0;
     var sum = 0;
-    console.log(result)
+
     for (i = 0; i < result.length;) {
       // let v = JSON.parse(result.Process[i].Process);
 

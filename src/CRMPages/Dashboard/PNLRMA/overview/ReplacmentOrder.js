@@ -47,11 +47,12 @@ const ReplacmentOrder = (props) => {
     isLoader:false,
     dataSource:[],
     orderdatetoCheck:'todate',
-    orderdatefromCheck:'fromdate'
+    orderdatefromCheck:'fromdate',
+    dataDownloadLinkReplacmentOrder:''
     
   });
 
-  const {orderdatetoCheck,orderdatefromCheck,sortedInfo,isLoader,dataSource}=state
+  const {dataDownloadLinkReplacmentOrder,orderdatetoCheck,orderdatefromCheck,sortedInfo,isLoader,dataSource}=state
 
 useEffect(()=>{
  // console.log('aaaa',isSearchPressed,activeTab,orderdatetoCheck,orderdatefromCheck, orderdatefrom,orderdateto)
@@ -59,14 +60,18 @@ useEffect(()=>{
 
     setState({ ...state, isLoader: true })
 dispatch(apiReplacmentQty({orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data=>{
-   
+   console.log(data)
   downloadFileDataLink(data[0])
         
-  setState({ ...state, isLoader: false,dataSource:data[1] ,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom })
+  setState({ ...state,dataDownloadLinkReplacmentOrder:data[0], isLoader: false,dataSource:data[1] ,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom })
 
   //onDispatchComplete()
 })
   }
+  if(activeTab === 'ReplacmentOrder'){
+    downloadFileDataLink(dataDownloadLinkReplacmentOrder)
+  }
+
 },[isSearchPressed,activeTab,orderdateto,orderdatefrom])
 
 const handleChange = (pagination, filters, sorter) =>  {

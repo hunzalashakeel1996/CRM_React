@@ -58,12 +58,13 @@ const ItemRMADetail = (props) => {
     dataSourceOrderTemp:[],
     dataSource:[],
     orderdatetoCheck:'todate',
-    orderdatefromCheck:'fromdate'
+    orderdatefromCheck:'fromdate',
+    dataDownloadLinkItemRMADetail:''
      
     
   });
 
-  const {orderdatetoCheck,orderdatefromCheck,dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSource}=state
+  const {dataDownloadLinkItemRMADetail,orderdatetoCheck,orderdatefromCheck,dateFomat,sortedInfo,isLoader,dataSourceOrderTemp,dataSource}=state
 
   useEffect(() => {
   
@@ -77,8 +78,8 @@ const ItemRMADetail = (props) => {
       dispatch(apiItemRMADetail({ orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
        
          console.log(data)
-          downloadFileDataLink(data[0])
-          
+      
+         downloadFileDataLink(data[0])
           let tempDataSource =[]
          data[1].map(value=>{
            const{COLORCODE,COLORNAME,merchantsku,VENDORSTYLECODE,sizename,orderno,orderdate,Rmadate,ordertype,ponumber,vendorname,orderstatus,RMASTATUS,pono,postatus,RMAAMOUNT,NOTES,reason,ordernotes}=value
@@ -108,12 +109,16 @@ const ItemRMADetail = (props) => {
 
           })
         
-           setState({ ...state, isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom})
+           setState({ ...state,dataDownloadLinkItemRMADetail:data[0], isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom})
         //    onDispatchComplete()
       })
     
     }
-
+    if (activeTab === 'ItemRMADetail')
+    {
+      downloadFileDataLink(dataDownloadLinkItemRMADetail)
+    }
+ 
   }, [isSearchPressed,activeTab,orderdateto,orderdatefrom])
 
   const columns = [
