@@ -231,7 +231,7 @@ const InTransitTrackingData = (props) => {
                     </Cards>
 
 
-                    {/* MARKETPLACE CHECKBOXEsS  */}
+                    {/* MARKETPLACE CHECKBOXES  */}
 
                 </Form>
 
