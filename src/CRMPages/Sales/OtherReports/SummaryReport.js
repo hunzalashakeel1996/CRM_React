@@ -248,15 +248,10 @@ const SummaryReport = (props) => {
         <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoading} >
       
         <div>
-            <ProjectHeader>
-                <PageHeader
-                    ghost
-                    title="Sale Summary"
-                />
-            </ProjectHeader>
+          
 
             <Row>
-                <Cards>
+                <Cards title="Sale Summary">
                     <Form   name="basic"
                     onFinish={onSubmit}
                     onFinishFailed={onSubmitFailed}>
@@ -326,22 +321,22 @@ const SummaryReport = (props) => {
 
                             <Col xs={24}>
 
-                             <Button size="large"  key="1" type="primary"   htmlType="submit" style={{marginRight:15,}}>
+                             <Button size="large"  key="1" type="primary"   htmlType="submit" style={{marginRight:15}}>
                                 Search
                            </Button>
         
-                           
+                           {downLoadLink &&
 
                              <Button size="large"  key="1" type="success"   onClick={() => { downloadFiles() }}>
                                 Download
                            </Button>
-        
+                            }
                             </Col>
                             </Row>
                     </Form>
                 </Cards>
             </Row>
-            <Row style={{ marginRight: 20, marginLeft: 20 }}>
+            <Row >
                 <Col xs={24}>
                     <Cards headless>
                         <ProjectList>

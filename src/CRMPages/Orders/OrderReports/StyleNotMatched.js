@@ -189,10 +189,10 @@ const StyleNotMatched = (props) => {
                                 <Col span={4}  >
                                     {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Download</h3></div> */}
                              
-                                      
+                                    {downloadFilePath&&
                         
                                         <Button size="large" type="success" onClick={dowloadFile}>Download </Button>
-                                  
+                                    }
                                       
                                
                                 </Col>

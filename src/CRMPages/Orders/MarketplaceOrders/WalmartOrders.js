@@ -9,7 +9,7 @@ import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
-import { apiDeleteSKUOnWalmart, apiDeleteSKUOnWalmartUpload, apiWalmartGetCanadaOrderSheetMethod, apiWalmartGetCanadaOrderSheetUpload, apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
+import {apiMissingEmailUpdateOrder, apiDeleteSKUOnWalmart, apiDeleteSKUOnWalmartUpload, apiWalmartGetCanadaOrderSheetMethod, apiWalmartGetCanadaOrderSheetUpload, apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
 
 import './MarketplaceOrders.css';
 
@@ -119,6 +119,20 @@ const MarketplaceOrdersView = (props) => {
 
         setstate({ ...state, isLoader: true });
         dispatch(apiWalmartGetSingleOrder({ POId: singlePonumber })).then(data => {
+            console.log('apiWalmartGetOrder', data)
+            notification.success({
+                message: 'Successfull Get Order ',
+                description: `Successfully Walmart Get order`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false });
+        })
+    }
+    
+    const getMissingEmailUpdateAPI = () => {
+
+        setstate({ ...state, isLoader: true });
+        dispatch(apiMissingEmailUpdateOrder({ POId: singlePonumber })).then(data => {
             console.log('apiWalmartGetOrder', data)
             notification.success({
                 message: 'Successfull Get Order ',
@@ -293,6 +307,10 @@ const MarketplaceOrdersView = (props) => {
 
                                 <Button size="large" type="success" onClick={getWalmartSingleOrderApi}>
                                     GetSingleOrders Api
+                                </Button>
+
+                                <Button size="large" type="success" onClick={getMissingEmailUpdateAPI}>
+                                Update Missing Emails
                                 </Button>
 
 

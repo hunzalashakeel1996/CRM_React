@@ -80,47 +80,9 @@ const OrderReportsView = (props) => {
         dispatch(getPNLReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })).then(data => {
             let tempData = []
 
-            data[1].map(item => {
-                const { vendorname, merchantsku, vendorstylecode, colorcode, sizename, orderstatus, itemstatus, orderdate, uspsdate, ORDERTYPE, orderno, purchaseorderno, itemqty, cost, purchaseCost, commit_status, commision, SalePrice, pu_price, Weight, shipping, po_shipping, ups_usps_item_shipping, usps_order_shipping, ups_order_shipping, isRMA, customer_pay_ship, profit, PPS, final_profit, Type, } = item
+          
 
-                tempData.push({
-                    vendorname: vendorname,
-                    merchantsku: merchantsku,
-                    vendorstylecode: vendorstylecode,
-                    colorcode: colorcode,
-                    sizename: sizename,
-                    orderstatus: orderstatus,
-                    itemstatus: itemstatus,
-                    orderdate: formatedate(orderdate),
-                    uspsdate: formatedate(uspsdate),
-                    ORDERTYPE: ORDERTYPE,
-                    orderno: orderno,
-                    purchaseorderno: purchaseorderno,
-                    itemqty: itemqty,
-                    cost: cost,
-                    purchaseCost: purchaseCost,
-                    commit_status: commit_status,
-                    commision: commision,
-                    SalePrice: SalePrice,
-                    pu_price: pu_price,
-                    Weight: Weight,
-                    shipping: shipping,
-                    po_shipping: po_shipping,
-                    ups_usps_item_shipping: ups_usps_item_shipping,
-                    usps_order_shipping: usps_order_shipping,
-                    ups_order_shipping: ups_order_shipping,
-                    isRMA: isRMA,
-                    customer_pay_ship: customer_pay_ship,
-                    profit: profit,
-                    PPS: PPS,
-                    final_profit: final_profit,
-                    Type: Type,
-
-                })
-
-            })
-
-            setstate({ ...state, isLoader: false, dataSource: tempData, downloadFilePath: data[0] });
+            setstate({ ...state, isLoader: false, dataSource:  data[1], downloadFilePath: data[0] });
 
             notification.success({
                 message: 'Successfull Dowload',
@@ -328,13 +290,15 @@ const OrderReportsView = (props) => {
 
                                     </Form.Item>
                                 </Col>
+                             
                                 <Col span={4}  >
                                 <Form.Item >
-                                  
+                                {downloadFilePath &&
                                     <Button size="large" type="success" onClick={dowloadFile}>Download </Button>
+                                }
                                     </Form.Item>
                                 </Col>
-
+                                    
 
                             </Row>
 

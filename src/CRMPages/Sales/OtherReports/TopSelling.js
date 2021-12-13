@@ -87,7 +87,7 @@ const TopSelling = (props) => {
         // // console.log("Button 2 clicked!");
         // // console.log(state.downLoadLink);
 
-        if(downLoadLink == ""){
+        if (downLoadLink == "") {
             // alert("Please Select Record First")
 
             notification.error({
@@ -97,7 +97,7 @@ const TopSelling = (props) => {
             });
 
         }
-        else{
+        else {
 
             downloadFile(downLoadLink);
             notification.success({
@@ -107,7 +107,7 @@ const TopSelling = (props) => {
             });
 
         }
-      
+
     }
 
     const onSubmitFailed = (errorInfo) => {
@@ -189,13 +189,13 @@ const TopSelling = (props) => {
     const validateMessages = {
         required: '${name} is required!',
         types: {
-          email: '${name} is not validate email!',
-          number: '${name} is not a validate number!',
+            email: '${name} is not validate email!',
+            number: '${name} is not a validate number!',
         },
         number: {
-          range: '${name} must be between ${min} and ${max}',
+            range: '${name} must be between ${min} and ${max}',
         },
-      };
+    };
 
 
     return (
@@ -203,19 +203,18 @@ const TopSelling = (props) => {
         <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoading} >
 
             <div>
-                <ProjectHeader>
-                    <PageHeader
-                        ghost
-                        title="Top Selling StyleCode"
-                    />
-                </ProjectHeader>
 
-                <Row>
-                    <Cards>
-                        <Form layout="inline" initialValue="" label=""  name="basic"  form={form} id="Top Selling" onFinish={onSubmit}  onFinishFailed={onSubmitFailed}  validateMessages={validateMessages}>
+         
+               
 
-                            <Row gutter={50}>
-                                <Col span={8}>
+            <Row>
+                    <Cards title="Top Selling">
+                        <Form name="basic"
+                            onFinish={onSubmit}
+                            onFinishFailed={onSubmitFailed}>
+
+                            <Row>
+                                <Col span={6}>
                                     <Form.Item name="startDate" rules={[{ required: true }]}>
                                         {/* <Space label="" {...rangeConfig}> */}
                                         <DatePicker style={{ padding: 10 }} size='default'
@@ -223,8 +222,8 @@ const TopSelling = (props) => {
                                         {/* </Space > */}
                                     </Form.Item>
                                 </Col>
-                           
-                                <Col span={8}>
+                                <Col span={1}></Col>
+                                <Col span={6}>
                                     <Form.Item name="endDate" rules={[{ required: true }]}>
                                         {/* <Space label="" {...rangeConfig}> */}
                                         <DatePicker style={{ padding: 10 }}
@@ -232,53 +231,41 @@ const TopSelling = (props) => {
                                         {/* </Space > */}
                                     </Form.Item>
                                 </Col>
-                           
+                                <Col span={1}></Col>
+                                <Col span={8}>
 
-                                {vendorNames && <Col span={8} >
                                 <Form.Item name="vendorName" value={state.VendorName} label="">
-                                            <ReasonAutoComplete
-                                                //   style={{ marginRight: 5 }}
-                                                placeholder='Search Vendorname'
-                                                onInputChange={(vendorName) => { onValueChange('VendorName', vendorName) }}
-                                                selectedReason={controls.VendorName} style={{ width: '100%' }}
-                                                dataSource={vendorNames}
-                                                onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
-                                        </Form.Item>
+                                    <ReasonAutoComplete
+                                        //   style={{ marginRight: 5 }}
+                                        placeholder='Search Vendorname'
+                                        onInputChange={(vendorName) => { onValueChange('VendorName', vendorName) }}
+                                        selectedReason={controls.VendorName} style={{ width: '100%' }}
+                                        dataSource={vendorNames}
+                                        onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
+                                </Form.Item>
+                                </Col>
+                            
+                               
 
-                                    {/* <Form.Item name="vendorName" rules={[{ required: true }]} >
-                                        <ReasonAutoComplete
-                                            //   style={{ marginRight: 5 }}
-                                            placeholder='Search Vendorname'
-                                            onInputChange={(vendorName) => { onValueChange('VendorName', vendorName) }}
-                                            selectedReason={controls.VendorName} style={{ width: '100%' }}
-                                            dataSource={vendorNames}
-                                            onReasonSelect={(vendorName) => { onValueChange('VendorName', vendorName) }} />
-                                    </Form.Item> */}
-
-                                </Col>}
-                            </Row>
-                            <Row style={{marginTop:10}} gutter={50}>
-
-
-                                <Col span={12}>
+                                <Col span={3}>
 
                                      <Button size="large"  key="1" type="primary"   htmlType="submit">
                                         Search
-                           </Button>
+                                     </Button>
 
                                 </Col>
-                                <Col span={12}>
-
+                                <Col span={3}>
+                                {downLoadLink&&
                                      <Button size="large"  key="1" type="success"   onClick={() => { downloadFiles() }}>
                                         Download
-                           </Button>
-
+                                     </Button>
+                                    }
                                 </Col>
                             </Row>
                         </Form>
                     </Cards>
                 </Row>
-                <Row style={{ marginRight: 20, marginLeft: 20 }}>
+                <Row >
                     <Col xs={24}>
                         <Cards headless>
                             <ProjectList>
@@ -293,6 +280,7 @@ const TopSelling = (props) => {
 
                 </Row>
             </div>
+
         </Spin>
     );
 

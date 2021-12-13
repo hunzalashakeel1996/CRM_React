@@ -70,45 +70,10 @@ const OrderReportsView = (props) => {
         setstate({ ...state, isLoader: true });
 
         dispatch(getSalesReport({ orderdatefrom: state.startDate.format('MM/DD/YYYY'), orderdateto: state.endDate.format('MM/DD/YYYY') })).then(data => {
-            console.log(data)
-            let tempData = []
-            data[1].map(item => {
-                const {vendorname,	merchantsku,	vendorstylecode,	colorcode,	sizename,	orderstatus,	itemstatus,	orderdate,	ORDERTYPE,	orderno,	itemqty,	cost,	purchaseCost,	commit_status,	commision,	SalePrice,	pu_price,	Weight,	shipping,	po_shipping,	isRMA,	customer_pay_ship,	profit,	PPS,	final_profit                }=item
-                tempData.push({
-                    vendorname: vendorname,
-                    merchantsku: merchantsku,
-                    vendorstylecode: vendorstylecode,
-                    colorcode: colorcode,
-                    sizename: sizename,
-                    orderstatus: orderstatus,
-                    itemstatus: itemstatus,
-                    orderdate: formatedate(orderdate),
-                    ORDERTYPE: ORDERTYPE,
-                    orderno: orderno,
-                    itemqty: itemqty,
-                    cost: cost,
-                    purchaseCost: purchaseCost,
-                    commit_status: commit_status,
-                    commision: commision,
-                    SalePrice: SalePrice,
-                    pu_price: pu_price,
-                    Weight: Weight,
-                    shipping: shipping,
-                    po_shipping: po_shipping,
-                    isRMA: isRMA,
-                    customer_pay_ship: customer_pay_ship,
-                    profit: profit,
-                    PPS: PPS,
-                    final_profit: final_profit,
-
-                })
-
-            })
+          
 
 
-
-
-            setstate({ ...state, isLoader: false, dataSource: tempData, downloadFilePath: data[0] });
+            setstate({ ...state, isLoader: false, dataSource: data[1], downloadFilePath: data[0] });
 
             notification.success({
                 message: 'Successfull Dowload',
@@ -284,7 +249,9 @@ const OrderReportsView = (props) => {
                                 </Col>
                                 <Col span={4}  >
                                 <Form.Item >
+                                    {downloadFilePath&&
                                     <Button size="large" type="success" onClick={dowloadFile}>Download </Button>
+                                    }
                                     </Form.Item>
                                 </Col>
 

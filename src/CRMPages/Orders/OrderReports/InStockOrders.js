@@ -147,7 +147,9 @@ const OrderReportsView = (props) => {
                                 </Col>
                                 <Col span={4}  >
                                 <Form.Item >  
+                                {downloadFilePath&&
                                     <Button size="large" type="success" onClick={dowloadFile}>Download </Button>
+                                }
                                     </Form.Item>
                                 </Col>
 

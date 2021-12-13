@@ -187,15 +187,10 @@ return (
     <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoading} >
 
             <div>
-                <ProjectHeader>
-                    <PageHeader
-                        ghost
-                        title="Comparison Report"
-                    />
-                </ProjectHeader>
+               
 
                 <Row>
-                    <Cards>
+                    <Cards title="Comparison Report">
                         <Form name="basic"
                             onFinish={onSubmit}
                             onFinishFailed={onSubmitFailed}>
@@ -228,7 +223,7 @@ return (
                                             // listHeight={500}
                                             // size={size}
                                             maxTagCount={3}
-                                            placeholder="Select Vendor Name"
+                                            placeholder="Search Vendorname"
                                             style={{ width: '100%' }}
                                             onChange={changeVendorName}
                                         >
@@ -240,29 +235,28 @@ return (
 
                                     </Form.Item>
                                 </Col>
-                            </Row>
-                            <Row>
+                            
                                
 
                                 <Col span={3}>
 
                                      <Button size="large"  key="1" type="primary"   htmlType="submit">
                                         Search
-                           </Button>
+                                     </Button>
 
                                 </Col>
                                 <Col span={3}>
-
+                                {downLoadLink&&
                                      <Button size="large"  key="1" type="success"   onClick={() => { downloadFiles() }}>
                                         Download
-                           </Button>
-
+                                     </Button>
+                                    }
                                 </Col>
                             </Row>
                         </Form>
                     </Cards>
                 </Row>
-                <Row style={{ marginRight: 20, marginLeft: 20 }}>
+                <Row>
                     <Col xs={24}>
                         <Cards headless>
                             <ProjectList>

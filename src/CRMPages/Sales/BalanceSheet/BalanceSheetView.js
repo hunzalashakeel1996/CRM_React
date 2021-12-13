@@ -192,16 +192,9 @@ const ReportView = (props) => {
 
     return (
         <div>
-            <ProjectHeader>
-                <PageHeader
-                    ghost
-                    title="Balance Sheet"
-
-                />
-            </ProjectHeader>
-
-            <Row style={{ marginRight: 20, marginLeft: 20 }}>
-                <Cards size="large">
+          
+            <Row style={{ marginRight: 20, marginLeft: 20 ,marginTop:20}}>
+                <Cards size="large" title="Balance Sheet">
                     <Form validateMessages={validateMessages}
                         name="basic"
                         onFinish={onSubmit}

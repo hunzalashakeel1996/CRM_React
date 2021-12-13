@@ -112,15 +112,10 @@ const PurchaseReport = (props) => {
         <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoading} >
 
             <div>
-                <ProjectHeader>
-                    <PageHeader
-                        ghost
-                        title="Top Selling StyleCode"
-                    />
-                </ProjectHeader>
+               
 
                 <Row>
-                    <Cards>
+                    <Cards title="PurchaseReport" >
                         <Form name="basic"
                             onFinish={onSubmit}
                             onFinishFailed={onSubmitFailed}>
@@ -145,18 +140,20 @@ const PurchaseReport = (props) => {
                                 </Col>
                                 <Col span={1}></Col>
                                 <Col span={3}  style={{  margintTop: 3}}>
-
+                                <Form.Item>
                                      <Button size="large"  key="1" type="primary"   htmlType="submit">
                                         Search
-                           </Button>
-
+                                       </Button>
+                                       </Form.Item>
                                 </Col>
                                 <Col span={3}>
-
+                                    {downLoadLink&&
+                                      <Form.Item>
                                      <Button size="large"  key="1" type="success"   onClick={() => { downloadFiles() }}>
                                         Download
-                           </Button>
-
+                                    </Button>
+                                    </Form.Item>
+                                    }
                                 </Col>
                                
                             </Row>
@@ -164,7 +161,7 @@ const PurchaseReport = (props) => {
                         </Form>
                     </Cards>
                 </Row>
-                <Row style={{ marginRight: 15, marginLeft: 15 }}>
+                <Row >
                     <Col xs={24}>
                         <Cards headless>
                             <ProjectList>

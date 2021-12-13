@@ -1173,6 +1173,11 @@ export const apiWalmartGetSingleOrder = (data) => {
     return apiFetchDotNet('/walmart/singleOrderGet', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
+export const apiMissingEmailUpdateOrder = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/walmart/WalmartMissingOrderAPI', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
 export const apiWalmartGetOrder = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/walmart/ordersGetapi', "POST", headerDotNetWithJwt, JSON.stringify(data));
