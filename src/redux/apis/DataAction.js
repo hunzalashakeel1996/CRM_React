@@ -26,7 +26,6 @@ export const url = "https://crm.rizno.com:3001";
 //#################### Dot NET Live URL ####################
 export const urlDotNet = "https://crm.rizno.com/api"
 
-
 export const uploadUrl = "https://images.vanwala.pk";
 
 const { uiStartLoading, uiStopLoading } = actions;

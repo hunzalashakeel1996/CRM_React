@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input,Form, Tabs, Table, Upload, Row, Col, notification, Modal } from 'antd';
+import { Input,Form, Tabs, Table, Upload, Row, Col, notification, Modal,Spin } from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
@@ -31,12 +31,15 @@ const EndiciaShipmentView = (props) => {
         dataSource: [],
         checkCount:'',
         orderno: [],
+        isLoader: false,
+        dataSourceEorror:[]
+
     });
     const [visible, setVisible] = useState(false);
+    const [visibleError, setVisibleError] = useState(false);
     const dispatch = useDispatch()
-    const { file,dataSource,checkCount,orderno } = state
+    const { file,dataSource,checkCount,orderno,isLoader,dataSourceEorror } = state
     let counter = 0;
-  
     const columns = [
         {
             title: 'Order NO',
@@ -145,21 +148,47 @@ const EndiciaShipmentView = (props) => {
         })
         setVisible(true)
     };
+    
+    const columnsError = [
+        {
+            title: 'Order NO',
+            dataIndex: 'orderno',
+            key: 'orderno',
+        },
+        {
+            title: 'Description',
+            dataIndex: 'result',
+            key: 'result',
+        }
+    ];
+    
     const createEndiciaShipinglabel = () => {
+
+        setVisible(false)
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
 
-   
+        setState({ ...state, isLoader: true });
         dispatch(endiciaShipingCreateShiping({ user: username.LoginName })).then(data => {
 
-            //   message.success(`file uploaded Update ${data}`);
+          console.log(data[1])
+          let tempData=[];
+          data[1].map(item=>{
+            
+              tempData.push({
+                  orderno:item.Key,
+                  result:item.Value
+              })
+          })         
             notification.success({
                 message: `Successfull  ${data}`,
                 description: `Successfully Report`,
                 onClose: close,
             });
-            location.reload();
+            setState({ ...state, isLoader: false,dataSourceEorror:tempData });
+            setVisibleError(true)
         })
+     
     };
     const checkEndiciaLabel =()=>{
         dispatch(multipleCreateLabel()).then(data => {
@@ -217,6 +246,7 @@ const verifyLabel = () => {
 };
     return (
         <>
+                 <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
             <Row style={{}}>
                 <Cards title="Endica Shiping Label" caption="The simplest use of Drawer" >
                 
@@ -316,6 +346,24 @@ const verifyLabel = () => {
 
             </Modal>
 
+            <Modal
+                title="Endicia Create Label Error"
+                centered
+                visible={visibleError}
+                onOk={() => setVisibleError(false)}
+
+                onCancel={() => setVisibleError(false)}
+                width={1000} >
+
+
+                <div className="table-responsive">
+                    <Table pagination={true} dataSource={dataSourceEorror} columns={columnsError} />
+                </div>
+
+
+
+            </Modal>
+            </Spin>
 
         </>
     );
