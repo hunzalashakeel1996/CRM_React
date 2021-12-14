@@ -118,7 +118,19 @@ const MarketplaceOrdersView = (props) => {
     const getWalmartSingleOrderApi = () => {
 
         setstate({ ...state, isLoader: true });
-        dispatch(apiWalmartGetSingleOrder({ POId: singlePonumber })).then(data => {
+     let   poNumb = []
+      let  ponumber = singlePonumber.split("\n")
+
+      ponumber.map(item=>{
+        poNumb.push( parseInt(item))
+      })
+        // ponumber.forEach(function (obj) {
+        //     poNumb.push( parseInt(obj))
+
+         
+        // })
+
+        dispatch(apiWalmartGetSingleOrder(poNumb)).then(data => {
             console.log('apiWalmartGetOrder', data)
             notification.success({
                 message: 'Successfull Get Order ',
