@@ -661,9 +661,26 @@ const ItemPNL = (props) => {
       ]
        
 
+    },
+    {
+      title: 
+        <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>isclearance</p>
+        </div>,
+      children: [
+        {
+          title: <>
+            { filter('isclearance')}
+          </>,
+          dataIndex: 'isclearance',
+          key: 'isclearance',
+        }
+      ]
+       
+
     }
 
-
+    
 
 
 

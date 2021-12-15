@@ -202,7 +202,8 @@ const ReportPNLWebView = () => {
           final_profit,
           Type,
           IsReplacement,
-          Discount_amount
+          Discount_amount,
+          isclearance
         } = value;
 
 
@@ -236,7 +237,8 @@ const ReportPNLWebView = () => {
           final_profit: `$${Math.round(final_profit * 100) / 100}`,
           Type: Type,
           IsReplacement: IsReplacement,
-          Discount_amount: `$${Math.round(Discount_amount * 100) / 100}`
+          Discount_amount: `$${Math.round(Discount_amount * 100) / 100}`,
+          isclearance:isclearance==false?0:1
         });
 
       });
@@ -485,6 +487,7 @@ const ReportPNLWebView = () => {
     setstate({ ...state, dateFormat: value })
   }
   const download = (event) => {
+
 
     let activeTab = event
 
