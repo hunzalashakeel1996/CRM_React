@@ -35,6 +35,7 @@ const ViewPNLRMA = () => {
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report RMA PNL'];
   // console.log(tabChildBar)
   const [activeTab, setActiveTab] = useState('ReplacmentOrder');
+  const [downloadDataLink, setDownloadDataLink] = useState('ReplacmentOrder');
   const [isSearchPressed, setIsSearchPressed] = useState(false);
 
   const [state, setstate] = useState({
@@ -43,7 +44,6 @@ const ViewPNLRMA = () => {
     dateFormat: 'Year',
     startDate: '',
     endDate: '',
-    downloadDataLink: '',
     totalOrders:'',
     totalRMAOrdersCount: '',
     totalRMAOrderClose: '',
@@ -58,7 +58,7 @@ const ViewPNLRMA = () => {
 
   };
 
-  const {totalOrdersReturnPercentage, totalOrders,totalRMAOrdersOpen, totalRMAOrdersProcess, totalRMAOrderClose, totalRMAOrdersCount, downloadDataLink, isLoader, dateFormat, startDate, endDate } = state
+  const {totalOrdersReturnPercentage, totalOrders,totalRMAOrdersOpen, totalRMAOrdersProcess, totalRMAOrderClose, totalRMAOrdersCount, isLoader, dateFormat, startDate, endDate } = state
 
 
   const topMenu = [
@@ -106,8 +106,7 @@ const ViewPNLRMA = () => {
   ];
   const downloadFileDataLink = (data) => {
   
-    setstate({ ...state, downloadDataLink: data })
-
+    setDownloadDataLink(data)
 
    
   }

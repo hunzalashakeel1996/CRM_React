@@ -65,13 +65,13 @@ const ItemRMASummary = (props) => {
       dispatch(apiItemRMASummary({ orderdateto: orderdateto, orderdatefrom:orderdatefrom})).then(data => {
        
         console.log(data)
-        setTimeout(
-          function() {
+        // setTimeout(
+        //   function() {
             downloadFileDataLink(data[0])
-          }
-          .bind(this),
-          2000
-      );
+      //     }
+      //     .bind(this),
+      //     2000
+      // );
 
 
              let tempDataSource =[]

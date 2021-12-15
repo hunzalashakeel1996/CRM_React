@@ -66,13 +66,13 @@ const OrderRMASummary = (props) => {
        
          console.log(data)
          
-         setTimeout(
-          function() {
+        //  setTimeout(
+        //   function() {
             downloadFileDataLink(data[0])
-          }
-          .bind(this),
-          2000
-      );
+      //     }
+      //     .bind(this),
+      //     2000
+      // );
 
       
             let tempDataSource =[]
