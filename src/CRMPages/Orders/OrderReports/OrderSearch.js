@@ -32,6 +32,7 @@ const validateMessages = {
 const OrderReportsView = (props) => {
     //  get vendors from redux 
     let vendornameState = useSelector(state => state.tickets.vendornames);
+    vendornameState=['All Vendor',...vendornameState]
     const dispatch = useDispatch();
     const [form] = Form.useForm();
 
