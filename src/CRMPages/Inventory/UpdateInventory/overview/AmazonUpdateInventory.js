@@ -47,13 +47,13 @@ const AmazonUpdateInventory = () => {
         })
 
     }
-    const MerchantskuyDownload = () => {
+    const MerchantskuDownload = () => {
 
         setstatelive({ ...statelive, loaderState: true });
 
         dispatch(getUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, loaderState: false });
-            // console.log(data)
+            
             downloadFile(data)
         })
 
@@ -113,7 +113,7 @@ const AmazonUpdateInventory = () => {
                 <Form.Item
                     style={{
                         margin: 0,
-                        width:150,
+                        width: 150,
                     }}
                     name={dataIndex}
                     rules={[
@@ -361,40 +361,32 @@ const AmazonUpdateInventory = () => {
                         <Row >
 
 
-                            <Col xs={24} md={12} lg={10} >
+                            <Col span={8} >
 
                                 <div className="auto-complete-input">
 
-                                    <TextArea placeholder="input here" className="custom" value={merchantskus} onChange={onChange} style={{ height: 50, marginBottom:15 }} />
+                                    <TextArea placeholder="input here" className="custom" value={merchantskus} onChange={onChange} style={{ height: 50 }} />
                                 </div>
 
                             </Col>
 
 
-                        </Row>
 
-                        <Row >
 
-                        <Col xs={24} md={12} lg={10} >
-                            <Row>
-                            <Col xs={12} sm={8} style={{ paddingRight:10 }}>
+                            <Col span={2} style={{ marginLeft: 20 }}>
 
-                                 <Button size="large"    type="primary" onClick={getMerchantskuDetail} style={{width:'100%', borderRadius:0, marginBottom:8}}>Search</Button>
+                                <Button size="large" type="primary" onClick={getMerchantskuDetail} >Search</Button>
                             </Col>
 
 
-                            <Col xs={12} sm={8} style={{  paddingRight:10  }}>
-                                 <Button size="large"    type="success" onClick={MerchantskuyDownload} style={{width:'100%', borderRadius:0, marginBottom:8}}>Download</Button>
+                            <Col span={3} style={{ marginLeft: 20 }}>
+                                <Button size="large" style={{ backgroundColor: '#20c997', color: 'white' }} type="success" onClick={{MerchantskuDownload}}  >Download</Button>
+                            </Col>
+                            <Col span={2} style={{ marginLeft: 20 }}>
+
+                                <Button size="large" type="success" onClick={ModalOpen} style={{ backgroundColor: '#20c997', color: 'white' }}>Update</Button>
                             </Col>
 
-                            <Col xs={24} sm={8} style={{ paddingRight:10  }}>
-
-                                 <Button size="large"    type="primary" onClick={ModalOpen} style={{width:'100%', borderRadius:0, marginBottom:8}}>Update</Button>
-                            </Col>
-
-                            </Row>
-
-                            </Col>
 
                         </Row>
 
@@ -407,7 +399,7 @@ const AmazonUpdateInventory = () => {
                             bordered
                             dataSource={dataSource}
                             columns={column}
-                            
+
                         />
                     </div>
                 </div>

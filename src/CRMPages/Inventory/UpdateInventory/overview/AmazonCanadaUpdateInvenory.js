@@ -47,7 +47,7 @@ const AmazonCanadaUpdateInvenory = () => {
         })
 
     }
-    const MerchantskuyDownload = () => {
+    const MerchantskuDownload = () => {
 
         setstatelive({ ...statelive, loaderState: true });
 
@@ -345,7 +345,7 @@ const AmazonCanadaUpdateInvenory = () => {
 
 
                             <Col span={3} style={{ marginLeft: 20 }}>
-                                 <Button size="large"  style={{backgroundColor: '#20c997', color: 'white'}}   type="success" onClick={MerchantskuyDownload}  >Download</Button>
+                                 <Button size="large"  style={{backgroundColor: '#20c997', color: 'white'}}   type="success" onClick={MerchantskuDownload}  >Download</Button>
                             </Col>
                             <Col span={2} style={{ marginLeft: 20 }}>
                                
