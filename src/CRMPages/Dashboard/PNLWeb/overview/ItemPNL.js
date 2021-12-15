@@ -665,7 +665,7 @@ const ItemPNL = (props) => {
     {
       title: 
         <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
-          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>isclearance</p>
+          <p style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>IsClearance</p>
         </div>,
       children: [
         {
