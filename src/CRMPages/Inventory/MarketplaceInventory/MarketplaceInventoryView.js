@@ -134,7 +134,7 @@ const MarketplaceInventoryView = (props) => {
                         setVisible(true)
                     }
                     else if (data[2] != 'ADD AMAZON INVENTORY') {
-                        setVisible(false)
+                    
 
                         //This Coding wait for live testing 
                         // let currentDate = new Date();
@@ -176,7 +176,20 @@ const MarketplaceInventoryView = (props) => {
                 })
 
             }
-
+            else if (requestObjInventroy.addOrOtherinventory !== 'ADD WALMART INVENTORY' && requestObjInventroy.addOrOtherinventory !== 'Walmart PRICE TEMPLATE')
+                {
+                    dispatch(getInventoryWalmart_all_otherapi(requestObjInventroy)).then(data => {
+                        setState({ ...state, loaderState: false })
+                          console.log(data)
+                         downloadFile(data)
+                         notification.success({
+                             message: 'Successfull Dowload',
+                             description: `Successfully ${data[2]} Report`,
+                             onClose: close,
+                         });
+                         setVisible(false)
+                    })
+                }
 
 
         }

@@ -182,16 +182,17 @@ const MarketplaceGroupInventoryView = (props) => {
         else if (isAmazon == false) {
 
             dispatch(requestObjInventroy.addOrOtherinventory === 'ADD WALMART INVENTORY' ? getWallMartasinqtyapi(requestObjInventroy) : getwalmart_asin_all_otherapi(requestObjInventroy)).then(data => {
-
+             console.log(data)
+                downloadFile(data)
                 setState({ ...state, loaderState: false })
-                var link = data
-                var datalink = link;
-                // console.log(datalink.length);
-                for (var z = 0; z < datalink.length;) {
-                    downloadFile(datalink[z])
+                // var link = data
+                // var datalink = link;
+                // // console.log(datalink.length);
+                // for (var z = 0; z < datalink.length;) {
+                //     downloadFile(datalink[z])
 
-                    z++
-                }
+                //     z++
+                // }
             })
 
 
