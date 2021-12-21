@@ -18,6 +18,7 @@ import AmazonPUstatus from './Statusoverview/AmazonPUstatus';
 import AmazonRiznostatus from './Statusoverview/AmazonRiznostatus';
 import AmazonPUUAEstatus from './Statusoverview/AmazonPUUAEstatus';
 import AmazonPUCanadastatus from './Statusoverview/AmazonPUCanadastatus';
+import EbayPUStatus from './Statusoverview/EbayPUStatus';
 
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -454,7 +455,9 @@ const SKUstatus = () => {
                             <TabPane tab="Amazon UAE" key="Amazon UAE">
                                 <AmazonPUUAEstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
                             </TabPane>
-
+                            <TabPane tab="Ebay PU" key="Ebay PU">
+                                <EbayPUStatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                            </TabPane>
                         </Tabs>
 
                     </Cards>
