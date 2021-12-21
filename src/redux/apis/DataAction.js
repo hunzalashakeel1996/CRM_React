@@ -24,7 +24,10 @@ export const url = "https://crm.rizno.com:3001";
 //export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-export const urlDotNet = "https://crm.rizno.com/api"
+// export const urlDotNet = "https://crm.rizno.com/api"
+export const urlDotNet = "http://localhost:22234/api"
+
+
 
 export const uploadUrl = "https://images.vanwala.pk";
 
@@ -1306,3 +1309,65 @@ export const apilineChartGraph = (data) => {
 //     var response1 = Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Token");
 //     return response1;
 // }
+
+
+// ===================================== PU App Apis ==============================================================
+
+export const PUAppOffers = (data) => {
+    return apiFetchDotNet('/Mobile/AdminOffer', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUpdateOffer = (data) => {
+    return apiFetchDotNet('/Mobile/EditOffer', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUpdateOfferStatus = (data) => {
+    return apiFetchDotNet('/Mobile/UpateOffer', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppFreeShipping = (data) => {
+    return apiFetchDotNet('/Mobile/FreeShipping', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUpdateShipping = (data) => {
+    return apiFetchDotNet('/Mobile/UPDATESHIPPING', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppChangeShipping = (data) => {
+    return apiFetchDotNet('/Mobile/ChangeSHIPPING', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppGetAllBrands = (data) => {
+    return apiFetchDotNet('/Mobile/ALLBRANDS', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppGetBrandStyles = (data) => {
+    return apiFetchDotNet('/Mobile/BrandSortdata', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUpdateBrandStylesSort = (data) => {
+    return apiFetchDotNet('/Mobile/SaveBranddata', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppGetSubCategories = (data) => {
+    return apiFetchDotNet('/Mobile/SUBCATEGORIES', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppGetCategoryStyles = (data) => {
+    return apiFetchDotNet('/Mobile/CatSortdata', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUpdateCategoryStylesSort = (data) => {
+    return apiFetchDotNet('/Mobile/SaveCatSortdata', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppGetAllBanners = (data) => {
+    return apiFetchDotNet('/Mobile/GetAllBanners', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUpdateBannerStatus = (data) => {
+    return apiFetchDotNet('/Mobile/UpdateBannerStatus', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+// ===================================== PU App Apis End ==============================================================
+

@@ -296,7 +296,35 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         path: `${path}/styleChart`
       }
     ]
-    }
+    },
+    {
+      key: 'PU App',
+      title: 'Pu App',
+      icon: 'smartphone',
+      items: [{
+        key: 'Banners',
+        title: 'Banners',
+        path: `${path}/PUApp/banners`
+      },
+      {
+        key: 'Offers',
+        title: 'Offers',
+        path: `${path}/PUApp/offers`
+      },{
+        key: 'Coupons',
+        title: 'Coupons',
+        path: `${path}/PUApp/coupons`
+      },{
+        key: 'Sort',
+        title: 'Sort',
+        path: `${path}/PUApp/sort`
+      },{
+        key: 'Shipping',
+        title: 'Shipping',
+        path: `${path}/PUApp/shipping`
+      }
+    ]
+    },
   ]
 
 

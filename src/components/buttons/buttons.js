@@ -19,6 +19,7 @@ const Button = props => {
     social,
     load,
     children,
+    style,
     ...rest
   } = props;
   const [state, setState] = useState({
@@ -45,7 +46,7 @@ const Button = props => {
       social={social}
       onClick={load && enterLoading}
       loading={state.loading}
-      style={{backgroundColor: type==='success'&&'#42ba96', color: type==='success'&&'white'}}
+      style={{...style, backgroundColor: type==='success'&&'#42ba96', color: type==='success'&&'white' }}
       {...rest}
     >
       {children}

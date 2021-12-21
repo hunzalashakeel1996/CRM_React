@@ -1,0 +1,16 @@
+.ant-table.ant-table-small {
+    font-size: 12px !important;
+}
+
+.ant-page-header {
+    padding: 15px 25px 0px 30px !important;
+}
+
+@media (max-width: 500px) {
+    .btnCol {
+        margin-top: 16px;
+    }
+    .divDisplay{
+        display: block;
+    }
+}
