@@ -1,12 +1,13 @@
 import React, { Suspense, useEffect, useState } from 'react';
 
-import { Row, Col, Icon, Form, Input, Select, Menu, Dropdown, Card, Image, InputNumber, Table, PageHeader, notification, Radio, Tabs, Spin } from 'antd';
+import { Row, Col, Icon, Form, Input, Select, Menu, Dropdown, Card, Image, InputNumber, Table, PageHeader, notification, Space, Tabs, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../../components/buttons/buttons';
 import { DownOutlined } from '@ant-design/icons';
 
 import './overview/style.css';
 import { PUAppGetAllBanners, PUAppUpdateBannerStatus } from '../../../redux/apis/DataAction';
+import EditBannerModal from './overview/EditBannerModal';
 
 const { TabPane } = Tabs;
 
@@ -19,6 +20,8 @@ const ViewSort = () => {
   const [loader, setLoader] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [banners, setBanners] = useState([]);
+  const [selectedBanner, setSelectedBanner] = useState(null);
+
 
   useEffect(() => {
     getBanners();
@@ -31,12 +34,14 @@ const ViewSort = () => {
         return {
           ...item,
           key: index,
-          imageStatus: <Dropdown overlay={() => menu(item)}>
-            <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-              {item.status ? 'Active' : 'InActive'} <DownOutlined />
-            </a>
-          </Dropdown>,
+          imageStatus: item.status ? 'Active' : 'InActive',
+          //    imageStatus: <Dropdown overlay={() => menu(item)}>
+          //    <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+          //      {item.status ? 'Active' : 'InActive'} <DownOutlined />
+          //    </a>
+          //  </Dropdown>,
           BannerImage: <Image width={150} src={item.Banner_image} />,
+          subType: item.sub_type ? item.sub_type.split('-PU-')[1] : '---'
         }
       })
       setBanners(dataSource);
@@ -57,10 +62,24 @@ const ViewSort = () => {
       key: 'type',
     },
     {
+      title: 'Sub Type',
+      dataIndex: 'subType',
+      key: 'subType',
+    },
+    {
       title: 'Status',
       dataIndex: 'imageStatus',
       key: 'imageStatus',
-    }
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <Space size="middle">
+          <a onClick={() => { setIsModalVisible(true); setSelectedBanner(record) }}>Edit</a>
+        </Space >
+      ),
+    },
   ];
 
   const openNotificationWithIcon = (type, title) => {
@@ -93,11 +112,25 @@ const ViewSort = () => {
     </Menu>
   );
 
+  const updateBanner = () => {
+    setIsModalVisible(false);
+    getBanners();
+    openNotificationWithIcon('success', 'Banner Successfully Updated!');
+    setSelectedBanner(null)
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedBanner(null)
+  };
+
   return (
     <>
       <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loader} >
         <PageHeader title="Banners" />
         <Table style={{ marginLeft: 10, marginRight: 10, marginBottom: 20 }} dataSource={banners} columns={columns} />
+
+        {isModalVisible && <EditBannerModal loader={loader} setLoader={setLoader} isModalVisible={isModalVisible} banner={selectedBanner} updateBanner={updateBanner} handleCancel={handleCancel} />}
       </Spin >
     </>
   );

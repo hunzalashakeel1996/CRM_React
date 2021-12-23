@@ -28,7 +28,6 @@ export const url = "https://crm.rizno.com:3001";
 export const urlDotNet = "http://localhost:22234/api"
 
 
-
 export const uploadUrl = "https://images.vanwala.pk";
 
 const { uiStartLoading, uiStopLoading } = actions;
@@ -48,7 +47,7 @@ let headerDotNetWithJwt = {
 
 let multipartHeader = {
     Accept: 'application/json',
-    "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
+    "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`,
     // "Content-Type": "multipart/form-data",
 }
 
@@ -64,21 +63,21 @@ export const setHeader = () => {
 export const setHeaderWithWebToken = () => {
     // console.log('adfdfdfd')
     // localStorage.getItem('user').then((val) => {
-        // headerWithWebToken = {
-        //     Accept: "application/json",
-        //     "Content-Type": "application/json",
-        //     'Cache-Control': 'no-cache',
-        //     "jsonwebtoken": val.jwtKey
-        // }
-        headerDotNetWithJwt = {
-            "Content-Type": "application/json",
-            "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
-        }
-        multipartHeader = {
-            Accept: 'application/json',
-            "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
-            // "Content-Type": "multipart/form-data",
-        }
+    // headerWithWebToken = {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //     'Cache-Control': 'no-cache',
+    //     "jsonwebtoken": val.jwtKey
+    // }
+    headerDotNetWithJwt = {
+        "Content-Type": "application/json",
+        "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
+    }
+    multipartHeader = {
+        Accept: 'application/json',
+        "Authorization": `bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).jwtToken : null}`
+        // "Content-Type": "multipart/form-data",
+    }
     // })
 }
 
@@ -131,21 +130,21 @@ export const apiTrackingSummaryFetch = (data) => {
 export const apiFetchDotNet = (apiUrl, apiMethod, apiHeader, apiBody) => {
     let headerParameters = apiMethod === 'GET' ? { method: apiMethod, headers: apiHeader } : { method: apiMethod, headers: apiHeader, body: apiBody }
     return dispatch => {
-   
+
         return new Promise((resolve, reject) => {
             fetch(`${urlDotNet}/${apiUrl}`, headerParameters)
                 .then(res => {
-             
+
                     return res.json()
                 })
                 .then(resJson => {
-              
+
                     if (resJson) {
                         resolve(resJson);
                     }
                 })
                 .catch(err => {
-                 
+
                     return saveErrorLog(err, apiUrl)
                 })
         });
@@ -249,7 +248,7 @@ export const amazonCreateShiping = (data) => {
     return apiFetchDotNet('/AmazonShipping/Create_Amazon_shiping', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Amazon generate Feed 
-export const AmazongenerateFeed  = (data) => {
+export const AmazongenerateFeed = (data) => {
     return apiFetchDotNet('/AmazonShipping/Genrate_Amazon_Shipping_feed', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Non Amazon shipping Sheet uploadFile
@@ -265,102 +264,102 @@ export const nonAmazonCreateShiping = (data) => {
     return apiFetchDotNet('/NonAmazonShipping/Create_Non_Amazon_shiping', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Non Amazon generate Feed 
-export const nonAmazongenerateFeed  = (data) => {
+export const nonAmazongenerateFeed = (data) => {
     return apiFetchDotNet('/NonAmazonShipping/Genrate_Amazon_Shipping_feed', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia shiping sheet 
-export const insertEndiciaShipingSheet  = (data) => {
-    console.log('multipartHeader',multipartHeader)
+export const insertEndiciaShipingSheet = (data) => {
+    console.log('multipartHeader', multipartHeader)
     return apiFetchDotNet('/Newshipping/InsertEndiciaWeight', "POST", multipartHeader, data);
 };
 //Fedex shiping sheet 
-export const insertFedexShipingSheet  = (data) => {
+export const insertFedexShipingSheet = (data) => {
     return apiFetchDotNet('/Walmart/InserCAWeight', "POST", multipartHeader, data);
 };
 //Fedex shiping validation
-export const insertFedexShipingSheetvalidation  = (data) => {
+export const insertFedexShipingSheetvalidation = (data) => {
     return apiFetchDotNet('/Walmart/label_validation', "POST", multipartHeader, data);
 };
 //Creat Fedex shiping 
-export const createShipingFedex  = (data) => {
+export const createShipingFedex = (data) => {
     return apiFetchDotNet('/Walmart/WalmartCA_shipping', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Endicia Shiping Validation 
 export const endiciaShipingValidation = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/endicia_shiping_validation', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/endicia_shiping_validation', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia Create Shiping  
 
 export const endiciaShipingCreateShiping = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/Create_Endicia_shiping', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/Create_Endicia_shiping', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia check count
 
 export const endiciaShipingcheckcount = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/check_count', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/check_count', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia Daily Check Multiple Create Label
 
 export const multipleCreateLabel = (data) => {
-    return apiFetchDotNet('/Newshipping/daily_Check_multiple_create_label', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Newshipping/daily_Check_multiple_create_label', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia Verify Label
 export const endiciaVerifyLabel = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/verify_label', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/verify_label', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Fedex Verify Label
 export const fedexVerifyLabel = (data) => {
-    return apiFetchDotNet('/walmart/verify_label', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/walmart/verify_label', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia Rizno shiping sheet 
-export const insertRiznoEndiciaShipingSheet  = (data) => {
+export const insertRiznoEndiciaShipingSheet = (data) => {
     return apiFetchDotNet('/Newshipping/rizno_shipping_File', "POST", multipartHeader, data);
 };
 //Endicia Rizno Shiping Validation 
 export const endiciaRiznoShipingValidation = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/rizno_shiping_Validation', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/rizno_shiping_Validation', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia Rizno Create Shiping  
 export const riznoEndiciaShipingCreateShiping = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/Create_Rizno_Endicia_shiping', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/Create_Rizno_Endicia_shiping', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia Rizno Daily Check Multiple Create Label
 export const multipleCreateLabelRizno = (data) => {
-    return apiFetchDotNet('/Newshipping/daily_Check_multiple_create_label_rizno', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Newshipping/daily_Check_multiple_create_label_rizno', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Endicia Rizno check count
 export const endiciaRiznoShipingcheckcount = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/check_rizno_count', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/check_rizno_count', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Endicia RefundLabel
 export const endiciaRefundLabel = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/create_refund_shiping', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/create_refund_shiping', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Check Endicia RefundLabel
 export const checkEndiciaRefundLabel = (data) => {
-    return apiFetchDotNet('/Endicia_shiping/verify_refund', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Endicia_shiping/verify_refund', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Manual Shipment->POnumber->Submit Button
 export const manualShipmentPonumber = (data) => {
-    return apiFetchDotNet('/Newshipping/ponumbers', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Newshipping/ponumbers', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Manual Shipment->POnumber->Manual Tick
 export const manualShipmentPonumberManualTick = (data) => {
-    return apiFetchDotNet('/Walmart/manuallyshipped', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Walmart/manuallyshipped', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Manual Shipment->Amazon Manual Shipping Upload File
 export const manualShipmentAmazonManualShipping = (data) => {
     return apiFetchDotNet('/Walmart/uploadamazon', "POST", multipartHeader, data);
 };
 //Manual Shipment->Amazon Manual Shipping File sheet
-export const manualShipmentAmazonManualShippingAmazonFileSheet= (data) => {
-    return apiFetchDotNet('/Walmart/amazonfiledownload', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+export const manualShipmentAmazonManualShippingAmazonFileSheet = (data) => {
+    return apiFetchDotNet('/Walmart/amazonfiledownload', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Manual Shipment->Amazon Manual Shipping Upload File
 export const manualShipmentAmazonManualShippingAmazonFileDownload = (data) => {
-    return apiFetchDotNet('/Walmart/AmazonmanualSheet', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Walmart/AmazonmanualSheet', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //DELIVERY TRACKING STATUS
@@ -372,7 +371,7 @@ export const inTransitsTrackingInsert = (data) => {
     return apiFetchDotNet('/Edit/TransUpload', "POST", multipartHeader, data);
 };
 //Intransits Tracking Data
-export const inTransitsTrackingData= (data) => {
+export const inTransitsTrackingData = (data) => {
     return apiFetchDotNet('/Edit/Intransis_tracking', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
@@ -385,7 +384,7 @@ export const getAllMPShipments = () => {
     return apiFetchDotNet('/Report/All_MP_Shipment', "POST", headerDotNetWithJwt, JSON.stringify());
 };
 //Duplicate Tracking
-export const getDupicateTracking= (data) => {
+export const getDupicateTracking = (data) => {
     return apiFetchDotNet('/Edit/duplicate_tracking', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Get Weight for Label calculation Upoad File
@@ -398,15 +397,15 @@ export const GetWeightforAmazonLabelUpoadFile = (data) => {
 //Label calculation Download 
 
 export const GetWeightforAmazonLabelDownload = (data) => {
-    return apiFetchDotNet('/Edit/download_amazon_weight_report', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Edit/download_amazon_weight_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Getweightinventory
 export const Getweightinventory = (data) => {
-    return apiFetchDotNet('/Edit/weightinventory', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Edit/weightinventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //PUStyles->PUAppscript
 export const PUAppscript = (data) => {
-    return apiFetchDotNet('/Report/download_PU_App_script', "POST", headerDotNetWithJwt,  JSON.stringify(data));
+    return apiFetchDotNet('/Report/download_PU_App_script', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 // //RMA->RMA Monthly Report
 // export const PUAppscript = (data) => {
@@ -449,7 +448,7 @@ export const getTargetReport = (data) => {
 //     return apiFetchDotNet('/Ereports/Return_percentage_report', "POST", headerDotNet, JSON.stringify(data));
 // };
 export const getCRMOrderReport = (data) => {
-    return apiFetchDotNet('/Ereports/OrdersREPORT', "POST", headerDotNet, JSON.stringify({  }));
+    return apiFetchDotNet('/Ereports/OrdersREPORT', "POST", headerDotNet, JSON.stringify({}));
 };
 export const getCRMOrderReportPU = (data) => {
     // console.log("Hello World!", JSON.parse(localStorage.getItem('user')).jwtToken)
@@ -527,26 +526,26 @@ export const getInstockReport = (data) => {
 };
 
 //Instock Sold Report
-export const  getInstockSoldReport = (data) => {
+export const getInstockSoldReport = (data) => {
     //    // console.log("Hello World!")
     return apiFetchDotNet('/Edit/Instock_sold', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Order Confirmation Number
-export const  getOrderConfirmationNumber = (data) => {
+export const getOrderConfirmationNumber = (data) => {
     //    // console.log("Hello World!")
     return apiFetchDotNet('/AmazonShipping/confirmationpo', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Order Search
-export const  getOrderSearch = (data) => {
+export const getOrderSearch = (data) => {
     //    // console.log("Hello World!")
     return apiFetchDotNet('/orders/List', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 
 //Back Order Items
-export const  getBackOrderItems = (data) => {
+export const getBackOrderItems = (data) => {
     //    // console.log("Hello World!")
     return apiFetchDotNet('/orders/Back_order_items_log', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
@@ -557,12 +556,12 @@ export const  getBackOrderItems = (data) => {
 
 // ============================= Customer Service start ======================================
 //Back Order Items
-export const  getProhibitedWords = () => {
+export const getProhibitedWords = () => {
     //    // console.log("Hello World!")
     return apiFetchDotNet('/CustomerService/getProbitedWords', "GET");
 };
 
-export const  insertProhibitedWord = (data) => {
+export const insertProhibitedWord = (data) => {
     //    // console.log("Hello World!")
     return apiFetchDotNet('/CustomerService/insertProhibitedWord', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
@@ -574,10 +573,10 @@ export const  insertProhibitedWord = (data) => {
 
 export const getBalanceSheetRecord = () => {
     // console.log('abcd')
-    return apiFetchDotNet('Report/balance_sheet_view', "POST", headerDotNetWithJwt, JSON.stringify({  }));
+    return apiFetchDotNet('Report/balance_sheet_view', "POST", headerDotNetWithJwt, JSON.stringify({}));
 };
 export const getBalanceSheetRecordOnClick = (data) => {
-    return apiFetchDotNet('Report/balance_sheet', "POST", headerDotNetWithJwt, JSON.stringify({ ...data  }));
+    return apiFetchDotNet('Report/balance_sheet', "POST", headerDotNetWithJwt, JSON.stringify({ ...data }));
 };
 
 // export const getBalanceSheetRecord2 = (data) => {
@@ -644,14 +643,14 @@ export const purchaseReport = (data) => {
 
 // ============================= Inventory API start ======================================
 export const getvendor = (data) => {
-    return apiFetchDotNet('newInventory/getVendor_active', "GET",headerDotNetWithJwt);
+    return apiFetchDotNet('newInventory/getVendor_active', "GET", headerDotNetWithJwt);
 };
 export const getWebvendor = (data) => {
-    return apiFetchDotNet('newInventory/getWebVendor_active', "GET",headerDotNetWithJwt);
+    return apiFetchDotNet('newInventory/getWebVendor_active', "GET", headerDotNetWithJwt);
 };
 export const getVendorName = (data) => {
     // console.log('vendor')
-    return apiFetchDotNet('newInventory/getVendorname', "GET",headerDotNetWithJwt);
+    return apiFetchDotNet('newInventory/getVendorname', "GET", headerDotNetWithJwt);
 };
 export const getUpdateVendorInventoryapi = (data) => {
 
@@ -663,204 +662,204 @@ export const getUpdateWebVendorInventoryapi = (data) => {
 };
 
 export const getInventoryapi = (data) => {
-  
-    return apiFetchDotNet('newInventory/fetchInventoryapi', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+
+    return apiFetchDotNet('newInventory/fetchInventoryapi', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 
 export const getSubInventoryapi = (data) => {
-  
-    return apiFetchDotNet('newInventory/fetchSubInventoryapi', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+
+    return apiFetchDotNet('newInventory/fetchSubInventoryapi', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 
 export const getAllVendorapi = (data) => {
-    return apiFetchDotNet('newInventory/getvendor', "GET",headerDotNetWithJwt);
+    return apiFetchDotNet('newInventory/getvendor', "GET", headerDotNetWithJwt);
 };
 export const getAllbrandapi = (data) => {
-    return apiFetchDotNet('newInventory/getBrand', "GET",headerDotNetWithJwt);
+    return apiFetchDotNet('newInventory/getBrand', "GET", headerDotNetWithJwt);
 };
 export const getAllcollectionapi = (data) => {
-    return apiFetchDotNet('newInventory/getCollection', "GET",headerDotNetWithJwt);
+    return apiFetchDotNet('newInventory/getCollection', "GET", headerDotNetWithJwt);
 };
 export const getAllcategorynameapi = (data) => {
-    return apiFetchDotNet('newInventory/getcategoryname', "GET",headerDotNetWithJwt);
+    return apiFetchDotNet('newInventory/getcategoryname', "GET", headerDotNetWithJwt);
 };
 export const getAllpustatusapi = (data) => {
-    return apiFetchDotNet('newInventory/getpustatus', "GET",headerDotNetWithJwt);
+    return apiFetchDotNet('newInventory/getpustatus', "GET", headerDotNetWithJwt);
 };
 export const getInventoryWalmartapi = (data) => {
-    return apiFetchDotNet('newInventory/WallMartqty', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+    return apiFetchDotNet('newInventory/WallMartqty', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const getPriceWalmartapi = (data) => {
-    return apiFetchDotNet('update/WallMartPrice', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+    return apiFetchDotNet('update/WallMartPrice', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getInventoryWalmart_all_otherapi = (data) => {
-    return apiFetchDotNet('newInventory/WallMartallother', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+    return apiFetchDotNet('newInventory/WallMartallother', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 
 export const getWallMartasinqtyapi = (data) => {
-    return apiFetchDotNet('newInventory/WallMartasinqty', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+    return apiFetchDotNet('newInventory/WallMartasinqty', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const getwalmart_asin_all_otherapi = (data) => {
-  
-    return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+
+    return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const getWallMartCAqtyapi = (data) => {
-    return apiFetchDotNet('newInventory/WallMartqty_canada', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+    return apiFetchDotNet('newInventory/WallMartqty_canada', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const getwalmartCA_all_otherapi = (data) => {
-    return apiFetchDotNet('newInventory/wallmart_canada_generate', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+    return apiFetchDotNet('newInventory/wallmart_canada_generate', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const getEbayqtyapi = (data) => {
-    return apiFetchDotNet('newInventory/ebaygeneratefile', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+    return apiFetchDotNet('newInventory/ebaygeneratefile', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 //not exists
 export const getEbay_all_otherapi = (data) => {
-  
-   // return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+
+    // return apiFetchDotNet('newInventory/walmart_asin_all_other', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
 };
 export const getSearsqtyapi = (data) => {
-    return apiFetchDotNet('newInventory/searsInventory', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+    return apiFetchDotNet('newInventory/searsInventory', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 export const getSearsPriceapi = (data) => {
-    return apiFetchDotNet('update/searsprice', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+    return apiFetchDotNet('update/searsprice', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getSears_all_otherapi = (data) => {
-    return apiFetchDotNet('newInventory/sears_generate_file', "POST", headerDotNetWithJwt,JSON.stringify({ data }));
+    return apiFetchDotNet('newInventory/sears_generate_file', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
 //n
 export const getFetchUpdateInventoryapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/Editinventory', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/Editinventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getUpdateInventoryDownloadapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/Editreportresult', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/Editreportresult', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getUpdateInventoryapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/updateinventory', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/updateinventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getFetchUpdateCanadaInventoryapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/Edit_ca_inventory', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/Edit_ca_inventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
-export const getUpdateCanadaInventoryapi  = (data) => {
-    
-    return apiFetchDotNet('newInventory/edit_canada_bulk_product', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+export const getUpdateCanadaInventoryapi = (data) => {
+
+    return apiFetchDotNet('newInventory/edit_canada_bulk_product', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getUpdateCanadaInventoryDownloadapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/download_ca_edit_report', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/download_ca_edit_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //
 export const getFetchUpdateUAEInventoryapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/Edit_UAE_inventory', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/Edit_UAE_inventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
-export const getUpdateUAEInventoryapi  = (data) => {
-    
-    return apiFetchDotNet('newInventory/edit_uae_bulk_product', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+export const getUpdateUAEInventoryapi = (data) => {
+
+    return apiFetchDotNet('newInventory/edit_uae_bulk_product', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getUpdateUAEInventoryDownloadapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/download_uae_edit_report', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/download_uae_edit_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //
 
 export const getFetchUpdateSubinventoryapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/editSubinventory', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/editSubinventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
-export const getUpdateSubinventoryapi  = (data) => {
-    
-    return apiFetchDotNet('newInventory/updatesubinventory', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+export const getUpdateSubinventoryapi = (data) => {
+
+    return apiFetchDotNet('newInventory/updatesubinventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getUpdateSubinventoryDownloadapi = (data) => {
-    
-    return apiFetchDotNet('newInventory/Subinventoryreportresult', "POST", headerDotNetWithJwt,JSON.stringify( data ));
+
+    return apiFetchDotNet('newInventory/Subinventoryreportresult', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //upload File Update
 export const getUploadFileUpdateSKUapi = (data) => {
     // console.log('aaaaa headerFileDotNet', data)
-    return apiFetchDotNet('newInventory/UploadFile', "POST", multipartHeader, data );
+    return apiFetchDotNet('newInventory/UploadFile', "POST", multipartHeader, data);
 };
 //Marketplace place Weight Update
 export const getUploadmarketplace_weightapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/Uploadmarketplace_weight', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/Uploadmarketplace_weight', "POST", multipartHeader, data);
 };
 //Shipping Update Update void
 export const getShippingUpdateapi = (data) => {
- console.log()
-    return apiFetchDotNet('Edit/shipping_insert', "POST", multipartHeader, data );
+    console.log()
+    return apiFetchDotNet('Edit/shipping_insert', "POST", multipartHeader, data);
 };
 
 //Marketplace place Weight Update
 export const apiWalmartCustomerEmail = (data) => {
- 
+
     return apiFetchDotNet('Walmart/EmailsGet', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //sanmar sales Update 
 export const getSanmarSalesUpdateapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/UploadSanmar', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/UploadSanmar', "POST", multipartHeader, data);
 };
 //sanmar sales End 
 export const getSanmarSalesEndapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/EndSanmarSale', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/EndSanmarSale', "POST", multipartHeader, data);
 };
 //AutoMate SKU
 export const getAutoMateSKUapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/UploadAutoSKU', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/UploadAutoSKU', "POST", multipartHeader, data);
 };
 // SKU status update 
 export const getSkuStatusUpdateapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/skuStatusUpload', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/skuStatusUpload', "POST", multipartHeader, data);
 };
 // sub sku status update 
 export const getSubSkuStatusUpdateapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/SubskuStatusUpload', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/SubskuStatusUpload', "POST", multipartHeader, data);
 };
 
 
 //Report Data
 export const getReportDataapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/ReportUpload', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/ReportUpload', "POST", multipartHeader, data);
 };
 //Setup Group Asin
 export const getGroupAsinSetupapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/Upload_GroupAsin', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/Upload_GroupAsin', "POST", multipartHeader, data);
 };
 //Setup Group Asin
 export const getGroupScrubsetSetupapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/Upload_scrubsetAsin', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/Upload_scrubsetAsin', "POST", multipartHeader, data);
 };
 //AutoMate Group
 export const getAutoMateGroupapi = (data) => {
- 
-    return apiFetchDotNet('newInventory/UploadAutoGroup', "POST", multipartHeader, data );
+
+    return apiFetchDotNet('newInventory/UploadAutoGroup', "POST", multipartHeader, data);
 };
 //upload File Update Group
 export const getUploadFileUpdateGroupapi = (data) => {
 
-    return apiFetchDotNet('newInventory/UploadFileGroup', "POST", multipartHeader, data );
+    return apiFetchDotNet('newInventory/UploadFileGroup', "POST", multipartHeader, data);
 };
 //upload File Update Ebay Inventory
 export const getUploadFileUpdateEbayInventoryapi = (data) => {
 
-    return apiFetchDotNet('newInventory/UploadEbayFile', "POST", multipartHeader, data );
+    return apiFetchDotNet('newInventory/UploadEbayFile', "POST", multipartHeader, data);
 };
 //upload File Update Ebay Inventory
 export const getEbayHtmlapi = (data) => {
 
-    return apiFetchDotNet('newInventory/GETHTML', "POST", headerDotNetWithJwt, JSON.stringify( data ) );
+    return apiFetchDotNet('newInventory/GETHTML', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 // ============================= Inventory API end ======================================
 
@@ -879,11 +878,11 @@ export const getEbayHtmlapi = (data) => {
 // };.
 
 export const loginAPI = (data) => {
-    return apiFetchDotNet('Users/login', "POST", header, JSON.stringify( data ));
+    return apiFetchDotNet('Users/login', "POST", header, JSON.stringify(data));
 };
 
 export const logoutAPI = (data) => {
-    return apiFetchDotNet('Users/logoutCRM', "POST", header, JSON.stringify( data ));
+    return apiFetchDotNet('Users/logoutCRM', "POST", header, JSON.stringify(data));
 };
 
 
@@ -1085,79 +1084,79 @@ export const chartSaleData = (data) => {
 };
 
 export const chartTeamData = (data) => {
-    return apiFetchDotNet('Orders/CRMReportS', "POST", headerDotNetWithJwt, JSON.stringify( data ));
+    return apiFetchDotNet('Orders/CRMReportS', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const chartVendorSalesData = (data) => {
-    return apiFetchDotNet('Orders/VendorCRMReportS', "POST", headerDotNetWithJwt, JSON.stringify( data ));
+    return apiFetchDotNet('Orders/VendorCRMReportS', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const chartSaleSummaryData = (data) => {
-    return apiFetchDotNet('report/sale_summary', "POST", headerDotNetWithJwt, JSON.stringify( data ));
+    return apiFetchDotNet('report/sale_summary', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const chartTargetSummaryData = (data) => {
-    return apiFetchDotNet('report/Target_report', "POST", headerDotNetWithJwt, JSON.stringify( data ));
+    return apiFetchDotNet('report/Target_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const getUnshippedOrders = (data) => {
-   
+
     return apiFetchDotNet('/Orders/po_item_received', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const getReturnPercentageReport = (data) => {
-    
+
     return apiFetchDotNet('/report/Return_percentage_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiSummaryReportOrderWise = (data) => {
-    
+
     return apiFetchDotNet('/report/summary_report_order_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiSummaryReportItemWise = (data) => {
-    
+
     return apiFetchDotNet('/report/summary_report_item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiSummaryReportPriceWise = (data) => {
-    
+
     return apiFetchDotNet('/report/summary_report_price_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apistyleNotMatched = (data) => {
-    
+
     return apiFetchDotNet('/report/styleNotMatched', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiSummaryReportDetailWise = (data) => {
-    
+
     return apiFetchDotNet('/report/sale_reportUT', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiReportOrderWise = (data) => {
-    
+
     return apiFetchDotNet('/report/PNL_Order_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const apiReportItemWise = (data) => {
-    
+
     return apiFetchDotNet('/report/PNL_Item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiSummaryPNLItemwise = (data) => {
-    
+
     return apiFetchDotNet('/report/Summary_PNL_Item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiReportOrderWiseWeb = (data) => {
-    
+
     return apiFetchDotNet('/report/PNL_Order_wiseWeb', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const apiReportItemWiseWeb = (data) => {
-    
+
     return apiFetchDotNet('/report/PNL_Item_wiseWeb', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiReportOrderWiseMP = (data) => {
-    
+
     return apiFetchDotNet('/report/PNL_Order_wiseMP', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 export const apiReportItemWiseMP = (data) => {
-    
+
     return apiFetchDotNet('/report/PNL_Item_wiseMP', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getGoogleMarketPlaceVerifyapi = (data) => {
@@ -1271,7 +1270,7 @@ export const apiOrderRMASummary = (data) => {
 };
 
 //Rma Item Summary
-export const apiItemRMASummary= (data) => {
+export const apiItemRMASummary = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Report/ItemRMASummary', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
@@ -1284,7 +1283,7 @@ export const apiOrderRMADetail = (data) => {
 };
 
 //Rma Item Detail
-export const apiItemRMADetail= (data) => {
+export const apiItemRMADetail = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Report/ItemRMADetail', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
@@ -1367,6 +1366,14 @@ export const PUAppGetAllBanners = (data) => {
 
 export const PUAppUpdateBannerStatus = (data) => {
     return apiFetchDotNet('/Mobile/UpdateBannerStatus', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUpdateBanner = (data) => {
+    return apiFetchDotNet('/Mobile/UpdateBanner', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUploadBanner = (data) => {
+    return apiFetchDotNet('/Mobile/UploadBanner', "POST", multipartHeader, data);
 };
 
 // ===================================== PU App Apis End ==============================================================

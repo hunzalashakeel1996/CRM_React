@@ -1,3 +1,15 @@
 .ant-table.ant-table-small {
     font-size: 12px !important;
 }
+
+
+.avatar-uploader {
+    display: inline-flex !important;
+    width: 50% !important;
+    margin-left: 20px;
+}
+
+
+.ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content {
+    width: auto;
+}
