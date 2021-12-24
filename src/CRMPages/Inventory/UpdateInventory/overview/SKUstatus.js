@@ -19,6 +19,7 @@ import AmazonRiznostatus from './Statusoverview/AmazonRiznostatus';
 import AmazonPUUAEstatus from './Statusoverview/AmazonPUUAEstatus';
 import AmazonPUCanadastatus from './Statusoverview/AmazonPUCanadastatus';
 import EbayPUStatus from './Statusoverview/EbayPUStatus';
+import WalmartPUStatus from './Statusoverview/WalmartPUStatus';
 
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -50,9 +51,10 @@ const SKUstatus = () => {
         buttonStatus: 'able',
         textAreaStatus: 'disabled',
         radioButtonValue: true,
-        status: ''
+        status: '',
+        dataToSKU:''
     })
-    const { status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue } = state
+    const {dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue } = state
     const [selectedRow, selectedRowsset] = useState([])
 
     const onChangeForceCheck = (e) => {
@@ -99,6 +101,16 @@ const SKUstatus = () => {
     //         }
     //     },
     // };
+
+    const dataTohandleChangeSKU = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataToSKU: value })
+    }
+
+    const dataTohandleChangeAutomateSKU = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataTo: value })
+    }
     const dataTohandleChange = (value) => {
         // console.log(`selected ${value}`);
         setstate({ ...state, dataTo: value })
@@ -154,6 +166,7 @@ const SKUstatus = () => {
 
         })
     }
+ 
     const changeHandler = (event) => {
 
         setstate({ ...state, file: event.target.files[0] })
@@ -415,12 +428,12 @@ const SKUstatus = () => {
                             </Col>
                             <Col span={10}>
 
-                                <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChange}  >
+                                <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeSKU}  >
                                     {Seller.map(item => (
                                         <Option value={item}>{item}</Option>))}
                                 </Select>
                             </Col>
-                            {dataTo &&
+                            {dataToSKU &&
                                 <Col span={5}>
                                     <Select defaultValue="select" onChange={statushandleChange}  >
                                         <Option value="Active">Active</Option>
@@ -457,6 +470,9 @@ const SKUstatus = () => {
                             </TabPane>
                             <TabPane tab="Ebay PU" key="Ebay PU">
                                 <EbayPUStatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                            </TabPane>
+                            <TabPane tab="Walmart PU" key="Walmart PU">
+                                <WalmartPUStatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
                             </TabPane>
                         </Tabs>
 
