@@ -7,6 +7,11 @@
     border-bottom: none;
 }
 
+.ant-page-header {
+    padding: 15px 25px 0px 30px !important;
+}
+
+
 #Offer .ant-card-body {
     padding: 0px !important;
 }

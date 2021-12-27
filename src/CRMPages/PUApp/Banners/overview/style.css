@@ -2,6 +2,10 @@
     font-size: 12px !important;
 }
 
+.ant-page-header {
+    padding: 15px 25px 0px 30px !important;
+}
+
 
 .avatar-uploader {
     display: inline-flex !important;

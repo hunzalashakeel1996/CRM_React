@@ -1,3 +1,15 @@
 .ant-table.ant-table-small {
     font-size: 12px !important;
 }
+
+.ant-page-header {
+    padding: 15px 25px 0px 30px !important;
+}
+
+.ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content {
+    width: auto;
+}
+
+.ant-form-item-control-input .ant-picker {
+    padding: 5px 12px 5px 5px;
+}

@@ -24,8 +24,8 @@ export const url = "https://crm.rizno.com:3001";
 //export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-// export const urlDotNet = "https://crm.rizno.com/api"
-export const urlDotNet = "http://localhost:22234/api"
+export const urlDotNet = "https://crm.rizno.com/api"
+// export const urlDotNet = "http://localhost:22234/api"
 
 
 export const uploadUrl = "https://images.vanwala.pk";
@@ -1374,6 +1374,14 @@ export const PUAppUpdateBanner = (data) => {
 
 export const PUAppUploadBanner = (data) => {
     return apiFetchDotNet('/Mobile/UploadBanner', "POST", multipartHeader, data);
+};
+
+export const PUAppGetCoupons = (data) => {
+    return apiFetchDotNet('/Mobile/GetCoupons', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppUpdateCoupon = (data) => {
+    return apiFetchDotNet('/Mobile/UpdateCoupon', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 // ===================================== PU App Apis End ==============================================================

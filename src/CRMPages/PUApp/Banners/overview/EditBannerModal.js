@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import {  Upload, Skeleton, Image, message, notification, Select,  Modal,  } from 'antd';
+import { Upload, Skeleton, Image, message, notification, Select, Modal, } from 'antd';
 import { PUAppGetAllBrands, PUAppUpdateBanner, PUAppUploadBanner } from '../../../../redux/apis/DataAction';
 import { useDispatch } from 'react-redux';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -10,21 +10,27 @@ const { Option } = Select;
 const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBanner, handleCancel }) => {
   const dispatch = useDispatch();
   const statusOpt = [{ key: 1, value: 'Active' }, { key: 0, value: 'InActive' }];
-  const [subTypeOpt, setSubTypeOpt] = useState([
-    { key: 1, value: 'Tops' },
-    { key: 2, value: 'Pants' },
-    { key: 5, value: 'Lab Coats' },
-    { key: 4, value: 'Jackets' },
-    { key: 3, value: 'Shoes' },
-    { key: 8, value: 'Accessories' }
-  ])
+  const [subTypeOpt, setSubTypeOpt] = useState([])
 
 
   useEffect(() => {
-    banner.type == 'Brands' && dispatch(PUAppGetAllBrands()).then(res => {
-      let data = res.map(i => { return { ...i, key: i.BRANDID, value: i.BRANDNAME } })
-      setSubTypeOpt(data)
-    })
+    if (banner.type == 'Brands') {
+      dispatch(PUAppGetAllBrands()).then(res => {
+        let data = res.map(i => { return { ...i, key: i.BRANDID, value: i.BRANDNAME } })
+        setSubTypeOpt([{ key: 0, value: 'All' }, ...data])
+      })
+    } else {
+      let categories = [
+        { key: 0, value: 'All' },
+        { key: 1, value: 'Tops' },
+        { key: 2, value: 'Pants' },
+        { key: 5, value: 'Lab Coats' },
+        { key: 4, value: 'Jackets' },
+        { key: 3, value: 'Shoes' },
+        { key: 8, value: 'Accessories' }
+      ];
+      setSubTypeOpt(categories)
+    }
   }, [])
 
   const [uploadImage, setUploadImage] = useState(null);
@@ -59,7 +65,7 @@ const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBann
 
       dispatch(PUAppUploadBanner(formData)).then(res => {
         if (res == 'error') {
-          message.error(`Something Went Wrong, PLease Try Again.`);
+          message.error(`Something Went Wrong, Please Try Again.`);
         } else {
           updateBanner();
         }

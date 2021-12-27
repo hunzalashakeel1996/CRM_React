@@ -92,6 +92,7 @@ const ViewSort = () => {
 
 
   const changeStatus = (key, item) => {
+    setLoader(true)
     if (key != item.status) {
       let data = {
         ID: item.ID,
@@ -100,6 +101,7 @@ const ViewSort = () => {
       dispatch(PUAppUpdateBannerStatus(data)).then(res => {
         getBanners();
         openNotificationWithIcon('success', 'Banner Status Update Successfully!')
+        setLoader(false)
       })
     }
 
@@ -130,7 +132,13 @@ const ViewSort = () => {
         <PageHeader title="Banners" />
         <Table style={{ marginLeft: 10, marginRight: 10, marginBottom: 20 }} dataSource={banners} columns={columns} />
 
-        {isModalVisible && <EditBannerModal loader={loader} setLoader={setLoader} isModalVisible={isModalVisible} banner={selectedBanner} updateBanner={updateBanner} handleCancel={handleCancel} />}
+        {isModalVisible && <EditBannerModal
+          loader={loader}
+          setLoader={setLoader}
+          isModalVisible={isModalVisible}
+          banner={selectedBanner}
+          updateBanner={updateBanner}
+          handleCancel={handleCancel} />}
       </Spin >
     </>
   );
