@@ -21,6 +21,7 @@ import ReportPNLWeb from './ReportPNLWeb'
 import ReportPNLMP from './ReportPNLMP'
 import ReportPNLRMA from './ReportPNLRMA'
 import StyleChart from './StyleChart'
+import PNLOverAll from './PNLOverAll'
 import OrderReportForLabel from './OrderReportForLabel'
 import PUApp from './PUApp'
 
@@ -60,6 +61,7 @@ const Admin = () => {
           <Route path={`${path}/ReportPNLWeb`} component={ReportPNLWeb} />
           <Route path={`${path}/ReportPNLMP`} component={ReportPNLMP} />
           <Route path={`${path}/ReportPNLRMA`} component={ReportPNLRMA} />
+          <Route path={`${path}/PNLOverAll`} component={PNLOverAll} />
           <Route path={`${path}/styleChart`} component={StyleChart} />
           <Route path={`${path}/NotFoundPage`} component={NotFoundPage} />
           <Route path={`${path}/orderreportforlabel`} component={OrderReportForLabel} />

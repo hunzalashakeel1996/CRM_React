@@ -117,7 +117,7 @@ const Ebay = (props) => {
                                     <Row >
 
                                         <Col span={20}>
-                                             <Button size="large"  type="primary" onClick={uploadFileEbayUpdateInventory}>Ebay Update Inventory</Button>
+                                            <Button size="large" type="primary" onClick={uploadFileEbayUpdateInventory}>Ebay Update Inventory</Button>
 
                                         </Col>
                                     </Row>
@@ -134,33 +134,31 @@ const Ebay = (props) => {
 
                                 <Cards headless>
                                     <Row >
-                                        <Col span={5} >
+                                        <Col span={12} >
+                                            
+                                                    <Button size="large" type="primary" onClick={() => getHtmlData()}>Report Data</Button>
+                                                    </Col>
+                                                    <Col span={6}>
+                                                    <Select showSearch defaultValue="Vendor Name" onChange={getVendor} style={{ width: 250 }}  >
+                                                        {vendorname.map((val, i) => (
+                                                            <Option value={val} key={val}>{val}</Option>
 
-                                             <Button size="large"  type="primary" onClick={()=>getHtmlData()}>Report Data</Button>
+                                                        ))}
 
+                                                    </Select>
+                                                  
                                         </Col>
-                                        <Col span={10}>
+                                        <Row gutter={50} style={{marginTop:20}}>
+                                            
+                                            <Col span={12}>
 
-                                            <Select showSearch  defaultValue="Vendor Name" onChange={getVendor} style={{ width: 250 }}  >
-                                                {vendorname.map((val, i) => (
-                                                    <Option value={val} key={val}>{val}</Option>
+                                                <Input type="text" onChange={getVendorStylecode} placeholder="Vendor Style code" />
 
-                                                ))}
-
-                                            </Select>
-                                        </Col>
-
-                                        <Col span={7}>
-
-                                            <Input type="text" onChange={getVendorStylecode} placeholder="Vendor Style code" />
-
-                                        </Col>
-
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <TextArea style={{ height: 50 }} />
-                                        </Col>
+                                            </Col>
+                                            <Col>
+                                                <TextArea style={{ height: 50 }} />
+                                            </Col>
+                                        </Row>
                                     </Row>
                                 </Cards>
                             </Col>

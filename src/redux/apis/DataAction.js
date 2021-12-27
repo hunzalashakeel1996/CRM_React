@@ -1112,6 +1112,14 @@ export const apiSummaryReportOrderWise = (data) => {
 
     return apiFetchDotNet('/report/summary_report_order_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+export const apiSummaryReportOverAll = (data) => {
+    
+    return apiFetchDotNet('/report/summary_report_OverAll', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const apiSummaryReportprofitBeforePPS = (data) => {
+    
+    return apiFetchDotNet('/report/summary_report_profit_Before_PPS', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 export const apiSummaryReportItemWise = (data) => {
 
     return apiFetchDotNet('/report/summary_report_item_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
