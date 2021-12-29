@@ -1116,6 +1116,10 @@ export const apiSummaryReportOverAll = (data) => {
     
     return apiFetchDotNet('/report/summary_report_OverAll', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+export const apiReportOrderstatus = (data) => {
+    
+    return apiFetchDotNet('/report/Report_Order_Status', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 export const apiSummaryReportprofitBeforePPS = (data) => {
     
     return apiFetchDotNet('/report/summary_report_profit_Before_PPS', "POST", headerDotNetWithJwt, JSON.stringify(data));
