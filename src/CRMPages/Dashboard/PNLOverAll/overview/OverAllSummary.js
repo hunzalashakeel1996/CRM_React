@@ -85,6 +85,11 @@ const OrderPNLSummary = (props) => {
       key: 'Total'
  
     },{
+      title: 'Profit',
+      dataIndex: 'Profit',
+      key: 'Profit'
+ 
+    },{
       title: 'Loss',
       dataIndex: 'Loss',
       key: 'Loss'

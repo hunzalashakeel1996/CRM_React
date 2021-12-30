@@ -83,7 +83,7 @@ const ViewReportPNLOverAll = () => {
   const topMenu = [
     {
       tab: 'SummaryOverAll',
-      key: 'SummaryOverAll',
+      key: 'Item Summary OverAll',
       tabName: <OverAllSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} setIsSearchPressed={setIsSearchPressed}  isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
     },
  
@@ -184,7 +184,7 @@ const ViewReportPNLOverAll = () => {
           {topMenu.map(item => (
             tabChildBar?.includes(item.tab) && (
 
-              <TabPane tab={item.tab} key={item.key}>
+              <TabPane tab={item.key} key={item.key}>
 
                 {item.tabName}
               </TabPane>
