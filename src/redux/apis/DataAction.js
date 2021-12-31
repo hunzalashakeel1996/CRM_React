@@ -819,6 +819,11 @@ export const getSkuStatusUpdateapi = (data) => {
 
     return apiFetchDotNet('newInventory/skuStatusUpload', "POST", multipartHeader, data);
 };
+export const getSkuReviewsLinkUpdateapi = (data) => {
+
+    return apiFetchDotNet('newInventory/getSkuReviewsLinkUpdateapi', "POST", multipartHeader, data);
+};
+
 // sub sku status update 
 export const getSubSkuStatusUpdateapi = (data) => {
 

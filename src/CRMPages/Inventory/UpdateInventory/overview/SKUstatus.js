@@ -12,7 +12,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl,getSkuStatusUpdateapi, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl,getSkuReviewsLinkUpdateapi,getSkuStatusUpdateapi, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
 import Promotions from '../../../../components/Marketplace/Promotions'
 import AmazonPUstatus from './Statusoverview/AmazonPUstatus';
 import AmazonRiznostatus from './Statusoverview/AmazonRiznostatus';
@@ -40,6 +40,7 @@ const Report = [
 const SKUstatus = () => {
 
     const Seller = ['Amazon', 'AmazonRizno', 'AmazonUae', 'AmazonCanada', 'Walmart', 'WalmartCanada', 'Sears', 'Ebay']
+    const Process = ['Walmart SKU Link', 'Amazon Top Review', 'Walmart Review pages']
     const [activeTab, setActiveTab] = useState('');
     const dispatch = useDispatch()
 
@@ -52,9 +53,10 @@ const SKUstatus = () => {
         textAreaStatus: 'disabled',
         radioButtonValue: true,
         status: '',
-        dataToSKU:''
+        dataToSKU:'',
+        isLoader:false
     })
-    const {dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue } = state
+    const {dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue,isLoader } = state
     const [selectedRow, selectedRowsset] = useState([])
 
     const onChangeForceCheck = (e) => {
@@ -106,6 +108,10 @@ const SKUstatus = () => {
         // console.log(`selected ${value}`);
         setstate({ ...state, dataToSKU: value })
     }
+    const dataTohandleChangeProcess = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataTo: value })
+    }
 
     const dataTohandleChangeAutomateSKU = (value) => {
         // console.log(`selected ${value}`);
@@ -121,6 +127,7 @@ const SKUstatus = () => {
     }
 
     const uploadFile = () => {
+    
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
 
@@ -131,9 +138,9 @@ const SKUstatus = () => {
         formData.append('forcecheck', forceCheck);
         formData.append('reasontext', reasonText);
         formData.append('by', username.LoginName);
-
+        setstate({ ...state, isLoader: true })
         dispatch(getUploadFileUpdateSKUapi(formData)).then(data => {
-
+            setstate({ ...state, isLoader: false })
             notification.success({
                 message: `Successfull Upload File Update SKU ${data}`,
                 description: `Successfully Report`,
@@ -154,9 +161,9 @@ const SKUstatus = () => {
         formData.append('datato', dataTo);
 
         formData.append('by', username.LoginName);
-
+        setstate({ ...state, isLoader: true })
         dispatch(getUploadmarketplace_weightapi(formData)).then(data => {
-
+            setstate({ ...state, isLoader: false })
 
             notification.success({
                 message: `Successfull marketplace weight Update ${data}`,
@@ -180,9 +187,9 @@ const SKUstatus = () => {
         const formData = new FormData();
 
         formData.append('user', username.LoginName);
-
+        setstate({ ...state, isLoader: true })
         dispatch(getSanmarSalesUpdateapi(formData)).then(data => {
-
+            setstate({ ...state, isLoader: false })
             notification.success({
                 message: `Successfull Start ${data}`,
                 description: `Successfully Report`,
@@ -200,9 +207,9 @@ const SKUstatus = () => {
 
         formData.append('user', username.LoginName);
 
-
+        setstate({ ...state, isLoader: true })
         dispatch(getSanmarSalesEndapi(formData)).then(data => {
-
+            setstate({ ...state, isLoader: false })
             notification.success({
                 message: `Successfull End ${data}`,
                 description: `Successfully Report`,
@@ -228,9 +235,9 @@ const SKUstatus = () => {
         formData.append('File', file);
         formData.append('datato', dataTo);
         formData.append('status', radioButtonValue);
-
+        setstate({ ...state, isLoader: true })
         dispatch(getAutoMateSKUapi(formData)).then(data => {
-
+            setstate({ ...state, isLoader: false })
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
                 message: `Successfull  ${data}`,
@@ -239,9 +246,6 @@ const SKUstatus = () => {
             });
 
         })
-
-
-
     }
     const reportData = () => {
         let username = [];
@@ -252,8 +256,9 @@ const SKUstatus = () => {
         formData.append('user', username.LoginName);
         formData.append('File', file);
         formData.append('uploadtype', radioButtonValue);
-
+        setstate({ ...state, isLoader: true })
         dispatch(getReportDataapi(formData)).then(data => {
+            setstate({ ...state, isLoader: false })
             // console.log(data)
             //   message.success(`file uploaded Update Done` );
             downloadFile(data)
@@ -280,9 +285,30 @@ const SKUstatus = () => {
         formData.append('File', file);
         formData.append('datato', dataTo);
         formData.append('status', status);
-
+        setstate({ ...state, isLoader: true })
         dispatch(getSkuStatusUpdateapi(formData)).then(data => {
+            setstate({ ...state, isLoader: false })
+            //   message.success(`file uploaded Update ${data}`);
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
 
+        })
+    }
+    
+    const skuReviewsLinkUpdate = () => {
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+        const formData = new FormData();
+        formData.append('user', username.LoginName);
+        formData.append('File', file);
+        formData.append('datato', dataTo);
+        // formData.append('status', status);
+        setstate({ ...state, isLoader: true })
+        dispatch(getSkuReviewsLinkUpdateapi(formData)).then(data => {
+            setstate({ ...state, isLoader: false })
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
                 message: `Successfull  ${data}`,
@@ -297,7 +323,7 @@ const SKUstatus = () => {
     }
     return (
         <>
-
+    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
 
             <Row gutter={16} style={{ marginTop: 10 }}>
                 <Col span={10} >
@@ -450,6 +476,30 @@ const SKUstatus = () => {
                         </Row>
                     </Cards>
                 </Col>
+                <Col span={10} >
+                    <Cards headless>
+                        <Row gutter={50}>
+                            <Col span={10} >
+                                <Button type="primary" onClick={skuReviewsLinkUpdate}>Link/Reviews Update</Button>
+                            </Col>
+                            <Col span={11}>
+
+                                <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeProcess}  >
+                                    {Process.map(item => (
+                                        <Option value={item}>{item}</Option>))}
+                                </Select>
+                            </Col>
+                         
+                        </Row>
+
+                        <Row style={{ marginTop: 50 }}>
+                            <Col span={10} style={{ width: 300, }}>
+
+                                <input type="file" onChange={changeHandler} />
+                            </Col>
+                        </Row>
+                    </Cards>
+                </Col>
             </Row>
             <Row style={{ marginTop: 20 }}>
                 <Col span={20}>
@@ -478,9 +528,10 @@ const SKUstatus = () => {
 
                     </Cards>
                 </Col>
+                
             </Row>
 
-
+            </Spin>
         </>
     )
 

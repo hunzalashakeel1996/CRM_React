@@ -40,7 +40,8 @@ const WalmartPUStatus = (props) => {
 
                             <Col span={5}>
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 150 }}>
-                                    <Option value="Walmart_Price">Walmart Price</Option>                                  
+                                    <Option value="Walmart_Price">Walmart Price</Option>     
+                                                             
 
                                 </Select>
                             </Col>

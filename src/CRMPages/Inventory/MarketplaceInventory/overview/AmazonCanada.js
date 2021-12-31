@@ -20,7 +20,7 @@ import Priceupdate from '../../../../components/Marketplace/Priceupdate'
 const AmazonCanada = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
 
-    const amazonCanadaColumn =['Amazon_CA_Status', 'Amazon_CA_Price','Amazon_CA_Deliveryinfo' ]
+    const amazonCanadaColumn =['Amazon_CA_Status', 'Amazon_CA_Price','Amazon_CA_Deliveryinfo','AmazonReviewpages' ]
     const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']
     const amazonCanada = "Canada"
     const isSeller = "Amazon"

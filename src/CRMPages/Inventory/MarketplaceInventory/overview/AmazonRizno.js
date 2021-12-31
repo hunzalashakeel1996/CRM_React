@@ -22,7 +22,7 @@ const AmazonRizno = (props) => {
 
 
     const{genrateFeed,genrateFilter,vendornameState,brandnameState,collectionState,categorynameState,Type,puStatusState} = props
-    const amazonRiznoColumn =['STYLESTATUS','Rizno_deliveryinfo', 'RIZNOASINS','AMAZONPRICE','ISAMAZON','IsAutomated_Rizno' ]
+    const amazonRiznoColumn =['STYLESTATUS','Rizno_deliveryinfo', 'RIZNOASINS','AMAZONPRICE','ISAMAZON','IsAutomated_Rizno','AmazonReviewpages' ]
     const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']
     const amazonRizno="Rizno"
     const isSeller="Amazon"
