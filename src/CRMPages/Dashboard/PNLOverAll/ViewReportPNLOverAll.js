@@ -106,7 +106,7 @@ const ViewReportPNLOverAll = () => {
   const download = (event) => {
     let activeTab = event
    
-    if (activeTab === 'SummaryOverAll') {
+    if (activeTab === 'Item Summary OverAll') {
       downloadFile(downloadDataLink)
 
       //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
