@@ -39,7 +39,7 @@ const ViewReportPNLOverAll = () => {
   const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report OverAll'];
-  const [downloadDataLink, setDownloadDataLink] = useState('Profit Before PPS');
+  const [downloadDataLink, setDownloadDataLink] = useState('');
   const [activeTab, setActiveTab] = useState('Profit Before PPS');
   const [isSearchPressed, setIsSearchPressed] = useState(false);
   
@@ -84,28 +84,29 @@ const ViewReportPNLOverAll = () => {
     {
       tab: 'SummaryOverAll',
       key: 'Item Summary OverAll',
-      tabName: <OverAllSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} setIsSearchPressed={setIsSearchPressed}  isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
+      tabName: <OverAllSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(data)=>downloadFileDataLink(data)} setIsSearchPressed={setIsSearchPressed}  isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
     },
  
     {
       tab: 'Profit Before PPS',
       key: 'Profit Before PPS',
-      tabName: <ProfitBeforePPS subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddItem={(value) => onSumItem(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} setIsSearchPressed={setIsSearchPressed} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
+      tabName: <ProfitBeforePPS subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddItem={(value) => onSumItem(value)} downloadFileDataLink={(data)=>downloadFileDataLink(data)} setIsSearchPressed={setIsSearchPressed} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
     }
   ];
 
 
  
-  const  downloadFileDataLink =(data)=>{
-  
+  const  downloadFileDataLink =(data)=>{  
    
 
     setDownloadDataLink(data)
 
   }
+  
   const download = (event) => {
     let activeTab = event
-   
+    console.log(downloadDataLink)
+    console.log(activeTab)
     if (activeTab === 'Item Summary OverAll') {
       downloadFile(downloadDataLink)
 

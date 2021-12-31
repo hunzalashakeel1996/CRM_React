@@ -74,6 +74,7 @@ const OrderPNLSummary = (props) => {
 
 
 
+  
   const columns = [
     {
       title: 'Vendorname',
@@ -85,28 +86,29 @@ const OrderPNLSummary = (props) => {
       key: 'Total'
  
     },{
-      title: 'Profit',
-      dataIndex: 'Profit',
-      key: 'Profit'
- 
-    },{
-      title: 'Loss',
-      dataIndex: 'Loss',
-      key: 'Loss'
+      title: '$0.01 to 0.25',
+      dataIndex: '_001_to_025',
+      key: '_001_to_025'
  
     },
     {
-      title: 'Befor PPS',
-      dataIndex: 'Befor_PPS',
-      key: 'Befor_PPS'
+      title: '$0.26 to 0.50',
+      dataIndex: '_026_to_050',
+      key: '_026_to_050'
  
     },
     {
-      title: 'After PPS',
-      dataIndex: 'After_PPS',
-      key: 'After_PPS'
+      title: '$0.50 to 0.99',
+      dataIndex: '_050_to_099',
+      key: '_050_to_099'
+    },
+    {
+      title: '$1 Above',
+      dataIndex: '_1___Above',
+      key: '_1___Above'
     }
   ];
+
 
   isOrderTypeShow && columns.splice(1, 1)
   const handleChange = (pagination, filters, sorter) => {
