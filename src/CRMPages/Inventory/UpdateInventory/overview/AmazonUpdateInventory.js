@@ -48,13 +48,13 @@ const AmazonUpdateInventory = () => {
 
     }
     const MerchantskuDownload = () => {
-
+        console.log('MerchantskuDownload')
         setstatelive({ ...statelive, loaderState: true });
 
         dispatch(getUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, loaderState: false });
             
-            downloadFile(data)
+         //   downloadFile(data)
         })
 
     }

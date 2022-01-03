@@ -21,10 +21,10 @@ export const url = "https://crm.rizno.com:3001";
 // export const url = "http://beu4uojtuot0pa:ikjkj3q9hmd8rmka5i9biap7hb2my@us-east-static-06.quotaguard.com:9293";
 
 //#################### Dot NET Local URL ####################
-export const urlDotNet ="http://localhost:47463/api"
+//export const urlDotNet ="http://localhost:47463/api"
 
 //#################### Dot NET Live URL ####################
-//export const urlDotNet = "https://crm.rizno.com/api"
+export const urlDotNet = "https://crm.rizno.com/api"
 // export const urlDotNet = "http://localhost:22234/api"
 
 
@@ -738,6 +738,14 @@ export const getFetchWalmartUpdateInventoryapi = (data) => {
 export const getUpdateInventoryDownloadapi = (data) => {
 
     return apiFetchDotNet('newInventory/Editreportresult', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const getWalmartUpdateInventoryDownloadapi = (data) => {
+
+    return apiFetchDotNet('newInventory/EditreportresultWalmart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const getupdateinventoryWalmartapi = (data) => {
+
+    return apiFetchDotNet('newInventory/updateinventoryWalmart', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getUpdateInventoryapi = (data) => {
 

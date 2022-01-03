@@ -11,7 +11,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl, getFetchWalmartUpdateInventoryapi, getUpdateInventoryapi, getUpdateInventoryDownloadapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getFetchWalmartUpdateInventoryapi, getupdateinventoryWalmartapi, getWalmartUpdateInventoryDownloadapi } from '../../../../redux/apis/DataAction';
 
 const { TextArea } = Input;
 const EditableContext = React.createContext(null);
@@ -51,8 +51,9 @@ const AmazonUpdateInventory = () => {
     const MerchantskuDownload = () => {
 
         setstatelive({ ...statelive, loaderState: true });
+        console.log('MerchantskuDownload')
 
-        dispatch(getUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
+        dispatch(getWalmartUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, loaderState: false });
             
             downloadFile(data)
@@ -295,7 +296,7 @@ const AmazonUpdateInventory = () => {
         const newData = [...statelive.dataSource];
         // console.log('handleupdate', newData)
 
-        dispatch(getUpdateInventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
+        dispatch(getupdateinventoryWalmartapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             // console.log(data)
             setVisible(false)
