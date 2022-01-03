@@ -26,11 +26,14 @@ const AmazonUpdateInventory = () => {
             merchantskus: [],
             merchantskusResult: [],
             loaderState: false,
-            dataSource: []
+            dataSource: [],
+            textAreaStatus: 'disabled',
+            buttonStatus: true,
+            reasonText:''
         }
     );
 
-    const { merchantskus, merchantskusResult, loaderState, dataSource } = statelive
+    const {reasonText,buttonStatus, textAreaStatus,merchantskus, merchantskusResult, loaderState, dataSource } = statelive
     const onChange = (event) => {
         // console.log(event.target.value)
         setstatelive({ ...statelive, merchantskus: event.target.value });
@@ -48,7 +51,7 @@ const AmazonUpdateInventory = () => {
 
     }
     const MerchantskuDownload = () => {
-        console.log('MerchantskuDownload')
+    
         setstatelive({ ...statelive, loaderState: true });
 
         dispatch(getUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
@@ -299,12 +302,13 @@ const AmazonUpdateInventory = () => {
     }
 
     const handleupdate = () => {
+        
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
         const newData = [...statelive.dataSource];
-        // console.log('handleupdate', newData)
+        
 
-        dispatch(getUpdateInventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
+        dispatch(getUpdateInventoryapi({ newData, ms: merchantskus, user: username.LoginName,reason:reasonText })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             // console.log(data)
             setVisible(false)
@@ -353,6 +357,18 @@ const AmazonUpdateInventory = () => {
         };
     });
 
+    const onChangetextArea = (e) => {
+
+
+        if (e.target.value == "") {
+            setstatelive({ ...statelive, buttonStatus: true, textAreaStatus: 'able' })
+        }
+        else if (e.target.value.length != "") {
+            setstatelive({ ...statelive, reasonText: e.target.value, buttonStatus: false, textAreaStatus: 'able' })
+        }
+
+
+    }
     return (
         <>
             <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={loaderState} >
@@ -408,13 +424,17 @@ const AmazonUpdateInventory = () => {
 
                 centered
                 visible={visible}
-                onOk={handleupdate}
-
+                
+                // onOk={buttonStatus === 'enable'?handleupdate:null}
+                   
+                 onOk={handleupdate}
+                 okButtonProps={{ disabled: buttonStatus  }}
                 onCancel={() => setVisible(false)}                >
                 <div>
                     <Cards headless>
                         <h1>Sure to Update?</h1>
                     </Cards>
+                    <TextArea style={{width:300}} onChange={onChangetextArea} ></TextArea>
                 </div>
 
             </Modal>

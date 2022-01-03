@@ -26,11 +26,14 @@ const AmazonCanadaUpdateInvenory = () => {
             merchantskus: [],
             merchantskusResult: [],
             loaderState: false,
-            dataSource: []
+            dataSource: [],            
+            textAreaStatus: 'disabled',
+            buttonStatus: true,
+            reasonText:''
         }
     );
 
-    const { merchantskus, merchantskusResult, loaderState, dataSource } = statelive
+    const {reasonText,buttonStatus, textAreaStatus, merchantskus, merchantskusResult, loaderState, dataSource } = statelive
     const onChange = (event) => {
         // console.log(event.target.value)
         setstatelive({ ...statelive, merchantskus: event.target.value });
@@ -273,7 +276,7 @@ const AmazonCanadaUpdateInvenory = () => {
         const newData = [...statelive.dataSource];
         // console.log('handleupdate',newData)
 
-        dispatch(getUpdateCanadaInventoryapi({ newData, ms: merchantskus ,user: username.LoginName})).then(data => {
+        dispatch(getUpdateCanadaInventoryapi({ newData, ms: merchantskus ,user: username.LoginName,reason:reasonText })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
            
             setVisible(false)
@@ -296,7 +299,18 @@ const AmazonCanadaUpdateInvenory = () => {
 
     };
 
-  
+    const onChangetextArea = (e) => {
+
+
+        if (e.target.value == "") {
+            setstatelive({ ...statelive, buttonStatus: true, textAreaStatus: 'able' })
+        }
+        else if (e.target.value.length != "") {
+            setstatelive({ ...statelive, reasonText: e.target.value, buttonStatus: false, textAreaStatus: 'able' })
+        }
+
+
+    }
 
     const components = {
         body: {
@@ -366,16 +380,17 @@ const AmazonCanadaUpdateInvenory = () => {
                 </div>
             </Spin >
             <Modal
-               
-                centered
-                visible={visible}
-                onOk={handleupdate}
-
+		 centered
+                visible={visible}                   
+                 onOk={handleupdate}
+                 okButtonProps={{ disabled: buttonStatus  }}
+                 
                 onCancel={() => setVisible(false)}                >
-                       <div>
-                       <Cards headless>
-                    <h1>Sure to Update?</h1>
+                <div>
+                    <Cards headless>
+                        <h1>Sure to Update?</h1>
                     </Cards>
+                    <TextArea style={{width:300}} onChange={onChangetextArea} ></TextArea>
                 </div>
 
             </Modal>
