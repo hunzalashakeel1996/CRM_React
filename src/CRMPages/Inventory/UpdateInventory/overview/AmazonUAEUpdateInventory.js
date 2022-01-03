@@ -418,7 +418,7 @@ const AmazonUAEUpdateInvenory = () => {
                     <Cards headless>
                         <h1>Sure to Update?</h1>
                     </Cards>
-                    <TextArea style={{width:300}} onChange={onChangetextArea} ></TextArea>
+                    <TextArea style={{width:300}}  PlaceHolder="Insert Reason"  onChange={onChangetextArea} ></TextArea>
                 </div>
 
             </Modal>
