@@ -11,7 +11,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl, getFetchUpdateInventoryapi, getUpdateInventoryapi, getUpdateInventoryDownloadapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getFetchWalmartUpdateInventoryapi, getupdateinventoryWalmartapi, getWalmartUpdateInventoryDownloadapi } from '../../../../redux/apis/DataAction';
 
 const { TextArea } = Input;
 const EditableContext = React.createContext(null);
@@ -26,11 +26,12 @@ const AmazonUpdateInventory = () => {
             merchantskus: [],
             merchantskusResult: [],
             loaderState: false,
-            dataSource: []
+            dataSource: [],
+            isEdit:''
         }
     );
 
-    const { merchantskus, merchantskusResult, loaderState, dataSource } = statelive
+    const { merchantskus, merchantskusResult, loaderState, dataSource,isEdit } = statelive
     const onChange = (event) => {
         // console.log(event.target.value)
         setstatelive({ ...statelive, merchantskus: event.target.value });
@@ -40,21 +41,22 @@ const AmazonUpdateInventory = () => {
 
         setstatelive({ ...statelive, loaderState: true });
 
-        dispatch(getFetchUpdateInventoryapi({ ms: merchantskus })).then(data => {
+        dispatch(getFetchWalmartUpdateInventoryapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
-            // console.log(data)
+            console.log(data)
             //  merchantskustable(data)
         })
 
     }
     const MerchantskuDownload = () => {
-        console.log('MerchantskuDownload')
-        setstatelive({ ...statelive, loaderState: true });
 
-        dispatch(getUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
+        setstatelive({ ...statelive, loaderState: true });
+        console.log('MerchantskuDownload')
+
+        dispatch(getWalmartUpdateInventoryDownloadapi({ ms: merchantskus })).then(data => {
             setstatelive({ ...statelive, loaderState: false });
             
-         //   downloadFile(data)
+            downloadFile(data)
         })
 
     }
@@ -161,15 +163,15 @@ const AmazonUpdateInventory = () => {
             key: 'Cost',
         },
         {
-            title: 'PUPrice',
-            dataIndex: 'PU_price',
-            key: 'PU_price',
+            title: 'WalmartPrice',
+            dataIndex: 'wallmartPrice',
+            key: 'wallmartPrice',
             editable: true,
         },
         {
-            title: 'PUStatus',
-            dataIndex: 'pustatus',
-            key: 'pustatus',
+            title: 'Walmartstatus',
+            dataIndex: 'wallmartstatus',
+            key: 'wallmartstatus',
             editable: true,
         },
         {
@@ -177,20 +179,8 @@ const AmazonUpdateInventory = () => {
             dataIndex: 'MAPprice',
             key: 'MAPprice',
             editable: true,
-        },
-        {
-            title: 'AmazonPrice',
-            dataIndex: 'amazonprice',
-            key: 'amazonprice',
-            editable: true,
-        },
-        {
-            title: 'StyleStatus',
-            dataIndex: 'stylestatus',
-            key: 'stylestatus',
-            editable: true,
-        }
-        ,
+        },       
+        
         {
             title: 'VendorQty',
             dataIndex: 'vendorqty',
@@ -254,11 +244,7 @@ const AmazonUpdateInventory = () => {
             dataIndex: 'vendorstylecode',
             key: 'vendorstylecode',
         },
-        {
-            title: 'IsAutomatedPU',
-            dataIndex: 'ISautomated_PU',
-            key: 'ISautomated_PU',
-        },
+        
         {
             title: 'VendorStatus',
             dataIndex: 'vendorstatus',
@@ -279,6 +265,12 @@ const AmazonUpdateInventory = () => {
             title: 'UploadType',
             dataIndex: 'uploadtype',
             key: 'uploadtype',
+            editable: isEdit.length>0?true:false,
+        },
+        {
+            title: 'Reason',
+            dataIndex: 'Reason',
+            key: 'Reason',
             editable: true,
         },
         // {
@@ -304,7 +296,7 @@ const AmazonUpdateInventory = () => {
         const newData = [...statelive.dataSource];
         // console.log('handleupdate', newData)
 
-        dispatch(getUpdateInventoryapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
+        dispatch(getupdateinventoryWalmartapi({ newData, ms: merchantskus, user: username.LoginName })).then(data => {
             setstatelive({ ...statelive, dataSource: data, merchantskusResult: data, loaderState: false });
             // console.log(data)
             setVisible(false)

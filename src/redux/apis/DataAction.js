@@ -731,9 +731,21 @@ export const getFetchUpdateInventoryapi = (data) => {
 
     return apiFetchDotNet('newInventory/Editinventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+export const getFetchWalmartUpdateInventoryapi = (data) => {
+
+    return apiFetchDotNet('newInventory/EditinventoryWalmart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 export const getUpdateInventoryDownloadapi = (data) => {
 
     return apiFetchDotNet('newInventory/Editreportresult', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const getWalmartUpdateInventoryDownloadapi = (data) => {
+
+    return apiFetchDotNet('newInventory/EditreportresultWalmart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const getupdateinventoryWalmartapi = (data) => {
+
+    return apiFetchDotNet('newInventory/updateinventoryWalmart', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getUpdateInventoryapi = (data) => {
 

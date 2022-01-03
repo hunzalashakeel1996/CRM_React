@@ -4,6 +4,7 @@ import AmazonUpdateInventory from './overview/AmazonUpdateInventory';
 import AmazonCanadaUpdateInvenory from './overview/AmazonCanadaUpdateInvenory';
 import AmazonUAEUpdateInventory from './overview/AmazonUAEUpdateInventory';
 import AmazonUpdateSubinventory from './overview/AmazonUpdateSubinventory';
+import WalmartUpdateInventory from './overview/WalmartUpdateInventory';
 import SKUstatus from './overview/SKUstatus';
 import GroupStatus from './overview/GroupStatus';
 import { checkPageAccess } from '../../../components/utilities/utilities';
@@ -41,6 +42,10 @@ const UpdateInventoryView = (props) => {
             tab: `Amazon UAE Inventory`,
             key: `Amazon UAE Inventory`,
             tabName: <AmazonUAEUpdateInventory />
+        }, {
+            tab: `Walmart PU Inventory`,
+            key: `Walmart PU Inventory`,
+            tabName: <WalmartUpdateInventory />
         },
         {
             tab: 'Amazon Subinventory',
