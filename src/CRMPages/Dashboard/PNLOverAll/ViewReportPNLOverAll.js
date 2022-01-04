@@ -85,8 +85,7 @@ const ViewReportPNLOverAll = () => {
       tab: 'SummaryOverAll',
       key: 'Item Summary OverAll',
       tabName: <OverAllSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(data)=>downloadFileDataLink(data)} setIsSearchPressed={setIsSearchPressed}  isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
-    },
- 
+    }, 
     {
       tab: 'Profit Before PPS',
       key: 'Profit Before PPS',
@@ -110,12 +109,12 @@ const ViewReportPNLOverAll = () => {
     if (activeTab === 'Item Summary OverAll') {
       downloadFile(downloadDataLink)
 
-      //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
+   
     }
     else if (activeTab === 'Profit Before PPS') {
-      downloadFile(downloadDataLink)
+            downloadFile(downloadDataLink)
 
-      //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
+ 
     }
 
 

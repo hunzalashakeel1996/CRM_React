@@ -52,7 +52,7 @@ const OrderPNLSummary = (props) => {
 
   useEffect(() => {
 
-    if(isSearchPressed){
+    if(isSearchPressed && activeTab==='Profit Before PPS'){
     setstate({...state, isLoader: true   })
       dispatch(apiSummaryReportprofitBeforePPS({ dateFormat: dateFormat, orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
        console.log(data)

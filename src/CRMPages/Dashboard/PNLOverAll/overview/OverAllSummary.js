@@ -51,12 +51,13 @@ const OrderPNLSummary = (props) => {
 
   useEffect(() => {
 
-    if(isSearchPressed){
+    if(isSearchPressed && activeTab==='Item Summary OverAll'){
     setstate({...state, isLoader: true   })
 
 
       dispatch(apiSummaryReportOverAll({ dateFormat: dateFormat, orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
         console.log(data)
+        
         downloadFileDataLink(data[0])
         setIsSearchPressed(false)
         setstate({
