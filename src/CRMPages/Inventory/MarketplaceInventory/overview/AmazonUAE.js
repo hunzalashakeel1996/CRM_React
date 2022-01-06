@@ -20,7 +20,7 @@ import Priceupdate from '../../../../components/Marketplace/Priceupdate'
 const AmazonUAE = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
 
-    const amazonUaeColumn =['amazon_UE_price', 'amazon_UE_status','amazon_UE_deliveryinfo' ]
+    const amazonUaeColumn =['amazon_UE_price', 'amazon_UE_status','amazon_UE_deliveryinfo','AmazonReviewpages' ]
     const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']
     const amazonUae = "Uae"
     const isSeller = "Amazon"

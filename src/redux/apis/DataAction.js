@@ -731,9 +731,21 @@ export const getFetchUpdateInventoryapi = (data) => {
 
     return apiFetchDotNet('newInventory/Editinventory', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+export const getFetchWalmartUpdateInventoryapi = (data) => {
+
+    return apiFetchDotNet('newInventory/EditinventoryWalmart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 export const getUpdateInventoryDownloadapi = (data) => {
 
     return apiFetchDotNet('newInventory/Editreportresult', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const getWalmartUpdateInventoryDownloadapi = (data) => {
+
+    return apiFetchDotNet('newInventory/EditreportresultWalmart', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const getupdateinventoryWalmartapi = (data) => {
+
+    return apiFetchDotNet('newInventory/updateinventoryWalmart', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const getUpdateInventoryapi = (data) => {
 
@@ -819,6 +831,11 @@ export const getSkuStatusUpdateapi = (data) => {
 
     return apiFetchDotNet('newInventory/skuStatusUpload', "POST", multipartHeader, data);
 };
+export const getSkuReviewsLinkUpdateapi = (data) => {
+
+    return apiFetchDotNet('newInventory/getSkuReviewsLinkUpdateapi', "POST", multipartHeader, data);
+};
+
 // sub sku status update 
 export const getSubSkuStatusUpdateapi = (data) => {
 
@@ -1115,6 +1132,10 @@ export const apiSummaryReportOrderWise = (data) => {
 export const apiSummaryReportOverAll = (data) => {
     
     return apiFetchDotNet('/report/summary_report_OverAll', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const apiReportOrderstatus = (data) => {
+    
+    return apiFetchDotNet('/report/Report_Order_Status', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 export const apiSummaryReportprofitBeforePPS = (data) => {
     

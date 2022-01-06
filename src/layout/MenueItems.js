@@ -53,10 +53,16 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key: 'View PNL RMA',
         title: 'Report RMA PNL',
         path: `${path}/ReportPNLRMA/ViewPNLRMA`
-      } , {
+      } , 
+      {
         key: 'Report OverAll',
         title: 'Report OverAll',
         path: `${path}/PNLOverAll/ViewReportPNLOverAll`
+      } , 
+      {
+        key: 'Report Order Status',
+        title: 'Report Order Status',
+        path: `${path}/ReportOrderStatus/ViewReportOrderstatus`
       }
     ]
     },

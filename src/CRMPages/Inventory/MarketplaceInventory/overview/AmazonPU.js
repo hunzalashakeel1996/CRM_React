@@ -21,7 +21,7 @@ const AmazonPU = (props) => {
 
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
   //  // console.log('vendornameState',vendornameState)
-    const amazonPUcolumn = ['PU_PRICE', 'deliveryinfo', 'PUSTATUS', 'ISPU', 'ASINS', 'IsAutomated_PU']
+    const amazonPUcolumn = ['PU_PRICE', 'deliveryinfo', 'PUSTATUS', 'ISPU', 'ASINS', 'IsAutomated_PU','AmazonReviewpages']
 
     const columnDropdown = ['ADD AMAZON INVENTORY', 'ALL', 'OTHER']
 

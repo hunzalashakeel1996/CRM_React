@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
 import { downloadFile } from '../../../../components/utilities/utilities'
-import { apiSummaryReportOverAll } from '../../../../redux/apis/DataAction';
+import { apiReportOrderstatus } from '../../../../redux/apis/DataAction';
 import { convertLegacyProps } from 'antd/lib/button/button';
 
 
@@ -51,13 +51,12 @@ const OrderPNLSummary = (props) => {
 
   useEffect(() => {
 
-    if(isSearchPressed && activeTab==='Item Summary OverAll'){
+    if(isSearchPressed){
     setstate({...state, isLoader: true   })
 
 
-      dispatch(apiSummaryReportOverAll({ dateFormat: dateFormat, orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
+      dispatch(apiReportOrderstatus({orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
         console.log(data)
-        
         downloadFileDataLink(data[0])
         setIsSearchPressed(false)
         setstate({
@@ -75,41 +74,105 @@ const OrderPNLSummary = (props) => {
 
 
 
-  
   const columns = [
+    {
+      title: 'PurchaseDate',
+      dataIndex: 'purchase_date',
+      key: 'purchase_date'
+    },{
+      title: 'Ponumber',
+      dataIndex: 'ponumber',
+      key: 'ponumber'
+ 
+    },{
+      title: 'Orderno',
+      dataIndex: 'orderno',
+      key: 'orderno'
+ 
+    },
+    {
+      title: 'Shipped Date',
+      dataIndex: 'Shipped_Date',
+      key: 'Shipped_Date'
+ 
+    },
+    {
+      title: 'Released Date',
+      dataIndex: 'Released_Date',
+      key: 'Released_Date'
+    },
+    {
+      title: 'Username',
+      dataIndex: 'username',
+      key: 'username'
+    },
     {
       title: 'Vendorname',
       dataIndex: 'vendorname',
       key: 'vendorname'
-    },{
-      title: 'Total',
-      dataIndex: 'Total',
-      key: 'Total'
- 
-    },{
-      title: '$0.01 to 0.25',
-      dataIndex: '_001_to_025',
-      key: '_001_to_025'
- 
     },
     {
-      title: '$0.26 to 0.50',
-      dataIndex: '_026_to_050',
-      key: '_026_to_050'
- 
+      title: 'State',
+      dataIndex: 'state',
+      key: 'state'
     },
     {
-      title: '$0.50 to 0.99',
-      dataIndex: '_050_to_099',
-      key: '_050_to_099'
+      title: 'trackingno',
+      dataIndex: 'trackingno',
+      key: 'trackingno'
     },
     {
-      title: '$1 Above',
-      dataIndex: '_1___Above',
-      key: '_1___Above'
+      title: 'SystemDate',
+      dataIndex: 'SystemDate',
+      key: 'SystemDate'
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status'
+    },
+    {
+      title: 'Date Delivered',
+      dataIndex: 'Date_Delivered',
+      key: 'Date_Delivered'
+    },
+    {
+      title: 'PurchaseOrderNo',
+      dataIndex: 'PurchaseOrderNo',
+      key: 'PurchaseOrderNo'
+    },
+    {
+      title: 'Trackingcode',
+      dataIndex: 'Trackingcode',
+      key: 'Trackingcode'
+    },
+    {
+      title: 'Orderstatus',
+      dataIndex: 'orderstatus',
+      key: 'orderstatus'
+    }
+    ,
+    {
+      title: 'Postatus',
+      dataIndex: 'postatus',
+      key: 'postatus'
+    } ,
+    {
+      title: 'Ordernotes',
+      dataIndex: 'ordernotes',
+      key: 'ordernotes'
+    } ,
+    {
+      title: 'LatestShipDate',
+      dataIndex: 'latest_ship_date',
+      key: 'latest_ship_date'
+    },
+    {
+      title: 'LatestDeliveryDate',
+      dataIndex: 'LatestDeliveryDate',
+      key: 'LatestDeliveryDate'
     }
   ];
-
 
   isOrderTypeShow && columns.splice(1, 1)
   const handleChange = (pagination, filters, sorter) => {
@@ -132,9 +195,9 @@ const OrderPNLSummary = (props) => {
             <Cards headless>
               {/* <ProjectList> */}
 
-              {/* <div className="table-responsive"> */}
+              <div className="table-responsive">
               <Table pagination={false} dataSource={dataSource} columns={columns} onChange={handleChange} />
-              {/* </div> */}
+              </div>
 
               {/* </ProjectList> */}
             </Cards>

@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../components/buttons/buttons';
 
-import OverAllSummary from './overview/OverAllSummary';
-import ProfitBeforePPS from './overview/ProfitBeforePPS';
+import PNLOrderStatus from './overview/PNLOrderStatus';
 
 import { Cards } from '../../../components/cards/frame/cards-frame';
 
@@ -38,9 +37,9 @@ const ViewReportPNLOverAll = () => {
   const dispatch = useDispatch();
   const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
-  const tabChildBar = JSON.parse(userAccess.top_navigation)['Report OverAll'];
-  const [downloadDataLink, setDownloadDataLink] = useState('');
-  const [activeTab, setActiveTab] = useState('Profit Before PPS');
+  const tabChildBar = JSON.parse(userAccess.top_navigation)['Report Order Status'];
+  const [downloadDataLink, setDownloadDataLink] = useState('Report Order Status');
+  const [activeTab, setActiveTab] = useState('Report Order Status');
   const [isSearchPressed, setIsSearchPressed] = useState(false);
   
 
@@ -82,40 +81,30 @@ const ViewReportPNLOverAll = () => {
 
   const topMenu = [
     {
-      tab: 'SummaryOverAll',
-      key: 'Item Summary OverAll',
-      tabName: <OverAllSummary subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(data)=>downloadFileDataLink(data)} setIsSearchPressed={setIsSearchPressed}  isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
-    }, 
-    {
-      tab: 'Profit Before PPS',
-      key: 'Profit Before PPS',
-      tabName: <ProfitBeforePPS subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddItem={(value) => onSumItem(value)} downloadFileDataLink={(data)=>downloadFileDataLink(data)} setIsSearchPressed={setIsSearchPressed} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
+      tab: 'Report Order Status',
+      key: 'Report Order Status',
+      tabName: <PNLOrderStatus subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} setIsSearchPressed={setIsSearchPressed}  isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
     }
   ];
 
 
  
-  const  downloadFileDataLink =(data)=>{  
+  const  downloadFileDataLink =(data)=>{
+  
    
 
     setDownloadDataLink(data)
 
   }
-  
   const download = (event) => {
     let activeTab = event
-    console.log(downloadDataLink)
-    console.log(activeTab)
-    if (activeTab === 'Item Summary OverAll') {
+   
+    if (activeTab === 'Report Order Status') {
       downloadFile(downloadDataLink)
 
+      //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
+    }
    
-    }
-    else if (activeTab === 'Profit Before PPS') {
-            downloadFile(downloadDataLink)
-
- 
-    }
 
 
   }
@@ -134,7 +123,7 @@ const ViewReportPNLOverAll = () => {
 
         <Row style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}>
           <Col span={24}>
-            <Cards title="PNL Over All">
+            <Cards title="Report order Status">
               <Row gutter={25}>
                 <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
                   <DatePicker style={{ padding: 10, width: '100%', }} placeholder="Start date" size='small' onChange={(date) => { onChange(date, 'startDate') }} />
@@ -146,16 +135,7 @@ const ViewReportPNLOverAll = () => {
                     placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                 </Col>
 
-                <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
-
-                  <Select defaultValue={dateFormat} style={{ width: 180 }} onChange={handleChangeDateFormat}>
-
-                    <Option value="USPS">USPS</Option>
-                    <Option value="Order">Order</Option>
-
-                  </Select>
-                </Col>
-
+               
 
               </Row>
 
@@ -184,7 +164,7 @@ const ViewReportPNLOverAll = () => {
           {topMenu.map(item => (
             tabChildBar?.includes(item.tab) && (
 
-              <TabPane tab={item.key} key={item.key}>
+              <TabPane tab={item.tab} key={item.key}>
 
                 {item.tabName}
               </TabPane>

@@ -184,7 +184,7 @@ const MarketplaceInventoryView = (props) => {
                          downloadFile(data)
                          notification.success({
                              message: 'Successfull Dowload',
-                             description: `Successfully ${data[2]} Report`,
+                             description: `Successfully ${data} Report`,
                              onClose: close,
                          });
                          setVisible(false)

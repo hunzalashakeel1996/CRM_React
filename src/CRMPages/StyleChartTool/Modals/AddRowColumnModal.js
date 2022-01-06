@@ -23,7 +23,12 @@ const AddRowColumnModal = ({ isModalOpen, loader, sizeChartValues, sizeChartDeta
             }
         }
         else {
-            for (let i = 0; i < sizeChartDetails[0].length; i++) {
+            console.log(tempSizeChartValues)
+            console.log(sizeChartDetails[0].length)
+            for (let i = 0; i <tempSizeChartValues.length; i++) {
+            // console.log(tempSizeChartValues[i].length)
+
+                console.log(tempSizeChartValues[i]  )
                 tempSizeChartValues[i] = [...tempSizeChartValues[i], ...new Array(parseInt(numberToAdd)).fill('')]
             }
             numberOfColumns = numberOfColumns + parseInt(numberToAdd)
