@@ -689,6 +689,9 @@ export const getAllpustatusapi = (data) => {
 export const getInventoryWalmartapi = (data) => {
     return apiFetchDotNet('newInventory/WallMartqty', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
 };
+export const getwalmartDuplicateOrderapi = (data) => {
+    return apiFetchDotNet('Walmart/Duplicate_Walmart_Order', "POST", headerDotNetWithJwt, JSON.stringify({ data }));
+};
 export const getPriceWalmartapi = (data) => {
     return apiFetchDotNet('update/WallMartPrice', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
