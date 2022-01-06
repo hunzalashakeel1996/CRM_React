@@ -38,7 +38,7 @@ const ViewSort = () => {
           //    imageStatus: <Dropdown overlay={() => menu(item)}>
           //    <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
           //      {item.status ? 'Active' : 'InActive'} <DownOutlined />
-          //    </a>
+          //    </a>rrr
           //  </Dropdown>,
           BannerImage: <Image width={150} src={item.Banner_image} />,
           subType: item.sub_type ? item.sub_type.split('-PU-')[1] : '---'
@@ -65,6 +65,11 @@ const ViewSort = () => {
       title: 'Sub Type',
       dataIndex: 'subType',
       key: 'subType',
+    },
+    {
+      title: 'Sort',
+      dataIndex: 'sort',
+      key: 'sort',
     },
     {
       title: 'Status',
@@ -135,6 +140,7 @@ const ViewSort = () => {
         {isModalVisible && <EditBannerModal
           loader={loader}
           setLoader={setLoader}
+          sortLength={banners.length+3}
           isModalVisible={isModalVisible}
           banner={selectedBanner}
           updateBanner={updateBanner}

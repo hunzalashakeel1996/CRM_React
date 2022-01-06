@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { Upload, Skeleton, Image, message, notification, Select, Modal, } from 'antd';
+import { Upload, Skeleton, Image, message, notification, Select, Modal, Input, InputNumber } from 'antd';
 import { PUAppGetAllBrands, PUAppUpdateBanner, PUAppUploadBanner } from '../../../../redux/apis/DataAction';
 import { useDispatch } from 'react-redux';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -7,7 +7,7 @@ import './style.css';
 
 const { Option } = Select;
 
-const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBanner, handleCancel }) => {
+const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBanner, handleCancel, sortLength }) => {
   const dispatch = useDispatch();
   const statusOpt = [{ key: 1, value: 'Active' }, { key: 0, value: 'InActive' }];
   const [subTypeOpt, setSubTypeOpt] = useState([])
@@ -37,6 +37,7 @@ const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBann
 
   const [selectedSubType, setSelectedSubType] = useState(banner.sub_type);
   const [status, setStatus] = useState(banner.status ? 1 : 0);
+  const [sort, setSort] = useState(banner.sort);
   const onSubTypeChange = (data) => {
     let JS = JSON.parse(data)
     setSelectedSubType(`${JS.key}-PU-${JS.value}`)
@@ -61,6 +62,7 @@ const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBann
       formData.append('id', banner.ID);
       formData.append('url', banner.Banner_image);
       formData.append('subType', selectedSubType);
+      formData.append('sort', sort);
       formData.append('status', status);
 
       dispatch(PUAppUploadBanner(formData)).then(res => {
@@ -75,6 +77,7 @@ const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBann
         id: banner.ID,
         url: banner.Banner_image,
         subType: selectedSubType,
+        sort: sort,
         status: status
       }
 
@@ -110,34 +113,47 @@ const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBann
         <p>Type: {banner.type}</p>
         {selectedSubType && <div style={{ marginBottom: 10 }}>
           <span>Sub Type: </span>
+          {banner.type == 'Promotion' ?
+            <Input size='small'
+              style={{ width: 300, }}
+              required
+              defaultValue={selectedSubType.split('-PU-')[1]}
+              onChange={({ target }) => onSubTypeChange(JSON.stringify({ key: 0, value: target.value }))} />
+            :
+            <Select
+              showSearch
+              style={{ width: 300, }}
+              placeholder={`Select SubType`}
+              optionFilterProp="children"
+              value={selectedSubType.split('-PU-')[1]}
+              onChange={onSubTypeChange}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {subTypeOpt.map(item => <Option key={item.key} value={JSON.stringify(item)}>{item.value}</Option>)}
+            </Select>}
+        </div>}
+        <div style={{ marginTop: 10 }}>
+          <span>Sort: </span>
+          <InputNumber size='small' min={1} max={sortLength} defaultValue={sort} onChange={(val) => setSort(val)} />
+        </div>
+        <div style={{ marginTop: 10 }}>
+          <span>Status: </span>
           <Select
             showSearch
-            style={{ width: 300, }}
-            placeholder={`Select SubType`}
+            style={{ width: 150 }}
+            placeholder="Select Status"
             optionFilterProp="children"
-            value={selectedSubType.split('-PU-')[1]}
-            onChange={onSubTypeChange}
+            value={status}
+            onChange={(val) => setStatus(val)}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
           >
-            {subTypeOpt.map(item => <Option key={item.key} value={JSON.stringify(item)}>{item.value}</Option>)}
+            {statusOpt.map(item => <Option key={item.key} value={item.key}>{item.value}</Option>)}
           </Select>
-        </div>}
-        <span>Status: </span>
-        <Select
-          showSearch
-          style={{ width: 150 }}
-          placeholder="Select Status"
-          optionFilterProp="children"
-          value={status}
-          onChange={(val) => setStatus(val)}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-        >
-          {statusOpt.map(item => <Option key={item.key} value={item.key}>{item.value}</Option>)}
-        </Select>
+        </div>
         {/* <TextArea value={selectedOffer.OFFER} onChange={(e) => setSelectedOffer({ ...selectedOffer, OFFER: e.target.value })} autoSize /> */}
         {/* <Input value={selectedOffer.OFFER} onChange={(e) => setSelectedOffer({ ...selectedOffer, OFFER: e.target.value })} /> */}
       </Modal>
