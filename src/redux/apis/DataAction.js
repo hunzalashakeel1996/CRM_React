@@ -1413,5 +1413,12 @@ export const PUAppUpdateCoupon = (data) => {
     return apiFetchDotNet('/Mobile/UpdateCoupon', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
+export const PUAppGetPromotionStylesSort = (data) => {
+    return apiFetchDotNet('/Mobile/GetPromotionStylesSort', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+export const PUAppSavePromotionStylesSort = (data) => {
+    return apiFetchDotNet('/Mobile/SavePromotionStylesSort', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 // ===================================== PU App Apis End ==============================================================
 

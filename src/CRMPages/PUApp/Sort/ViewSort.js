@@ -7,6 +7,7 @@ import { Button } from '../../../components/buttons/buttons';
 import './overview/style.css';
 import Brand from './overview/Brand';
 import Category from './overview/Category';
+import Promotion from './overview/Promotion';
 
 const { TabPane } = Tabs;
 
@@ -28,6 +29,11 @@ const ViewSort = () => {
       tab: 'Category',
       key: 'Category',
       tabName: <Category setLoader={setLoader} />
+    }
+    ,{
+      tab: 'Promotion',
+      key: 'Promotion',
+      tabName: <Promotion setLoader={setLoader} />
     }
   ];
   return (

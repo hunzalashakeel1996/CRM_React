@@ -249,6 +249,7 @@ const ViewSort = () => {
         </div>
 
         {isModalVisible && <EditCouponModal
+          activeTab={activeTab}
           loader={initLoading}
           setLoader={setInitLoading}
           isModalVisible={isModalVisible}
