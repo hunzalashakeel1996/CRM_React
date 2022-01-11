@@ -93,12 +93,18 @@ const EditBannerModal = ({ isModalVisible, loader, setLoader, banner, updateBann
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
+  
+  const getImgPath = (img) =>{
+    let imgName = img.split('homebanner')[1]
+    return `https://crm.rizno.com//CRMUPLOADFILE${imgName}`
+  }
 
   return (
     <>
       <Modal confirmLoading={loader} title="Edit Banner" visible={isModalVisible} onOk={uploadBanner} okText={'Update'} onCancel={handleCancel}>
         <div style={{ flexDirection: 'row', marginBottom: 10 }}>
-          <Image width={150} src={uploadImage ? URL.createObjectURL(uploadImage) : banner.Banner_image} />
+          {/* <Image width={150} src={uploadImage ? URL.createObjectURL(uploadImage) : banner.Banner_image} /> */}
+          <Image width={150} src={uploadImage ? URL.createObjectURL(uploadImage) : getImgPath(banner.Banner_image)} />
           <Upload
             name="avatar"
             listType="picture-card"

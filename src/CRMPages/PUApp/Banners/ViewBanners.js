@@ -27,6 +27,11 @@ const ViewSort = () => {
     getBanners();
   }, [])
 
+  const getImgPath = (img) =>{
+    let imgName = img.split('homebanner')[1]
+    return `https://crm.rizno.com//CRMUPLOADFILE${imgName}`
+  }
+
   const getBanners = () => {
     setLoader(true)
     dispatch(PUAppGetAllBanners()).then(res => {
@@ -40,7 +45,8 @@ const ViewSort = () => {
           //      {item.status ? 'Active' : 'InActive'} <DownOutlined />
           //    </a>rrr
           //  </Dropdown>,
-          BannerImage: <Image width={150} src={item.Banner_image} />,
+          BannerImage: <Image width={150} src={getImgPath(item.Banner_image)} />,
+          // BannerImage: <Image width={150} src={item.Banner_image} />,
           subType: item.sub_type ? item.sub_type.split('-PU-')[1] : '---'
         }
       })
