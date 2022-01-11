@@ -9,7 +9,7 @@ import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
-import {apiMissingEmailUpdateOrder, apiDeleteSKUOnWalmart, apiDeleteSKUOnWalmartUpload, apiWalmartGetCanadaOrderSheetMethod, apiWalmartGetCanadaOrderSheetUpload, apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
+import {getwalmartDuplicateOrderapi,apiMissingEmailUpdateOrder, apiDeleteSKUOnWalmart, apiDeleteSKUOnWalmartUpload, apiWalmartGetCanadaOrderSheetMethod, apiWalmartGetCanadaOrderSheetUpload, apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
 
 import './MarketplaceOrders.css';
 
@@ -107,6 +107,19 @@ const MarketplaceOrdersView = (props) => {
         setstate({ ...state, isLoader: true });
         dispatch(apiWalmartGetOrder()).then(data => {
             console.log('apiWalmartGetOrder', data)
+            notification.success({
+                message: 'Successfull Get Order ',
+                description: `Successfully Walmart Get order`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false });
+        })
+    }
+    const getWalmartDuplicateOrder = () => {
+
+        setstate({ ...state, isLoader: true });
+        dispatch(getwalmartDuplicateOrderapi()).then(data => {
+            downloadFile(data)
             notification.success({
                 message: 'Successfull Get Order ',
                 description: `Successfully Walmart Get order`,
@@ -263,31 +276,39 @@ const MarketplaceOrdersView = (props) => {
                     <Cards title="Get Walmart Orders (API) - USA" caption="The simplest use of Drawer" >
                         {/* <Form layout="inline" initialValue="" label="" form={form} id="Get Walmart Orders (API) - USA" name="nest-messages"  validateMessages={validateMessages}> */}
                         <Row style={{ marginBottom: 20 }} gutter={15}>
-                            <Col lg={6} xs={24}  >
+                            <Col span={4}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>StartDate</h3></div> */}
 
                                 <DatePicker placeholder="StartDate" style={{ padding: 10, width: '100%', }} onChange={onChange} />
 
                             </Col>
-                            <Col lg={6} xs={24}  >
+                            <Col span={4}>
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>EndDate</h3></div> */}
 
                                 <DatePicker placeholder="EndDate" style={{ padding: 10 }} onChange={onChange} />
 
                             </Col>
 
-                            <Col lg={6} xs={24}  >
+                            <Col span={4}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
 
                                 <Button size="large" type="success" >
                                     GetOrders
                                 </Button>
                             </Col>
-                            <Col lg={6} xs={24}  >
+                            <Col span={6}  >
                                 {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders Api</h3></div> */}
 
                                 <Button size="large" type="success" onClick={getWalmartOrderApi}>
-                                    GetOrders Api
+                                    Get Walmart Order Api
+                                </Button>
+
+                            </Col>
+                            <Col span={4}  >
+                                {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders Api</h3></div> */}
+
+                                <Button size="large" type="success" onClick={getWalmartDuplicateOrder}>
+                                Walmart Duplicate Order
                                 </Button>
 
 
