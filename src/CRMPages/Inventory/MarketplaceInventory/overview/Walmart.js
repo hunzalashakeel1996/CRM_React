@@ -20,7 +20,7 @@ import Priceupdate from '../../../../components/Marketplace/Priceupdate'
 const Walmart = (props) => {
     const { genrateFeed, genrateFilter, vendornameState, brandnameState, collectionState, categorynameState, Type, puStatusState } = props
 
-    const WalmartColumn =['WALLMARTSTATUS', 'WALLMARTPRICE','WalmartReviewpages','WalmartSKULink' ]
+    const WalmartColumn =['WALLMARTSTATUS', 'WALLMARTPRICE','WalmartReviewpages','WalmartSKULink','WalmartReasontoUpdate' ]
     const columnDropdown = ['ADD WALMART INVENTORY', 'Walmart PRICE TEMPLATE', 'ALL', 'OTHER']
     const isSeller = "Walmart"
     const WalmartPU = "WalmartUSA"
