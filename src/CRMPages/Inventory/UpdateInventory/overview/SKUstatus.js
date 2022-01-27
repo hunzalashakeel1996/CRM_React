@@ -283,7 +283,7 @@ const SKUstatus = () => {
 
         formData.append('user', username.LoginName);
         formData.append('File', file);
-        formData.append('datato', dataTo);
+        formData.append('datato', dataToSKU);
         formData.append('status', status);
         setstate({ ...state, isLoader: true })
         dispatch(getSkuStatusUpdateapi(formData)).then(data => {
