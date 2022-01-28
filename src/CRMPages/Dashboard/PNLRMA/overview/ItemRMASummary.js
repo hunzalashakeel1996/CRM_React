@@ -67,7 +67,7 @@ const ItemRMASummary = (props) => {
         console.log(data)
         // setTimeout(
         //   function() {
-            downloadFileDataLink(data[0])
+       
       //     }
       //     .bind(this),
       //     2000
@@ -89,7 +89,7 @@ const ItemRMASummary = (props) => {
               })      
 
             })
-
+            downloadFileDataLink(tempDataSource)
            setState({ ...state,dataDownloadLinkItemRMASummary:data[0], isLoader: false,dataSource:tempDataSource,orderdatetoCheck:orderdateto,orderdatefromCheck:orderdatefrom  })
         //    onDispatchComplete()
         onAddRMAItem(data[1])

@@ -134,11 +134,13 @@ const ViewPNLRMA = () => {
       //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
     }
     else if (activeTab === 'ItemRMASummary') {
-      downloadFile(downloadDataLink)
+      downloadFileTableData(downloadDataLink, 'ItemRMASummary')
+    //  downloadFile(downloadDataLink)
       //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
     }
     else if (activeTab === 'OrderRMASummary') {
-      downloadFile(downloadDataLink)
+      downloadFileTableData(downloadDataLink, 'OrderRMASummary')
+    //  downloadFile(downloadDataLink)
       //downloadFileTableData(dataSourceItemTempParent, 'ItemPNL')
     }
     else if (activeTab === 'OrderRMADetail') {
