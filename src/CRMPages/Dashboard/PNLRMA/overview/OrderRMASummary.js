@@ -81,9 +81,9 @@ const OrderRMASummary = (props) => {
 
               tempDataSource.push({
                 ordertype:ordertype,
-                orderCount:orderCount,              
+              //  orderCount:orderCount,              
                 RMA:RMA,
-                percentage:`${Math.round((RMA/orderCount*100)*100)/100}%`,
+             //   percentage:`${Math.round((RMA/orderCount*100)*100)/100}%`,
                 Open:Open,
                 Process:Process,
                 Closed:Closed,             
@@ -113,23 +113,25 @@ const OrderRMASummary = (props) => {
       title: 'Ordertype',
       dataIndex: 'ordertype',
       key: 'ordertype'
-    },{
-      title: 'OrderCount',
-      dataIndex: 'orderCount',
-      key: 'orderCount'
+    }
+    // ,{
+    //   title: 'OrderCount',
+    //   dataIndex: 'orderCount',
+    //   key: 'orderCount'
  
-    },{
+    // }
+    ,{
       title: 'RMAOrderCount',
       dataIndex: 'RMA',
       key: 'RMA'
  
     },
-    {
-      title: 'Percentage',
-      dataIndex: 'percentage',
-      key: 'percentage'
+    // {
+    //   title: 'Percentage',
+    //   dataIndex: 'percentage',
+    //   key: 'percentage'
  
-    },
+    // },
     {
       title: 'Open',
       dataIndex: 'Open',

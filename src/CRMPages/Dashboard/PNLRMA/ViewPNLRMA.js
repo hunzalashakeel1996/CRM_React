@@ -265,22 +265,22 @@ const ViewPNLRMA = () => {
                 <Col lg={16}>
 
                  {(activeTab==='ItemRMASummary' || activeTab==='OrderRMASummary')&& <Row gutter={25}>
-                    <Col>
+                    {/* <Col>
 
                       <label style={{ fontSize: 13, fontWeight: 'bold' }} >Total Order: </label>
                       <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{Math.round(totalOrders* 100)/100}</p>
-                    </Col>
+                    </Col> */}
                     {(activeTab !== 'OrderPNL' && activeTab !== 'ItemPNL') && <Col>
 
-                      <label style={{ fontSize: 13, fontWeight: 'bold' }} >Total Order RMA</label>
+                      <label style={{ fontSize: 13, fontWeight: 'bold' }} >Total RMA</label>
                       <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{Math.round(totalRMAOrdersCount * 100)/100 }</p>
                     </Col>}
                   
-                    <Col>
+                    {/* <Col>
 
                       <label style={{ fontSize: 13, fontWeight: 'bold' }} > RMA percentage: </label>
                       <p style={{ fontSize: 13, fontWeight: '600', color: '#5f63f2', paddingLeft: 2, }}>{Math.round(totalOrdersReturnPercentage * 100)/100 } %</p>
-                    </Col>
+                    </Col> */}
 
 
                   </Row>}
