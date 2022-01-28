@@ -81,61 +81,161 @@ const handleChange = (pagination, filters, sorter) =>  {
     sortedInfo: sorter,
   });
 };
-
-  const columns = [ {
+const columns = [
+  {
     title: 'Orderno',
     dataIndex: 'orderno',
     key: 'orderno'
-  }, 
+  },
   {
-    title: 'POnumber',
+    title: 'Orderdate',
+    dataIndex: 'orderdate',
+    key: 'orderdate'
+
+  },
+  {
+    title: 'Rmadate',
+    dataIndex: 'Rmadate',
+    key: 'Rmadate'
+  },
+  {
+    title: 'Ordertype',
+    dataIndex: 'ordertype',
+    key: 'ordertype'
+  },
+  {
+    title: 'VendorStylecode',
+    dataIndex: 'VENDORSTYLECODE',
+    key: 'VENDORSTYLECODE'
+  },
+  {
+    title: 'ColorName',
+    dataIndex: 'COLORNAME',
+    key: 'COLORNAME'
+  },
+  {
+    title: 'ColorCode',
+    dataIndex: 'COLORCODE',
+    key: 'COLORCODE'
+  },
+  {
+    title: 'SizeName',
+    dataIndex: 'sizename',
+    key: 'sizename'
+  },
+  {
+    title: 'MerchantSku',
+    dataIndex: 'merchantsku',
+    key: 'merchantsku'
+  },
+  {
+    title: 'OrderID',
     dataIndex: 'ponumber',
     key: 'ponumber'
-  }, {
-    title: 'Vendorname',
+  },
+  {
+    title: 'OrderStatus',
+    dataIndex: 'orderstatus',
+    key: 'orderstatus'
+  },
+  {
+    title: 'RmaStatus',
+    dataIndex: 'RMASTATUS',
+    key: 'RMASTATUS'
+  }
+  ,
+  {
+    title: 'RmaAmount',
+    dataIndex: 'RMAAMOUNT',
+    key: 'RMAAMOUNT'
+  } ,
+  {
+    title: 'VendorName',
     dataIndex: 'vendorname',
     key: 'vendorname'
   },
-    {
-      title: 'vendorstylecode',
-      dataIndex: 'vendorstylecode',
-      key: 'vendorstylecode'
-    },
-    {
-      title: 'stylecode',
-      dataIndex: 'stylecode',
-      key: 'stylecode'
+  ,
+  {
+    title: 'Pono',
+    dataIndex: 'pono',
+    key: 'pono'
+  },
+  {
+    title: 'Postatus',
+    dataIndex: 'postatus',
+    key: 'postatus'
+  },
+  {
+    title: 'Notes',
+    dataIndex: 'NOTES',
+    key: 'NOTES'
+  },
+  {
+    title: 'Reason',
+    dataIndex: 'reason',
+    key: 'reason'
+  }
+  ,
+  {
+    title: 'OrderNotes',
+    dataIndex: 'ordernotes',
+    key: 'ordernotes'
+  }
+];
+  // const columns = [ {
+  //   title: 'Orderno',
+  //   dataIndex: 'orderno',
+  //   key: 'orderno'
+  // }, 
+  // {
+  //   title: 'POnumber',
+  //   dataIndex: 'ponumber',
+  //   key: 'ponumber'
+  // }, {
+  //   title: 'Vendorname',
+  //   dataIndex: 'vendorname',
+  //   key: 'vendorname'
+  // },
+  //   {
+  //     title: 'vendorstylecode',
+  //     dataIndex: 'vendorstylecode',
+  //     key: 'vendorstylecode'
+  //   },
+  //   {
+  //     title: 'stylecode',
+  //     dataIndex: 'stylecode',
+  //     key: 'stylecode'
  
-    },
-    {
-      title: 'colorname',
-      dataIndex: 'colorname',
-      key: 'colorname'
-    },
-    {
-      title: 'colorcode',
-      dataIndex: 'colorcode',
-      key: 'colorcode'
-    },
-    {
-      title: 'sizename',
-      dataIndex: 'sizename',
-      key: 'sizename'
-    },
-    {
-      title: 'Ordernotes',
-      dataIndex: 'ordernotes',
-      key: 'ordernotes'
-    }
-    // {
-    //   title: 'ItemQty',
-    //   dataIndex: 'ItemQty',
-    //   key: 'ItemQty',
-    //    defaultSortOrder: 'descend',
-    //   sorter: (c, d) => c.ItemQty - d.ItemQty,
-    //   sortOrder: sortedInfo.columnKey === 'ItemQty' && sortedInfo.order,
-    // }
-  ];
+  //   },
+  //   {
+  //     title: 'colorname',
+  //     dataIndex: 'colorname',
+  //     key: 'colorname'
+  //   },
+  //   {
+  //     title: 'colorcode',
+  //     dataIndex: 'colorcode',
+  //     key: 'colorcode'
+  //   },
+  //   {
+  //     title: 'sizename',
+  //     dataIndex: 'sizename',
+  //     key: 'sizename'
+  //   },
+  //   {
+  //     title: 'Ordernotes',
+  //     dataIndex: 'ordernotes',
+  //     key: 'ordernotes'
+  //   }
+  //   // {
+  //   //   title: 'ItemQty',
+  //   //   dataIndex: 'ItemQty',
+  //   //   key: 'ItemQty',
+  //   //    defaultSortOrder: 'descend',
+  //   //   sorter: (c, d) => c.ItemQty - d.ItemQty,
+  //   //   sortOrder: sortedInfo.columnKey === 'ItemQty' && sortedInfo.order,
+  //   // }
+  // ];
   return (
 
     <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
