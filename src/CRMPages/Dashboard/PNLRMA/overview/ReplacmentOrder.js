@@ -82,7 +82,20 @@ const handleChange = (pagination, filters, sorter) =>  {
   });
 };
 
-  const columns = [
+  const columns = [ {
+    title: 'Orderno',
+    dataIndex: 'orderno',
+    key: 'orderno'
+  }, 
+  {
+    title: 'POnumber',
+    dataIndex: 'ponumber',
+    key: 'ponumber'
+  }, {
+    title: 'Vendorname',
+    dataIndex: 'vendorname',
+    key: 'vendorname'
+  },
     {
       title: 'vendorstylecode',
       dataIndex: 'vendorstylecode',
@@ -110,13 +123,18 @@ const handleChange = (pagination, filters, sorter) =>  {
       key: 'sizename'
     },
     {
-      title: 'ItemQty',
-      dataIndex: 'ItemQty',
-      key: 'ItemQty',
-       defaultSortOrder: 'descend',
-      sorter: (c, d) => c.ItemQty - d.ItemQty,
-      sortOrder: sortedInfo.columnKey === 'ItemQty' && sortedInfo.order,
+      title: 'Ordernotes',
+      dataIndex: 'ordernotes',
+      key: 'ordernotes'
     }
+    // {
+    //   title: 'ItemQty',
+    //   dataIndex: 'ItemQty',
+    //   key: 'ItemQty',
+    //    defaultSortOrder: 'descend',
+    //   sorter: (c, d) => c.ItemQty - d.ItemQty,
+    //   sortOrder: sortedInfo.columnKey === 'ItemQty' && sortedInfo.order,
+    // }
   ];
   return (
 
