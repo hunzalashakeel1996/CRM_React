@@ -31,7 +31,7 @@ const validateMessages = {
 
 const PricePNLSummary = (props) => {
 
-  const { subOrderType, ordertypeParent, isSearchPressed, orderdatefrom, orderdateto, dateFormat, dataSourcePriceSummary, dataSourcePriceSummaryTempParent, onAddPrice, activeTab, selectedFilter } = props
+  const {downloadFileDataLink , subOrderType, ordertypeParent, isSearchPressed, orderdatefrom, orderdateto, dateFormat, dataSourcePriceSummary, dataSourcePriceSummaryTempParent, onAddPrice, activeTab, selectedFilter } = props
 
 
   let isOrderTypeShow = selectedFilter == 'All' ? true : false
@@ -453,7 +453,7 @@ const PricePNLSummary = (props) => {
       dataSourcesummary: DataSource_summary_report_order_wise_All,
       selectedFilter: 'All'
     })
-
+    downloadFileDataLink('PricePNLSummary',DataSource_summary_report_order_wise_All)
   }
   const filter = (value) => {
 

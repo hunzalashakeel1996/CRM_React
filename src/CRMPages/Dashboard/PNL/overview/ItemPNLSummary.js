@@ -31,7 +31,7 @@ const validateMessages = {
 
 
 const ItemPNLSummary = (props) => {
-  const {subOrderType,ordertypeParent,  isSearchPressed, orderdatefrom, orderdateto, dateFormat,dataSourceItemsummary, dataSourceItemsummaryTempParent, onAddItem, activeTab,selectedFilter } = props
+  const {downloadFileDataLink ,subOrderType,ordertypeParent,  isSearchPressed, orderdatefrom, orderdateto, dateFormat,dataSourceItemsummary, dataSourceItemsummaryTempParent, onAddItem, activeTab,selectedFilter } = props
 
  
   let isOrderTypeShow = selectedFilter == 'All' ? true : false
@@ -48,10 +48,11 @@ const ItemPNLSummary = (props) => {
     orderdatetoCheck: 'todate',
     orderdatefromCheck: 'fromdate',
     dataSourcesummaryParent:[],
-    dataSourcesummaryParentAll:[]
+    dataSourcesummaryParentAll:[],
+    dataSourceItemsummaryTempParentDownload:[]
   });
 
-  const {dataSourcesummaryParent,dataSourcesummaryParentAll, orderdatetoCheck, orderdatefromCheck , sortedInfo, isLoader, dataSourcesummary } = state
+  const {dataSourceItemsummaryTempParentDownload,dataSourcesummaryParent,dataSourcesummaryParentAll, orderdatetoCheck, orderdatefromCheck , sortedInfo, isLoader, dataSourcesummary } = state
   useEffect(() => {
     if (isSearchPressed &&activeTab === 'ItemPNLSummary' && (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom)) {
       let tempDataSource_summary_report_item_wise = [];
@@ -122,6 +123,7 @@ const ItemPNLSummary = (props) => {
     if (dataSourcesummaryParent.length>0&&['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'ItemPNLSummary') {
       
       if ('All' === ordertypeParent) {
+        console.log(dataSourcesummaryParentAll)
         itemSummarySumAll(dataSourcesummaryParentAll)
         filterTotalValue(dataSourcesummaryParentAll)
         return
@@ -461,7 +463,7 @@ const ItemPNLSummary = (props) => {
       dataSourcesummary: DataSource_summary_report_item_wise_All,
       selectedFilter: 'All'
     })
-
+    downloadFileDataLink('ItemPNLSummary',DataSource_summary_report_item_wise_All)
   }
 
   const columns = [

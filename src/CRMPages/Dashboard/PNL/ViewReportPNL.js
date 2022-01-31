@@ -43,7 +43,8 @@ const ReportPNLView = () => {
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL'];
   const [activeTab, setActiveTab] = useState('OrderPNL');
   const [isSearchPressed, setIsSearchPressed] = useState(false);
-
+  const [DownloadData, setDownloadData] = useState([]); 
+  
   const [state, setstate] = useState({
 
 
@@ -289,7 +290,7 @@ const ReportPNLView = () => {
 
       i++;
     }
-
+console.log('onSumItemAll')
     setstate({
       ...state,
       totalOrdersProfit: profit,
@@ -855,9 +856,9 @@ const ReportPNLView = () => {
   }
   const  downloadFileDataLink =(data,dataSource)=>{
   
-    console.log(data,dataSource)
 
-    setstate({...state, downloadDataLink: data})
+    setDownloadData(dataSource)
+   // setstate({...state, DownloadDataLink: dataSource})
 
   }
   const download = (event) => {
@@ -868,11 +869,12 @@ const ReportPNLView = () => {
 
       downloadFileTableData(dataSourceOrderTempParentDownload, 'OrderPNL')
     }
-    else if (activeTab === 'ItemPNL') {
+    else
+     if (activeTab === 'ItemPNL') {
       downloadFileTableData(dataSourceItemTempParentDownload, 'ItemPNL')
     }
     else if (activeTab === 'OrderPNLSummary') {
-      let temp = JSON.parse(JSON.stringify(dataSourceOrdersummaryTempParentDownload))
+      let temp = selectedFilter==='All'?JSON.parse(JSON.stringify(DownloadData)):JSON.parse(JSON.stringify(dataSourceOrdersummaryTempParentDownload))
       for (let i = 0; i < temp.length; i++) {
         delete temp[i]['profitLink']
         delete temp[i]['lossLink']
@@ -881,16 +883,21 @@ const ReportPNLView = () => {
       downloadFileTableData(temp, 'OrderPNLSummary')
     }
     else if (activeTab === 'ItemPNLSummary') {
-      let temp = JSON.parse(JSON.stringify(dataSourceItemsummaryTempParentDownload))
-      for (let i = 0; i < temp.length; i++) {
-        delete temp[i]['profitLink']
-        delete temp[i]['lossLink']
-        delete temp[i]['ORDERTYPE']
-      }
-      downloadFileTableData(temp, 'ItemPNLSummary')
+
+     
+  let temp = selectedFilter==='All'?JSON.parse(JSON.stringify(DownloadData)):JSON.parse(JSON.stringify(dataSourceItemsummaryTempParentDownload))
+        
+    
+    for (let i = 0; i < temp.length; i++) {
+      delete temp[i]['profitLink']
+      delete temp[i]['lossLink']
+      delete temp[i]['ORDERTYPE']
     }
+    downloadFileTableData(temp, 'ItemPNLSummary')
+    }
+
     else if (activeTab === 'PricePNLSummary') {
-      let temp = JSON.parse(JSON.stringify(dataSourcePriceSummaryTempParentDownload))
+      let temp = selectedFilter==='All'?JSON.parse(JSON.stringify(DownloadData)):JSON.parse(JSON.stringify(dataSourcePriceSummaryTempParentDownload))
       for (let i = 0; i < temp.length; i++) {
         delete temp[i]['profitLink']
         delete temp[i]['lossLink']

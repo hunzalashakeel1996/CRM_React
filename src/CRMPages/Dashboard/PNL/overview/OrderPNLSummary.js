@@ -355,7 +355,7 @@ const OrderPNLSummary = (props) => {
       dataSourceOrdersummaryTemp: DataSource_summary_report_order_wise_All,
       selectedFilter: 'All'
     })
-
+    downloadFileDataLink('OrderPNLSummary',DataSource_summary_report_order_wise_All)
   }
 
   const orderSummarySumAll = (data) => {
