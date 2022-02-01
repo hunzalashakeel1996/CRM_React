@@ -173,7 +173,6 @@ const ReportPNLView = () => {
       Loss = Loss + result.loss[i].loss
       i++;
     }
-    // console.log('onSum',result)
     setstate({
       ...state,
       totalOrdersProfit: profit,
@@ -220,7 +219,6 @@ const ReportPNLView = () => {
     }
 
      
-     console.log('onSumAll',DataSource_summary_report_order_wise_All)
     setstate({
       ...state,
       totalOrdersProfit: profit,
@@ -290,7 +288,6 @@ const ReportPNLView = () => {
 
       i++;
     }
-console.log('onSumItemAll')
     setstate({
       ...state,
       totalOrdersProfit: profit,
@@ -497,7 +494,6 @@ console.log('onSumItemAll')
   };
 
   const orderSummarySumAll = (data) => {
-    console.log('1')
     let order = []
     let loss = []
     let profit = []
@@ -506,7 +502,6 @@ console.log('onSumItemAll')
     let loss_link = []
     let profit_link = []
     let ORDERTYPE = []
-     console.log('orderSummarySumAll',data)
     for (let i = 0; i < data.length; i++) {
 
 
@@ -957,7 +952,6 @@ console.log('onSumItemAll')
                 <Col xs={24} style={{ marginBottom: 10 }}>
                   {/* <Button size="large" type="primary" onClick={getsummary_report_order_wise} style={{ marginRight: 10, }} > Search</Button> */}
                   <Button size="large" type="primary" onClick={() => {setIsSearchPressed(true) }} style={{ marginRight: 10, }} > Search</Button> 
-                  {/* {console.log('dataSourceOrdersummary.length',dataSourceOrdersummary.length)} */}
                    <Button size="large" type="success"
                     onClick={(value) => { download(activeTab) }} >
                     Download

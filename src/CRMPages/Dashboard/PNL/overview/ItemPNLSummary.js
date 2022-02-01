@@ -123,7 +123,6 @@ const ItemPNLSummary = (props) => {
     if (dataSourcesummaryParent.length>0&&['MarketPlace', 'Web', 'All'].includes(ordertypeParent) && activeTab === 'ItemPNLSummary') {
       
       if ('All' === ordertypeParent) {
-        console.log(dataSourcesummaryParentAll)
         itemSummarySumAll(dataSourcesummaryParentAll)
         filterTotalValue(dataSourcesummaryParentAll)
         return
