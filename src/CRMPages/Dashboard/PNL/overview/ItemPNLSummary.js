@@ -157,8 +157,7 @@ const ItemPNLSummary = (props) => {
     }
 
     else if (dataSourcesummaryParent.length>0&&activeTab === 'ItemPNLSummary' &&['Amazon', 'AmazonRizno', 'Walmart', 'Sears', 'Ebay'].includes(subOrderType)) {
-  
-    
+      
 
       tempOrderSummary = dataSourcesummaryParent.filter(item => item['ORDERTYPE'] && item['ORDERTYPE']=== (subOrderType))
 
@@ -354,8 +353,7 @@ const ItemPNLSummary = (props) => {
           else {
             let indexTemp = profit_link.findIndex(item => item.vendorname === data[i].vendorname)
             profit_link[indexTemp] = { ...profit_link[indexTemp], profit_link: data[i].profit_link }
-          }
-         
+          }         
     
           if (ORDERTYPE.filter(value => value.vendorname === data[i].vendorname).length <= 0) {
             ORDERTYPE.push(data[i])
@@ -500,11 +498,7 @@ const ItemPNLSummary = (props) => {
           dataIndex: 'ORDERTYPE',
           key: 'ORDERTYPE',
         },
-
-
-      ]
-
-
+       ]
     },
     {
       title:     
