@@ -114,7 +114,7 @@ const StylesNotInPUView = (props) => {
               <Col xs={24} style={{marginBottom:15}}  >
 
 
-                <Select placeholder="Vendorname" allowClear onChange={onChange} style={{ width: '100%', maxWidth:400, }}  >
+                <Select placeholder="Vendorname" showSearch allowClear onChange={onChange} style={{ width: '100%', maxWidth:400, }}  >
                   {vendornameState.map((val, i) => (
                     <Option value={val} key={val}>{val}</Option>
 
