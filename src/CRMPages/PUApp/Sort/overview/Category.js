@@ -97,7 +97,7 @@ const Category = ({ setLoader }) => {
 
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    let tempFilter = allCategoryStyles.filter(val => val[dataIndex].toString().toLowerCase().includes(selectedKeys))
+    let tempFilter = allCategoryStyles.filter(val => val[dataIndex].toString().toLowerCase().includes(selectedKeys.toLowerCase()))
     setCategoryStyles(tempFilter)
   };
 

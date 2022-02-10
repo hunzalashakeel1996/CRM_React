@@ -61,7 +61,7 @@ const Brand = ({ setLoader }) => {
 
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    let tempFilter = allBrandStyles.filter(val => val[dataIndex].toString().toLowerCase().includes(selectedKeys))
+    let tempFilter = allBrandStyles.filter(val => val[dataIndex].toString().toLowerCase().includes(selectedKeys.toLowerCase()))
     setBrandStyles(tempFilter)
   };
 

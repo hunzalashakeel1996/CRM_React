@@ -55,7 +55,7 @@ const Promotion = ({ setLoader }) => {
 
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    let tempFilter = allPromoStyles.filter(val => val[dataIndex].toString().toLowerCase().includes(selectedKeys))
+    let tempFilter = allPromoStyles.filter(val => val[dataIndex].toString().toLowerCase().includes(selectedKeys.toLowerCase()))
     setPromoStyles(tempFilter)
   };
 
