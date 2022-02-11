@@ -10,7 +10,8 @@ import WalmartCanada from './overview/WalmartCanada';
 import Walmart from './overview/Walmart';
 import Sears from './overview/Sears';
 import Ebay from './overview/Ebay';
-
+import AmazonRiznoCanada from './overview/AmazonRiznoCanada';
+import Jeffa from './overview/jeffa';
 import { checkPageAccess, downloadFile } from '../../../components/utilities/utilities'
 
 import { webURL, audioPlay, uploadUrl,getVendorName, getAllVendorapi, getAllbrandapi, getAllcollectionapi, getAllcategorynameapi, getAllpustatusapi, getInventoryapi, getInventoryWalmart_all_otherapi, getInventoryWalmartapi, getEbayqtyapi, getSearsqtyapi, getSears_all_otherapi, getWallMartCAqtyapi, getwalmartCA_all_otherapi,getSearsPriceapi,getPriceWalmartapi } from '../../../redux/apis/DataAction';
@@ -49,7 +50,7 @@ const MarketplaceInventoryView = (props) => {
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['Marketplace Inventory'];
-
+    console.log(tabChildBar)
     //  get vendors from redux 
    let vendornameState = useSelector(state => state.tickets.vendornames);
 
@@ -391,9 +392,16 @@ const MarketplaceInventoryView = (props) => {
 
         },
         {
-            tab: 'Ebay',
-            key: 'Ebay',
-            tabName: <Ebay genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+            tab: 'Amazon Rizno Canada',
+            key: 'Amazon Rizno Canada',
+            tabName: <AmazonRiznoCanada  genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
+        }
+
+        ,
+        {
+            tab: 'Jeffa ',
+            key: 'Jeffa ',
+            tabName: <Jeffa genrateFeed={genrateFeed} genrateFilter={genrateFilter} vendornameState={vendornameState} brandnameState={brandnameState} categorynameState={categorynameState} collectionState={collectionState} puStatusState={puStatusState} Type={Type} />
         }
     ];
 
