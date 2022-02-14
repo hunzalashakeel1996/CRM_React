@@ -70,9 +70,12 @@ const SKUstatus = () => {
         dataToSKU: '',
         isLoader: false,
         dataToLTD: '',
-        dataToSeller: ''
+        dataToSeller: '',
+        LTDstatus:'',
+        buttonStatusLTD:'',
+        textAreaStatusLTD:''
     })
-    const { dataToSeller, dataToLTD, dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue, isLoader } = state
+    const {textAreaStatusLTD,buttonStatusLTD, LTDstatus,dataToSeller, dataToLTD, dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue, isLoader } = state
     const [selectedRow, selectedRowsset] = useState([])
 
     const onChangeForceCheck = (e) => {
@@ -87,6 +90,12 @@ const SKUstatus = () => {
 
 
     }
+    
+    const onChangetextAreaLTD = (e) => {
+
+    setstate({ ...state, textAreaStatusLTD: e.target.value })
+    }
+
     const onChangetextArea = (e) => {
 
         if (e.target.value == "") {
@@ -95,8 +104,6 @@ const SKUstatus = () => {
         else if (e.target.value.length != "") {
             setstate({ ...state, reasonText: e.target.value, buttonStatus: 'able', textAreaStatus: 'able' })
         }
-
-
     }
 
     // const fileDetails = {
@@ -152,7 +159,7 @@ const SKUstatus = () => {
     }
 
     const LTDhandleChange = (value) => {
-        setstate({ ...state, status: value })
+        setstate({ ...state, LTDstatus: value })
     }
 
 
@@ -337,7 +344,7 @@ const SKUstatus = () => {
      
 
         setstate({ ...state, isLoader: true })
-        dispatch(getLeadTimeDateUpdateapi({ Seller: sellerColumn.value, status: status, Vendorname: dataToLTD, user: username.LoginName })).then(data => {
+        dispatch(getLeadTimeDateUpdateapi({ReasonLTD:textAreaStatusLTD, Seller: sellerColumn.value, status: LTDstatus, Vendorname: dataToLTD, user: username.LoginName })).then(data => {
             setstate({ ...state, isLoader: false })
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
@@ -557,7 +564,7 @@ const SKUstatus = () => {
                         <Cards headless>
                             <Row gutter={25}>
                                 <Col span={10} >
-                                    <Button type="primary" onClick={ltdStatusUpdate}>Lead Time Days</Button>
+                                    <Button type="primary" onClick={ltdStatusUpdate}  disabled={textAreaStatusLTD.length>0 ?  false:true}  >Lead Time Days</Button>
                                 </Col>
                                 <Col span={10}>
 
@@ -580,6 +587,10 @@ const SKUstatus = () => {
                                     <Col style={{marginTop:40}} span={10}>
 
                                         <InputNumber size="small" min={1} max={15} defaultValue={0} onChange={LTDhandleChange} />
+                                    </Col>}
+                                    {LTDstatus &&
+                                    <Col style={{marginTop:40}} span={10}>                                       
+                                    <TextArea placeholder="Reason" onChange={onChangetextAreaLTD} disabled={LTDstatus>0 ? false:true } />
                                     </Col>}
                             </Row>
                          
