@@ -1,4 +1,4 @@
-import { Table, Input, Upload, message, Popconfirm, Tabs, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider, Modal, notification } from 'antd';
+import { InputNumber, Table, Input, Upload, message, Popconfirm, Tabs, Form, Col, Row, Select, Spin, Radio, Checkbox, Divider, Modal, notification } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl,getSkuReviewsLinkUpdateapi,getSkuStatusUpdateapi, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl, getLeadTimeDateUpdateapi, getSkuReviewsLinkUpdateapi, getSkuStatusUpdateapi, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
 import Promotions from '../../../../components/Marketplace/Promotions'
 import AmazonPUstatus from './Statusoverview/AmazonPUstatus';
 import AmazonRiznostatus from './Statusoverview/AmazonRiznostatus';
@@ -39,10 +39,24 @@ const Report = [
 
 const SKUstatus = () => {
 
+    const deliveryinfoSeller =[
+    {seller:'Amazon',value:'deliveryinfo'},
+    {seller:'AmazonRizno',value:'Rizno_deliveryinfo'},
+    {seller:'AmazonCanada',value:'Amazon_CA_Deliveryinfo'},
+    {seller:'AmazonUae',value:'amazon_UE_deliveryinfo'},    
+    // {seller:'Walmart',value:''},
+    {seller:'WalmartCanada',value:'walmart_ca_delivetyinfo'},
+    //{seller:'Sears',value:''},      
+    {seller:'Ebay',value:'Ebaydeliveryinfo'},    
+    {seller:'jeffa',value:'Jeffa_Deliveryinfo'},   
+    {seller:'AmazonRiznoCanada',value:'AmazonRiznoCanada_Deliveryinfo'}
+    ];
     const Seller = ['Amazon', 'AmazonRizno', 'AmazonUae', 'AmazonCanada', 'Walmart', 'WalmartCanada', 'Sears', 'Ebay']
     const Process = ['Walmart SKU Link', 'Amazon Top Review', 'Walmart Review pages']
     const [activeTab, setActiveTab] = useState('');
     const dispatch = useDispatch()
+    let sellerName = ['Amazon', 'AmazonRizno', 'AmazonUae', 'AmazonCanada', 'Walmart', 'WalmartCanada', 'Sears', 'Ebay', 'jeffa', 'AmazonRiznoCanada']
+    let vendornameState = useSelector(state => state.tickets.vendornames);
 
     const [state, setstate] = useState({
         dataTo: '',
@@ -53,10 +67,12 @@ const SKUstatus = () => {
         textAreaStatus: 'disabled',
         radioButtonValue: true,
         status: '',
-        dataToSKU:'',
-        isLoader:false
+        dataToSKU: '',
+        isLoader: false,
+        dataToLTD: '',
+        dataToSeller: ''
     })
-    const {dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue,isLoader } = state
+    const { dataToSeller, dataToLTD, dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue, isLoader } = state
     const [selectedRow, selectedRowsset] = useState([])
 
     const onChangeForceCheck = (e) => {
@@ -104,10 +120,19 @@ const SKUstatus = () => {
     //     },
     // };
 
+    const dataTohandleChangeLTD = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataToLTD: value })
+    }
+    const dataTohandleChangeLTDSeller = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataToSeller: value })
+    }
     const dataTohandleChangeSKU = (value) => {
         // console.log(`selected ${value}`);
         setstate({ ...state, dataToSKU: value })
     }
+
     const dataTohandleChangeProcess = (value) => {
         // console.log(`selected ${value}`);
         setstate({ ...state, dataTo: value })
@@ -126,8 +151,13 @@ const SKUstatus = () => {
         setstate({ ...state, status: value })
     }
 
+    const LTDhandleChange = (value) => {
+        setstate({ ...state, status: value })
+    }
+
+
     const uploadFile = () => {
-    
+
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
 
@@ -173,7 +203,7 @@ const SKUstatus = () => {
 
         })
     }
- 
+
     const changeHandler = (event) => {
 
         setstate({ ...state, file: event.target.files[0] })
@@ -274,7 +304,7 @@ const SKUstatus = () => {
         });
 
     }
-    
+
     const skuStatusUpdate = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
@@ -297,7 +327,28 @@ const SKUstatus = () => {
 
         })
     }
-    
+
+
+    const ltdStatusUpdate = () => {
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
+      
+       let sellerColumn= deliveryinfoSeller.find(x=>x.seller===dataToSeller)
+     
+
+        setstate({ ...state, isLoader: true })
+        dispatch(getLeadTimeDateUpdateapi({ Seller: sellerColumn.value, status: status, Vendorname: dataToLTD, user: username.LoginName })).then(data => {
+            setstate({ ...state, isLoader: false })
+            //   message.success(`file uploaded Update ${data}`);
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+
+        })
+    }
+
     const skuReviewsLinkUpdate = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
@@ -323,213 +374,271 @@ const SKUstatus = () => {
     }
     return (
         <>
-    <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={state.isLoader} >
 
-            <Row gutter={16} style={{ marginTop: 10 }}>
-                <Col span={10} >
+                <Row gutter={16} style={{ marginTop: 10 }}>
+                    <Col span={10} >
 
-                    <Cards headless>
-                        <Row >
-                            <Col span={10}>
-                                 <Button size="large"  type="primary" onClick={MarketPlaceuploadFile}>MarketPlace Price Weight</Button>
+                        <Cards headless>
+                            <Row >
+                                <Col span={10}>
+                                    <Button size="large" type="primary" onClick={MarketPlaceuploadFile}>MarketPlace Price Weight</Button>
 
-                            </Col>
-                        </Row>
-                        <Row style={{ marginTop: 20 }}>
-                            <Col span={8} style={{ width: 300, marginRight: 20 }}>
+                                </Col>
+                            </Row>
+                            <Row style={{ marginTop: 20 }}>
+                                <Col span={8} style={{ width: 300, marginRight: 20 }}>
 
-                                <input type="file" onChange={changeHandler} />
+                                    <input type="file" onChange={changeHandler} />
 
-                            </Col>
-                        </Row>
-                    </Cards>
-                </Col>
+                                </Col>
+                            </Row>
+                        </Cards>
+                    </Col>
 
-                <Col span={10} >
+                    <Col span={10} >
 
-                    <Cards headless>
-                        <Row >
-                            <Col span={3}  >
-
-
-                                 <Button size="large"  type="primary" onClick={sanmarSalesUpdatestart} >Sanmar Sale Start</Button>
-
-                            </Col>
-
-                            <Col span={3} offset={8}>
-
-                                 <Button size="large"  type="danger" onClick={sanmarSalesUpdateend}>Sanmar Sale End </Button>
+                        <Cards headless>
+                            <Row >
+                                <Col span={3}  >
 
 
-                            </Col>
-                        </Row>
-                        <Row style={{ marginTop: 20 }}>
-                            <Col span={6} style={{ width: 300, marginRight: 20 }}>
-                                {/* <input  type="file" onChange={changeHandler} /> */}
-                            </Col>
-                        </Row>
-                    </Cards>
-                </Col>
-            </Row>
+                                    <Button size="large" type="primary" onClick={sanmarSalesUpdatestart} >Sanmar Sale Start</Button>
 
-            <Row style={{ marginTop: 10 }} gutter={16}>
-                <Col span={10}>
-                    <Cards headless>
-                        <Row>
-                            <Col span={10} >
-                                 <Button size="large"  type="primary" onClick={automateSKU}>Automate SKU</Button>
-                            </Col>
+                                </Col>
 
-                            <Col span={8}>
+                                <Col span={3} offset={8}>
 
-                                <Radio.Group
-                                    options={options}
-                                    onChange={onChangeRadioButton}
-                                    //  value={automateSKU}
-                                    optionType="button"
-                                    buttonStyle="solid"
-                                />
+                                    <Button size="large" type="danger" onClick={sanmarSalesUpdateend}>Sanmar Sale End </Button>
 
 
+                                </Col>
+                            </Row>
+                            <Row style={{ marginTop: 20 }}>
+                                <Col span={6} style={{ width: 300, marginRight: 20 }}>
+                                    {/* <input  type="file" onChange={changeHandler} /> */}
+                                </Col>
+                            </Row>
+                        </Cards>
+                    </Col>
+                </Row>
 
-                            </Col>
-                            <Col span={6}>
-                                <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 100 }}>
-                                    <Option value="PU">PU</Option>
-                                    <Option value="Rizno">Rizno</Option>
-                                </Select>
+                <Row style={{ marginTop: 10 }} gutter={16}>
+                    <Col span={10}>
+                        <Cards headless>
+                            <Row>
+                                <Col span={10} >
+                                    <Button size="large" type="primary" onClick={automateSKU}>Automate SKU</Button>
+                                </Col>
 
-                            </Col>
-                        </Row>
+                                <Col span={8}>
 
-                        <Row style={{ marginTop: 20 }}>
-                            <Col span={10} style={{ width: 300, }}>
-                                {/* <Upload {...fileDetails}>
+                                    <Radio.Group
+                                        options={options}
+                                        onChange={onChangeRadioButton}
+                                        //  value={automateSKU}
+                                        optionType="button"
+                                        buttonStyle="solid"
+                                    />
+
+
+
+                                </Col>
+                                <Col span={6}>
+                                    <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 100 }}>
+                                        <Option value="PU">PU</Option>
+                                        <Option value="Rizno">Rizno</Option>
+                                    </Select>
+
+                                </Col>
+                            </Row>
+
+                            <Row style={{ marginTop: 20 }}>
+                                <Col span={10} style={{ width: 300, }}>
+                                    {/* <Upload {...fileDetails}>
                                      <Button size="large"  icon={<UploadOutlined />}>Click to Upload</Button>
                                 </Upload> */}
-                                <input type="file" onChange={changeHandler} />
-                            </Col>
-                        </Row>
-                    </Cards>
-                </Col>
+                                    <input type="file" onChange={changeHandler} />
+                                </Col>
+                            </Row>
+                        </Cards>
+                    </Col>
 
 
 
-                <Col span={10} >
-                    <Cards headless>
-                        <Row>
+                    <Col span={10} >
+                        <Cards headless>
+                            <Row>
 
-                            <Col span={8}>
-                                 <Button size="large"  type="primary" onClick={reportData}>Report Data</Button>
-                            </Col>
+                                <Col span={8}>
+                                    <Button size="large" type="primary" onClick={reportData}>Report Data</Button>
+                                </Col>
 
-                            <Col span={8}>
-                                <Radio.Group
-                                    options={Report}
-                                    onChange={onChangeRadioButton}
-                                    // value={value3}
-                                    optionType="button"
-                                    buttonStyle="solid"
-                                />
+                                <Col span={8}>
+                                    <Radio.Group
+                                        options={Report}
+                                        onChange={onChangeRadioButton}
+                                        // value={value3}
+                                        optionType="button"
+                                        buttonStyle="solid"
+                                    />
 
 
-                            </Col>
+                                </Col>
 
-                        </Row>
-                        <Row style={{ marginTop: 20 }}>
-                            <Col span={10}>
-                                <input type="file" onChange={changeHandler} />
-                            </Col>
-                        </Row>
-                    </Cards>
-                </Col>
+                            </Row>
+                            <Row style={{ marginTop: 20 }}>
+                                <Col span={10}>
+                                    <input type="file" onChange={changeHandler} />
+                                </Col>
+                            </Row>
+                        </Cards>
+                    </Col>
 
-            </Row>
-            <Row style={{ marginTop: 10 }} gutter={16} >
-                <Col span={10} >
-                    <Cards headless>
-                        <Row gutter={25}>
-                            <Col span={8} >
-                                <Button type="primary" onClick={skuStatusUpdate}>SKU Status</Button>
-                            </Col>
-                            <Col span={10}>
+                </Row>
+                <Row style={{ marginTop: 10 }} gutter={16} >
+                    <Col span={10} >
+                        <Cards headless>
+                            <Row gutter={25}>
+                                <Col span={8} >
+                                    <Button type="primary" onClick={skuStatusUpdate}>SKU Status</Button>
+                                </Col>
+                                <Col span={10}>
 
-                                <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeSKU}  >
-                                    {Seller.map(item => (
-                                        <Option value={item}>{item}</Option>))}
-                                </Select>
-                            </Col>
-                            {dataToSKU &&
-                                <Col span={5}>
-                                    <Select defaultValue="select" onChange={statushandleChange}  >
-                                        <Option value="Active">Active</Option>
-                                        <Option value="InActive">InActive</Option>
+                                    <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeSKU}  >
+                                        {Seller.map(item => (
+                                            <Option value={item}>{item}</Option>))}
                                     </Select>
-                                </Col>}
-                        </Row>
+                                </Col>
+                                {dataToSKU &&
+                                    <Col span={5}>
+                                        <Select defaultValue="select" onChange={statushandleChange}  >
+                                            <Option value="Active">Active</Option>
+                                            <Option value="InActive">InActive</Option>
+                                        </Select>
+                                    </Col>}
+                            </Row>
 
-                        <Row style={{ marginTop: 50 }}>
-                            <Col span={10} style={{ width: 300, }}>
+                            <Row style={{ marginTop: 50 }}>
+                                <Col span={10} style={{ width: 300, }}>
 
-                                <input type="file" onChange={changeHandler} />
-                            </Col>
-                        </Row>
-                    </Cards>
-                </Col>
-                <Col span={10} >
-                    <Cards headless>
-                        <Row gutter={50}>
-                            <Col span={10} >
-                                <Button type="primary" onClick={skuReviewsLinkUpdate}>Link/Reviews Update</Button>
-                            </Col>
-                            <Col span={11}>
+                                    <input type="file" onChange={changeHandler} />
+                                </Col>
+                            </Row>
+                        </Cards>
+                    </Col>
+                    <Col span={10} >
+                        <Cards headless>
+                            <Row gutter={50}>
+                                <Col span={10} >
+                                    <Button type="primary" onClick={skuReviewsLinkUpdate}>Link/Reviews Update</Button>
+                                </Col>
+                                <Col span={11}>
 
-                                <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeProcess}  >
-                                    {Process.map(item => (
-                                        <Option value={item}>{item}</Option>))}
-                                </Select>
-                            </Col>
+                                    <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeProcess}  >
+                                        {Process.map(item => (
+                                            <Option value={item}>{item}</Option>))}
+                                    </Select>
+                                </Col>
+
+                            </Row>
+
+                            <Row style={{ marginTop: 50 }}>
+                                <Col span={10} style={{ width: 300, }}>
+
+                                    <input type="file" onChange={changeHandler} />
+                                </Col>
+                            </Row>
+                        </Cards>
+                    </Col>
+                </Row>
+                <Row style={{ marginTop: 10 }} gutter={16} >
+                    <Col span={10} >
+                        <Cards headless>
+                            <Row gutter={25}>
+                                <Col span={10} >
+                                    <Button type="primary" onClick={ltdStatusUpdate}>Lead Time Days</Button>
+                                </Col>
+                                <Col span={10}>
+
+                                    <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeLTDSeller}  >
+                                        {sellerName.map(item => (
+                                            <Option value={item}>{item}</Option>))}
+                                    </Select>
+                                </Col>
+
+                                {dataToSeller &&
+                                    <Col style={{marginTop:20}} span={10}>
+
+                                        <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeLTD}  >
+                                            {vendornameState.map(item => (
+                                                <Option value={item}>{item}</Option>))}
+                                        </Select>
+                                    </Col>
+                                }
+                                  {dataToLTD &&
+                                    <Col style={{marginTop:20}} span={10}>
+
+                                        <InputNumber size="small" min={1} max={15} defaultValue={0} onChange={LTDhandleChange} />
+                                    </Col>}
+                            </Row>
                          
-                        </Row>
+                        </Cards>
+                    </Col>
+                    <Col span={10} >
+                        <Cards headless>
+                            <Row gutter={50}>
+                                <Col span={10} >
+                                    <Button type="primary" onClick={skuReviewsLinkUpdate}>Link/Reviews Update</Button>
+                                </Col>
+                                <Col span={11}>
 
-                        <Row style={{ marginTop: 50 }}>
-                            <Col span={10} style={{ width: 300, }}>
+                                    <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeProcess}  >
+                                        {Process.map(item => (
+                                            <Option value={item}>{item}</Option>))}
+                                    </Select>
+                                </Col>
 
-                                <input type="file" onChange={changeHandler} />
-                            </Col>
-                        </Row>
-                    </Cards>
-                </Col>
-            </Row>
-            <Row style={{ marginTop: 20 }}>
-                <Col span={20}>
-                    <Cards headless>
+                            </Row>
 
-                        <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>
-                            <TabPane tab="Amazon PU" key="Amazon PU">
-                                <AmazonPUstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
-                            </TabPane>
-                            <TabPane tab="Amazon Rizno" key="Amazon Rizno">
-                                <AmazonRiznostatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
-                            </TabPane>
-                            <TabPane tab="Amazon Canada" key="Amazon Canada">
-                                <AmazonPUCanadastatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
-                            </TabPane>
-                            <TabPane tab="Amazon UAE" key="Amazon UAE">
-                                <AmazonPUUAEstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
-                            </TabPane>
-                            <TabPane tab="Ebay PU" key="Ebay PU">
-                                <EbayPUStatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
-                            </TabPane>
-                            <TabPane tab="Walmart PU" key="Walmart PU">
-                                <WalmartPUStatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
-                            </TabPane>
-                        </Tabs>
+                            <Row style={{ marginTop: 50 }}>
+                                <Col span={10} style={{ width: 300, }}>
 
-                    </Cards>
-                </Col>
-                
-            </Row>
+                                    <input type="file" onChange={changeHandler} />
+                                </Col>
+                            </Row>
+                        </Cards>
+                    </Col>
+                </Row>
+                <Row style={{ marginTop: 20 }}>
+                    <Col span={20}>
+                        <Cards headless>
+
+                            <Tabs defaultActiveKey={activeTab} onChange={(key) => { setActiveTab(key) }} centered>
+                                <TabPane tab="Amazon PU" key="Amazon PU">
+                                    <AmazonPUstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                </TabPane>
+                                <TabPane tab="Amazon Rizno" key="Amazon Rizno">
+                                    <AmazonRiznostatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                </TabPane>
+                                <TabPane tab="Amazon Canada" key="Amazon Canada">
+                                    <AmazonPUCanadastatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                </TabPane>
+                                <TabPane tab="Amazon UAE" key="Amazon UAE">
+                                    <AmazonPUUAEstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                </TabPane>
+                                <TabPane tab="Ebay PU" key="Ebay PU">
+                                    <EbayPUStatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                </TabPane>
+                                <TabPane tab="Walmart PU" key="Walmart PU">
+                                    <WalmartPUStatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                </TabPane>
+                            </Tabs>
+
+                        </Cards>
+                    </Col>
+
+                </Row>
 
             </Spin>
         </>
