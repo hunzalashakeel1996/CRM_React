@@ -568,7 +568,7 @@ const SKUstatus = () => {
                                 </Col>
 
                                 {dataToSeller &&
-                                    <Col style={{marginTop:20}} span={10}>
+                                    <Col style={{marginTop:40}} span={10}>
 
                                         <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeLTD}  >
                                             {vendornameState.map(item => (
@@ -577,7 +577,7 @@ const SKUstatus = () => {
                                     </Col>
                                 }
                                   {dataToLTD &&
-                                    <Col style={{marginTop:20}} span={10}>
+                                    <Col style={{marginTop:40}} span={10}>
 
                                         <InputNumber size="small" min={1} max={15} defaultValue={0} onChange={LTDhandleChange} />
                                     </Col>}
