@@ -834,11 +834,17 @@ export const getSkuStatusUpdateapi = (data) => {
 
     return apiFetchDotNet('newInventory/skuStatusUpload', "POST", multipartHeader, data);
 };
-// SKU status update 
+// Lead time update 
 export const getLeadTimeDateUpdateapi = (data) => {
 
     return apiFetchDotNet('newInventory/leadtimedateUpload', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+// Lead time update 
+export const getShippingTemplateTabUpdateapi = (data) => {
+
+    return apiFetchDotNet('newInventory/ShippingTemplateTabUpdate', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
 export const getSkuReviewsLinkUpdateapi = (data) => {
 
     return apiFetchDotNet('newInventory/getSkuReviewsLinkUpdateapi', "POST", multipartHeader, data);

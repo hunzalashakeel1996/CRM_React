@@ -12,12 +12,14 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { downloadFile } from '../../../../components/utilities/utilities'
 import { Button } from '../../../../components/buttons/buttons';
 import { useHistory } from "react-router-dom";
-import { webURL, audioPlay, uploadUrl, getLeadTimeDateUpdateapi, getSkuReviewsLinkUpdateapi, getSkuStatusUpdateapi, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
+import { webURL, audioPlay, uploadUrl,getShippingTemplateTabUpdateapi, getLeadTimeDateUpdateapi, getSkuReviewsLinkUpdateapi, getSkuStatusUpdateapi, getReportDataapi, getAutoMateSKUapi, getUploadFileUpdateSKUapi, getUploadmarketplace_weightapi, getSanmarSalesUpdateapi, getSanmarSalesEndapi } from '../../../../redux/apis/DataAction';
 import Promotions from '../../../../components/Marketplace/Promotions'
 import AmazonPUstatus from './Statusoverview/AmazonPUstatus';
 import AmazonRiznostatus from './Statusoverview/AmazonRiznostatus';
 import AmazonPUUAEstatus from './Statusoverview/AmazonPUUAEstatus';
 import AmazonPUCanadastatus from './Statusoverview/AmazonPUCanadastatus';
+import AmazonRiznoCanada from './Statusoverview/AmazonRiznoCanada';
+import AmazonJeffa from './Statusoverview/AmazonJeffa';
 import EbayPUStatus from './Statusoverview/EbayPUStatus';
 import WalmartPUStatus from './Statusoverview/WalmartPUStatus';
 
@@ -39,17 +41,17 @@ const Report = [
 
 const SKUstatus = () => {
 
-    const deliveryinfoSeller =[
-    {seller:'Amazon',value:'deliveryinfo'},
-    {seller:'AmazonRizno',value:'Rizno_deliveryinfo'},
-    {seller:'AmazonCanada',value:'Amazon_CA_Deliveryinfo'},
-    {seller:'AmazonUae',value:'amazon_UE_deliveryinfo'},    
-    // {seller:'Walmart',value:''},
-    {seller:'WalmartCanada',value:'walmart_ca_delivetyinfo'},
-    //{seller:'Sears',value:''},      
-    {seller:'Ebay',value:'Ebaydeliveryinfo'},    
-    {seller:'jeffa',value:'Jeffa_Deliveryinfo'},   
-    {seller:'AmazonRiznoCanada',value:'AmazonRiznoCanada_Deliveryinfo'}
+    const deliveryinfoSeller = [
+        { seller: 'Amazon', value: 'deliveryinfo' },
+        { seller: 'AmazonRizno', value: 'Rizno_deliveryinfo' },
+        { seller: 'AmazonCanada', value: 'Amazon_CA_Deliveryinfo' },
+        { seller: 'AmazonUae', value: 'amazon_UE_deliveryinfo' },
+        // {seller:'Walmart',value:''},
+        { seller: 'WalmartCanada', value: 'walmart_ca_delivetyinfo' },
+        //{seller:'Sears',value:''},      
+        { seller: 'Ebay', value: 'Ebaydeliveryinfo' },
+        { seller: 'jeffa', value: 'Jeffa_Deliveryinfo' },
+        { seller: 'AmazonRiznoCanada', value: 'AmazonRiznoCanada_Deliveryinfo' }
     ];
     const Seller = ['Amazon', 'AmazonRizno', 'AmazonUae', 'AmazonCanada', 'Walmart', 'WalmartCanada', 'Sears', 'Ebay']
     const Process = ['Walmart SKU Link', 'Amazon Top Review', 'Walmart Review pages']
@@ -71,11 +73,17 @@ const SKUstatus = () => {
         isLoader: false,
         dataToLTD: '',
         dataToSeller: '',
-        LTDstatus:'',
-        buttonStatusLTD:'',
-        textAreaStatusLTD:''
+        LTDstatus: '',
+        buttonStatusLTD: '',
+        textAreaStatusLTD: '',
+        textAreaStatusSTT:'',
+        buttonStatusSTT:'',
+        dataToSTT:'',
+        sttstatus:'',
+        dataToSTTseller:''
     })
-    const {textAreaStatusLTD,buttonStatusLTD, LTDstatus,dataToSeller, dataToLTD, dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue, isLoader } = state
+    const {dataToSTTseller,textAreaStatusSTT, buttonStatusSTT,dataToSTT,sttstatus,textAreaStatusLTD, buttonStatusLTD, LTDstatus, dataToSeller, dataToLTD, dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue, isLoader } = state
+    
     const [selectedRow, selectedRowsset] = useState([])
 
     const onChangeForceCheck = (e) => {
@@ -90,11 +98,17 @@ const SKUstatus = () => {
 
 
     }
-    
+
     const onChangetextAreaLTD = (e) => {
 
-    setstate({ ...state, textAreaStatusLTD: e.target.value })
+        setstate({ ...state, textAreaStatusLTD: e.target.value })
     }
+
+    const onChangetextAreaSTT= (e) => {
+
+        setstate({ ...state, textAreaStatusSTT: e.target.value })
+    }
+
 
     const onChangetextArea = (e) => {
 
@@ -127,14 +141,7 @@ const SKUstatus = () => {
     //     },
     // };
 
-    const dataTohandleChangeLTD = (value) => {
-        // console.log(`selected ${value}`);
-        setstate({ ...state, dataToLTD: value })
-    }
-    const dataTohandleChangeLTDSeller = (value) => {
-        // console.log(`selected ${value}`);
-        setstate({ ...state, dataToSeller: value })
-    }
+   
     const dataTohandleChangeSKU = (value) => {
         // console.log(`selected ${value}`);
         setstate({ ...state, dataToSKU: value })
@@ -153,15 +160,27 @@ const SKUstatus = () => {
         // console.log(`selected ${value}`);
         setstate({ ...state, dataTo: value })
     }
+    const dataTohandleChangeLTDSeller = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataToseller: value })
+    }
 
     const statushandleChange = (value) => {
         setstate({ ...state, status: value })
     }
 
-    const LTDhandleChange = (value) => {
-        setstate({ ...state, LTDstatus: value })
+    const stthandleChange = (value) => {
+        
+        setstate({ ...state, sttstatus: value.target.value })
     }
-
+    const dataTohandleChangeSTT = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataToSTT: value })
+    }
+    const dataTohandleChangeSTTSeller = (value) => {
+        // console.log(`selected ${value}`);
+        setstate({ ...state, dataToSTTseller: value })
+    }
 
     const uploadFile = () => {
 
@@ -339,12 +358,12 @@ const SKUstatus = () => {
     const ltdStatusUpdate = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
-      
-       let sellerColumn= deliveryinfoSeller.find(x=>x.seller===dataToSeller)
-     
+
+        let sellerColumn = deliveryinfoSeller.find(x => x.seller === dataToSeller)
+
 
         setstate({ ...state, isLoader: true })
-        dispatch(getLeadTimeDateUpdateapi({ReasonLTD:textAreaStatusLTD, Seller: sellerColumn.value, status: LTDstatus, Vendorname: dataToLTD, user: username.LoginName })).then(data => {
+        dispatch(getLeadTimeDateUpdateapi({ ReasonLTD: textAreaStatusLTD, Seller: sellerColumn.value, status: LTDstatus, Vendorname: dataToLTD, user: username.LoginName })).then(data => {
             setstate({ ...state, isLoader: false })
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
@@ -355,7 +374,24 @@ const SKUstatus = () => {
 
         })
     }
+    const sttStatusUpdate = () => {
+        let username = [];
+        username = JSON.parse(localStorage.getItem('user'))
 
+        // let sellerColumn = deliveryinfoSeller.find(x => x.seller === dataToSTTseller)
+
+        setstate({ ...state, isLoader: true })
+        dispatch(getShippingTemplateTabUpdateapi({ ReasonSTT: textAreaStatusSTT, Seller: dataToSTTseller, status: sttstatus, Vendorname: dataToSTT, user: username.LoginName })).then(data => {
+            setstate({ ...state, isLoader: false })
+            //   message.success(`file uploaded Update ${data}`);
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+
+        })
+    }
     const skuReviewsLinkUpdate = () => {
         let username = [];
         username = JSON.parse(localStorage.getItem('user'))
@@ -564,7 +600,7 @@ const SKUstatus = () => {
                         <Cards headless>
                             <Row gutter={25}>
                                 <Col span={10} >
-                                    <Button type="primary" onClick={ltdStatusUpdate}  disabled={textAreaStatusLTD.length>0 ?  false:true}  >Lead Time Days</Button>
+                                    <Button type="primary" onClick={ltdStatusUpdate} disabled={textAreaStatusLTD.length > 0 ? false : true}  >Lead Time Days</Button>
                                 </Col>
                                 <Col span={10}>
 
@@ -575,7 +611,7 @@ const SKUstatus = () => {
                                 </Col>
 
                                 {dataToSeller &&
-                                    <Col style={{marginTop:40}} span={10}>
+                                    <Col style={{ marginTop: 40 }} span={10}>
 
                                         <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeLTD}  >
                                             {vendornameState.map(item => (
@@ -583,41 +619,52 @@ const SKUstatus = () => {
                                         </Select>
                                     </Col>
                                 }
-                                  {dataToLTD &&
-                                    <Col style={{marginTop:40}} span={10}>
+                                {dataToLTD &&
+                                    <Col style={{ marginTop: 40 }} span={10}>
 
                                         <InputNumber size="small" min={1} max={15} defaultValue={0} onChange={LTDhandleChange} />
                                     </Col>}
-                                    {LTDstatus &&
-                                    <Col style={{marginTop:40}} span={10}>                                       
-                                    <TextArea placeholder="Reason" onChange={onChangetextAreaLTD} disabled={LTDstatus>0 ? false:true } />
+                                {LTDstatus &&
+                                    <Col style={{ marginTop: 40 }} span={10}>
+                                        <TextArea placeholder="Reason" onChange={onChangetextAreaLTD} disabled={LTDstatus > 0 ? false : true} />
                                     </Col>}
                             </Row>
-                         
+
                         </Cards>
                     </Col>
                     <Col span={10} >
                         <Cards headless>
-                            <Row gutter={50}>
-                                <Col span={10} >
-                                    <Button type="primary" onClick={skuReviewsLinkUpdate}>Link/Reviews Update</Button>
+                            <Row gutter={25}>
+                                <Col span={12} >
+                                    <Button type="primary" onClick={sttStatusUpdate} disabled={textAreaStatusSTT.length > 0 ? false : true}  >Shipping Template Tab</Button>
                                 </Col>
-                                <Col span={11}>
-
-                                    <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeProcess}  >
-                                        {Process.map(item => (
+                                <Col span={10}>
+                                    <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeSTTSeller}  >
+                                        {sellerName.map(item => (
                                             <Option value={item}>{item}</Option>))}
                                     </Select>
                                 </Col>
+                                {dataToSTTseller &&
+                                    <Col style={{ marginTop: 40 }} span={10}>
+                                        <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeSTT}  >
+                                            {vendornameState.map(item => (
+                                                <Option value={item}>{item}</Option>))}
+                                        </Select>
+                                    </Col>
+                                }
+                                {dataToSTT &&
+                                    <Col style={{ marginTop: 40 }} span={10}>
 
+                                        <Input size="small"   onChange={stthandleChange} />
+                                    </Col>}
+
+                                {sttstatus &&
+                                    <Col style={{ marginTop: 40 }} span={10}>
+                                        {console.log(sttstatus)}
+                                        <TextArea placeholder="Reason" onChange={onChangetextAreaSTT} disabled={sttstatus !=''? false : true} />
+                                    </Col>}
                             </Row>
 
-                            <Row style={{ marginTop: 50 }}>
-                                <Col span={10} style={{ width: 300, }}>
-
-                                    <input type="file" onChange={changeHandler} />
-                                </Col>
-                            </Row>
                         </Cards>
                     </Col>
                 </Row>
@@ -637,6 +684,12 @@ const SKUstatus = () => {
                                 </TabPane>
                                 <TabPane tab="Amazon UAE" key="Amazon UAE">
                                     <AmazonPUUAEstatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                </TabPane>
+                                <TabPane tab="Amazon Rizno Canada" key="Amazon Rizno Canada ">
+                                    <AmazonRiznoCanada  changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
+                                </TabPane>
+                                <TabPane tab="Amazon Jeffa " key="Amazon Jeffa">
+                                    <AmazonJeffa  changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
                                 </TabPane>
                                 <TabPane tab="Ebay PU" key="Ebay PU">
                                     <EbayPUStatus changeHandler={changeHandler} uploadFile={uploadFile} dataTohandleChange={dataTohandleChange} onChangeForceCheck={onChangeForceCheck} onChangetextArea={onChangetextArea} state={state} />
