@@ -42,22 +42,24 @@ const Report = [
 const SKUstatus = () => {
 
     const deliveryinfoSeller = [
-        { seller: 'Amazon', value: 'deliveryinfo' },
-        { seller: 'AmazonRizno', value: 'Rizno_deliveryinfo' },
-        { seller: 'AmazonCanada', value: 'Amazon_CA_Deliveryinfo' },
-        { seller: 'AmazonUae', value: 'amazon_UE_deliveryinfo' },
+        { seller: 'Amazon PU', value: 'deliveryinfo' },
+        { seller: 'Amazon Rizno', value: 'Rizno_deliveryinfo' },
+        { seller: 'Amazon Canada', value: 'Amazon_CA_Deliveryinfo' },
+        { seller: 'Amazon UAE', value: 'amazon_UE_deliveryinfo' },
         // {seller:'Walmart',value:''},
         { seller: 'WalmartCanada', value: 'walmart_ca_delivetyinfo' },
         //{seller:'Sears',value:''},      
         { seller: 'Ebay', value: 'Ebaydeliveryinfo' },
-        { seller: 'jeffa', value: 'Jeffa_Deliveryinfo' },
+        { seller: 'Amazon Jeffa', value: 'Jeffa_Deliveryinfo' },
         { seller: 'AmazonRiznoCanada', value: 'AmazonRiznoCanada_Deliveryinfo' }
     ];
     const Seller = ['Amazon', 'AmazonRizno', 'AmazonUae', 'AmazonCanada', 'Walmart', 'WalmartCanada', 'Sears', 'Ebay']
     const Process = ['Walmart SKU Link', 'Amazon Top Review', 'Walmart Review pages']
     const [activeTab, setActiveTab] = useState('');
     const dispatch = useDispatch()
-    let sellerName = ['Amazon', 'AmazonRizno', 'AmazonUae', 'AmazonCanada', 'Walmart', 'WalmartCanada', 'Sears', 'Ebay', 'jeffa', 'AmazonRiznoCanada']
+
+    let sellerName = ['Amazon PU', 'Amazon Rizno', 'Amazon UAE', 'Amazon Canada', 'Walmart', 'WalmartCanada', 'Sears', 'Ebay', 'Amazon Jeffa', 'AmazonRiznoCanada']
+  
     let vendornameState = useSelector(state => state.tickets.vendornames);
 
     const [state, setstate] = useState({
@@ -72,7 +74,7 @@ const SKUstatus = () => {
         dataToSKU: '',
         isLoader: false,
         dataToLTD: '',
-        dataToSeller: '',
+        dataToLTDSeller: '',
         LTDstatus: '',
         buttonStatusLTD: '',
         textAreaStatusLTD: '',
@@ -82,7 +84,7 @@ const SKUstatus = () => {
         sttstatus:'',
         dataToSTTseller:''
     })
-    const {dataToSTTseller,textAreaStatusSTT, buttonStatusSTT,dataToSTT,sttstatus,textAreaStatusLTD, buttonStatusLTD, LTDstatus, dataToSeller, dataToLTD, dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue, isLoader } = state
+    const {dataToSTTseller,textAreaStatusSTT, buttonStatusSTT,dataToSTT,sttstatus,textAreaStatusLTD, buttonStatusLTD, LTDstatus, dataToLTDSeller, dataToLTD, dataToSKU, status, dataTo, forceCheck, buttonStatus, textAreaStatus, reasonText, file, radioButtonValue, isLoader } = state
     
     const [selectedRow, selectedRowsset] = useState([])
 
@@ -161,8 +163,16 @@ const SKUstatus = () => {
         setstate({ ...state, dataTo: value })
     }
     const dataTohandleChangeLTDSeller = (value) => {
+         console.log(`selected ${value}`);
+        setstate({ ...state, dataToLTDSeller: value })
+    }
+    const dataTohandleChangeLTD = (value) => {
+      //   console.log(`selected ${value}`);
+        setstate({ ...state, dataToLTD: value })
+    }
+    const handleChangeLTD = (value) => {
         // console.log(`selected ${value}`);
-        setstate({ ...state, dataToseller: value })
+        setstate({ ...state, LTDstatus: value })
     }
 
     const statushandleChange = (value) => {
@@ -610,7 +620,7 @@ const SKUstatus = () => {
                                     </Select>
                                 </Col>
 
-                                {dataToSeller &&
+                                {dataToLTDSeller &&
                                     <Col style={{ marginTop: 40 }} span={10}>
 
                                         <Select style={{ width: '100%' }} defaultValue="select" onChange={dataTohandleChangeLTD}  >
@@ -622,7 +632,7 @@ const SKUstatus = () => {
                                 {dataToLTD &&
                                     <Col style={{ marginTop: 40 }} span={10}>
 
-                                        <InputNumber size="small" min={1} max={15} defaultValue={0} onChange={LTDhandleChange} />
+                                        <InputNumber size="small" min={1} max={15} defaultValue={0} onChange={handleChangeLTD} />
                                     </Col>}
                                 {LTDstatus &&
                                     <Col style={{ marginTop: 40 }} span={10}>
