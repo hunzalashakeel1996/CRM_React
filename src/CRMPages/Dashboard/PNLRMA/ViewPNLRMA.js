@@ -240,7 +240,7 @@ const ViewPNLRMA = () => {
                     placeholder="End date" onChange={(date) => { onChange(date, 'endDate') }} />
                 </Col>
 
-                {activeTab === 'ReportRMAQty' && <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
+                {/* {activeTab === 'ReportRMAQty' && <Col xs={24} md={10} lg={8} style={{ marginBottom: 10 }}>
 
                   <Select defaultValue={dateFormat} style={{ width: 180 }} onChange={handleChangeDateFormat}>
 
@@ -248,7 +248,7 @@ const ViewPNLRMA = () => {
                     <Option value="Single">Single</Option>
 
                   </Select>
-                </Col>}
+                </Col>} */}
 
               </Row>
 

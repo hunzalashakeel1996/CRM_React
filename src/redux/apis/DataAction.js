@@ -1275,14 +1275,14 @@ export const apiViewSizeChartUpdate = (data) => {
     return apiFetchDotNet('/Report/ViewSizeChartUpdate', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 //Rma qty single
-export const apiRMAQtySingle = (data) => {
-    // console.log("Hello World!")
-    return apiFetchDotNet('/Report/RmaQty_single', "POST", headerDotNetWithJwt, JSON.stringify(data));
-};
+// export const apiRMAQtySingle = (data) => {
+//     // console.log("Hello World!")
+//     return apiFetchDotNet('/Report/RmaQty_single', "POST", headerDotNetWithJwt, JSON.stringify(data));
+// };
 //Rma qty year
-export const apiRMAQtyYear = (data) => {
+export const apiRMAQty = (data) => {
     // console.log("Hello World!")
-    return apiFetchDotNet('/Report/RmaQty_year', "POST", headerDotNetWithJwt, JSON.stringify(data));
+    return apiFetchDotNet('/Report/RmaQty', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
 //Replacment Amazon Order

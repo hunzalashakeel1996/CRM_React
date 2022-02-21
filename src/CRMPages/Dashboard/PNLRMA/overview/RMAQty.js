@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
 import { downloadFile } from '../../../../components/utilities/utilities'
-import { apiRMAQtySingle, apiRMAQtyYear } from '../../../../redux/apis/DataAction';
+import {  apiRMAQty } from '../../../../redux/apis/DataAction';
 import './style.css';
 
 
@@ -63,12 +63,12 @@ const RMAQty = (props) => {
 
     if (isSearchPressed && activeTab === 'ReportRMAQty'  && (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom ||dateFormatCurrent!==dateFormat )) {
 
-      if (dateFormat === 'Single' &&  (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom ||dataSourceSingle.length<1 ))
+      if ( (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom ||dataSourceSingle.length<1 ))
        {
     
         setState({ ...state, isLoader: true })
-        dispatch(apiRMAQtySingle({ orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
-
+        dispatch(apiRMAQty({ orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
+            console.log(data[1])
           downloadFileDataLink(data[0])
           let tempYearData = (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom) ? [] : dataSourceYear
           
@@ -76,54 +76,43 @@ const RMAQty = (props) => {
          
         })
       }
-      else if (dateFormat === 'Year'  && (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom || dataSourceYear.length<1 ))  
+     
+      else if (activeTab === 'ReportRMAQty') 
       {
-    
-        setState({ ...state, isLoader: true })
-
-        dispatch(apiRMAQtyYear({ orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
-
-          downloadFileDataLink(data[0])
-          let tempSingleData = (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom) ? [] : dataSourceSingle
-
-          setState({ ...state, dateFormatCurrent: dateFormat, dataDownloadLinkRMAQtyYear: data[0], isLoader: false, dataSourceSingle: tempSingleData, dataSourceYear: data[1], orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom })
-         
-        })
-      }
-      else if (activeTab === 'ReportRMAQty') {
-        if (dateFormat === 'Year')
-        {
-          downloadFileDataLink(dataDownloadLinkRMAQtyYear)
-        }
-        else if (dateFormat === 'Single')
-        {
+       
           downloadFileDataLink(dataDownloadLinkRMAQtySingle)
-        }
+        
       }
     }
-    else if (activeTab === 'ReportRMAQty') {
-      if (dateFormat === 'Year')
-      {
-        downloadFileDataLink(dataDownloadLinkRMAQtyYear)
-      }
-      else if (dateFormat === 'Single')
-      {
+    else if (activeTab === 'ReportRMAQty')
+     {
+     
         downloadFileDataLink(dataDownloadLinkRMAQtySingle)
-      }
+      
     }
 
 
   }, [isSearchPressed, activeTab, orderdateto, orderdatefrom, dateFormat])
 
-  const columnsYears = [{
+  const columns = [   {
+    title: 'Order Type',
+    dataIndex: 'ordertype',
+    key: 'ordertype'
+  }, 
+    {
+    title: 'Orderno',
+    dataIndex: 'orderno',
+    key: 'orderno'
+  },
+    {
     title: 'MerchantSku',
     dataIndex: 'merchantsku',
     key: 'merchantsku'
   },
   {
     title: 'PUstatus',
-    dataIndex: 'PUstatus',
-    key: 'PUstatus'
+    dataIndex: 'pustatus',
+    key: 'pustatus'
 
   },
   {
@@ -161,12 +150,7 @@ const RMAQty = (props) => {
     dataIndex: 'vendorstylecode',
     key: 'vendorstylecode'
   },
-  {
-    title: 'stylecode',
-    dataIndex: 'stylecode',
-    key: 'stylecode'
-
-  },
+ 
   {
     title: 'colorname',
     dataIndex: 'colorname',
@@ -184,129 +168,24 @@ const RMAQty = (props) => {
   },
   {
     title: 'ItemCount',
-    dataIndex: 'ItemCount',
-    key: 'ItemCount',
+    dataIndex: 'Order_count',
+    key: 'Order_count',
     defaultSortOrder: 'descend',
-    sorter: (c, d) => c.ItemCount - d.ItemCount,
-    sortOrder: sortedInfo.columnKey === 'ItemCount' && sortedInfo.order,
+    sorter: (c, d) => c.Order_count - d.Order_count,
+    sortOrder: sortedInfo.columnKey === 'Order_count' && sortedInfo.order,
   },
   {
     title: 'RMACount',
-    dataIndex: 'RMACount',
-    key: 'RMACount',
+    dataIndex: 'RMA_count',
+    key: 'RMA_count',
     defaultSortOrder: 'descend',
-    sorter: (c, d) => c.RMACount - d.RMACount,
-    sortOrder: sortedInfo.columnKey === 'RMACount' && sortedInfo.order,
+    sorter: (c, d) => c.RMA_count - d.RMA_count,
+    sortOrder: sortedInfo.columnKey === 'RMA_count' && sortedInfo.order,
   }
   ];
 
 
-  const columnsSingle = [
-    {
-      title: 'orderno',
-      dataIndex: 'orderno',
-      key: 'orderno'
-    },
-    {
-      title: 'OrderID',
-      dataIndex: 'OrderID',
-      key: 'OrderID'
 
-    },
-    {
-      title: 'PUstatus',
-      dataIndex: 'PUstatus',
-      key: 'PUstatus'
-
-    },
-    {
-      title: 'Walmartstatus',
-      dataIndex: 'wallmartstatus',
-      key: 'wallmartstatus'
-
-    }, {
-      title: 'Cost',
-      dataIndex: 'cost',
-      key: 'cost'
-
-    },
-    {
-      title: 'Vendor Status',
-      dataIndex: 'vendorstatus',
-      key: 'vendorstatus'
-
-    },
-
-    {
-      title: 'Brandname',
-      dataIndex: 'brandname',
-      key: 'brandname'
-
-    },
-    {
-      title: 'Vendorname',
-      dataIndex: 'vendorname',
-      key: 'vendorname'
-
-    },
-    {
-      title: 'OrderDate',
-      dataIndex: 'OrderDate',
-      key: 'OrderDate'
-    },
-    {
-      title: 'RMADate',
-      dataIndex: 'RMADate',
-      key: 'RMADate'
-    },
-    {
-      title: 'merchantsku',
-      dataIndex: 'merchantsku',
-      key: 'merchantsku'
-    },
-    {
-      title: 'vendorstylecode',
-      dataIndex: 'vendorstylecode',
-      key: 'vendorstylecode'
-    },
-    {
-      title: 'stylecode',
-      dataIndex: 'stylecode',
-      key: 'stylecode'
-    }
-    ,
-    {
-      title: 'colorname',
-      dataIndex: 'colorname',
-      key: 'colorname'
-    },
-    {
-      title: 'colorcode',
-      dataIndex: 'colorcode',
-      key: 'colorcode'
-    },
-    {
-      title: 'sizename',
-      dataIndex: 'sizename',
-      key: 'sizename'
-    }
-    ,
-    {
-      title: 'rmareason',
-      dataIndex: 'rmareason',
-      key: 'rmareason'
-    },
-    {
-      title: 'rmanotes',
-      dataIndex: 'rmanotes',
-      key: 'rmanotes'
-    },
-    {
-      title: 'ordernote',
-      dataIndex: 'ordernote',
-      key: 'ordernote'
-    }
-  ];
   const handleChange = (pagination, filters, sorter) => {
     setState({
       ...state,
@@ -322,7 +201,7 @@ const RMAQty = (props) => {
 
 
         <div className="table-responsive">
-          <Table pagination={true} dataSource={dateFormat === 'Single' ? dataSourceSingle : dataSourceYear} columns={dateFormat === 'Single' ? columnsSingle : columnsYears} onChange={handleChange} />
+          <Table pagination={true} dataSource={dataSourceSingle} columns={columns} onChange={handleChange} />
         </div>
 
       </Cards>
