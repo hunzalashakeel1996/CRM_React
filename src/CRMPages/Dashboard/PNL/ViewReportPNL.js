@@ -8,6 +8,8 @@ import DetailPNL from './overview/DetailPNL';
 import ItemPNLSummary from './overview/ItemPNLSummary';
 import OrderPNLSummary from './overview/OrderPNLSummary';
 import PricePNLSummary from './overview/PricePNLSummary';
+import OverAllSummary from './overview/OverAllSummary';
+import ProfitBeforePPS from './overview/ProfitBeforePPS';
 import ItemPNL from './overview/ItemPNL';
 import OrderPNL from './overview/OrderPNL';
 import { Cards } from '../../../components/cards/frame/cards-frame';
@@ -41,6 +43,7 @@ const ReportPNLView = () => {
   const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report PNL'];
+
   const [activeTab, setActiveTab] = useState('OrderPNL');
   const [isSearchPressed, setIsSearchPressed] = useState(false);
   const [DownloadData, setDownloadData] = useState([]); 
@@ -448,6 +451,16 @@ const ReportPNLView = () => {
       tab: 'PNL Item',
       key: 'ItemPNL',
    tabName: <ItemPNL subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddItemCount={(value) => onSumItemCount(value)}  dataSourceOrderTempParent={dataSourceOrderTempParent} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate} />
+    },
+    {
+      tab: 'Item Summary OverAll',
+      key: 'Item Summary OverAll',
+      tabName: <OverAllSummary  subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
+    },
+    {
+      tab: 'Profit Before PPS',
+      key: 'Profit Before PPS',
+      tabName: <ProfitBeforePPS  subOrderType={subOrderType} ordertypeParent={selectedFilter} dateFormat={dateFormat} selectedFilter={selectedFilter} activeTab={activeTab} onAddOrder={(value) => onSum(value)} downloadFileDataLink={(value,data)=>downloadFileDataLink(value,data)} isSearchPressed={isSearchPressed}  dateFormat={dateFormat} orderdatefrom={startDate==''?'':startDate} orderdateto={endDate==''? '': endDate}/>
     }
   ];
 
@@ -851,7 +864,7 @@ const ReportPNLView = () => {
   }
   const  downloadFileDataLink =(data,dataSource)=>{
   
-
+      console.log(dataSource)
     setDownloadData(dataSource)
    // setstate({...state, DownloadDataLink: dataSource})
 
@@ -899,6 +912,17 @@ const ReportPNLView = () => {
         delete temp[i]['ORDERTYPE']
       }
       downloadFileTableData(temp, 'PricePNLSummary')
+    }
+  
+   else if (activeTab === 'Item Summary OverAll') {
+    
+      downloadFile(DownloadData)
+   
+    }
+  else  if (activeTab === 'Profit Before PPS') {
+    
+      downloadFile(DownloadData)
+   
     }
   }
 
@@ -958,7 +982,7 @@ const ReportPNLView = () => {
                   </Button>
                 </Col>
               </Row>
-
+              {(activeTab !== 'Item Summary OverAll' && activeTab !== 'Profit Before PPS') && 
               <Row style={{ marginTop: 10 }}>
                 <Col lg={8}>
 
@@ -1021,7 +1045,7 @@ const ReportPNLView = () => {
                 </Col>
 
 
-              </Row>
+              </Row>}
 
 
             </Cards>

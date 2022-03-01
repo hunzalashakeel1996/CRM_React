@@ -104,8 +104,8 @@ const ViewReportPNLOverAll = () => {
   
   const download = (event) => {
     let activeTab = event
-    console.log(downloadDataLink)
-    console.log(activeTab)
+    // console.log(downloadDataLink)
+    // console.log(activeTab)
     if (activeTab === 'Item Summary OverAll') {
       downloadFile(downloadDataLink)
 
