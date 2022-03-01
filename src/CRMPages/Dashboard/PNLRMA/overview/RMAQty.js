@@ -61,8 +61,8 @@ const RMAQty = (props) => {
 
   useEffect(() => {
 
-    if (isSearchPressed && activeTab === 'ReportRMAQty'  && (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom ||dateFormatCurrent!==dateFormat )) {
-
+    if (isSearchPressed && activeTab === 'ReportRMAQty'  && (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom ||dateFormatCurrent!==dateFormat ))
+     {
       if ( (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom ||dataSourceSingle.length<1 ))
        {
     
@@ -70,8 +70,7 @@ const RMAQty = (props) => {
         dispatch(apiRMAQty({ orderdateto: orderdateto, orderdatefrom: orderdatefrom })).then(data => {
             console.log(data[1])
           downloadFileDataLink(data[0])
-          let tempYearData = (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom) ? [] : dataSourceYear
-          
+          let tempYearData = (orderdatetoCheck !== orderdateto || orderdatefromCheck !== orderdatefrom) ? [] : dataSourceYear          
           setState({ ...state, dateFormatCurrent: dateFormat, dataDownloadLinkRMAQtySingle: data[0], isLoader: false, dataSourceYear: tempYearData ,dataSourceSingle: data[1], orderdatetoCheck: orderdateto, orderdatefromCheck: orderdatefrom })
          
         })
