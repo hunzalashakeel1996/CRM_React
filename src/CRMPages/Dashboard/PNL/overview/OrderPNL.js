@@ -368,10 +368,6 @@ const OrderPNL = (props) => {
       ]
     },
 
-
-
-
-
     {
       title:
         <div style={{ height: 63, display: 'flex', justifyContent: 'space-around', alignItems: 'flex-end' }}>
@@ -385,7 +381,6 @@ const OrderPNL = (props) => {
           dataIndex: 'FULLNAME',
           key: 'FULLNAME',
         }
-
       ]
 
 

@@ -130,10 +130,12 @@ const AmazonUpdatesubinventory = () => {
                 </Form.Item>
             ) : (
                 <div
-                    className="editable-cell-value-wrap"
-                    style={{
-                        paddingRight: 24,
-                    }}
+                style={{  width: 150,
+                    margin: 0,
+                    border: '2px solid rgba(140, 148, 255, 1)',
+                    textAlign: 'center'
+                 
+                }}
                     onClick={toggleEdit}
                 >
                     {children}
