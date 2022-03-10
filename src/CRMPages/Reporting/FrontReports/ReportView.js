@@ -10,8 +10,12 @@ import UnShippedOrders from './UnShippedOrders';
 import SalesSummary from './SalesSummary';
 import TargetSummaryReport from './TargetSummaryReport';
 import ReturnPercentage from './ReturnPercentage';
+import RefundReport from './RefundReport';
+import RefundReportCount from './RefundReportCount';
+
 import FeatherIcon from 'feather-icons-react';
 import { checkPageAccess } from '../../../components/utilities/utilities';
+
 
 const { TabPane } = Tabs;
 const ReportView = (props) => {
@@ -20,6 +24,7 @@ const ReportView = (props) => {
 
     const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
     const tabChildBar = JSON.parse(userAccess.top_navigation)['FrontReports'];
+    
     useEffect(() => {
         checkPageAccess(userAccess, 'Reporting', "FrontReports", props.history)
     })
@@ -60,7 +65,18 @@ const ReportView = (props) => {
             tab: `Return Percentage`,
             key: `Return Percentage`,
             tabName: <ReturnPercentage />
+        },
+        {
+            tab: `RefundReport`,
+            key: `RefundReport`,
+            tabName: <RefundReport />
+        },
+        {
+            tab: `RefundReportCount`,
+            key: `RefundReportCount`,
+            tabName: <RefundReportCount />
         }
+    
     ];
 
     return (

@@ -1139,6 +1139,16 @@ export const getReturnPercentageReport = (data) => {
 
     return apiFetchDotNet('/report/Return_percentage_report', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
+export const getRequest_Refund_Tracking_Report = (data) => {
+
+    return apiFetchDotNet('/Newshipping/Request_Refund_Tracking_Report', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+export const getRequest_Refund_Tracking_Report_count = (data) => {
+
+    return apiFetchDotNet('/Newshipping/Request_Refund_Tracking_Report_count', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
+
+
 export const apiSummaryReportOrderWise = (data) => {
 
     return apiFetchDotNet('/report/summary_report_order_wise', "POST", headerDotNetWithJwt, JSON.stringify(data));
