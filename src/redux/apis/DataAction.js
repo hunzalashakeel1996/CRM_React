@@ -1294,7 +1294,10 @@ export const apiRMAQty = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Report/RmaQty', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
-
+export const apiOverAllRMAQty = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Report/OverAllRMAQty', "POST", headerDotNetWithJwt, JSON.stringify(data));
+};
 //Replacment Amazon Order
 export const apiReplacmentQty = (data) => {
     // console.log("Hello World!")

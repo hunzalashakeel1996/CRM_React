@@ -7,6 +7,7 @@ import { Button } from '../../../components/buttons/buttons';
 
 import ReplacmentOrder from './overview/ReplacmentOrder';
 import RMAQty from './overview/RMAQty';
+import OverAllRmaQty from './overview/OverAllRmaQty';
 import OrderRMASummary from './overview/OrderRMASummary';
 import ItemRMASummary from './overview/ItemRMASummary';
 import OrderRMADetail from './overview/OrderRMADetail';
@@ -33,7 +34,7 @@ const ViewPNLRMA = () => {
   const userAccess = JSON.parse(localStorage.getItem('userRole'))[0];
 
   const tabChildBar = JSON.parse(userAccess.top_navigation)['Report RMA PNL'];
-  // console.log(tabChildBar)
+ //console.log(tabChildBar)
   const [activeTab, setActiveTab] = useState('ReplacmentOrder');
   const [downloadDataLink, setDownloadDataLink] = useState('ReplacmentOrder');
   const [isSearchPressed, setIsSearchPressed] = useState(false);
@@ -74,6 +75,11 @@ const ViewPNLRMA = () => {
       tab: 'Report RMA Qty',
       key: 'ReportRMAQty',
       tabName: <RMAQty downloadFileDataLink={(value) => downloadFileDataLink(value)} isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate == '' ? '' : startDate.format('MM/DD/YYYY')} orderdateto={endDate == '' ? '' : endDate.format('MM/DD/YYYY')} />
+
+    },  {
+      tab: 'Over All Rma Qty',
+      key: 'Over All Rma Qty',
+      tabName: <OverAllRmaQty downloadFileDataLink={(value) => downloadFileDataLink(value)} isSearchPressed={isSearchPressed} activeTab={activeTab} dateFormat={dateFormat} orderdatefrom={startDate == '' ? '' : startDate.format('MM/DD/YYYY')} orderdateto={endDate == '' ? '' : endDate.format('MM/DD/YYYY')} />
 
     },
     {
@@ -125,6 +131,11 @@ const ViewPNLRMA = () => {
       //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
     }
     else if (activeTab === 'ReportRMAQty') {
+      downloadFile(downloadDataLink)
+
+      //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
+    }
+    else if (activeTab === 'Over All Rma Qty') {
       downloadFile(downloadDataLink)
 
       //  downloadFileTableData(downloadDataLink, 'ReportRMAQty')
