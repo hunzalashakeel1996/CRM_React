@@ -457,7 +457,7 @@ const MarketplaceOrdersView = (props) => {
                                 <Col lg={8} xs={24}  >
                                     {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
                                     <div className="atbd-drawer" style={{ marginLeft: 0 }}>
-                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={deleteSkuOnWalmart}> GetOrders</Button>
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={deleteSkuOnWalmart}> Delete Sku</Button>
 
                                     </div>
                                 </Col>
