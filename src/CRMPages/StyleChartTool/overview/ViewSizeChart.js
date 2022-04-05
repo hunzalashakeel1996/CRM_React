@@ -126,14 +126,14 @@ const ViewSizeChart = (props) => {
         }
 
         setState({ ...state, loader: true })
-
+        console.log(SelectedSizeChartDetails)
         dispatch(apiUpdateSizeChart({ selectedId: selectedId, values: sizeChartValues, SelectedSizeChartDetails })).then(data => {
             setState({ ...state, loader: false, selectedId: '' })
             Notification['success']({
                 message: 'Size Chart Updated Successfully',
             });
         })
-        // }
+        
     };
 
     const onDeleteRowColumn = (value, isRowDelete) => {
@@ -206,23 +206,32 @@ const ViewSizeChart = (props) => {
                                     </Select>
                                 </Col>
 
-                                <Col span={8}>
+                                {/* <Col span={8}>
                                     <Input placeholder="* Description" onChange={(val) => { setState({ ...state, description: val.target.value }) }} />
-                                </Col>
+                                </Col> */}
                             </>
                             :
                             <>
-                                <Col span={4}>
+                                <Col span={8}>
                                     <p style={{ fontWeight: 'bold' }}>Title:</p>
-                                    <p>{SelectedSizeChartDetails.title}</p>
+                                    {/* <p>{SelectedSizeChartDetails.title}</p> */}
+                                    <Input value={SelectedSizeChartDetails.title}                                        onChange={(val) => { setState({ ...state,SelectedSizeChartDetails:{...state.SelectedSizeChartDetails, title: val.target.value }}) }}></Input>
                                 </Col>
-                                <Col span={4}>
+                                <Col span={8}>
                                     <p style={{ fontWeight: 'bold' }}>Vendor Name:</p>
-                                    <p>{SelectedSizeChartDetails.vendor_name}</p>
+                                    {/* <p>{SelectedSizeChartDetails.vendor_name}</p> */}
+                                    <Select defaultValue={SelectedSizeChartDetails.vendor_name}  showSearch placeholder='Vendor Name' allowClear onChange={(val) => { setState({ ...state,SelectedSizeChartDetails:{...state.SelectedSizeChartDetails,vendor: val } }) }} style={{ width: '100%', marginBottom: 10 }}  >
+                                        {vendornameState.map((val, i) => (
+                                            <Option value={val} key={val}>{val}</Option>
+
+                                        ))}
+
+                                    </Select>                                   
                                 </Col>
-                                <Col span={4}>
+                                <Col span={8}>
                                     <p style={{ fontWeight: 'bold' }}>Description:</p>
-                                    <p>{SelectedSizeChartDetails.description}</p>
+                                    {/* <p>{SelectedSizeChartDetails.description}</p> */}
+                                    <Input value={SelectedSizeChartDetails.description}  placeholder="* Description" onChange={(val) => { setState({ ...state, SelectedSizeChartDetails : {...state.SelectedSizeChartDetails , description:val.target.value }}) }}/>
                                 </Col>
                             </>
                         }
