@@ -1255,7 +1255,7 @@ export const apiWalmartGetUSAOrderSheetMethod = (data) => {
     return apiFetchDotNet('/walmart/ordersGet', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
 
-export const apiWalmartGetCanadaOrderSheetUpload = (data) => {
+export const apiWalmartGetOrderSheetUpload = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/walmart/UploadForOrders_Canada', "POST", multipartHeader, data);
 };
