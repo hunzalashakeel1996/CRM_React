@@ -9,7 +9,7 @@ import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { downloadFile, DownlaodWithReact } from '../../../components/utilities/utilities'
-import {getwalmartDuplicateOrderapi,apiMissingEmailUpdateOrder, apiDeleteSKUOnWalmart, apiDeleteSKUOnWalmartUpload, apiWalmartGetCanadaOrderSheetMethod, apiWalmartGetCanadaOrderSheetUpload, apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
+import {apiWalmartGetOrderSheetUpload,getwalmartDuplicateOrderapi,apiMissingEmailUpdateOrder, apiDeleteSKUOnWalmart, apiDeleteSKUOnWalmartUpload, apiWalmartGetCanadaOrderSheetMethod, apiWalmartGetCanadaOrderSheetUpload, apiWalmartGetUSAOrderSheetUpload, apiWalmartGetUSAOrderSheetMethod, apiWalmartCustomerEmail, apiWalmartGetOrder, apiWalmartGetSingleOrder } from '../../../redux/apis/DataAction';
 
 import './MarketplaceOrders.css';
 
