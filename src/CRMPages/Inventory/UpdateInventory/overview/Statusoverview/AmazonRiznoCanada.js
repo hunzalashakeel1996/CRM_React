@@ -41,8 +41,8 @@ const AmazonRiznoCanada = (props) => {
                             <Col span={5}>
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 150 }}>
                                     <Option value="AmazonRiznoCanada">Amazon Rizno Canada</Option>
-                                    {/* <Option value="AmazonRiznoCanada_Asin">AmazonRiznoCanada ASIN</Option> */}
-                                    {/* <Option value="AmazonRiznoCanada_uploadtype">AmazonRiznoCanada Upload Type</Option> */}
+                                    <Option value="AmazonRiznoCanada_Asin">AmazonRiznoCanada ASIN</Option> 
+                                     <Option value="AmazonRiznoCanada_uploadtype">AmazonRiznoCanada Upload Type</Option>
 
                                 </Select>
                             </Col>

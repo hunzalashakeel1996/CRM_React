@@ -41,8 +41,8 @@ const AmazonJeffastatus = (props) => {
                             <Col span={5}>
                                 <Select defaultValue="select" onChange={dataTohandleChange} style={{ width: 150 }}>
                                     <Option value="Jeffa">Jeffa</Option>
-                                    {/* <Option value="Jeffa_Asin">Jeffa ASIN</Option>
-                                    <Option value="Jeffa_uploadtype">Jeffa Upload Type</Option> */}
+                                    <Option value="Jeffa_Asin">Jeffa ASIN</Option>
+                                    <Option value="Jeffa_uploadtype">Jeffa Upload Type</Option>
 
                                 </Select>
                             </Col>
