@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input, Tabs, Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, notification } from 'antd';
+import { Input, Tabs, Form, Table, Upload, Row, Col, DatePicker, Checkbox, Image, notification,Spin } from 'antd';
 import { Button, BtnGroup } from '../../../../components/buttons/buttons';
 import { inTransitsTrackingInsert } from '../../../../redux/apis/DataAction';
 import { Cards } from '../../../../components/cards/frame/cards-frame';
@@ -45,10 +45,11 @@ const InTransittrackingInsert = (props) => {
         marketplace: [],
         startDate: '',
         endDate: '',
+        isLoader:false
     });
 
     const dispatch = useDispatch()
-    const { states, file, marketplace, startDate, endDate } = state
+    const { states, file, marketplace, startDate, endDate,isLoader } = state
     const multipleChange = childData => {
         setState({ ...state, checkData: childData });
     };
@@ -74,15 +75,16 @@ const InTransittrackingInsert = (props) => {
 
         formData.append('user', username.LoginName);
         formData.append('File', file);
+        setState({ ...state, isLoader: true });
         dispatch(inTransitsTrackingInsert(formData)).then(data => {
-
+            setState({ ...state, isLoader: false });
             //   message.success(`file uploaded Update ${data}`);
             notification.success({
                 message: `Successfull  ${data}`,
                 description: `Successfully Report`,
                 onClose: close,
             });
-            location.reload();
+        
         })
     };
     let username = [];
@@ -106,34 +108,25 @@ const InTransittrackingInsert = (props) => {
         setState({ ...state, marketplace: sellerList });
 
     }
-    
+  
     return (
         <>
-         <Form layout="inline" initialValue="" label="" form={form} id="InTransit" name="nest-messages" onFinsh={insertTransitsSheet} validateMessages={validateMessages}>
-          
-            {/* MARKETPLACE CHECKBOXES  */}
          
+            {/* MARKETPLACE CHECKBOXES  */}
+            <Spin indicator={<img src="/img/icons/loader.gif" style={{ width: 100, height: 100 }} />} spinning={isLoader} >
                 <Cards title="Marketplaces" caption="The simplest use of Drawer" >
                     <Row gutter={50}>
 
-                        <Col span={12}   >
-                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
-                            <Form.Item name="Select File" rules={[{ required: true }]}>
+                    <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={5} style={{marginBottom:25}}>
+                            
+                            <div className="atbd-drawer" style={{ marginLeft: 0 }}>
 
-                                <input type="file" style={{ marginTop: 20 }} onChange={changeHandler} />
+                                 <Button size="large"  type="success" style={{backgroundColor: '#42ba96',  color:'white', marginRight:8,}} onClick={insertTransitsSheet}>Insert In-Transit Sheet</Button>
 
-                                </Form.Item>
+                                <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
+
+                            </div>
                         </Col>
-                        <Col span={12} >
-                            {/* <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Step 1</h3></div> */}
-                            <Form.Item>
-
-                                 <Button size="large"  icon={<UploadOutlined />}  htmlType="Submit"  > </Button>
-
-
-                            </Form.Item>
-                        </Col>
-
 
 
                     </Row>
@@ -141,7 +134,7 @@ const InTransittrackingInsert = (props) => {
 
                 </Cards>
               
-            </Form>
+                </Spin>
 
 
 
