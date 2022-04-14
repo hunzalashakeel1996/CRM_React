@@ -1313,7 +1313,10 @@ export const apiAmazonFBAGetOrderSheet = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Update/AmazonFBAOrderbySheet', "POST", headerDotNetWithJwt, JSON.stringify(data));
 };
-
+export const apiEbayGetOrderSheetUpload = (data) => {
+    // console.log("Hello World!")
+    return apiFetchDotNet('/Update/EbayUploadForOrders', "POST", multipartHeader, data);
+};
 export const apiAmazonRiznoPhonerSheet = (data) => {
     // console.log("Hello World!")
     return apiFetchDotNet('/Update/AmazonRiznoPhoneNoUdpate', "POST", headerDotNetWithJwt, JSON.stringify(data));

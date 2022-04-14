@@ -1,12 +1,14 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Input,Form, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select } from 'antd';
+import { Input,Form, Tabs, Table, Upload, Row, Col, DatePicker, Checkbox, Image, Select,notification } from 'antd';
 import { Button, BtnGroup } from '../../../components/buttons/buttons';
 import { Drawer } from '../../../components/drawer/drawer';
 import { Cards } from '../../../components/cards/frame/cards-frame';
 // import { Checkbox } from '../../../components/checkbox/checkbox';
+import { useDispatch, useSelector } from 'react-redux';
 import { Main, DatePickerWrapper } from '../../styled';
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { DateRangePickerOne, CustomDateRange } from '../../../components/datePicker/datePicker';
+import { apiEbayGetOrderSheetUpload,apiAmazonFBAGetOrderSheet} from '../../../redux/apis/DataAction';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -15,6 +17,7 @@ const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+
 
 function onChange(value) {
     // console.log(`selected ${value}`);
@@ -42,7 +45,8 @@ const validateMessages = {
       range: '${name} must be between ${min} and ${max}',
     },
   };
-const MarketplaceOrdersView = (props) => {
+const EbayOrdersView = (props) => {
+    const dispatch = useDispatch();
     const [form] = Form.useForm();
 
 
@@ -55,11 +59,50 @@ const MarketplaceOrdersView = (props) => {
         checkData: [],
         checked: null,
         values: {},
+        file:''
     });
+    const {file}=state
     const multipleChange = childData => {
         setState({ ...state, checkData: childData });
     };
 
+    const insertEbayOrderSheet = () => {
+        
+        setstate({ ...state, isLoader: true })
+        let username =[]
+        username = JSON.parse(localStorage.getItem('user'))
+        const formData = new FormData();
+        formData.append('user', username.LoginName)
+        formData.append('file', file)
+
+        dispatch(apiEbayGetOrderSheetUpload(formData)).then(data => {
+
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false })
+        })
+    }
+
+    const getAmazonFBAOrderSheet = () => {
+        
+        setstate({ ...state, isLoader: true })
+        let username =[]
+        username = JSON.parse(localStorage.getItem('user'))
+       
+
+        dispatch(apiAmazonFBAGetOrderSheet({user:username.LoginName})).then(data => {
+
+            notification.success({
+                message: `Successfull  ${data}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+            setstate({ ...state, isLoader: false })
+        })
+    }
 
     const onChange = (date, dateString) => {
         setstate({ ...state, date, dateString });
@@ -117,6 +160,13 @@ const MarketplaceOrdersView = (props) => {
             key: 'address',
         },
     ];
+    
+    const changeHandler = (event) => {
+
+        setstate({ ...state, file: event.target.files[0] })
+
+    };
+
     return (
         <>
             <Row style={{  }}>
@@ -154,42 +204,28 @@ const MarketplaceOrdersView = (props) => {
                 </Cards>
             </Row>
             {/* USA WALMART SHEET METHOD */}
-            <Row style={{  }}>
+            <Row >
                 <Cards title="Get Ebay Orders (Sheet Method)" caption="The simplest use of Drawer" >
-                    <Row gutter={25}>
-                        <Col lg={8} xs={24}>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>Upload Ebay Order Sheet</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
-                                 <Button size="large"    type="success" htmlType="submit">
-                                    Upload Sheet
-                        </Button>
-                                <br></br>
-                                <Upload >
-                                     <Button size="large"  style={{ marginTop: 10 }} className="btn-outlined" size="large" type="light" outlined>
-                                        <UploadOutlined /> Click to Upload
-                </Button>
-                                </Upload>
-                                {/* </Cards> */}
-                            </div>
-                        </Col>
-
-                        <Col lg={8} xs={24}  >
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}><h3>GetOrders</h3></div>
-                            <div className="atbd-drawer" style={{ marginLeft: 20 }}>
-                                 <Button size="large"    type="success" htmlType="Submit">
-                                    GetOrders
-                        </Button>
-
-                            </div>
-                        </Col>
-
-
-
-                    </Row>
-
-
-                </Cards>
+                                <Col lg={8} xs={24}>
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+                                        {/* <Cards title="Step 2" caption="The simplest use of Drawer"> */}
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }} onClick={insertEbayOrderSheet}> Insert Sheet</Button>
+                                        <br></br>
+                                        <input type="file" style={{ marginTop: 10 }} onChange={changeHandler} />
+                                        {/* </Cards> */}
+                                    </div>
+                                </Col>
+    
+                                <Col lg={8} xs={24}  >
+                                    {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>GetOrders</h3></div> */}
+                                    <div className="atbd-drawer" style={{ marginLeft: 0 }}>
+                                        <Button size="large" type="success" style={{ backgroundColor: '#42ba96', color: 'white', marginRight: 8, }}   onClick={getAmazonFBAOrderSheet} > GetOrders</Button>
+    
+    
+                                    </div>
+                                </Col>
+                                 </Cards>
             </Row>
            
 
@@ -201,4 +237,4 @@ const MarketplaceOrdersView = (props) => {
     );
 };
 
-export default MarketplaceOrdersView;
+export default EbayOrdersView;
