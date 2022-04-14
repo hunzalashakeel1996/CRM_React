@@ -204,8 +204,9 @@ const EbayOrdersView = (props) => {
                 </Cards>
             </Row>
             {/* USA WALMART SHEET METHOD */}
-            <Row >
+         
                 <Cards title="Get Ebay Orders (Sheet Method)" caption="The simplest use of Drawer" >
+                <Row >
                                 <Col lg={8} xs={24}>
                                     {/* <div className="atbd-drawer" style={{ marginLeft: 0 }}><h3>Upload Walmart Order Sheet</h3></div> */}
                                     <div className="atbd-drawer" style={{ marginLeft: 0 }}>
@@ -225,8 +226,9 @@ const EbayOrdersView = (props) => {
     
                                     </div>
                                 </Col>
+                                </Row>
                                  </Cards>
-            </Row>
+           
            
 
 
