@@ -32,10 +32,12 @@ const WalmartCanadaShip = (props) => {
         checkCount:'',
         orderno: [],
         isLoader: false,
+        dataSourceEorror:[]
     });
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch()
-    const { file,dataSource,checkCount,orderno,isLoader } = state
+    const [visibleError, setVisibleError] = useState(false);
+    const { file,dataSource,checkCount,orderno,isLoader,dataSourceEorror } = state
     let counter = 0;
   
     const columns = [
@@ -156,24 +158,24 @@ const WalmartCanadaShip = (props) => {
             console.log(data)
           
             let datasources = []
-
-            // if (data.length>0){
-            //     data.map(value => {
-
-            //         const { orderno } = value;
-
-            //         datasources.push({
-            //             key: counter++,
-            //             orderno: <span style={{ color: 'black' }} className="date-started">{Key}</span>,
-            //             description: <span style={{ color: 'black' }} className="date-started">{Value}</span>
-                     
-            //     });
+            let tempData=[];
+            data[1].map(item=>{
             
-            // setState({ ...state, dataSource: datasources, isLoader: false })
-            //     })
-            //     setVisible(true)
-            // }
-            setVisible(false)
+                tempData.push({
+                    orderno:item.Key,
+                    result:item.Value
+                })
+            })   
+            notification.success({
+                message: `Successfull  ${data[0]}`,
+                description: `Successfully Report`,
+                onClose: close,
+            });
+           
+            setState({ ...state, dataSource: datasources,dataSourceEorror:tempData, isLoader: false })
+             
+            setVisibleError(true)
+        
     
     })
    
@@ -230,7 +232,18 @@ const verifyLabel = () => {
 
         setState({ ...state, dataSource: datasources })
     })
-  
+    const columnsError = [
+        {
+            title: 'Order NO',
+            dataIndex: 'orderno',
+            key: 'orderno',
+        },
+        {
+            title: 'Description',
+            dataIndex: 'result',
+            key: 'result',
+        }
+    ];
 };
     return (
         <>
@@ -291,7 +304,7 @@ const verifyLabel = () => {
 
                         <Col  xs={24} >
                         <Form.Item style={{float:'left',}}>
-                             <Button size="large"  type="success"    type="success" htmlType="Submit"> Search</Button>
+                             <Button size="large"  type="success"    htmlType="Submit"> Search</Button>
                    
                             </Form.Item>
 
@@ -335,7 +348,23 @@ const verifyLabel = () => {
 
             </Modal>
 
+            <Modal
+                title="Endicia Create Label Error"
+                centered
+                visible={visibleError}
+                onOk={() => setVisibleError(false)}
 
+                onCancel={() => setVisibleError(false)}
+                width={1000} >
+
+
+                <div className="table-responsive">
+                    <Table pagination={true} dataSource={dataSourceEorror} columns={columnsError} />
+                </div>
+
+
+
+            </Modal>
         </>
     );
 };

@@ -302,7 +302,7 @@ const verifyLabel = () => {
 
                         <Col  xs={24} >
                         <Form.Item style={{float:'left',}}>
-                             <Button size="large"  type="success"    type="success" htmlType="Submit"> Search</Button>
+                             <Button size="large"  type="success"   htmlType="Submit"> Search</Button>
                    
                             </Form.Item>
 
