@@ -35,26 +35,27 @@ const AddTicket = (props) => {
     const onAddTicket = (form) => {
         setState({ ...state, loader: true })
         form = { ...form, LoginName: `${user.LoginName}`, FromTicketGroup: `${user.GroupName}` }
-        if (![undefined, null].includes(form.Attachment)) {
-            // save image in server
-            const data = new FormData()
-            data.append('CRMImage', form.Attachment.file)
-            fetch(`${uploadUrl}/api/images/crmImageUpload`, {
-                method: 'POST',
-                body: data
-            }).then((res) => {
-                return res.json()
-            }).then(res => {
-                form = { ...form, Attachment: res }
-                onAddTicketProcess(form)
-            }).catch((err) => {
-            })
+        console.log('form', form)
+        // if (![undefined, null].includes(form.Attachment)) {
+        //     // save image in server
+        //     const data = new FormData()
+        //     data.append('CRMImage', form.Attachment.file)
+        //     fetch(`${uploadUrl}/api/images/crmImageUpload`, {
+        //         method: 'POST',
+        //         body: data
+        //     }).then((res) => {
+        //         return res.json()
+        //     }).then(res => {
+        //         form = { ...form, Attachment: res }
+        //         onAddTicketProcess(form)
+        //     }).catch((err) => {
+        //     })
 
-        } else {
-            // image not attached in ticket
-            form = { ...form, Attachment: null }
-            onAddTicketProcess(form)
-        }
+        // } else {
+        //     // image not attached in ticket
+        //     form = { ...form, Attachment: null }
+        //     onAddTicketProcess(form)
+        // }
     }
 
     const onAddTicketProcess = (form) => {
